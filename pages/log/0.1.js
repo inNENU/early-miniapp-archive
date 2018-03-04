@@ -21,6 +21,8 @@ Page({
       { name: 'p', text: '重新新构建界面，使用wx: for渲染template模板，将页面信息置于js的pageData中；' },
       { name: 'h2', text: 'V0.1.8' },
       { name: 'p', text: '完全适配iPhone X；\n改善了iOS样式，完善了与iOS原生系统不一致的一些细节' },
+      { name: 'h2', text: 'V0.1.9' },
+      { name: 'p', text: '大幅改进iOSList标签；\n改进了主题切换逻辑；\n改变了开关触发器；' },
     ],
   },
   onLoad() { let page = u.sP(this.data.page, a); this.setData({ T: a.T, nm: a.nm, page: page }) },

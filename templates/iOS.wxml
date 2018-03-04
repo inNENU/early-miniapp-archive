@@ -42,16 +42,22 @@
 <template name='iOSlist'>
   <view class='iOSLctn'>
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{item.text}}">
-      <navigator class="iOS-listCtn {{List.switchchange?'iOS-switchList':''}}" url='{{List.url}}' hover-class="{{List.url?'':'none'}}">
+      <navigator wx:if='{{List.url}}' class="iOS-listCtn" url='{{List.url}}'>
         <!-- <view>此处插入icon</view> -->
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">
-            <switch wx:if='{{List.switchchange}}' checked='{{List.checked}}' bindchange="{{List.switchchange}}" /> {{List.desc}}
-          </view>
-          <!-- <view class='iOS-linkArrow'></view> -->
+          <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}"> {{List.desc}} </view>
         </view>
       </navigator>
+      <view wx:if='{{!List.url}}' class="iOS-listCtn {{List.switchchange?'iOS-switchList':''}}">
+        <!-- <view>此处插入icon</view> -->
+        <view class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view class="iOS-linkDesciption">
+            <switch wx:if='{{List.switchchange}}' checked='{{List.checked}}' bindchange="{{List.switchchange}}" /> {{List.desc}}
+          </view>
+        </view>
+      </view>
       <view class='iOS-link-divline'></view>
     </block>
   </view>

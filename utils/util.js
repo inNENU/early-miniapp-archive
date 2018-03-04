@@ -9,7 +9,7 @@ function nightmode(date) {
   let nmStart = initialize('nmStart', 2000);
   let nmEnd = initialize('nmEnd', 500);
   let time = date.getHours() * 100 + date.getMinutes();
-  if (nmAC) {
+  if (nmAC && nm) {
     if (nmStart < nmEnd) { if (time >= nmStart && time <= nmEnd) { return true } else { return false } }
     if (nmEnd < nmStart) { if (time <= nmStart && time >= nmEnd) { return false } else { return true } }
   } else { return nm; }
@@ -22,17 +22,21 @@ function iOSnav(pos, page) {
   if (n.titleDisplay == null) { n.titleDisplay = T, n.borderDisplay = B; return page; }
   else { if (n.titleDisplay != T || n.borderDisplay != B) { n.titleDisplay = T, n.borderDisplay = B }; return page; }
 }
+function Switch(page, a, i) {
+  if ('content' in page[i]) {
+    var content = page[i].content;
+    for (let j = 0; j < content.length; j++) {
+      if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
+    }
+  }
+}
 function setPage(page, a) {
+  if (Object.is(a.info.model.substring(0, 8), 'iPhone X')) { page[0].iPhoneX = true };
   for (let i = 0; i < page.length; i++) {
     page[i].theme = a.T;
     if (Object.is(page[i].name, 'img')) { page[i].imgMode = a.imgMode }
-    if ('content' in page[i]) {
-      for (let j = 0; j < page[i].content.length; j++) {
-        if ('checked' in page[i].content[j]) { page[i].content[j].checked = wx.getStorageSync(page[i].content[j].checked) }
-      }
-    }
+    Switch(page, a, i)
   };
-  if (Object.is(a.info.model.substring(0, 8), 'iPhone X')) { page[0].iPhoneX = true }
   return page;
 }
 function tBC(nm) {

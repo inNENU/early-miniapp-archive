@@ -220,8 +220,7 @@
 
 .iOS-listCtn {
   padding: 10px 15px;
-  /* width: 100%; */
-  /* position: relative;
+  /* width: 100%; *//* position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -286,22 +285,6 @@
 .nm .iOSaccess:after {
   border-color: #383833;
 }
-
-/* .iOS-linkArrow {
-  width: 7px;
-  height: 7px;
-  border-width: 2px 2px 0 0;
-  border-style: solid;
-  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
-  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
-  margin-top: 16px;
-  margin-right: 4%;
-  border-color: #ccccd0;
-}
-
-.nm .iOS-linkArrow {
-  border-color: #33332f;
-} */
 
 .iOS-link-divline {
   width: 96%;
