@@ -1,0 +1,62 @@
+<!-- iOS theme -->
+<template name="iOSnav">
+  <view class='iOS-navigationBar' style="{{item.iPhoneX?'padding-top:46px;height:40px':''}}">
+    <view wx:if="{{item.titleDisplay}}" class="iOS-titletext">{{item.navtitle}}</view>
+    <button wx:if="{{!item.top}}" class='iOS-navBack' hover-class="iOSnavBackHover" plain='true' bindtap='back'>
+      <view class='iOS-backArrow'></view>
+      <text class='iOS-nav-text'>{{item.navtext}}</text>
+    </button>
+  </view>
+  <view wx:if="{{item.borderDisplay}}" class='iOSnavDl' style="{{item.iPhoneX?'top:86px;':''}}"></view>
+  <view class='iOS-navPlaceHolder' style="{{item.iPhoneX?'height:86px':''}}">
+    <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
+  </view>
+</template>
+
+<template name="iOShead">
+  <view class='iOS-head'>
+    <text>{{item.text}}</text>
+  </view>
+</template>
+
+<template name='iOSh2'>
+  <view class='iOSH2'>{{item.text}}</view>
+</template>
+
+<template name='iOSh3'>
+  <view class='iOSH3'>{{item.text}}</view>
+</template>
+
+<template name='iOSp'>
+  <view class='iOSP'>
+    <text>{{item.text}}</text>
+  </view>
+</template>
+
+<template name='iOSn'>
+  <view class='iOSN'>
+    <text>{{item.text}}</text>
+  </view>
+</template>
+
+<template name='iOSlist'>
+  <view class='iOSLctn'>
+    <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{item.text}}">
+      <navigator class="iOS-listCtn {{List.switchchange?'iOS-switchList':''}}" url='{{List.url}}' hover-class="{{List.url?'':'none'}}">
+        <!-- <view>此处插入icon</view> -->
+        <view class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">
+            <switch wx:if='{{List.switchchange}}' checked='{{List.checked}}' bindchange="{{List.switchchange}}" /> {{List.desc}}
+          </view>
+          <!-- <view class='iOS-linkArrow'></view> -->
+        </view>
+      </navigator>
+      <view class='iOS-link-divline'></view>
+    </block>
+  </view>
+</template>
+
+<template name='iOSimg'>
+  <image class='iOS-img' mode="{{item.imgMode}}" src="{{item.src}}" />
+</template>

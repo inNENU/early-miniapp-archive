@@ -1,0 +1,11 @@
+<template name="foot">
+  <view class='footer-container'>
+    <navigator class="page-foot" openType="switchTab" url="/pages/main/main" hover-class="none">
+      <view class='footer'>
+        <text>行遍千山万水，归来仍是东师青年——\n</text>
+        <image style="width:44rpx;height:44rpx;" mode="{{imagemode}}" src="/image/logo.png" />
+      </view>
+    </navigator>
+  </view>
+  <view class='footerPlaceHolder'></view>
+</template>

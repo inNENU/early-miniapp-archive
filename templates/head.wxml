@@ -1,0 +1,57 @@
+<!-- iOS theme -->
+<template name="iOSNav">
+  <view class='iOS-navigationBar'>
+    <view wx:if="{{n.navT}}" class='iOS-titletext'>{{navtitle}}</view>
+    <navigator wx:if="{{!top}}" class='iOS-navBack' hover-class="iOSnavBackHover" bindtap='back'>
+      <image src='/image/nav-image/iOSback.png' class='iOS-nav-img' mode='widthFix' />
+      <text class='iOS-nav-text'>{{navtext}}</text>
+    </navigator>
+  </view>
+  <view wx:if="{{n.navB}}" class='iOSnavDl'></view>
+  <view class='iOS-navPlaceHolder'>
+    <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
+  </view>
+</template>
+
+<template name="iOSHead">
+  <view class='iOS-head'>
+    <text>{{title}}</text>
+  </view>
+</template>
+
+<!-- debug theme -->
+<template name="debugNav">
+  <view wx:if="{{top}}" class='wechat-navigationBar'>
+    <view class='wechat-navtext'>{{navtitle}}</view>
+  </view>
+  <view wx:if="{{top}}" class='wechat-navPlaceHolder'>
+    <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
+  </view>
+  <view wx:if="{{!top}}" class='wechatBack-layer'>
+    <image class='wechatBack-img' src='/image/nav-image/andriodback.png' bindtap='back' />
+  </view>
+  <view wx:if="{{!top}}" class='wechatTitle-container'>
+    <navigator class='wechatTitle' hover-class="titleNav-hover"> {{navtext}}-{{navtitle}} </navigator>
+    <view class='wechatNavline'></view>
+  </view>
+</template>
+
+<template name="debugHead">
+</template>
+
+<!-- wechat theme -->
+<template name="wechatNav">
+  <view class='wechat-navigationBar'>
+    <view class='wechat-navtext'>{{navtitle}}</view>
+  </view>
+  <view class='wechat-navPlaceHolder'>
+    <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
+  </view>
+</template>
+
+<template name="wechatHead">
+  <view class="page__hd">
+    <view class="page__title">{{title}}</view>
+    <view wx:if="{{title-explaination}}" class="page__desc">{{title-explaination}}</view>
+  </view>
+</template>

@@ -1,0 +1,12 @@
+<view class='{{h3}}'>洗浴（公共浴池） </view>
+<view class='{{p}}'>东师的浴池是大澡堂，对，没有隔间，没有帘子，有阿姨或大爷可以为你搓澡(搓澡费小贵)。洗澡的时候把一卡通插在感应槽里就会出热水。</view>
+<image mode="{{imagemode}}" src="{{bath1}}"></image>
+<view class='{{h3}}'>浴池位置 </view>
+<view class='{{p}}'>本部：学生八舍旁，幼儿园园长培训中心后侧 （二楼可以自带吹风机吹头发）</view>
+<image mode="{{imagemode}}" src="{{bath2}}"></image>
+<view class='{{p}}'>净月：教师进修中心一楼（浴室有吹风机）</view>
+<image mode="{{imagemode}}" src="{{bath3}}"></image>
+<view class='{{h3}}'>浴池开关门时间 </view>
+<view class='{{p}}'>本部：8:00-18:30 净月：8:00-19:00（女生在18：30后就不能进了哦。假期等情况另行通知</view>
+<view class='{{h3}}'>浴池收费 </view>
+<view class='{{p}}'>学生浴池是按分钟收费的，费用为0.15元/分钟，自动从一卡通里扣。</view>

@@ -1,0 +1,6 @@
+<import src="/templates/iOS" />
+<import src="/templates/foot-nenu" />
+<view class="{{T}}2 {{nm?'nm':''}}">
+  <template wx:for="{{page}}" is="{{item.theme}}{{item.name}}" data='{{item}}' />
+    <template is="foot" />
+</view>

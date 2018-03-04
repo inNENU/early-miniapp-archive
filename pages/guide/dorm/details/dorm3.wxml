@@ -1,0 +1,18 @@
+<import src="/templates/debug/head" />
+<template is="head" data="{{title: '室内布局',h1}}" />
+<view class='{{p}}'>除了纽瓦克学院是四人间，其他院的小伙伴们都是标准六人间哟。每侧三个床位，都是上床下桌。桌边有衣柜，衣柜可以锁，可以自备小锁，但不能太粗，因为锁孔较小。每个人的座位所面对的墙壁上都会有插座用于充电。床的尺寸：长1.9-2m，宽0.85-0.9m。学校会为学生们准备褥子，至于被子、床单、枕头等，大家可以自行准备或者到宿管阿姨那里购买（是一整套哒，480元左右）。</view>
+<image mode="{{imagemode}}" src="{{dorm7}}"></image>
+<image mode="{{imagemode}}" src="{{dorm8}}"></image>
+<image mode="{{imagemode}}" src="{{dorm9}}"></image>
+<view class='{{h3}}'>晾衣服</view>
+<view class='{{p}}'>本部三舍的寝室没有阳台（除了部分位于阴面的寝室，也就是窗朝向动植物公园的寝室），但是中间的空地上方是有晾衣杆的，是的，没有错，要在室内晾衣服；而净月的公寓大多是有阳台的，阳台上装有暖气片。</view>
+<image mode="{{imagemode}}" src="{{dorm10}}"></image>
+<image mode="{{imagemode}}" src="{{dorm11}}"></image>
+<view class='{{h3}}'>空调与暖气</view>
+<view class='{{p}}'>想知道空调装在哪吗？？？在虚无里……因为宿舍里没有空调，也没有电风扇。但是不代表长春天气不热，所以需要自备小电风扇，有那种USB小风扇，可以上网看看，当然萌新们来的时候应该已经不是太热了。冬天的幸福感就来源于暖气片啦!去年大概10月20多号开始陆续供暖，在室内还是挺舒服的，穿春秋天的衣服完全没有问题，所以也不用带太厚的被子，当然冬天还盖夏天的被子的话大部分人也是会感到冷的。</view>
+<image mode="{{imagemode}}" src="{{dorm12}}"></image>
+<view class='{{h3}}'>网线插口</view>
+<view class='{{p}}'>进门左右手边的墙壁上各有一个网线插口哦，所以只能插两条网线，如果要多人同时插网线则需要买交换机。（想知道如何上网请点【校园网模块】）</view>
+<view class='{{h3}}'>此处需要更新↑</view>
+<view class='{{h3}}'>卫浴</view>
+<view class='{{p}}'>很抱歉卫浴都处于公共区域内</view>

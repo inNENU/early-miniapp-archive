@@ -1,0 +1,13 @@
+<import src="/templates/debug/head" />
+<template is="head" data="{{title: '校园卡',h1}}" />
+<view class='container'>
+  <view class='{{p}}'>使用校园卡可以在校园内消费， 包括图书馆电子阅览室、图书超期罚款、宿舍网络的自助付费、食堂消费、超市购物、浴池洗澡等，进入图书馆或体育馆也需要用校园卡进行身份认证，洗漱间的生活用水、直饮水机的冷热水都需要用校园卡才能接到。</view>
+  <text>\n</text>
+  <view class='{{p}}'>校园卡默认单次消费限额为20元，每日累计消费限额为100元，消费金额超过限额时需要输入密码，当然，也可以根据消费习惯通过自助终端机修改消费限额。</view>
+  <image mode="{{imagemode}}" src="{{card1}}"></image>
+  <text>\n</text>
+  <button type="defaut" bindtap='otherclick'>校园卡的自动终端机</button>
+  <button type="defaut" bindtap='otherclick'>正常使用校园卡前的三件事</button>
+  <button type="defaut" bindtap='otherclick'>校园卡丢失</button>
+  <button type="defaut" bindtap='otherclick'>更多服务</button>
+</view>
