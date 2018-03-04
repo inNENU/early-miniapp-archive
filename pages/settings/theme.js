@@ -21,11 +21,11 @@ Page({
   },
   switchnm(e) {
     wx.setStorageSync("nightmode", e.detail.value);
-    this.setData({ page: u.sP(this.data.page, a) }); a.nm = e.detail.value;
+    this.setData({ page: u.sP(this.data.page, a) }); a.nm = u.nm(new Date());
   },
   switchnmAC(e) {
     wx.setStorageSync("nightmodeAutoChange", e.detail.value);
-    this.setData({ page: u.sP(this.data.page, a) }); a.nm = e.detail.value;
+    this.setData({ page: u.sP(this.data.page, a) }); a.nm = u.nm(new Date());
   },
   back() { u.back() },
 })

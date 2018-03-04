@@ -1,7 +1,7 @@
-function initialize(name, key) {
-  let value = wx.getStorageSync(name);
+function initialize(key, defaultkey) {
+  let value = wx.getStorageSync(key);
   if (value || Object.is(value, false)) { return value; }
-  else { wx.setStorageSync(name, key); return key; }
+  else { wx.setStorageSync(key, defaultkey); return defaultkey; }
 }
 function nightmode(date) {
   let nm = initialize('nightmode', false);
