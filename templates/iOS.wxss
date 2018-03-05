@@ -5,7 +5,6 @@
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
   background-color: #fff;
 }
@@ -21,13 +20,10 @@
   flex-direction: column;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
   background-color: #efeef4;
-  /* border-top: 1rpx #acacb0 solid;
-  border-bottom: 1rpx #acacb0 solid; */
 }
 
 .nm.iOS2 {
   background-color: #10110b;
-  /* border-color: #53534f; */
 }
 
 /* iOS Head */
@@ -52,9 +48,7 @@
 .iOS-navPlaceHolder {
   width: 100%;
   height: 64px;
-  display: flex;
-  position: relative;
-  justify-content: space-around;
+  text-align: center;
   font-size: 10px;
   color: #acacb0;
   background-color: #f5f5f7;
@@ -101,7 +95,6 @@
 .iOS-titletext {
   width: 100%;
   position: absolute;
-  align-self: center;
   font-size: 17px;
   font-weight: 500;
   text-align: center;
@@ -117,8 +110,8 @@
   height: 0;
   position: fixed;
   top: 64px;
-  border-bottom: 1rpx #acacb0 solid;
   z-index: 100;
+  border-bottom: 1rpx #acacb0 solid;
 }
 
 .nm .iOSnavDl {
@@ -126,11 +119,6 @@
 }
 
 .iOS-head {
-  width: 90%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  align-self: left;
   padding: 3px 5%;
   text-align: left;
   font-size: 34px;
@@ -150,9 +138,7 @@
 .iOSH2 {
   min-height: 13px;
   font-size: 13px;
-  padding-left: 15px;
-  margin-top: 23px;
-  margin-bottom: 5px;
+  padding: 23px 15px 5px 15px;
   color: #666;
 }
 
@@ -161,13 +147,10 @@
 }
 
 .iOSH3 {
-  width: 95%;
   min-height: 24px;
   font-size: 22px;
   font-weight: 500;
-  padding-left: 5%;
-  padding-top: 9px;
-  padding-bottom: 3px;
+  padding: 9px 5% 3px 5%;
 }
 
 .iOSH3 +.iOSH3 {
@@ -190,7 +173,7 @@
 
 .iOS .iOSP {
   font-size: 16px;
-  padding: 0 5%;
+  padding: 0 15px;
 }
 
 .iOS2 .iOSP {
@@ -205,7 +188,6 @@
 }
 
 .iOSLctn {
-  /* width: 100%; */
   font-size: 17px;
   line-height: 1.41176471;
   background-color: #fefefe;
@@ -220,13 +202,6 @@
 
 .iOS-listCtn {
   padding: 10px 15px;
-  /* width: 100%; *//* position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  align-items: center; */
 }
 
 .iOS-switchList {
@@ -241,9 +216,9 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
   align-items: center;
-  /* -webkit-box-flex: 1;
+  -webkit-box-flex: 1;
   -webkit-flex: 1;
-  flex: 1; */
+  flex: 1;
 }
 
 .iOSLinkText {
@@ -302,8 +277,7 @@
 }
 
 .iOS-img {
-  width: 90%;
-  margin: 3px 5%;
+  margin: 3px 15px;
   border-radius: 8px;
 }
 
