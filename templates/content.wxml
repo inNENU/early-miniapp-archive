@@ -1,39 +1,3 @@
-<!-- iOS theme -->
-<template name='iOSH2'>
-  <view class='iOSH2'>{{h2}}</view>
-</template>
-
-<template name='iOSH3'>
-  <view class='iOSH3'>{{h3}}</view>
-</template>
-
-<template name='iOSP'>
-  <view class='iOS-Container'>
-    <view class='iOS-P1'>{{p}}</view>
-  </view>
-</template>
-
-<template name='iOSL'>
-  <navigator class='iOS-link-Container' url='{{url}}'>
-    <text class='iOSLinkText'>{{Ltext}}</text>
-    <image src='/image/nav-image/iOSforward.png' class='iOS-link-image' mode='scaleToFill' />
-  </navigator>
-  <view class='iOS-link-divline'></view>
-</template>
-
-<template name='iOSLctn'>
-  <view class='iOSLctn'>
-    <block wx:for-items="{{list}}" wx:for-item="L" wx:key="{{item.text}}">
-      <navigator class='iOS-link-Container' url='{{L.url}}'>
-        <text class='iOSLinkText'>{{L.text}}</text>
-        <view class='arrow'></view>
-        <image src='/image/nav-image/iOSforward.png' class='iOS-link-image' mode='scaleToFill' />
-      </navigator>
-      <view class='iOS-link-divline'></view>
-    </block>
-  </view>
-</template>
-
 <!-- wechat theme -->
 <template name='wechatH2'>
   <view class="cells-title">{{h2}}</view>
