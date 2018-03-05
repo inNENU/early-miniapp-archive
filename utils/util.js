@@ -1,7 +1,7 @@
-function initialize(key, defaultkey) {
+function initialize(key, defaultKey) {
   let value = wx.getStorageSync(key);
-  if (value || Object.is(value, false)) { return value; }
-  else { wx.setStorageSync(key, defaultkey); return defaultkey; }
+  if (value || value === false) { return value; }
+  else { wx.setStorageSync(key, defaultKey); return defaultKey; }
 }
 function nightmode(date) {
   let nm = initialize('nightmode', false);
@@ -19,20 +19,19 @@ function iOSnav(pos, page) {
   if (pos.scrollTop <= 42) { T = false; B = false; }
   else if (pos.scrollTop >= 53) { T = true; B = true; }
   else { T = true; B = false; };
-  if (n.titleDisplay == null) { n.titleDisplay = T, n.borderDisplay = B; return page; }
+  if (n.titleDisplay === null) { n.titleDisplay = T, n.borderDisplay = B; return page; }
   else { if (n.titleDisplay != T || n.borderDisplay != B) { n.titleDisplay = T, n.borderDisplay = B }; return page; }
 }
 function setNav(page, a, e) {
-  if (Object.is(a.info.model.substring(0, 8), 'iPhone X')) { page[0].iPhoneX = true };
-  if (!page[0].top) { page[0].backText = e.from };
+  if (a.info.model.substring(0, 8) === 'iPhone X') { page[0].iPhoneX = true };
+  if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
 }
 function setListContent(page, a, i, e) {
   if ('content' in page[i]) {
     var content = page[i].content;
     for (let j = 0; j < content.length; j++) {
       if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
-      let parameter = "?from=" + page[0].title
-      if ('url' in content[j]) { page[i].content[j].url += parameter }
+      if ('url' in content[j]) { page[i].content[j].url += "?from=" + page[0].title }
     }
   }
 }
@@ -40,7 +39,7 @@ function setPage(page, a, e) {
   setNav(page, a, e);
   for (let i = 0; i < page.length; i++) {
     page[i].theme = a.T;
-    if (Object.is(page[i].name, 'img')) { page[i].imgMode = a.imgMode };
+    if (page[i].name === 'img') { page[i].imgMode = a.imgMode };
     setListContent(page, a, i, e);
   };
   return page;
