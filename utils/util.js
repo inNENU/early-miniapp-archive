@@ -24,8 +24,7 @@ function iOSnav(pos, page) {
 }
 function setNav(page, a, e) {
   if (Object.is(a.info.model.substring(0, 8), 'iPhone X')) { page[0].iPhoneX = true };
-  console.log(e)
-  if (!page[0].top) { page[0].backText = e.from }
+  if (!page[0].top) { page[0].backText = e.from };
 }
 function setListContent(page, a, i, e) {
   if ('content' in page[i]) {
@@ -34,7 +33,6 @@ function setListContent(page, a, i, e) {
       if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
       let parameter = "?from=" + page[0].title
       if ('url' in content[j]) { page[i].content[j].url += parameter }
-
     }
   }
 }
