@@ -3,8 +3,7 @@ const a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'nav', navtitle: '开发日志', top: true },
-      { name: 'head', text: '开发日志' },
+      { name: 'head', title: '开发日志', top: true },
       { name: 'h2', text: '' },
       { name: 'p', text: '这是一个临时的界面，用于记录开发日志。 随着开发进行该界面会被“我的信息”界面取代。' },
       { name: 'h2', text: '日志如下：' },

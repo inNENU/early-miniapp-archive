@@ -3,8 +3,7 @@ const a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'nav', navtitle: 'V0.1开发日志', navtext: '开发日志' },
-      { name: 'head', text: 'V0.1日志' },
+      { name: 'head', title: 'V0.1开发日志' },
       { name: 'h2', text: 'V0.1.1' },
       { name: 'p', text: '修复了链接列表文字略偏上的问题；\n修复了链接列表箭头略偏下的问题；\n修复navtitle动画延后的问题；\n修复了在某些机型上navigationBar title位置错误的问题；' },
       { name: 'h2', text: 'V0.1.2' },
@@ -23,9 +22,11 @@ Page({
       { name: 'p', text: '完全适配iPhone X；\n改善了iOS样式，完善了与iOS原生系统不一致的一些细节' },
       { name: 'h2', text: 'V0.1.9' },
       { name: 'p', text: '大幅改进iOSList标签；\n改进了主题切换逻辑；\n改变了开关触发器；' },
+      { name: 'h2', text: 'V0.1.10' },
+      { name: 'p', text: '大幅精简iOS头部，添加界面传参，优化page参数数量' },
     ],
   },
-  onLoad() { let page = u.sP(this.data.page, a); this.setData({ T: a.T, nm: a.nm, page: page }) },
+  onLoad(e) { let page = u.sP(this.data.page, a, e); this.setData({ T: a.T, nm: a.nm, page: page }) },
   onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
   back() { u.back() },
 })

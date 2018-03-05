@@ -22,20 +22,28 @@ function iOSnav(pos, page) {
   if (n.titleDisplay == null) { n.titleDisplay = T, n.borderDisplay = B; return page; }
   else { if (n.titleDisplay != T || n.borderDisplay != B) { n.titleDisplay = T, n.borderDisplay = B }; return page; }
 }
-function Switch(page, a, i) {
+function setNav(page, a, e) {
+  if (Object.is(a.info.model.substring(0, 8), 'iPhone X')) { page[0].iPhoneX = true };
+  console.log(e)
+  if (!page[0].top) { page[0].backText = e.from }
+}
+function setListContent(page, a, i, e) {
   if ('content' in page[i]) {
     var content = page[i].content;
     for (let j = 0; j < content.length; j++) {
       if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
+      let parameter = "?from=" + page[0].title
+      if ('url' in content[j]) { page[i].content[j].url += parameter }
+
     }
   }
 }
-function setPage(page, a) {
-  if (Object.is(a.info.model.substring(0, 8), 'iPhone X')) { page[0].iPhoneX = true };
+function setPage(page, a, e) {
+  setNav(page, a, e);
   for (let i = 0; i < page.length; i++) {
     page[i].theme = a.T;
-    if (Object.is(page[i].name, 'img')) { page[i].imgMode = a.imgMode }
-    Switch(page, a, i)
+    if (Object.is(page[i].name, 'img')) { page[i].imgMode = a.imgMode };
+    setListContent(page, a, i, e);
   };
   return page;
 }

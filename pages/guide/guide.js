@@ -3,8 +3,7 @@ const a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'nav', navtitle: '东师指南', top: true },
-      { name: 'head', text: '东师指南' },
+      { name: 'head', title: '东师指南', top: true },
       { name: 'h2', text: '' },
       { name: 'list', content: [{ text: '寝室', url: 'dorm/dorm' }] },
     ],

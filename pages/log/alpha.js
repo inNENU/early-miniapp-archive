@@ -3,8 +3,7 @@ const a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'nav', navtitle: 'alpha开发日志', navtext: '开发日志' },
-      { name: 'head', text: 'alpha日志' },
+      { name: 'head', title: 'alpha开发日志' },
       { name: 'h2', text: 'V0.0.1' },
       { name: 'p', text: '制作了navigationBar与tabBar；\n导入网页的生活界面；\n增加制作了footer；\n简要地对东师青年指南界面进行了链接；\n制作了无定义界面的跳转内容；' },
       { name: 'h2', text: 'V0.0.2' },
@@ -27,7 +26,7 @@ Page({
       { name: 'p', text: '修复了全部已知bug并缩小了50 % 的代码包体积\n修复了以下bug：\n  修复了tabBar文字消失的问题；\n  修复了主题页面文字不能换色的问题；\n  修复夜间模式彩蛋显示不清的问题；\n  修复首页及主题页夜间模式异常的问题；\n进行了以下优化：\n  对东师指南和功能界面进行夜间模式适配；\n  删除无用代码与注释；\n  统一已编写代码格式；\n  优化logo与nenuyouth图片大小；' },
     ],
   },
-  onLoad() { let page = u.sP(this.data.page, a); this.setData({ T: a.T, nm: a.nm, page: page }) },
+  onLoad(e) { let page = u.sP(this.data.page, a, e); this.setData({ T: a.T, nm: a.nm, page: page }) },
   onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
   back() { u.back() },
 })

@@ -3,8 +3,7 @@ const a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'nav', navtitle: '寝室', navtext: '东师指南' },
-      { name: 'head', text: '寝室' },
+      { name: 'head', title: '寝室'},
       { name: 'h2', text: '寝室分布' },
       { name: 'list', content: [{ text: '本部校区', url: 'details/dorm1' }, { text: '净月校区', url: 'details/dorm2' }], },
       { name: 'h2', text: '寝室环境' },
@@ -15,7 +14,7 @@ Page({
       { name: 'p', text: '校会君偷偷告诉萌新们一句：元旦的时候男女生可以互串寝室哦~' },
     ],
   },
-  onLoad() { let page = u.sP(this.data.page, a); this.setData({ T: a.T, nm: a.nm, page: page }) },
+  onLoad(e) { let page = u.sP(this.data.page, a, e); this.setData({ T: a.T, nm: a.nm, page: page }) },
   onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
   back() { u.back() },
 })

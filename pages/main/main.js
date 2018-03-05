@@ -3,11 +3,9 @@ const a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'nav', navtitle: '首页', top: true },
-      { name: 'head', text: '首页' },
-      { name: 'n', text: '' },
-      { name: 'n', text: '\n开发版本：0.0.2i' },
-      { name: 'n', text: '构建debug与精简版两个小程序版本；\n大幅减少精简版小程序代码数量；' },
+      { name: 'head', title: '首页', top: true },
+      { name: 'n', text: '\n开发版本：V0.1.10' },
+      { name: 'n', text: '大幅精简iOS头部，添加界面传参，优化page参数数量；' },
       { name: 'h3', text: '这里是东师青年官方小程序' },
       { name: 'h3', text: '首页制作中......' },
     ],

@@ -3,8 +3,7 @@ const a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'nav', navtitle: '本部校区', navtext: '寝室' },
-      { name: 'head', text: '本部校区' },
+      { name: 'head', title: '本部校区' },
       { name: 'h3', text: '寝室分布' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g1/M00/91/36/wKjmqVl9VlKAfnRcAAN9jZomx1o9263272/imageView/v1/thumbnail/640x0' },
       { name: 'p', text: '图片右上角从右往左依次为三舍A、B、C、D座，ABC住本科生，D为留学生公寓。作为高层建筑，三舍有电梯。' },
@@ -23,7 +22,7 @@ Page({
       { name: 'h3', text: '' },
     ],
   },
-  onLoad() { let page = u.sP(this.data.page, a); this.setData({ T: a.T, nm: a.nm, page: page }) },
+  onLoad(e) { let page = u.sP(this.data.page, a, e); this.setData({ T: a.T, nm: a.nm, page: page }) },
   onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
   back() { u.back() },
 })
