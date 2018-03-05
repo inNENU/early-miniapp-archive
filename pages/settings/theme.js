@@ -10,7 +10,7 @@ Page({
       { name: 'list', content: [{ text: '夜间模式', switchchange: 'switchnm', key: 'nightmode' }, { text: '自动切换夜间模式开关', switchchange: 'switchnmAC', key: 'nightmodeAutoChange' }] },
     ],
   },
-  onLoad() { this.setData({ page: u.sP(this.data.page, a), T: a.T, nm: a.nm, index: u.ak(this.data.array, a.T) }) },
+  onLoad(e) { this.setData({ page: u.sP(this.data.page, a, e), T: a.T, nm: a.nm, index: u.ak(this.data.array, a.T) }) },
   onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
   bindPickerChange(e) {
     let v = e.detail.value, T = this.data.array[v];
