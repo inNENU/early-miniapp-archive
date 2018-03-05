@@ -1,5 +1,4 @@
 <import src="/templates/iOS" />
 <view class="{{T}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" is="{{item.theme}}{{item.name}}" data='{{item}}' />
-  <button type="defaut" bindtap='goTheme'>改变主题</button>
 </view>

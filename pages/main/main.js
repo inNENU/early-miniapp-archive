@@ -8,6 +8,7 @@ Page({
       { name: 'n', text: '大幅精简iOS头部，添加界面传参，优化page参数数量；' },
       { name: 'h3', text: '这里是东师青年官方小程序' },
       { name: 'h3', text: '首页制作中......' },
+      { name: 'list', content: [{ text: '主题设置', url: '/pages/settings/theme' }]},
     ],
   },
   onShow() {
@@ -21,5 +22,4 @@ Page({
     this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a) }); u.tBC(a.nm);
   },
   onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
-  goTheme() { u.go("/pages/settings/theme") },
 })

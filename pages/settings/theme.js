@@ -4,8 +4,7 @@ Page({
   data: {
     array: ['iOS', 'wechat', 'debug',],
     page: [
-      { name: 'nav', navtitle: '主题', navtext: '首页' },
-      { name: 'head', text: '主题设置' },
+      { name: 'head', title: '主题设置' },
       { name: 'h2', text: '主题选择' },
       { name: 'list', content: [{ text: '夜间模式', switchchange: 'switchnm', key: 'nightmode' }, { text: '自动切换夜间模式开关', switchchange: 'switchnmAC', key: 'nightmodeAutoChange' }] },
     ],
