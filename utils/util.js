@@ -30,8 +30,8 @@ function setListContent(page, a, i, e) {
   if ('content' in page[i]) {
     var content = page[i].content;
     for (let j = 0; j < content.length; j++) {
-      if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
       if ('url' in content[j]) { page[i].content[j].url += "?from=" + page[0].title }
+      if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
     }
   }
 }
@@ -41,8 +41,7 @@ function setPage(page, a, e) {
     page[i].theme = a.T;
     if (page[i].name === 'img') { page[i].imgMode = a.imgMode };
     setListContent(page, a, i, e);
-  };
-  return page;
+  }; return page;
 }
 function tBC(nm) {
   if (nm) { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#000000', borderStyle: 'white' }) }

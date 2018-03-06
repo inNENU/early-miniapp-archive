@@ -23,7 +23,7 @@ Page({
       { name: 'h2', text: 'V0.1.9' },
       { name: 'p', text: '大幅改进iOSList标签；\n改进了主题切换逻辑；\n改变了开关触发器；' },
       { name: 'h2', text: 'V0.1.10' },
-      { name: 'p', text: '大幅精简iOS头部，添加界面传参，优化page参数数量' },
+      { name: 'p', text: '大幅精简iOSHead，通过添加界面传参来优化page参数数量；\n少量代码压缩及故障修复；' },
     ],
   },
   onLoad(e) { let page = u.sP(this.data.page, a, e); this.setData({ T: a.T, nm: a.nm, page: page }) },
