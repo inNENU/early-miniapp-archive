@@ -59,21 +59,18 @@
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">
-            <block wx:for='{{List.value}}'>{{item.value}}{{item.name}}</block>
+            <block wx:for='{{List.value}}'>{{item}}</block>
           </view>
         </view>
       </view>
       <block wx:if='{{List.display}}'>
         <view class='iOS-link-divline'></view>
         <picker-view indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="{{List.pickerchange}}">
-          <block wx:for='{{List.pickerValue}}'>
+          <block wx:for='{{List.pickerValue}}' wx:key="*this">
             <picker-view-column class='iOSpick-view-column'>
-              <view wx:for="{{item}}" class='iOSpickColumn'>{{item}}</view>
+              <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
             </picker-view-column>
           </block>
-           <!-- <picker-view-column class='iOSpick-view-column'>
-            <view wx:for="{{List.pickerValue[1]}}" class='iOSpickColumn'>{{item}}分</view>
-          </picker-view-column>  -->
         </picker-view>
       </block>
       <view class='iOS-link-divline'></view>

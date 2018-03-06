@@ -6,12 +6,13 @@ function initialize(key, defaultKey) {
 function nightmode(date) {
   let nm = initialize('nightmode', false);
   let nmAC = initialize('nightmodeAutoChange', false);
-  let nmStart = initialize('nmStart', 2000);
-  let nmEnd = initialize('nmEnd', 500);
+  let s = initialize('nmStart', '20-00').split('-');
+  let e = initialize('nmEnd', '5-00').split('-');
+  let start = s[0] * 100 + s[1], end = e[0] * 100 + e[1];
   let time = date.getHours() * 100 + date.getMinutes();
   if (nmAC && nm) {
-    if (nmStart < nmEnd) { if (time >= nmStart && time <= nmEnd) { return true } else { return false } }
-    if (nmEnd < nmStart) { if (time <= nmStart && time >= nmEnd) { return false } else { return true } }
+    if (start < end) { if (time >= start && time <= end) { return true } else { return false } }
+    if (end < start) { if (time <= start && time >= end) { return false } else { return true } }
   } else { return nm; }
 }
 function iOSnav(pos, page) {
@@ -34,6 +35,20 @@ function setListContent(page, a, i, e) {
       if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
     }
   }
+}
+function initializePicker(page, key, i, j) {
+  let temp = wx.getStorageSync(key).split('-');
+  for (let k = 0; k < temp.length; k++) {
+    page[i].content[j].value[k] = page[i].content[j].pickerValue[k][Number(temp[k])];
+    page[i].content[j].currentValue[k] = Number(temp[k]);
+  }; return page;
+}
+function setPickerValue(page, value, i, j) {
+  for (let k = 0; k < value.length; k++) {
+    page[i].content[j].value[k] = page[i].content[j].pickerValue[k][Number(value[k])];
+    page[i].content[j].currentValue[k] = value[k]
+  };
+  wx.setStorageSync(page[i].content[j].pickerKey, value.join('-')); return page;
 }
 function setPage(page, a, e) {
   setNav(page, a, e);
@@ -64,7 +79,7 @@ function formatNumber(n) {
 }
 function arrayKeynumber(array, key) {
   for (var i in array) {
-    if (Object.is(array[i], key)) { return i }
+    if (array[i] == key) { return i }
   }
 }
 module.exports = {
@@ -74,6 +89,8 @@ module.exports = {
   tBC: tBC,
   go: go,
   back: back,
+  iP: initializePicker,
+  sPV: setPickerValue,
   sP: setPage,
   formatTime: formatTime,
   ak: arrayKeynumber,

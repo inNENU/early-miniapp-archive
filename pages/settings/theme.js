@@ -3,27 +3,21 @@ const a = getApp().globalData;
 var date = new Date()
 var time = [[], []];
 for (let i = 0; i <= 23; i++) { time[0].push(i + '时') };
-for (let i = 0; i <= 59; i++) { time[1].push(i + '分') };
+for (let i = 0; i <= 59; i++) { if (i < 10) { time[1].push('0' + i + '分') } else { time[1].push(i + '分') } };
 Page({
   data: {
     array: ['iOS', 'wechat', 'debug',],
     page: [
       { name: 'head', title: '主题设置' },
-      { name: 'h2', text: '主题选择' },
-      { name: 'list', content: [{ text: '夜间模式', switchchange: 'switchnm', key: 'nightmode' }, { text: '自动切换夜间模式开关', switchchange: 'switchnmAC', key: 'nightmodeAutoChange' }, { text: '夜间模式开始时间', pickerKey: 'nmStart', pickerValue: time, currentValue: [], value: [{ name: '时' }, { name: '分' }], tap: 'display', pickerchange: 'setStart' }] },
+      { name: 'h2', text: '夜间模式' },
+      { name: 'list', content: [{ text: '夜间模式', switchchange: 'switchnm', key: 'nightmode' }, { text: '自动切换开关', switchchange: 'switchnmAC', key: 'nightmodeAutoChange' }, { text: '开始时间', pickerKey: 'nmStart', pickerValue: time, tap: 'displayStart', pickerchange: 'setStart', currentValue: [], value: [] }, { text: '结束时间', pickerKey: 'nmEnd', pickerValue: time, tap: 'displayEnd', pickerchange: 'setEnd', currentValue: [], value: [] }] },
     ],
   },
   onLoad(e) {
-    let page = this.data.page;
-    let Start = wx.getStorageSync('nmStart');
-    let End = wx.getStorageSync('nmEnd');
-    page[2].content[2].currentValue[0] = Math.trunc(Start / 100);
-    page[2].content[2].value[0].value = Math.trunc(Start / 100);
-    page[2].content[2].currentValue[1] = (Start / 100 - Math.trunc(Start / 100)) * 100;
-    page[2].content[2].value[1].value = (Start / 100 - Math.trunc(Start / 100)) * 100;
-    this.setData({ page: u.sP(page, a, e), T: a.T, nm: a.nm, index: u.ak(this.data.array, a.T) })
+    let p = this.data.page; p = u.iP(p, 'nmStart', 2, 2); p = u.iP(p, 'nmEnd', 2, 3);
+    this.setData({ page: u.sP(p, a, e), T: a.T, nm: a.nm, index: u.ak(this.data.array, a.T) })
   },
-  onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
+  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
   bindPickerChange(e) {
     let v = e.detail.value, T = this.data.array[v];
     a.T = T; wx.setStorageSync("theme", T);
@@ -39,23 +33,20 @@ Page({
     let nm = u.nm(new Date()); a.nm = nm;
     this.setData({ nm: nm, page: u.sP(this.data.page, a) });
   },
-  back() { u.back() },
-  display() {
-    let page = this.data.page;
-    page[2].content[2].display = !page[2].content[2].display
-    this.setData({
-      display: !this.data.display, page: page
-    })
+  displayStart() {
+    let page = this.data.page; page[2].content[2].display = !page[2].content[2].display
+    this.setData({ page: page })
   },
   setStart(e) {
-    let v = e.detail.value, page = this.data.page;
-    var temp = 0;
-    for (let i = 0; i < v.length; i++) {
-      temp = 100 * temp + v[i];
-      page[2].content[2].value[i].value = v[i];
-      page[2].content[2].currentValue[i] = v[i]
-    }
-    this.setData({ page: page })
-    wx.setStorageSync(page[2].content[2].pickerKey, temp)
+    this.setData({ page: u.sPV(this.data.page, e.detail.value, 2, 2) })
   },
+  displayEnd() {
+    let page = this.data.page; page[2].content[3].display = !page[2].content[3].display
+    this.setData({ page: page })
+  },
+  setEnd(e) {
+    this.setData({ page: u.sPV(this.data.page, e.detail.value, 2, 3) })
+  },
+  back() { u.back() },
+  onUnload() { a.nm = u.nm(new Date()) },
 })
