@@ -46,15 +46,36 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}"> {{List.desc}} </view>
         </view>
       </navigator>
-      <view wx:if='{{!List.url}}' class="iOS-listCtn {{List.switchchange?'iOS-switchList':''}}">
+      <view wx:if='{{!List.url && !List.pickerValue}}' class="iOS-listCtn {{List.switchchange?'iOS-switchList':''}}">
         <!-- <view>此处插入icon</view> -->
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption">
-            <switch wx:if='{{List.switchchange}}' checked='{{List.checked}}' bindchange="{{List.switchchange}}" /> {{List.desc}}
+          <view class="iOS-linkDesciption">{{List.desc}}
+            <switch wx:if='{{List.switchchange}}' checked='{{List.checked}}' bindchange="{{List.switchchange}}" />
           </view>
         </view>
       </view>
+      <view wx:if='{{List.pickerValue}}' class="iOS-listCtn {{List.display?'':''}}" bindtap='{{List.tap}}'>
+        <view class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view class="iOS-linkDesciption">
+            <block wx:for='{{List.value}}'>{{item.value}}{{item.name}}</block>
+          </view>
+        </view>
+      </view>
+      <block wx:if='{{List.display}}'>
+        <view class='iOS-link-divline'></view>
+        <picker-view indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="{{List.pickerchange}}">
+          <block wx:for='{{List.pickerValue}}'>
+            <picker-view-column class='iOSpick-view-column'>
+              <view wx:for="{{item}}" class='iOSpickColumn'>{{item}}</view>
+            </picker-view-column>
+          </block>
+           <!-- <picker-view-column class='iOSpick-view-column'>
+            <view wx:for="{{List.pickerValue[1]}}" class='iOSpickColumn'>{{item}}分</view>
+          </picker-view-column>  -->
+        </picker-view>
+      </block>
       <view class='iOS-link-divline'></view>
     </block>
   </view>

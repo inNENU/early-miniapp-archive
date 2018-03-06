@@ -3,7 +3,20 @@
 <view class="{{T}}2 {{nm?'nm':''}}">
   <template wx:for="{{page}}" is="{{item.theme}}{{item.name}}" data='{{item}}' />
   <view class='iOSP'>
+    <view>
+      <view bindtap='display'>{{nmStart.hour}}时{{nmStart.minute}}分</view>
+      <picker-view wx:if='{{display}}' indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{value}}" bindchange="bindChange">
+        <picker-view-column class='iOSpick-view-column'>
+          <view wx:for="{{time.hour}}" class='iOSpickColumn'>{{item}}时</view>
+        </picker-view-column>
+        <picker-view-column  class='iOSpick-view-column'>
+          <view wx:for="{{time.minute}}" class='iOSpickColumn'>{{item}}分</view>
+        </picker-view-column>
+      </picker-view>
+      <view class='iOS-link-divline'></view>
+    </view>
     <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+
       <view class="picker">
         当前选择：{{array[index]}}
       </view>

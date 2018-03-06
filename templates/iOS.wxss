@@ -293,3 +293,44 @@
 .nm .iOSN {
   color: #ddd;
 }
+
+.iOSpickerViewCtn {
+  height: 160px;
+}
+
+.iOSpick-view-column {
+  min-width: 50px;
+  flex: none;
+}
+
+.iOSpick-view-column:first-child {
+  flex: 1;
+}
+
+.iOSpick-view-column:last-child {
+  flex: 1;
+}
+
+.iOSpickColumn {
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  text-align: center;
+  font-size: 18px;
+  flex: none;
+}
+
+.iOSpick-view-column:first-child .iOSpickColumn {
+  text-align: right;
+}
+
+.iOSpick-view-column:last-child .iOSpickColumn {
+  text-align: left;
+}
+
+/* .iOSpickSelected {
+  font-size: 40px;
+  height: 10px;
+} */
