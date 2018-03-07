@@ -4,15 +4,15 @@ function initialize(key, defaultKey) {
   else { wx.setStorageSync(key, defaultKey); return defaultKey; }
 }
 function nightmode(date) {
-  let nm = initialize('nightmode', false);
-  let nmAC = initialize('nightmodeAutoChange', false);
-  let s = initialize('nmStart', '20-00').split('-');
-  let e = initialize('nmEnd', '5-00').split('-');
-  let start = s[0] * 100 + s[1], end = e[0] * 100 + e[1];
+  let nm = initialize('nightmode', true);
+  let nmAC = initialize('nightmodeAutoChange', true);
+  let s = initialize('nmStart', '20-0').split('-');
+  let e = initialize('nmEnd', '5-0').split('-');
+  let start = Number(s[0]) * 100 + Number(s[1]), end = Number(e[0]) * 100 + Number(e[1]);
   let time = date.getHours() * 100 + date.getMinutes();
   if (nmAC && nm) {
-    if (start < end) { if (time >= start && time <= end) { return true } else { return false } }
-    if (end < start) { if (time <= start && time >= end) { return false } else { return true } }
+    if (start <= end) { if (time >= start && time <= end) { return true } else { return false } }
+    else { if (time <= start && time >= end) { return false } else { return true } }
   } else { return nm; }
 }
 function iOSnav(pos, page) {
