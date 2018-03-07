@@ -8,5 +8,5 @@ Page({
     ],
   },
   onShow(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a,e) }); },
-  onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
+  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
 })

@@ -22,7 +22,7 @@ Page({
       { name: 'p', text: '对界面内容进行模块化；\n初步制作iOS navigationBar特效；\n完整构造iOS主题样式；\n初步构建iOS夜间模式；' },
       { name: 'h2', text: 'V0.0.9' },
       { name: 'p', text: '修复主题选择器无法改变theme值的问题，新增夜间模式开关；\n修复了iOS夜间模式的几个bug，完整构建iOS夜间主题；' },
-      { name: 'h2', text: 'V0.1 Final patched by Mr.Hope' },
+      { name: 'h2', text: 'Valpha Final patched by Mr.Hope' },
       { name: 'p', text: '修复了全部已知bug并缩小了50 % 的代码包体积\n修复了以下bug：\n  修复了tabBar文字消失的问题；\n  修复了主题页面文字不能换色的问题；\n  修复夜间模式彩蛋显示不清的问题；\n  修复首页及主题页夜间模式异常的问题；\n进行了以下优化：\n  对东师指南和功能界面进行夜间模式适配；\n  删除无用代码与注释；\n  统一已编写代码格式；\n  优化logo与nenuyouth图片大小；' },
     ],
   },

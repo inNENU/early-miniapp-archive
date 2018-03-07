@@ -8,12 +8,8 @@ Page({
       { name: 'list', content: [{ text: '寝室', url: 'dorm/dorm' }] },
     ],
   },
-  onShow() { let page = u.sP(this.data.page, a); this.setData({ T: a.T, nm: a.nm, page: page }) },
-  onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
-  // goCard() { u.go('card/card') },
-  // goDorm() { u.go('dorm/dorm') },
-  // goLife() { u.go('life/life') },
-  // goOther() { u.go('net/net') },
+  onShow() { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a) }) },
+  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
 })
   // < button bindtap= 'goOther' > 新生报到 < /button>
   //   < button bindtap= 'goDorm' > 寝室 < /button>

@@ -16,7 +16,8 @@
     "pages/guide/card/card",
     "pages/log/log",
     "pages/log/alpha",
-    "pages/log/0.1"
+    "pages/log/0.1",
+    "pages/log/0.2"
   ],
   "window": {
     "navigationBarBackgroundColor": "#1A9D5E",
