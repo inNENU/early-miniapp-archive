@@ -55,7 +55,7 @@
           </view>
         </view>
       </view>
-      <view wx:if='{{List.pickerValue}}' class="iOS-listCtn {{List.display?'':''}}" bindtap='{{List.tap}}'>
+      <view wx:if='{{List.pickerValue}}' class="iOS-listCtn" bindtap='{{List.tap}}'>
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">

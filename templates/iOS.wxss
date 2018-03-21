@@ -277,7 +277,8 @@
 }
 
 .iOS-img {
-  margin: 3px 15px;
+  width: auto !important;
+  margin: 3px 5%;
   border-radius: 8px;
 }
 
@@ -296,6 +297,11 @@
 
 .iOSpickerViewCtn {
   height: 160px;
+}
+
+.nm .iOSpickerViewCtn {
+  color: white;
+  /* background-color: black;  */
 }
 
 .iOSpick-view-column {

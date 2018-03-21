@@ -1,5 +1,26 @@
 /* wechat theme */
 
+page {
+  font-size: 16px;
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+}
+
+.wechat {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8;
+}
+
+.wechat2 {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #efeef4;
+}
+
 /* 导航 */
 
 .wechat-navigationBar {
@@ -12,26 +33,23 @@
   position: fixed;
   top: 0;
   z-index: 99;
-}
-
-.false .wechat-navigationBar {
   background-color: #f8f8f8;
 }
 
-.true .wechat-navigationBar {
-  background-color: #080808;
+.nm .wechat-navigationBar {
+  background-color: #070707;
 }
 
-.wechat-navtext {
+.wechat-titletext {
+  width: 100%;
   position: absolute;
-  font-size: 30rpx;
-  color: black;
-  text-align: center;
+  font-size: 17px;
   font-weight: 500;
+  text-align: center;
   z-index: 100;
 }
 
-.true .wechat-navtext {
+.nm .wechat-titletext {
   color: white;
 }
 
@@ -42,15 +60,83 @@
   position: relative;
   justify-content: center;
   font-size: 16rpx;
-}
-
-.false .wechat-navPlaceHolder {
   color: #d9d9d9;
-  background-color: #09bb07;
+  background-color: #f8f8f8;
 }
 
-.true .wechat-navPlaceHolder {
+.nm .wechat-navPlaceHolder {
   color: #262626;
-  background-color: #0c0c0c;
+  background-color: #070707;
 }
 
+.wechat-navBack {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 5px !important;
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0);
+  margin: 0 3%;
+  line-height: 2.4;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.wechatnavBackHover {
+  opacity: 0.2;
+}
+
+.wechat-backArrow {
+  width: 12px;
+  height: 12px;
+  border-width: 0 0 3px 3px;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  border-color: black;
+}
+
+.nm .wechat-backArrow {
+  border-color: white;
+}
+
+.wechat-head {
+  padding: 40px;
+}
+
+.wechat-title {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.nm .wechat-title {
+  color: white;
+}
+
+.wechat-desc {
+  margin-top: 5px;
+  color: #888;
+  text-align: left;
+  font-size: 14px;
+}
+
+.nm .wechat-desc {
+  color: #777;
+}
+
+.wechatH2 {
+  margin-top: 0.77em;
+  margin-bottom: 0.3em;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #999;
+  font-size: 14px;
+}
+
+.wechatLctn {
+  position: relative;
+  background-color: #fff;
+  line-height: 1.41176471;
+  font-size: 17px;
+}
