@@ -1,3 +1,4 @@
+<import src="/templates/wechat" />
 <import src="/templates/iOS" />
 <view class="{{T}}2 {{nm?'nm':''}}">
     <template wx:for="{{page}}" is="{{item.theme}}{{item.name}}" data='{{item}}' />

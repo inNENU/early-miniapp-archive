@@ -134,6 +134,23 @@ page {
   font-size: 14px;
 }
 
+.wechatH3 {
+  margin-left: 5%;
+  font-weight: 400;
+  font-size: 15px;
+  margin-bottom: 0.34em;
+}
+
+.wechatP {
+  text-align: left;
+  background-color: #fefefe;
+}
+
+.nm .wechatP {
+  color: white;
+  background-color: #000;
+}
+
 .wechatLctn {
   position: relative;
   background-color: #fff;

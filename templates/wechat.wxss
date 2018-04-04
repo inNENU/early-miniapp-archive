@@ -114,14 +114,14 @@
   margin-right: 10%;
 }
 
-.wechatH3 {
+/* .wechatH3 {
   text-align: center;
   font-size: 18pt;
   margin-top: 6px;
   margin-bottom: 0px;
   margin-left: 10%;
   margin-right: 10%;
-}
+} */
 
 .wechatP {
   text-align: left;
