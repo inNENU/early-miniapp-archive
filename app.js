@@ -1,6 +1,6 @@
 var u = require('utils/util.js');
 App({
-  data: { theme: "iOS" },
+  data: { theme: "wechat" },
   onLaunch() {
     this.globalData.T = u.init("theme", this.data.theme);
     this.globalData.info = wx.getSystemInfoSync();

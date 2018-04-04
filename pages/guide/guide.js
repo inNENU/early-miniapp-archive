@@ -5,7 +5,7 @@ Page({
     page: [
       { name: 'head', title: '东师指南', top: true },
       { name: 'h2', text: '' },
-      { name: 'list', content: [{ text: '寝室', url: 'dorm/dorm' }] },
+      { name: 'list', content: [{ text: '寝室', url: 'dorm/dorm' },{ text: '校园卡', url: 'card/card' }] },
     ],
   },
   onShow() { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a) }) },

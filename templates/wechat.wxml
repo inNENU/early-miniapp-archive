@@ -2,10 +2,10 @@
   <view class='wechat-navigationBar' style="{{item.iPhoneX?'padding-top:46px;height:40px':''}}">
     <view class="wechat-titletext">{{item.title}}</view>
     <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="wechatnavBackHover" plain='true' bindtap='back'>
-      <view class='wechat-backArrow'></view>
+        <view class='wechat-backArrow'></view>
     </button>
   </view>
-  <view class='wechat-navPlaceHolder'>
+  <view class='wechat-navPlaceHolder' style="{{item.iPhoneX?'height:86px':''}}">
     <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
   </view>
   <view wx:if="{{item.desc}}" class="wechat-head">
@@ -62,4 +62,20 @@
       <view class='iOS-link-divline'></view>
     </block>
   </view>
+</template>
+
+<template name='wechatp'>
+  <view class='wechatP'>
+    <text>{{item.text}}</text>
+  </view>
+</template>
+
+<template name='wechatn'>
+  <view class='wechatN'>
+    <text>{{item.text}}</text>
+  </view>
+</template>
+
+<template name='wechatimg'>
+  <image class='wechat-img' mode="{{item.imgMode}}" src="{{item.src}}" />
 </template>

@@ -28,7 +28,7 @@ page {
   height: 44px;
   padding-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   position: fixed;
   top: 0;
@@ -72,14 +72,15 @@ page {
 .wechat-navBack {
   min-width: 0 !important;
   min-height: 0 !important;
-  padding: 0 5px !important;
+  padding: 8px 5px !important;
   border: none !important;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0) !important;
   margin: 0 3%;
   line-height: 2.4;
   position: relative;
   display: flex;
   align-items: center;
+  z-index: 101;
 }
 
 .wechatnavBackHover {
@@ -87,8 +88,8 @@ page {
 }
 
 .wechat-backArrow {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   border-width: 0 0 3px 3px;
   border-style: solid;
   -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
@@ -135,15 +136,15 @@ page {
 }
 
 .wechatH3 {
-  margin-left: 5%;
   font-weight: 400;
-  font-size: 15px;
-  margin-bottom: 0.34em;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0.66em 5% 0.34em 5%;
 }
 
 .wechatP {
   text-align: left;
-  background-color: #fefefe;
+  background-color: #f8f8f8;
 }
 
 .nm .wechatP {
@@ -151,9 +152,41 @@ page {
   background-color: #000;
 }
 
+.wechat .wechatP {
+  font-size: 14px;
+  padding: 0 15px;
+}
+
+.wechat2 .wechatP {
+  font-size: 17px;
+  padding: 10px 15px;
+  border-top: 1rpx #cac9ce solid;
+  border-bottom: 1rpx #cac9ce solid;
+}
+
+.wechat2.nm .wechatP {
+  border-color: #353631;
+}
+
 .wechatLctn {
   position: relative;
   background-color: #fff;
   line-height: 1.41176471;
   font-size: 17px;
+}
+
+.wechat-img {
+  margin: 12px 5%;
+  min-width: 60%;
+  align-self: center;
+  font-weight: 500;
+  border: 5px solid #fff;
+  box-shadow: 0px 2px 5px 2px #888;
+}
+
+.wechatN {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  font-weight: 300;
 }
