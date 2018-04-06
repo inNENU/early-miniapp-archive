@@ -14,16 +14,16 @@ Page({
         name: 'list', content: [
           { text: '夜间模式', Switch: 'switchnm', key: 'nightmode' },
           { text: '自动切换开关', Switch: 'switchnmAC', key: 'nightmodeAutoChange' },
-          { text: '开始时间', pickerKey: 'nmStart', pickerValue: time, tap: 'displayStart', picker: 'setStart', currentValue: [], value: [] },
-          { text: '结束时间', pickerKey: 'nmEnd', pickerValue: time, tap: 'displayEnd', picker: 'setEnd', currentValue: [], value: [] }
+          { text: '开始时间', picker: 'setStart', pickerKey: 'nmStart', pickerValue: time, tap: 'displayStart', },
+          { text: '结束时间', picker: 'setEnd', pickerKey: 'nmEnd', pickerValue: time, tap: 'displayEnd', }
         ]
       },
       { name: 'h2', text: '主题设置' },
     ],
   },
   onLoad(e) {
-    let p = this.data.page; p = u.iP(p, 'nmStart', 2, 2); p = u.iP(p, 'nmEnd', 2, 3);
-    this.setData({ page: u.sP(p, a, e), T: a.T, nm: a.nm, index: u.ak(this.data.array, a.T) })
+    let p = u.sP(this.data.page, a, e); p = u.iP(p, 'nmStart', 2, 2); p = u.iP(p, 'nmEnd', 2, 3);
+    this.setData({ page: p, T: a.T, nm: a.nm, index: u.ak(this.data.array, a.T) })
   },
   onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
   bindPickerChange(e) {

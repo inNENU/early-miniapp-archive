@@ -38,10 +38,11 @@ function setNav(page, a, e) {
 }
 function setListContent(page, a, i, e) {
   if ('content' in page[i]) {
-    var content = page[i].content;
+    let content = page[i].content;
     for (let j = 0; j < content.length; j++) {
       if ('url' in content[j]) { page[i].content[j].url += "?from=" + page[0].title }
       if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
+      if ('picker' in content[j]) { page[i].content[j].currentValue = [], page[i].content[j].value = [] }
     }
   }
 }

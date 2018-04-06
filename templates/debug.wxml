@@ -9,6 +9,23 @@
   </navigator>
 </template>
 <!-- debug Theme -->
+
+<template name="debugNav">
+  <view wx:if="{{top}}" class='wechat-navigationBar'>
+    <view class='wechat-navtext'>{{navtitle}}</view>
+  </view>
+  <view wx:if="{{top}}" class='wechat-navPlaceHolder'>
+    <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
+  </view>
+  <view wx:if="{{!top}}" class='wechatBack-layer'>
+    <image class='wechatBack-img' src='/image/nav-image/andriodback.png' bindtap='back' />
+  </view>
+  <view wx:if="{{!top}}" class='wechatTitle-container'>
+    <navigator class='wechatTitle' hover-class="titleNav-hover"> {{navtext}}-{{navtitle}} </navigator>
+    <view class='wechatNavline'></view>
+  </view>
+</template>
+
 <template name='debugH2'>
   <view class='wechatH2'>{{h2}}</view>
 </template>
