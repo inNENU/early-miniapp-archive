@@ -59,7 +59,7 @@
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">
-            <block wx:for='{{List.value}}'>{{item}}</block>
+            <block wx:for='{{List.value}}' wx:key>{{item}}</block>
           </view>
         </view>
       </view>

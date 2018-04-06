@@ -6,6 +6,6 @@ App({
     this.globalData.nm = u.nm(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
   },
-  globalData: { Version: 'V 0.2.4', imgMode: "widthFix" },
+  globalData: { Version: 'V 0.2.6', imgMode: "widthFix" },
   util: require('utils/util.js'),
 })

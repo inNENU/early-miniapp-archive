@@ -1,39 +1,6 @@
-<import src="/templates/debug/head" />
-<template is="head" data="{{title: '公共设施',h1}}" />
-<view class='{{h3}}'>洗漱区</view>
-<view class='{{p}}'>冷水为全天供应。生活热水每日热水使用量固定为18升，且不可购买（作为萌新要先去激活生活热水功能才能使用喔~激活机器在宿舍一楼有）。本部校区上午5点到8点，晚上9点到11点供热水；净月校区上午6点到8点，晚上7点到10点供热水（天华公寓全天）</view>
-<image mode="{{imagemode}}" src="{{dorm13}}"></image>
-<view class='note'>本部三舍AB洗漱区</view>
-<image mode="{{imagemode}}" src="{{dorm14}}"></image>
-<view class='note'>本部三舍C洗漱区</view>
-<image mode="{{imagemode}}" src="{{dorm15}}"></image>
-<view class='note'>净月公寓洗漱区</view>
-<view class='{{h3}}'>卫生间</view>
-<view class='{{p}}'>卫生间虽然在公共区域，但是还是挺干净的，因为都会有阿姨定期打扫卫生。</view>
-<image mode="{{imagemode}}" src="{{dorm16}}"></image>
-<image mode="{{imagemode}}" src="{{dorm17}}"></image>
-<image mode="{{imagemode}}" src="{{dorm18}}"></image>
-<view class='{{h3}}'>吹风机</view>
-<view class='{{p}}'>基本上女生寝室楼每层楼都有一个或两个吹风机，插一卡通就可以用。</view>
-<image mode="{{imagemode}}" src="{{dorm19}}"></image>
-<view class='{{h3}}'>洗衣机</view>
-<view class='{{p}}'>洗衣机是单筒洗衣机，可洗可甩干。大部分寝室楼的每个楼层有两个洗衣机。</view>
-<view class='{{p}}'>洗衣机为刷卡使用。刷一卡通即可。刷卡完毕将洗衣机盖关闭等待即可, 洗衣用的洗衣液或洗衣粉需自己准备，在洗衣前加入洗衣机内。</view>
-<image mode="{{imagemode}}" src="{{dorm20}}"></image>
-<view class='{{h3}}'>直饮水机</view>
-<view class='{{p}}'>刷卡分别可以接冷/热的饮用水，学校每天免费供2升，基本上接2大水壶的水还是够的，全天供应。超出部分收取制水成本费用，热水0.3元/升，常温水0.2元/升。直饮水服务所需的额外费用，是使用校园卡小钱包内的余额，师生可以在自助终端机上进行一卡通小钱包充值。</view>
-<image mode="{{imagemode}}" src="{{dorm21}}"></image>
-<image mode="{{imagemode}}" src="{{dorm22}}"></image>
-<view class='{{h3}}'>自习室</view>
-<view class='{{p}}'>自习室是不断电的。</view>
-<image mode="{{imagemode}}" src="{{dorm23}}"></image>
-<view class='{{note}}'>三舍A自习室</view>
-<image mode="{{imagemode}}" src="{{dorm24}}"></image>
-<view class='{{note}}'>三舍B自习室</view>
-<image mode="{{imagemode}}" src="{{dorm25}}"></image>
-<view class='{{note}}'>三舍C自习室</view>
-<image mode="{{imagemode}}" src="{{dorm26}}"></image>
-<view class='{{note}}'>天华公寓自习室</view>
-<view class='{{h3}}'>电梯</view>
-<view class='{{p}}'>三舍作为高层建筑，A座、C座拥有四台电梯，B拥有三台电梯，客梯不停低楼层，入住时可以使用货梯。</view>
-<image mode="{{imagemode}}" src="{{dorm27}}"></image>
+<import src="/templates/empty" />
+<import src="/templates/iOS" />
+<import src="/templates/wechat" />
+<view class="{{T}} {{nm?'nm':''}}">
+    <template wx:for="{{page}}" wx:key is="{{item.theme}}{{item.name}}" data='{{item}}' />
+</view>

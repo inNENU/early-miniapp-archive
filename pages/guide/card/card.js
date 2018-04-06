@@ -1,6 +1,4 @@
-var u = require('../../../utils/util.js');
-const a = getApp().globalData;
-// card1: "https://pic.kuaizhan.com/g1/M01/90/7B/wKjmqVl8kiiAI0oWAAFJCRiW1KA9407409/imageView/v1/thumbnail/640x0" 
+var u = getApp().util, a = getApp().globalData;
 Page({
   data: {
     page: [
