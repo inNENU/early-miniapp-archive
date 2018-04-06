@@ -18,6 +18,7 @@ Page({
           { text: '结束时间', pickerKey: 'nmEnd', pickerValue: time, tap: 'displayEnd', pickerchange: 'setEnd', currentValue: [], value: [] }
         ]
       },
+      { name: 'h2', text: '主题设置' },
     ],
   },
   onLoad(e) {
@@ -40,20 +41,10 @@ Page({
     let nm = u.nm(new Date()); a.nm = nm;
     this.setData({ nm: nm, page: u.sP(this.data.page, a) });
   },
-  displayStart() {
-    let page = this.data.page; page[2].content[2].display = !page[2].content[2].display
-    this.setData({ page: page })
-  },
-  setStart(e) {
-    this.setData({ page: u.sPV(this.data.page, e.detail.value, 2, 2) })
-  },
-  displayEnd() {
-    let page = this.data.page; page[2].content[3].display = !page[2].content[3].display
-    this.setData({ page: page })
-  },
-  setEnd(e) {
-    this.setData({ page: u.sPV(this.data.page, e.detail.value, 2, 3) })
-  },
+  displayStart() { let page = this.data.page; page[2].content[2].display = !page[2].content[2].display; this.setData({ page: page }) },
+  setStart(e) { this.setData({ page: u.sPV(this.data.page, e.detail.value, 2, 2) }) },
+  displayEnd() { let page = this.data.page; page[2].content[3].display = !page[2].content[3].display; this.setData({ page: page }) },
+  setEnd(e) { this.setData({ page: u.sPV(this.data.page, e.detail.value, 2, 3) }) },
   back() { u.back() },
   onUnload() { a.nm = u.nm(new Date()) },
 })

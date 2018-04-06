@@ -1,10 +1,10 @@
 var u = require('utils/util.js');
 App({
-  data: { theme: "wechat" },
+  data: { theme: "auto", startTime: '20-0', endTime: "5-0" },
   onLaunch() {
-    this.globalData.T = u.init("theme", this.data.theme);
+    this.globalData.T = u.sT(this.data.theme);
+    this.globalData.nm = u.nm(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
-    this.globalData.nm = u.nm(new Date());
   },
-  globalData: { imgMode: "widthFix" },
+  globalData: { Version: 'V0.2.4', imgMode: "widthFix" },
 })

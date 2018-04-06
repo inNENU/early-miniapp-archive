@@ -5,7 +5,6 @@
   <template wx:for="{{page}}" is="{{item.theme}}{{item.name}}" data='{{item}}' />
   <view class='iOSP'>
     <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-
       <view class="picker">
         当前选择：{{array[index]}}
       </view>

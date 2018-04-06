@@ -1,13 +1,22 @@
 function initialize(key, defaultKey) {
   let value = wx.getStorageSync(key);
-  if (value || value === false) { return value; }
-  else { wx.setStorageSync(key, defaultKey); return defaultKey; }
+  if (value || value === false) { return value } else { wx.setStorageSync(key, defaultKey); return defaultKey; }
 }
-function nightmode(date) {
+function setTheme(theme) {
+  let value = wx.getStorageSync('theme'); if (value) { return value } else {
+    if (theme == "auto") {
+      let platform = wx.getSystemInfoSync().platform;
+      if (platform == 'ios') { return 'iOS' };
+      if (platform == 'android') { return 'wechat' };
+      if (platform == 'devtools') { return 'iOS' };
+    } else { return theme }
+  }
+}
+function nightmode(date, startTime, endTime) {
   let nm = initialize('nightmode', true);
   let nmAC = initialize('nightmodeAutoChange', true);
-  let s = initialize('nmStart', '20-0').split('-');
-  let e = initialize('nmEnd', '5-0').split('-');
+  let s = initialize('nmStart', startTime).split('-');
+  let e = initialize('nmEnd', endTime).split('-');
   let start = Number(s[0]) * 100 + Number(s[1]), end = Number(e[0]) * 100 + Number(e[1]);
   let time = date.getHours() * 100 + date.getMinutes();
   if (nmAC && nm) {
@@ -84,6 +93,7 @@ function arrayKeynumber(array, key) {
 }
 module.exports = {
   init: initialize,
+  sT: setTheme,
   nm: nightmode,
   nav: iOSnav,
   tBC: tBC,
