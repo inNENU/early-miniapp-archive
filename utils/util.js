@@ -13,15 +13,14 @@ function setTheme(theme) {
   }
 }
 function nightmode(date, startTime, endTime) {
-  let nm = initialize('nightmode', true);
-  let nmAC = initialize('nightmodeAutoChange', true);
-  let s = initialize('nmStart', startTime).split('-');
-  let e = initialize('nmEnd', endTime).split('-');
+  let nm = initialize('nightmode', true), nmAC = initialize('nightmodeAutoChange', true);
+  let s = initialize('nmStart', startTime).split('-'), e = initialize('nmEnd', endTime).split('-');
   let start = Number(s[0]) * 100 + Number(s[1]), end = Number(e[0]) * 100 + Number(e[1]);
-  let time = date.getHours() * 100 + date.getMinutes();
-  if (nmAC && nm) {
-    if (start <= end) { if (time >= start && time <= end) { return true } else { return false } }
-    else { if (time <= start && time >= end) { return false } else { return true } }
+  let time = date.getHours() * 100 + date.getMinutes(); var temp;
+  if (nmAC) {
+    if (start <= end) { if (time >= start && time <= end) { temp = true } else { temp = false } }
+    else { if (time <= start && time >= end) { temp = false } else { temp = true } };
+    wx.setStorageSync('nightmode', temp); return temp;
   } else { return nm; }
 }
 function iOSnav(pos, page) {
@@ -40,8 +39,8 @@ function setListContent(page, a, i, e) {
   if ('content' in page[i]) {
     let content = page[i].content;
     for (let j = 0; j < content.length; j++) {
-      if ('url' in content[j]) { page[i].content[j].url += "?from=" + page[0].title }
       if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
+      if ('url' in content[j]) { page[i].content[j].url += "?from=" + page[0].title }
       if ('picker' in content[j]) { page[i].content[j].currentValue = [], page[i].content[j].value = [] }
     }
   }
@@ -60,6 +59,7 @@ function setPickerValue(page, value, i, j) {
   };
   wx.setStorageSync(page[i].content[j].pickerKey, value.join('-')); return page;
 }
+function setSwitch(page, value, i, j) { page[i].content[j].checked = value; return page; }
 function setPage(page, a, e) {
   setNav(page, a, e);
   for (let i = 0; i < page.length; i++) {
@@ -68,21 +68,12 @@ function setPage(page, a, e) {
     setListContent(page, a, i, e);
   }; return page;
 }
-function tBC(nm) {
+function tabBarChanger(nm) {
   if (nm) { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#000000', borderStyle: 'white' }) }
   else { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#ffffff', borderStyle: 'black' }) };
 }
 function go(url) { wx.navigateTo({ url: url, }) }
 function back() { wx.navigateBack({}) }
-function formatTime(date) {
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
-  var hour = date.getHours()
-  var minute = date.getMinutes()
-  var second = date.getSeconds()
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
 function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -97,15 +88,25 @@ module.exports = {
   sT: setTheme,
   nm: nightmode,
   nav: iOSnav,
-  tBC: tBC,
+  tBC: tabBarChanger,
   go: go,
   back: back,
+  sP: setPage,
   iP: initializePicker,
   sPV: setPickerValue,
-  sP: setPage,
-  formatTime: formatTime,
+  sS: setSwitch,
   ak: arrayKeynumber,
+  // formatTime: formatTime,
 }
+// function formatTime(date) {
+//   var year = date.getFullYear()
+//   var month = date.getMonth() + 1
+//   var day = date.getDate()
+//   var hour = date.getHours()
+//   var minute = date.getMinutes()
+//   var second = date.getSeconds()
+//   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+// }
 // function iOSnav2(pos) {
 //   let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
 //   console.log(pos)

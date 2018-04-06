@@ -1,5 +1,4 @@
-var u = require('../../utils/util.js');
-const a = getApp().globalData;
+var u = getApp().util, a = getApp().globalData;
 var date = new Date()
 var time = [[], []];
 for (let i = 0; i <= 23; i++) { time[0].push(i + '时') };
@@ -32,14 +31,17 @@ Page({
     this.setData({ index: v, page: u.sP(this.data.page, a) });
   },
   switchnm(e) {
-    wx.setStorageSync("nightmode", e.detail.value);
-    let nm = u.nm(new Date()); a.nm = nm;
-    this.setData({ nm: nm, page: u.sP(this.data.page, a) });
+    let p = this.data.page, value = e.detail.value;;
+    if (!p[2].content[1].checked) {
+      wx.setStorageSync("nightmode", value); a.nm = value;
+      this.setData({ nm: value, page: u.sS(p, e.detail.value, 2, 0) });
+    } else { this.setData({ page: u.sS(p, !value, 2, 0) }) }
   },
   switchnmAC(e) {
-    wx.setStorageSync("nightmodeAutoChange", e.detail.value); wx.setStorageSync("nightmode", e.detail.value);
-    let nm = u.nm(new Date()); a.nm = nm;
-    this.setData({ nm: nm, page: u.sP(this.data.page, a) });
+    let value = e.detail.value; wx.setStorageSync("nightmodeAutoChange", value);
+    let nm = u.nm(new Date()), temp = wx.getStorageSync("nightmode"), p = this.data.page;
+    a.nm = nm; p = u.sS(u.sS(p, temp, 2, 0), value, 2, 1)
+    this.setData({ nm: nm, page: p });
   },
   displayStart() { let page = this.data.page; page[2].content[2].display = !page[2].content[2].display; this.setData({ page: page }) },
   setStart(e) { this.setData({ page: u.sPV(this.data.page, e.detail.value, 2, 2) }) },
