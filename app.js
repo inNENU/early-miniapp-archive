@@ -7,4 +7,5 @@ App({
     this.globalData.info = wx.getSystemInfoSync();
   },
   globalData: { Version: 'V 0.2.4', imgMode: "widthFix" },
+  util: require('utils/util.js'),
 })
