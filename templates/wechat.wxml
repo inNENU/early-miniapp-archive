@@ -10,7 +10,7 @@
   </view>
   <view wx:if="{{item.desc}}" class="wechat-head">
     <view class=".wechat-title">{{item.title}}</view>
-    <view wx:if="{{item.desc}}" class="wechat-desc">{{title-explaination}}</view>
+    <view wx:if="{{item.desc}}" class="wechat-desc">{{item.desc}}</view>
   </view>
 </template>
 
@@ -32,12 +32,12 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}"> {{List.desc}} </view>
         </view>
       </navigator>
-      <view wx:if='{{!List.url && !List.pickerValue}}' class="iOS-listCtn {{List.switchchange?'iOS-switchList':''}}">
+      <view wx:if='{{!List.url && !List.pickerValue}}' class="iOS-listCtn {{List.Switch?'iOS-switchList':''}}">
         <!-- <view>此处插入icon</view> -->
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">{{List.desc}}
-            <switch wx:if='{{List.switchchange}}' checked='{{List.checked}}' bindchange="{{List.switchchange}}" />
+            <switch wx:if='{{List.Switch}}' checked='{{List.checked}}' bindchange="{{List.Switch}}" />
           </view>
         </view>
       </view>
@@ -51,7 +51,7 @@
       </view>
       <block wx:if='{{List.display}}'>
         <view class='iOS-link-divline'></view>
-        <picker-view indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="{{List.pickerchange}}">
+        <picker-view indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="{{List.picker}}">
           <block wx:for='{{List.pickerValue}}' wx:key="*this">
             <picker-view-column class='iOSpick-view-column'>
               <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>

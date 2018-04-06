@@ -1,4 +1,4 @@
-@import "templates/weui.wxss";
+@import "templates/wechat.wxss";
 @import "templates/iOS.wxss";
 
  page {

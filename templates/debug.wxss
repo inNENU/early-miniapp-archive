@@ -1,0 +1,148 @@
+/* ----wechat theme---- */
+/* 
+.wechatBack-layer {
+  position: fixed;
+  top: 24px;
+  left: 16px;
+  width: 40px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  z-index: 99;
+}
+
+.wechatBack-img {
+  position: fixed;
+  top: 30px;
+  left: 26px;
+  width: 20px;
+  height: 18px;
+  z-index: 100;
+}
+
+.wechat-titletext {
+  width: 100%;
+  position: absolute;
+  align-self: center;
+  font-size: 34rpx;
+  text-align: center;
+  z-index: 100;
+}
+
+.true .wechat-titletext {
+  color: #fff;
+}
+
+.wechatTitle-container {
+  width: 100%;
+  height: 62px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wechatTitle {
+  max-width: 60%;
+  padding:0 16px 0 12px;
+  color: #000;
+  border-radius: 20px;
+  font-size: 22px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titleNav-hover {
+  color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.wechatNavline {
+  width: 30%;
+  height: 1px;
+  background-color: #888;
+}
+
+/* wechat Container */
+
+.wechatCtn {
+  width: 100%;
+  min-height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+}
+
+.false .wechatCtn {
+  background-color: #f8f8f8;
+}
+
+.true .wechatCtn {
+  background-color: #10110c;
+}
+
+.wechatCtn2 {
+  width: 100%;
+  min-height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+}
+
+.false .wechatCtn2 {
+  background-color: #f8f8f8;
+}
+
+.true .wechatCtn2 {
+  background-color: #10110c;
+}
+
+/* wechatcontent */
+/* 
+.wechatH2 {
+  text-align: center;
+  font-size: 19pt;
+  margin-top: 6px;
+  margin-bottom: 0px;
+  margin-left: 10%;
+  margin-right: 10%;
+}  */
+
+/* .wechatH3 {
+  text-align: center;
+  font-size: 18pt;
+  margin-top: 6px;
+  margin-bottom: 0px;
+  margin-left: 10%;
+  margin-right: 10%;
+} */
+
+.wechatP {
+  text-align: left;
+  font-size: 17pt;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.wechatN {
+  text-align: center;
+  font-size: 14pt;
+  margin-top: -1rpx;
+  margin-bottom: 3px;
+  color: b2b2b2;
+}
+
+.wechatButton {
+  min-width: 20%;
+  max-width: 80%;
+  font-size: 16pt;
+  /* overflow-wrap: normal; */
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
