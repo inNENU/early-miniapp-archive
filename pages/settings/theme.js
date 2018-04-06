@@ -10,7 +10,14 @@ Page({
     page: [
       { name: 'head', title: '主题设置' },
       { name: 'h2', text: '夜间模式' },
-      { name: 'list', content: [{ text: '夜间模式', switchchange: 'switchnm', key: 'nightmode' }, { text: '自动切换开关', switchchange: 'switchnmAC', key: 'nightmodeAutoChange' }, { text: '开始时间', pickerKey: 'nmStart', pickerValue: time, tap: 'displayStart', pickerchange: 'setStart', currentValue: [], value: [] }, { text: '结束时间', pickerKey: 'nmEnd', pickerValue: time, tap: 'displayEnd', pickerchange: 'setEnd', currentValue: [], value: [] }] },
+      {
+        name: 'list', content: [
+          { text: '夜间模式', switchchange: 'switchnm', key: 'nightmode' },
+          { text: '自动切换开关', switchchange: 'switchnmAC', key: 'nightmodeAutoChange' },
+          { text: '开始时间', pickerKey: 'nmStart', pickerValue: time, tap: 'displayStart', pickerchange: 'setStart', currentValue: [], value: [] },
+          { text: '结束时间', pickerKey: 'nmEnd', pickerValue: time, tap: 'displayEnd', pickerchange: 'setEnd', currentValue: [], value: [] }
+        ]
+      },
     ],
   },
   onLoad(e) {

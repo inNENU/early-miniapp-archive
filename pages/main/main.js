@@ -4,8 +4,7 @@ Page({
   data: {
     page: [
       { name: 'head', title: '首页', top: true },
-      { name: 'n', text: '\n开发版本：V0.2.1' },
-      { name: 'n', text: '增加了夜间模式修改开始与启动时间的功能；\n添加了iOSpicker-view模板；\n改进了夜间模式设置函数；\n精简了界面js模板的代码数量；' },
+      { name: 'n', text: '\n开发版本：V0.2.4' },
       { name: 'h3', text: '这里是东师青年官方小程序' },
       { name: 'h3', text: '首页制作中......' },
       { name: 'list', content: [{ text: '主题设置', url: '/pages/settings/theme' }] },

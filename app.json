@@ -3,6 +3,7 @@
     "pages/main/main",
     "pages/settings/theme",
     "pages/function/function",
+    "pages/function/details/cal",
     "pages/guide/guide",
     "pages/guide/dorm/dorm",
     "pages/guide/dorm/details/dorm1",
