@@ -2,4 +2,7 @@
 <import src="/templates/wechat" />
 <view class="{{T}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" is="{{item.theme}}{{item.name}}" data='{{item}}' />
+  <view class='iOSN'>
+    <text>开发版本：{{version}}</text>
+  </view>
 </view>

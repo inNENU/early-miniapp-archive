@@ -4,11 +4,11 @@ Page({
   data: {
     page: [
       { name: 'head', title: '首页', top: true },
-      { name: 'n', text: '\n开发版本：V0.2.4' },
       { name: 'h3', text: '这里是东师青年官方小程序' },
       { name: 'h3', text: '首页制作中......' },
       { name: 'list', content: [{ text: '主题设置', url: '/pages/settings/theme' }] },
     ],
+    version: a.Version,
   },
   onShow() {
     let SDK = wx.getSystemInfoSync().SDKVersion;

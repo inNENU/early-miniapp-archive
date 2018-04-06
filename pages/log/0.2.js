@@ -11,10 +11,7 @@ Page({
       { name: 'h2', text: 'V0.2.3' },
       { name: 'p', text: '初步构建微信主题夜间模式;' },
       { name: 'h2', text: 'V0.2.4' },
-      { name: 'p', text: '加入绩点计算器;' },
-      { name: 'h2', text: 'V0.2.5' },
-      { name: 'p', text: '加入初始化根据平台加载主题功能;' },
-      
+      { name: 'p', text: '加入绩点计算器;\n加入初始化根据平台加载主题功能;' },
     ],
   },
   onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },
