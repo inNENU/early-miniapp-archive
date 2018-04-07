@@ -13,12 +13,20 @@ page {
   background-color: #f8f8f8;
 }
 
+.nm.wechat {
+  background-color: #070707;
+}
+
 .wechat2 {
   width: 100%;
   min-height: 100%;
   display: flex;
   flex-direction: column;
   background-color: #efeef4;
+}
+
+.nm.wechat2 {
+  background-color: #10110b;
 }
 
 /* 导航 */
@@ -105,6 +113,10 @@ page {
   padding: 40px;
 }
 
+.nm .wechat-head {
+  color: white;
+}
+
 .wechat-title {
   text-align: left;
   font-size: 20px;
@@ -135,11 +147,19 @@ page {
   font-size: 14px;
 }
 
+.nm .wechatH2 {
+  color: #666;
+}
+
 .wechatH3 {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   line-height: 1.6;
   margin: 0.66em 5% 0.34em 5%;
+}
+
+.nm .wechatH3 {
+  color: white;
 }
 
 .wechatP {
@@ -149,7 +169,7 @@ page {
 
 .nm .wechatP {
   color: white;
-  background-color: #000;
+  background-color: #070707;
 }
 
 .wechat .wechatP {
@@ -175,6 +195,10 @@ page {
   font-size: 17px;
 }
 
+.nm .wechatLctn {
+  background-color: #000;
+}
+
 .wechat-img {
   margin: 12px 5%;
   min-width: 60%;
@@ -184,9 +208,18 @@ page {
   box-shadow: 0px 2px 5px 2px #888;
 }
 
+.nm .wechat-img {
+  border-color: #ccc;
+  box-shadow: 0px 2px 5px 2px #777;
+}
+
 .wechatN {
   font-size: 12px;
   color: #888;
   text-align: center;
   font-weight: 300;
+}
+
+.nm .wechatN {
+  color: #777;
 }
