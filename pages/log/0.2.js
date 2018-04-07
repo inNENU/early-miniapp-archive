@@ -17,6 +17,8 @@ Page({
       { name: 'p', text: '优化util调用方式；\n建立empty模板,加入wx:key减少报错；' },
       { name: 'h2', text: 'V0.2.7' },
       { name: 'p', text: '加入study首页；\n初步构建wechat夜间模式；' },
+      { name: 'h2', text: 'V0.2.8' },
+      { name: 'p', text: '对小程序升级进行判断；\n完善SDK判断；' },
     ],
   },
   onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },
