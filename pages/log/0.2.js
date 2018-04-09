@@ -19,6 +19,8 @@ Page({
       { name: 'p', text: '加入study首页；\n初步构建wechat夜间模式；' },
       { name: 'h2', text: 'V0.2.8' },
       { name: 'p', text: '对小程序升级进行判断；\n完善SDK判断；' },
+      { name: 'h2', text: 'V0.2.9' },
+      { name: 'p', text: '夜间模式开关逻辑优化' },
     ],
   },
   onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },

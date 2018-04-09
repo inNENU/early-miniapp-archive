@@ -4,7 +4,7 @@ Page({
     page: [
       { name: 'head', title: '东师指南', top: true },
       { name: 'h2', text: '' },
-      { name: 'list', content: [{ text: '寝室', url: 'dorm/dorm' }, { text: '校园卡', url: 'card/card' }, { text: '学习', url: 'study/study' }] },
+      { name: 'list', content: [{ text: '寝室', url: 'dorm/dorm' }, { text: '校园卡', url: 'card/card' }, { text: '学习', url: 'study/study' }, { text: '资助', url: 'subsidize/subsidize' },] },
     ],
   },
   onShow() { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a) }) },

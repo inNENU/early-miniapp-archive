@@ -31,11 +31,10 @@ Page({
     this.setData({ index: v, page: u.sP(this.data.page, a) });
   },
   switchnm(e) {
-    let p = this.data.page, value = e.detail.value;;
-    if (!p[2].content[1].checked) {
-      wx.setStorageSync("nightmode", value); a.nm = value;
-      this.setData({ nm: value, page: u.sS(p, e.detail.value, 2, 0) });
-    } else { this.setData({ page: u.sS(p, !value, 2, 0) }) }
+    let p = this.data.page, value = e.detail.value; a.nm = value;
+    p[2].content[1].checked = false;
+    wx.setStorageSync("nightmode", value); wx.setStorageSync("nightmodeAutoChange", false); 
+    this.setData({ nm: value, page: u.sS(p, e.detail.value, 2, 0) });
   },
   switchnmAC(e) {
     let value = e.detail.value; wx.setStorageSync("nightmodeAutoChange", value);
