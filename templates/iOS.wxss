@@ -301,12 +301,20 @@
 
 .nm .iOSpickerViewCtn {
   color: white;
-  /* background-color: black;  */
+  background-color: black;
+}
+
+.iOSpickerMask {
+  background-color: black;
 }
 
 .iOSpick-view-column {
   min-width: 50px;
   flex: none;
+}
+
+.nm .iOSpick-view-column {
+  background-color: black;
 }
 
 .iOSpick-view-column:first-child {
