@@ -1,0 +1,81 @@
+<template name="wechathead">
+  <view class='wechat-navigationBar' style="{{item.iPhoneX?'padding-top:46px;height:40px;':''}}{{item.android?'top:10px;':''}}">
+    <view class="wechat-titletext">{{item.title}}</view>
+    <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="wechatnavBackHover" plain='true' bindtap='back'>
+      <view class='wechat-backArrow'></view>
+    </button>
+  </view>
+  <view class='wechat-navPlaceHolder' style="{{item.iPhoneX?'height:86px;':''}}{{item.android?'margin-top:10px;':''}}">
+    <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
+  </view>
+  <view wx:if="{{item.desc}}" class="wechat-head">
+    <view class=".wechat-title">{{item.title}}</view>
+    <view wx:if="{{item.desc}}" class="wechat-desc">{{item.desc}}</view>
+  </view>
+</template>
+
+<template name='wechath2'>
+  <view class='wechatH2'>{{item.text}}</view>
+</template>
+
+<template name='wechath3'>
+  <view class='wechatH3'>{{item.text}}</view>
+</template>
+
+<template name='wechatlist'>
+  <view class='iOSLctn'>
+    <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{item.text}}">
+      <navigator wx:if='{{List.url}}' class="iOS-listCtn" url='{{List.url}}'>
+        <!-- <view>此处插入icon</view> -->
+        <view class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}"> {{List.desc}} </view>
+        </view>
+      </navigator>
+      <view wx:if='{{!List.url && !List.pickerValue}}' class="iOS-listCtn {{List.Switch?'iOS-switchList':''}}">
+        <!-- <view>此处插入icon</view> -->
+        <view class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view class="iOS-linkDesciption">{{List.desc}}
+            <switch wx:if='{{List.Switch}}' checked='{{List.checked}}' bindchange="{{List.Switch}}" />
+          </view>
+        </view>
+      </view>
+      <view wx:if='{{List.pickerValue}}' class="iOS-listCtn" bindtap='{{List.tap}}'>
+        <view class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view class="iOS-linkDesciption">
+            <block wx:for='{{List.value}}'>{{item}}</block>
+          </view>
+        </view>
+      </view>
+      <block wx:if='{{List.display}}'>
+        <view class='iOS-link-divline'></view>
+        <picker-view indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="{{List.picker}}">
+          <block wx:for='{{List.pickerValue}}' wx:key="*this">
+            <picker-view-column class='iOSpick-view-column'>
+              <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
+            </picker-view-column>
+          </block>
+        </picker-view>
+      </block>
+      <view class='iOS-link-divline'></view>
+    </block>
+  </view>
+</template>
+
+<template name='wechatp'>
+  <view class='wechatP'>
+    <text>{{item.text}}</text>
+  </view>
+</template>
+
+<template name='wechatn'>
+  <view class='wechatN'>
+    <text>{{item.text}}</text>
+  </view>
+</template>
+
+<template name='wechatimg'>
+  <image class='wechat-img' mode="{{item.imgMode}}" src="{{item.src}}" />
+</template>

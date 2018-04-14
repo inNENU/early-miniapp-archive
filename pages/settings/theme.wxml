@@ -1,0 +1,15 @@
+<import src="/templates/empty" />
+<import src="/templates/iOS" />
+<import src="/templates/wechat" />
+<import src="/templates/foot-nenu" />
+<view class="{{T}}2 {{nm?'nm':''}}">
+  <template wx:for="{{page}}" wx:key is="{{item.theme}}{{item.name}}" data='{{item}}' />
+  <view class='iOSP'>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view class="picker">
+        当前选择：{{array[index]}}
+      </view>
+    </picker>
+    <view>目前微信主题与debug主题正在建设中......</view>
+  </view>
+</view>

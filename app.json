@@ -1,0 +1,75 @@
+{
+  "pages": [
+    "pages/main/main",
+    "pages/settings/theme",
+    "pages/function/function",
+    "pages/function/details/cal",
+    "pages/guide/guide",
+    "pages/guide/dorm/dorm",
+    "pages/guide/dorm/details/dorm1",
+    "pages/guide/dorm/details/dorm2",
+    "pages/guide/dorm/details/dorm3",
+    "pages/guide/dorm/details/dorm4",
+    "pages/guide/life/life",
+    "pages/guide/study/study",
+    "pages/guide/life/details/bath",
+    "pages/guide/life/details/express",
+    "pages/guide/card/card",
+    "pages/guide/subsidize/subsidize",
+    "pages/log/log",
+    "pages/log/alpha",
+    "pages/log/0.1",
+    "pages/log/0.2",
+    "pages/guide/study/details/learning1",
+    "pages/guide/study/details/learning2",
+    "pages/guide/study/details/learning3"
+    
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1A9D5E",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "东师青年",
+    "navigationStyle": "custom",
+    "backgroundColor": "#efeef4",
+    "backgroundTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "text": "首页",
+        "iconPath": "image/tab/home.png",
+        "selectedIconPath": "image/tab/home-selected.png"
+      },
+      {
+        "pagePath": "pages/function/function",
+        "text": "功能",
+        "iconPath": "image/tab/function.png",
+        "selectedIconPath": "image/tab/function-selected.png"
+      },
+      {
+        "pagePath": "pages/guide/guide",
+        "text": "东师指南",
+        "iconPath": "image/tab/guide.png",
+        "selectedIconPath": "image/tab/guide-selected.png"
+      },
+      {
+        "pagePath": "pages/log/log",
+        "text": "开发日志",
+        "iconPath": "image/tab/log.png",
+        "selectedIconPath": "image/tab/log-selected.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "debug": false
+}
