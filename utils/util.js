@@ -42,6 +42,7 @@ function iOSnav(pos, page) {
 }
 function setNav(page, a, e) {
   if (a.info.model.substring(0, 8) === 'iPhone X') { page[0].iPhoneX = true };
+  if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
   if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
 }
 function setListContent(page, a, i, e) {
