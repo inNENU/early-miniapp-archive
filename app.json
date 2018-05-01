@@ -49,7 +49,8 @@
     "pages/guide/study/details/learning28",
     "pages/guide/study/details/learning29",
     "pages/guide/study/details/learning30",
-    "pages/guide/study/details/learning27"],
+    "pages/guide/study/details/learning27"
+  ],
   "window": {
     "navigationBarBackgroundColor": "#1A9D5E",
     "navigationBarTextStyle": "white",

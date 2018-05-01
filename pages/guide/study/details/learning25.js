@@ -1,66 +1,17 @@
-// pages/guide/study/details/learning25.js
+var u = getApp().util, a = getApp().globalData;
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
-  },
+    page: [{ name: 'head', title: '馆藏分布' },
+    { name: 'h3', text: ' 本部校区' },
+    { name: 'img', src: 'https://pic.kuaizhan.com/g1/M01/6E/4F/CgpQU1l9prSAXSeJAABZblS3sG87598972/imageView/v1/thumbnail/640x0' },
+    { name: 'h3', text: ' 净月校区' },
+    { name: 'img', src: 'https://pic.kuaizhan.com/g2/M01/91/67/wKjmqlmDE_mAM9RxAABwbEJI6104290272/imageView/v1/thumbnail/640x0' },
+    { name: 'h3', text: ' 图书馆馆藏分布' },
+    { name: 'img', src: 'https://pic.kuaizhan.com/g1/M01/6E/59/CgpQU1l9qISATKcEAA_anR6DMbc6240540/imageView/v1/thumbnail/640x0' }
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+    ],
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
+  onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },
+  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
+  back() { u.back() },
 })

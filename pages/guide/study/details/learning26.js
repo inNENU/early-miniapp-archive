@@ -1,66 +1,15 @@
-// pages/guide/study/details/learning26.js
+var u = getApp().util, a = getApp().globalData;
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
-  },
+    page: [{ name: 'head', title: '图书馆开门时间' },
+    { name: 'h3', text: '本部校区' }, 
+    { name: 'img', src: 'https://pic.kuaizhan.com/g1/M01/91/99/wKjmqVl9qfmAbEZDAAA35Azp2Vw8569121/imageView/v1/thumbnail/640x0' },
+    { name: 'h3', text: '净月校区' }, 
+    { name: 'img', src: 'https://pic.kuaizhan.com/g1/M00/6E/5A/CgpQU1l9qfuAZQuUAAAdeHg8vEk7191896/imageView/v1/thumbnail/640x0' }
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+    ],
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
+  onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },
+  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
+  back() { u.back() },
 })
