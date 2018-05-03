@@ -24,6 +24,7 @@ Page({
       { name: 'p', text: '三楼分为两个部分，从西边的楼梯上去，是思齐自助餐厅，东边楼梯上去是清真餐厅。两个餐厅都可以承担着学生部分团体活动，如社团聚会、老乡会等。两个餐厅是不通的，需要由不同的楼梯上楼。（1）西部的思齐餐厅属于自助饭店的性质，自助早餐五元一位，可供选择较多，很划算。中午和晚上会有自助小火锅，8毛钱一串。（2）东边的餐厅为清真饭店。' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M00/7F/27/CgpQVFl8OTWAa6Q5AAO0RxI-T4M0230744/imageView/v1/thumbnail/640x480' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M01/80/E3/wKjmqll8OTaAChyCAARZ7qmmwgo7475499/imageView/v1/thumbnail/640x480' },
+      { name: 'h4', text: '' },
     ],
   },
   onLoad(e) { let page = u.sP(this.data.page, a, e); this.setData({ T: a.T, nm: a.nm, page: page }) },

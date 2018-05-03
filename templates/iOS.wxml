@@ -35,12 +35,6 @@
   </view>
 </template>
 
-<template name='iOSn'>
-  <view class='iOSN'>
-    <text>{{item.text}}</text>
-  </view>
-</template>
-
 <template name='iOSlist'>
   <view wx:if="{{item.heading!==false}}" class='iOSLheading'>{{item.heading}}</view>
   <view class='iOSLctn'>
@@ -128,4 +122,13 @@
 
 <template name='iOSimg'>
   <image class='iOS-img' mode="{{item.imgMode}}" lazy-load="true" src="{{item.src}}" />
+   <view wx:if="{{item.text}}" class='iOSN'>
+    <text>{{item.text}}</text>
+  </view>
+</template>
+
+<template name='iOSn'>
+  <view class='iOSN'>
+    <text>{{item.text}}</text>
+  </view>
 </template>

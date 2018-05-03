@@ -15,7 +15,7 @@ Page({
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M01/80/E0/wKjmqll8M4aAIqj0AADEIMG7lqg3100178/imageView/v1/thumbnail/640x480' },
       { name: 'p', text: '价位：一荤两素大概平均价位在7、8元左右，两荤一素在9、10元左右。' },
       { name: 'p', text: '注意：不能带非清真类食品、非清真食堂的筷子餐盘等入内。' },
-      { name: 'h3', text: '' },
+      { name: 'h4', text: '' },
     ],
   },
   onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },
