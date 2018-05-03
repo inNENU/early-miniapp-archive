@@ -4,7 +4,7 @@ Page({
     page: [
       { name: 'head', title: '学习' },
       { name: 'h2', text: '奖学金' },
-      { name: 'list', content: [{ text: '类型', url: 'details/learning1' }, { text: '评定时间', url: 'details/learning2' }, { text: '特别说明', url: 'details/learning3' }] },
+      { name: 'list', content: [{ text: '类型及评定时间', url: 'details/learning1' },  { text: '特别说明', url: 'details/learning3' }] },
       { name: 'h2', text: '东师及专业排名' },
       { name: 'list', content: [{ text: '东师排名', url: 'details/learning4' }, { text: '专业排名', url: 'details/learning5' }] },
       { name: 'h2', text: '本科课程设置' },

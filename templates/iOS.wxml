@@ -24,9 +24,14 @@
   <view class='iOSH3'>{{item.text}}</view>
 </template>
 
+<template name='iOSh4'>
+  <view class='iOSH4'>{{item.text}}</view>
+</template>
+
 <template name='iOSp'>
   <view class='iOSP'>
     <text>{{item.text}}</text>
+    <image wx:if="{{item.src}}" class='iOSP-img' lazy-load="true" mode="aspectFill" src="{{item.src}}" />
   </view>
 </template>
 
@@ -37,6 +42,7 @@
 </template>
 
 <template name='iOSlist'>
+  <view wx:if="{{item.heading!==false}}" class='iOSLheading'>{{item.heading}}</view>
   <view class='iOSLctn'>
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{item.text}}">
       <navigator wx:if='{{List.url}}' class="iOS-listCtn" url='{{List.url}}'>
@@ -121,5 +127,5 @@
 </template>
 
 <template name='iOSimg'>
-  <image class='iOS-img' mode="{{item.imgMode}}" src="{{item.src}}" />
+  <image class='iOS-img' mode="{{item.imgMode}}" lazy-load="true" src="{{item.src}}" />
 </template>
