@@ -4,13 +4,7 @@ Page({
     page: [
       { name: 'head', title: '寝室' },
       { name: 'h2', text: '寝室分布' },
-      {
-        name: 'list',
-        content: [
-          { text: '本部校区', url: 'details/dorm1' },
-          { text: '净月校区', url: 'details/dorm2' }
-        ],
-      },
+      { name: 'list', content: [{ text: '本部校区', url: 'details/dorm1' }, { text: '净月校区', url: 'details/dorm2' }], },
       { name: 'h2', text: '寝室环境' },
       { name: 'list', content: [{ text: '室内布局', url: 'details/dorm3' }, { text: '公共区域', url: 'details/dorm4' }] },
       { name: 'h2', text: '禁用物品' },

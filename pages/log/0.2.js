@@ -20,7 +20,7 @@ Page({
       { name: 'h2', text: 'V0.2.8' },
       { name: 'p', text: '对小程序升级进行判断；\n完善SDK判断；' },
       { name: 'h2', text: 'V0.2.9' },
-      { name: 'p', text: '夜间模式开关逻辑优化' },
+      { name: 'p', text: '夜间模式开关逻辑优化;\n升级小程序版本库到2.0.2；' },
     ],
   },
   onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },
