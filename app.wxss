@@ -15,23 +15,11 @@ page {
 
 .imgError {
   width: 90%;
+  display: -webkit-flex;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 8px 5%;
-}
-
-/* button {
-  min-width: 40%;
-  max-width: 80%;
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-  align-self: center;
-  background-color: white;
-}  */
-
-form {
-  width: 100%;
 }
 
 /* footer */

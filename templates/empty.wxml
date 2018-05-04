@@ -5,4 +5,4 @@
 <template name="list" />
 <template name="p" />
 <template name="img" />
-<template name="n" />
+<template name="foot" />

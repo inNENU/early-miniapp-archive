@@ -1,21 +1,24 @@
 /* ---iOS theme made by Mr.Hope--- */
 
-.iOS, .iOS2 {
+.iOS {
   width: 100%;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
-}
-
-.iOS {
   background-color: #fff;
 }
 
-.nm.iOS, .nm .iOSP, .nm .iOSLctn, .nm .iOSpickerViewCtn,
-.nm .iOSpick-view-column {
+.nm.iOS {
   background-color: #000;
 }
 
 .iOS2 {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
   background-color: #efeef4;
 }
 
@@ -25,22 +28,17 @@
 
 /* iOS Head */
 
-.iOS-navigationBar, .iOS-navPlaceHolder {
-  width: 100%;
-  background-color: #f5f5f7;
-  text-align: center;
-}
-
 .iOS-navigationBar {
+  width: 100%;
   height: 44px;
   padding-top: 20px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
   position: fixed;
   top: 0;
   z-index: 99;
+  background-color: #f5f5f7;
 }
 
 .nm .iOS-navigationBar {
@@ -48,9 +46,12 @@
 }
 
 .iOS-navPlaceHolder {
+  width: 100%;
   height: 64px;
+  text-align: center;
   font-size: 10px;
   color: #acacb0;
+  background-color: #f5f5f7;
 }
 
 .nm .iOS-navPlaceHolder {
@@ -96,15 +97,12 @@
   position: absolute;
   font-size: 17px;
   font-weight: 500;
+  text-align: center;
   z-index: 100;
 }
 
 .nm .iOS-titletext {
   color: #fff;
-}
-
-.iOSnavDl, .iOS-head {
-  border-bottom: 1rpx #acacb0 solid;
 }
 
 .iOSnavDl {
@@ -113,9 +111,10 @@
   position: fixed;
   top: 64px;
   z-index: 100;
+  border-bottom: 1rpx #acacb0 solid;
 }
 
-.nm .iOSnavDl, .nm .iOS-head {
+.nm .iOSnavDl {
   border-bottom: 1rpx #53534f solid;
 }
 
@@ -125,12 +124,13 @@
   font-size: 34px;
   font-weight: 500;
   background-color: #f4f4f4;
+  border-bottom: 1rpx #acacb0 solid;
 }
 
 .nm .iOS-head {
-  color: #fff;
+  color: white;
   background-color: #0c0c0c;
-  /* border-bottom-color: #53534f; */
+  border-bottom-color: #53534f;
 }
 
 /* iOS content */
@@ -146,14 +146,15 @@
   color: #999;
 }
 
-.iOSH3, .iOSH4 {
+.iOSH3 {
+  min-height: 24px;
+  font-size: 22px;
   font-weight: 500;
   padding: 9px 5% 3px 5%;
 }
 
-.iOSH3 {
-  min-height: 24px;
-  font-size: 22px;
+.iOSH3 +.iOSH3 {
+  padding-top: 3px;
 }
 
 .nm .iOSH3 {
@@ -163,22 +164,30 @@
 .iOSH4 {
   min-height: 20px;
   font-size: 19px;
+  font-weight: 500;
+  padding: 9px 5% 3px 5%;
 }
 
-.iOSH3 +.iOSH4, .iOSH3 +.iOSH3, .iOSH4 +.iOSH4 {
-  padding-top: 2px;
+.iOSH3 +.iOSH4 {
+  padding-top: 3px;
+}
+
+.iOSH4 +.iOSH4 {
+  padding-top: 3px;
 }
 
 .nm .iOSH4 {
   color: #fff;
 }
 
-.iOSP, .iOSLctn {
+.iOSP {
+  text-align: left;
   background-color: #fefefe;
 }
 
-.iOSP {
-  text-align: left;
+.nm .iOSP {
+  color: white;
+  background-color: #000;
 }
 
 .iOS .iOSP {
@@ -189,15 +198,12 @@
 .iOS2 .iOSP {
   font-size: 17px;
   padding: 10px 15px;
+  border-top: 1rpx #cac9ce solid;
+  border-bottom: 1rpx #cac9ce solid;
 }
 
 .iOS2.nm .iOSP {
   border-color: #353631;
-}
-
-.iOSLctn, .iOS2 .iOSP {
-  border-top: 1rpx #cac9ce solid;
-  border-bottom: 1rpx #cac9ce solid;
 }
 
 .iOSLheading {
@@ -214,9 +220,13 @@
 .iOSLctn {
   font-size: 17px;
   line-height: 1.41176471;
+  background-color: #fefefe;
+  border-top: 1rpx #cac9ce solid;
+  border-bottom: 1rpx #cac9ce solid;
 }
 
 .nm .iOSLctn {
+  background-color: #000;
   border-color: #353631;
 }
 
@@ -230,14 +240,19 @@
 
 .iOS-list-Container {
   position: relative;
+  display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+  -webkit-box-align: center;
   -webkit-align-items: center;
   align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
 }
 
-.iOS-list-Container, .iOSLinkText, .iOSpick-view-column:first-child,
-.iOSpick-view-column:last-child {
+.iOSLinkText {
+  -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;
 }
@@ -291,18 +306,18 @@
   display: none;
 }
 
-.iOS-img, .iOSP-img {
-  border-radius: 8px;
-}
-
 .iOS-img {
   width: 90% !important;
   margin: 4px 5%;
+  border-radius: 8px;
+  display: block;
 }
 
 .iOSP-img {
   width: 100% !important;
   margin-top: 2px;
+  border-radius: 8px;
+  display: block;
 }
 
 .iOSN {
@@ -323,7 +338,12 @@
 }
 
 .nm .iOSpickerViewCtn {
-  color: #fff;
+  color: white;
+  background-color: black;
+}
+
+.iOSpickerMask {
+  background-color: black;
 }
 
 .iOSpick-view-column {
@@ -331,10 +351,21 @@
   flex: none;
 }
 
+.nm .iOSpick-view-column {
+  background-color: black;
+}
+
+.iOSpick-view-column:first-child {
+  flex: 1;
+}
+
+.iOSpick-view-column:last-child {
+  flex: 1;
+}
+
 .iOSpickColumn {
-  display: -webkit-flex;
-  display: flex;
   padding: 0 8px;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;

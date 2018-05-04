@@ -3,8 +3,6 @@ Page({
   data: {
     page: [
       { name: 'head', title: '南苑食堂' },
-      { name: 'p', text: '东北师范大学本部校区有北苑食堂和南苑食堂两个食堂。南苑食堂共三层，北苑食堂共两层。地理位置如图：' },
-      { name: 'img', src: 'https://pic.kuaizhan.com/g1/M01/6C/9E/CgpQU1l8LBKAAIbWAAD7j-z-b3M8245036/imageView/v1/thumbnail/640x0' },
       { name: 'h3', text: '一楼' },
       { name: 'p', text: '特色档口南苑一楼有各种档口，有包子、面条、炒饭，另外还有清真食物档口等，味道比较好，价位适中。' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g1/M01/6C/A9/CgpQU1l8N0KAWiQ5AAN0qjh1IaY1618944/imageView/v1/thumbnail/640x480' },

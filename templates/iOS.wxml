@@ -122,17 +122,19 @@
 
 <template name='iOSimg'>
   <image wx:if="{{!item.load&&!item.error}}" class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
+  <view wx:if="{{!item.load&&!item.error}}" class='imgError'>
+    <text class='grey'>加载中...</text>
+  </view>
   <image id="{{item.id}}" class='iOS-img' style="{{item.load?'':'display:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
   <view wx:if="{{item.error}}" class='imgError'>
-    <icon type="warn" /><text class='grey'>图片加载失败</text>
+    <icon type="warn" />
+    <text class='grey'>图片加载失败</text>
   </view>
   <view wx:if="{{item.text}}" class='iOSN'>
     <text>▲{{item.text}}</text>
   </view>
 </template>
 
-<template name='iOSn'>
-  <view class='iOSN'>
-    <text>{{item.text}}</text>
-  </view>
+<template name='iOSfoot'>
+  <view class='iOSH4'></view>
 </template>
