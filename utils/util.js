@@ -51,7 +51,7 @@ function setListContent(page, a, i, e) {
     for (let j = 0; j < content.length; j++) {
       if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
       if ('url' in content[j]) { page[i].content[j].url += "?from=" + page[0].title }
-      if ('picker' in content[j]) { page[i].content[j].currentValue = [], page[i].content[j].value = [] }
+      if ('picker' in content[j]) { page[i].content[j].currentValue = new Array(), page[i].content[j].value = new Array() }
     }
   }
 }

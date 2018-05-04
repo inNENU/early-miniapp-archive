@@ -76,6 +76,7 @@
       <view class='iOS-link-divline'></view>
     </block>
   </view>
+  <view wx:if="{{item.ending!==false}}" class='iOSLending'>{{item.ending}}</view>
 </template>
 
 <template name='iOSlist2'>
