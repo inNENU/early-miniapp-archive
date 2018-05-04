@@ -4,6 +4,7 @@
   width: 100%;
   min-height: 100%;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+  text-align: center;
 }
 
 .iOS {
@@ -93,7 +94,7 @@
   z-index: 100;
 }
 
-.nm .iOS-titletext, .nm .iOS-head, .nm .iOSH3, .nm .iOSH4, .iOS.nm .iOSPhead,
+.nm .iOS-titletext, .nm .iOS-head, .nm .iOSH3, .nm .iOSH4, .iOS.nm .iOShead,
 .nm .iOSLinkText, .nm .iOSpickerViewCtn {
   color: #fff;
 }
@@ -128,58 +129,20 @@
 
 /* iOS content */
 
-.iOSH2 {
-  min-height: 9px;
-  font-size: 13px;
-  padding: 23px 15px 5px 15px;
-  color: #666;
+.iOSH3, .iOSLinkText, .iOShead, .iOSP {
+  text-align: left;
 }
 
-.nm .iOSH2 {
-  color: #999;
-}
-
-.iOSH3, .iOSH4, .iOS .iOSPhead {
+.iOSH3, .iOS .iOShead {
   font-weight: 500;
   padding: 9px 5% 3px 5%;
 }
 
-.iOSH3 {
-  min-height: 24px;
-  font-size: 22px;
-}
-
-.iOSH4 {
-  min-height: 20px;
-  font-size: 19px;
-}
-
-.iOSH3 +.iOSH4, .iOSH3 +.iOSH3, .iOSH4 +.iOSH4 {
+.iOSH3 +.iOShead, .iOSH3 +.iOSH3 {
   padding-top: 2px;
 }
 
-.iOSP, .iOSLctn {
-  background-color: #fefefe;
-}
-
-.iOSP {
-  text-align: left;
-}
-
-.iOS .iOSPhead {
-  font-size: 19px;
-}
-
-.iOSH3 +.iOSPhead, .iOSH3 +.iOSH3 {
-  padding-top: 2px;
-}
-
-.iOS .iOSP {
-  font-size: 16px;
-  padding: 0 15px;
-}
-
-.iOSgrey .iOSPhead {
+.iOSgrey .iOShead {
   min-height: 9px;
   padding: 23px 15px 5px 15px;
 }
@@ -187,6 +150,25 @@
 .iOSgrey .iOSP {
   font-size: 17px;
   padding: 10px 15px;
+}
+
+.iOSH3 {
+  min-height: 24px;
+  font-size: 22px;
+}
+
+.iOS .iOShead {
+  min-height: 20px;
+  font-size: 19px;
+}
+
+.iOSP, .iOSLctn {
+  background-color: #fefefe;
+}
+
+.iOS .iOSP {
+  font-size: 16px;
+  padding: 0 15px;
 }
 
 .iOSgrey.nm .iOSP {
@@ -198,21 +180,16 @@
   border-bottom: 1rpx #cac9ce solid;
 }
 
-.iOSLhead, .iOSLfoot, .iOSgrey .iOSPhead {
+.iOSfoot, .iOSgrey .iOShead {
   font-size: 13px;
   color: #666;
 }
 
-.iOSLhead {
-  min-height: 9px;
-  padding: 23px 15px 5px 15px;
-}
-
-.iOSLfoot {
+.iOSfoot {
   padding: 5px 15px 0 15px;
 }
 
-.nm .iOSLhead, .nm .iOSLfoot, .iOSgrey.nm .iOSPhead {
+.nm .iOSfoot, .iOSgrey.nm .iOShead {
   color: #999;
 }
 

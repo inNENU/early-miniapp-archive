@@ -21,7 +21,7 @@
 </template>
 
 <template name='iOSp'>
-  <view wx:if="{{item.head!==false}}" class='iOSPhead'>{{item.head}}</view>
+  <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSP'>
     <text>{{item.text}}</text>
     <image wx:if="{{item.src}}" class='iOSP-img' lazy-load="true" mode="aspectFill" src="{{item.src}}" />
@@ -29,7 +29,7 @@
 </template>
 
 <template name='iOSlist'>
-  <view wx:if="{{item.head!==false}}" class='iOSPhead'>{{item.head}}</view>
+  <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{item.text}}">
       <navigator wx:if='{{List.url}}' class="iOS-listCtn" url='{{List.url}}'>
@@ -69,7 +69,7 @@
       <view class='iOS-link-divline'></view>
     </block>
   </view>
-  <view wx:if="{{item.foot!==false}}" class='iOSLfoot'>{{item.foot}}</view>
+  <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
 </template>
 
 <template name='iOSimg'>
@@ -88,5 +88,5 @@
 </template>
 
 <template name='iOSfoot'>
-  <view class='iOSPhead'></view>
+  <view class='iOShead'></view>
 </template>
