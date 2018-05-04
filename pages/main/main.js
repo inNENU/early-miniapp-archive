@@ -3,9 +3,9 @@ Page({
   data: {
     page: [
       { name: 'head', title: '首页', top: true },
-      { name: 'h3', text: '这里是东师青年官方小程序' },
-      { name: 'h4', text: '首页制作中......' },
-      { name: 'list', heading: false, content: [{ text: '主题设置', url: '/pages/settings/theme' }] },
+      { name: 'p', head: '这里是东师青年官方小程序' },
+      { name: 'p', head: '首页制作中......' },
+      { name: 'list', head: false, content: [{ text: '主题设置', url: '/pages/settings/theme' }] },
       { name: 'img', src: 'https://pic.kuaizhan.com/g1/M00/91/36/wKjmqVl9VlKAfnRcAAN9jZomx1o9263272/imageView/v1/thumbnail/640x0' },
     ],
   },

@@ -1,6 +1,6 @@
 /* ---iOS theme made by Mr.Hope--- */
 
-.iOS, .iOS2 {
+.iOS, .iOSgrey {
   width: 100%;
   min-height: 100%;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
@@ -15,11 +15,11 @@
   background-color: #000;
 }
 
-.iOS2 {
+.iOSgrey {
   background-color: #efeef4;
 }
 
-.nm.iOS2 {
+.nm.iOSgrey {
   background-color: #10110b;
 }
 
@@ -98,8 +98,8 @@
   z-index: 100;
 }
 
-.nm .iOS-titletext, .nm .iOS-head, .nm .iOSH3, .nm .iOSH4, .nm .iOSLinkText,
-.nm .iOSpickerViewCtn {
+.nm .iOS-titletext, .nm .iOS-head, .nm .iOSH3, .nm .iOSH4, .iOS.nm .iOSPhead,
+.nm .iOSLinkText, .nm .iOSpickerViewCtn {
   color: #fff;
 }
 
@@ -144,7 +144,7 @@
   color: #999;
 }
 
-.iOSH3, .iOSH4 {
+.iOSH3, .iOSH4, .iOS .iOSPhead {
   font-weight: 500;
   padding: 9px 5% 3px 5%;
 }
@@ -171,40 +171,53 @@
   text-align: left;
 }
 
+.iOS .iOSPhead {
+  font-size: 19px;
+}
+
+.iOSH3 +.iOSPhead, .iOSH3 +.iOSH3 {
+  padding-top: 2px;
+}
+
 .iOS .iOSP {
   font-size: 16px;
   padding: 0 15px;
 }
 
-.iOS2 .iOSP {
-  font-size: 17px;
-  padding: 10px 15px;
-}
-
-.iOS2.nm .iOSP {
-  border-color: #353631;
-}
-
-.iOSLctn, .iOS2 .iOSP {
-  border-top: 1rpx #cac9ce solid;
-  border-bottom: 1rpx #cac9ce solid;
-}
-
-.iOSLheading, .iOSLending {
-  font-size: 13px;
-  color: #666;
-}
-
-.iOSLheading {
+.iOSgrey .iOSPhead {
   min-height: 9px;
   padding: 23px 15px 5px 15px;
 }
 
-.iOSLending {
+.iOSgrey .iOSP {
+  font-size: 17px;
+  padding: 10px 15px;
+}
+
+.iOSgrey.nm .iOSP {
+  border-color: #353631;
+}
+
+.iOSLctn, .iOSgrey .iOSP {
+  border-top: 1rpx #cac9ce solid;
+  border-bottom: 1rpx #cac9ce solid;
+}
+
+.iOSLhead, .iOSLfoot, .iOSgrey .iOSPhead {
+  font-size: 13px;
+  color: #666;
+}
+
+.iOSLhead {
+  min-height: 9px;
+  padding: 23px 15px 5px 15px;
+}
+
+.iOSLfoot {
   padding: 5px 15px 0 15px;
 }
 
-.nm .iOSLheading, .nm .iOSLending {
+.nm .iOSLhead, .nm .iOSLfoot {
   color: #999;
 }
 

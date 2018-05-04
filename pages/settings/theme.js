@@ -8,9 +8,8 @@ Page({
     array: ['iOS', 'wechat', 'debug',],
     page: [
       { name: 'head', title: '主题设置' },
-      { name: 'h2', text: '夜间模式' },
       {
-        name: 'list', content: [
+        name: 'list', heading: '夜间模式', content: [
           { text: '夜间模式', Switch: 'switchnm', key: 'nightmode' },
           { text: '自动切换开关', Switch: 'switchnmAC', key: 'nightmodeAutoChange' },
           { text: '开始时间', picker: 'setStart', pickerKey: 'nmStart', pickerValue: time, tap: 'displayStart', },
@@ -18,7 +17,7 @@ Page({
         ]
       },
       { name: 'h2', text: '主题设置' },
-    ],
+    ], grey: true
   },
   onLoad(e) {
     let p = u.sP(this.data.page, a, e); p = u.iP(p, 'nmStart', 2, 2); p = u.iP(p, 'nmEnd', 2, 3);
@@ -33,7 +32,7 @@ Page({
   switchnm(e) {
     let p = this.data.page, value = e.detail.value; a.nm = value;
     p[2].content[1].checked = false;
-    wx.setStorageSync("nightmode", value); wx.setStorageSync("nightmodeAutoChange", false); 
+    wx.setStorageSync("nightmode", value); wx.setStorageSync("nightmodeAutoChange", false);
     this.setData({ nm: value, page: u.sS(p, e.detail.value, 2, 0) });
   },
   switchnmAC(e) {

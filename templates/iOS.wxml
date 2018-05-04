@@ -16,19 +16,20 @@
   </view>
 </template>
 
-<template name='iOSh2'>
+<!-- <template name='iOSh2'>
   <view class='iOSH2'>{{item.text}}</view>
-</template>
+</template> -->
 
 <template name='iOSh3'>
   <view class='iOSH3'>{{item.text}}</view>
 </template>
 
-<template name='iOSh4'>
+<!-- <template name='iOSh4'>
   <view class='iOSH4'>{{item.text}}</view>
-</template>
+</template> -->
 
 <template name='iOSp'>
+  <view wx:if="{{item.head!==false}}" class='iOSPhead'>{{item.head}}</view>
   <view class='iOSP'>
     <text>{{item.text}}</text>
     <image wx:if="{{item.src}}" class='iOSP-img' lazy-load="true" mode="aspectFill" src="{{item.src}}" />
@@ -36,7 +37,7 @@
 </template>
 
 <template name='iOSlist'>
-  <view wx:if="{{item.heading!==false}}" class='iOSLheading'>{{item.heading}}</view>
+  <view wx:if="{{item.head!==false}}" class='iOSPhead'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{item.text}}">
       <navigator wx:if='{{List.url}}' class="iOS-listCtn" url='{{List.url}}'>
@@ -76,49 +77,7 @@
       <view class='iOS-link-divline'></view>
     </block>
   </view>
-  <view wx:if="{{item.ending!==false}}" class='iOSLending'>{{item.ending}}</view>
-</template>
-
-<template name='iOSlist2'>
-  <view class='iOSLctn'>
-    <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{item.text}}">
-      <navigator wx:if='{{List.url}}' class="iOS-listCtn" url='{{List.url}}'>
-        <!-- <view>此处插入icon</view> -->
-        <view class='iOS-list-Container'>
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}"> {{List.desc}} </view>
-        </view>
-      </navigator>
-      <view wx:if='{{!List.url && !List.pickerValue}}' class="iOS-listCtn {{List.Switch?'iOS-switchList':''}}">
-        <!-- <view>此处插入icon</view> -->
-        <view class='iOS-list-Container'>
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption">{{List.desc}}
-            <switch wx:if='{{List.Switch}}' checked='{{List.checked}}' bindchange="{{List.Switch}}" />
-          </view>
-        </view>
-      </view>
-      <view wx:if='{{List.pickerValue}}' class="iOS-listCtn" bindtap='{{List.tap}}'>
-        <view class='iOS-list-Container'>
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption">
-            <block wx:for='{{List.value}}' wx:key>{{item}}</block>
-          </view>
-        </view>
-      </view>
-      <block wx:if='{{List.display}}'>
-        <view class='iOS-link-divline'></view>
-        <picker-view indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="{{List.picker}}" mask-class='iOSpickerMask'>
-          <block wx:for='{{List.pickerValue}}' wx:key="*this">
-            <picker-view-column class='iOSpick-view-column' mask-class='iOSpickerMask'>
-              <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
-            </picker-view-column>
-          </block>
-        </picker-view>
-      </block>
-      <view class='iOS-link-divline'></view>
-    </block>
-  </view>
+  <view wx:if="{{item.foot!==false}}" class='iOSLfoot'>{{item.foot}}</view>
 </template>
 
 <template name='iOSimg'>
@@ -137,5 +96,5 @@
 </template>
 
 <template name='iOSfoot'>
-  <view class='iOSH4'></view>
+  <view class='iOSPhead'></view>
 </template>
