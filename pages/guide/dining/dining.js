@@ -13,5 +13,5 @@ Page({
   },
   onLoad(e) { let page = u.sP(this.data.page, a, e); this.setData({ T: a.T, nm: a.nm, page: page }) },
   onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
-  back() { u.back() },
+  img(e) { let p = u.img(this.data.page, e); this.setData({ page: p }) }, back() { u.back() },
 })

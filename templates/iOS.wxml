@@ -121,9 +121,13 @@
 </template>
 
 <template name='iOSimg'>
-  <image class='iOS-img' mode="{{item.imgMode}}" lazy-load="true" src="{{item.src}}" />
-   <view wx:if="{{item.text}}" class='iOSN'>
-    <text>{{item.text}}</text>
+  <image wx:if="{{!item.load&&!item.error}}" class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
+  <image id="{{item.id}}" class='iOS-img' style="{{item.load?'':'display:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" />
+  <view wx:if="{{item.error}}" class='imgError'>
+    <icon type="warn" /><text class='grey'>图片加载失败</text>
+  </view>
+  <view wx:if="{{item.text}}" class='iOSN'>
+    <text>▲{{item.text}}</text>
   </view>
 </template>
 

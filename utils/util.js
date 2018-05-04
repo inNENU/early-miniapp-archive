@@ -73,8 +73,8 @@ function setSwitch(page, value, i, j) { page[i].content[j].checked = value; retu
 function setPage(page, a, e) {
   setNav(page, a, e);
   for (let i = 0; i < page.length; i++) {
-    page[i].theme = a.T;
-    if (page[i].name === 'img') { page[i].imgMode = a.imgMode };
+    page[i].theme = a.T; page[i].id = i;
+    if (page[i].name === 'img' && page[i].imgMode !== null) { page[i].imgMode = a.imgMode; };
     setListContent(page, a, i, e);
   }; return page;
 }
@@ -82,7 +82,7 @@ function tabBarChanger(nm) {
   if (nm) { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#000000', borderStyle: 'white' }) }
   else { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#ffffff', borderStyle: 'black' }) };
 }
-function go(url) { wx.navigateTo({ url: url, }) }
+function go(url) { wx.navigateTo({ url: url }) }
 function back() { wx.navigateBack({}) }
 function formatNumber(n) {
   n = n.toString()
@@ -92,6 +92,10 @@ function arrayKeynumber(array, key) {
   for (var i in array) {
     if (array[i] == key) { return i }
   }
+}
+function loadimg(page, e) {
+  if (e.type == 'error') { page[e.target.id].error = true; }
+  else if (e.type == 'load') { page[e.target.id].load = true }; return page;
 }
 module.exports = {
   init: initialize,
@@ -107,6 +111,7 @@ module.exports = {
   sS: setSwitch,
   ak: arrayKeynumber,
   cV: checkVersion,
+  img: loadimg,
   // formatTime: formatTime,
 }
 // function formatTime(date) {

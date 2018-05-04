@@ -1,13 +1,27 @@
 @import "templates/wechat.wxss";
 @import "templates/iOS.wxss";
 
- page {
+page {
   height: 100%;
   font-size: 32rpx;
   line-height: 1.4;
 }
 
- /* button {
+.loadingImg {
+  width: 100%;
+  max-width: 100px;
+  align-self: center;
+}
+
+.imgError {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 5%;
+}
+
+/* button {
   min-width: 40%;
   max-width: 80%;
   margin-top: 20rpx;
@@ -18,9 +32,10 @@
 
 form {
   width: 100%;
-} 
+}
 
 /* footer */
+
 .footer-container {
   height: 100rpx;
   width: 100%;
@@ -31,7 +46,6 @@ form {
   background-color: #f4f4f4;
   border-top: 2rpx #d9d9d9 solid;
 }
-
 
 .nm .footer-container {
   background-color: #0c0c0c;
@@ -46,10 +60,11 @@ form {
   justify-content: flex-end;
   font-size: 16rpx;
   color: #d9d9d9;
-} 
+}
+
 /* Theme A */
 
- .h1A {
+.h1A {
   text-align: center;
   margin-top: 6rpx;
   margin-bottom: 6rpx;
@@ -134,4 +149,10 @@ form {
   height: 0.3rem;
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
+}
+
+/* common */
+
+.grey {
+  color: grey;
 }
