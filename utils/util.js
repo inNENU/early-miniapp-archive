@@ -71,10 +71,13 @@ function setPickerValue(page, value, i, j) {
 }
 function setSwitch(page, value, i, j) { page[i].content[j].checked = value; return page; }
 function setPage(page, a, e) {
-  setNav(page, a, e);
+  setNav(page, a, e); page[0].url = new Array();
   for (let i = 0; i < page.length; i++) {
-    page[i].theme = a.T; page[i].id = i;
-    if (page[i].name === 'img' && page[i].imgMode !== null) { page[i].imgMode = a.imgMode; };
+    let current = page[i]; current.theme = a.T; current.id = i;
+    if (current.name === 'img') {
+      page[0].url.push(page[i].src);
+      if (!current.imgMode) { current.imgMode = a.imgMode };
+    };
     setListContent(page, a, i, e);
   }; return page;
 }
@@ -93,9 +96,11 @@ function arrayKeynumber(array, key) {
     if (array[i] == key) { return i }
   }
 }
-function loadimg(page, e) {
-  if (e.type == 'error') { page[e.target.id].error = true; }
-  else if (e.type == 'load') { page[e.target.id].load = true }; return page;
+function imgLoad(page, e) {
+  let current = page[e.target.id];
+  if (e.type == 'load') { current.load = true }
+  else if (e.type == 'error') { current.error = true }
+  else if (e.type == 'tap') { wx.previewImage({ current: current.src, urls: page[0].url }) }; return page;
 }
 module.exports = {
   init: initialize,
@@ -111,7 +116,7 @@ module.exports = {
   sS: setSwitch,
   ak: arrayKeynumber,
   cV: checkVersion,
-  img: loadimg,
+  img: imgLoad,
   // formatTime: formatTime,
 }
 // function formatTime(date) {

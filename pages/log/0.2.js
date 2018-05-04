@@ -22,7 +22,7 @@ Page({
       { name: 'h2', text: 'V0.2.9' },
       { name: 'p', text: '夜间模式开关逻辑优化;\n升级小程序版本库到2.0.2；\n加入大量界面；' },
       { name: 'h2', text: 'V0.2.10' },
-      { name: 'p', text: '改进iOS模板；' },
+      { name: 'p', text: '改进iOS模板；废弃了n属性；\nimg模块增加了预览，加载loading图和加载错误提示功能；' },
     ],
   },
   onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },
