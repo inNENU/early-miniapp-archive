@@ -5,7 +5,7 @@ Page({
       { name: 'head', title: '二食堂' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g1/M01/6C/CC/CgpQU1l8VESANLrsAADDaSbHfIY8042344/imageView/v1/thumbnail/640x0' },
       { name: 'h3', text: '二楼' },
-      { name: 'p', head: '基本餐供应时间：', text: '早 06:30—08: 30 (供应包子、饼、粥、豆浆等)；\n 午11: 00—12: 30 ；\n 晚 16:30—18: 00。 \n米饭0.5元一碗，素菜一份1-3元，荤菜半份3-4元左右，吃一顿一荤两素的午晚餐大概7元左右，吃一顿小菜+包子+粥的早餐大概5元左右。' },
+      { name: 'p', head: '基本餐供应时间：', text: '早 06:30—08: 30 (供应包子、饼、粥、豆浆等)；\n 午11: 00—12: 30 ；\n 晚 16:30—18: 00。 \n米饭￥0.5/碗，素菜￥1-3/份，荤菜￥3-4/半份，吃一顿一荤两素的午晚餐大约是￥7，吃一顿小菜+包子+粥的早餐大概在￥5。' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g1/M01/6C/CD/CgpQU1l8VPKAOvxAAAm5Z6SiyYw5143137/imageView/v1/thumbnail/640x0' },
       { name: 'h3', text: '三楼(营业时间：6:00-22:00)' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M01/7F/49/CgpQVFl8VTuAcH7RAACnPGh4KvI9487017/imageView/v1/thumbnail/640x0', text: '二食堂三楼平面图' },
