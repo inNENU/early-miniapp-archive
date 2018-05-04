@@ -45,23 +45,32 @@ function setNav(page, a, e) {
   if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
   if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
 }
-function setListContent(page, a, i, e) {
+function setListContent(page, a, i) {
   if ('content' in page[i]) {
     let content = page[i].content;
     for (let j = 0; j < content.length; j++) {
-      if ('key' in content[j]) { page[i].content[j].checked = wx.getStorageSync(content[j].key) }
-      if ('url' in content[j]) { page[i].content[j].url += "?from=" + page[0].title }
-      if ('picker' in content[j]) { page[i].content[j].currentValue = new Array(), page[i].content[j].value = new Array() }
+      if ('key' in content[j]) {
+        content[j].checked = wx.getStorageSync(content[j].key); content[j].id = i + "-" + j;
+      };
+      if ('url' in content[j]) { content[j].url += "?from=" + page[0].title };
+      if ('picker' in content[j]) {
+        content[j].currentValue = new Array(); content[j].value = new Array(); content[j].id = i + "-" + j;
+        let temp = wx.getStorageSync(content[j].pickerKey).split('-');
+        for (let k = 0; k < temp.length; k++) {
+          content[j].value[k] = content[j].pickerValue[k][Number(temp[k])];
+          content[j].currentValue[k] = Number(temp[k]);
+        }
+      }
     }
   }
 }
-function initializePicker(page, key, i, j) {
-  let temp = wx.getStorageSync(key).split('-');
-  for (let k = 0; k < temp.length; k++) {
-    page[i].content[j].value[k] = page[i].content[j].pickerValue[k][Number(temp[k])];
-    page[i].content[j].currentValue[k] = Number(temp[k]);
-  }; return page;
-}
+// function initializePicker(page, key, i, j) {
+//   let temp = wx.getStorageSync(key).split('-');
+//   for (let k = 0; k < temp.length; k++) {
+//     page[i].content[j].value = page[i].content[j].pickerValue[k][Number(temp[k])];
+//     page[i].content[j].currentValue[k] = Number(temp[k]);
+//   }; return page;
+// }
 function setPickerValue(page, value, i, j) {
   for (let k = 0; k < value.length; k++) {
     page[i].content[j].value[k] = page[i].content[j].pickerValue[k][Number(value[k])];
@@ -78,7 +87,7 @@ function setPage(page, a, e) {
       page[0].url.push(page[i].src);
       if (!current.imgMode) { current.imgMode = a.imgMode };
     };
-    setListContent(page, a, i, e);
+    setListContent(page, a, i);
   }; return page;
 }
 function tabBarChanger(nm) {
@@ -111,7 +120,7 @@ module.exports = {
   go: go,
   back: back,
   sP: setPage,
-  iP: initializePicker,
+  // iP: initializePicker,
   sPV: setPickerValue,
   sS: setSwitch,
   ak: arrayKeynumber,

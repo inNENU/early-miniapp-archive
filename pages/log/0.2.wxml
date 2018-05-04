@@ -2,7 +2,7 @@
 <import src="/templates/iOS" />
 <import src="/templates/wechat" />
 <import src="/templates/foot-nenu" />
-<view class="{{T}}2 {{nm?'nm':''}}">
+<view class="{{T}}grey {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{item.theme}}{{item.name}}" data='{{item}}' />
-    <template is="foot" />
+  <template is="foot" />
 </view>

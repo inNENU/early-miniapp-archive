@@ -16,17 +16,9 @@
   </view>
 </template>
 
-<!-- <template name='iOSh2'>
-  <view class='iOSH2'>{{item.text}}</view>
-</template> -->
-
 <template name='iOSh3'>
   <view class='iOSH3'>{{item.text}}</view>
 </template>
-
-<!-- <template name='iOSh4'>
-  <view class='iOSH4'>{{item.text}}</view>
-</template> -->
 
 <template name='iOSp'>
   <view wx:if="{{item.head!==false}}" class='iOSPhead'>{{item.head}}</view>

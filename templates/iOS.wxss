@@ -10,11 +10,6 @@
   background-color: #fff;
 }
 
-.nm.iOS, .nm .iOSP, .nm .iOSLctn, .nm .iOSpickerViewCtn,
-.nm .iOSpick-view-column {
-  background-color: #000;
-}
-
 .iOSgrey {
   background-color: #efeef4;
 }
@@ -43,14 +38,14 @@
   z-index: 99;
 }
 
-.nm .iOS-navigationBar, .nm .iOS-navPlaceHolder {
-  background-color: #0a0a08;
-}
-
 .iOS-navPlaceHolder {
   height: 64px;
   font-size: 10px;
   color: #acacb0;
+}
+
+.nm .iOS-navigationBar, .nm .iOS-navPlaceHolder {
+  background-color: #0a0a08;
 }
 
 .nm .iOS-navPlaceHolder {
@@ -217,7 +212,7 @@
   padding: 5px 15px 0 15px;
 }
 
-.nm .iOSLhead, .nm .iOSLfoot {
+.nm .iOSLhead, .nm .iOSLfoot, .iOSgrey.nm .iOSPhead {
   color: #999;
 }
 
@@ -351,6 +346,12 @@
 
 .iOSpick-view-column:last-child .iOSpickColumn {
   text-align: left;
+}
+
+.nm.iOS, .nm .iOSP, .nm .iOSLctn, .nm .iOSpickerViewCtn,
+.nm .iOSpick-view-column {
+  background-color: #000;
+  color: #fff;
 }
 
 /* .iOSpickSelected {
