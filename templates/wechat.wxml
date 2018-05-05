@@ -1,11 +1,11 @@
 <template name="wechathead">
-  <view class='wechat-navigationBar' style="{{item.iPhoneX?'padding-top:46px;height:40px;':''}}{{item.android?'top:10px;':''}}">
+  <view class='wechat-navigationBar' style="{{item.iPhoneX?'padding-top:62px;height:45px;':''}}">
     <view class="wechat-titletext">{{item.title}}</view>
-    <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="wechatnavBackHover" plain='true' bindtap='back'>
+    <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="navBackHover" plain='true' bindtap='back'>
       <view class='wechat-backArrow'></view>
     </button>
   </view>
-  <view class='wechat-navPlaceHolder' style="{{item.iPhoneX?'height:86px;':''}}{{item.android?'margin-top:10px;':''}}">
+  <view class='wechat-navPlaceHolder' style="{{item.iPhoneX?'height:83px;':''}}">
     <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
   </view>
   <view wx:if="{{item.desc}}" class="wechat-head">
@@ -14,11 +14,16 @@
   </view>
 </template>
 
-<template name='wechath3'>
-  <view class='wechatH3'>{{item.text}}</view>
+<template name='wechatp'>
+  <view wx:if="{{item.head!==false}}" class='wechathead'>{{item.head}}</view>
+  <view class='wechatP'>
+    <text>{{item.text}}</text>
+    <image wx:if="{{item.src}}" class='iOSP-img' lazy-load="true" mode="aspectFill" src="{{item.src}}" />
+  </view>
 </template>
 
 <template name='wechatlist'>
+  <view wx:if="{{item.head!==false}}" class='wechathead'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{item.text}}">
       <navigator wx:if='{{List.url}}' class="iOS-listCtn" url='{{List.url}}'>
@@ -58,20 +63,25 @@
       <view class='iOS-link-divline'></view>
     </block>
   </view>
+  <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
 </template>
 
-<template name='wechatp'>
-  <view class='wechatP'>
-    <text>{{item.text}}</text>
-  </view>
-</template>
-
-<template name='wechatn'>
-  <view class='wechatN'>
-    <text>{{item.text}}</text>
-  </view>
-</template>
 
 <template name='wechatimg'>
-  <image class='wechat-img' mode="{{item.imgMode}}" src="{{item.src}}" />
+  <view wx:if="{{item.error}}" class='imgError'>
+    <icon type="warn" style='margin-right:5px;' />
+    <text class='grey'>图片加载失败</text>
+  </view>
+  <view wx:elif="{{!item.load}}" class='imgError'>
+    <image class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
+    <text class='grey'>加载中...</text>
+  </view>
+  <image id="{{item.id}}" class='wechat-img' style="{{item.load?'':'display:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
+  <view wx:if="{{item.text}}" class='wechatN'>
+    <text>▲{{item.text}}</text>
+  </view>
+</template>
+
+<template name='wechatfoot'>
+  <view class='iOShead'></view>
 </template>

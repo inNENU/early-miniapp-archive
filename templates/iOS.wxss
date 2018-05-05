@@ -3,8 +3,11 @@
 .iOS, .iOSgrey {
   width: 100%;
   min-height: 100%;
-  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
   text-align: center;
+}
+
+.iOS:last-child, .iOSgrey:last-child {
+  padding-bottom: 40px;
 }
 
 .iOS {
@@ -30,6 +33,7 @@
 .iOS-navigationBar {
   height: 44px;
   padding-top: 20px;
+  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,12 +66,9 @@
   margin: 0 3%;
   line-height: 2.4;
   position: relative;
+  display: -webkit-flex;
   display: flex;
   align-items: center;
-}
-
-.iOSnavBackHover {
-  opacity: 0.2;
 }
 
 .iOS-backArrow {

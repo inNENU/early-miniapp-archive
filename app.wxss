@@ -5,7 +5,17 @@ page {
   height: 100%;
   font-size: 32rpx;
   line-height: 1.4;
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+  text-align: center;
 }
+
+/* common Nav */
+
+.navBackHover {
+  opacity: 0.2;
+}
+
+/* common Image */
 
 .loadingImg {
   width: 100%;
@@ -27,6 +37,7 @@ page {
 .footer-container {
   height: 100rpx;
   width: 100%;
+  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -43,6 +54,7 @@ page {
 .footerPlaceHolder {
   width: 100%;
   height: 100rpx;
+  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
