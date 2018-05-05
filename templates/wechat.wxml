@@ -14,6 +14,10 @@
   </view>
 </template>
 
+<template name='wechath3'>
+  <view class='wechatH3'>{{item.text}}</view>
+</template>
+
 <template name='wechatp'>
   <view wx:if="{{item.head!==false}}" class='wechathead'>{{item.head}}</view>
   <view class='wechatP'>
