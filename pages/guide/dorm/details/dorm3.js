@@ -2,7 +2,7 @@ var u = getApp().util, a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'head', title: '室内布局' },
+      { name: 'head', title: '室内布局' ,desc:'最全面的寝室室内描述'},
       { name: 'p', head: '室内大体布局描述', text: '除纽瓦克学院寝室为四人间以外，其他学院寝室均为标准六人间。寝室内每侧三个床位，为上床下桌设计。桌边有衣柜，衣柜门上有锁孔，可以自备小锁(锁孔较小勿备大锁)。每个床位脚边墙壁上均配备一三孔插座与一双孔插座用于供电。床铺尺寸：长1.9m-2m，宽0.85m-0.9m。寝室方面已经为同学们准备了褥子，至于被子、床单、枕头等，大家可以自行准备或者到宿管阿姨那里购买(一整套480元左右)。' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M00/82/4A/wKjmqll9feWAP365AAC4FSISITg1558713/imageView/v1/thumbnail/640x0', text: '寝室未入住实拍图' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M00/82/4B/wKjmqll9fi-ARLWiAAFJ8uOp2Dk5212959/imageView/v1/thumbnail/640x0' },

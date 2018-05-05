@@ -12,7 +12,7 @@ Page({
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M01/80/96/CgpQVFl9hV-ASgSHAC3XwsJHYhM9384030/imageView/v1/thumbnail/640x0' },
       { name: 'p', head: '吹风机', text: '女生寝室楼每层楼都有一个或两个吹风机，插一卡通就可以使用。' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M01/80/98/CgpQVFl9iISAW_AWAA3EFjs57wM4349529/imageView/v1/thumbnail/640x0' },
-      { name: 'p', head: '洗衣机', text: '>洗衣机是单筒洗衣机，可洗可甩干。大部分寝室楼的每个楼层有两个洗衣机。洗衣机为刷卡使用。根据所需洗涤方式刷卡，刷卡完毕后将洗衣机盖关闭即可洗衣, 洗衣用的洗衣液或洗衣粉需自己准备，在洗衣前加入洗衣机内。' },
+      { name: 'p', head: '洗衣机', text: '洗衣机是单筒洗衣机，可洗可甩干。大部分寝室楼的每个楼层有两个洗衣机。洗衣机为刷卡使用。根据所需洗涤方式刷卡，刷卡完毕后将洗衣机盖关闭即可洗衣, 洗衣用的洗衣液或洗衣粉需自己准备，在洗衣前加入洗衣机内。' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M00/80/98/CgpQVFl9iMaAY6bwAAEyJlHpDXA3713141/imageView/v1/thumbnail/640x0' },
       { name: 'p', head: '直饮水机', text: '刷卡分别可以接冷/常温/热的饮用水，学校每天免费供应90秒使用时长(约2-4升，视直饮机水压)，全天供应。超出部分收取制水成本费用，热水0.3元/升，常温水0.2元/升。直饮水服务所需的额外费用，是使用校园卡小钱包内的余额，师生可以在自助终端机上进行一卡通小钱包充值。' },
       { name: 'img', src: 'https://pic.kuaizhan.com/g2/M00/82/55/wKjmqll9iROAAyvXAAFvl0L2slU0180058/imageView/v1/thumbnail/640x0' },

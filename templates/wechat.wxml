@@ -22,8 +22,8 @@
   <view wx:if="{{item.head!==false}}" class='wechathead'>{{item.head}}</view>
   <view class='wechatP'>
     <text>{{item.text}}</text>
-    <image wx:if="{{item.src}}" class='iOSP-img' lazy-load="true" mode="aspectFill" src="{{item.src}}" />
   </view>
+  <image wx:if="{{item.src}}" class='wechat-img' lazy-load="true" mode="aspectFill" src="{{item.src}}" />
 </template>
 
 <template name='wechatlist'>
@@ -87,5 +87,4 @@
 </template>
 
 <template name='wechatfoot'>
-  <view class='iOShead'></view>
 </template>
