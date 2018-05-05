@@ -1,14 +1,14 @@
 <!-- iOS theme -->
 <template name="iOShead">
-  <view class='iOS-navigationBar' style="{{item.iPhoneX?'padding-top:46px;height:40px;':''}}{{item.android?'top:10px;':''}}">
+  <view class='iOS-navigationBar' style="{{item.iPhoneX?'padding-top:46px;height:40px;':''}}{{item.android?'padding-top:25px;':''}}">
     <view wx:if="{{item.titleDisplay}}" class="iOS-titletext">{{item.title}}</view>
     <button wx:if="{{!item.top}}" class='iOS-navBack' hover-class="navBackHover" plain='true' bindtap='back'>
       <view class='iOS-backArrow'></view>
       <text class='iOS-nav-text'>{{item.backText}}</text>
     </button>
   </view>
-  <view wx:if="{{item.borderDisplay}}" class='iOSnavDl' style="{{item.iPhoneX?'top:86px;':''}}{{item.android?'margin-top:10px;':''}}"></view>
-  <view class='iOS-navPlaceHolder' style="{{item.iPhoneX?'height:86px':''}}">
+  <view wx:if="{{item.borderDisplay}}" class='iOSnavDl' style="{{item.iPhoneX?'top:86px;':''}}{{item.android?'top:69px;':''}}"></view>
+  <view class='iOS-navPlaceHolder' style="{{item.iPhoneX?'height:86px':''}}{{item.android?'height:69px;':''}}">
     <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
   </view>
   <view class='iOS-head'>
@@ -24,6 +24,14 @@
   <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSP'>
     <text>{{item.text}}</text>
+    <view wx:if="{{item.src&&item.error}}" class='imgError'>
+      <icon type="warn" style='margin-right:5px;' />
+      <text class='grey'>图片加载失败</text>
+    </view>
+    <view wx:elif="{{item.src&&!item.load}}" class='imgError'>
+      <image class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
+      <text class='grey'>加载中...</text>
+    </view>
     <view class='flexbox' style="{{item.load?'':'display: none;'}}">
       <image id="{{item.id}}" class='iOSP-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
     </view>
