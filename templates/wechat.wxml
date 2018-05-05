@@ -14,10 +14,6 @@
   </view>
 </template>
 
-<template name='wechath2'>
-  <view class='wechatH2'>{{item.text}}</view>
-</template>
-
 <template name='wechath3'>
   <view class='wechatH3'>{{item.text}}</view>
 </template>
