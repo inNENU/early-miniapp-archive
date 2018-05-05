@@ -83,7 +83,7 @@ function setPage(page, a, e) {
   setNav(page, a, e); page[0].url = new Array();
   for (let i = 0; i < page.length; i++) {
     let current = page[i]; current.theme = a.T; current.id = i;
-    if (current.name === 'img') {
+    if (current.src) {
       page[0].url.push(page[i].src);
       if (!current.imgMode) { current.imgMode = a.imgMode };
     };

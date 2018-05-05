@@ -23,7 +23,9 @@
   <view class='wechatP'>
     <text>{{item.text}}</text>
   </view>
-  <image wx:if="{{item.src}}" class='wechat-img' lazy-load="true" mode="aspectFill" src="{{item.src}}" />
+  <view class='flexbox' style="{{item.load?'':'display: none;'}}">
+    <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
+  </view>
 </template>
 
 <template name='wechatlist'>
@@ -80,7 +82,7 @@
     <image class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
-  <view class='wechatImgCtn' style="{{item.load?'':'display: none;'}}">
+  <view class='flexbox' style="{{item.load?'':'display: none;'}}">
     <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
   </view>
   <view wx:if="{{item.text}}" class='wechatN'>

@@ -282,6 +282,7 @@
 .iOSP-img {
   width: 100% !important;
   margin-top: 2px;
+  flex: auto;
 }
 
 .iOSN {

@@ -24,7 +24,9 @@
   <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSP'>
     <text>{{item.text}}</text>
-    <image wx:if="{{item.src}}" class='iOSP-img' lazy-load="true" mode="aspectFill" src="{{item.src}}" />
+    <view class='flexbox' style="{{item.load?'':'display: none;'}}">
+      <image id="{{item.id}}" class='iOSP-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
+    </view>
   </view>
 </template>
 
@@ -81,7 +83,9 @@
     <image class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
-  <image id="{{item.id}}" class='iOS-img' style="{{item.load?'':'display:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
+  <view class='flexbox' style="{{item.load?'':'display: none;'}}">
+    <image id="{{item.id}}" class='iOS-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
+  </view>
   <view wx:if="{{item.text}}" class='iOSN'>
     <text>▲{{item.text}}</text>
   </view>

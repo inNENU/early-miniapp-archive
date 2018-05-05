@@ -195,11 +195,6 @@
   background-color: #000;
 }
 
-.wechatImgCtn {
-  display: -webkit-flex;
-  display: flex;
-}
-
 .wechat-img {
   margin: 12px 25px;
   width: auto !important;
