@@ -130,7 +130,7 @@
 
 /* iOS content */
 
-.iOSH3, .iOSLinkText, .iOShead, .iOSP {
+.iOSH3, .iOSLinkText, .iOShead, .iOSP, .iOSfoot {
   text-align: left;
 }
 

@@ -2,7 +2,7 @@ var u = getApp().util, a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'head', title: '首页', top: true, desc: '首页制作中......' },
+      { name: 'head', title: '首页', top: true, show: true },
       { name: 'p', head: '这里是东师青年官方小程序' },
       { name: 'p', head: '首页制作中......' },
       { name: 'list', head: false, content: [{ text: '主题设置', url: '/pages/settings/theme' }] },

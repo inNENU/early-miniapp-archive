@@ -8,7 +8,7 @@
   <view class='wechat-navPlaceHolder' style="{{item.iPhoneX?'height:83px;':''}}">
     <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
   </view>
-  <view wx:if="{{item.desc}}" class="wechat-head">
+  <view wx:if="{{item.desc||item.show}}" class="wechat-head">
     <view class=".wechat-title">{{item.title}}</view>
     <view wx:if="{{item.desc}}" class="wechat-desc">{{item.desc}}</view>
   </view>
@@ -80,7 +80,9 @@
     <image class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
-  <image id="{{item.id}}" class='wechat-img' style="{{item.load?'':'display:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
+  <view class='wechatImgCtn' style="{{item.load?'':'display: none;'}}">
+    <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
+  </view>
   <view wx:if="{{item.text}}" class='wechatN'>
     <text>▲{{item.text}}</text>
   </view>
