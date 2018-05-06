@@ -49,36 +49,41 @@ function setListContent(page, a, i) {
   if ('content' in page[i]) {
     let content = page[i].content;
     for (let j = 0; j < content.length; j++) {
-      if ('key' in content[j]) {
-        content[j].checked = wx.getStorageSync(content[j].key); content[j].id = i + "-" + j;
-      };
+      content[j].id = i + "-" + j;
+      if ('key' in content[j]) { content[j].status = wx.getStorageSync(content[j].key); };
       if ('url' in content[j]) { content[j].url += "?from=" + page[0].title };
-      if ('picker' in content[j]) {
-        content[j].currentValue = new Array(); content[j].value = new Array(); content[j].id = i + "-" + j;
+      if ('pickerKey' in content[j]) {
+        content[j].currentValue = new Array(); content[j].value = new Array();
         let temp = wx.getStorageSync(content[j].pickerKey).split('-');
         for (let k = 0; k < temp.length; k++) {
-          content[j].value[k] = content[j].pickerValue[k][Number(temp[k])];
-          content[j].currentValue[k] = Number(temp[k]);
+          content[j].value[k] = content[j].pickerValue[k][Number(temp[k])]; content[j].currentValue[k] = Number(temp[k]);
         }
       }
     }
   }
 }
-// function initializePicker(page, key, i, j) {
-//   let temp = wx.getStorageSync(key).split('-');
-//   for (let k = 0; k < temp.length; k++) {
-//     page[i].content[j].value = page[i].content[j].pickerValue[k][Number(temp[k])];
-//     page[i].content[j].currentValue[k] = Number(temp[k]);
-//   }; return page;
-// }
-function setPickerValue(page, value, i, j) {
-  for (let k = 0; k < value.length; k++) {
-    page[i].content[j].value[k] = page[i].content[j].pickerValue[k][Number(value[k])];
-    page[i].content[j].currentValue[k] = value[k]
-  };
-  wx.setStorageSync(page[i].content[j].pickerKey, value.join('-')); return page;
+function pickerView(page, e) {
+  if (e.type == 'tap') { return displayPickerView(page, e) }
+  if (e.type == 'change') { return setPickerValue(page, e) }
 }
-function setSwitch(page, value, i, j) { page[i].content[j].checked = value; return page; }
+function setPickerValue(page, e) {
+  console.log(e)
+  let pos = e.target.dataset.id.split('-'), content = page[pos[0]].content[pos[1]], value = e.detail.value;
+  for (let k = 0; k < value.length; k++) {
+    content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
+  }; wx.setStorageSync(content.pickerKey, value.join('-')); return page;
+}
+function displayPickerView(page, e) {
+  console.log(e)
+  let pos = e.currentTarget.id.split('-'), content = page[pos[0]].content[pos[1]];
+  content.visible = !content.visible; return page;
+}
+function setSwitch(page, e) {
+  console.log(e)
+  let pos = e.target.id.split('-'), content = page[pos[0]].content[pos[1]];
+  content.status = e.detail.value; wx.setStorageSync(content.key, e.detail.value);
+  return page;
+}
 function setPage(page, a, e) {
   setNav(page, a, e); page[0].url = new Array(); page[0].T = a.T;
   for (let i = 0; i < page.length; i++) {
@@ -120,8 +125,9 @@ module.exports = {
   go: go,
   back: back,
   sP: setPage,
-  // iP: initializePicker,
   sPV: setPickerValue,
+  dP: displayPickerView,
+  pV: pickerView,
   sS: setSwitch,
   ak: arrayKeynumber,
   cV: checkVersion,
