@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/log/log",
     "pages/main/main",
     "pages/settings/theme",
     "pages/function/function",
@@ -28,7 +29,6 @@
     "pages/guide/card/card",
     "pages/guide/subsidize/subsidize",
     "pages/guide/subsidize/subsidize2",
-    "pages/log/log",
     "pages/log/alpha",
     "pages/log/0.1",
     "pages/log/0.2",
