@@ -17,7 +17,7 @@
 </template>
 
 <template name='iOSh3'>
-  <view class='iOSH3'>{{item.text}}</view>
+  <view class='iOSH3' style="{{item.style}}">{{item.text}}</view>
 </template>
 
 <template name='iOSp'>
