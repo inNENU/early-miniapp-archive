@@ -2,7 +2,7 @@
 <import src="/templates/iOS" />
 <import src="/templates/wechat" />
 <view class="{{T}}grey {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.name}}" data="{{item}}" />
+  <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.tag}}" data="{{item}}" />
   <view class='iOSN'>
     <text>开发版本：{{version}}</text>
   </view>
