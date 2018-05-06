@@ -3,8 +3,8 @@ const a = getApp().globalData;
 Page({
   data: {
     page: [
-      { name: 'head', title: '绩点计算(beta)' },
-      { name: 'h3', text: '绩点计算器' },
+      { tag: 'head', title: '绩点计算(beta)' },
+      { tag: 'h3', text: '绩点计算器' },
     ],
     grade: [],
     // 在这里必须定义一个grade的空数组

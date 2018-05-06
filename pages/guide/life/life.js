@@ -1,18 +1,12 @@
-var util = require('../../../utils/util.js');
-const app = getApp();
+var u = getApp().util, a = getApp().globalData;
 Page({
   data: {
-    imagemode: app.globalData.imagemode,
-    t: app.globalData.theme,
-    nm: app.globalData.nightmode,
+    page: [
+      { tag: 'head', title: '生活' },
+      { tag: 'list', content: [{ text: '洗浴', url: 'details/life1' }, { text: '理发、照相、打印', url: 'details/life2' }, { text: '超市、ATM', url: 'details/life3' }, { text: '快递', url: 'details/life4' }] },
+    ],
   },
-  goBath() { util.go('details/bath') },
-  goExpress() { util.go('details/express') },
-
-  onLoad() { this.setData({ t: app.globalData.theme, nm: app.globalData.nightmode, }) },
-  onPageScroll(e) {
-    let temp = util.nav(e);
-    if (this.data.n != temp) { this.setData({ n: temp }); }
-  },
-  back() { util.back() },
+  onLoad(e) { let page = u.sP(this.data.page, a, e); this.setData({ T: a.T, nm: a.nm, page: page }) },
+  onPageScroll(e) { let page = u.nav(e, this.data.page); if (page) { this.setData({ page: page }) } },
+  img(e) { let p = u.img(this.data.page, e); this.setData({ page: p }) }, back() { u.back() },
 })
