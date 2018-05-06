@@ -1,7 +1,6 @@
-<!--pages/guide/study/details/learning26.wxml-->
 <import src="/templates/empty" />
 <import src="/templates/iOS" />
 <import src="/templates/wechat" />
 <view class="{{T}} {{nm?'nm':''}}">
-    <template wx:for="{{page}}" wx:key is="{{item.theme}}{{item.name}}" data='{{item}}' />
+  <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.tag}}" data="{{item}}" />
 </view>

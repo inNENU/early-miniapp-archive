@@ -7,16 +7,16 @@ Page({
   data: {
     array: ['iOS', 'wechat', 'debug',],
     page: [
-      { name: 'head', title: '主题设置' },
+      { tag: 'head', title: '主题设置' },
       {
-        name: 'list', head: '夜间模式', content: [
+        tag: 'list', head: '夜间模式', content: [
           { text: '夜间模式', Switch: 'switchnm', key: 'nightmode' },
           { text: '自动切换开关', Switch: 'switchnmAC', key: 'nightmodeAutoChange' },
           { text: '开始时间', picker: 'setStart', pickerKey: 'nmStart', pickerValue: time, tap: 'displayStart', },
           { text: '结束时间', picker: 'setEnd', pickerKey: 'nmEnd', pickerValue: time, tap: 'displayEnd', }
         ]
       },
-      { name: 'p', head: '主题设置' },
+      { tag: 'p', head: '主题设置' },
     ],
   },
   onLoad(e) {

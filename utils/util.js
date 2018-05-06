@@ -80,9 +80,9 @@ function setPickerValue(page, value, i, j) {
 }
 function setSwitch(page, value, i, j) { page[i].content[j].checked = value; return page; }
 function setPage(page, a, e) {
-  setNav(page, a, e); page[0].url = new Array();
+  setNav(page, a, e); page[0].url = new Array(); page[0].T = a.T;
   for (let i = 0; i < page.length; i++) {
-    let current = page[i]; current.theme = a.T; current.id = i;
+    let current = page[i]; current.id = i;
     if (current.src) {
       page[0].url.push(page[i].src);
       if (!current.imgMode) { current.imgMode = a.imgMode };

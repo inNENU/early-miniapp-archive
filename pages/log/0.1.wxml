@@ -3,6 +3,6 @@
 <import src="/templates/wechat" />
 <import src="/templates/foot-nenu" />
 <view class="{{T}}grey {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{item.theme}}{{item.name}}" data='{{item}}' />
+ <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.name}}" data="{{item}}" />
   <template is="foot" />
 </view>
