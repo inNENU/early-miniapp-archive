@@ -44,6 +44,7 @@ function setNav(page, a, e) {
   if (a.info.model.substring(0, 8) === 'iPhone X') { page[0].iPhoneX = true };
   if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
   if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
+  if (e && !page[0].top && 'step' in e) { page[0].aimStep = Number(e.step) + 1 };
 }
 function setListContent(page, a, i) {
   if ('content' in page[i]) {
@@ -52,6 +53,7 @@ function setListContent(page, a, i) {
       content[j].id = i + "-" + j;
       if ('key' in content[j]) { content[j].status = wx.getStorageSync(content[j].key); };
       if ('url' in content[j]) { content[j].url += "?from=" + page[0].title };
+      if ('aim' in content[j]) { content[j].url = "guide" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + content[j].aim + "&step=" + page[0].aimStep };
       if ('pickerKey' in content[j]) {
         content[j].currentValue = new Array(); content[j].value = new Array();
         let temp = wx.getStorageSync(content[j].pickerKey).split('-');
