@@ -102,3 +102,7 @@
 <template name='iOSfoot'>
   <view class='iOShead'></view>
 </template>
+
+<template name='iOSerror'>
+  <view class='iOSH3'>服务器出错了!</view>
+</template>

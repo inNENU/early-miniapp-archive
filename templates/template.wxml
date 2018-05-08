@@ -7,6 +7,7 @@
 <template name="p" />
 <template name="img" />
 <template name="foot" />
+<template name="error" />
 
 <!-- iOS theme -->
 <template name="iOShead">
@@ -111,6 +112,10 @@
 
 <template name='iOSfoot'>
   <view class='iOShead'></view>
+</template>
+
+<template name='iOSerror'>
+  <view class='iOSH3'>服务器出错了!</view>
 </template>
 
 <!-- wechat theme -->

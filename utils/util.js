@@ -116,6 +116,18 @@ function imgLoad(page, indicator, e) {
   else if (e.type == 'tap') { wx.previewImage({ current: current.src, urls: page[0].url }) };
   indicator.setData({ page: page });
 }
+
+function getcontent(indicator, a, e) {
+  wx.showLoading({ title: '正在加载中' })
+  wx.request({
+    url: 'https://mrhope.top/miniProgram/' + e.aim + '.json', success(res) {
+      console.log(res); console.log(a); console.log(e);
+      wx.hideLoading();
+      if (res.statusCode == 200) { setPage(res.data, indicator, a, e) }
+      else { indicator.setData({ page: [{ tag: 'error' }] }) }
+    }
+  });
+}
 module.exports = {
   cV: checkVersion,
   init: initialize,
@@ -131,6 +143,7 @@ module.exports = {
   sS: setSwitch,
   ak: arrayKeynumber,
   img: imgLoad,
+  gC: getcontent,
   // formatTime: formatTime,
   // go: go,
 }
