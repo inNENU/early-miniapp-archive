@@ -110,23 +110,77 @@ function arrayKeynumber(array, key) {
 }
 
 function imgLoad(page, indicator, e) {
-  console.log(e);
   let current = page[e.target.id];
   if (e.type == 'load') { current.load = true } else if (e.type == 'error') { current.error = true }
   else if (e.type == 'tap') { wx.previewImage({ current: current.src, urls: page[0].url }) };
   indicator.setData({ page: page });
 }
 
+// function getcontent(indicator, a, e) {
+//   wx.showLoading({ title: '拼命加载中' })
+//   wx.request({
+//     url: 'https://mrhope.top/miniProgram/' + e.aim + '.json', success(res) {
+//       console.log(res); console.log(a); console.log(e);
+//       wx.hideLoading();
+//       if (res.statusCode == 200) { setPage(res.data, indicator, a, e) }
+//       else { indicator.setData({ page: [{ tag: 'error' }] }) }
+//     }
+//   });
+// }
+
 function getcontent(indicator, a, e) {
-  wx.showLoading({ title: '正在加载中' })
-  wx.request({
-    url: 'https://mrhope.top/miniProgram/' + e.aim + '.json', success(res) {
-      console.log(res); console.log(a); console.log(e);
-      wx.hideLoading();
-      if (res.statusCode == 200) { setPage(res.data, indicator, a, e) }
-      else { indicator.setData({ page: [{ tag: 'error' }] }) }
-    }
-  });
+  wx.showLoading({ title: '拼命加载中' });
+  console.log(e.aim); var url;
+  wx.getStorage({
+    key: e.aim,
+    success: function (res) {
+      console.log(res.data);
+      url = res.data;
+      wx.request({
+        url: url, success(res) {
+          console.log(res); console.log(a); console.log(e);
+          wx.hideLoading();
+          if (res.statusCode == 200) { setPage(res.data, indicator, a, e) }
+          else { indicator.setData({ page: [{ tag: 'error' }] }) }
+        }
+      });
+    },
+    fail: function (res) {
+      console.log(res)
+      console.log("fail")
+      wx.downloadFile({
+        url: 'https://mrhope.top/miniProgram/' + e.aim + '.json',
+        success: function (res) {
+          console.log(res);
+          if (res.statusCode === 200) {
+            var tempPath = res.tempFilePath;
+            wx.saveFile({
+              tempFilePath: tempPath,
+              success: function (res) {
+                console.log(res.savedFilePath);
+                url = res.savedFilePath;
+                wx.setStorageSync(e.aim, res.savedFilePath);
+                wx.request({
+                  url: url, success(res) {
+                    console.log(res); console.log(a); console.log(e);
+                    wx.hideLoading();
+                    if (res.statusCode == 200) { setPage(res.data, indicator, a, e) }
+                    else { indicator.setData({ page: [{ tag: 'error' }] }) }
+                  }
+                });
+              }
+            })
+          } else {
+            console.warn('error');
+            indicator.setData({ page: [{ tag: 'error' }] })
+          }
+        },
+        fail: function () { indicator.setData({ page: [{ tag: 'error' }] }) },
+      })
+    },
+  })
+  console.log(url);
+
 }
 module.exports = {
   cV: checkVersion,
