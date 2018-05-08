@@ -8,10 +8,9 @@ Page({
       { tag: 'p', head: 'V0.3.3', text: '精简了小程序样式代码;' },
       { tag: 'p', head: 'V0.3.4', text: '重新构建了P标签，废弃h2标签，废弃n标签;' },
       { tag: 'p', head: 'V0.3.5', text: '重构switch和picker-view函数，精简参数；' },
+      { tag: 'p', head: 'V0.3.5', text: '利用服务器缓存json，进入页面的时候直接从服务器加载；' },
       { tag: 'foot' },
     ],
   },
-  onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },
-  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
-  back() { u.back() },
+  onLoad(e) { u.sP(this.data.page, this, a, e) }, onPageScroll(e) { u.nav(e, this.data.page, this) }, back() { u.back() },
 })

@@ -12,5 +12,6 @@ Page({
       }
     });
   },
-  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } }, img(e) { let p = u.img(this.data.page, e); this.setData({ page: p }) }, back() { u.back() },
+  onLoad(e) { u.sP(this.data.page, this, a, e) }, onPageScroll(e) { u.nav(e, this.data.page, this) },
+  img(e) { u.img(this.data.page, this, e) }, back() { u.back() },
 })

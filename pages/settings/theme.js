@@ -19,10 +19,8 @@ Page({
       { tag: 'p', head: '主题设置' },
     ],
   },
-  onLoad(e) {
-    let p = u.sP(this.data.page, a, e); this.setData({ page: p, T: a.T, nm: a.nm, index: u.ak(this.data.array, a.T) })
-  },
-  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
+  onLoad(e) { u.sP(this.data.page, this, a, e); this.setData({ index: u.ak(this.data.array, a.T) }) },
+  onPageScroll(e) { u.nav(e, this.data.page, this) }, back() { u.back() },
   switchnm(e) {
     let p = this.data.page, value = e.detail.value; a.nm = value;
     p[1].content[1].status = false; wx.setStorageSync("nightmodeAutoChange", false);

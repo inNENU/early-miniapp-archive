@@ -8,7 +8,6 @@ Page({
       { tag: 'foot' },
     ],
   },
-  onShow(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }); },
-  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
-  img(e) { let p = u.img(this.data.page, e); this.setData({ page: p }) },
+  onShow() { u.sP(this.data.page, this, a) },
+  onPageScroll(e) { u.nav(e, this.data.page, this) },
 })
