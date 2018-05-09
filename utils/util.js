@@ -64,6 +64,10 @@ function setListContent(page, a, i) {
 }
 
 function setPage(page, indicator, a, e) {
+  console.log(page);
+  console.log(indicator);
+  console.log(a);
+  console.log(e);
   setNav(page, a, e); page[0].url = new Array(); page[0].T = a.T;
   for (let i = 0; i < page.length; i++) {
     let current = page[i]; current.id = i;
@@ -117,67 +121,65 @@ function imgLoad(page, indicator, e) {
 }
 
 function checkResUpdate() {
-  console.log('checkResUpdate')
-  let resNotify = initialize('resNotify', true), resVersion = initialize('resVersion', 0)
-  if (resNotify != false) {
+  console.log('checkResUpdate Start')
+  let resNotify = initialize('resNotify', true), resVersion = initialize('resVersion', 0);
+  console.log('resNotify is ' + resNotify); console.log('resVersion is ' + resVersion);
+  if (resNotify) {
     wx.getNetworkType({
-      success: function (resNetwork) {
-        console.log(resNetwork.networkType)
-        if (resNetwork.networkType == 'wifi') {
+      success: function (netWork) {
+        console.log(netWork.networkType)
+        if (netWork.networkType == 'wifi') {
           wx.request({
-            url: 'https://mrhope.top/miniProgram/fileList.json', success(resRequest) {
-              console.log(resRequest); let webVersion = resRequest.data[0], fileList = resRequest.data[1];
-              if (resRequest.statusCode == 200) {
+            url: 'https://mrhope.top/miniProgram/fileList.json', success(listRequest) {
+              console.log(listRequest); let webVersion = listRequest.data[0], fileList = listRequest.data[1];
+              if (listRequest.statusCode == 200) {
                 if (resVersion == 0) {
                   wx.showModal({
-                    title: '是否离线部分页面文字资源？',
-                    content: '选择离线后可以在无网络连接时查看部分界面。(会消耗几百K流量)',
-                    cancelText: '否',
-                    cancelColor: '#ff0000',
-                    confirmText: '是',
-                    success(resModal) {
-                      if (resModal.cancel) {
+                    title: '是否离线部分页面文字资源？', content: '选择离线后可以在无网络连接时查看部分界面。(会消耗几百K流量)',
+                    cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
+                    success(choice) {
+                      if (choice.cancel) {
                         wx.showModal({
-                          title: '是否要关闭此提示？',
-                          content: '关闭后不会再显示类似提示。您可以在设置中重新打开提示。',
-                          cancelText: '关闭',
-                          cancelColor: '#ff0000',
-                          confirmText: '保持打开',
-                          success(resModal2) { if (resModal2.cancel) { wx.setStorageSync('resNotify', false) } }
+                          title: '是否要关闭此提示？', content: '关闭后不会再显示类似提示。您可以在设置中重新打开提示。',
+                          cancelText: '关闭', cancelColor: '#ff0000', confirmText: '保持打开',
+                          success(choice2) { if (choice2.cancel) { wx.setStorageSync('resNotify', false) } }
                         })
                       }
-                      if (resModal.confirm) {
-                        console.log('confirm'); console.log(fileList);
-                        wx.showLoading({ title: '下载中...', mask: true });
+                      if (choice.confirm) {
+                        var successNumber = 0;
+                        wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
                         for (let i = 0; i < fileList.length; i++) {
                           wx.request({
                             url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
                               console.log(res); wx.setStorageSync(fileList[i], res.data);
+                              successNumber += 1;
+                              wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
+                              if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
                             }
                           })
-                        }; wx.hideLoading(); wx.setStorageSync('resVersion', webVersion);
+                        }; wx.setStorageSync('resVersion', webVersion);
                       }
                     }
                   });
                 }
                 else if (webVersion > resVersion) {
                   wx.showModal({
-                    title: '部分页面资源有更新？',
-                    content: '是否立即更新界面资源？\n(会消耗几百K流量)',
-                    cancelText: '否',
-                    cancelColor: '#ff0000',
-                    confirmText: '是',
-                    success(resModal) {
-                      if (resModal.confirm) {
-                        console.log('confirm'); console.log(fileList);
-                        wx.showLoading({ title: '下载中...', mask: true });
+                    title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗几百K流量)',
+                    cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
+                    success(choice) {
+                      if (choice.confirm) {
+                        var successNumber = 0;
+                        wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
                         for (let i = 0; i < fileList.length; i++) {
                           wx.request({
                             url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
                               console.log(res); wx.setStorageSync(fileList[i], res.data);
+                              successNumber += 1;
+                              wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
+                              if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
                             }
                           })
-                        }; wx.hideLoading(); wx.setStorageSync('resVersion', webVersion);
+                        }; wx.setStorageSync('resVersion', webVersion);
                       }
                     }
                   });
@@ -192,13 +194,14 @@ function checkResUpdate() {
   }
 }
 
-function getcontent(indicator, a, e) {
+function getContent(indicator, a, e) {
+  console.log(indicator); console.log(a); console.log(e);
   wx.showLoading({ title: '拼命加载中' });
   console.log(e.aim);
   wx.getStorage({
-    key: e.aim, success: function (res) {
-      console.log(res.data);
-      wx.hideLoading(); setPage(res.data, indicator, a, e);
+    key: e.aim, success: function (key) {
+      console.log(key.data);
+      wx.hideLoading(); setPage(key.data, indicator, a, e);
     }, fail: function (res) {
       console.log(res);
       if (res.errMsg == 'getStorage:fail data not found') {
@@ -207,14 +210,14 @@ function getcontent(indicator, a, e) {
             console.log(res);
             var net = res.networkType;
             if (net == 'none') {
-              indicator.setData({ page: [{ tag: 'error' }] }); wx.hideLoading(indicator, a, e);
+              indicator.setData({ page: [{ tag: 'error' }] }); wx.hideLoading();
               wx.showToast({ title: '无法加载！网络无连接，且您未提前缓存此界面！', icon: 'none', duration: 10000 });
-              reConnet;
+              reConnet(indicator, a, e);
             }
             else if (net == 'unknown') {
-              indicator.setData({ page: [{ tag: 'error' }] }); wx.hideLoading(indicator, a, e);
+              indicator.setData({ page: [{ tag: 'error' }] }); wx.hideLoading();
               wx.showToast({ title: '无法加载！未知网络无法联网，且您未提前缓存此界面！', icon: 'none', duration: 10000 });
-              reConnet;
+              reConnet(indicator, a, e);
             }
             else {
               wx.request({
@@ -263,7 +266,7 @@ module.exports = {
   sS: setSwitch,
   ak: arrayKeynumber,
   img: imgLoad,
-  gC: getcontent,
+  gC: getContent,
   // formatTime: formatTime,
   // go: go,
 }

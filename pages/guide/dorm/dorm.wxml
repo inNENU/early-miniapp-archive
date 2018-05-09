@@ -1,4 +1,0 @@
-<import src="/templates/template" />
-<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.tag}}" data="{{item}}" />
-</view>

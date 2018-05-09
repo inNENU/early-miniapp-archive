@@ -104,5 +104,5 @@
 </template>
 
 <template name='iOSerror'>
-  <view class='iOSH3'>服务器出错了!</view>
+  <view class='iOSH3'>出错了!</view>
 </template>
