@@ -1,10 +1,18 @@
+# 许可
  **这是一个由Mr.Hope独立编写的项目。全部代码均由Mr.Hope编写，如有抄袭、商用，Mr.Hope保留追究其责任的权利。** 
+### 一. 复杂界面编写说明
 
-### 一. 界面文件初始代码添加
-#### 当新建界面以后，请执行以下步骤：
- **1.将界面添加至app.json中的pages数组中。** 
+##### 1. 新建一个json文件，对文件进行合理命名，使用“文件主题+编号”格式，命名为xxx.json。
 
- **2.在js中输入：** 
+##### 2. 在json中建一个数组，页面的编写主要通过操纵处于界面data下名为**page**的**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。按照tag值参数表对数组进行填写，编写界面内容。
+
+### 二. 复杂界面编写说明
+
+ 对文件进行合理命名，使用“文件主题+编号”格式。
+
+ **1.在指定的路径下新建xxx.js与xxx.wxml文件，并将其界面路径添加至app.json中的pages数组中。**
+
+ **2.在xxx.js中输入：** 
 ```
 var u = getApp().util, a = getApp().globalData;
 Page({
@@ -13,9 +21,10 @@ Page({
       **插入内容** 
     ],
   },
-  onLoad(e) { this.setData({ T: a.T, nm: a.nm, page: u.sP(this.data.page, a, e) }) },
-  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
+  onLoad(e) { u.sP(this.data.page, this, a, e) }, 
+  onPageScroll(e) { u.nav(e, this.data.page, this) }, 
   back() { u.back() },
+  **其他函数**
 })
 ```
  _**Tips：**_ 
@@ -25,33 +34,41 @@ Page({
 为了方便查错以及后续更改，在复制粘贴时保留原代码换行及缩进样式。
 
 
- **3.在视图层输入：** 
+ **3.在xxx.wxml中输入：** 
 ```
-<import src="/templates/empty" />
-<import src="/templates/iOS" />
-<import src="/templates/wechat" />
-<view class="{{T}} {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.name}}" data="{{item}}" />
+<import src="/templates/template" />
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.tag}}" data="{{item}}" />
 </view>
 ```
- _**Tips：**_ 
-如果所输入界面包含列表，请在**第四行{{T}}后**添加**grey**，即：
-```
-<import src="/templates/empty" />
-<import src="/templates/iOS" />
-<import src="/templates/wechat" />
-<view class="{{T}}grey {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.name}}" data="{{item}}" />
-</view>
-```
-
-至此，界面初始代码添加完成。
-
-
-### 二、界面内容编写
+**4. 对照tag值参数表文件进行界面内容编写。**
 
 页面的编写主要通过操纵处于界面data下名为**page**的**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。
  
+**5. 在xxx.js中添加与编写函数。**
+ ##### 界面中包含图片的添加img函数：
+
+```
+  img(e) { let p = u.img(this.data.page, e); this.setData({ page: p }) } },
+```
+##### 界面中包含picker-view时添加pV函数：
+
+```
+  pV(e) { this.setData({ page: u.pV(this.data.page, e) }) },
+```
+#####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
+
+##### **switch函数**
+
+- functionName：在page数组中填入的switch值；
+- key：在pages数组中填入的key值；
+```
+→functionName←(e) {
+    other code here......
+    this.setData({ page: u.sS(this.data.page, e) });
+  },
+```
+# tag值表
  #### **有效的tag值：** 
 - head：小程序界面的头部，包括标题和navigationBar(必填，仅用一次填在最前）
 - h3：大标题
@@ -66,6 +83,7 @@ Page({
 - text：输入标题和导航栏显示的文字；
 - top：界面为首页时值为'ture'，非首页不填；
 - desc(可选)：标题描述文字，该文字只在特定主题下展示。
+- grey(根据需要)：添加"grey:true"属性值会用灰色背景取代默认的白色背景；
 
 ##### **h3参数：**
 - text：展示页的大标题文字；
@@ -87,7 +105,8 @@ Page({
 
   #####  **选项一：普通列表(可带链接)**
   - desc(可选)：列表内容的描述；
-  - url(可选)：列表指向的界面链接；
+  - url(可选)：当指向复杂界面时填写，填入列表指向的界面路径；
+  - aim(可选)：当指向简单界面时填写，填入对应界面的json文件名；
 
   #####  **选项二：开关模式**
   - switch：开关对应的函数名称；
@@ -116,27 +135,3 @@ Page({
   - top right：不缩放图片，只显示图片的右上边区域；
   - bottom left：不缩放图片，只显示图片的左下边区域；
   - bottom right：不缩放图片，只显示图片的右下边区域；
-
-### 三、函数的编写
-#####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
-
- ##### **img函数** 
-
-```
-  img(e) { let p = u.img(this.data.page, e); this.setData({ page: p }) } },
-```
- ##### **picker函数** 
-
-```
-  pV(e) { this.setData({ page: u.pV(this.data.page, e) }) },
-```
- ##### **switch函数**
-
-- functionName：在page数组中填入的switch值；
-- key：在pages数组中填入的key值；
-```
-→functionName←(e) {
-    other code here......
-    this.setData({ page: u.sS(this.data.page, e) });
-  },
-```
