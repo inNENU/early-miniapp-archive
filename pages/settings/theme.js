@@ -7,45 +7,44 @@ Page({
   data: {
     array: ['iOS', 'wechat', 'debug',],
     page: [
-      { tag: 'head', title: '主题设置' },
+      { tag: 'head', title: '主题设置', grey: true },
       {
         tag: 'list', head: '夜间模式', content: [
           { text: '夜间模式', Switch: 'switchnm', key: 'nightmode' },
           { text: '自动切换开关', Switch: 'switchnmAC', key: 'nightmodeAutoChange' },
-          { text: '开始时间', picker: 'setStart', pickerKey: 'nmStart', pickerValue: time, tap: 'displayStart', },
-          { text: '结束时间', picker: 'setEnd', pickerKey: 'nmEnd', pickerValue: time, tap: 'displayEnd', }
+          { text: '开始时间', pickerKey: 'nmStart', pickerValue: time },
+          { text: '结束时间', pickerKey: 'nmEnd', pickerValue: time }
+        ]
+      },
+      {
+        tag: 'list', head: '资源更新', content: [
+          { text: '资源更新提示', Switch: 'switchresNotify', key: 'resNotify' },
         ]
       },
       { tag: 'p', head: '主题设置' },
     ],
   },
-  onLoad(e) {
-    let p = u.sP(this.data.page, a, e);
-    // p = u.iP(p, 'nmStart', 1, 2); p = u.iP(p, 'nmEnd', 1, 3);
-    this.setData({ page: p, T: a.T, nm: a.nm, index: u.ak(this.data.array, a.T) })
+  onLoad(e) { u.sP(this.data.page, this, a, e); this.setData({ index: u.ak(this.data.array, a.T) }) },
+  onPageScroll(e) { u.nav(e, this.data.page, this) }, back() { u.back() },
+  switchnm(e) {
+    let p = this.data.page, value = e.detail.value; a.nm = value;
+    p[1].content[1].status = false; wx.setStorageSync("nightmodeAutoChange", false);
+    this.setData({ nm: value, page: u.sS(p, e) });
   },
-  onPageScroll(e) { let p = u.nav(e, this.data.page); if (p) { this.setData({ page: p }) } },
+  switchnmAC(e) {
+    let p = u.sS(this.data.page, e); let nm = u.nm(new Date());
+    a.nm = nm; p[1].content[0].status = nm; wx.setStorageSync("nightmode", nm)
+    this.setData({ nm: nm, page: p });
+  },
+  switchresNotify(e) {
+    let p = u.sS(this.data.page, e); this.setData({ page: p });
+  },
+  pV(e) { u.pV(this.data.page, e, this) },
+  back() { u.back() },
+  onUnload() { a.nm = u.nm(new Date()) },
   bindPickerChange(e) {
     let v = e.detail.value, T = this.data.array[v];
     a.T = T; wx.setStorageSync("theme", T);
     this.setData({ index: v, page: u.sP(this.data.page, a) });
   },
-  switchnm(e) {
-    let p = this.data.page, value = e.detail.value; a.nm = value;
-    p[1].content[1].checked = false;
-    wx.setStorageSync("nightmode", value); wx.setStorageSync("nightmodeAutoChange", false);
-    this.setData({ nm: value, page: u.sS(p, e.detail.value, 1, 0) });
-  },
-  switchnmAC(e) {
-    let value = e.detail.value; wx.setStorageSync("nightmodeAutoChange", value);
-    let nm = u.nm(new Date()), temp = wx.getStorageSync("nightmode"), p = this.data.page;
-    a.nm = nm; p = u.sS(u.sS(p, temp, 1, 0), value, 1, 1)
-    this.setData({ nm: nm, page: p });
-  },
-  displayStart() { let page = this.data.page; page[1].content[2].display = !page[1].content[2].display; this.setData({ page: page }) },
-  setStart(e) { this.setData({ page: u.sPV(this.data.page, e.detail.value, 1, 2) }) },
-  displayEnd() { let page = this.data.page; page[1].content[3].display = !page[1].content[3].display; this.setData({ page: page }) },
-  setEnd(e) { this.setData({ page: u.sPV(this.data.page, e.detail.value, 1, 3) }) },
-  back() { u.back() },
-  onUnload() { a.nm = u.nm(new Date()) },
 })

@@ -1,6 +1,4 @@
-<import src="/templates/empty" />
-<import src="/templates/iOS" />
-<import src="/templates/wechat" />
-<view class="{{T}} {{nm?'nm':''}}">
+<import src="/templates/template" />
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.tag}}" data="{{item}}" />
 </view>
