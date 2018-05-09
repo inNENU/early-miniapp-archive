@@ -56,7 +56,7 @@ Page({
 ##### 界面中包含picker-view时添加pV函数：
 
 ```
-  pV(e) { this.setData({ page: u.pV(this.data.page, e) }) },
+  pV(e) { u.pV(this.data.page, e, this) },
 ```
 #####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
 

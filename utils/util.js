@@ -8,122 +8,9 @@ function checkVersion(version) {
   });
 }
 
-function initialize(key, defaultKey) { let value = wx.getStorageSync(key); if (value || value === false) { return value } else { wx.setStorageSync(key, defaultKey); return defaultKey; } }
-
-function setTheme(theme) {
-  let value = wx.getStorageSync('theme'); if (value) { return value } else {
-    if (theme == "auto") {
-      let p = wx.getSystemInfoSync().platform;
-      if (p == 'ios') { return 'iOS' }; if (p == 'android') { return 'wechat' }; if (p == 'devtools') { return 'iOS' };
-    } else { return theme }
-  }
-}
-
-function nightmode(date, startTime, endTime) {
-  let nm = initialize('nightmode', true), nmAC = initialize('nightmodeAutoChange', true);
-  let s = initialize('nmStart', startTime).split('-'), e = initialize('nmEnd', endTime).split('-');
-  let start = Number(s[0]) * 100 + Number(s[1]), end = Number(e[0]) * 100 + Number(e[1]);
-  let time = date.getHours() * 100 + date.getMinutes(); var temp;
-  if (nmAC) {
-    if (start <= end) { if (time >= start && time <= end) { temp = true } else { temp = false } }
-    else { if (time <= start && time >= end) { temp = false } else { temp = true } };
-    wx.setStorageSync('nightmode', temp); return temp;
-  } else { return nm; }
-}
-
-function changeNav(pos, page, indicator) {
-  var n = page[0], T, B;
-  if (pos.scrollTop <= 42) { T = false; B = false; } else if (pos.scrollTop >= 53) { T = true; B = true; } else { T = true; B = false; };
-  if (n.titleDisplay === null || n.titleDisplay != T || n.borderDisplay != B) { n.titleDisplay = T, n.borderDisplay = B; indicator.setData({ page: page }) }
-}
-
-function setNav(page, a, e) {
-  if (a.info.model.substring(0, 8) === 'iPhone X') { page[0].iPhoneX = true };
-  if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
-  if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
-  if (e && !page[0].top && 'step' in e) { page[0].aimStep = Number(e.step) + 1 };
-}
-
-function setListContent(page, a, i) {
-  if ('content' in page[i]) {
-    let content = page[i].content;
-    for (let j = 0; j < content.length; j++) {
-      content[j].id = i + "-" + j;
-      if ('key' in content[j]) { content[j].status = wx.getStorageSync(content[j].key); };
-      if ('url' in content[j]) { content[j].url += "?from=" + page[0].title };
-      if ('aim' in content[j]) { content[j].url = "guide" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + content[j].aim + "&step=" + page[0].aimStep };
-      if ('pickerKey' in content[j]) {
-        content[j].currentValue = new Array(); content[j].value = new Array();
-        let temp = wx.getStorageSync(content[j].pickerKey).split('-');
-        for (let k = 0; k < temp.length; k++) {
-          content[j].value[k] = content[j].pickerValue[k][Number(temp[k])]; content[j].currentValue[k] = Number(temp[k]);
-        }
-      }
-    }
-  }
-}
-
-function setPage(page, indicator, a, e) {
-  console.log(page);
-  console.log(indicator);
-  console.log(a);
-  console.log(e);
-  setNav(page, a, e); page[0].url = new Array(); page[0].T = a.T;
-  for (let i = 0; i < page.length; i++) {
-    let current = page[i]; current.id = i;
-    if (current.src) {
-      page[0].url.push(page[i].src);
-      if (!current.imgMode) { current.imgMode = a.imgMode };
-    };
-    setListContent(page, a, i);
-  }; indicator.setData({ T: a.T, nm: a.nm, page: page })
-}
-
-function pickerView(page, e) {
-  if (e.type == 'tap') { return displayPickerView(page, e) }
-  if (e.type == 'change') { return setPickerValue(page, e) }
-}
-
-function setPickerValue(page, e) {
-  let pos = e.target.dataset.id.split('-'), content = page[pos[0]].content[pos[1]], value = e.detail.value;
-  for (let k = 0; k < value.length; k++) {
-    content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
-  }; wx.setStorageSync(content.pickerKey, value.join('-')); return page;
-}
-
-function displayPickerView(page, e) {
-  let pos = e.currentTarget.id.split('-'), content = page[pos[0]].content[pos[1]];
-  content.visible = !content.visible; return page;
-}
-
-function setSwitch(page, e) {
-  console.log(e)
-  let pos = e.target.id.split('-'), content = page[pos[0]].content[pos[1]];
-  content.status = e.detail.value; wx.setStorageSync(content.key, e.detail.value);
-  return page;
-}
-
-function tabBarChanger(nm) {
-  if (nm) { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#000000', borderStyle: 'white' }) }
-  else { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#ffffff', borderStyle: 'black' }) };
-}
-function back() { wx.navigateBack({}) }
-
-function arrayKeynumber(array, key) {
-  for (var i in array) { if (array[i] == key) { return i } }
-}
-
-function imgLoad(page, indicator, e) {
-  let current = page[e.target.id];
-  if (e.type == 'load') { current.load = true } else if (e.type == 'error') { current.error = true }
-  else if (e.type == 'tap') { wx.previewImage({ current: current.src, urls: page[0].url }) };
-  indicator.setData({ page: page });
-}
-
 function checkResUpdate() {
-  console.log('checkResUpdate Start')
   let resNotify = initialize('resNotify', true), resVersion = initialize('resVersion', 0);
-  console.log('resNotify is ' + resNotify); console.log('resVersion is ' + resVersion);
+  console.log('resNotify ' + resNotify); console.log('resVersion ' + resVersion);
   if (resNotify) {
     wx.getNetworkType({
       success: function (netWork) {
@@ -167,8 +54,7 @@ function checkResUpdate() {
                     title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗几百K流量)',
                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
                     success(choice) {
-                      if (choice.confirm) {
-                        var successNumber = 0;
+                      var successNumber = 0; if (choice.confirm) {
                         wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
                         for (let i = 0; i < fileList.length; i++) {
                           wx.request({
@@ -192,6 +78,105 @@ function checkResUpdate() {
       },
     })
   }
+}
+
+function initialize(key, defaultKey) {
+  let value = wx.getStorageSync(key);
+  if (value || value === false) { return value } else { wx.setStorageSync(key, defaultKey); return defaultKey; }
+}
+
+function setTheme(theme) {
+  let value = wx.getStorageSync('theme'); if (value) { return value } else {
+    if (theme == "auto") {
+      let p = wx.getSystemInfoSync().platform;
+      if (p == 'ios') { return 'iOS' }; if (p == 'android') { return 'wechat' }; if (p == 'devtools') { return 'iOS' };
+    } else { return theme }
+  }
+}
+
+function nightmode(date, startTime, endTime) {
+  let nm = initialize('nightmode', true), nmAC = initialize('nightmodeAutoChange', true);
+  let s = initialize('nmStart', startTime).split('-'), e = initialize('nmEnd', endTime).split('-');
+  let start = Number(s[0]) * 100 + Number(s[1]), end = Number(e[0]) * 100 + Number(e[1]);
+  let time = date.getHours() * 100 + date.getMinutes(); var temp;
+  if (nmAC) {
+    if (start <= end) { if (time >= start && time <= end) { temp = true } else { temp = false } }
+    else { if (time <= start && time >= end) { temp = false } else { temp = true } };
+    wx.setStorageSync('nightmode', temp); return temp;
+  } else { return nm; }
+}
+
+function changeNav(pos, page, indicator) {
+  var n = page[0], T, B;
+  if (pos.scrollTop <= 42) { T = false; B = false; }
+  else if (pos.scrollTop >= 53) { T = true; B = true; } else { T = true; B = false; };
+  if (n.titleDisplay === null || n.titleDisplay != T || n.borderDisplay != B)
+  { n.titleDisplay = T, n.borderDisplay = B; indicator.setData({ page: page }) }
+}
+
+function setPage(page, indicator, a, e) {
+  console.log(page); console.log(indicator); console.log(a); console.log(e);
+  //setNavStart
+  if (a.info.model.substring(0, 8) === 'iPhone X') { page[0].iPhoneX = true };
+  if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
+  if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
+  if (e && !page[0].top && 'step' in e) { page[0].aimStep = Number(e.step) + 1 };
+  page[0].url = new Array(); page[0].T = a.T;
+  //setList
+  for (let i = 0; i < page.length; i++) {
+    let Module = page[i]; Module.id = i;
+    if (Module.src) { page[0].url.push(page[i].src); if (!Module.imgMode) { Module.imgMode = a.imgMode }; };
+    if ('content' in Module) {
+      for (let j = 0; j < Module.content.length; j++) {
+        let item = Module.content[j]; item.id = i + "-" + j;
+        if ('key' in item) { item.status = wx.getStorageSync(item.key); };
+        if ('url' in item) { item.url += "?from=" + page[0].title };
+        if ('aim' in item) { item.url = "guide" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep };
+        if ('pickerKey' in item) {
+          let res = wx.getStorageSync(item.pickerKey).split('-'); item.currentValue = new Array(); item.value = new Array();
+          for (let k = 0; k < res.length; k++) {
+            item.value[k] = item.pickerValue[k][Number(res[k])]; item.currentValue[k] = Number(res[k]);
+          }
+        }
+      }
+    }
+  }; indicator.setData({ T: a.T, nm: a.nm, page: page })
+}
+
+function pickerView(page, e, indicator) {
+  let pos = e.currentTarget.dataset.id.split('-'), content = page[pos[0]].content[pos[1]];
+  if (e.type == 'tap') { content.visible = !content.visible; indicator.setData({ page: page }) }
+  if (e.type == 'change') {
+    let value = e.detail.value;
+    for (let k = 0; k < value.length; k++) {
+      content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
+    }; wx.setStorageSync(content.pickerKey, value.join('-')); indicator.setData({ page: page })
+  }
+}
+
+function setSwitch(page, e) {
+  console.log(e)
+  let pos = e.target.id.split('-'), content = page[pos[0]].content[pos[1]];
+  content.status = e.detail.value; wx.setStorageSync(content.key, e.detail.value);
+  return page;
+}
+
+function tabBarChanger(nm) {
+  if (nm) { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#000000', borderStyle: 'white' }) }
+  else { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#ffffff', borderStyle: 'black' }) };
+}
+
+function back() { wx.navigateBack({}) }
+
+function arrayKeynumber(array, key) {
+  for (var i in array) { if (array[i] == key) { return i } }
+}
+
+function imgLoad(page, indicator, e) {
+  let current = page[e.target.id];
+  if (e.type == 'load') { current.load = true } else if (e.type == 'error') { current.error = true }
+  else if (e.type == 'tap') { wx.previewImage({ current: current.src, urls: page[0].url }) };
+  indicator.setData({ page: page });
 }
 
 function getContent(indicator, a, e) {
@@ -261,8 +246,6 @@ module.exports = {
   pV: pickerView,
   tBC: tabBarChanger,
   back: back,
-  sPV: setPickerValue,
-  dP: displayPickerView,
   sS: setSwitch,
   ak: arrayKeynumber,
   img: imgLoad,

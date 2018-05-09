@@ -39,7 +39,7 @@ Page({
   switchresNotify(e) {
     let p = u.sS(this.data.page, e); this.setData({ page: p });
   },
-  pV(e) { this.setData({ page: u.pV(this.data.page, e) }) },
+  pV(e) { u.pV(this.data.page, e, this) },
   back() { u.back() },
   onUnload() { a.nm = u.nm(new Date()) },
   bindPickerChange(e) {
