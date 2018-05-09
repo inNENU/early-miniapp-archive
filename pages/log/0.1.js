@@ -2,7 +2,7 @@ var u = getApp().util, a = getApp().globalData;
 Page({
   data: {
     page: [
-      { tag: 'head', title: 'V0.1开发日志' },
+      { tag: 'head', title: 'V0.1开发日志', grey: true  },
       { tag: 'p', head: 'V0.1.1', text: '修复了链接列表文字略偏上的问题；\n修复了链接列表箭头略偏下的问题；\n修复navtitle动画延后的问题；\n修复了在某些机型上navigationBar title位置错误的问题；' },
       { tag: 'p', head: 'V0.1.2', text: '在navigationBar中加入了返回交互动画；\n尝试适配iPhone X；\n优化了界面通信；\n修复了夜间模式必须重启才可切换的问题；' },
       { tag: 'p', head: 'V0.1.3', text: '重建主题控件，完成了主题切换模式；\n修复了tabBar栏在切换夜间模式后不能变黑的问题；\n少量错误修复' },

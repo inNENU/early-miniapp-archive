@@ -6,7 +6,6 @@ Page({
     let that = this;
     wx.request({
       url: 'https://mrhope.top/miniProgram/dorm.json', 
-      // header: { 'content-type': 'application/json' },
       success(res) {
         console.log(res); that.setData({ T: a.T, nm: a.nm, page: u.sP(res.data, a, e), }); console.log("set complete")
       }

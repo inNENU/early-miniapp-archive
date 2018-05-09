@@ -2,7 +2,7 @@ var u = getApp().util, a = getApp().globalData;
 Page({
   data: {
     page: [
-      { tag: 'head', title: 'alpha开发日志' },
+      { tag: 'head', title: 'alpha开发日志', grey: true },
       { tag: 'p', head: 'V0.0.1', text: '制作了navigationBar与tabBar；\n导入网页的生活界面；\n增加制作了footer；\n简要地对东师青年指南界面进行了链接；\n制作了无定义界面的跳转内容；' },
       { tag: 'p', head: 'V0.0.2', text: '修复tabBar的icon模糊情况；\n修复图片显示比例不正常的问题；\n对页面样式进行了简单的定义与设计；' },
       { tag: 'p', head: 'V0.0.3', text: '利用globalData，属性进行批量定义；\n重新组织了界面，为以后开发主题提供接口；' },

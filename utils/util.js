@@ -2,7 +2,7 @@ function checkVersion(version) {
   wx.getSystemInfo({
     success: function (res) {
       let SDK = res.SDKVersion; if (SDK.charAt(0) <= 1 && SDK.charAt(2) < 9) { wx.showModal({ title: '微信版本过低', content: '无法加载小程序，请将客户端升级到V6.6.0版本及以上', showCancel: false, success(res) { if (res.confirm) { wx.navigateBack({}) }; } }) };
-      wx.getStorage({ key: 'version', success: function (res) { let preVersion = res.data; if (version != preVersion) { wx.setStorageSync('version', version); wx.showModal({ title: '小程序已升级', content: '检测到小程序更新，为了保障小程序正常运行，您的数据已被清空。请重新进入小程序完成新版本的初始化。', confirmText: '退出', showCancel: false, success(res) { if (res.confirm) { wx.clearStorage(); wx.navigateBack({}) }; } }); }; }, fail: function () { wx.setStorageSync('version', version) } });
+      wx.getStorage({ key: 'appVersion', success: function (res) { let preVersion = res.data; if (version != preVersion) { wx.setStorageSync('appVersion', version); wx.showModal({ title: '小程序已升级', content: '检测到小程序更新，为了保障小程序正常运行，您的数据已被清空。请重新进入小程序完成新版本的初始化。', confirmText: '退出', showCancel: false, success(res) { if (res.confirm) { wx.clearStorage(); wx.navigateBack({}) }; } }); }; }, fail: function () { wx.setStorageSync('appVersion', version) } });
       return version;
     }
   });
@@ -116,74 +116,140 @@ function imgLoad(page, indicator, e) {
   indicator.setData({ page: page });
 }
 
-// function getcontent(indicator, a, e) {
-//   wx.showLoading({ title: '拼命加载中' })
-//   wx.request({
-//     url: 'https://mrhope.top/miniProgram/' + e.aim + '.json', success(res) {
-//       console.log(res); console.log(a); console.log(e);
-//       wx.hideLoading();
-//       if (res.statusCode == 200) { setPage(res.data, indicator, a, e) }
-//       else { indicator.setData({ page: [{ tag: 'error' }] }) }
-//     }
-//   });
-// }
+function checkResUpdate() {
+  console.log('checkResUpdate')
+  let resNotify = initialize('resNotify', true), resVersion = initialize('resVersion', 0)
+  if (resNotify != false) {
+    wx.getNetworkType({
+      success: function (resNetwork) {
+        console.log(resNetwork.networkType)
+        if (resNetwork.networkType == 'wifi') {
+          wx.request({
+            url: 'https://mrhope.top/miniProgram/fileList.json', success(resRequest) {
+              console.log(resRequest); let webVersion = resRequest.data[0], fileList = resRequest.data[1];
+              if (resRequest.statusCode == 200) {
+                if (resVersion == 0) {
+                  wx.showModal({
+                    title: '是否离线部分页面文字资源？',
+                    content: '选择离线后可以在无网络连接时查看部分界面。(会消耗几百K流量)',
+                    cancelText: '否',
+                    cancelColor: '#ff0000',
+                    confirmText: '是',
+                    success(resModal) {
+                      if (resModal.cancel) {
+                        wx.showModal({
+                          title: '是否要关闭此提示？',
+                          content: '关闭后不会再显示类似提示。您可以在设置中重新打开提示。',
+                          cancelText: '关闭',
+                          cancelColor: '#ff0000',
+                          confirmText: '保持打开',
+                          success(resModal2) { if (resModal2.cancel) { wx.setStorageSync('resNotify', false) } }
+                        })
+                      }
+                      if (resModal.confirm) {
+                        console.log('confirm'); console.log(fileList);
+                        wx.showLoading({ title: '下载中...', mask: true });
+                        for (let i = 0; i < fileList.length; i++) {
+                          wx.request({
+                            url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
+                              console.log(res); wx.setStorageSync(fileList[i], res.data);
+                            }
+                          })
+                        }; wx.hideLoading(); wx.setStorageSync('resVersion', webVersion);
+                      }
+                    }
+                  });
+                }
+                else if (webVersion > resVersion) {
+                  wx.showModal({
+                    title: '部分页面资源有更新？',
+                    content: '是否立即更新界面资源？\n(会消耗几百K流量)',
+                    cancelText: '否',
+                    cancelColor: '#ff0000',
+                    confirmText: '是',
+                    success(resModal) {
+                      if (resModal.confirm) {
+                        console.log('confirm'); console.log(fileList);
+                        wx.showLoading({ title: '下载中...', mask: true });
+                        for (let i = 0; i < fileList.length; i++) {
+                          wx.request({
+                            url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
+                              console.log(res); wx.setStorageSync(fileList[i], res.data);
+                            }
+                          })
+                        }; wx.hideLoading(); wx.setStorageSync('resVersion', webVersion);
+                      }
+                    }
+                  });
+                }
+              }
+              else { console.warn('FileList error!') }
+            }
+          })
+        }
+      },
+    })
+  }
+}
 
 function getcontent(indicator, a, e) {
   wx.showLoading({ title: '拼命加载中' });
-  console.log(e.aim); var url;
+  console.log(e.aim);
   wx.getStorage({
-    key: e.aim,
-    success: function (res) {
+    key: e.aim, success: function (res) {
       console.log(res.data);
-      url = res.data;
-      wx.request({
-        url: url, success(res) {
-          console.log(res); console.log(a); console.log(e);
-          wx.hideLoading();
-          if (res.statusCode == 200) { setPage(res.data, indicator, a, e) }
-          else { indicator.setData({ page: [{ tag: 'error' }] }) }
-        }
-      });
-    },
-    fail: function (res) {
-      console.log(res)
-      console.log("fail")
-      wx.downloadFile({
-        url: 'https://mrhope.top/miniProgram/' + e.aim + '.json',
-        success: function (res) {
-          console.log(res);
-          if (res.statusCode === 200) {
-            var tempPath = res.tempFilePath;
-            wx.saveFile({
-              tempFilePath: tempPath,
-              success: function (res) {
-                console.log(res.savedFilePath);
-                url = res.savedFilePath;
-                wx.setStorageSync(e.aim, res.savedFilePath);
-                wx.request({
-                  url: url, success(res) {
-                    console.log(res); console.log(a); console.log(e);
-                    wx.hideLoading();
-                    if (res.statusCode == 200) { setPage(res.data, indicator, a, e) }
-                    else { indicator.setData({ page: [{ tag: 'error' }] }) }
-                  }
-                });
-              }
-            })
-          } else {
-            console.warn('error');
-            indicator.setData({ page: [{ tag: 'error' }] })
+      wx.hideLoading(); setPage(res.data, indicator, a, e);
+    }, fail: function (res) {
+      console.log(res);
+      if (res.errMsg == 'getStorage:fail data not found') {
+        wx.getNetworkType({
+          success: function (res) {
+            console.log(res);
+            var net = res.networkType;
+            if (net == 'none') {
+              indicator.setData({ page: [{ tag: 'error' }] }); wx.hideLoading(indicator, a, e);
+              wx.showToast({ title: '无法加载！网络无连接，且您未提前缓存此界面！', icon: 'none', duration: 10000 });
+              reConnet;
+            }
+            else if (net == 'unknown') {
+              indicator.setData({ page: [{ tag: 'error' }] }); wx.hideLoading(indicator, a, e);
+              wx.showToast({ title: '无法加载！未知网络无法联网，且您未提前缓存此界面！', icon: 'none', duration: 10000 });
+              reConnet;
+            }
+            else {
+              wx.request({
+                url: 'https://mrhope.top/miniProgram/' + e.aim + '.json', success(res) {
+                  console.log(res); wx.hideLoading();
+                  if (res.statusCode == 200) { setPage(res.data, indicator, a, e); wx.setStorageSync(e.aim, res.data) }
+                  else { indicator.setData({ page: [{ tag: 'error' }] }) }
+                }
+              })
+            }
           }
-        },
-        fail: function () { indicator.setData({ page: [{ tag: 'error' }] }) },
-      })
+        })
+      }
     },
   })
-  console.log(url);
+}
 
+
+function reConnet(indicator, a, e) {
+  wx.onNetworkStatusChange(function (res) {
+    console.log(res.isConnected); console.log(res.networkType)
+    if (res.isConnected) {
+      wx.request({
+        url: 'https://mrhope.top/miniProgram/' + e.aim + '.json', success(res) {
+          console.log(res); wx.hideToast();
+          if (res.statusCode == 200) { setPage(res.data, indicator, a, e); wx.setStorageSync(e.aim, res.data) }
+          else { indicator.setData({ page: [{ tag: 'error' }] }) }
+        }
+      })
+    }
+  })
 }
 module.exports = {
   cV: checkVersion,
+  cRU: checkResUpdate,
   init: initialize,
   sT: setTheme,
   nm: nightmode,

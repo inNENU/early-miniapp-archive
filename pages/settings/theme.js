@@ -7,13 +7,18 @@ Page({
   data: {
     array: ['iOS', 'wechat', 'debug',],
     page: [
-      { tag: 'head', title: '主题设置' },
+      { tag: 'head', title: '主题设置', grey: true },
       {
         tag: 'list', head: '夜间模式', content: [
           { text: '夜间模式', Switch: 'switchnm', key: 'nightmode' },
           { text: '自动切换开关', Switch: 'switchnmAC', key: 'nightmodeAutoChange' },
           { text: '开始时间', pickerKey: 'nmStart', pickerValue: time },
           { text: '结束时间', pickerKey: 'nmEnd', pickerValue: time }
+        ]
+      },
+      {
+        tag: 'list', head: '资源更新', content: [
+          { text: '资源更新提示', Switch: 'switchresNotify', key: 'resNotify' },
         ]
       },
       { tag: 'p', head: '主题设置' },
@@ -30,6 +35,9 @@ Page({
     let p = u.sS(this.data.page, e); let nm = u.nm(new Date());
     a.nm = nm; p[1].content[0].status = nm; wx.setStorageSync("nightmode", nm)
     this.setData({ nm: nm, page: p });
+  },
+  switchresNotify(e) {
+    let p = u.sS(this.data.page, e); this.setData({ page: p });
   },
   pV(e) { this.setData({ page: u.pV(this.data.page, e) }) },
   back() { u.back() },
