@@ -6,3 +6,4 @@
 <template name="p" />
 <template name="img" />
 <template name="foot" />
+<template name="error" />
