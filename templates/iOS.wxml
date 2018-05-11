@@ -108,7 +108,7 @@
 </template>
 
 <template name='iOSdoc'>
-  <button class='docCtn' bindtap='{{item.tap}}'>
+  <button id="{{item.id}}" class='docCtn' bindtap='doc' data-url="{{item.url}}">
     <image class='docIcon' mode='widthFix' src='/image/{{item.docType}}.svg' />
     <view class=' docname docAccess'>{{item.docName}}.{{item.docType}}</view>
   </button>

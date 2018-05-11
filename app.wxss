@@ -36,7 +36,6 @@ page {
 
 .docCtn {
   width: 100%;
-  /* background-color: rgba(0, 0, 0, 0); */
   background-color: #fff;
   padding: 10px 0 !important;
   line-height: 2;
@@ -47,6 +46,7 @@ page {
   border-right: none !important;
   border-top: 1rpx #cac9ce solid;
   border-bottom: 1rpx #cac9ce solid;
+  border-radius: 0 !important;
 }
 
 .doc {

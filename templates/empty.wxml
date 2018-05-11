@@ -1,9 +1,0 @@
-<template name="head" />
-<template name="h2" />
-<template name="h3" />
-<template name="h4" />
-<template name="list" />
-<template name="p" />
-<template name="img" />
-<template name="foot" />
-<template name="error" />
