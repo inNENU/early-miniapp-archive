@@ -239,6 +239,15 @@ function openDocument(e) {
   wx.downloadFile({ url: e.currentTarget.dataset.url, success: function (res) { let path = res.tempFilePath; wx.openDocument({ filePath: path }) } })
 }
 
+function phone(e) {
+  console.log(e);
+  let Type = e.target.dataset.type, info = e.currentTarget.dataset;
+  if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
+  else if (Type == 'add') {
+    wx.addPhoneContact({ firstName: info.fname, lastName: info.lname, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark })
+  }
+}
+
 module.exports = {
   cV: checkVersion,
   cRU: checkResUpdate,
@@ -256,6 +265,7 @@ module.exports = {
   img: imgLoad,
   gC: getContent,
   doc: openDocument,
+  phone: phone,
   // formatTime: formatTime,
   // go: go,
 }

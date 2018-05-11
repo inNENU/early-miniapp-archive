@@ -147,7 +147,15 @@ Page({
   - bottom left：不缩放图片，只显示图片的左下边区域；
   - bottom right：不缩放图片，只显示图片的右下边区域；
 
-  ##### **doc参数：**
-  - docName：文档的名称；
-  - docType：文档的类型，可以填写的值有“doc、docx、ppt、pptx、xls、xlsx、pdf”；
-  - url：文档在服务器的路径；
+##### **doc参数：**
+- docName：文档的名称；
+- docType：文档的类型，可以填写的值有“doc、docx、ppt、pptx、xls、xlsx、pdf”；
+- url：文档在服务器的路径；
+
+##### **phone参数：**
+- num：电话号码；
+- lName：联系人的姓；
+- fName：联系人的名；
+- org(可选)：联系人所在公司；
+- remark(可选)：联系人的备注；
+- workNum(可选)：工作电话；

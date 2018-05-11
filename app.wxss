@@ -90,6 +90,45 @@ page {
   border-color: #c7c7cc;
 }
 
+/* phone */
+
+.phoneCtn {
+  background-color: #fefefe;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  line-height: 2.5;
+}
+
+.phoneIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+}
+
+.phoneCallCtn, .phoneCall {
+  width: 32px;
+  height: 32px;
+}
+
+.phoneAddCtn, .phoneAdd {
+  width: 28px;
+  height: 28px;
+}
+
+.phoneCallCtn, .phoneAddCtn {
+  border-radius: 12px;
+  margin: 0 4px;
+}
+
+.phoneNum {
+  font-size: 20px;
+  font-weight: 400;
+  flex: 1 1 auto;
+  text-align: left;
+}
+
 /* footer */
 
 .footer-container {
