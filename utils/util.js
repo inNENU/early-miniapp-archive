@@ -32,7 +32,7 @@ function checkResUpdate() {
                           success(choice2) { if (choice2.cancel) { wx.setStorageSync('resNotify', false) } }
                         })
                       }
-                      if (choice.confirm) { resDownload(fileList, webVersion) }
+                      if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); }
                     }
                   });
                 }
@@ -40,7 +40,7 @@ function checkResUpdate() {
                   wx.showModal({
                     title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗100K流量)',
                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
-                    success(choice) { if (choice.confirm) { resDownload(fileList, webVersion) } }
+                    success(choice) { if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); } }
                   });
                 }
               }
@@ -53,23 +53,29 @@ function checkResUpdate() {
   }
 }
 
-function resDownload(fileList, webVersion) {
+function resDownload(fileList) {
   let successNumber = 0;
   wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
   for (let i = 0; i < fileList.length; i++) {
     wx.request({
       url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
-        console.log(res); wx.setStorageSync(fileList[i], res.data);
+        console.log(res); console.log(fileList[i]); wx.setStorageSync(fileList[i], res.data);
         successNumber += 1;
         wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
         if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
-      }
+      }, fail(res) { console.warn(res); console.warn(fileList[i]); }
     })
-  }; wx.setStorageSync('resVersion', webVersion);
+  }
 }
 
-function resRefresh(){
-  
+function resRefresh() {
+  wx.request({
+    url: 'https://mrhope.top/miniProgram/fileList.json', success(listRequest) {
+      console.log(listRequest); let webVersion = listRequest.data[0], fileList = listRequest.data[1];
+      if (listRequest.statusCode == 200) { resDownload(fileList) }
+      else { console.warn('FileList error!') }
+    }
+  })
 }
 
 function initialize(key, defaultKey) {
@@ -236,6 +242,7 @@ function openDocument(e) {
 module.exports = {
   cV: checkVersion,
   cRU: checkResUpdate,
+  rR: resRefresh,
   init: initialize,
   sT: setTheme,
   nm: nightmode,

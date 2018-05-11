@@ -17,9 +17,9 @@ Page({
         ]
       },
       {
-        tag: 'list', head: '资源更新', content: [
+        tag: 'list', head: '资源更新',foot:'如果页面显示出现问题请强制刷新资源', content: [
           { text: '资源更新提示', Switch: 'switchresNotify', key: 'resNotify' },
-          { text: '立即更新', button: 'refresh' },
+          { text: '立即刷新', button: 'refresh' },
         ]
       },
       { tag: 'p', head: '主题设置' },
@@ -49,7 +49,5 @@ Page({
     u.sP(this.data.page, this, a, e)
     this.setData({ index: v });
   },
-  refresh(e) {
-    console.log(e)
-  }
+  refresh(e) { u.rR() }
 })

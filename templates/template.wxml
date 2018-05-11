@@ -61,7 +61,7 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <button wx:elif='{{List.pickerValue||List.button}}' id="{{List.id}}" class="iOS-listCtn" hover-class="navBackHover" plain='true' bindtap="{{List.button?List.button:'pV'}}" data-id="{{List.id}}">
+      <button wx:elif='{{List.pickerValue||List.button}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.button?List.button:'pV'}}" data-id="{{List.id}}">
         <view class='iOS-list-Container'>
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
           <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
@@ -158,7 +158,7 @@
 </template>
 
 <template name='wechatlist'>
-  <view wx:if="{{item.head!==false}}" class='wechathead'>{{item.head}}</view>
+  <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
@@ -168,7 +168,15 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <view wx:if='{{!List.url && !List.pickerValue}}' id="{{List.id}}" class="iOS-listCtn {{List.Switch?'iOS-switchList':''}}">
+      <button wx:elif='{{List.pickerValue||List.button}}' id="{{List.id}}" class="iOS-listCtn" hover-class="navBackHover" plain='true' bindtap="{{List.button?List.button:'pV'}}" data-id="{{List.id}}">
+        <view class='iOS-list-Container'>
+          <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
+          <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
+            <block wx:for='{{List.value}}' wx:key>{{item}}</block>
+          </view>
+        </view>
+      </button>
+      <view wx:else id="{{List.id}}" class="iOS-listCtn {{List.Switch?'iOS-switchList':''}}">
         <!-- <view>此处插入icon</view> -->
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
@@ -177,14 +185,6 @@
           </view>
         </view>
       </view>
-      <button id="{{List.id}}" wx:if='{{List.pickerValue||List.button}}' class="iOS-listCtn" hover-class="navBackHover" plain='true' bindtap='pV' data-id="{{List.id}}">
-        <view class='iOS-list-Container'>
-          <view class='iOSLinkText' style="{{List.button?'color:blue;':''}}">{{List.text}}</view>
-          <view class='iOS-linkDesciption'>
-            <block wx:for='{{List.value}}' wx:key>{{item}}</block>
-          </view>
-        </view>
-      </button>
       <block wx:if='{{List.visible}}'>
         <view class='iOS-link-divline'></view>
         <picker-view indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="pV" data-id="{{List.id}}">
@@ -200,7 +200,6 @@
   </view>
   <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
 </template>
-
 
 <template name='wechatimg'>
   <view wx:if="{{item.error}}" class='imgError'>
