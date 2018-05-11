@@ -15,6 +15,11 @@ page {
   opacity: 0.2;
 }
 
+.buttonHover {
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0.7;
+}
+
 /* common Image */
 
 .loadingImg {
@@ -30,6 +35,98 @@ page {
   justify-content: center;
   align-items: center;
   padding: 8px 5%;
+}
+
+/* common doc */
+
+.docCtn {
+  width: 100%;
+  background-color: #fff;
+  padding: 10px 0 !important;
+  line-height: 2;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: 1rpx #cac9ce solid;
+  border-bottom: 1rpx #cac9ce solid;
+  border-radius: 0 !important;
+}
+
+.doc {
+  background-color: #fff;
+}
+
+.docIcon {
+  width: 32px;
+  height: 32px;
+  margin: 0 32px;
+}
+
+.docname {
+  font-size: 18px;
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.docAccess {
+  margin-right: 30px;
+}
+
+.docAccess:after {
+  content: " ";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-width: 2px 2px 0 0;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  right: 17px;
+  border-color: #c7c7cc;
+}
+
+/* phone */
+
+.phoneCtn {
+  background-color: #fefefe;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  line-height: 2.5;
+}
+
+.phoneIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+}
+
+.phoneCallCtn, .phoneCall {
+  width: 32px;
+  height: 32px;
+}
+
+.phoneAddCtn, .phoneAdd {
+  width: 28px;
+  height: 28px;
+}
+
+.phoneCallCtn, .phoneAddCtn {
+  border-radius: 12px;
+  margin: 0 4px;
+}
+
+.phoneNum {
+  font-size: 20px;
+  font-weight: 400;
+  flex: 1 1 auto;
+  text-align: left;
 }
 
 /* footer */

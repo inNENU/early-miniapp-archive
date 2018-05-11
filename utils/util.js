@@ -22,7 +22,7 @@ function checkResUpdate() {
               if (listRequest.statusCode == 200) {
                 if (resVersion == 0) {
                   wx.showModal({
-                    title: '是否离线部分页面文字资源？', content: '选择离线后可以在无网络连接时查看部分界面。(会消耗几百K流量)',
+                    title: '是否离线部分页面文字资源？', content: '选择离线后可以在无网络连接时查看部分界面。(会消耗100K流量)',
                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
                     success(choice) {
                       if (choice.cancel) {
@@ -32,42 +32,15 @@ function checkResUpdate() {
                           success(choice2) { if (choice2.cancel) { wx.setStorageSync('resNotify', false) } }
                         })
                       }
-                      if (choice.confirm) {
-                        var successNumber = 0;
-                        wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-                        for (let i = 0; i < fileList.length; i++) {
-                          wx.request({
-                            url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
-                              console.log(res); wx.setStorageSync(fileList[i], res.data);
-                              successNumber += 1;
-                              wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-                              if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
-                            }
-                          })
-                        }; wx.setStorageSync('resVersion', webVersion);
-                      }
+                      if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); }
                     }
                   });
                 }
                 else if (webVersion > resVersion) {
                   wx.showModal({
-                    title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗几百K流量)',
+                    title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗100K流量)',
                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
-                    success(choice) {
-                      var successNumber = 0; if (choice.confirm) {
-                        wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-                        for (let i = 0; i < fileList.length; i++) {
-                          wx.request({
-                            url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
-                              console.log(res); wx.setStorageSync(fileList[i], res.data);
-                              successNumber += 1;
-                              wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-                              if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
-                            }
-                          })
-                        }; wx.setStorageSync('resVersion', webVersion);
-                      }
-                    }
+                    success(choice) { if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); } }
                   });
                 }
               }
@@ -78,6 +51,31 @@ function checkResUpdate() {
       },
     })
   }
+}
+
+function resDownload(fileList) {
+  let successNumber = 0;
+  wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
+  for (let i = 0; i < fileList.length; i++) {
+    wx.request({
+      url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
+        console.log(res); console.log(fileList[i]); wx.setStorageSync(fileList[i], res.data);
+        successNumber += 1;
+        wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
+        if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
+      }, fail(res) { console.warn(res); console.warn(fileList[i]); }
+    })
+  }
+}
+
+function resRefresh() {
+  wx.request({
+    url: 'https://mrhope.top/miniProgram/fileList.json', success(listRequest) {
+      console.log(listRequest); let webVersion = listRequest.data[0], fileList = listRequest.data[1];
+      if (listRequest.statusCode == 200) { resDownload(fileList) }
+      else { console.warn('FileList error!') }
+    }
+  })
 }
 
 function initialize(key, defaultKey) {
@@ -107,11 +105,12 @@ function nightmode(date, startTime, endTime) {
 }
 
 function changeNav(pos, page, indicator) {
-  var n = page[0], T, B;
-  if (pos.scrollTop <= 42) { T = false; B = false; }
-  else if (pos.scrollTop >= 53) { T = true; B = true; } else { T = true; B = false; };
-  if (n.titleDisplay === null || n.titleDisplay != T || n.borderDisplay != B)
-  { n.titleDisplay = T, n.borderDisplay = B; indicator.setData({ page: page }) }
+  console.log(pos)
+  var n = page[0]; let T, B, S;
+  if (pos.scrollTop <= 1) { T = false; B = false; S = false } else if (pos.scrollTop <= 42) { T = false; B = false; S = true }
+  else if (pos.scrollTop >= 53) { T = true; B = true; S = true } else { T = true; B = false; S = true };
+  if (n.titleDisplay === null || n.titleDisplay != T || n.borderDisplay != B || n.shadow != S)
+  { n.titleDisplay = T, n.borderDisplay = B; n.shadow = S; indicator.setData({ page: page }) }
 }
 
 function setPage(page, indicator, a, e) {
@@ -152,6 +151,18 @@ function pickerView(page, e, indicator) {
       content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
     }; wx.setStorageSync(content.pickerKey, value.join('-')); indicator.setData({ page: page })
   }
+}
+
+function slider(page, e, indicator) {
+  console.log(e);
+  let pos = e.currentTarget.dataset.id.split('-'), content = page[pos[0]].content[pos[1]];
+  // if (e.type == 'tap') { content.visible = !content.visible; indicator.setData({ page: page }) }
+  // if (e.type == 'change') {
+  //   let value = e.detail.value;
+  //   for (let k = 0; k < value.length; k++) {
+  //     content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
+  //   }; wx.setStorageSync(content.pickerKey, value.join('-')); indicator.setData({ page: page })
+  // }
 }
 
 function setSwitch(page, e) {
@@ -235,21 +246,45 @@ function reConnet(indicator, a, e) {
     }
   })
 }
+
+function openDocument(e) {
+  wx.downloadFile({ url: e.currentTarget.dataset.url, success: function (res) { let path = res.tempFilePath; wx.openDocument({ filePath: path }) } })
+}
+
+function phone(page, e) {
+  console.log(e);
+  let Type = e.target.dataset.type, info = page[e.currentTarget.id];
+  if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
+  else if (Type == 'add') { wx.addPhoneContact({ firstName: info.fName, lastName: info.lName, mobilePhoneNumber: info.num, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark, photoFilePath: info.head, nickName: info.nickName, weChatNumber: info.wechat, addressState: info.province, addressCity: info.city, addressStreet: info.street, addressPostalCode: info.postCode, title: info.title, hostNumber: info.hostNum, email: info.email, url: info.website, homePhoneNumber: info.homeNum }) }
+}
+// function phone(page,e) {
+//   console.log(e);
+//   let Type = e.target.dataset.type, info = e.currentTarget.dataset;
+//   if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
+//   else if (Type == 'add') {
+//     wx.addPhoneContact({ firstName: info.fname, lastName: info.lname, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark })
+//   }
+// }
+
 module.exports = {
   cV: checkVersion,
   cRU: checkResUpdate,
+  rR: resRefresh,
   init: initialize,
   sT: setTheme,
   nm: nightmode,
   nav: changeNav,
   sP: setPage,
   pV: pickerView,
+  sl: slider,
   tBC: tabBarChanger,
   back: back,
   sS: setSwitch,
   ak: arrayKeynumber,
   img: imgLoad,
   gC: getContent,
+  doc: openDocument,
+  phone: phone,
   // formatTime: formatTime,
   // go: go,
 }

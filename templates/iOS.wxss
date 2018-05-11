@@ -205,6 +205,16 @@
 
 .iOS-listCtn {
   padding: 10px 15px;
+  font-size: 16px;
+  line-height: 1.4;
+  border-radius: 0;
+  border: none !important;
+  color: #000 !important;
+}
+
+.nm .iOS-listCtn {
+  background-color: #000;
+  color: #fff !important;
 }
 
 .iOS-switchList {
@@ -226,7 +236,7 @@
 }
 
 .iOS-linkDesciption {
-  color: #999;
+  color: #999 !important;
   text-align: right;
 }
 
@@ -257,7 +267,7 @@
 
 .iOS-link-divline {
   width: 96%;
-  height: 1rpx;
+  height: 0.45px;
   margin-left: 4%;
   background-color: #cac9ce;
 }
