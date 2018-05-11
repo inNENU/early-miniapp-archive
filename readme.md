@@ -63,6 +63,11 @@ Page({
 ```
   doc(e) { u.doc(e) },
 ```
+##### 界面中包含电话时添加phone函数：
+
+```
+  phone(e) { u.phone(this.data.page, e) },
+```
 #####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
 
 ##### **switch函数**
@@ -154,8 +159,20 @@ Page({
 
 ##### **phone参数：**
 - num：电话号码；
-- lName：联系人的姓；
-- fName：联系人的名；
+- lName(可选)：姓；
+- fName：名；
 - org(可选)：联系人所在公司；
 - remark(可选)：联系人的备注；
 - workNum(可选)：工作电话；
+- nickName(可选)：昵称；
+- head(可选)：头像图片路径(仅限本地路径)；
+- wechat(可选)：微信号；
+- province(可选)：联系地址省份；
+- city(可选)：联系地址城市；
+- street(可选)：联系地址街道；
+- postCode(可选)：联系地址邮政编码；
+- title(可选)：职位；
+- hostNum(可选)：公司电话；
+- website(可选)：网站；
+- email(可选)：电子邮件；
+- homeNum(可选)：住宅电话；

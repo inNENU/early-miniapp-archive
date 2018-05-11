@@ -153,6 +153,18 @@ function pickerView(page, e, indicator) {
   }
 }
 
+function slider(page, e, indicator) {
+  console.log(e);
+  let pos = e.currentTarget.dataset.id.split('-'), content = page[pos[0]].content[pos[1]];
+  // if (e.type == 'tap') { content.visible = !content.visible; indicator.setData({ page: page }) }
+  // if (e.type == 'change') {
+  //   let value = e.detail.value;
+  //   for (let k = 0; k < value.length; k++) {
+  //     content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
+  //   }; wx.setStorageSync(content.pickerKey, value.join('-')); indicator.setData({ page: page })
+  // }
+}
+
 function setSwitch(page, e) {
   console.log(e)
   let pos = e.target.id.split('-'), content = page[pos[0]].content[pos[1]];
@@ -239,14 +251,20 @@ function openDocument(e) {
   wx.downloadFile({ url: e.currentTarget.dataset.url, success: function (res) { let path = res.tempFilePath; wx.openDocument({ filePath: path }) } })
 }
 
-function phone(e) {
+function phone(page, e) {
   console.log(e);
-  let Type = e.target.dataset.type, info = e.currentTarget.dataset;
+  let Type = e.target.dataset.type, info = page[e.currentTarget.id];
   if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
-  else if (Type == 'add') {
-    wx.addPhoneContact({ firstName: info.fname, lastName: info.lname, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark })
-  }
+  else if (Type == 'add') { wx.addPhoneContact({ firstName: info.fName, lastName: info.lName, mobilePhoneNumber: info.num, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark, photoFilePath: info.head, nickName: info.nickName, weChatNumber: info.wechat, addressState: info.province, addressCity: info.city, addressStreet: info.street, addressPostalCode: info.postCode, title: info.title, hostNumber: info.hostNum, email: info.email, url: info.website, homePhoneNumber: info.homeNum }) }
 }
+// function phone(page,e) {
+//   console.log(e);
+//   let Type = e.target.dataset.type, info = e.currentTarget.dataset;
+//   if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
+//   else if (Type == 'add') {
+//     wx.addPhoneContact({ firstName: info.fname, lastName: info.lname, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark })
+//   }
+// }
 
 module.exports = {
   cV: checkVersion,
@@ -258,6 +276,7 @@ module.exports = {
   nav: changeNav,
   sP: setPage,
   pV: pickerView,
+  sl: slider,
   tBC: tabBarChanger,
   back: back,
   sS: setSwitch,
