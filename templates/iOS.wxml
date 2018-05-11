@@ -106,3 +106,10 @@
 <template name='iOSerror'>
   <view class='iOSH3'>出错了!</view>
 </template>
+
+<template name='iOSdoc'>
+  <button class='docCtn' bindtap='{{item.tap}}'>
+    <image class='docIcon' mode='widthFix' src='/image/{{item.docType}}.svg' />
+    <view class=' docname docAccess'>{{item.docName}}.{{item.docType}}</view>
+  </button>
+</template>

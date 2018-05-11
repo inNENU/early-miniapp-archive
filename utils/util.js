@@ -107,11 +107,12 @@ function nightmode(date, startTime, endTime) {
 }
 
 function changeNav(pos, page, indicator) {
-  var n = page[0], T, B;
-  if (pos.scrollTop <= 42) { T = false; B = false; }
-  else if (pos.scrollTop >= 53) { T = true; B = true; } else { T = true; B = false; };
-  if (n.titleDisplay === null || n.titleDisplay != T || n.borderDisplay != B)
-  { n.titleDisplay = T, n.borderDisplay = B; indicator.setData({ page: page }) }
+  console.log(pos)
+  var n = page[0]; let T, B, S;
+  if (pos.scrollTop <= 1) { T = false; B = false; S = false } else if (pos.scrollTop <= 42) { T = false; B = false; S = true }
+  else if (pos.scrollTop >= 53) { T = true; B = true; S = true } else { T = true; B = false; S = true };
+  if (n.titleDisplay === null || n.titleDisplay != T || n.borderDisplay != B || n.shadow != S)
+  { n.titleDisplay = T, n.borderDisplay = B; n.shadow = S; indicator.setData({ page: page }) }
 }
 
 function setPage(page, indicator, a, e) {
@@ -235,6 +236,11 @@ function reConnet(indicator, a, e) {
     }
   })
 }
+
+function openDocument(e) {
+  wx.downloadFile({ url: e.currentTarget.dataset.url, success: function (res) { let path = res.tempFilePath; wx.openDocument({ filePath: path }) } })
+}
+
 module.exports = {
   cV: checkVersion,
   cRU: checkResUpdate,
@@ -250,6 +256,7 @@ module.exports = {
   ak: arrayKeynumber,
   img: imgLoad,
   gC: getContent,
+  doc: openDocument,
   // formatTime: formatTime,
   // go: go,
 }

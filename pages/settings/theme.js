@@ -45,6 +45,7 @@ Page({
   bindPickerChange(e) {
     let v = e.detail.value, T = this.data.array[v];
     a.T = T; wx.setStorageSync("theme", T);
-    this.setData({ index: v, page: u.sP(this.data.page, a) });
+    u.sP(this.data.page, this, a, e)
+    this.setData({ index: v });
   },
 })

@@ -32,6 +32,59 @@ page {
   padding: 8px 5%;
 }
 
+/* common doc */
+
+.docCtn {
+  width: 100%;
+  /* background-color: rgba(0, 0, 0, 0); */
+  background-color: #fff;
+  padding: 10px 0 !important;
+  line-height: 2;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: 1rpx #cac9ce solid;
+  border-bottom: 1rpx #cac9ce solid;
+}
+
+.doc {
+  background-color: #fff;
+}
+
+.docIcon {
+  width: 32px;
+  height: 32px;
+  margin: 0 32px;
+}
+
+.docname {
+  font-size: 18px;
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.docAccess {
+  margin-right: 30px;
+}
+
+.docAccess:after {
+  content: " ";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-width: 2px 2px 0 0;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  right: 17px;
+  border-color: #c7c7cc;
+}
+
 /* footer */
 
 .footer-container {

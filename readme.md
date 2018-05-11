@@ -70,7 +70,7 @@ Page({
     this.setData({ page: u.sS(this.data.page, e) });
   },
 ```
-# tag值表
+# tag值参数表
  #### **有效的tag值：** 
 - head：小程序界面的头部，包括标题和navigationBar(必填，仅用一次填在最前）
 - h3：大标题
