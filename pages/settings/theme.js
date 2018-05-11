@@ -19,6 +19,7 @@ Page({
       {
         tag: 'list', head: '资源更新', content: [
           { text: '资源更新提示', Switch: 'switchresNotify', key: 'resNotify' },
+          { text: '立即更新', button: 'refresh' },
         ]
       },
       { tag: 'p', head: '主题设置' },
@@ -48,4 +49,7 @@ Page({
     u.sP(this.data.page, this, a, e)
     this.setData({ index: v });
   },
+  refresh(e) {
+    console.log(e)
+  }
 })

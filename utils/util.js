@@ -22,7 +22,7 @@ function checkResUpdate() {
               if (listRequest.statusCode == 200) {
                 if (resVersion == 0) {
                   wx.showModal({
-                    title: '是否离线部分页面文字资源？', content: '选择离线后可以在无网络连接时查看部分界面。(会消耗几百K流量)',
+                    title: '是否离线部分页面文字资源？', content: '选择离线后可以在无网络连接时查看部分界面。(会消耗100K流量)',
                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
                     success(choice) {
                       if (choice.cancel) {
@@ -32,42 +32,15 @@ function checkResUpdate() {
                           success(choice2) { if (choice2.cancel) { wx.setStorageSync('resNotify', false) } }
                         })
                       }
-                      if (choice.confirm) {
-                        var successNumber = 0;
-                        wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-                        for (let i = 0; i < fileList.length; i++) {
-                          wx.request({
-                            url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
-                              console.log(res); wx.setStorageSync(fileList[i], res.data);
-                              successNumber += 1;
-                              wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-                              if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
-                            }
-                          })
-                        }; wx.setStorageSync('resVersion', webVersion);
-                      }
+                      if (choice.confirm) { resDownload(fileList, webVersion) }
                     }
                   });
                 }
                 else if (webVersion > resVersion) {
                   wx.showModal({
-                    title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗几百K流量)',
+                    title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗100K流量)',
                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
-                    success(choice) {
-                      var successNumber = 0; if (choice.confirm) {
-                        wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-                        for (let i = 0; i < fileList.length; i++) {
-                          wx.request({
-                            url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
-                              console.log(res); wx.setStorageSync(fileList[i], res.data);
-                              successNumber += 1;
-                              wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-                              if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
-                            }
-                          })
-                        }; wx.setStorageSync('resVersion', webVersion);
-                      }
-                    }
+                    success(choice) { if (choice.confirm) { resDownload(fileList, webVersion) } }
                   });
                 }
               }
@@ -78,6 +51,25 @@ function checkResUpdate() {
       },
     })
   }
+}
+
+function resDownload(fileList, webVersion) {
+  let successNumber = 0;
+  wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
+  for (let i = 0; i < fileList.length; i++) {
+    wx.request({
+      url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
+        console.log(res); wx.setStorageSync(fileList[i], res.data);
+        successNumber += 1;
+        wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
+        if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
+      }
+    })
+  }; wx.setStorageSync('resVersion', webVersion);
+}
+
+function resRefresh(){
+  
 }
 
 function initialize(key, defaultKey) {
