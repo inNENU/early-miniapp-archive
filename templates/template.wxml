@@ -141,18 +141,6 @@
     </view>
   </view>
 </template>
-<!-- <template name="iOSphone">
-  <view class='phoneCtn' bindtap='phone' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}">
-    <image class='phoneIcon' mode='widthFix' src='/image/phone.svg' />
-    <view class='phoneNum'>{{item.num}}</view>
-    <view class='phoneCallCtn' hover-class='buttonHover'>
-      <image class='phoneCall' mode='widthFix' data-type="call" src='/image/call.svg' />
-    </view>
-    <view class='phoneAddCtn' hover-class='buttonHover'>
-      <image class='phoneAdd' mode='widthFix' data-type="add" src='/image/add.svg' />
-    </view>
-  </view>
-</template> -->
 
 <!-- wechat theme -->
 <template name="wechathead">
@@ -254,4 +242,17 @@
     <image class='docIcon' mode='widthFix' src='/image/{{item.docType}}.svg' />
     <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
   </button>
+</template>
+
+<template name="wechatphone">
+  <view class='phoneCtn' id='{{item.id}}' bindtap='phone' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}">
+    <image class='phoneIcon' mode='widthFix' src='/image/phone.svg' />
+    <view class='phoneNum'>{{item.num}}</view>
+    <view class='phoneCallCtn' hover-class='buttonHover'>
+      <image class='phoneCall' mode='widthFix' src='/image/call.svg' data-type="call" />
+    </view>
+    <view class='phoneAddCtn' hover-class='buttonHover'>
+      <image class='phoneAdd' mode='widthFix' src='/image/add.svg' data-type="add" />
+    </view>
+  </view>
 </template>
