@@ -10,7 +10,7 @@ Page({
       {
         tag: 'list', head: '日志如下：', content: [
           { text: 'alpha日志', url: 'alpha' },
-          { text: 'V0.1开发日志', url: '0.1' },
+          { text: 'V0.1开发日志', url: '0.1', icon: '/image/nenuyouth.png' },
           { text: 'V0.2开发日志', url: '0.2' },
           { text: 'V0.3开发日志', url: '0.3' },
           { text: 'V0.4开发日志', url: '0.4' },

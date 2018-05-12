@@ -58,12 +58,13 @@
       <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
         <!-- <view>此处插入icon</view> -->
         <view class='iOS-list-Container'>
+          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' />
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
       <button wx:elif='{{List.pickerValue||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue?'pV':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}" data-id="{{List.id}}">
-        <view class='iOS-list-Container'>
+        <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
           <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
           <view wx:elif='{{List.pickerValue}}' class='iOS-linkDesciption'>
@@ -71,9 +72,9 @@
           </view>
         </view>
       </button>
-      <view wx:else id="{{List.id}}" class="iOS-listCtn {{List.Switch?'iOS-switchList':''}}">
+      <view wx:else id="{{List.id}}" class="iOS-listCtn {{List.swiKey?'iOS-switchList':''}}">
         <!-- <view>此处插入icon</view> -->
-        <view class='iOS-list-Container'>
+        <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">{{List.desc}}
             <switch id="{{List.id}}" wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'Switch'}}" />
@@ -93,7 +94,7 @@
           </block>
         </picker-view>
       </block>
-      <view class='iOS-link-divline'></view>
+      <view wx:if="{{List.display!==false}}" class='iOS-link-divline'></view>
     </block>
   </view>
   <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
@@ -176,7 +177,7 @@
 </template>
 
 <template name='wechatlist'>
-  <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
+  <view wx:if="{{item.head!==false}}" class='wechathead'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>

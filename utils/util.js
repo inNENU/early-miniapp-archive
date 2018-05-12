@@ -94,8 +94,8 @@ function setTheme(theme) {
 
 function nightmode(date, startTime, endTime) {
   let nm = initialize('nightmode', true), nmAC = initialize('nightmodeAutoChange', true);
-  let nB = initialize('nmBrightness', 30), dB = initialize('dayBrightness', 70);
-  let nBC = initialize('nmBrightnessChange', false), dBC = initialize('dayBrightnessChange', false);
+  let nB = initialize('nightBrightness', 30), dB = initialize('dayBrightness', 70);
+  let nBC = initialize('nightBrightnessChange', false), dBC = initialize('dayBrightnessChange', false);
   let s = initialize('nmStart', startTime).split('-'), e = initialize('nmEnd', endTime).split('-');
   let start = Number(s[0]) * 100 + Number(s[1]), end = Number(e[0]) * 100 + Number(e[1]);
   let time = date.getHours() * 100 + date.getMinutes(); var temp;

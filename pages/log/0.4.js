@@ -9,6 +9,7 @@ Page({
       { tag: 'p', head: 'V0.4.4', text: '修复list夜间模式的bug；\n初步构建phone组件；' },
       { tag: 'p', head: 'V0.4.5', text: '初步构建slider的视图层；\n改进phone组件；\n修复button点击态失效的问题；' },
       { tag: 'p', head: 'V0.4.6', text: '加入日间夜间亮度滑块及调节开关；\n完整构建list中的slider；' },
+      { tag: 'p', head: 'V0.4.7', text: '进一步优化设置界面显示效果；\初步构建listIcon；\niOS主题下list样式的细节调整;' },
       { tag: 'foot' },
     ],
   },

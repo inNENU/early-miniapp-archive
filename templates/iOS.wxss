@@ -195,8 +195,8 @@
 }
 
 .iOSLctn {
-  font-size: 17px;
-  line-height: 1.41176471;
+  /* font-size: 17px;
+  line-height: 1.41176471; */
 }
 
 .nm .iOSLctn {
@@ -205,16 +205,28 @@
 
 .iOS-listCtn {
   padding: 10px 15px;
-  font-size: 16px;
-  line-height: 1.4;
+  font-size: 17px;
+  /* font-size: 16px; */
+  line-height: 1.45;
+  /* line-height: 1.4; */
   border-radius: 0;
   border: none !important;
   color: #000 !important;
 }
 
+.iOS-listCtn:empty {
+  padding: 0;
+}
+
 .nm .iOS-listCtn {
   background-color: #000;
   color: #fff !important;
+}
+
+.iOS-listIcon {
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
 }
 
 .iOS-switchList {
@@ -342,9 +354,11 @@
   background-color: #000;
   color: #fff;
 }
-.iOSsliderCtn{
+
+.iOSsliderCtn {
   padding: 5px 15px;
 }
+
 /* .iOSpickSelected {
   font-size: 40px;
   height: 10px;
