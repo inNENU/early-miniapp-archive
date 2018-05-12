@@ -62,7 +62,7 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <button wx:elif='{{List.pickerValue||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue?pV:''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}" data-id="{{List.id}}">
+      <button wx:elif='{{List.pickerValue||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue?'pV':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}" data-id="{{List.id}}">
         <view class='iOS-list-Container'>
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
           <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
@@ -76,13 +76,15 @@
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">{{List.desc}}
-            <switch id="{{List.id}}" wx:if='{{List.Switch}}' checked='{{List.status}}' bindchange="{{List.Switch}}" />
+            <switch id="{{List.id}}" wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'Switch'}}" />
           </view>
         </view>
       </view>
       <block wx:if='{{List.visible}}'>
         <view class='iOS-link-divline'></view>
-        <slider wx:if="{{List.slider}}" min='{{List.min}}' max='{{List.max}}' value='{{List.value}}' bindchanging="{{List.slider}}" step='1' bindchange="{{List.slider}}" data-id="{{List.id}}" />
+        <view wx:if="{{List.slider}}" class='iOSsliderCtn'>
+          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider}}" data-id="{{List.id}}" />
+        </view>
         <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="pV" data-id="{{List.id}}">
           <block wx:for='{{List.pickerValue}}' wx:key="*this">
             <picker-view-column class='iOSpick-view-column'>
@@ -141,18 +143,6 @@
     </view>
   </view>
 </template>
-<!-- <template name="iOSphone">
-  <view class='phoneCtn' bindtap='phone' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}">
-    <image class='phoneIcon' mode='widthFix' src='/image/phone.svg' />
-    <view class='phoneNum'>{{item.num}}</view>
-    <view class='phoneCallCtn' hover-class='buttonHover'>
-      <image class='phoneCall' mode='widthFix' data-type="call" src='/image/call.svg' />
-    </view>
-    <view class='phoneAddCtn' hover-class='buttonHover'>
-      <image class='phoneAdd' mode='widthFix' data-type="add" src='/image/add.svg' />
-    </view>
-  </view>
-</template> -->
 
 <!-- wechat theme -->
 <template name="wechathead">
@@ -196,10 +186,11 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <button wx:elif='{{List.pickerValue||List.button}}' id="{{List.id}}" class="iOS-listCtn" hover-class="navBackHover" plain='true' bindtap="{{List.button?List.button:'pV'}}" data-id="{{List.id}}">
+      <button wx:elif='{{List.pickerValue||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue?'pV':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}" data-id="{{List.id}}">
         <view class='iOS-list-Container'>
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
-          <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
+          <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
+          <view wx:elif='{{List.pickerValue}}' class='iOS-linkDesciption'>
             <block wx:for='{{List.value}}' wx:key>{{item}}</block>
           </view>
         </view>
@@ -209,13 +200,16 @@
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">{{List.desc}}
-            <switch id="{{List.id}}" wx:if='{{List.Switch}}' checked='{{List.status}}' bindchange="{{List.Switch}}" />
+            <switch id="{{List.id}}" wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'Switch'}}" />
           </view>
         </view>
       </view>
       <block wx:if='{{List.visible}}'>
         <view class='iOS-link-divline'></view>
-        <picker-view indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="pV" data-id="{{List.id}}">
+        <view wx:if="{{List.slider}}" class='iOSsliderCtn'>
+          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider}}" data-id="{{List.id}}" />
+        </view>
+        <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="pV" data-id="{{List.id}}">
           <block wx:for='{{List.pickerValue}}' wx:key="*this">
             <picker-view-column class='iOSpick-view-column'>
               <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
@@ -254,4 +248,17 @@
     <image class='docIcon' mode='widthFix' src='/image/{{item.docType}}.svg' />
     <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
   </button>
+</template>
+
+<template name="wechatphone">
+  <view class='phoneCtn' id='{{item.id}}' bindtap='phone' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}">
+    <image class='phoneIcon' mode='widthFix' src='/image/phone.svg' />
+    <view class='phoneNum'>{{item.num}}</view>
+    <view class='phoneCallCtn' hover-class='buttonHover'>
+      <image class='phoneCall' mode='widthFix' src='/image/call.svg' data-type="call" />
+    </view>
+    <view class='phoneAddCtn' hover-class='buttonHover'>
+      <image class='phoneAdd' mode='widthFix' src='/image/add.svg' data-type="add" />
+    </view>
+  </view>
 </template>
