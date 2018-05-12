@@ -94,18 +94,25 @@ function setTheme(theme) {
 
 function nightmode(date, startTime, endTime) {
   let nm = initialize('nightmode', true), nmAC = initialize('nightmodeAutoChange', true);
+  let nB = initialize('nmBrightness', 30), dB = initialize('dayBrightness', 70);
+  let nBC = initialize('nmBrightnessChange', false), dBC = initialize('dayBrightnessChange', false);
   let s = initialize('nmStart', startTime).split('-'), e = initialize('nmEnd', endTime).split('-');
   let start = Number(s[0]) * 100 + Number(s[1]), end = Number(e[0]) * 100 + Number(e[1]);
   let time = date.getHours() * 100 + date.getMinutes(); var temp;
   if (nmAC) {
     if (start <= end) { if (time >= start && time <= end) { temp = true } else { temp = false } }
     else { if (time <= start && time >= end) { temp = false } else { temp = true } };
+    if (temp && nBC) { wx.setScreenBrightness({ value: nB / 100 }) }
+    else if (!temp && dBC) { wx.setScreenBrightness({ value: dB / 100 }) }
     wx.setStorageSync('nightmode', temp); return temp;
-  } else { return nm; }
+  } else {
+    if (nm && nBC) { wx.setScreenBrightness({ value: nB / 100 }); }
+    else if (!nm && dBC) { wx.setScreenBrightness({ value: dB / 100 }); }
+    return nm;
+  }
 }
 
 function changeNav(pos, page, indicator) {
-  console.log(pos)
   var n = page[0]; let T, B, S;
   if (pos.scrollTop <= 1) { T = false; B = false; S = false } else if (pos.scrollTop <= 42) { T = false; B = false; S = true }
   else if (pos.scrollTop >= 53) { T = true; B = true; S = true } else { T = true; B = false; S = true };
@@ -128,11 +135,12 @@ function setPage(page, indicator, a, e) {
     if ('content' in Module) {
       for (let j = 0; j < Module.content.length; j++) {
         let item = Module.content[j]; item.id = i + "-" + j;
-        if ('key' in item) { item.status = wx.getStorageSync(item.key); };
         if ('url' in item) { item.url += "?from=" + page[0].title };
         if ('aim' in item) { item.url = "guide" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep };
-        if ('pickerKey' in item) {
-          let res = wx.getStorageSync(item.pickerKey).split('-'); item.currentValue = new Array(); item.value = new Array();
+        if ('swiKey' in item) { item.status = wx.getStorageSync(item.swiKey); };
+        if ('sliKey' in item) { item.value = wx.getStorageSync(item.sliKey); };
+        if ('pickerValue' in item) {
+          let res = wx.getStorageSync(item.key).split('-'); item.currentValue = new Array(); item.value = new Array();
           for (let k = 0; k < res.length; k++) {
             item.value[k] = item.pickerValue[k][Number(res[k])]; item.currentValue[k] = Number(res[k]);
           }
@@ -149,27 +157,21 @@ function pickerView(page, e, indicator) {
     let value = e.detail.value;
     for (let k = 0; k < value.length; k++) {
       content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
-    }; wx.setStorageSync(content.pickerKey, value.join('-')); indicator.setData({ page: page })
+    }; wx.setStorageSync(content.key, value.join('-')); indicator.setData({ page: page })
   }
 }
 
 function slider(page, e, indicator) {
-  console.log(e);
-  let pos = e.currentTarget.dataset.id.split('-'), content = page[pos[0]].content[pos[1]];
-  // if (e.type == 'tap') { content.visible = !content.visible; indicator.setData({ page: page }) }
-  // if (e.type == 'change') {
-  //   let value = e.detail.value;
-  //   for (let k = 0; k < value.length; k++) {
-  //     content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
-  //   }; wx.setStorageSync(content.pickerKey, value.join('-')); indicator.setData({ page: page })
-  // }
+  let pos = e.currentTarget.dataset.id.split('-'), content = page[pos[0]].content[pos[1]], value = e.detail.value;
+  if (e.type == 'tap') { content.visible = !content.visible; }
+  else if (e.type == 'changing') { content.value = value; }
+  else if (e.type == 'change') { content.value = value; wx.setStorageSync(content.sliKey, value); };
+  indicator.setData({ page: page })
 }
 
-function setSwitch(page, e) {
-  console.log(e)
+function setSwitch(page, e, indicator) {
   let pos = e.target.id.split('-'), content = page[pos[0]].content[pos[1]];
-  content.status = e.detail.value; wx.setStorageSync(content.key, e.detail.value);
-  return page;
+  content.status = e.detail.value; indicator.setData({ page: page }); wx.setStorageSync(content.swiKey, e.detail.value);
 }
 
 function tabBarChanger(nm) {
