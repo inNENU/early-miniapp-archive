@@ -1,4 +1,4 @@
-  var u = getApp().util, a = getApp().globalData;
+var u = getApp().util, a = getApp().globalData;
 Page({
   data: {
     page: [
@@ -9,6 +9,5 @@ Page({
       { tag: 'foot' },
     ],
   },
-  onLoad(e) { u.sP(this.data.page, this, a, e) }, onPageScroll(e) { u.nav(e, this.data.page, this) },
-  img(e) { u.img(this.data.page, this, e) }, back() { u.back() },
+  onLoad(e) { u.sP(this.data.page, this, a, e) }, onPageScroll(e) { u.nav(e, this) }, img(e) { u.img(e, this) }, back() { u.back() },
 })

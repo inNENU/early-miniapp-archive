@@ -112,16 +112,15 @@ function nightmode(date, startTime, endTime) {
   }
 }
 
-function changeNav(pos, page, indicator) {
-  var n = page[0]; let T, B, S;
-  if (pos.scrollTop <= 1) { T = false; B = false; S = false } else if (pos.scrollTop <= 42) { T = false; B = false; S = true }
-  else if (pos.scrollTop >= 53) { T = true; B = true; S = true } else { T = true; B = false; S = true };
+function changeNav(e, indicator) {
+  var n = indicator.data.page[0]; let T, B, S;
+  if (e.scrollTop <= 1) { T = false; B = false; S = false } else if (e.scrollTop <= 42) { T = false; B = false; S = true }
+  else if (e.scrollTop >= 53) { T = true; B = true; S = true } else { T = true; B = false; S = true };
   if (n.titleDisplay === null || n.titleDisplay != T || n.borderDisplay != B || n.shadow != S)
-  { n.titleDisplay = T, n.borderDisplay = B; n.shadow = S; indicator.setData({ page: page }) }
+  { n.titleDisplay = T, n.borderDisplay = B; n.shadow = S; indicator.setData({ page: indicator.data.page }) }
 }
 
 function setPage(page, indicator, a, e) {
-  console.log(page); console.log(indicator); console.log(a); console.log(e);
   //setNavStart
   if (a.info.model.substring(0, 8) === 'iPhone X') { page[0].iPhoneX = true };
   if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
@@ -150,28 +149,29 @@ function setPage(page, indicator, a, e) {
   }; indicator.setData({ T: a.T, nm: a.nm, page: page })
 }
 
-function pickerView(page, e, indicator) {
-  let pos = e.currentTarget.dataset.id.split('-'), content = page[pos[0]].content[pos[1]];
-  if (e.type == 'tap') { content.visible = !content.visible; indicator.setData({ page: page }) }
+function pickerView(e, indicator) {
+  let pos = e.currentTarget.dataset.id.split('-'), content = indicator.data.page[pos[0]].content[pos[1]];
+  if (e.type == 'tap') { content.visible = !content.visible; indicator.setData({ page: indicator.data.page }) }
   if (e.type == 'change') {
     let value = e.detail.value;
     for (let k = 0; k < value.length; k++) {
       content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
-    }; wx.setStorageSync(content.key, value.join('-')); indicator.setData({ page: page })
+    }; wx.setStorageSync(content.key, value.join('-')); indicator.setData({ page: indicator.data.page })
   }
 }
 
-function slider(page, e, indicator) {
-  let pos = e.currentTarget.dataset.id.split('-'), content = page[pos[0]].content[pos[1]], value = e.detail.value;
+function slider(e, indicator) {
+  let pos = e.currentTarget.dataset.id.split('-'), content = indicator.data.page[pos[0]].content[pos[1]], value = e.detail.value;
   if (e.type == 'tap') { content.visible = !content.visible; }
   else if (e.type == 'changing') { content.value = value; }
   else if (e.type == 'change') { content.value = value; wx.setStorageSync(content.sliKey, value); };
-  indicator.setData({ page: page })
+  indicator.setData({ page: indicator.data.page })
 }
 
-function setSwitch(page, e, indicator) {
-  let pos = e.target.id.split('-'), content = page[pos[0]].content[pos[1]];
-  content.status = e.detail.value; indicator.setData({ page: page }); wx.setStorageSync(content.swiKey, e.detail.value);
+function setSwitch(e, indicator) {
+  let pos = e.target.id.split('-'), page = indicator.data.page, content = page[pos[0]].content[pos[1]];
+  content.status = e.detail.value; indicator.setData({ page: page });
+  wx.setStorageSync(content.swiKey, e.detail.value); return page;
 }
 
 function tabBarChanger(nm) {
@@ -185,11 +185,11 @@ function arrayKeynumber(array, key) {
   for (var i in array) { if (array[i] == key) { return i } }
 }
 
-function imgLoad(page, indicator, e) {
-  let current = page[e.target.id];
+function imgLoad(e, indicator) {
+  let current = indicator.data.page[e.target.id];
   if (e.type == 'load') { current.load = true } else if (e.type == 'error') { current.error = true }
-  else if (e.type == 'tap') { wx.previewImage({ current: current.src, urls: page[0].url }) };
-  indicator.setData({ page: page });
+  else if (e.type == 'tap') { wx.previewImage({ current: current.src, urls: indicator.data.page[0].url }) };
+  indicator.setData({ page: indicator.data.page });
 }
 
 function getContent(indicator, a, e) {
@@ -253,20 +253,11 @@ function openDocument(e) {
   wx.downloadFile({ url: e.currentTarget.dataset.url, success: function (res) { let path = res.tempFilePath; wx.openDocument({ filePath: path }) } })
 }
 
-function phone(page, e) {
-  console.log(e);
-  let Type = e.target.dataset.type, info = page[e.currentTarget.id];
+function phone(e, indicator) {
+  let Type = e.target.dataset.type, info = indicator.data.page[e.currentTarget.id];
   if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
   else if (Type == 'add') { wx.addPhoneContact({ firstName: info.fName, lastName: info.lName, mobilePhoneNumber: info.num, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark, photoFilePath: info.head, nickName: info.nickName, weChatNumber: info.wechat, addressState: info.province, addressCity: info.city, addressStreet: info.street, addressPostalCode: info.postCode, title: info.title, hostNumber: info.hostNum, email: info.email, url: info.website, homePhoneNumber: info.homeNum }) }
 }
-// function phone(page,e) {
-//   console.log(e);
-//   let Type = e.target.dataset.type, info = e.currentTarget.dataset;
-//   if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
-//   else if (Type == 'add') {
-//     wx.addPhoneContact({ firstName: info.fname, lastName: info.lname, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark })
-//   }
-// }
 
 module.exports = {
   cV: checkVersion,

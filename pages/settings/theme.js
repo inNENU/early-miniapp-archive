@@ -35,22 +35,22 @@ Page({
     if (!nmAC) { list[1].display = list[2].display = list[3].display = list[5].display = false; };
     u.sP(p, this, a, e); this.setData({ index: u.ak(this.data.array, a.T) })
   },
-  onPageScroll(e) { u.nav(e, this.data.page, this) },
-  Switch(e) { u.sS(this.data.page, e, this) },
-  pV(e) { u.pV(this.data.page, e, this) },
+  onPageScroll(e) { u.nav(e, this) },
+  Switch(e) { u.sS(e, this) },
+  pV(e) { u.pV(e, this) },
   refresh(e) { u.rR() },
   back() { u.back() },
   onUnload() { a.nm = u.nm(new Date()) },
   switchnm(e) {
-    let p = this.data.page, list = p[2].content, value = e.detail.value; a.nm = value;
+    let p = u.sS(e, this), list = p[2].content, value = e.detail.value; a.nm = value;
     if (value && list[5].status) { wx.setScreenBrightness({ value: list[6].value / 100 }) }
     else if (!value && list[3].status) { wx.setScreenBrightness({ value: list[4].value / 100 }) };
-    list[0].status = list[1].display = list[2].display = list[3].display = list[4].display = list[4].visible = list[5].display = list[6].display = list[6].visible = false; u.sS(p, e, this); wx.setStorageSync("nightmodeAutoChange", false);
-    this.setData({ nm: value });
+    list[0].status = list[1].display = list[2].display = list[3].display = list[4].display = list[4].visible = list[5].display = list[6].display = list[6].visible = false; wx.setStorageSync("nightmodeAutoChange", false);
+    this.setData({ nm: value, page: p });
   },
   switchnmAC(e) {
-    u.sS(this.data.page, e, this); let nm = u.nm(new Date()); a.nm = nm;
-    let p = this.data.page, list = p[2].content; p[1].content[0].status = nm; wx.setStorageSync("nightmode", nm);
+    let p = u.sS(e, this), list = p[2].content; let nm = u.nm(new Date()); a.nm = nm;
+    p[1].content[0].status = nm; wx.setStorageSync("nightmode", nm);
     if (nm && list[5].status) { wx.setScreenBrightness({ value: list[6].value / 100 }) }
     else if (!nm && list[3].status) { wx.setScreenBrightness({ value: list[4].value / 100 }) };
     if (e.detail.value) { list[1].display = list[2].display = list[3].display = list[5].display = true; }
@@ -58,15 +58,13 @@ Page({
     if (!list[0].status) { list[4].display = false } else { if (!list[3].status) { list[4].display = false } else { list[4].display = true } }; if (!list[0].status) { list[6].display = false } else { if (!list[5].status) { list[6].display = false } else { list[6].display = true } };
     this.setData({ nm: nm, page: p });
   },
-  swithDay(e) { let p = this.data.page, list = p[2].content; list[4].visible = list[4].display = e.detail.value; u.sS(p, e, this) },
-  swithNight(e) { let p = this.data.page, list = p[2].content; list[6].visible = list[6].display = e.detail.value; u.sS(p, e, this) },
+  swithDay(e) { let p = u.sS(e, this), list = p[2].content; list[4].visible = list[4].display = e.detail.value; this.setData({ page: p }); },
+  swithNight(e) { let p = u.sS(e, this), list = p[2].content; list[6].visible = list[6].display = e.detail.value; this.setData({ page: p }); },
   dB(e) {
-    u.sl(this.data.page, e, this);
-    if (!a.nm && this.data.page[2].content[3].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) }
+    u.sl(e, this); if (!a.nm && this.data.page[2].content[3].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) }
   },
   nB(e) {
-    u.sl(this.data.page, e, this);
-    if (a.nm && this.data.page[2].content[5].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) }
+    u.sl(e, this); if (a.nm && this.data.page[2].content[5].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) }
   },
   bindPickerChange(e) {
     let v = e.detail.value, T = this.data.array[v];

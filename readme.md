@@ -2,11 +2,11 @@
  **这是一个由Mr.Hope独立编写的项目。全部代码均由Mr.Hope编写，如有抄袭、商用，Mr.Hope保留追究其责任的权利。** 
 ### 一. 简单界面编写说明
 
-##### 1. 新建一个json文件，对文件进行合理命名，使用“文件主题+编号”格式，命名为xxx.json。
+**1. 新建一个json文件，对文件进行合理命名，使用“文件主题+编号”格式，命名为xxx.json。**
 
-##### 2. 在json中建一个数组，页面的编写主要通过操纵处于界面data下名为**page**的**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。按照tag值参数表对数组进行填写，编写界面内容。
+**2. 在json中建一个数组，页面的编写主要通过操纵处于界面data下名为**page**的**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。按照tag值参数表对数组进行填写，编写界面内容。**
 
-##### 3.上传json文件到服务器的htdocs/miniProgram文件夹，添加json文件名至fileList.json并增加其版本号。
+**3.上传json文件到服务器的htdocs/miniProgram文件夹，添加json文件名至fileList.json并增加其版本号。**
 
 ### 二. 复杂界面编写说明
 
@@ -23,9 +23,9 @@ Page({
       **插入内容** 
     ],
   },
-  onLoad(e) { u.sP(this.data.page, this, a, e) }, 
-  onPageScroll(e) { u.nav(e, this.data.page, this) }, 
-  back() { u.back() },
+  onLoad(e){u.sP(this.data.page,this,a,e)}, 
+  onPageScroll(e){u.nav(e,this)}, 
+  back(){u.back()},
   **其他函数**
 })
 ```
@@ -51,22 +51,22 @@ Page({
  ##### 界面中包含图片的添加img函数：
 
 ```
-  img(e) { u.img(this.data.page, this, e) },
+  img(e){u.img(e,this)},
 ```
 ##### 界面中包含picker-view时添加pV函数：
 
 ```
-  pV(e) { u.pV(this.data.page, e, this) },
+  pV(e){u.pV(e,this)},
 ```
 ##### 界面中包含文档时添加doc函数：
 
 ```
-  doc(e) { u.doc(e) },
+  doc(e){u.doc(e)},
 ```
 ##### 界面中包含电话时添加phone函数：
 
 ```
-  phone(e) { u.phone(this.data.page, e) },
+  phone(e){u.phone(e,this)},
 ```
 #####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
 
@@ -75,13 +75,13 @@ Page({
     functionName：switch函数值；
 ```
 →functionName←(e) {
-    u.sS(this.data.page, e, this) });
+    u.sS(e,this);
     other code here......
   },
 ```
 - 若没填写switch函数
 ```
-  Switch(e) { u.sS(this.data.page, e, this) },
+  Switch(e){u.sS(e,this)},
 ```
 # tag值参数表
  #### **有效的tag值：** 

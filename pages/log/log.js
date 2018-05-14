@@ -20,5 +20,5 @@ Page({
     ],
   },
   onShow() { u.sP(this.data.page, this, a); u.tBC(a.nm); },
-  onPageScroll(e) { u.nav(e, this.data.page, this) },
+  onPageScroll(e) { u.nav(e, this) },
 })
