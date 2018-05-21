@@ -6,10 +6,10 @@
 <template name="list" />
 <template name="p" />
 <template name="img" />
-<template name="foot" />
-<template name="error" />
 <template name="doc" />
 <template name="phone" />
+<template name="foot" />
+<template name="error" />
 
 <!-- iOS theme -->
 <template name="iOShead">
@@ -57,23 +57,35 @@
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
         <view class='iOS-list-Container'>
-          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' />
+          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <button wx:elif='{{List.pickerValue||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue?'pV':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}" data-id="{{List.id}}">
+      <button wx:elif='{{List.inlay||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue&&!List.picker?'pV':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+        data-id="{{List.id}}">
         <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
-          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' />
+          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
           <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
           <view wx:elif='{{List.pickerValue}}' class='iOS-linkDesciption'>
-            <block wx:for='{{List.value}}' wx:key>{{item}}</block>
+            <block wx:if="{{List.single}}">{{List.value}}</block>
+            <block wx:else>
+              <block wx:for='{{List.value}}' wx:key>{{item}}</block>
+            </block>
           </view>
         </view>
       </button>
+      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="pV" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}">
+        <view class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
+            <block wx:for='{{List.value}}' wx:key>{{item}}</block>
+          </view>
+        </view>
+      </picker>
       <view wx:else id="{{List.id}}" class="iOS-listCtn">
-        <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' />
+        <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
         <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">{{List.desc}}
@@ -87,10 +99,17 @@
           <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider}}" data-id="{{List.id}}" />
         </view>
         <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="pV" data-id="{{List.id}}">
-          <block wx:for='{{List.pickerValue}}' wx:key="*this">
+          <block wx:if="{{List.single}}">
             <picker-view-column class='iOSpick-view-column'>
-              <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
+              <view wx:for='{{List.pickerValue}}' wx:key="*this" class='iOSpickColumn'>{{item}}</view>
             </picker-view-column>
+          </block>
+          <block wx:else>
+            <block wx:for='{{List.pickerValue}}' wx:key="*this">
+              <picker-view-column class='iOSpick-view-column'>
+                <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
+              </picker-view-column>
+            </block>
           </block>
         </picker-view>
       </block>
@@ -181,24 +200,37 @@
   <view class='iOSLctn'>
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
-        <!-- <view>此处插入icon</view> -->
         <view class='iOS-list-Container'>
+          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <button wx:elif='{{List.pickerValue||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue?'pV':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}" data-id="{{List.id}}">
-        <view class='iOS-list-Container'>
+      <button wx:elif='{{List.inlay||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue&&!List.picker?'pV':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+        data-id="{{List.id}}">
+        <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
+          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
           <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
           <view wx:elif='{{List.pickerValue}}' class='iOS-linkDesciption'>
-            <block wx:for='{{List.value}}' wx:key>{{item}}</block>
+            <block wx:if="{{List.single}}">{{List.value}}</block>
+            <block wx:else>
+              <block wx:for='{{List.value}}' wx:key>{{item}}</block>
+            </block>
           </view>
         </view>
       </button>
-      <view wx:else id="{{List.id}}" class="iOS-listCtn {{List.Switch?'iOS-switchList':''}}">
-        <!-- <view>此处插入icon</view> -->
+      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="pV" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}">
         <view class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
+            <block wx:for='{{List.value}}' wx:key>{{item}}</block>
+          </view>
+        </view>
+      </picker>
+      <view wx:else id="{{List.id}}" class="iOS-listCtn">
+        <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
+        <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">{{List.desc}}
             <switch id="{{List.id}}" wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'Switch'}}" />
@@ -211,14 +243,21 @@
           <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider}}" data-id="{{List.id}}" />
         </view>
         <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="pV" data-id="{{List.id}}">
-          <block wx:for='{{List.pickerValue}}' wx:key="*this">
+          <block wx:if="{{List.single}}">
             <picker-view-column class='iOSpick-view-column'>
-              <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
+              <view wx:for='{{List.pickerValue}}' wx:key="*this" class='iOSpickColumn'>{{item}}</view>
             </picker-view-column>
+          </block>
+          <block wx:else>
+            <block wx:for='{{List.pickerValue}}' wx:key="*this">
+              <picker-view-column class='iOSpick-view-column'>
+                <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
+              </picker-view-column>
+            </block>
           </block>
         </picker-view>
       </block>
-      <view class='iOS-link-divline'></view>
+      <view wx:if="{{List.display!==false}}" class="{{List.icon?'iOS-listIcon ':''}}iOS-link-divline"></view>
     </block>
   </view>
   <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>

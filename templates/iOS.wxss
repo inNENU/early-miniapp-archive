@@ -354,6 +354,10 @@
   text-align: left;
 }
 
+.iOSpick-view-column:only-child .iOSpickColumn {
+  text-align: center;
+}
+
 .nm.iOS, .nm .iOSP, .nm .iOSLctn, .nm .iOSpickerViewCtn,
 .nm .iOSpick-view-column {
   background-color: #000;
@@ -368,3 +372,7 @@
   font-size: 40px;
   height: 10px;
 } */
+
+.iOSpicker {
+  padding: 10px 15px;
+}

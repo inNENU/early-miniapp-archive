@@ -138,14 +138,23 @@ function setPage(page, indicator, a, e) {
     if ('content' in Module) {
       for (let j = 0; j < Module.content.length; j++) {
         let item = Module.content[j]; item.id = i + "-" + j;
+        //set List navigator
         if ('url' in item) { item.url += "?from=" + page[0].title };
         if ('aim' in item) { item.url = "guide" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep };
+        //set List switch
         if ('swiKey' in item) { item.status = wx.getStorageSync(item.swiKey); };
+        //set List slider
         if ('sliKey' in item) { item.value = wx.getStorageSync(item.sliKey); };
+        //set List picker
         if ('pickerValue' in item) {
-          let res = wx.getStorageSync(item.key).split('-'); item.currentValue = new Array(); item.value = new Array();
-          for (let k = 0; k < res.length; k++) {
-            item.value[k] = item.pickerValue[k][Number(res[k])]; item.currentValue[k] = Number(res[k]);
+          if (item.single) {
+            let res = wx.getStorageSync(item.key);
+            item.value = item.pickerValue[res]; item.currentValue = [res]
+          } else {
+            let res = wx.getStorageSync(item.key).split('-'); item.currentValue = new Array(); item.value = new Array();
+            for (let k = 0; k < res.length; k++) {
+              item.value[k] = item.pickerValue[k][Number(res[k])]; item.currentValue[k] = Number(res[k]);
+            }
           }
         }
       }
@@ -158,9 +167,13 @@ function pickerView(e, indicator) {
   if (e.type == 'tap') { content.visible = !content.visible; indicator.setData({ page: indicator.data.page }) }
   if (e.type == 'change') {
     let value = e.detail.value;
-    for (let k = 0; k < value.length; k++) {
-      content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
-    }; wx.setStorageSync(content.key, value.join('-')); indicator.setData({ page: indicator.data.page })
+    if (content.single) { content.value = content.pickerValue[Number(value)]; content.currentValue = value; wx.setStorageSync(content.key, Number(value)); }
+    else {
+      for (let k = 0; k < value.length; k++) {
+        content.value[k] = content.pickerValue[k][Number(value[k])]; content.currentValue[k] = value[k]
+      }; wx.setStorageSync(content.key, value.join('-'));
+    }
+    indicator.setData({ page: indicator.data.page })
   }
 }
 
@@ -191,7 +204,7 @@ function arrayKeynumber(array, key) {
 
 function imgLoad(e, indicator) {
   let current = indicator.data.page[e.target.id];
-  if (e.type == 'load') { current.load = true; indicator.setData({ page: indicator.data.page }); } 
+  if (e.type == 'load') { current.load = true; indicator.setData({ page: indicator.data.page }); }
   else if (e.type == 'error') { current.error = true; indicator.setData({ page: indicator.data.page }); }
   else if (e.type == 'tap') { wx.previewImage({ current: current.res, urls: indicator.data.page[0].url }) };
 }
