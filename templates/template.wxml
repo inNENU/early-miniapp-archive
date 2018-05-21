@@ -42,7 +42,7 @@
       <text class='grey'>图片加载失败</text>
     </view>
     <view wx:elif="{{item.src&&!item.load}}" class='imgError'>
-      <image class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
+      <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
       <text class='grey'>加载中...</text>
     </view>
     <view class='flexbox' style="{{item.load?'':'display: none;'}}">
@@ -72,7 +72,7 @@
           </view>
         </view>
       </button>
-      <view wx:else id="{{List.id}}" class="iOS-listCtn {{List.swiKey?'iOS-switchList':''}}">
+      <view wx:else id="{{List.id}}" class="iOS-listCtn">
         <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' />
         <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>

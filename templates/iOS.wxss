@@ -279,12 +279,14 @@
 .iOS-link-divline {
   width: 96%;
   height: 0.45px;
+  /* height: 1rpx; */
   margin-left: 4%;
   background-color: #cac9ce;
 }
 
 .iOS-listIcon.iOS-link-divline {
-  margin-left: 50px;
+  margin-left: 14%;
+  width: 86%;
 }
 
 .nm .iOS-link-divline {
