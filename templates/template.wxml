@@ -8,6 +8,7 @@
 <template name="img" />
 <template name="doc" />
 <template name="phone" />
+<template name='grid' />
 <template name="foot" />
 <template name="error" />
 
@@ -76,7 +77,7 @@
           </view>
         </view>
       </button>
-      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="pV" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}">
+      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'pV'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}">
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
@@ -156,6 +157,19 @@
   </view>
 </template>
 
+<template name='iOSgrid'>
+  <view class='gridHead'>{{item.head}}</view>
+  <view class='gridCtn'>
+    <button wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' plain='true'>
+      <view class='gridCell'>
+        <image class='gridIcon' src="{{List.icon}}" />
+        <view class='gridTitle'>{{List.text}}</view>
+      </view>
+    </button>
+  </view>
+  <view class='gridFoot'>{{item.foot}}</view>
+</template>
+
 <template name='iOSfoot'>
   <view class='iOShead'></view>
 </template>
@@ -220,7 +234,7 @@
           </view>
         </view>
       </button>
-      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="pV" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}">
+      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'pV'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}">
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
@@ -301,4 +315,17 @@
       <image class='phoneAdd' mode='widthFix' src='/icon/add.svg' data-type="add" />
     </view>
   </view>
+</template>
+
+<template name='wechatgrid'>
+  <view class='gridHead'>{{item.head}}</view>
+  <view class='gridCtn'>
+    <button wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' plain='true'>
+      <view class='gridCell'>
+        <image class='gridIcon' src="{{List.icon}}" />
+        <view class='gridTitle'>{{List.text}}</view>
+      </view>
+    </button>
+  </view>
+  <view class='gridFoot'>{{item.foot}}</view>
 </template>

@@ -53,11 +53,6 @@ Page({
 ```
   img(e){u.img(e,this)},
 ```
-##### 界面中包含picker-view时添加pV函数：
-
-```
-  pV(e){u.pV(e,this)},
-```
 ##### 界面中包含文档时添加doc函数：
 
 ```
@@ -69,9 +64,21 @@ Page({
   phone(e){u.phone(e,this)},
 ```
 #####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
-
+##### **picker函数**
+- 若填写了picker函数：
+ functionName：picker函数值；
+```
+→functionName←(e) {
+    u.pV(e,this);
+    other code here......
+  },
+```
+- 若没填写picker函数：
+```
+  pV(e){u.pV(e,this)},
+```
 ##### **switch函数**
-- 若填写了switch函数
+- 若填写了switch函数：
     functionName：switch函数值；
 ```
 →functionName←(e) {
@@ -79,7 +86,7 @@ Page({
     other code here......
   },
 ```
-- 若没填写switch函数
+- 若没填写switch函数：
 ```
   Switch(e){u.sS(e,this)},
 ```
@@ -130,12 +137,12 @@ Page({
   - Switch(可选)：开关对应的函数名称，不填默认触发switch函数——改变界面当前开关状态与storage中swiKey的值；（填写后不支持简单界面）
   - swiKey：开关所改变的变量在本地存储中的变量值；
 
-  #####  **选项三：嵌入选择器**（不支持简单界面）
-  - pickerValue：picker选择器中包含的值；
-  - key：嵌入选择器所改变的变量在本地存储中的变量值；
+  #####  **选项三：选择器**（不支持简单界面）
+  - pickerValue：选择器中包含的值；
+  - key：选择器所改变的变量在本地存储中的变量值；
   - single(可选)：其值为true时为单列选择器，不填为多列选择器；
-  - picker(可选)：picker选择器对应的函数名称(不填默认触发pV函数);
   - inlay(可选)：其值为true时为嵌入式picker，不填为弹出式picker；
+  - picker(可选)：picker选择器对应的函数名称(不填默认触发pV函数);
 
   #####  **选项四：按钮**（不支持简单界面）
   - button：按钮对应的函数名称；
@@ -146,10 +153,6 @@ Page({
   - max(可选)：滑块的最大值(不填默认为100)；
   - step(可选)：滑块的步长(不填默认为1)；
   - sliKey：滑块所改变的变量在本地存储中的变量值；
-
-  #####  **选项六：弹出式选择器**（不支持简单界面）
-  - pickerValue：picker选择器中包含的值；
-  - key：嵌入选择器所改变的变量在本地存储中的变量值；
 
 ##### **img参数：**
 - src：图片的本地路径或在线网址；

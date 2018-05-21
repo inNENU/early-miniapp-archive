@@ -9,8 +9,8 @@ Page({
     page: [
       { tag: 'head', title: '主题设置', grey: true },
       {
-        tag: 'list', head: '主题设置', content: [
-          { text: '主题设置', key: 'theme', single: true, pickerValue: ['iOS', 'wechat'], picker: 'setTheme' },
+        tag: 'list', head: '主题设置', foot: 'wechat主题和其他主题还在建设中......', content: [
+          { text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'wechat'], picker: 'setTheme' },
         ]
       },
       { tag: 'list', head: '夜间模式', foot: '“夜间模式”启用后，所有界面的背景被置于暗色并采用亮色文字以在保护眼睛的同时，保持暗光下显示效果。', content: [{ text: '夜间模式', Switch: 'switchnm', swiKey: 'nightmode' },] },
@@ -31,7 +31,6 @@ Page({
           { text: '立即刷新', button: 'refresh' },
         ]
       },
-      { tag: 'p', head: '主题设置' },
     ],
   },
   onLoad(e) {
@@ -65,15 +64,11 @@ Page({
   },
   swithDay(e) { let p = u.sS(e, this), list = p[3].content; list[4].visible = list[4].display = e.detail.value; this.setData({ page: p }); },
   swithNight(e) { let p = u.sS(e, this), list = p[3].content; list[6].visible = list[6].display = e.detail.value; this.setData({ page: p }); },
-  dB(e) {
-    u.sl(e, this); if (!a.nm && this.data.page[3].content[3].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) }
-  },
-  nB(e) {
-    u.sl(e, this); if (a.nm && this.data.page[3].content[5].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) }
-  },
+  dB(e) { u.sl(e, this); if (!a.nm && this.data.page[3].content[3].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) } },
+  nB(e) { u.sl(e, this); if (a.nm && this.data.page[3].content[5].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) } },
   setTheme(e) {
-    u.pV(e, this);
-    a.T = this.data.page[1].content[0].pickerValue[e.detail.value];
-    u.sP(this.data.page, this, a, e)
+    u.pV(e, this); let theme = this.data.page[1].content[0].pickerValue[e.detail.value];
+    console.log(theme)
+    a.T = theme; wx.setStorageSync("theme", theme); u.sP(this.data.page, this, a, e)
   },
 })

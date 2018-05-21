@@ -129,6 +129,58 @@ page {
   text-align: left;
 }
 
+/* grid */
+
+.gridHead {
+  font-size: 18px;
+  color: #333;
+  text-align: left;
+  padding: 3px 15px;
+}
+
+.gridCtn {
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gridBox {
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  flex-grow: 0;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  line-height: 1.6 !important;
+}
+
+.gridCell {
+  width: 100%;
+  background-color: #fff;
+  border: 1rpx #cac9ce solid;
+}
+
+.gridIcon {
+  width: 44px;
+  height: 44px;
+  margin-top: 8px;
+}
+
+.gridTitle {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.gridFoot {
+  font-size: 18px;
+  color: #333;
+  text-align: left;
+  padding: 3px 15px;
+}
+
 /* footer */
 
 .footer-container {

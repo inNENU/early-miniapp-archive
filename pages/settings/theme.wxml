@@ -1,12 +1,4 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.tag}}" data="{{item}}" />
-  <view class='iOSP'>
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-      <view class="picker">
-        当前选择：{{array[index]}}
-      </view>
-    </picker>
-    <view>目前微信主题与debug主题正在建设中......</view>
-  </view>
 </view>
