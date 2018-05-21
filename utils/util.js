@@ -86,8 +86,9 @@ function initialize(key, defaultKey) {
 function setTheme(theme) {
   let value = wx.getStorageSync('theme'); if (value) { return value } else {
     if (theme == "auto") {
-      let p = wx.getSystemInfoSync().platform;
-      if (p == 'ios') { return 'iOS' }; if (p == 'android') { return 'wechat' }; if (p == 'devtools') { return 'iOS' };
+      let p = wx.getSystemInfoSync().platform, t;
+      if (p == 'ios') { t = 'iOS' } else if (p == 'android') { t = 'wechat' } else if (p == 'devtools') { t = 'iOS' };
+      wx.setStorageSync('theme', t); return t;
     } else { return theme }
   }
 }
