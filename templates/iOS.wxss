@@ -194,21 +194,15 @@
   color: #999;
 }
 
-.iOSLctn {
-  /* font-size: 17px;
-  line-height: 1.41176471; */
-}
-
 .nm .iOSLctn {
   border-color: #353631;
 }
 
 .iOS-listCtn {
-  padding: 10px 15px;
+  /* padding: 10px 15px; */
+  padding: 0 15px;
   font-size: 17px;
-  /* font-size: 16px; */
   line-height: 1.45;
-  /* line-height: 1.4; */
   border-radius: 0;
   border: none !important;
   color: #000 !important;
@@ -223,15 +217,20 @@
   color: #fff !important;
 }
 
-.iOS-listIcon {
-  width: 18px;
-  height: 18px;
-  margin-right: 4px;
+.iOSLinkText {
+  padding: 10px 0;
 }
 
+.iOS-listIcon {
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
+}
+
+/* 
 .iOS-switchList {
   padding: 6px 15px;
-}
+} */
 
 .iOS-list-Container {
   position: relative;
@@ -282,6 +281,10 @@
   height: 0.45px;
   margin-left: 4%;
   background-color: #cac9ce;
+}
+
+.iOS-listIcon.iOS-link-divline {
+  margin-left: 50px;
 }
 
 .nm .iOS-link-divline {

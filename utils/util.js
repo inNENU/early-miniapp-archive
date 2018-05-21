@@ -127,10 +127,14 @@ function setPage(page, indicator, a, e) {
   if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
   if (e && !page[0].top && 'step' in e) { page[0].aimStep = Number(e.step) + 1 };
   page[0].url = new Array(); page[0].T = a.T;
-  //setList
   for (let i = 0; i < page.length; i++) {
+    //setImage
     let Module = page[i]; Module.id = i;
-    if (Module.src) { page[0].url.push(page[i].src); if (!Module.imgMode) { Module.imgMode = a.imgMode }; };
+    if (Module.src) {
+      if (Module.res) { page[0].url.push(Module.res) } else { page[0].url.push(Module.src); Module.res = Module.src };
+      if (!Module.imgMode) { Module.imgMode = a.imgMode };
+    };
+    //setList
     if ('content' in Module) {
       for (let j = 0; j < Module.content.length; j++) {
         let item = Module.content[j]; item.id = i + "-" + j;
@@ -187,9 +191,9 @@ function arrayKeynumber(array, key) {
 
 function imgLoad(e, indicator) {
   let current = indicator.data.page[e.target.id];
-  if (e.type == 'load') { current.load = true } else if (e.type == 'error') { current.error = true }
-  else if (e.type == 'tap') { wx.previewImage({ current: current.src, urls: indicator.data.page[0].url }) };
-  indicator.setData({ page: indicator.data.page });
+  if (e.type == 'load') { current.load = true; indicator.setData({ page: indicator.data.page }); } 
+  else if (e.type == 'error') { current.error = true; indicator.setData({ page: indicator.data.page }); }
+  else if (e.type == 'tap') { wx.previewImage({ current: current.res, urls: indicator.data.page[0].url }) };
 }
 
 function getContent(indicator, a, e) {

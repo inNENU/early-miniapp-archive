@@ -56,7 +56,6 @@
   <view class='iOSLctn'>
     <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
-        <!-- <view>此处插入icon</view> -->
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' />
           <view class='iOSLinkText'>{{List.text}}</view>
@@ -65,6 +64,7 @@
       </navigator>
       <button wx:elif='{{List.pickerValue||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue?'pV':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}" data-id="{{List.id}}">
         <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
+          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' />
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
           <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
           <view wx:elif='{{List.pickerValue}}' class='iOS-linkDesciption'>
@@ -73,7 +73,7 @@
         </view>
       </button>
       <view wx:else id="{{List.id}}" class="iOS-listCtn {{List.swiKey?'iOS-switchList':''}}">
-        <!-- <view>此处插入icon</view> -->
+        <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' />
         <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">{{List.desc}}
@@ -94,7 +94,7 @@
           </block>
         </picker-view>
       </block>
-      <view wx:if="{{List.display!==false}}" class='iOS-link-divline'></view>
+      <view wx:if="{{List.display!==false}}" class="{{List.icon?'iOS-listIcon ':''}}iOS-link-divline"></view>
     </block>
   </view>
   <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
@@ -106,7 +106,7 @@
     <text class='grey'>图片加载失败</text>
   </view>
   <view wx:elif="{{!item.load}}" class='imgError'>
-    <image class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
+    <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
   <view class='flexbox' style="{{item.load?'':'display: none;'}}">
@@ -117,32 +117,32 @@
   </view>
 </template>
 
-<template name='iOSfoot'>
-  <view class='iOShead'></view>
-</template>
-
-<template name='iOSerror'>
-  <view class='iOSH3'>服务器出错了!</view>
-</template>
-
 <template name='iOSdoc'>
-  <button id="{{item.id}}" class='docCtn' bindtap='doc' data-url="{{item.url}}">
-    <image class='docIcon' mode='widthFix' src='/image/{{item.docType}}.svg' />
+  <button id="{{item.id}}" class='docCtn' hover-class="buttonHover" bindtap='doc' data-url="{{item.url}}">
+    <image class='docIcon' mode='widthFix' src='/icon/{{item.docType}}.svg' />
     <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
   </button>
 </template>
 
 <template name="iOSphone">
   <view class='phoneCtn' id='{{item.id}}' bindtap='phone' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}">
-    <image class='phoneIcon' mode='widthFix' src='/image/phone.svg' />
+    <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
     <view class='phoneNum'>{{item.num}}</view>
     <view class='phoneCallCtn' hover-class='buttonHover'>
-      <image class='phoneCall' mode='widthFix' src='/image/call.svg' data-type="call" />
+      <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
     </view>
     <view class='phoneAddCtn' hover-class='buttonHover'>
-      <image class='phoneAdd' mode='widthFix' src='/image/add.svg' data-type="add" />
+      <image class='phoneAdd' mode='widthFix' src='/icon/add.svg' data-type="add" />
     </view>
   </view>
+</template>
+
+<template name='iOSfoot'>
+  <view class='iOShead'></view>
+</template>
+
+<template name='iOSerror'>
+  <view class='iOSH3'>服务器出错了!</view>
 </template>
 
 <!-- wechat theme -->
@@ -230,7 +230,7 @@
     <text class='grey'>图片加载失败</text>
   </view>
   <view wx:elif="{{!item.load}}" class='imgError'>
-    <image class='loadingImg' mode="{{item.imgMode}}" src="/image/loading.svg" />
+    <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
   <view class='flexbox' style="{{item.load?'':'display: none;'}}">
@@ -246,20 +246,20 @@
 
 <template name='wechatdoc'>
   <button id="{{item.id}}" class='docCtn' bindtap='doc' data-url="{{item.url}}">
-    <image class='docIcon' mode='widthFix' src='/image/{{item.docType}}.svg' />
+    <image class='docIcon' mode='widthFix' src='/icon/{{item.docType}}.svg' />
     <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
   </button>
 </template>
 
 <template name="wechatphone">
   <view class='phoneCtn' id='{{item.id}}' bindtap='phone' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}">
-    <image class='phoneIcon' mode='widthFix' src='/image/phone.svg' />
+    <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
     <view class='phoneNum'>{{item.num}}</view>
     <view class='phoneCallCtn' hover-class='buttonHover'>
-      <image class='phoneCall' mode='widthFix' src='/image/call.svg' data-type="call" />
+      <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
     </view>
     <view class='phoneAddCtn' hover-class='buttonHover'>
-      <image class='phoneAdd' mode='widthFix' src='/image/add.svg' data-type="add" />
+      <image class='phoneAdd' mode='widthFix' src='/icon/add.svg' data-type="add" />
     </view>
   </view>
 </template>
