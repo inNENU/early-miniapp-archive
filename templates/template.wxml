@@ -160,12 +160,10 @@
 <template name='iOSgrid'>
   <view class='gridHead'>{{item.head}}</view>
   <view class='gridCtn'>
-    <button wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' plain='true'>
-      <view class='gridCell'>
+    <navigator wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
         <image class='gridIcon' src="{{List.icon}}" />
         <view class='gridTitle'>{{List.text}}</view>
-      </view>
-    </button>
+    </navigator>
   </view>
   <view class='gridFoot'>{{item.foot}}</view>
 </template>
@@ -340,12 +338,10 @@
 <template name='wechatgrid'>
   <view class='gridHead'>{{item.head}}</view>
   <view class='gridCtn'>
-    <button wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' plain='true'>
-      <view class='gridCell'>
+    <navigator wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
         <image class='gridIcon' src="{{List.icon}}" />
         <view class='gridTitle'>{{List.text}}</view>
-      </view>
-    </button>
+    </navigator>
   </view>
   <view class='gridFoot'>{{item.foot}}</view>
 </template>

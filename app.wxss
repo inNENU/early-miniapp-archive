@@ -132,54 +132,52 @@ page {
 /* grid */
 
 .gridHead {
-  font-size: 18px;
-  color: #333;
+  font-size: 14px;
+  color: #999;
   text-align: left;
   padding: 3px 15px;
+  min-height: 14px;
 }
 
 .gridCtn {
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
+  background-color: #fff;
+  border-top: 1rpx #cac9ce solid;
 }
 
 .gridBox {
-  display: -webkit-flex;
-  display: flex;
-  justify-content: center;
   width: 25%;
   flex-grow: 0;
   padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
+  margin: -1rpx 0 0 -1rpx !important;
+  border-top: none !important;
+  border-bottom: 1rpx #cac9ce solid !important;
+  border-left: none !important;
+  border-right: 1rpx #cac9ce solid !important;
   border-radius: 0 !important;
   line-height: 1.6 !important;
-}
-
-.gridCell {
-  width: 100%;
-  background-color: #fff;
-  border: 1rpx #cac9ce solid;
 }
 
 .gridIcon {
   width: 44px;
   height: 44px;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .gridTitle {
   font-size: 16px;
   color: #444;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .gridFoot {
-  font-size: 18px;
-  color: #333;
+  font-size: 14px;
+  color: #999;
   text-align: left;
   padding: 3px 15px;
+  min-height: 8px;
 }
 
 /* footer */
