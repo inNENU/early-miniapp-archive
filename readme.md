@@ -1,10 +1,12 @@
 # 许可
+> Version 1.0
+
  **这是一个由Mr.Hope独立编写的项目。全部代码均由Mr.Hope编写，如有抄袭、商用，Mr.Hope保留追究其责任的权利。** 
 ### 一. 简单界面编写说明
 
 **1. 新建一个json文件，对文件进行合理命名，使用“文件主题+编号”格式，命名为xxx.json。**
 
-**2. 在json中建一个数组，页面的编写主要通过操纵处于界面data下名为**page**的**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。按照tag值参数表对数组进行填写，编写界面内容。**
+**2. 在json中建一个数组，页面的编写主要通过该**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。按照tag值参数表对数组进行填写，编写界面内容。**
 
 **3.上传json文件到服务器的htdocs/miniProgram文件夹，添加json文件名至fileList.json并增加其版本号。**
 
@@ -73,7 +75,7 @@ Page({
     other code here......
   },
 ```
-- 若没填写picker函数：
+- 若未填写picker函数：
 ```
   pV(e){u.pV(e,this)},
 ```
@@ -86,7 +88,7 @@ Page({
     other code here......
   },
 ```
-- 若没填写switch函数：
+- 若未填写switch函数：
 ```
   Switch(e){u.sS(e,this)},
 ```
