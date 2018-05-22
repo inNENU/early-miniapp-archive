@@ -26,9 +26,9 @@ Page({
         ]
       },
       {
-        tag: 'list', head: '资源更新', foot: '如果页面显示出现问题请强制刷新资源', content: [
+        tag: 'list', head: '资源更新', foot: '如果页面显示出现问题请强制更新资源', content: [
           { text: '资源更新提示', swiKey: 'resNotify' },
-          { text: '立即刷新', button: 'refresh' },
+          { text: '现在更新', button: 'refresh' },
         ]
       },
     ],

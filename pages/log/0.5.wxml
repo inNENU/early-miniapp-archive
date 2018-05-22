@@ -1,0 +1,7 @@
+<import src="/templates/template" />
+<import src="/templates/foot-nenu" />
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.tag}}" data="{{item}}" />
+  <template is="foot" />
+</view><!--pages/log/0.5.wxml-->
+<text>pages/log/0.5.wxml</text>

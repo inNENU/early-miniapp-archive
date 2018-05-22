@@ -170,7 +170,8 @@ page {
 }
 
 .gridTitle {
-  font-size: 18px;
+  font-size: 16px;
+  color: #444;
   margin-bottom: 4px;
 }
 
@@ -210,6 +211,41 @@ page {
   height: 36rpx;
   display: block;
   margin: 0 auto;
+}
+
+/* error */
+
+.errorCtn {
+  height: 70%;
+  padding: 20% 10%;
+}
+
+.errorText {
+  color: red;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.errorDesc {
+  color: #888;
+  font-size: 16px;
+  text-align: left !important;
+}
+
+/* donate */
+
+.donateCtn {
+  width: 100%;
+  position: fixed;
+  bottom: 20px;
+}
+
+.donateButton {
+  width: 60%;
+  padding: 0;
+  background-color: #09bb07;
+  border: none;
+  color: #fff;
 }
 
 /* common */

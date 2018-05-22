@@ -175,7 +175,27 @@
 </template>
 
 <template name='iOSerror'>
-  <view class='iOSH3'>服务器出错了!</view>
+  <view class='iOS-navigationBar' style="{{item.iPhoneX?'padding-top:46px;height:40px;':''}}{{item.android?'padding-top:25px;':''}}">
+    <view class="iOS-titletext">页面出错</view>
+    <button wx:if="{{!item.top}}" class='iOS-navBack' hover-class="navBackHover" plain='true' bindtap='back'>
+      <view class='iOS-backArrow'></view>
+      <text class='iOS-nav-text'>{{item.backText}}</text>
+    </button>
+  </view>
+  <view class='iOSnavDl' style="{{item.iPhoneX?'top:86px;':''}}{{item.android?'top:69px;':''}}"></view>
+  <view class='iOS-navPlaceHolder' style="{{item.iPhoneX?'height:86px':''}}{{item.android?'height:69px;':''}}">
+    <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
+  </view>
+  <view class='errorCtn'>
+    <icon type='warn' size='80'></icon>
+    <view class='errorText'>很抱歉，界面遇到了问题!</view>
+    <view class='errorDesc'>
+      <text>同学你好，我是Mr.Hope，问题可能出现在以下几点：\n\n1. Mr.Hope自掏腰包买的的服务器炸了；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~并感谢同学对Mr.Hope的支持~\n由于服务器是Mr.Hope自掏腰包，配置不是很好，同学可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置或者赞赏Mr.Hope的劳动成果。</text>
+    </view>
+  </view>
+  <view class='donateCtn'>
+    <button class='donateButton'>捐赠</button>
+  </view>
 </template>
 
 <!-- wechat theme -->
@@ -328,4 +348,26 @@
     </button>
   </view>
   <view class='gridFoot'>{{item.foot}}</view>
+</template>
+
+<template name='wechaterror'>
+  <view class='wechat-navigationBar' style="{{item.iPhoneX?'padding-top:62px;height:45px;':''}}{{item.android?'padding-top:47px;':''}}{{item.shadow?'box-shadow: 0px 0px 4px 1.5px rgba(208, 208, 208, 80);':''}}">
+    <view class="wechat-titletext">页面出错</view>
+    <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="navBackHover" plain='true' bindtap='back'>
+      <view class='wechat-backArrow'></view>
+    </button>
+  </view>
+  <view class='wechat-navPlaceHolder' style="{{item.iPhoneX?'height:83px;':''}}{{item.android?'height:72px;':''}}">
+    <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
+  </view>
+  <view class='errorCtn'>
+    <icon type='warn' size='80'></icon>
+    <view class='errorText'>很抱歉，界面遇到了问题!</view>
+    <view class='errorDesc'>
+      <text>同学你好，我是Mr.Hope，问题可能出现在以下几点：\n\n1. Mr.Hope自掏腰包买的的服务器炸了；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~并感谢同学对Mr.Hope的支持~\n由于服务器是Mr.Hope自掏腰包，配置不是很好，同学可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置或者赞赏Mr.Hope的劳动成果。</text>
+    </view>
+  </view>
+  <view class='donateCtn'>
+    <button class='donateButton' open-type='contact'>捐赠</button>
+  </view>
 </template>
