@@ -1,67 +1,139 @@
 function checkResUpdate() {
-  let resNotify = initialize('resNotify', true), resVersion = initialize('resVersion', 0);
-  console.log('resNotify ' + resNotify); console.log('resVersion ' + resVersion);
+  let resNotify = initialize('resNotify', true), localList = initialize('localList', undefined);
+  console.log('resNotify ' + resNotify); console.log(localList);
   if (resNotify) {
-    wx.getNetworkType({
-      success: function (netWork) {
-        console.log(netWork.networkType)
-        if (netWork.networkType == 'wifi') {
-          wx.request({
-            url: 'https://mrhope.top/miniProgram/fileList.json', success(listRequest) {
-              console.log(listRequest); let webVersion = listRequest.data[0], fileList = listRequest.data[1];
-              if (listRequest.statusCode == 200) {
-                if (resVersion == 0) {
+    wx.request({
+      url: 'https://mrhope.top/mp/fileList.json', success(listRequest) {
+        console.log(listRequest);
+        let fileList = listRequest.data;
+        if (listRequest.statusCode == 200) {
+          if (localList == undefined) {
+            wx.showModal({
+              title: '是否离线部分页面文字资源？', content: '选择离线后可以在无网络连接时查看部分界面。(会消耗100K流量)',
+              cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
+              success(choice) {
+                if (choice.cancel) {
                   wx.showModal({
-                    title: '是否离线部分页面文字资源？', content: '选择离线后可以在无网络连接时查看部分界面。(会消耗100K流量)',
-                    cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
-                    success(choice) {
-                      if (choice.cancel) {
-                        wx.showModal({
-                          title: '是否要关闭此提示？', content: '关闭后不会再显示类似提示。您可以在设置中重新打开提示。',
-                          cancelText: '关闭', cancelColor: '#ff0000', confirmText: '保持打开',
-                          success(choice2) { if (choice2.cancel) { wx.setStorageSync('resNotify', false) } }
-                        })
-                      }
-                      if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); }
-                    }
-                  });
+                    title: '是否要关闭此提示？', content: '关闭后不会再显示类似提示。您可以在设置中重新打开提示。',
+                    cancelText: '关闭', cancelColor: '#ff0000', confirmText: '保持打开',
+                    success(choice2) { if (choice2.cancel) { wx.setStorageSync('resNotify', false) } }
+                  })
                 }
-                else if (webVersion > resVersion) {
-                  wx.showModal({
-                    title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗100K流量)',
-                    cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
-                    success(choice) { if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); } }
-                  });
+                if (choice.confirm) { resDownload(fileList); wx.setStorageSync('localList', JSON.stringify(fileList)); }
+              }
+            });
+          }
+          else if (localList !== JSON.stringify(fileList)) {
+            console.log('not match')
+            wx.showModal({
+              title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗100K流量)',
+              cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
+              success(choice) {
+                if (choice.confirm) {
+                  resDownload(fileList); wx.setStorageSync('localList', JSON.stringify(fileList));
                 }
               }
-              else { console.warn('FileList error!') }
-            }
-          })
+            });
+          }
+          else { console.log('match') }
         }
-      },
+        else { console.warn('FileList error!') }
+      }
     })
   }
 }
-
+// function checkResUpdate() {
+//   let resNotify = initialize('resNotify', true), resVersion = initialize('resVersion', 0);
+//   console.log('resNotify ' + resNotify); console.log('resVersion ' + resVersion);
+//   if (resNotify) {
+//     wx.getNetworkType({
+//       success: function (netWork) {
+//         console.log(netWork.networkType)
+//         if (netWork.networkType == 'wifi') {
+//           wx.request({
+//             url: 'https://mrhope.top/miniProgram/fileList.json', success(listRequest) {
+//               console.log(listRequest); let webVersion = listRequest.data[0], fileList = listRequest.data[1];
+//               if (listRequest.statusCode == 200) {
+//                 if (resVersion == 0) {
+//                   wx.showModal({
+//                     title: '是否离线部分页面文字资源？', content: '选择离线后可以在无网络连接时查看部分界面。(会消耗100K流量)',
+//                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
+//                     success(choice) {
+//                       if (choice.cancel) {
+//                         wx.showModal({
+//                           title: '是否要关闭此提示？', content: '关闭后不会再显示类似提示。您可以在设置中重新打开提示。',
+//                           cancelText: '关闭', cancelColor: '#ff0000', confirmText: '保持打开',
+//                           success(choice2) { if (choice2.cancel) { wx.setStorageSync('resNotify', false) } }
+//                         })
+//                       }
+//                       if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); }
+//                     }
+//                   });
+//                 }
+//                 else if (webVersion > resVersion) {
+//                   wx.showModal({
+//                     title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗100K流量)',
+//                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
+//                     success(choice) { if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); } }
+//                   });
+//                 }
+//               }
+//               else { console.warn('FileList error!') }
+//             }
+//           })
+//         }
+//       },
+//     })
+//   }
+// }
+// function resDownload(fileList) {
+//   let successNumber = 0;
+//   wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
+//   for (let i = 0; i < fileList.length; i++) {
+//     wx.request({
+//       url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
+//         console.log(res); console.log(fileList[i]); wx.setStorageSync(fileList[i], res.data);
+//         successNumber += 1;
+//         wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
+//         if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
+//       }, fail(res) { console.warn(res); console.warn(fileList[i]); }
+//     })
+//   }
+// }
 function resDownload(fileList) {
-  let successNumber = 0;
-  wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
+  console.log(fileList)
+  let fileNum = 0, successNumber = 0;
+  for (let i = 0; i < fileList.length; i++) {
+    fileNum += fileList[i].fileNum + 1;
+  };
+  wx.showLoading({ title: successNumber + '/' + fileNum + '下载中...', mask: true });
   for (let i = 0; i < fileList.length; i++) {
     wx.request({
-      url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
-        console.log(res); console.log(fileList[i]); wx.setStorageSync(fileList[i], res.data);
+      url: 'https://mrhope.top/mp/' + fileList[i].content + '/' + fileList[i].content + '.json', success(res) {
+        console.log(res); console.log(fileList[i].content); wx.setStorageSync(fileList[i].content, res.data);
         successNumber += 1;
-        wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-        if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
+        wx.showLoading({ title: successNumber + '/' + fileNum + '下载中...', mask: true });
+        if (successNumber == fileNum) { wx.hideLoading(); console.log('hide') };
       }, fail(res) { console.warn(res); console.warn(fileList[i]); }
-    })
+    });
+    for (let j = 1; j <= fileList[i].fileNum; j++) {
+      wx.request({
+        url: 'https://mrhope.top/mp/' + fileList[i].content + '/' + fileList[i].content + j + '.json', success(res) {
+          console.log(res); console.log(fileList[i].content + j); wx.setStorageSync(fileList[i].content + j, res.data);
+          successNumber += 1;
+          wx.showLoading({ title: successNumber + '/' + fileNum + '下载中...', mask: true });
+          if (successNumber == fileNum) { wx.hideLoading(); console.log('hide') };
+        }, fail(res) { console.warn(res); console.warn(fileList[i]); }
+      })
+    }
   }
 }
 
 function resRefresh() {
   wx.request({
-    url: 'https://mrhope.top/miniProgram/fileList.json', success(listRequest) {
-      console.log(listRequest); let webVersion = listRequest.data[0], fileList = listRequest.data[1];
+    url: 'https://mrhope.top/mp/fileList.json', success(listRequest) {
+      console.log(listRequest);
+      let fileList = listRequest.data;
       if (listRequest.statusCode == 200) { resDownload(fileList) }
       else { console.warn('FileList error!') }
     }
@@ -268,7 +340,16 @@ function phone(e, indicator) {
   if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
   else if (Type == 'add') { wx.addPhoneContact({ firstName: info.fName, lastName: info.lName, mobilePhoneNumber: info.num, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark, photoFilePath: info.head, nickName: info.nickName, weChatNumber: info.wechat, addressState: info.province, addressCity: info.city, addressStreet: info.street, addressPostalCode: info.postCode, title: info.title, hostNumber: info.hostNum, email: info.email, url: info.website, homePhoneNumber: info.homeNum }) }
 }
-
+function eqObject(a, b) {
+  var keys = Object.keys(a), key;
+  length = keys.length;
+  if (Object.keys(b).length !== length) return false;
+  while (length--) {
+    key = keys[length];
+    if (!(b.hasOwnProperty(key) && eq(a[key], b[key], aStack, bStack))) return false;
+  }
+  return true;
+}
 module.exports = {
   // cV: checkVersion,
   cRU: checkResUpdate,

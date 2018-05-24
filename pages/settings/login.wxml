@@ -1,4 +1,3 @@
-<!-- <view class='headCtn'></view> -->
 <view class='loginCtn'>
   <image class='loginIcon' animation="{{loginAnimation}}" src='/image/logo.png' />
   <input class='inputBox' placeholder='您的NENU账户名' confirm-type='next' bindinput="input" data-key='userName' />

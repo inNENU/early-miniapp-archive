@@ -1,5 +1,6 @@
 @import "templates/wechat.wxss";
 @import "templates/iOS.wxss";
+@import "templates/NENU.wxss";
 
 page {
   height: 100%;
@@ -21,7 +22,7 @@ page {
 }
 
 .headCtn {
-  height: 25px;
+  height: 56px;
   background-color: #d9d9d9;
 }
 
@@ -232,7 +233,7 @@ page {
 .errorDesc {
   color: #888;
   font-size: 16px;
-  text-align: left !important;
+  text-align: justify !important;
 }
 
 /* donate */

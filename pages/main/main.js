@@ -5,7 +5,7 @@ Page({
       { tag: 'head', title: '首页', top: true, show: true },
       { tag: 'p', head: '这里是东师青年官方小程序' },
       { tag: 'p', head: '首页制作中......' },
-      { tag: 'list', head: false, content: [{ text: '主题设置', url: '/pages/settings/theme' }, { text: '登录', url: '/pages/settings/login' }] },
+      { tag: 'list', head: false, content: [{ text: '设置', url: '/pages/settings/theme' }, { text: '登录', url: '/pages/settings/login' }] },
       { tag: 'foot' },
     ],
   },

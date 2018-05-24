@@ -5,12 +5,11 @@ for (let i = 0; i <= 23; i++) { time[0].push(i + '时') };
 for (let i = 0; i <= 59; i++) { if (i < 10) { time[1].push('0' + i + '分') } else { time[1].push(i + '分') } };
 Page({
   data: {
-    array: ['iOS', 'wechat', 'debug',],
     page: [
       { tag: 'head', title: '主题设置', grey: true },
       {
         tag: 'list', head: '主题设置', foot: 'wechat主题和其他主题还在建设中......', content: [
-          { text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'wechat'], picker: 'setTheme' },
+          { text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'wechat', 'NENU'], picker: 'setTheme' },
         ]
       },
       { tag: 'list', head: '夜间模式', foot: '“夜间模式”启用后，所有界面的背景被置于暗色并采用亮色文字以在保护眼睛的同时，保持暗光下显示效果。', content: [{ text: '夜间模式', Switch: 'switchnm', swiKey: 'nightmode' },] },
@@ -37,7 +36,7 @@ Page({
     let p = this.data.page, list = p[3].content, nmAC = wx.getStorageSync('nightmodeAutoChange'), dC = wx.getStorageSync('dayBrightnessChange'), nC = wx.getStorageSync('nightBrightnessChange');
     if (!nmAC || !dC) { list[4].display = false }; if (!nmAC || !dC) { list[6].display = false };
     if (!nmAC) { list[1].display = list[2].display = list[3].display = list[5].display = false; };
-    u.sP(p, this, a, e); this.setData({ index: u.ak(this.data.array, a.T) })
+    u.sP(p, this, a, e);
   },
   onPageScroll(e) { u.nav(e, this) },
   Switch(e) { u.sS(e, this) },

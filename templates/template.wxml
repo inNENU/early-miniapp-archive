@@ -161,8 +161,8 @@
   <view class='gridHead'>{{item.head}}</view>
   <view class='gridCtn'>
     <navigator wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
-        <image class='gridIcon' src="{{List.icon}}" />
-        <view class='gridTitle'>{{List.text}}</view>
+      <image class='gridIcon' src="{{List.icon}}" />
+      <view class='gridTitle'>{{List.text}}</view>
     </navigator>
   </view>
   <view class='gridFoot'>{{item.foot}}</view>
@@ -192,7 +192,7 @@
     </view>
   </view>
   <view class='donateCtn'>
-    <button class='donateButton'>捐赠</button>
+    <button class='donateButton' hover-class='buttonHover'>捐赠</button>
   </view>
 </template>
 
@@ -339,8 +339,8 @@
   <view class='gridHead'>{{item.head}}</view>
   <view class='gridCtn'>
     <navigator wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
-        <image class='gridIcon' src="{{List.icon}}" />
-        <view class='gridTitle'>{{List.text}}</view>
+      <image class='gridIcon' src="{{List.icon}}" />
+      <view class='gridTitle'>{{List.text}}</view>
     </navigator>
   </view>
   <view class='gridFoot'>{{item.foot}}</view>
@@ -366,4 +366,23 @@
   <view class='donateCtn'>
     <button class='donateButton' open-type='contact'>捐赠</button>
   </view>
+</template>
+<!-- NENU theme -->
+<template name='NENUhead'>
+  <view class='headCtn' style="{{item.andriod?'top:28pt;':''}}background-color:{{item.color}};{{item.style}}"></view>
+  <view wx:if="{{item.top}}" class='NENUnav'>
+    <view class='NENU-navText'>{{item.title}}</view>
+  </view>
+  <view wx:else class='NENUbackCtn' hover-class='butttonHover'>
+    <view class='NENUbackText'></view>
+  </view>
+</template>
+
+<template name='NENUp'>
+</template>
+
+<template name='NENUfoot'>
+</template>
+
+<template name='NENUlist'>
 </template>
