@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/log/log",
     "pages/main/main",
+    "pages/log/log",
     "pages/settings/theme",
+    "pages/settings/login",
     "pages/function/function",
     "pages/function/details/cal",
     "pages/guide/guide",
