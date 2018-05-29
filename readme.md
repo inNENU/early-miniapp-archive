@@ -1,5 +1,5 @@
 # 许可
-> Version 1.0.1 update grid
+> Version 1.0.2 update grid update wxml
 
  **这是一个由Mr.Hope独立编写的项目。全部代码均由Mr.Hope编写，如有抄袭、商用，Mr.Hope保留追究其责任的权利。** 
 ### 一. 简单界面编写说明
@@ -42,7 +42,7 @@ Page({
 ```
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{page[0].T}}{{item.tag}}" data="{{item}}" />
+  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
 </view>
 ```
 **4. 对照tag值参数表文件进行界面内容编写。**

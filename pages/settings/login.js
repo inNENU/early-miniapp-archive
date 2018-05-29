@@ -16,7 +16,7 @@ Page({
     console.log(this);
     console.log(this.animation)
     animation.rotate(180).step()
-    animation.rotate(180).step()
+    animation.rotate(-180).step()
     console.log(this.animation)
     this.setData({
       loginAnimation: animation.export()

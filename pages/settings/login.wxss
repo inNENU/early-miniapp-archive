@@ -25,7 +25,7 @@ page {
   min-width: 60%;
   max-width: 80%;
   margin: 20px auto;
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 4px 15px;
   line-height: 1.6;
   background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);

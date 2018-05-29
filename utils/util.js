@@ -198,8 +198,10 @@ function setSwitch(e, indicator) {
 }
 
 function tabBarChanger(nm) {
-  if (nm) { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#000000', borderStyle: 'white' }) }
-  else { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#ffffff', borderStyle: 'black' }) };
+  if (nm) { wx.setTabBarStyle({ backgroundColor: '#000000', borderStyle: 'white' }) }
+  else { wx.setTabBarStyle({ backgroundColor: '#ffffff', borderStyle: 'black' }) };
+  // if (nm) { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#000000', borderStyle: 'white' }) }
+  // else { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#ffffff', borderStyle: 'black' }) };
 }
 
 function back() { wx.navigateBack({}) }
@@ -283,16 +285,7 @@ function phone(e, indicator) {
   if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
   else if (Type == 'add') { wx.addPhoneContact({ firstName: info.fName, lastName: info.lName, mobilePhoneNumber: info.num, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark, photoFilePath: info.head, nickName: info.nickName, weChatNumber: info.wechat, addressState: info.province, addressCity: info.city, addressStreet: info.street, addressPostalCode: info.postCode, title: info.title, hostNumber: info.hostNum, email: info.email, url: info.website, homePhoneNumber: info.homeNum }) }
 }
-function eqObject(a, b) {
-  var keys = Object.keys(a), key;
-  length = keys.length;
-  if (Object.keys(b).length !== length) return false;
-  while (length--) {
-    key = keys[length];
-    if (!(b.hasOwnProperty(key) && eq(a[key], b[key], aStack, bStack))) return false;
-  }
-  return true;
-}
+
 module.exports = {
   // cV: checkVersion,
   cRU: checkResUpdate,
