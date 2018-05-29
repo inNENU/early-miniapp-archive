@@ -68,6 +68,7 @@ Page({
   setTheme(e) {
     u.pV(e, this); let theme = this.data.page[1].content[0].pickerValue[e.detail.value];
     console.log(theme)
-    a.T = theme; wx.setStorageSync("theme", theme); u.sP(this.data.page, this, a, e)
+    a.T = theme; wx.setStorageSync("theme", theme); u.sP(this.data.page, this, a, e);
+    u.emit('theme', theme);
   },
 })

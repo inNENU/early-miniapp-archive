@@ -1,5 +1,4 @@
 var u = getApp().util, a = getApp().globalData;
-// let app = getApp();
 Page({
   data: {
     page: [
@@ -10,13 +9,7 @@ Page({
       { tag: 'foot' },
     ],
   },
-  // onLoad() {
-  //   app.pubSub.on('hello', (number) => {
-  //     this.setData({
-  //       helloMsg: 'hello times:' + number
-  //     });
-  //   });
-  // },
+  onLoad() { u.on('theme', this, function (data) { this.setData({ T: data }); }) },
   onShow() { u.sP(this.data.page, this, a); u.tBC(a.nm); },
   onPageScroll(e) { u.nav(e, this) },
 })

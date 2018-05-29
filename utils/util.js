@@ -42,64 +42,6 @@ function checkResUpdate() {
     })
   }
 }
-// function checkResUpdate() {
-//   let resNotify = initialize('resNotify', true), resVersion = initialize('resVersion', 0);
-//   console.log('resNotify ' + resNotify); console.log('resVersion ' + resVersion);
-//   if (resNotify) {
-//     wx.getNetworkType({
-//       success: function (netWork) {
-//         console.log(netWork.networkType)
-//         if (netWork.networkType == 'wifi') {
-//           wx.request({
-//             url: 'https://mrhope.top/miniProgram/fileList.json', success(listRequest) {
-//               console.log(listRequest); let webVersion = listRequest.data[0], fileList = listRequest.data[1];
-//               if (listRequest.statusCode == 200) {
-//                 if (resVersion == 0) {
-//                   wx.showModal({
-//                     title: '是否离线部分页面文字资源？', content: '选择离线后可以在无网络连接时查看部分界面。(会消耗100K流量)',
-//                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
-//                     success(choice) {
-//                       if (choice.cancel) {
-//                         wx.showModal({
-//                           title: '是否要关闭此提示？', content: '关闭后不会再显示类似提示。您可以在设置中重新打开提示。',
-//                           cancelText: '关闭', cancelColor: '#ff0000', confirmText: '保持打开',
-//                           success(choice2) { if (choice2.cancel) { wx.setStorageSync('resNotify', false) } }
-//                         })
-//                       }
-//                       if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); }
-//                     }
-//                   });
-//                 }
-//                 else if (webVersion > resVersion) {
-//                   wx.showModal({
-//                     title: '部分页面资源有更新？', content: '是否立即更新界面资源？\n(会消耗100K流量)',
-//                     cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
-//                     success(choice) { if (choice.confirm) { resDownload(fileList); wx.setStorageSync('resVersion', webVersion); } }
-//                   });
-//                 }
-//               }
-//               else { console.warn('FileList error!') }
-//             }
-//           })
-//         }
-//       },
-//     })
-//   }
-// }
-// function resDownload(fileList) {
-//   let successNumber = 0;
-//   wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-//   for (let i = 0; i < fileList.length; i++) {
-//     wx.request({
-//       url: 'https://mrhope.top/miniProgram/' + fileList[i] + '.json', success(res) {
-//         console.log(res); console.log(fileList[i]); wx.setStorageSync(fileList[i], res.data);
-//         successNumber += 1;
-//         wx.showLoading({ title: successNumber + '/' + fileList.length + '下载中...', mask: true });
-//         if (successNumber == fileList.length) { wx.hideLoading(); console.log('hide') };
-//       }, fail(res) { console.warn(res); console.warn(fileList[i]); }
-//     })
-//   }
-// }
 function resDownload(fileList) {
   console.log(fileList)
   let fileNum = 0, successNumber = 0;
@@ -179,7 +121,7 @@ function changeNav(e, indicator) {
   var n = indicator.data.page[0]; let T, B, S;
   if (e.scrollTop <= 1) { T = false; B = false; S = false } else if (e.scrollTop <= 42) { T = false; B = false; S = true }
   else if (e.scrollTop >= 53) { T = true; B = true; S = true } else { T = true; B = false; S = true };
-  if (n.titleDisplay === null || n.titleDisplay != T || n.borderDisplay != B || n.shadow != S)
+  if (n.titleDisplay != T || n.borderDisplay != B || n.shadow != S)
   { n.titleDisplay = T, n.borderDisplay = B; n.shadow = S; indicator.setData({ page: indicator.data.page }) }
 }
 
@@ -189,7 +131,8 @@ function setPage(page, indicator, a, e) {
   if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
   if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
   if (e && !page[0].top && 'step' in e) { page[0].aimStep = Number(e.step) + 1 };
-  page[0].url = new Array(); page[0].T = a.T;
+  page[0].url = new Array();
+  // page[0].T = a.T;
   for (let i = 0; i < page.length; i++) {
     //setImage
     let Module = page[i]; Module.id = i;
@@ -369,6 +312,9 @@ module.exports = {
   gC: getContent,
   doc: openDocument,
   phone: phone,
+  on: on,
+  emit: emit,
+  remove: remove,
   // formatTime: formatTime,
   // go: go,
 }
@@ -403,3 +349,35 @@ module.exports = {
 //   
 // }
 // function go(url) { wx.navigateTo({ url: url }) }
+var events = {};
+
+function on(name, self, callback) {
+  var tuple = [self, callback];
+  var callbacks = events[name];
+  if (Array.isArray(callbacks)) {
+    callbacks.push(tuple);
+  }
+  else {
+    events[name] = [tuple];
+  }
+}
+
+function remove(name, self) {
+  var callbacks = events[name];
+  if (Array.isArray(callbacks)) {
+    events[name] = callbacks.filter((tuple) => {
+      return tuple[0] != self;
+    })
+  }
+}
+
+function emit(name, data) {
+  var callbacks = events[name];
+  if (Array.isArray(callbacks)) {
+    callbacks.map((tuple) => {
+      var self = tuple[0];
+      var callback = tuple[1];
+      callback.call(self, data);
+    })
+  }
+}
