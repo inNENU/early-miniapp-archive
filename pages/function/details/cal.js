@@ -26,15 +26,15 @@ Page({
     let grade = this.data.grade;
     // 获取grade
     // console.log(Number(e.detail.value));
-    let currentID = e.target.id.charAt(e.target.id.length - 1);
-    // console.log("currentID是" + currentID);
-    // 获取正在输入的输入框id
-    let currentTarget = e.target.id.substring(0, e.target.id.length - 1);
-    // console.log("currentTarget是" + currentTarget);
-    // 获取正在输入对象
-    if (Number(e.detail.value)) { grade[currentID][currentTarget] = Number(e.detail.value) }
+    let id = e.currentTarget.dataset.id, target = e.currentTarget.dataset.class;
+    // console.log("currentID是" + currentID); console.log("currentTarget是" + currentTarget);
+    // 获取正在输入的输入框id  获取正在输入对象
+    grade[id][target + 'Focus'] = true;
+    // if (e.detail.value.length < e.currentTarget.dataset.maxLength) { grade[id][target + 'Focus'] = true; }
+    // else { grade[id][target + 'Focus'] = false; }
+    if (Number(e.detail.value)) { grade[id][target] = Number(e.detail.value) }
     // 如果value可以转换为number，得到对应课程的grade数组并对其中的相应对象赋值数字
-    else { grade[currentID][currentTarget] = e.detail.value };
+    else { grade[id][target] = e.detail.value };
     // 如果value无法转换为number，得到对应课程的grade数组并对其中的相应对象赋值字符
     console.log(grade);
     this.setData({ grade: grade });
