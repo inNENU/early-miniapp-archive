@@ -251,7 +251,12 @@ page {
   border: none;
   color: #fff;
 }
-
+/* map */
+.schoolMap{
+  width: 100%;
+  min-height:60%;
+  /* height: 100%; */
+}
 /* common */
 
 .grey {

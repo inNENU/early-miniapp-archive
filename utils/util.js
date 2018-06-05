@@ -167,48 +167,9 @@ function setPage(page, indicator, a, e) {
     }
   }; indicator.setData({ T: a.T, nm: a.nm, page: page, url: url })
 }
-// function setPage(page, indicator, a, e) {
-//   //setNav
-//   if (a.info.model.substring(0, 8) === 'iPhone X') { page[0].iPhoneX = true };
-//   if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
-//   if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
-//   if (e && !page[0].top && 'step' in e) { page[0].aimStep = Number(e.step) + 1 };
-//   page[0].url = new Array();
-//   // page[0].T = a.T;
-//   for (let i = 0; i < page.length; i++) {
-//     //setImage
-//     let Module = page[i]; Module.id = i;
-//     if (Module.src) {
-//       if (Module.res) { page[0].url.push(Module.res) } else { page[0].url.push(Module.src); Module.res = Module.src };
-//       if (!Module.imgMode) { Module.imgMode = a.imgMode };
-//     };
-//     //setList
-//     if ('content' in Module) {
-//       for (let j = 0; j < Module.content.length; j++) {
-//         let item = Module.content[j]; item.id = i + "-" + j;
-//         //set List navigator
-//         if ('url' in item) { item.url += "?from=" + page[0].title };
-//         if ('aim' in item) { item.url = "guide" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep };
-//         //set List switch
-//         if ('swiKey' in item) { item.status = wx.getStorageSync(item.swiKey); };
-//         //set List slider
-//         if ('sliKey' in item) { item.value = wx.getStorageSync(item.sliKey); };
-//         //set List picker
-//         if ('pickerValue' in item) {
-//           if (item.single) {
-//             let res = wx.getStorageSync(item.key);
-//             item.value = item.pickerValue[res]; item.currentValue = [res]
-//           } else {
-//             let res = wx.getStorageSync(item.key).split('-'); item.currentValue = new Array(); item.value = new Array();
-//             for (let k = 0; k < res.length; k++) {
-//               item.value[k] = item.pickerValue[k][Number(res[k])]; item.currentValue[k] = Number(res[k]);
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }; indicator.setData({ T: a.T, nm: a.nm, page: page })
-// }
+function componemt(e, indicator) {
+
+}
 
 function pickerView(e, indicator) {
   let pos = e.currentTarget.dataset.id.split('-'), content = indicator.data.page[pos[0]].content[pos[1]];
@@ -242,14 +203,6 @@ function setSwitch(e, indicator) {
 function tabBarChanger(nm) {
   if (nm) { wx.setTabBarStyle({ backgroundColor: '#000000', borderStyle: 'white' }) }
   else { wx.setTabBarStyle({ backgroundColor: '#ffffff', borderStyle: 'black' }) };
-  // if (nm) { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#000000', borderStyle: 'white' }) }
-  // else { wx.setTabBarStyle({ color: "#7A7E83", selectedColor: "#3cc51f", backgroundColor: '#ffffff', borderStyle: 'black' }) };
-}
-
-function back() { wx.navigateBack({}) }
-
-function arrayKeynumber(array, key) {
-  for (var i in array) { if (array[i] == key) { return i } }
 }
 
 function imgLoad(e, indicator) {
@@ -257,6 +210,22 @@ function imgLoad(e, indicator) {
   if (e.type == 'load') { current.load = true; indicator.setData({ page: indicator.data.page }); }
   else if (e.type == 'error') { current.error = true; indicator.setData({ page: indicator.data.page }); }
   else if (e.type == 'tap') { wx.previewImage({ current: current.res, urls: indicator.data.url }) };
+}
+
+function openDocument(e) {
+  wx.downloadFile({ url: e.currentTarget.dataset.url, success: function (res) { let path = res.tempFilePath; wx.openDocument({ filePath: path }) } })
+}
+
+function phone(e, indicator) {
+  let Type = e.target.dataset.type, info = indicator.data.page[e.currentTarget.id];
+  if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
+  else if (Type == 'add') { wx.addPhoneContact({ firstName: info.fName, lastName: info.lName, mobilePhoneNumber: info.num, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark, photoFilePath: info.head, nickName: info.nickName, weChatNumber: info.wechat, addressState: info.province, addressCity: info.city, addressStreet: info.street, addressPostalCode: info.postCode, title: info.title, hostNumber: info.hostNum, email: info.email, url: info.website, homePhoneNumber: info.homeNum }) }
+}
+
+function back() { wx.navigateBack({}) }
+
+function arrayKeynumber(array, key) {
+  for (var i in array) { if (array[i] == key) { return i } }
 }
 
 function getContent(indicator, a, e) {
@@ -302,7 +271,6 @@ function getContent(indicator, a, e) {
   })
 }
 
-
 function reConnet(indicator, a, e) {
   wx.onNetworkStatusChange(function (res) {
     console.log(res.isConnected); console.log(res.networkType)
@@ -318,15 +286,6 @@ function reConnet(indicator, a, e) {
   })
 }
 
-function openDocument(e) {
-  wx.downloadFile({ url: e.currentTarget.dataset.url, success: function (res) { let path = res.tempFilePath; wx.openDocument({ filePath: path }) } })
-}
-
-function phone(e, indicator) {
-  let Type = e.target.dataset.type, info = indicator.data.page[e.currentTarget.id];
-  if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
-  else if (Type == 'add') { wx.addPhoneContact({ firstName: info.fName, lastName: info.lName, mobilePhoneNumber: info.num, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark, photoFilePath: info.head, nickName: info.nickName, weChatNumber: info.wechat, addressState: info.province, addressCity: info.city, addressStreet: info.street, addressPostalCode: info.postCode, title: info.title, hostNumber: info.hostNum, email: info.email, url: info.website, homePhoneNumber: info.homeNum }) }
-}
 function donate() {
   wx.getClipboardData({
     data: '吱口令',

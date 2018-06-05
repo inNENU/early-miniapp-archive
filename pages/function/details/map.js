@@ -1,4 +1,31 @@
+var u = getApp().util, a = getApp().globalData;
+var sliderWidth = 96;
 Page({
+  data: {
+    page: [{ tag: 'head', title: '校园地图' }],
+    tabs: ["本部", "净月", "长春"],
+    activeIndex: 1,
+    sliderOffset: 0,
+    sliderLeft: 0
+  },
+  onLoad: function (e) {
+    u.sP(this.data.page, this, a, e);
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+        });
+      }
+    });
+  },
+  tabClick: function (e) {
+    this.setData({
+      sliderOffset: e.currentTarget.offsetLeft,
+      activeIndex: e.currentTarget.id
+    });
+  },
   onReady: function (e) {
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('myMap')
