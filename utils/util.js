@@ -167,11 +167,20 @@ function setPage(page, indicator, a, e) {
     }
   }; indicator.setData({ T: a.T, nm: a.nm, page: page, url: url })
 }
-function componemt(e, indicator) {
 
+function componemtAction(e, indicator) {
+  console.log(e)
+  let action = e.currentTarget.dataset.action;
+  if (action == 'img') { image(e, indicator) }
+  else if (action == 'document') { document(e) }
+  else if (action == 'phone') { phone(e, indicator) }
+  else if (action == 'picker') { picker(e, indicator) }
+  else if (action == 'switch') { Switch(e, indicator) }
+  else if (action == 'slider') { slider(e, indicator) }
+  else if (action == 'back') { wx.navigateBack({}) }
 }
 
-function pickerView(e, indicator) {
+function picker(e, indicator) {
   let pos = e.currentTarget.dataset.id.split('-'), content = indicator.data.page[pos[0]].content[pos[1]];
   if (e.type == 'tap') { content.visible = !content.visible; indicator.setData({ page: indicator.data.page }) }
   if (e.type == 'change') {
@@ -194,8 +203,8 @@ function slider(e, indicator) {
   indicator.setData({ page: indicator.data.page })
 }
 
-function setSwitch(e, indicator) {
-  let pos = e.target.id.split('-'), page = indicator.data.page, content = page[pos[0]].content[pos[1]];
+function Switch(e, indicator) {
+  let pos = e.target.dataset.id.split('-'), page = indicator.data.page, content = page[pos[0]].content[pos[1]];
   content.status = e.detail.value; indicator.setData({ page: page });
   wx.setStorageSync(content.swiKey, e.detail.value); return page;
 }
@@ -205,14 +214,14 @@ function tabBarChanger(nm) {
   else { wx.setTabBarStyle({ backgroundColor: '#ffffff', borderStyle: 'black' }) };
 }
 
-function imgLoad(e, indicator) {
+function image(e, indicator) {
   let current = indicator.data.page[e.target.id];
   if (e.type == 'load') { current.load = true; indicator.setData({ page: indicator.data.page }); }
   else if (e.type == 'error') { current.error = true; indicator.setData({ page: indicator.data.page }); }
   else if (e.type == 'tap') { wx.previewImage({ current: current.res, urls: indicator.data.url }) };
 }
 
-function openDocument(e) {
+function document(e) {
   wx.downloadFile({ url: e.currentTarget.dataset.url, success: function (res) { let path = res.tempFilePath; wx.openDocument({ filePath: path }) } })
 }
 
@@ -303,20 +312,21 @@ module.exports = {
   nm: nightmode,
   nav: changeNav,
   sP: setPage,
-  pV: pickerView,
+  // pV: picker,
   sl: slider,
   tBC: tabBarChanger,
   back: back,
-  sS: setSwitch,
+  sS: Switch,
   ak: arrayKeynumber,
-  img: imgLoad,
+  // img: image,
   gC: getContent,
-  doc: openDocument,
+  doc: document,
   phone: phone,
   on: on,
   emit: emit,
   remove: remove,
   donate: donate,
+  cA: componemtAction,
   // formatTime: formatTime,
   // go: go,
 }

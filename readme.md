@@ -92,6 +92,14 @@ Page({
 ```
   Switch(e){u.sS(e,this)},
 ```
+##### slider函数：
+    functionName：switch函数值；
+```
+  →functionName←(e){
+    u.sl(e,this);
+    other code here......
+  },
+```
 # tag值参数表
  #### **有效的tag值：** 
 - head：小程序界面的头部，包括标题和navigationBar(必填，仅用一次填在最前）

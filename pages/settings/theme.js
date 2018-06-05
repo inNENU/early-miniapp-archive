@@ -39,10 +39,8 @@ Page({
     u.sP(p, this, a, e);
   },
   onPageScroll(e) { u.nav(e, this) },
-  Switch(e) { u.sS(e, this) },
-  pV(e) { u.pV(e, this) },
   refresh(e) { u.rR() },
-  back() { u.back() },
+  cA(e) { u.cA(e, this) },
   onUnload() { a.nm = u.nm(new Date()) },
   switchnm(e) {
     let p = u.sS(e, this), list = p[3].content, value = e.detail.value; a.nm = value;
@@ -63,10 +61,10 @@ Page({
   },
   swithDay(e) { let p = u.sS(e, this), list = p[3].content; list[4].visible = list[4].display = e.detail.value; this.setData({ page: p }); },
   swithNight(e) { let p = u.sS(e, this), list = p[3].content; list[6].visible = list[6].display = e.detail.value; this.setData({ page: p }); },
-  dB(e) { u.sl(e, this); if (!a.nm && this.data.page[3].content[3].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) } },
-  nB(e) { u.sl(e, this); if (a.nm && this.data.page[3].content[5].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) } },
+  dB(e) { u.cA(e, this); if (!a.nm && this.data.page[3].content[3].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) } },
+  nB(e) { u.cA(e, this); if (a.nm && this.data.page[3].content[5].status) { wx.setScreenBrightness({ value: e.detail.value / 100 }) } },
   setTheme(e) {
-    u.pV(e, this); let theme = this.data.page[1].content[0].pickerValue[e.detail.value];
+    u.cA(e, this); let theme = this.data.page[1].content[0].pickerValue[e.detail.value];
     console.log(theme)
     a.T = theme; wx.setStorageSync("theme", theme); u.sP(this.data.page, this, a, e);
     u.emit('theme', theme);
