@@ -9,5 +9,5 @@ Page({
       { tag: 'p', head: 'V0.5.4', text: '尝试引入PubSub；' },
     ],
   },
-  onLoad(e) { u.sP(this.data.page, this, a, e) }, onPageScroll(e) { u.nav(e, this) }, back() { u.back() },
+  onLoad(e) { u.sP(this.data.page, this, a, e) }, onPageScroll(e) { u.nav(e, this) }, cA(e) { u.cA(e, this) },
 })

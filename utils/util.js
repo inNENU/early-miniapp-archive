@@ -146,7 +146,7 @@ function setPage(page, indicator, a, e) {
         let item = Module.content[j]; item.id = i + "-" + j;
         //set List navigator
         if ('url' in item) { item.url += "?from=" + page[0].title };
-        if ('aim' in item) { item.url = "guide" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep };
+        if ('aim' in item) { item.url = "/pages/templet" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep };
         //set List switch
         if ('swiKey' in item) { item.status = wx.getStorageSync(item.swiKey); };
         //set List slider

@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/main/main",
+    "pages/templet1",
+    "pages/templet2",
+    "pages/templet3",
     "pages/log/log",
     "pages/settings/theme",
     "pages/settings/login",
@@ -8,10 +11,7 @@
     "pages/function/function",
     "pages/function/details/cal",
     "pages/function/details/map",
-    "pages/guide/guide",
-    "pages/guide/guide1",
-    "pages/guide/guide2",
-    "pages/guide/guide3", 
+    "pages/guide/guide", 
     "pages/log/alpha",
     "pages/log/0.1",
     "pages/log/0.2",
