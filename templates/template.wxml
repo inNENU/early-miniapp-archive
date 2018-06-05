@@ -192,7 +192,9 @@
     </view>
   </view>
   <view class='donateCtn'>
-    <button class='donateButton' hover-class='buttonHover'>捐赠</button>
+    <navigator url='/pages/settings/donate'>
+      <button class='donateButton' hover-class='buttonHover'>捐赠</button>
+    </navigator>
   </view>
 </template>
 

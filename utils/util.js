@@ -126,18 +126,18 @@ function changeNav(e, indicator) {
 }
 
 function setPage(page, indicator, a, e) {
-  //setNavStart
+  //setNav
   if (a.info.model.substring(0, 8) === 'iPhone X') { page[0].iPhoneX = true };
   if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
   if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
   if (e && !page[0].top && 'step' in e) { page[0].aimStep = Number(e.step) + 1 };
-  page[0].url = new Array();
+  var url = new Array();
   // page[0].T = a.T;
   for (let i = 0; i < page.length; i++) {
     //setImage
     let Module = page[i]; Module.id = i;
     if (Module.src) {
-      if (Module.res) { page[0].url.push(Module.res) } else { page[0].url.push(Module.src); Module.res = Module.src };
+      if (Module.res) { url.push(Module.res) } else { url.push(Module.src); Module.res = Module.src };
       if (!Module.imgMode) { Module.imgMode = a.imgMode };
     };
     //setList
@@ -165,8 +165,50 @@ function setPage(page, indicator, a, e) {
         }
       }
     }
-  }; indicator.setData({ T: a.T, nm: a.nm, page: page })
+  }; indicator.setData({ T: a.T, nm: a.nm, page: page, url: url })
 }
+// function setPage(page, indicator, a, e) {
+//   //setNav
+//   if (a.info.model.substring(0, 8) === 'iPhone X') { page[0].iPhoneX = true };
+//   if (a.info.platform.substring(0, 7) === 'android') { page[0].android = true };
+//   if (e && !page[0].top && 'from' in e) { page[0].backText = e.from };
+//   if (e && !page[0].top && 'step' in e) { page[0].aimStep = Number(e.step) + 1 };
+//   page[0].url = new Array();
+//   // page[0].T = a.T;
+//   for (let i = 0; i < page.length; i++) {
+//     //setImage
+//     let Module = page[i]; Module.id = i;
+//     if (Module.src) {
+//       if (Module.res) { page[0].url.push(Module.res) } else { page[0].url.push(Module.src); Module.res = Module.src };
+//       if (!Module.imgMode) { Module.imgMode = a.imgMode };
+//     };
+//     //setList
+//     if ('content' in Module) {
+//       for (let j = 0; j < Module.content.length; j++) {
+//         let item = Module.content[j]; item.id = i + "-" + j;
+//         //set List navigator
+//         if ('url' in item) { item.url += "?from=" + page[0].title };
+//         if ('aim' in item) { item.url = "guide" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep };
+//         //set List switch
+//         if ('swiKey' in item) { item.status = wx.getStorageSync(item.swiKey); };
+//         //set List slider
+//         if ('sliKey' in item) { item.value = wx.getStorageSync(item.sliKey); };
+//         //set List picker
+//         if ('pickerValue' in item) {
+//           if (item.single) {
+//             let res = wx.getStorageSync(item.key);
+//             item.value = item.pickerValue[res]; item.currentValue = [res]
+//           } else {
+//             let res = wx.getStorageSync(item.key).split('-'); item.currentValue = new Array(); item.value = new Array();
+//             for (let k = 0; k < res.length; k++) {
+//               item.value[k] = item.pickerValue[k][Number(res[k])]; item.currentValue[k] = Number(res[k]);
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }; indicator.setData({ T: a.T, nm: a.nm, page: page })
+// }
 
 function pickerView(e, indicator) {
   let pos = e.currentTarget.dataset.id.split('-'), content = indicator.data.page[pos[0]].content[pos[1]];
@@ -214,7 +256,7 @@ function imgLoad(e, indicator) {
   let current = indicator.data.page[e.target.id];
   if (e.type == 'load') { current.load = true; indicator.setData({ page: indicator.data.page }); }
   else if (e.type == 'error') { current.error = true; indicator.setData({ page: indicator.data.page }); }
-  else if (e.type == 'tap') { wx.previewImage({ current: current.res, urls: indicator.data.page[0].url }) };
+  else if (e.type == 'tap') { wx.previewImage({ current: current.res, urls: indicator.data.url }) };
 }
 
 function getContent(indicator, a, e) {
@@ -285,7 +327,14 @@ function phone(e, indicator) {
   if (Type == 'call') { wx.makePhoneCall({ phoneNumber: info.num.toString() }) }
   else if (Type == 'add') { wx.addPhoneContact({ firstName: info.fName, lastName: info.lName, mobilePhoneNumber: info.num, organization: info.org, workPhoneNumber: info.workNum, remark: info.remark, photoFilePath: info.head, nickName: info.nickName, weChatNumber: info.wechat, addressState: info.province, addressCity: info.city, addressStreet: info.street, addressPostalCode: info.postCode, title: info.title, hostNumber: info.hostNum, email: info.email, url: info.website, homePhoneNumber: info.homeNum }) }
 }
-
+function donate() {
+  wx.getClipboardData({
+    data: '吱口令',
+    success: function (res) {
+      wx.showToast({ title: '吱口令已复制到剪切板，请打开支付宝', duration: 1000, })
+    }
+  })
+}
 module.exports = {
   // cV: checkVersion,
   cRU: checkResUpdate,
@@ -308,6 +357,7 @@ module.exports = {
   on: on,
   emit: emit,
   remove: remove,
+  donate: donate,
   // formatTime: formatTime,
   // go: go,
 }
