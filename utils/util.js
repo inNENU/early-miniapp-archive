@@ -13,7 +13,7 @@ function checkResUpdate() {
           if (localList == undefined) {
             wx.showModal({
               title: '是否离线部分页面文字资源？',
-              content: '选择离线后可以在无网络连接时查看部分界面。(会消耗100K流量)',
+              content: '选择离线后可以在无网络连接时查看部分界面。(会消耗50K流量)',
               cancelText: '否',
               cancelColor: '#ff0000',
               confirmText: '是',
@@ -33,7 +33,7 @@ function checkResUpdate() {
                   })
                 }
                 if (choice.confirm) {
-                  resDownload(fileList);
+                  resDownload(fileList, null);
                   wx.setStorageSync('localList', JSON.stringify(fileList));
                 }
               }
@@ -42,13 +42,13 @@ function checkResUpdate() {
             console.log('not match')
             wx.showModal({
               title: '部分页面资源有更新？',
-              content: '是否立即更新界面资源？\n(会消耗100K流量)',
+              content: '是否立即更新界面资源？\n(会消耗10K流量)',
               cancelText: '否',
               cancelColor: '#ff0000',
               confirmText: '是',
               success(choice) {
                 if (choice.confirm) {
-                  resDownload(fileList);
+                  resDownload(fileList, localList);
                   wx.setStorageSync('localList', JSON.stringify(fileList));
                 }
               }
@@ -64,46 +64,43 @@ function checkResUpdate() {
   }
 }
 
-function resDownload(fileList) {
-  console.log(fileList)
-  let fileNum = 0,
+function resDownload(fileList, localList) {
+  console.log(fileList);
+  console.log(localList);
+  let category = Object.keys(fileList),
+    fileNum = 0,
     successNumber = 0;
-  for (let i = 0; i < fileList.length; i++) {
-    fileNum += fileList[i].fileNum + 1;
-  };
-  wx.showLoading({
-    title: successNumber + '/' + fileNum + '下载中...',
-    mask: true
-  });
-  for (let i = 0; i < fileList.length; i++) {
-    wx.request({
-      url: 'https://mrhope.top/mp/' + fileList[i].content + '/' + fileList[i].content + '.json',
-      success(res) {
-        console.log(res);
-        console.log(fileList[i].content);
-        wx.setStorageSync(fileList[i].content, res.data);
-        successNumber += 1;
-        wx.showLoading({
-          title: successNumber + '/' + fileNum + '下载中...',
-          mask: true
-        });
-        if (successNumber == fileNum) {
-          wx.hideLoading();
-          console.log('hide')
-        };
-      },
-      fail(res) {
-        console.warn(res);
-        console.warn(fileList[i]);
-      }
+  console.log(category);
+  if (localList) {
+    let refreshList = new Array();
+    for (let i = 0; i < category.length; i++) {
+      console.log(localList[category[i]] + '的本地版本号是' + localList[category[i]][1]);
+      console.log(fileList[category[i]] + '的在线版本号是' + fileList[category[i]][1]);
+      if (!localList[category[i]] || localList[category[i]][1] !== fileList[category[i]][1]) {
+        console.log(category[i] + 'don\'t match')
+        fileNum += fileList[category[i]][0] + 1;
+        refreshList.push(category[i]);
+      };
+      if (!localList[category[i]]) {
+        console.log('本地' + category[i] + '不存在')
+      };
+      if (localList[category[i]][1] !== fileList[category[i]][1]) {
+        console.log(category[i] + '版本号不相等')
+      };
+    };
+    console.log(refreshList);
+    console.log(fileNum);
+    wx.showLoading({
+      title: successNumber + '/' + fileNum + '下载中...',
+      mask: true
     });
-    for (let j = 1; j <= fileList[i].fileNum; j++) {
+    for (let i = 0; i < refreshList.length; i++) {
       wx.request({
-        url: 'https://mrhope.top/mp/' + fileList[i].content + '/' + fileList[i].content + j + '.json',
+        url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
         success(res) {
+          console.log(refreshList[i]);
           console.log(res);
-          console.log(fileList[i].content + j);
-          wx.setStorageSync(fileList[i].content + j, res.data);
+          wx.setStorageSync(refreshList[i], res.data);
           successNumber += 1;
           wx.showLoading({
             title: successNumber + '/' + fileNum + '下载中...',
@@ -115,10 +112,88 @@ function resDownload(fileList) {
           };
         },
         fail(res) {
+          console.warn(refreshList[i]);
           console.warn(res);
-          console.warn(fileList[i]);
         }
-      })
+      });
+      for (let j = 1; j <= fileList[refreshList[i]][0]; j++) {
+        wx.request({
+          url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
+          success(res) {
+            console.log(res);
+            console.log(refreshList[i] + j);
+            wx.setStorageSync(refreshList[i] + j, res.data);
+            successNumber += 1;
+            wx.showLoading({
+              title: successNumber + '/' + fileNum + '下载中...',
+              mask: true
+            });
+            if (successNumber == fileNum) {
+              wx.hideLoading();
+              console.log('hide')
+            };
+          },
+          fail(res) {
+            console.warn(res);
+            console.warn(refreshList[i]);
+          }
+        })
+      }
+    }
+  } else {
+    for (let i = 0; i < category.length; i++) {
+      fileNum += fileList[category[i]][0] + 1;
+    };
+    console.log(fileNum);
+    wx.showLoading({
+      title: successNumber + '/' + fileNum + '下载中...',
+      mask: true
+    });
+    for (let i = 0; i < category.length; i++) {
+      wx.request({
+        url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + '.json',
+        success(res) {
+          console.log(category[i]);
+          console.log(res);
+          wx.setStorageSync(category[i], res.data);
+          successNumber += 1;
+          wx.showLoading({
+            title: successNumber + '/' + fileNum + '下载中...',
+            mask: true
+          });
+          if (successNumber == fileNum) {
+            wx.hideLoading();
+            console.log('hide')
+          };
+        },
+        fail(res) {
+          console.warn(category[i]);
+          console.warn(res);
+        }
+      });
+      for (let j = 1; j <= fileList[category[i]][0]; j++) {
+        wx.request({
+          url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + j + '.json',
+          success(res) {
+            console.log(res);
+            console.log(category[i] + j);
+            wx.setStorageSync(category[i] + j, res.data);
+            successNumber += 1;
+            wx.showLoading({
+              title: successNumber + '/' + fileNum + '下载中...',
+              mask: true
+            });
+            if (successNumber == fileNum) {
+              wx.hideLoading();
+              console.log('hide')
+            };
+          },
+          fail(res) {
+            console.warn(res);
+            console.warn(category[i]);
+          }
+        })
+      }
     }
   }
 }
@@ -130,12 +205,89 @@ function resRefresh() {
       console.log(listRequest);
       let fileList = listRequest.data;
       if (listRequest.statusCode == 200) {
-        resDownload(fileList)
+        resDownload(fileList, null)
       } else {
         console.warn('FileList error!')
       }
     }
   })
+}
+
+function getContent(indicator, a, e) {
+	console.log(indicator);
+	console.log(e);
+	wx.showLoading({
+		title: '拼命加载中'
+	});
+	wx.getStorage({
+		key: e.aim,
+		success: function (key) {
+			console.log(key.data);
+			wx.hideLoading();
+			setPage(key.data, indicator, a, e);
+		},
+		fail: function (res) {
+			console.log(res);
+			if (res.errMsg == 'getStorage:fail data not found') {
+				wx.getNetworkType({
+					success: function (res) {
+						console.log(res);
+						var net = res.networkType;
+						if (net == 'none') {
+							indicator.setData({
+								page: [{
+									tag: 'error'
+								}]
+							});
+							wx.hideLoading();
+							wx.showToast({
+								title: '无法加载！网络无连接，且您未提前缓存此界面！',
+								icon: 'none',
+								duration: 10000
+							});
+							reConnet(indicator, a, e);
+						} else if (net == 'unknown') {
+							indicator.setData({
+								page: [{
+									tag: 'error'
+								}]
+							});
+							wx.hideLoading();
+							wx.showToast({
+								title: '无法加载！未知网络无法联网，且您未提前缓存此界面！',
+								icon: 'none',
+								duration: 10000
+							});
+							reConnet(indicator, a, e);
+						} else {
+							let source;
+							if (isNaN(e.aim.charAt(e.aim.length - 1))) {
+								source = e.aim;
+							} else {
+								source = e.aim.substring(0, e.aim.length - 1);
+							};
+							wx.request({
+								url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
+								success(res) {
+									console.log(res);
+									wx.hideLoading();
+									if (res.statusCode == 200) {
+										setPage(res.data, indicator, a, e);
+										wx.setStorageSync(e.aim, res.data)
+									} else {
+										console.log('res error');
+										setPage([{
+											tag: 'error'
+										}], indicator, a, e);
+									}
+								}
+							})
+						}
+					}
+				})
+			}
+		},
+	})
 }
 
 function initialize(key, defaultKey) {
@@ -499,77 +651,6 @@ function arrayKeynumber(array, key) {
       return i
     }
   }
-}
-
-function getContent(indicator, a, e) {
-  console.log(indicator);
-  console.log(e);
-  wx.showLoading({
-    title: '拼命加载中'
-  });
-  wx.getStorage({
-    key: e.aim,
-    success: function(key) {
-      console.log(key.data);
-      wx.hideLoading();
-      setPage(key.data, indicator, a, e);
-    },
-    fail: function(res) {
-      console.log(res);
-      if (res.errMsg == 'getStorage:fail data not found') {
-        wx.getNetworkType({
-          success: function(res) {
-            console.log(res);
-            var net = res.networkType;
-            if (net == 'none') {
-              indicator.setData({
-                page: [{
-                  tag: 'error'
-                }]
-              });
-              wx.hideLoading();
-              wx.showToast({
-                title: '无法加载！网络无连接，且您未提前缓存此界面！',
-                icon: 'none',
-                duration: 10000
-              });
-              reConnet(indicator, a, e);
-            } else if (net == 'unknown') {
-              indicator.setData({
-                page: [{
-                  tag: 'error'
-                }]
-              });
-              wx.hideLoading();
-              wx.showToast({
-                title: '无法加载！未知网络无法联网，且您未提前缓存此界面！',
-                icon: 'none',
-                duration: 10000
-              });
-              reConnet(indicator, a, e);
-            } else {
-              wx.request({
-                url: 'https://mrhope.top/miniProgram/' + e.aim + '.json',
-                success(res) {
-                  console.log(res);
-                  wx.hideLoading();
-                  if (res.statusCode == 200) {
-                    setPage(res.data, indicator, a, e);
-                    wx.setStorageSync(e.aim, res.data)
-                  } else {
-                    console.log('res error');
-                    setPage([{
-                      tag: 'error'
-                    }], indicator, a, e);
-                  }
-                }
-              })
-            }
-          }
-        })
-      }
-    },
-  })
 }
 
 function reConnet(indicator, a, e) {

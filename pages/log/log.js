@@ -6,7 +6,8 @@ Page({
         tag: 'head',
         title: '开发日志',
         top: true,
-        grey: true
+        grey: true,
+        aimStep: 1
       },
       {
         tag: 'h3',
@@ -47,7 +48,7 @@ Page({
       {
         tag: 'p',
         head: '已知bug：',
-        text: '绩点计算器输入时键盘异常收起；\n报到界面无法正常展示；\n切换网络后，当前加载界面会被刷新，图片显示异常；\n微信导航栏夜间模式显示异常；'
+        text: '初始化后设置主题不显示；\n绩点计算器输入时键盘异常收起；\n报到界面无法正常展示；\n切换网络后，当前加载界面会被刷新，图片显示异常；\n微信导航栏夜间模式显示异常；'
       },
       {
         tag: 'p',
@@ -65,27 +66,27 @@ Page({
         content: [{
             text: 'alpha日志',
             icon: '/icon/debug.svg',
-            url: 'alpha'
+            aim: 'log1'
           },
           {
             text: 'V0.1开发日志',
             icon: '/icon/debug.svg',
-            url: '0.1'
+            aim: 'log2'
           },
           {
             text: 'V0.2开发日志',
             icon: '/icon/debug.svg',
-            url: '0.2'
+            aim: 'log3'
           },
           {
             text: 'V0.3开发日志',
             icon: '/icon/debug.svg',
-            url: '0.3'
+            aim: 'log4'
           },
           {
             text: 'V0.4开发日志',
             icon: '/icon/debug.svg',
-            url: '0.4'
+            aim: 'log5'
           },
           {
             text: 'V0.5开发日志',
