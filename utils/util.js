@@ -293,7 +293,7 @@ function setPage(page, indicator, a, e) {
           item.url += "?from=" + page[0].title
         };
         if ('aim' in item) {
-					item.url = "/templates/module" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
+          item.url = "/templates/module" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
         };
         //set List switch
         if ('swiKey' in item) {
@@ -442,9 +442,14 @@ function image(e, indicator) {
 }
 
 function document(e) {
+  wx.showLoading({
+    title: '下载中...',
+    mask: true
+  });
   wx.downloadFile({
     url: e.currentTarget.dataset.url,
     success: function(res) {
+      wx.hideLoading();
       let path = res.tempFilePath;
       wx.openDocument({
         filePath: path

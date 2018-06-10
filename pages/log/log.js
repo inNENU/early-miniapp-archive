@@ -52,7 +52,7 @@ Page({
       {
         tag: 'p',
         head: '即将实现的内容：',
-        text: '模板中加入style；\n重构主页界面；\n在icon变多后尝试利用iconfont压缩代码体积；\n适配iOSpicker-view夜间模式；\n针对列表head和foot的进一步改进；\n思考离线照片；\n构建双排img组件；\n微信列表改为点击展开样式；\n考虑footer的必要性，对footer做优化或者构建新的footer；\nphone组件与doc组件宽度自调整；\n构建login界面；'
+        text: '模板中加入style；\n重构主页界面；\n在icon变多后尝试利用iconfont压缩代码体积；\n适配iOSpicker-view夜间模式；\n针对列表head和foot的进一步改进；\n思考离线照片；\n构建双排img组件；\n微信列表改为点击展开样式；\n考虑footer的必要性，对footer做优化或者构建新的footer；\nphone组件与doc组件宽度自调整；\n优化login界面；'
       },
       {
         tag: 'p',

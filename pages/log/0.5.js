@@ -27,6 +27,21 @@ Page({
         head: 'V0.5.4',
         text: '尝试引入PubSub；'
       },
+      {
+        tag: 'p',
+        head: 'V0.5.5',
+        text: '合并组件函数为cA；\n加入了map界面'
+      },
+      {
+        tag: 'p',
+        head: 'V0.5.6',
+        text: '改进doc组件加载；\n加入json测试界面；'
+      },
+      {
+        tag: 'p',
+        head: 'V0.5.7',
+        text: '对map界面进行了简单的调试；'
+      },
     ],
   },
   onLoad(e) {
