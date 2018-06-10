@@ -139,7 +139,7 @@
 </template>
 
 <template name='iOSdoc'>
-  <button id="{{item.id}}" class='docCtn' hover-class="buttonHover" bindtap='cA' data-url="{{item.url}}" data-action='docment'>
+  <button id="{{item.id}}" class='docCtn' hover-class="buttonHover" bindtap='cA' data-url="{{item.url}}" data-action='doc'>
     <image class='docIcon' mode='widthFix' src='/icon/{{item.docType}}.svg' />
     <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
   </button>

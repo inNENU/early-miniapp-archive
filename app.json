@@ -1,9 +1,6 @@
 {
   "pages": [
     "pages/main/main",
-    "pages/templet1",
-    "pages/templet2",
-    "pages/templet3",
     "pages/log/log",
     "pages/settings/theme",
     "pages/settings/login",
@@ -17,7 +14,11 @@
     "pages/log/0.2",
     "pages/log/0.3",
     "pages/log/0.4",
-    "pages/log/0.5"
+    "pages/log/0.5",
+		"templates/module1",
+		"templates/module2",
+		"templates/module3",
+		"templates/test"
   ],
   "window": {
     "navigationBarBackgroundColor": "#1A9D5E",

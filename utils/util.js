@@ -293,7 +293,7 @@ function setPage(page, indicator, a, e) {
           item.url += "?from=" + page[0].title
         };
         if ('aim' in item) {
-          item.url = "/pages/templet" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
+					item.url = "/templates/module" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
         };
         //set List switch
         if ('swiKey' in item) {
@@ -335,7 +335,7 @@ function componemtAction(e, indicator) {
   let action = e.currentTarget.dataset.action;
   if (action == 'img') {
     image(e, indicator)
-  } else if (action == 'document') {
+  } else if (action == 'doc') {
     document(e)
   } else if (action == 'phone') {
     phone(e, indicator)

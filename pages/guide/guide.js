@@ -46,6 +46,10 @@ Page({
             icon: '/icon/subsidize.svg',
             aim: 'subsidize'
           },
+          {
+            text: '测试',
+            url: '/templates/test'
+          },
         ]
       },
     ],
