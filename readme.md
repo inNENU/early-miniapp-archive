@@ -18,16 +18,18 @@
 
  **2.在xxx.js中输入：** 
 ```
-var u = getApp().util, a = getApp().globalData;
+var u = getApp().util,
+  a = getApp().globalData;
 Page({
-  data: {
-    page: [
-      **插入内容** 
-    ],
+  onLoad(e) {
+    u.gC(this, a, e)
   },
-  onLoad(e){u.sP(this.data.page,this,a,e)}, 
-  onPageScroll(e){u.nav(e,this)}, 
-  back(){u.back()},
+  onPageScroll(e) {
+    u.nav(e, this)
+  },
+  cA(e) {
+    u.cA(e, this)
+  }
   **其他函数**
 })
 ```
@@ -50,20 +52,6 @@ Page({
 页面的编写主要通过操纵处于界面data下名为**page**的**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。
  
 **5. 在xxx.js中添加与编写函数。**
- ##### 界面中包含图片的添加img函数：
-
-```
-  img(e){u.img(e,this)},
-```
-##### 界面中包含文档时添加doc函数：
-
-```
-  doc(e){u.doc(e)},
-```
-##### 界面中包含电话时添加phone函数：
-
-```
-  phone(e){u.phone(e,this)},
 ```
 #####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
 ##### **picker函数**
@@ -75,10 +63,6 @@ Page({
     other code here......
   },
 ```
-- 若未填写picker函数：
-```
-  pV(e){u.pV(e,this)},
-```
 ##### **switch函数**
 - 若填写了switch函数：
     functionName：switch函数值；
@@ -87,10 +71,6 @@ Page({
     u.sS(e,this);
     other code here......
   },
-```
-- 若未填写switch函数：
-```
-  Switch(e){u.sS(e,this)},
 ```
 ##### slider函数：
     functionName：switch函数值；
