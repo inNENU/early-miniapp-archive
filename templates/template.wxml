@@ -203,7 +203,7 @@
 <template name="wechathead">
   <view class='wechat-navigationBar' style="{{item.iPhoneX?'padding-top:62px;height:45px;':''}}{{item.android?'padding-top:47px;':''}}{{item.shadow?'box-shadow: 0px 0px 4px 1.5px rgba(208, 208, 208, 80);':''}}">
     <view class="wechat-titletext">{{item.title}}</view>
-    <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="navBackHover" plain='true' bindtap='back'>
+    <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="navBackHover" plain='true' bindtap='cA' data-action='back'>
       <view class='wechat-backArrow'></view>
     </button>
   </view>
@@ -226,7 +226,7 @@
     <text>{{item.text}}</text>
   </view>
   <view class='flexbox' style="{{item.load?'':'display: none;'}}">
-    <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
+    <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" bindtap="cA" data-action='img' />
   </view>
 </template>
 
@@ -241,8 +241,8 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <button wx:elif='{{List.inlay||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue&&!List.picker?'pV':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
-        data-id="{{List.id}}">
+      <button wx:elif='{{List.inlay||List.button||List.slider}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" plain='true' bindtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+        data-id="{{List.id}}" data-action='picker'>
         <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
@@ -255,7 +255,7 @@
           </view>
         </view>
       </button>
-      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'pV'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}">
+      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}" data-action='picker'>
         <view class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
@@ -268,7 +268,7 @@
         <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
           <view class='iOSLinkText'>{{List.text}}</view>
           <view class="iOS-linkDesciption">{{List.desc}}
-            <switch id="{{List.id}}" wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'Switch'}}" />
+            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" data-id="{{List.id}}" data-action='switch' />
           </view>
         </view>
       </view>
@@ -277,7 +277,7 @@
         <view wx:if="{{List.slider}}" class='iOSsliderCtn'>
           <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider}}" data-id="{{List.id}}" />
         </view>
-        <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="pV" data-id="{{List.id}}">
+        <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker'>
           <block wx:if="{{List.single}}">
             <picker-view-column class='iOSpick-view-column'>
               <view wx:for='{{List.pickerValue}}' wx:key="*this" class='iOSpickColumn'>{{item}}</view>
@@ -308,25 +308,22 @@
     <text class='grey'>加载中...</text>
   </view>
   <view class='flexbox' style="{{item.load?'':'display: none;'}}">
-    <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="img" binderror="img" bindtap="img" />
+    <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" bindtap="cA" data-action='img' />
   </view>
   <view wx:if="{{item.text}}" class='wechatN'>
     <text>▲{{item.text}}</text>
   </view>
 </template>
 
-<template name='wechatfoot'>
-</template>
-
 <template name='wechatdoc'>
-  <button id="{{item.id}}" class='docCtn' bindtap='doc' data-url="{{item.url}}">
+  <button id="{{item.id}}" class='docCtn' bindtap='cA' data-url="{{item.url}}" data-action='doc'>
     <image class='docIcon' mode='widthFix' src='/icon/{{item.docType}}.svg' />
     <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
   </button>
 </template>
 
 <template name="wechatphone">
-  <view class='phoneCtn' id='{{item.id}}' bindtap='phone' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}">
+  <view class='phoneCtn' id='{{item.id}}' bindtap='cA' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}" data-action='phone'>
     <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
     <view class='phoneNum'>{{item.num}}</view>
     <view class='phoneCallCtn' hover-class='buttonHover'>
@@ -347,6 +344,9 @@
     </navigator>
   </view>
   <view class='gridFoot'>{{item.foot}}</view>
+</template>
+
+<template name='wechatfoot'>
 </template>
 
 <template name='wechaterror'>
