@@ -15,40 +15,9 @@ Page({
         style: 'text-align:center;'
       },
       {
-        tag: 'grid',
-        head: '你好啊',
-        foot: '再见吧',
-        content: [{
-            text: '啊啊啊啊',
-            icon: '/icon/debug.svg',
-            url: 'alpha'
-          },
-          {
-            text: '啊啊啊啊',
-            icon: '/icon/debug.svg',
-            url: 'alpha'
-          },
-          {
-            text: '啊啊啊啊',
-            icon: '/icon/debug.svg',
-            url: 'alpha'
-          },
-          {
-            text: '啊啊啊啊',
-            icon: '/icon/debug.svg',
-            url: 'alpha'
-          },
-          {
-            text: '啊啊啊啊',
-            icon: '/icon/debug.svg',
-            url: 'alpha'
-          },
-        ]
-      },
-      {
         tag: 'p',
         head: '已知bug：',
-        text: '初始化后设置主题不显示；\n绩点计算器输入时键盘异常收起；\n报到界面无法正常展示；\n切换网络后，当前加载界面会被刷新，图片显示异常；\n微信导航栏夜间模式显示异常；'
+        text: '绩点计算器输入时键盘异常收起；\n报到界面无法正常展示；\n切换网络后，当前加载界面会被刷新，图片显示异常；\n微信导航栏夜间模式显示异常；'
       },
       {
         tag: 'p',
@@ -91,7 +60,12 @@ Page({
           {
             text: 'V0.5开发日志',
             icon: '/icon/debug.svg',
-            url: '0.5'
+						aim: 'log6'
+          },
+          {
+            text: 'V0.6开发日志',
+            icon: '/icon/debug.svg',
+						url: '0.6'
           },
         ]
       },

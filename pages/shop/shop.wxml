@@ -1,0 +1,11 @@
+<import src="/templates/template" />
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
+  <!-- <swiper class='{{swiper.Class}}' style="{{swiper.style}}" indicator-dots="{{swiper.indicatorDots==false?'':true}}" indicator-color="{{swiper.dotColor?swiper.dotColor:'rgba(255, 255, 255, 0.5)'}}" indicator-active-color="{{swiper.dotActiveColor?swiper.dotActiveColor:'#fff'}}"
+    autoplay="{{swiper.autoplay==false?'':true}}" interval="{{swiper.interval?swiper.interval:'5000'}}" duration="{{swiper.duration?swiper.duration:'500'}}" circular="{{swiper.circular==false?'':true}}" vertical="{{swiper.vertical?true:''}}" previous-margin="{{swiper.preMargin?swiper.preMargin:'0px'}}"
+    next-margin="{{swiper.nextMargin?swiper.nextMargin:'0px'}}" bindchange="{{swiper.change?swiper.change:'cA'}}" bindanimationfinish="{{swiper.animation?swiper.animation:'cA'}}" data-action='swiper'>
+    <swiper-item wx:for="{{swiper.url}}" wx:key="*this">
+      <image class='{{swiper.imgClass}}' src="{{item}}" mode="{{swiper.imgMode?swiper.imgMode:'widthFix'}}" />
+    </swiper-item>
+  </swiper> -->
+</view>

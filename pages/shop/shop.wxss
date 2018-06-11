@@ -1,0 +1,9 @@
+.shopSwiper {
+  width: 100%;
+  height: 160px;
+}
+
+.shopImg {
+  width: 100% !important;
+  /* height: 100% !important; */
+}

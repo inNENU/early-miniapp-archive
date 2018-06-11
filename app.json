@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/shop/shop", 
     "pages/main/main",
     "pages/log/log",
-    "pages/log/0.5",
+    "pages/log/0.6",
     "pages/settings/theme",
     "pages/settings/login",
     "pages/settings/donate",
@@ -46,6 +47,12 @@
         "text": "东师指南",
         "iconPath": "image/tab/guide.png",
         "selectedIconPath": "image/tab/guide-selected.png"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "东青文创",
+        "iconPath": "image/tab/shop.png",
+        "selectedIconPath": "image/tab/shop-selected.png"
       },
       {
         "pagePath": "pages/log/log",

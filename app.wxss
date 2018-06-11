@@ -98,8 +98,15 @@ page {
 
 /* phone */
 
-.phoneCtn {
+.iOS .phoneCtn {
   background-color: #fefefe;
+}
+
+.wechat .phoneCtn {
+  background-color: #f8f8f8;
+}
+
+.phoneCtn {
   display: -webkit-flex;
   display: flex;
   align-items: center;
@@ -141,8 +148,9 @@ page {
   font-size: 14px;
   color: #999;
   text-align: left;
-  padding: 3px 15px;
-  min-height: 14px;
+  font-weight: 500;
+  min-height: 9px;
+  padding: 23px 15px 5px 15px;
 }
 
 .gridCtn {
@@ -251,6 +259,7 @@ page {
   border: none;
   color: #fff;
 }
+
 /* map */
 
 /* common */

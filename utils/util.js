@@ -48,7 +48,7 @@ function checkResUpdate() {
               confirmText: '是',
               success(choice) {
                 if (choice.confirm) {
-                  resDownload(fileList, localList);
+                  resDownload(fileList, JSON.parse(localList));
                   wx.setStorageSync('localList', JSON.stringify(fileList));
                 }
               }
@@ -74,8 +74,6 @@ function resDownload(fileList, localList) {
   if (localList) {
     let refreshList = new Array();
     for (let i = 0; i < category.length; i++) {
-      console.log(localList[category[i]] + '的本地版本号是' + localList[category[i]][1]);
-      console.log(fileList[category[i]] + '的在线版本号是' + fileList[category[i]][1]);
       if (!localList[category[i]] || localList[category[i]][1] !== fileList[category[i]][1]) {
         console.log(category[i] + 'don\'t match')
         fileNum += fileList[category[i]][0] + 1;
@@ -88,8 +86,7 @@ function resDownload(fileList, localList) {
         console.log(category[i] + '版本号不相等')
       };
     };
-    console.log(refreshList);
-    console.log(fileNum);
+    console.log("fileNum是" + fileNum + "；refreshList是" + refreshList);
     wx.showLoading({
       title: successNumber + '/' + fileNum + '下载中...',
       mask: true
@@ -214,80 +211,80 @@ function resRefresh() {
 }
 
 function getContent(indicator, a, e) {
-	console.log(indicator);
-	console.log(e);
-	wx.showLoading({
-		title: '拼命加载中'
-	});
-	wx.getStorage({
-		key: e.aim,
-		success: function (key) {
-			console.log(key.data);
-			wx.hideLoading();
-			setPage(key.data, indicator, a, e);
-		},
-		fail: function (res) {
-			console.log(res);
-			if (res.errMsg == 'getStorage:fail data not found') {
-				wx.getNetworkType({
-					success: function (res) {
-						console.log(res);
-						var net = res.networkType;
-						if (net == 'none') {
-							indicator.setData({
-								page: [{
-									tag: 'error'
-								}]
-							});
-							wx.hideLoading();
-							wx.showToast({
-								title: '无法加载！网络无连接，且您未提前缓存此界面！',
-								icon: 'none',
-								duration: 10000
-							});
-							reConnet(indicator, a, e);
-						} else if (net == 'unknown') {
-							indicator.setData({
-								page: [{
-									tag: 'error'
-								}]
-							});
-							wx.hideLoading();
-							wx.showToast({
-								title: '无法加载！未知网络无法联网，且您未提前缓存此界面！',
-								icon: 'none',
-								duration: 10000
-							});
-							reConnet(indicator, a, e);
-						} else {
-							let source;
-							if (isNaN(e.aim.charAt(e.aim.length - 1))) {
-								source = e.aim;
-							} else {
-								source = e.aim.substring(0, e.aim.length - 1);
-							};
-							wx.request({
-								url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
-								success(res) {
-									console.log(res);
-									wx.hideLoading();
-									if (res.statusCode == 200) {
-										setPage(res.data, indicator, a, e);
-										wx.setStorageSync(e.aim, res.data)
-									} else {
-										console.log('res error');
-										setPage([{
-											tag: 'error'
-										}], indicator, a, e);
-									}
-								}
-							})
-						}
-					}
-				})
-			}
-		},
-	})
+  console.log(indicator);
+  console.log(e);
+  wx.showLoading({
+    title: '拼命加载中'
+  });
+  wx.getStorage({
+    key: e.aim,
+    success: function(key) {
+      console.log(key.data);
+      wx.hideLoading();
+      setPage(key.data, indicator, a, e);
+    },
+    fail: function(res) {
+      console.log(res);
+      if (res.errMsg == 'getStorage:fail data not found') {
+        wx.getNetworkType({
+          success: function(res) {
+            console.log(res);
+            var net = res.networkType;
+            if (net == 'none') {
+              indicator.setData({
+                page: [{
+                  tag: 'error'
+                }]
+              });
+              wx.hideLoading();
+              wx.showToast({
+                title: '无法加载！网络无连接，且您未提前缓存此界面！',
+                icon: 'none',
+                duration: 10000
+              });
+              reConnet(indicator, a, e);
+            } else if (net == 'unknown') {
+              indicator.setData({
+                page: [{
+                  tag: 'error'
+                }]
+              });
+              wx.hideLoading();
+              wx.showToast({
+                title: '无法加载！未知网络无法联网，且您未提前缓存此界面！',
+                icon: 'none',
+                duration: 10000
+              });
+              reConnet(indicator, a, e);
+            } else {
+              let source;
+              if (isNaN(e.aim.charAt(e.aim.length - 1))) {
+                source = e.aim;
+              } else {
+                source = e.aim.substring(0, e.aim.length - 1);
+              };
+              wx.request({
+                url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
+                success(res) {
+                  console.log(res);
+                  wx.hideLoading();
+                  if (res.statusCode == 200) {
+                    setPage(res.data, indicator, a, e);
+                    wx.setStorageSync(e.aim, res.data)
+                  } else {
+                    console.log('res error');
+                    setPage([{
+                      tag: 'error'
+                    }], indicator, a, e);
+                  }
+                }
+              })
+            }
+          }
+        })
+      }
+    },
+  })
 }
 
 function initialize(key, defaultKey) {
@@ -307,18 +304,22 @@ function setTheme(theme) {
   } else {
     if (theme == "auto") {
       let p = wx.getSystemInfoSync().platform,
-        t;
+        t, num;
       if (p == 'ios') {
-        t = 'iOS'
+        t = 'iOS';
+        num = 0;
       } else if (p == 'android') {
-        t = 'wechat'
+        t = 'wechat';
+        num = 1;
       } else if (p == 'devtools') {
-        t = 'iOS'
+        t = 'iOS';
+        num = 0;
       };
       wx.setStorageSync('theme', t);
+      wx.setStorageSync('themeNum', num);
       return t;
     } else {
-      return theme
+      return theme;
     }
   }
 }

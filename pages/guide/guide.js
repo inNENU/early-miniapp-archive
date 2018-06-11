@@ -10,16 +10,16 @@ Page({
         grey: true
       },
       {
-        tag: 'list',
+        tag: 'grid',
         content: [{
-            text: '寝室',
-            icon: '/icon/dorm.svg',
-            aim: 'dorm'
-          },
-          {
             text: '新生报到',
             icon: '/icon/check.svg',
             aim: 'check'
+          },
+          {
+            text: '寝室',
+            icon: '/icon/dorm.svg',
+            aim: 'dorm'
           },
           {
             text: '生活',
