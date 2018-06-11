@@ -31,44 +31,51 @@ Page({
     },
     goods: [{
         id: 1,
-				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
-        desc: '浓郁老干部气息',
-        tag: ['儒雅', '高逼格']
+        desc: '浓郁老干部气息，又说了废话看显示效果',
+        price: 100,
+        url: 'good',
+        tag: ['儒雅', '高逼格','古朴','怀旧','质感']
       },
       {
         id: 2,
-				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
+        url: 'good',
         tag: ['儒雅', '高逼格']
       },
       {
         id: 3,
-				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
+        url: 'good',
         tag: ['儒雅', '高逼格']
       },
       {
         id: 4,
-				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
-        tag: ['儒雅', '儒雅', '儒雅', '儒雅', '高逼格', '高逼格', '高逼格', '高逼格']
+        url: 'good',
+        tag: ['儒雅', '高逼格']
       },
       {
         id: 5,
-				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
+        url: 'good',
         tag: ['儒雅', '高逼格']
       },
       {
         id: 6,
-				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
+        url: 'good',
         tag: ['儒雅', '高逼格']
       },
     ],
@@ -83,6 +90,9 @@ Page({
   },
   onPageScroll(e) {
     u.nav(e, this)
+  },
+  cA(e) {
+    u.cA(e, this)
   },
   swiperChange(e) {
     console.log(e);

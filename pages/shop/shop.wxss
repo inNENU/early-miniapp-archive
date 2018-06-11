@@ -21,9 +21,11 @@
 }
 
 .goodLeftCtn, .goodRightCtn {
-  display: inline-block;
+  /* display: inline-block; */
+  display: inline-flex;
+  flex-direction: column;
   width: 49.7%;
-  height: 240px;
+  /* height: 260px; */
   background-color: #fff;
   margin-top: 2px;
   margin-bottom: 2px;
@@ -35,22 +37,22 @@
 }
 
 .goodDetail {
-  height: 100px;
+  /* height: 120px; */
   text-align: left;
+  padding: 4px 10px;
 }
 
 .goodName {
-  margin: 4px 10px;
-  /* font-size: 16px; */
+  font-weight: 500;
 }
 
 .goodDesc, .goodTagCtn {
   color: #888;
-  margin: 0 10px;
+  margin-top: 4px;
 }
 
 .goodDesc {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .goodTagCtn {
@@ -67,6 +69,26 @@
   border-radius: 8px;
   margin: 2px;
 }
+
+.goodPriceTag {
+  margin: 0 2px;
+  color: #f44;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+  letter-spacing: -1px;
+}
+
+.RMBLabal {
+  font-size: 13px;
+}
+
+.goodPrice {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* search Bar */
 
 .wechatSearchBar {
   text-align: left;

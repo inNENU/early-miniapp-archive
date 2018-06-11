@@ -17,6 +17,11 @@ Page({
 			head: 'V0.6.2',
 			text: '添加了swiper组件；'
 		},
+		{
+			tag: 'p',
+			head: 'V0.6.3',
+			text: '初步制作了东青文创中心界面；'
+		},
 		],
 	},
 	onLoad(e) {

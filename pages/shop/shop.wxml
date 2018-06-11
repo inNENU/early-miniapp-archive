@@ -41,23 +41,33 @@
   </view>
   <view class='goodCtn'>
     <block wx:for="{{goods}}" wx:key="id">
-      <navigator wx:if="{{item.id % 2 == 1}}" class='goodLeftCtn' hover-class='btnHover' url='{{item.url}}'>
+      <navigator wx:if="{{item.id % 2 == 1}}" class='goodLeftCtn' hover-class='buttonHover' url='{{item.url}}'>
         <image class='goodImg' src='{{item.src}}' />
         <view class='goodDetail'>
           <view class='goodName'>{{item.name}}</view>
           <view class='goodDesc'>{{item.desc}}</view>
           <view class='goodTagCtn'>
-            <view class='goodTag' wx:for="{{item.tag}}" wx:for-item='tag'>{{tag}}</view>
+            <view class='goodTag' wx:for="{{item.tag}}" wx:for-item='tag' wx:key="*this">{{tag}}</view>
+          </view>
+          <view class='goodPriceTag'>
+            <text class='RMBLabal'>￥</text>
+            <text class='goodPrice'>{{item.price}}</text>
+            <text class='priceFoot'>.00</text>
           </view>
         </view>
       </navigator>
-      <navigator wx:if="{{item.id % 2 == 0}}" class='goodRightCtn' hover-class='btnHover' url='{{item.url}}'>
+      <navigator wx:if="{{item.id % 2 == 0}}" class='goodRightCtn' hover-class='buttonHover' url='{{item.url}}'>
         <image class='goodImg' src='{{item.src}}' />
         <view class='goodDetail'>
           <view class='goodName'>{{item.name}}</view>
           <view class='goodDesc'>{{item.desc}}</view>
           <view class='goodTagCtn'>
-            <view class='goodTag' wx:for="{{item.tag}}" wx:for-item='tag'>{{tag}}</view>
+            <view class='goodTag' wx:for="{{item.tag}}" wx:for-item='tag' wx:key="*this">{{tag}}</view>
+          </view>
+          <view class='goodPriceTag'>
+            <text class='RMBLabal'>￥</text>
+            <text class='goodPrice'>{{item.price}}</text>
+            <text class='priceFoot'>.00</text>
           </view>
         </view>
       </navigator>
