@@ -202,7 +202,7 @@ Page({
   - text：九宫格的文字；
   - url：九宫格指向的页面路径；
 
-  ##### **swiper参数：**
+##### **swiper参数：**
 - url：填入一个数组，数组依次是swiper展示的图片的在线网址或本地路径；
 - Class(可选)：swiper的类名，方便使用css样式表中的定义；
 - style(可选)：必要时输入css样式改变swiper的风格；
