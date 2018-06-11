@@ -3,7 +3,7 @@ var u = getApp().util,
 Page({
   data: {
     page: [
-			// {
+      // {
       //   tag: 'head',
       //   title: '东青文创',
       //   top: true,
@@ -29,7 +29,49 @@ Page({
         'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
       ],
     },
-
+    goods: [{
+        id: 1,
+				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        name: '搪瓷杯',
+        desc: '浓郁老干部气息',
+        tag: ['儒雅', '高逼格']
+      },
+      {
+        id: 2,
+				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        name: '搪瓷杯',
+        desc: '浓郁老干部气息',
+        tag: ['儒雅', '高逼格']
+      },
+      {
+        id: 3,
+				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        name: '搪瓷杯',
+        desc: '浓郁老干部气息',
+        tag: ['儒雅', '高逼格']
+      },
+      {
+        id: 4,
+				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        name: '搪瓷杯',
+        desc: '浓郁老干部气息',
+        tag: ['儒雅', '儒雅', '儒雅', '儒雅', '高逼格', '高逼格', '高逼格', '高逼格']
+      },
+      {
+        id: 5,
+				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        name: '搪瓷杯',
+        desc: '浓郁老干部气息',
+        tag: ['儒雅', '高逼格']
+      },
+      {
+        id: 6,
+				src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        name: '搪瓷杯',
+        desc: '浓郁老干部气息',
+        tag: ['儒雅', '高逼格']
+      },
+    ],
   },
   onLoad() {
     u.sP(this.data.page, this, a);
@@ -44,5 +86,26 @@ Page({
   },
   swiperChange(e) {
     console.log(e);
+  },
+  showInput: function() {
+    this.setData({
+      inputShowed: true
+    });
+  },
+  hideInput: function() {
+    this.setData({
+      inputVal: "",
+      inputShowed: false
+    });
+  },
+  clearInput: function() {
+    this.setData({
+      inputVal: ""
+    });
+  },
+  inputTyping: function(e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
   }
 })

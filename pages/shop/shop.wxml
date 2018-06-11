@@ -1,6 +1,68 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
+  <view class="wechatSearchBar">
+    <view class="weui-search-bar__form">
+      <view class="weui-search-bar__box">
+        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+          <icon type="clear" size="14"></icon>
+        </view>
+      </view>
+      <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+        <icon class="weui-icon-search" type="search" size="14"></icon>
+        <view class="weui-search-bar__text">搜索</view>
+      </label>
+    </view>
+    <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+  </view>
+  <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">
+        <view>实时搜索文本</view>
+      </view>
+    </navigator>
+    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">
+        <view>实时搜索文本</view>
+      </view>
+    </navigator>
+    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">
+        <view>实时搜索文本</view>
+      </view>
+    </navigator>
+    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">
+        <view>实时搜索文本</view>
+      </view>
+    </navigator>
+  </view>
+  <view class='goodCtn'>
+    <block wx:for="{{goods}}" wx:key="id">
+      <navigator wx:if="{{item.id % 2 == 1}}" class='goodLeftCtn' hover-class='btnHover' url='{{item.url}}'>
+        <image class='goodImg' src='{{item.src}}' />
+        <view class='goodDetail'>
+          <view class='goodName'>{{item.name}}</view>
+          <view class='goodDesc'>{{item.desc}}</view>
+          <view class='goodTagCtn'>
+            <view class='goodTag' wx:for="{{item.tag}}" wx:for-item='tag'>{{tag}}</view>
+          </view>
+        </view>
+      </navigator>
+      <navigator wx:if="{{item.id % 2 == 0}}" class='goodRightCtn' hover-class='btnHover' url='{{item.url}}'>
+        <image class='goodImg' src='{{item.src}}' />
+        <view class='goodDetail'>
+          <view class='goodName'>{{item.name}}</view>
+          <view class='goodDesc'>{{item.desc}}</view>
+          <view class='goodTagCtn'>
+            <view class='goodTag' wx:for="{{item.tag}}" wx:for-item='tag'>{{tag}}</view>
+          </view>
+        </view>
+      </navigator>
+    </block>
+  </view>
   <!-- <swiper class='{{swiper.Class}}' style="{{swiper.style}}" indicator-dots="{{swiper.indicatorDots==false?'':true}}" indicator-color="{{swiper.dotColor?swiper.dotColor:'rgba(255, 255, 255, 0.5)'}}" indicator-active-color="{{swiper.dotActiveColor?swiper.dotActiveColor:'#fff'}}"
     autoplay="{{swiper.autoplay==false?'':true}}" interval="{{swiper.interval?swiper.interval:'5000'}}" duration="{{swiper.duration?swiper.duration:'500'}}" circular="{{swiper.circular==false?'':true}}" vertical="{{swiper.vertical?true:''}}" previous-margin="{{swiper.preMargin?swiper.preMargin:'0px'}}"
     next-margin="{{swiper.nextMargin?swiper.nextMargin:'0px'}}" bindchange="{{swiper.change?swiper.change:'cA'}}" bindanimationfinish="{{swiper.animation?swiper.animation:'cA'}}" data-action='swiper'>

@@ -56,7 +56,7 @@
 <template name='iOSlist'>
   <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSLctn'>
-    <block wx:for-items="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
+    <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
