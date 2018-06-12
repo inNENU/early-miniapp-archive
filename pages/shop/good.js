@@ -22,16 +22,52 @@ Page({
     item: {
       price: 60,
       count: '件',
-			name:'怀旧古典 充满老干部气息的东青文创定制搪瓷杯'
+      name: '怀旧古典 充满老干部气息的东青文创定制搪瓷杯',
+      preview: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+
+    },
+    animationData: {
+
     }
   },
   onLoad(e) {
-    u.sP(this.data.page, this, a, e)
+    this.setData({
+      info: a.info
+    });
+    u.sP(this.data.page, this, a, e);
+    var animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'ease-out',
+    });
+    this.animation = animation;
   },
   onPageScroll(e) {
     u.nav(e, this)
   },
   cA(e) {
     u.cA(e, this)
+  },
+  popDarameterDetail(e) {
+
+  },
+  popSelect(e) {
+		this.animation.translateY(-a.info.screenHeight).step()
+    this.setData({
+      animationData: this.animation.export()
+    })
+  },
+  close(e) {
+		this.animation.translateY(a.info.screenHeight).step()
+    this.setData({
+      animationData: this.animation.export()
+    })
+  },
+  goOrder(e) {
+    wx.navigateTo({
+      url: 'order',
+      // success: function(res) {},
+      // fail: function(res) {},
+      // complete: function(res) {},
+    })
   }
 })

@@ -31,23 +31,21 @@
   background-color: #fff;
 }
 
-.itemRMBLabal {
-  color: #f44;
-  font-weight: 500;
-  font-size: 16px;
+.itemRMBLabal, .itemPriceTag {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+  color: #f44;
   letter-spacing: -1px;
+}
+
+.itemRMBLabal {
+  font-weight: 500;
 }
 
 .itemPriceTag {
-  color: #f44;
   font-size: 32px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
-  letter-spacing: -1px;
 }
 
 .itemPriceFoot {
-  font-size: 16px;
   color: #888;
 }
 
@@ -55,7 +53,128 @@
   font-size: 18px;
 }
 
-.divLine2 {
+.divLine6 {
   width: 100%;
-  height: 4px;
+  height: 6px;
+  background-color: #f8f8f8;
+}
+
+.itemDetailList {
+  width: 100%;
+  text-align: left;
+}
+
+.itemDetailListItem {
+  padding: 6px 5%;
+  color: #888;
+}
+
+.itemTab {
+  position: fixed;
+  bottom: 0;
+  width: 94%;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 6px 3%;
+  border-top: 1rpx solid #acacb0;
+}
+
+.itemButtonCtn {
+  color: white;
+  font-size: 16px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.itemCart, .itemBuy {
+  display: inline-block;
+  padding: 10px 20px;
+}
+
+.itemCart {
+  background-color: #ffa500;
+}
+
+.itemBuy {
+  background-color: #f00;
+}
+
+.screenLayer {
+  text-align: left;
+  position: fixed;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.addCartMenu {
+  position: absolute;
+  bottom: 0;
+  width: 710rpx;
+  margin-bottom: 0;
+  margin-top: auto;
+  background-color: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 10px 20rpx;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  border: 1rpx solid #888;
+  border-radius: 10px;
+}
+
+.closeIcon {
+  width: 12px;
+  height: 12px;
+  margin: 4px;
+}
+
+.addCartDetail {
+}
+
+.itemImgPreview {
+  width: 250rpx;
+  height: 250rpx;
+  border-radius: 5px;
+}
+
+.addCartParameter {
+  width: 400rpx;
+  display: inline-block;
+  padding: 20rpx;
+}
+
+.price {
+  font-size: 18px;
+  color: #f00;
+}
+
+.confirmBuy {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 40rpx 0 40rpx;
+  color: #fff;
+  padding: 6px;
+  border-radius: 20px;
+  letter-spacing: 10px;
+  background-color: #ffa500;
+}
+
+.buyNumCtn {
+}
+
+.cartHover {
+  background-color: rgba(255, 165, 0, 0.5);
+}
+
+.buyHover {
+  background-color: rgba(255, 0, 0, 0.5);
 }

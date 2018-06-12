@@ -1,7 +1,6 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
-  <!-- <image class='itemImg' /> -->
   <view class='backBtn' style="{{page[0].iPhoneX?'top:48px;':''}}{{page[0].android?'top:32px;':''}}" hover-class='buttonHover' bindtap='cA' data-action='back'>
     <image class='backIcon' src='/icon/back.svg' />
   </view>
@@ -11,16 +10,55 @@
     <text class='itemPriceFoot'> / {{item.count?item.count:'件'}}</text>
     <view class='itemName'>{{item.name}}</view>
   </view>
-  <view class='divLine2'></view>
-  <view class='itemDetail'>
-    <view>参数</view>
-    <view>规格</view>
+  <view class='divLine6'></view>
+  <view class='itemDetailList'>
+    <view class='itemDetailListItem' hover-class="buttonHover">
+      <view class='iOSaccess'>规格</view>
+    </view>
+    <view class='iOS-link-divline'></view>
+    <view class='itemDetailListItem' hover-class="buttonHover" bindtap='popDarameterDetail'>
+      <view class='iOSaccess'>参数</view>
+    </view>
   </view>
-  <view class='divLine2'></view>
+  <view class='divLine6'></view>
   <view class='itemPicHead'>产品详情</view>
   <image wx:for="{{item.url}}" wx:key="*this" mode='widthFix' lazy-load='true' />
   <view class='itemTab'>
-    <button class='itemCart'>加入购物车</button>
-    <button class='itemBuy'>立即购买</button>
+    <view class='itemButtonCtn'>
+      <view class='itemCart' hover-class="cartHover" bindtap='popSelect'>加入购物车</view>
+      <view class='itemBuy' hover-class="buyHover" bindtap='popSelect'>立即购买</view>
+    </view>
+  </view>
+  <view animation="{{animationData}}" class='screenLayer' style='top:{{info.screenHeight}}px;height:{{info.screenHeight}}px'>
+    <view class='addCartMenu'>
+      <view class='closeBtn' hover-class='buttonHover' bindtap='close'>
+        <image class='closeIcon' src='/icon/close.svg' />
+      </view>
+      <view class='addCartDetail'>
+        <image class='itemImgPreview' src='{{item.preview}}' mode='aspectFill' />
+        <view class='addCartParameter'>
+          <view class='price'>￥{{item.price}}</view>
+          <view class='inventory'>{{item.inventory}}</view>
+          <view class='choice'>已选：“{{item.inventory}}”</view>
+        </view>
+      </view>
+      <view class='divLine1'></view>
+      <view wx:for="{{item.choice}}" class='itemParameter' wx-for:item='parameter'>
+        <view class='parameterHead'>{{parameter.parameterHead}}</view>
+        <view class='parameterChoiceCtn'>
+          <view wx:for='{{parameter.parameter}}' class='parameterChoice' wx-for:item='choice'>{{choice}}</view>
+        </view>
+        <view class='divLine1'></view>
+      </view>
+      <view class='buyNumCtn'>
+        <view class='buyNumText'>购买数量</view>
+        <view class='buyNumAdjuster'>
+          <view class='minus' bindtap='buyNumChange'>-</view>
+          <input class='buyNum'>{{buyNumber}}</input>
+          <view class='plus' bindtap='buyNumChange'>+</view>
+        </view>
+      </view>
+      <view class='confirmBuy' hover-class="cartHover">确定</view>
+    </view>
   </view>
 </view>
