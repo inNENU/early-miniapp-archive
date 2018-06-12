@@ -407,20 +407,21 @@ function changeNav(e, indicator) {
 
 function setPage(page, indicator, a, e) {
   //setNav
-  if (a.info.model.substring(0, 8) === 'iPhone X') {
-    page[0].iPhoneX = true
-  };
-  if (a.info.platform.substring(0, 7) === 'android') {
-    page[0].android = true
-  };
-  if (e && !page[0].top && 'from' in e) {
-    page[0].backText = e.from
-  };
-  if (e && !page[0].top && 'step' in e) {
-    page[0].aimStep = Number(e.step) + 1
+  if (page && page[0].tag == 'head') {
+    if (a.info.model.substring(0, 8) === 'iPhone X') {
+      page[0].iPhoneX = true
+    };
+    if (a.info.platform.substring(0, 7) === 'android') {
+      page[0].android = true
+    };
+    if (e && !page[0].top && 'from' in e) {
+      page[0].backText = e.from
+    };
+    if (e && !page[0].top && 'step' in e) {
+      page[0].aimStep = Number(e.step) + 1
+    };
   };
   var url = new Array();
-  // page[0].T = a.T;
   for (let i = 0; i < page.length; i++) {
     //setImage
     let Module = page[i];

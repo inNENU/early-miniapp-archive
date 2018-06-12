@@ -1,4 +1,26 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
+  <!-- <image class='itemImg' /> -->
+  <view class='backBtn' style="{{page[0].iPhoneX?'top:48px;':''}}{{page[0].android?'top:32px;':''}}" hover-class='buttonHover' bindtap='cA' data-action='back'>
+    <image class='backIcon' src='/icon/back.svg' />
+  </view>
+  <view class='itemDetail'>
+    <text class='itemRMBLabal'>￥</text>
+    <text class='itemPriceTag'>{{item.price}}</text>
+    <text class='itemPriceFoot'> / {{item.count?item.count:'件'}}</text>
+    <view class='itemName'>{{item.name}}</view>
+  </view>
+  <view class='divLine2'></view>
+  <view class='itemDetail'>
+    <view>参数</view>
+    <view>规格</view>
+  </view>
+  <view class='divLine2'></view>
+  <view class='itemPicHead'>产品详情</view>
+  <image wx:for="{{item.url}}" wx:key="*this" mode='widthFix' lazy-load='true' />
+  <view class='itemTab'>
+    <button class='itemCart'>加入购物车</button>
+    <button class='itemBuy'>立即购买</button>
+  </view>
 </view>

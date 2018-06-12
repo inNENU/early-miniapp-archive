@@ -1,1 +1,61 @@
-/* pages/shop/good.wxss */
+.goodSwiper {
+  width: 100%;
+  height: 750rpx;
+}
+
+.itemImg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.backBtn {
+  position: fixed;
+  top: 26px;
+  left: 9px;
+  width: 46px;
+  height: 31px;
+  border-radius: 18px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+.backIcon {
+  width: 24px;
+  height: 24px;
+  margin: 4px auto;
+}
+
+.itemDetail {
+  text-align: left;
+  padding: 8px 5%;
+  background-color: #fff;
+}
+
+.itemRMBLabal {
+  color: #f44;
+  font-weight: 500;
+  font-size: 16px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+  letter-spacing: -1px;
+}
+
+.itemPriceTag {
+  color: #f44;
+  font-size: 32px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+  letter-spacing: -1px;
+}
+
+.itemPriceFoot {
+  font-size: 16px;
+  color: #888;
+}
+
+.itemName {
+  font-size: 18px;
+}
+
+.divLine2 {
+  width: 100%;
+  height: 4px;
+}

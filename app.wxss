@@ -160,9 +160,12 @@ page {
   background-color: #fff;
   border-top: 1rpx #cac9ce solid;
 }
+
 .nm .gridCtn {
   background-color: #000;
+  border-top: 1rpx #353631 solid;
 }
+
 .gridBox {
   width: 25%;
   flex-grow: 0;
@@ -174,6 +177,11 @@ page {
   border-right: 1rpx #cac9ce solid !important;
   border-radius: 0 !important;
   line-height: 1.6 !important;
+}
+
+.nm .gridBox {
+  border-bottom: 1rpx #353631 solid !important;
+  border-right: 1rpx #353631 solid !important;
 }
 
 .gridIcon {
@@ -188,12 +196,20 @@ page {
   margin-bottom: 6px;
 }
 
+.nm .gridTitle {
+  color: #bbb;
+}
+
 .gridFoot {
   font-size: 14px;
   color: #999;
   text-align: left;
   padding: 3px 15px;
   min-height: 8px;
+}
+
+.nm .gridFoot {
+  color: #666;
 }
 
 /* footer */

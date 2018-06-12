@@ -1,10 +1,11 @@
 {
 	"pages": [
+		"pages/main/main",
+		"pages/me/me",
 		"pages/shop/shop",
 		"pages/shop/good",
 		"pages/shop/cart",
 		"pages/shop/order",
-		"pages/main/main",
 		"pages/log/log",
 		"pages/log/0.6",
 		"pages/settings/theme",
@@ -58,10 +59,10 @@
 				"selectedIconPath": "image/tab/shop-selected.png"
 			},
 			{
-				"pagePath": "pages/log/log",
-				"text": "开发日志",
-				"iconPath": "image/tab/log.png",
-				"selectedIconPath": "image/tab/log-selected.png"
+				"pagePath": "pages/me/me",
+				"text": "我的东师",
+				"iconPath": "image/tab/me.png",
+				"selectedIconPath": "image/tab/me-selected.png"
 			}
 		]
 	},

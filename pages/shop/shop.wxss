@@ -1,11 +1,11 @@
 .shopSwiper {
   width: 100%;
-  height: 160px;
+  height: 400rpx;
 }
 
 .shopImg {
   width: 100% !important;
-  /* height: 100% !important; */
+   height: 100% !important; 
 }
 
 .goodCtn {
@@ -21,11 +21,9 @@
 }
 
 .goodLeftCtn, .goodRightCtn {
-  /* display: inline-block; */
   display: inline-flex;
   flex-direction: column;
   width: 49.7%;
-  /* height: 260px; */
   background-color: #fff;
   margin-top: 2px;
   margin-bottom: 2px;
