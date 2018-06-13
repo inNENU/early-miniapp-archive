@@ -69,7 +69,9 @@ function resDownload(fileList, localList) {
   console.log(localList);
   let category = Object.keys(fileList),
     fileNum = 0,
-    successNumber = 0;
+    successNumber = 0,
+    percent = new Array,
+    k;
   console.log(category);
   if (localList) {
     let refreshList = new Array();
@@ -79,28 +81,28 @@ function resDownload(fileList, localList) {
         fileNum += fileList[category[i]][0] + 1;
         refreshList.push(category[i]);
       };
-      if (!localList[category[i]]) {
-        console.log('本地' + category[i] + '不存在')
-      };
-      if (localList[category[i]][1] !== fileList[category[i]][1]) {
-        console.log(category[i] + '版本号不相等')
-      };
     };
-    console.log("fileNum是" + fileNum + "；refreshList是" + refreshList);
+    console.log("fileNum是" + fileNum);
+    for (let i = 0; i <= fileNum; i++) {
+      percent.push(((i / fileNum) * 100).toString().substring(0, 4));
+    }
     wx.showLoading({
-      title: successNumber + '/' + fileNum + '下载中...',
+      title: '更新中...0%',
       mask: true
     });
+    setTimeout(function() {
+      wx.hideLoading();
+      console.warn('hide timeout')
+    }, 10000);
     for (let i = 0; i < refreshList.length; i++) {
       wx.request({
         url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
         success(res) {
-          console.log(refreshList[i]);
-          console.log(res);
+          console.log(refreshList[i]), console.log(res);
           wx.setStorageSync(refreshList[i], res.data);
           successNumber += 1;
           wx.showLoading({
-            title: successNumber + '/' + fileNum + '下载中...',
+            title: '更新中...' + percent[successNumber] + '%',
             mask: true
           });
           if (successNumber == fileNum) {
@@ -109,20 +111,18 @@ function resDownload(fileList, localList) {
           };
         },
         fail(res) {
-          console.warn(refreshList[i]);
-          console.warn(res);
+          console.warn(refreshList[i]), console.warn(res);
         }
       });
       for (let j = 1; j <= fileList[refreshList[i]][0]; j++) {
         wx.request({
           url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
           success(res) {
-            console.log(res);
-            console.log(refreshList[i] + j);
+            console.log(res), console.log(refreshList[i] + j);
             wx.setStorageSync(refreshList[i] + j, res.data);
             successNumber += 1;
             wx.showLoading({
-              title: successNumber + '/' + fileNum + '下载中...',
+              title: '更新中...' + percent[successNumber] + '%',
               mask: true
             });
             if (successNumber == fileNum) {
@@ -131,8 +131,7 @@ function resDownload(fileList, localList) {
             };
           },
           fail(res) {
-            console.warn(res);
-            console.warn(refreshList[i]);
+            console.warn(res), console.warn(refreshList[i]);
           }
         })
       }
@@ -141,21 +140,27 @@ function resDownload(fileList, localList) {
     for (let i = 0; i < category.length; i++) {
       fileNum += fileList[category[i]][0] + 1;
     };
+    for (let i = 0; i <= fileNum; i++) {
+      percent.push(((i / fileNum) * 100).toString().substring(0, 4));
+    };
     console.log(fileNum);
     wx.showLoading({
-      title: successNumber + '/' + fileNum + '下载中...',
+      title: '下载中...0%',
       mask: true
     });
+    setTimeout(function() {
+      wx.hideLoading();
+      console.warn('hide timeout')
+    }, 10000);
     for (let i = 0; i < category.length; i++) {
       wx.request({
         url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + '.json',
         success(res) {
-          console.log(category[i]);
-          console.log(res);
+          console.log(category[i]), console.log(res);
           wx.setStorageSync(category[i], res.data);
           successNumber += 1;
           wx.showLoading({
-            title: successNumber + '/' + fileNum + '下载中...',
+            title: '下载中...' + percent[successNumber] + '%',
             mask: true
           });
           if (successNumber == fileNum) {
@@ -164,20 +169,18 @@ function resDownload(fileList, localList) {
           };
         },
         fail(res) {
-          console.warn(category[i]);
-          console.warn(res);
+          console.warn(category[i] + 'error'), console.warn(res);
         }
       });
       for (let j = 1; j <= fileList[category[i]][0]; j++) {
         wx.request({
           url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + j + '.json',
           success(res) {
-            console.log(res);
-            console.log(category[i] + j);
+            console.log(category[i] + j), console.log(res);
             wx.setStorageSync(category[i] + j, res.data);
             successNumber += 1;
             wx.showLoading({
-              title: successNumber + '/' + fileNum + '下载中...',
+              title: '下载中...' + percent[successNumber] + '%',
               mask: true
             });
             if (successNumber == fileNum) {
@@ -186,8 +189,7 @@ function resDownload(fileList, localList) {
             };
           },
           fail(res) {
-            console.warn(res);
-            console.warn(category[i]);
+            console.warn(category[i] + 'error'), console.warn(res);
           }
         })
       }
@@ -214,14 +216,14 @@ function getContent(indicator, a, e) {
   console.log(indicator);
   console.log(e);
   wx.showLoading({
-    title: '拼命加载中'
+    title: '加载中...'
   });
   wx.getStorage({
     key: e.aim,
     success: function(key) {
       console.log(key.data);
-      wx.hideLoading();
       setPage(key.data, indicator, a, e);
+      wx.hideLoading();
     },
     fail: function(res) {
       console.log(res);
@@ -230,7 +232,7 @@ function getContent(indicator, a, e) {
           success: function(res) {
             console.log(res);
             var net = res.networkType;
-            if (net == 'none') {
+            if (net == 'none' || net == 'unknown') {
               indicator.setData({
                 page: [{
                   tag: 'error'
@@ -238,20 +240,7 @@ function getContent(indicator, a, e) {
               });
               wx.hideLoading();
               wx.showToast({
-                title: '无法加载！网络无连接，且您未提前缓存此界面！',
-                icon: 'none',
-                duration: 10000
-              });
-              reConnet(indicator, a, e);
-            } else if (net == 'unknown') {
-              indicator.setData({
-                page: [{
-                  tag: 'error'
-                }]
-              });
-              wx.hideLoading();
-              wx.showToast({
-                title: '无法加载！未知网络无法联网，且您未提前缓存此界面！',
+                title: '您未打开互联网！由于您未提前缓存此界面，界面无法加载！\n请检查您的互联网连接！',
                 icon: 'none',
                 duration: 10000
               });
@@ -380,25 +369,16 @@ function changeNav(e, indicator) {
   var n = indicator.data.page[0];
   let T, B, S;
   if (e.scrollTop <= 1) {
-    T = false;
-    B = false;
-    S = false
+    T = B = S = false;
   } else if (e.scrollTop <= 42) {
-    T = false;
-    B = false;
-    S = true
+    T = B = false, S = true;
   } else if (e.scrollTop >= 53) {
-    T = true;
-    B = true;
-    S = true
+    T = B = S = true;
   } else {
-    T = true;
-    B = false;
-    S = true
+    T = S = true, B = false;
   };
   if (n.titleDisplay != T || n.borderDisplay != B || n.shadow != S) {
-    n.titleDisplay = T, n.borderDisplay = B;
-    n.shadow = S;
+    n.titleDisplay = T, n.borderDisplay = B, n.shadow = S;
     indicator.setData({
       page: indicator.data.page
     })
@@ -409,11 +389,10 @@ function setPage(page, indicator, a, e) {
   //setNav
   if (page && page[0].tag == 'head') {
     page[0].statusBarHeight = a.info.statusBarHeight;
-    if (a.info.model.substring(0, 8) === 'iPhone X') {
-      page[0].iPhoneX = true
-    };
     if (a.info.platform.substring(0, 7) === 'android') {
       page[0].android = true
+    } else if (a.info.model.substring(0, 8) === 'iPhone X') {
+      page[0].iPhoneX = true
     };
     if (e && !page[0].top && 'from' in e) {
       page[0].backText = e.from
@@ -702,7 +681,6 @@ module.exports = {
   nm: nightmode,
   nav: changeNav,
   sP: setPage,
-  // pV: picker,
   sl: slider,
   tBC: tabBarChanger,
   back: back,
