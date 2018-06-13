@@ -382,7 +382,23 @@ function changeNav(e, indicator) {
     indicator.setData({
       page: indicator.data.page
     })
-  }
+  };
+}
+
+function scrollNav(e) {
+    let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
+    console.log(pos)
+    if (pos < 27) {
+      wx.pageScrollTo({
+        scrollTop: 0,
+        duration: 500
+      })
+    } else if (pos < 53) {
+      wx.pageScrollTo({
+        scrollTop: 53,
+        duration: 500
+      })
+    }
 }
 
 function setPage(page, indicator, a, e) {
@@ -672,6 +688,7 @@ function donate() {
     }
   })
 }
+
 module.exports = {
   // cV: checkVersion,
   cRU: checkResUpdate,
@@ -697,6 +714,7 @@ module.exports = {
   cA: componemtAction,
   // formatTime: formatTime,
   // go: go,
+  sN: scrollNav
 }
 // function checkVersion(version) {
 //   wx.getSystemInfo({
@@ -719,14 +737,6 @@ module.exports = {
 //   var minute = date.getMinutes()
 //   var second = date.getSeconds()
 //   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-// }
-// function iOSnav2(pos) {
-//   let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
-//   console.log(pos)
-//   if (pos < 52) {
-//     if (pos < 30) { wx.pageScrollTo({ scrollTop: 0, duration: 200 }) }
-//     else { wx.pageScrollTo({ scrollTop: 52, duration: 200 }) }
-//   
 // }
 // function go(url) { wx.navigateTo({ url: url }) }
 var events = {};

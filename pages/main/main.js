@@ -6,7 +6,7 @@ Page({
         tag: 'head',
         title: '首页',
         top: true,
-				aimStep: 1,
+        aimStep: 1,
         // show: true,
         grey: true,
       }, {
@@ -72,7 +72,7 @@ Page({
       {
         tag: 'p',
         head: '等待官方改进才能实现的内容：',
-        text: 'iOS的navigationBar回弹动画；'
+        text: '暂无'
       },
       {
         tag: 'foot'
@@ -93,4 +93,7 @@ Page({
   onPageScroll(e) {
     u.nav(e, this)
   },
+  sN(e) {
+    u.sN(e)
+  }
 })

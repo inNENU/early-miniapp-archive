@@ -25,9 +25,14 @@ Page({
     }, {
       tag: 'p',
       head: 'V0.6.5',
-      text: '初步制作了文创商品的弹出层；\n优化了下载文件时的百分比显示；\n修复了wechat主题设置界面分割线重叠的问题；\n修复了wechat夜间模式导航栏阴影异常；'
+      text: '初步制作了文创商品的弹出层；\n优化了下载文件时的百分比显示；\n修复了wechat主题设置界面分割线重叠的问题；'
+    }, {
+      tag: 'p',
+      head: 'V0.6.6',
+      text: '修复了wechat夜间模式导航栏阴影异常；\n添加了iOS的navigationBar回弹动画；'
     }, ],
   },
+
   onLoad(e) {
     u.sP(this.data.page, this, a, e)
   },

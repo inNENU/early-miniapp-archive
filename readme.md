@@ -27,6 +27,9 @@ Page({
   onPageScroll(e) {
     u.nav(e, this)
   },
+  sN(e) {
+    u.sN(e)
+  },
   cA(e) {
     u.cA(e, this)
   }
@@ -43,7 +46,7 @@ Page({
  **3.在xxx.wxml中输入：** 
 ```
 <import src="/templates/template" />
-<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}" bindtouchend="{{T=='iOS'?'sN':''}}">
   <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
 </view>
 ```
