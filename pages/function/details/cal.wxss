@@ -104,7 +104,3 @@ input {
   font-weight: 500;
   color: white;
 }
-
-.hide {
-  display: none;
-}

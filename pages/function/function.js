@@ -11,7 +11,7 @@ Page({
 				tag: 'grid',
 				head: false,
 				content: [{
-					text: '绩点计算(beta)',
+					text: '绩点计算',
 					icon: '/icon/scoreCal.svg',
 					url: 'details/cal'
 				}, {

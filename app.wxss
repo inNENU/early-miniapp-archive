@@ -297,3 +297,7 @@ page {
   display: -webkit-flex;
   display: flex;
 }
+
+.hide {
+  display: none;
+}

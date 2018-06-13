@@ -24,10 +24,11 @@ Page({
     var gradeNew = this.data.grade.concat({
       id: length,
       course: null,
-      creditFocus: false,
+      courseFocus: false,
       grade: null,
       gradeFocus: false,
       credit: null,
+      creditFocus: false,
     });
     // 向grade最后插入一个新元素
     this.setData({
@@ -42,11 +43,14 @@ Page({
     // console.log(Number(e.detail.value));
     let id = e.currentTarget.dataset.id,
       target = e.currentTarget.dataset.class;
-    // console.log("currentID是" + currentID); console.log("currentTarget是" + currentTarget);
     // 获取正在输入的输入框id  获取正在输入对象
     grade[id][target + 'Focus'] = true;
-    // if (e.detail.value.length < e.currentTarget.dataset.maxLength) { grade[id][target + 'Focus'] = true; }
-    // else { grade[id][target + 'Focus'] = false; }
+    console.log(e.detail.value.length)
+    // if (e.detail.value.length < e.currentTarget.dataset.maxLength) {
+    //   grade[id][target + 'Focus'] = true;
+    // } else {
+    //   grade[id][target + 'Focus'] = false;
+    // }
     if (Number(e.detail.value)) {
       grade[id][target] = Number(e.detail.value)
     }
@@ -61,7 +65,10 @@ Page({
     });
     // 将新值写回data中
   },
-  next() {
+  next(e) {
+    let grade = this.data.grade,
+      id = e.currentTarget.dataset.id;
+    grade[id].gradeFocus = true;
     this.setData({
       grade: grade
     });
