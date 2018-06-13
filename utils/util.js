@@ -408,6 +408,7 @@ function changeNav(e, indicator) {
 function setPage(page, indicator, a, e) {
   //setNav
   if (page && page[0].tag == 'head') {
+    page[0].statusBarHeight = a.info.statusBarHeight;
     if (a.info.model.substring(0, 8) === 'iPhone X') {
       page[0].iPhoneX = true
     };
@@ -480,7 +481,7 @@ function setPage(page, indicator, a, e) {
     T: a.T,
     nm: a.nm,
     page: page,
-    url: url
+    url: url,
   })
 }
 

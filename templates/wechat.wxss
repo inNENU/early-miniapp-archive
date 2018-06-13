@@ -3,8 +3,6 @@
 .wechat, .wechatgrey {
   width: 100%;
   min-height: 100%;
-  font-size: 16px;
-  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
   text-align: center;
 }
 
@@ -28,14 +26,12 @@
 }
 
 .wechat-navigationBar {
-  height: 45px;
-  padding-top: 44px;
+  height: 44px;
   display: -webkit-flex;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   position: fixed;
-  top: -20px;
   z-index: 99;
 }
 

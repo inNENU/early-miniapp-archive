@@ -16,15 +16,15 @@
 <!-- iOS theme -->
 <template name="iOShead">
   <block wx:if="{{item.display!==false}}">
-    <view class='iOS-navigationBar' style="{{item.iPhoneX?'padding-top:46px;height:40px;':''}}{{item.android?'padding-top:25px;':''}}">
+    <view class='iOS-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
       <view wx:if="{{item.titleDisplay}}" class="iOS-titletext">{{item.title}}</view>
       <button wx:if="{{!item.top}}" class='iOS-navBack' hover-class="navBackHover" plain='true' bindtap='cA' data-action='back'>
         <view class='iOS-backArrow'></view>
         <text class='iOS-nav-text'>{{item.backText}}</text>
       </button>
     </view>
-    <view wx:if="{{item.borderDisplay}}" class='iOSnavDl' style="{{item.iPhoneX?'top:86px;':''}}{{item.android?'top:69px;':''}}"></view>
-    <view class='iOS-navPlaceHolder' style="{{item.iPhoneX?'height:86px':''}}{{item.android?'height:69px;':''}}">
+    <view wx:if="{{item.borderDisplay}}" class='iOSnavDl' style="top:{{item.statusBarHeight+44}}px;"></view>
+    <view class='iOS-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">
       <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
     </view>
     <view class='iOS-head'>
@@ -40,12 +40,12 @@
 <template name='iOSp'>
   <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSP'>
-    <text>{{item.text}}</text>
-    <view wx:if="{{item.src&&item.error}}" class='imgError'>
+    <text style='{{item.style}}'>{{item.text}}</text>
+    <view wx:if="{{item.src&&item.error}}" class='iOSImgError'>
       <icon type="warn" style='margin-right:5px;' />
       <text class='grey'>图片加载失败</text>
     </view>
-    <view wx:elif="{{item.src&&!item.load}}" class='imgError'>
+    <view wx:elif="{{item.src&&!item.load}}" class='iOSImgError'>
       <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
       <text class='grey'>加载中...</text>
     </view>
@@ -125,11 +125,11 @@
 </template>
 
 <template name='iOSimg'>
-  <view wx:if="{{item.error}}" class='imgError'>
-    <icon type="warn" style='margin-right:5px;' />
+  <view wx:if="{{item.error}}" class='iOSImgError'>
+    <icon type="warn" size='32' style='margin-bottom:5px;' />
     <text class='grey'>图片加载失败</text>
   </view>
-  <view wx:elif="{{!item.load}}" class='imgError'>
+  <view wx:elif="{{!item.load}}" class='iOSImgError'>
     <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
@@ -137,7 +137,7 @@
     <image id="{{item.id}}" class='iOS-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" bindtap="cA" data-action='img' />
   </view>
   <view wx:if="{{item.text}}" class='iOSN'>
-    <text>▲{{item.text}}</text>
+    <text>▲{{item.desc}}</text>
   </view>
 </template>
 
@@ -215,13 +215,13 @@
 <!-- wechat theme -->
 <template name="wechathead">
   <block wx:if="{{item.display!==false}}">
-    <view class='wechat-navigationBar' style="{{item.iPhoneX?'padding-top:62px;height:45px;':''}}{{item.android?'padding-top:47px;':''}}{{item.shadow?'box-shadow: 0px 0px 4px 1.5px rgba(208, 208, 208, 80);':''}}">
+    <view class='wechat-navigationBar' style="padding-top:{{item.statusBarHeight}}px;{{item.shadow?'box-shadow: 0px 0px 4px 1.5px rgba(208, 208, 208, 80);':''}}">
       <view class="wechat-titletext">{{item.title}}</view>
       <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="navBackHover" plain='true' bindtap='cA' data-action='back'>
         <view class='wechat-backArrow'></view>
       </button>
     </view>
-    <view class='wechat-navPlaceHolder' style="{{item.iPhoneX?'height:83px;':''}}{{item.android?'height:72px;':''}}">
+    <view class='wechat-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">
       <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
     </view>
     <view wx:if="{{item.desc||item.show}}" class="wechat-head">
@@ -326,7 +326,7 @@
     <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" bindtap="cA" data-action='img' />
   </view>
   <view wx:if="{{item.text}}" class='wechatN'>
-    <text>▲{{item.text}}</text>
+    <text>▲{{item.desc}}</text>
   </view>
 </template>
 

@@ -29,9 +29,9 @@ page {
 /* common Image */
 
 .loadingImg {
-  width: 100%;
-  max-width: 40px;
-  vertical-align: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 6px;
 }
 
 .imgError {

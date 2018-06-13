@@ -84,7 +84,7 @@ Page({
       this.setData({
         T: data
       });
-    })
+    });
   },
   onShow() {
     u.sP(this.data.page, this, a);
