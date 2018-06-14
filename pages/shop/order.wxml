@@ -1,4 +1,4 @@
 <import src="/templates/template" />
-<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}" bindtouchend="{{T=='iOS'?'sN':''}}">
   <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
 </view>
