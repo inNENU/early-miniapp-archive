@@ -29,7 +29,11 @@ Page({
     }, {
       tag: 'p',
       head: 'V0.6.6',
-      text: '修复了wechat夜间模式导航栏阴影异常；\n添加了iOS的navigationBar回弹动画；'
+      text: '修复了wechat夜间模式导航栏阴影异常；\n添加了iOS的navigationBar回弹动画；\n修改了p标签head参数逻辑；'
+    }, {
+      tag: 'p',
+      head: 'V0.6.7',
+      text: ''
     }, ],
   },
 
