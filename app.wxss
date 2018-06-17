@@ -6,7 +6,8 @@ page {
   height: 100%;
   font-size: 32rpx;
   line-height: 1.4;
-  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+  /* font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif; */
+  font-family: MrHopeScript;
   text-align: center;
 }
 

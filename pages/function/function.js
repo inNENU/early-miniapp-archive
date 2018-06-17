@@ -7,31 +7,35 @@ Page({
         title: '功能大厅',
         top: true
       },
-			{
-				tag: 'grid',
-				head: false,
-				content: [{
-					text: '绩点计算',
-					icon: '/icon/scoreCal.svg',
-					url: 'details/cal'
-				}, {
-					text: '校园街景',
-					icon: '/icon/map.svg',
-					url: 'details/map'
-				}, {
-					text: '四六级',
-					icon: '/icon/CET.svg',
-					url: 'details/CET'
-				}, {
-					text: '成绩查询',
-					icon: '/icon/score.svg',
-					url: 'details/score'
-				}, {
-					text: '体测计算器',
-					icon: '/icon/PECal.svg',
-					url: 'details/PECal'
-				},]
-			},
+      {
+        tag: 'grid',
+        head: '测试中',
+        content: [{
+          text: '绩点计算',
+          icon: '/icon/scoreCal.svg',
+          url: '/fuction/pages/details/cal'
+        }, ]
+      }, {
+        tag: 'grid',
+        head: '即将推出',
+        content: [{
+          text: '校园街景',
+          icon: '/icon/map.svg',
+          url: '/fuction/pages/details/map'
+        }, {
+          text: '四六级',
+          icon: '/icon/CET.svg',
+          url: '/fuction/pages/details/CET'
+        }, {
+          text: '成绩查询',
+          icon: '/icon/score.svg',
+          url: '/fuction/pages/details/score'
+        }, {
+          text: '体测计算器',
+          icon: '/icon/PECal.svg',
+          url: '/fuction/pages/details/PECal'
+        }, ]
+      },
     ],
   },
   onShow() {

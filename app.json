@@ -4,20 +4,40 @@
 		"pages/main/0.6",
 		"pages/me/me",
 		"pages/shop/shop",
-		"pages/shop/good",
-		"pages/shop/cart",
-		"pages/shop/order",
 		"pages/settings/theme",
 		"pages/settings/login",
 		"pages/settings/donate",
 		"pages/function/function",
-		"pages/function/details/cal",
-		"pages/function/details/map",
 		"pages/guide/guide",
 		"templates/module1",
 		"templates/module2",
 		"templates/module3",
 		"templates/test"
+	],
+	"subPackages": [
+		{
+			"root": "shop",
+			"pages": [
+				"pages/cart",
+				"pages/order",
+				"pages/good"
+			]
+		},
+		{
+			"root": "function",
+			"pages": [
+				"pages/details/cal",
+				"pages/details/map"
+			]
+		},
+		{
+			"root": "guide",
+			"pages": [
+				"templates/module1",
+				"templates/module2",
+				"templates/module3"
+			]
+		}
 	],
 	"window": {
 		"navigationBarBackgroundColor": "#1A9D5E",
