@@ -66,8 +66,8 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <view wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" bindtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
-        data-id="{{List.id}}" data-action='picker'>
+      <button  wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" bindtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+        data-id="{{List.id}}" data-action='picker' plain='true' open-type='{{List.open-type}}' disabled='{{List.disabled}}'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
@@ -79,7 +79,7 @@
             </block>
           </view>
         </view>
-      </view>
+      </button>
       <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}"
         data-action='picker'>
         <view class='iOS-list-Container'>

@@ -690,7 +690,6 @@ function donate() {
 }
 
 module.exports = {
-  // cV: checkVersion,
   cRU: checkResUpdate,
   rR: resRefresh,
   init: initialize,
@@ -703,7 +702,6 @@ module.exports = {
   back: back,
   sS: Switch,
   ak: arrayKeynumber,
-  // img: image,
   gC: getContent,
   doc: document,
   phone: phone,
@@ -716,15 +714,6 @@ module.exports = {
   // go: go,
   sN: scrollNav
 }
-// function checkVersion(version) {
-//   wx.getSystemInfo({
-//     success: function (res) {
-//       let SDK = res.SDKVersion; if (SDK.charAt(0) <= 1 && SDK.charAt(2) < 9) { wx.showModal({ title: '微信版本过低', content: '无法加载小程序，请将客户端升级到V6.6.0版本及以上', showCancel: false, success(res) { if (res.confirm) { wx.navigateBack({}) }; } }) };
-//       wx.getStorage({ key: 'appVersion', success: function (res) { let preVersion = res.data; if (version != preVersion) { wx.setStorageSync('appVersion', version); wx.showModal({ title: '小程序已升级', content: '检测到小程序更新，为了保障小程序正常运行，您的数据已被清空。请重新进入小程序完成新版本的初始化。', confirmText: '退出', showCancel: false, success(res) { if (res.confirm) { wx.clearStorage(); wx.navigateBack({}) }; } }); }; }, fail: function () { wx.setStorageSync('appVersion', version) } });
-//       return version;
-//     }
-//   });
-// }
 // function formatNumber(n) {
 //   n = n.toString()
 //   return n[1] ? n : '0' + n
