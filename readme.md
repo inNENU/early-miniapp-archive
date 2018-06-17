@@ -114,7 +114,7 @@ Page({
 - res(可选)：接受一个String值，填入图片在服务器上的网址(在需要高清图片的时候使用此选项)；
 - imgmode(可选)：接受一个String值，填入图片的显示模式，不填为appData设定的默认值；
 
-  ##### **_imgmode可以选择的参数：_** 
+   **imgmode可以选择的参数：** 
   - widthFix：宽度不变，高度自动变化，保持原图宽高比不变;
   - scaleToFill：保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素；
   - aspectFit：保持纵横比缩放图片，使图片的长边能完全显示出来；
@@ -134,32 +134,32 @@ Page({
 - foot(可选)：接受一个String值，填入列表的结尾小标题；
 - content：接受一个array值，该array的每个element为列表的每个组成单元：
 
-  #####  **_列表每个单元内包含的参数_** 
+  **_列表每个单元内包含的参数_** 
   - icon(可选):接受一个String值，填入列表图标的本地路径或在线网址；
   - text：接受一个String值，填入列表单元的显示文字；
 
-  #####  **选项一：普通列表(可带链接)**
+  **选项一：普通列表(可带链接)**
   - desc(可选)：接受一个String值，填入列表内容的描述；
   - aim(可选)：当指向简单界面时填写，接受一个String值，填入对应界面的json文件名；
   - url(可选)：当指向复杂界面时填写，接受一个String值，填入列表指向的界面路径；
 
-  #####  **选项二：开关**
-  - Switch(可选)：开关对应的函数名称，不填会自动改变界面当前开关状态与storage中swiKey的值；（填写后不支持简单界面）
+  **选项二：开关**
+  - Switch(可选)：接受一个String值，填入开关对应的函数名称，不填会自动改变界面当前开关状态与storage中swiKey的值；（填写后不支持简单界面）
   - swiKey：接受一个String值，填入开关所改变的变量在本地存储中的属性名；
 
-  #####  **选项三：选择器**（不支持简单界面）
+  **选项三：选择器**（不支持简单界面）
   - pickerValue：接受一个String值，填入选择器中包含的值；
   - key：接受一个String值，填入选择器所改变的变量在本地存储中的属性值；
   - single(可选)：接受一个Boolean值，其值为true时为单列选择器，不填为多列选择器；
   - inlay(可选)：接受一个Boolean值，其值为true时为嵌入式picker，不填为弹出式picker；
   - picker(可选)：接受一个String值，填入picker选择器对应的函数名称(不填会自动改变界面当前选择状态与storage中key的值；);
 
-  #####  **选项四：按钮**（不支持简单界面）
+  **选项四：按钮**（不支持简单界面）
   - button：接受一个String值，填入按钮对应的函数名称；
 	- disabled：接受一个Boolean值，其值为true会禁用按钮，默认为false；
 	- open-type：接受一个String值，支持以下变量；
 
-  #####  **选项五：滑块**（不支持简单界面）
+  **选项五：滑块**（不支持简单界面）
   - slider：接受一个String值，填入滑块对应的的函数名称；
   - min(可选)：接受一个Number值，填入滑块的最小值(不填默认为0)；
   - max(可选)：接受一个Number值，填入滑块的最大值(不填默认为100)；
@@ -173,7 +173,7 @@ Page({
 - text(可选)：接受一个String值，填入图片的描述文字，填入后会自动最前加入一个三角号，不填则没有描述文字；
 - imgmode(可选)：接受一个String值，填入图片的显示模式，不填为appData设定的默认值；
 
-  ##### **_imgmode可以选择的参数：_** 
+  **_imgmode可以选择的参数：_** 
   - widthFix：宽度不变，高度自动变化，保持原图宽高比不变;
   - scaleToFill：保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素；
   - aspectFit：保持纵横比缩放图片，使图片的长边能完全显示出来；
@@ -218,25 +218,25 @@ Page({
 - foot：接受一个String值，填入九宫格的页脚文字；
 - content：接受一个array值，该array的每个element是九宫格的每个格子内容；
 
-  #####  **_列表每个单元内包含的参数_** 
+  **_列表每个单元内包含的参数_** 
   - icon：接受一个String值，填入九宫格的图标的在线路径或本地路径；
   - text：接受一个String值，填入九宫格的文字；
   - url：接受一个String值，填入九宫格指向的页面路径；
 
 ##### **swiper参数：**
 - url：接受一个array值，该array的每个element依次是swiper展示的图片的在线网址或本地路径；
-- Class(可选)：swiper的类名，方便使用css样式表中的定义；
+- Class(可选)：接受一个String值，填入swiper的类名，方便使用css样式表中的定义；
 - style(可选)：接受一个String值，填入css样式改变swiper的风格；
-- indicatorDots(可选)：是否显示面板指示点，不填默认为true，取消显示将此项设置为false；
+- indicatorDots(可选)：接受一个Boolean值，是否显示面板指示点，取消显示将此项设置为false，不填默认为true；
 - dotColor(可选)：接受一个String值，填入指示点颜色，不填默认为rgba(255, 255, 255, 0.5)即50%透明度的纯白色；
 - dotActiveColor(可选)：接受一个String值，填入当前选中的指示点颜色，不填默认为#fff(纯白色)；
-- autoplay(可选)：是否自动切换，不填默认为true，取消自动切换将此项设置为false；
+- autoplay(可选)：接受一个Boolean值，是否自动切换，取消自动切换将此项设置为false，不填默认为true；
 - interval(可选)：接受一个String值，填入自动切换时间间隔，不填默认为5000；
 - duration(可选)：接受一个String值，填入滑动动画时长，不填默认为500；
-- circular(可选)：是否采用衔接滑动，不填默认为true，取消自动切换将此项设置为false；
-- vertical(可选)：滑动方向是否为纵向，不填默认为false，取消自动切换将此项设置为true；
-- preMargin(可选)：前边距，可用于露出前一项的一小部分，接受 px 和 rpx 值，不填默认为0px；
-- nextMargin(可选)：后边距，可用于露出后一项的一小部分，接受 px 和 rpx 值，不填默认为0px；
+- circular(可选)：接受一个Boolean值，是否采用衔接滑动，不采用衔接滑动设置为false，不填默认为true；
+- vertical(可选)：接受一个Boolean值，滑动方向为纵向时填入true，不填默认为横向滑动；
+- preMargin(可选)：接受一个String值，前边距，可用于露出前一项的一小部分，接受 px 和 rpx 值，不填默认为0px；
+- nextMargin(可选)：接受一个String值，后边距，可用于露出后一项的一小部分，接受 px 和 rpx 值，不填默认为0px；
 - change(可选)：接受一个String值，填入swiper改变时触发的函数名称，不填默认触发cA；
 - animation(可选)：接受一个String值，填入swiper动画结束时触发的函数名称，不填默认触发cA；
 - imgClass(可选)：接受一个String值，填入swiper中图片的类名，方便使用css样式表中的定义；
