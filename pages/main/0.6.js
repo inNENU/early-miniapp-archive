@@ -33,7 +33,7 @@ Page({
     }, {
       tag: 'p',
       head: 'V0.6.7',
-      text: ''
+      text: '所有界面添加了sN函数；\n改进了utils.js；'
     }, ],
   },
 
@@ -45,5 +45,8 @@ Page({
   },
   cA(e) {
     u.cA(e, this)
-  },
+	},
+	sN(e) {
+		u.sN(e)
+	}
 })

@@ -43,5 +43,8 @@ Page({
   },
   onPageScroll(e) {
     u.nav(e, this)
-  },
+	},
+	sN(e) {
+		u.sN(e)
+	}
 })

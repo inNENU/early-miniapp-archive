@@ -116,5 +116,8 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
-  }
+	},
+	sN(e) {
+		u.sN(e)
+	}
 })

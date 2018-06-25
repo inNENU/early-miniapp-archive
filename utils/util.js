@@ -294,16 +294,19 @@ function setTheme(theme) {
     if (theme == "auto") {
       let p = wx.getSystemInfoSync().platform,
         t, num;
-      if (p == 'ios') {
-        t = 'iOS';
-        num = 0;
-      } else if (p == 'android') {
-        t = 'wechat';
-        num = 1;
-      } else if (p == 'devtools') {
-        t = 'iOS';
-        num = 0;
-      };
+      switch (p) {
+        case 'ios':
+          t = 'iOS',
+            num = 0;
+          break;
+        case 'android':
+          t = 'wechat',
+            num = 1;
+          break;
+        default:
+          t = 'iOS',
+            num = 0;
+      }
       wx.setStorageSync('theme', t);
       wx.setStorageSync('themeNum', num);
       return t;
@@ -315,31 +318,19 @@ function setTheme(theme) {
 
 function nightmode(date, startTime, endTime) {
   let nm = initialize('nightmode', true),
-    nmAC = initialize('nightmodeAutoChange', true);
-  let nB = initialize('nightBrightness', 30),
-    dB = initialize('dayBrightness', 70);
-  let nBC = initialize('nightBrightnessChange', false),
-    dBC = initialize('dayBrightnessChange', false);
-  let s = initialize('nmStart', startTime).split('-'),
-    e = initialize('nmEnd', endTime).split('-');
+    nmAC = initialize('nightmodeAutoChange', true),
+    nB = initialize('nightBrightness', 30),
+    dB = initialize('dayBrightness', 70),
+    nBC = initialize('nightBrightnessChange', false),
+    dBC = initialize('dayBrightnessChange', false),
+    s = initialize('nmStart', startTime).split('-'),
+    e = initialize('nmEnd', endTime).split('-'),
+    time = date.getHours() * 100 + date.getMinutes();
   let start = Number(s[0]) * 100 + Number(s[1]),
-    end = Number(e[0]) * 100 + Number(e[1]);
-  let time = date.getHours() * 100 + date.getMinutes();
-  var temp;
+    end = Number(e[0]) * 100 + Number(e[1]),
+    temp;
   if (nmAC) {
-    if (start <= end) {
-      if (time >= start && time <= end) {
-        temp = true
-      } else {
-        temp = false
-      }
-    } else {
-      if (time <= start && time >= end) {
-        temp = false
-      } else {
-        temp = true
-      }
-    };
+    (start <= end) ? temp = ((time >= start && time <= end) ? true : false): temp = ((time <= start && time >= end) ? false : true);
     if (temp && nBC) {
       wx.setScreenBrightness({
         value: nB / 100
@@ -386,19 +377,19 @@ function changeNav(e, indicator) {
 }
 
 function scrollNav(e) {
-    let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
-    console.log(pos)
-    if (pos < 27) {
-      wx.pageScrollTo({
-        scrollTop: 0,
-        duration: 500
-      })
-    } else if (pos < 53) {
-      wx.pageScrollTo({
-        scrollTop: 53,
-        duration: 500
-      })
-    }
+  let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
+  console.log(pos)
+  if (pos < 27) {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 500
+    })
+  } else if (pos < 53) {
+    wx.pageScrollTo({
+      scrollTop: 53,
+      duration: 500
+    })
+  }
 }
 
 function setPage(page, indicator, a, e) {
@@ -423,15 +414,8 @@ function setPage(page, indicator, a, e) {
     let Module = page[i];
     Module.id = i;
     if (Module.src) {
-      if (Module.res) {
-        url.push(Module.res)
-      } else {
-        url.push(Module.src);
-        Module.res = Module.src
-      };
-      if (!Module.imgMode) {
-        Module.imgMode = a.imgMode
-      };
+      (Module.res) ? url.push(Module.res): url.push(Module.src), Module.res = Module.src;
+      (Module.imgMode) ? '' : Module.imgMode = a.imgMode
     };
     //setList
     if ('content' in Module) {
@@ -481,22 +465,32 @@ function setPage(page, indicator, a, e) {
 }
 
 function componemtAction(e, indicator) {
-  console.log(e)
+  console.log(e);
   let action = e.currentTarget.dataset.action;
-  if (action == 'img') {
-    image(e, indicator)
-  } else if (action == 'doc') {
-    document(e)
-  } else if (action == 'phone') {
-    phone(e, indicator)
-  } else if (action == 'picker') {
-    picker(e, indicator)
-  } else if (action == 'switch') {
-    Switch(e, indicator)
-  } else if (action == 'slider') {
-    slider(e, indicator)
-  } else if (action == 'back') {
-    wx.navigateBack({})
+  switch (action) {
+    case 'img':
+      image(e, indicator);
+      break;
+    case 'doc':
+      document(e);
+      break;
+    case 'phone':
+      phone(e, indicator);
+      break;
+    case 'picker':
+      picker(e, indicator);
+      break;
+    case 'switch':
+      Switch(e, indicator);
+      break;
+    case 'slider':
+      slider(e, indicator);
+      break;
+    case 'back':
+      wx.navigateBack({});
+      break;
+    default:
+      console.log('error');
   }
 }
 
@@ -532,14 +526,15 @@ function slider(e, indicator) {
   let pos = e.currentTarget.dataset.id.split('-'),
     content = indicator.data.page[pos[0]].content[pos[1]],
     value = e.detail.value;
-  if (e.type == 'tap') {
-    content.visible = !content.visible;
-  } else if (e.type == 'changing') {
-    content.value = value;
-  } else if (e.type == 'change') {
-    content.value = value;
-    wx.setStorageSync(content.sliKey, value);
-  };
+  switch (e.type) {
+    case 'tap':
+      content.visible = !content.visible;
+    case 'changing':
+      content.value = value;
+    case 'change':
+      content.value = value;
+      wx.setStorageSync(content.sliKey, value);
+  }
   indicator.setData({
     page: indicator.data.page
   })
@@ -558,37 +553,35 @@ function Switch(e, indicator) {
 }
 
 function tabBarChanger(nm) {
-  if (nm) {
-    wx.setTabBarStyle({
-      backgroundColor: '#000000',
-      borderStyle: 'white'
-    })
-  } else {
-    wx.setTabBarStyle({
-      backgroundColor: '#ffffff',
-      borderStyle: 'black'
-    })
-  };
+  (nm) ? wx.setTabBarStyle({
+    backgroundColor: '#000000',
+    borderStyle: 'white'
+  }): wx.setTabBarStyle({
+    backgroundColor: '#ffffff',
+    borderStyle: 'black'
+  });
 }
 
 function image(e, indicator) {
   let current = indicator.data.page[e.target.id];
-  if (e.type == 'load') {
-    current.load = true;
-    indicator.setData({
-      page: indicator.data.page
-    });
-  } else if (e.type == 'error') {
-    current.error = true;
-    indicator.setData({
-      page: indicator.data.page
-    });
-  } else if (e.type == 'tap') {
-    wx.previewImage({
-      current: current.res,
-      urls: indicator.data.url
-    })
-  };
+  switch (e.type) {
+    case 'load':
+      current.load = true;
+      indicator.setData({
+        page: indicator.data.page
+      });
+      break;
+    case 'error':
+      current.error = true;
+      indicator.setData({
+        page: indicator.data.page
+      });
+    case 'tap':
+      wx.previewImage({
+        current: current.res,
+        urls: indicator.data.url
+      });
+  }
 }
 
 function document(e) {
@@ -654,23 +647,19 @@ function arrayKeynumber(array, key) {
 function reConnet(indicator, a, e) {
   wx.onNetworkStatusChange(function(res) {
     console.log(res.isConnected);
-    console.log(res.networkType)
+    console.log(res.networkType);
     if (res.isConnected) {
+      let source = (isNaN(e.aim.charAt(e.aim.length - 1))) ? e.aim : e.aim.substring(0, e.aim.length - 1);
       wx.request({
-        url: 'https://mrhope.top/miniProgram/' + e.aim + '.json',
+        url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
         success(res) {
           console.log(res);
           wx.hideToast();
-          if (res.statusCode == 200) {
-            setPage(res.data, indicator, a, e);
-            wx.setStorageSync(e.aim, res.data)
-          } else {
-            indicator.setData({
-              page: [{
-                tag: 'error'
-              }]
-            })
-          }
+          (res.statusCode == 200) ? (setPage(res.data, indicator, a, e), wx.setStorageSync(e.aim, res.data)) : indicator.setData({
+            page: [{
+              tag: 'error'
+            }]
+          })
         }
       })
     }

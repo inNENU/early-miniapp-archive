@@ -240,5 +240,8 @@ Page({
     wx.setStorageSync("theme", theme);
     u.sP(this.data.page, this, a, e);
     u.emit('theme', theme);
-  },
+	},
+	sN(e) {
+		u.sN(e)
+	}
 })

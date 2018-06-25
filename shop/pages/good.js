@@ -69,5 +69,8 @@ Page({
       // fail: function(res) {},
       // complete: function(res) {},
     })
-  }
+	},
+	sN(e) {
+		u.sN(e)
+	}
 })
