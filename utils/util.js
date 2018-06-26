@@ -13,7 +13,7 @@ function checkResUpdate() {
           if (localList == undefined) {
             wx.showModal({
               title: '是否离线部分页面文字资源？',
-              content: '选择离线后可以在无网络连接时查看部分界面。(会消耗50K流量)',
+              content: '选择离线后可以在无网络连接时查看部分界面。(会消耗60K流量)',
               cancelText: '否',
               cancelColor: '#ff0000',
               confirmText: '是',
@@ -256,16 +256,16 @@ function getContent(indicator, a, e) {
                 url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
                 success(res) {
                   console.log(res);
-                  wx.hideLoading();
                   if (res.statusCode == 200) {
                     setPage(res.data, indicator, a, e);
-                    wx.setStorageSync(e.aim, res.data)
+                    wx.setStorageSync(e.aim, res.data);
                   } else {
                     console.log('res error');
                     setPage([{
                       tag: 'error'
                     }], indicator, a, e);
                   }
+                  wx.hideLoading();
                 }
               })
             }
@@ -278,12 +278,7 @@ function getContent(indicator, a, e) {
 
 function initialize(key, defaultKey) {
   let value = wx.getStorageSync(key);
-  if (value || value === false) {
-    return value
-  } else {
-    wx.setStorageSync(key, defaultKey);
-    return defaultKey;
-  }
+  return (value || value === false) ? value : (wx.setStorageSync(key, defaultKey), defaultKey);
 }
 
 function setTheme(theme) {
@@ -357,8 +352,8 @@ function nightmode(date, startTime, endTime) {
 }
 
 function changeNav(e, indicator) {
-  var n = indicator.data.page[0];
-  let T, B, S;
+  var n = indicator.data.page[0],
+    T, B, S;
   if (e.scrollTop <= 1) {
     T = B = S = false;
   } else if (e.scrollTop <= 42) {
@@ -529,11 +524,14 @@ function slider(e, indicator) {
   switch (e.type) {
     case 'tap':
       content.visible = !content.visible;
+      break;
     case 'changing':
       content.value = value;
+      break;
     case 'change':
       content.value = value;
       wx.setStorageSync(content.sliKey, value);
+      break;
   }
   indicator.setData({
     page: indicator.data.page
@@ -576,11 +574,13 @@ function image(e, indicator) {
       indicator.setData({
         page: indicator.data.page
       });
+      break;
     case 'tap':
       wx.previewImage({
         current: current.res,
         urls: indicator.data.url
       });
+      break;
   }
 }
 

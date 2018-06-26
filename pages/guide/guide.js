@@ -69,12 +69,13 @@ Page({
     u.sP(this.data.page, this, a);
     u.cRU();
   },
-  onShow() {
-    this.setData({
-      nm: a.nm
-    })
-  },
+	onShow() {
+		u.sP(this.data.page, this, a)
+	},
   onPageScroll(e) {
     u.nav(e, this)
-  },
+	},
+	sN(e) {
+		u.sN(e)
+	}
 })

@@ -95,5 +95,8 @@ Page({
   },
   cA(e) {
     u.cA(e, this)
-  }
+	},
+	sN(e) {
+		u.sN(e)
+	}
 })
