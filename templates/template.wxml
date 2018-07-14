@@ -66,7 +66,7 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <button  wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" bindtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" bindtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
         data-id="{{List.id}}" data-action='picker' plain='true' open-type='{{List.open-type}}' disabled='{{List.disabled}}'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
@@ -400,20 +400,51 @@
 </template>
 <!-- NENU theme -->
 <template name='NENUhead'>
-  <view class='headCtn' style="{{item.andriod?'top:28pt;':''}}background-color:{{item.color}};{{item.style}}"></view>
-  <view wx:if="{{item.top}}" class='NENUnav'>
+  <view wx:if="{{item.top}}" class='NENUnav' style="background-color:{{item.color}};padding-top:{{item.statusBarHeight}}px;">
     <view class='NENU-navText'>{{item.title}}</view>
+  </view>
+  <view wx:if="{{!item.top}}" class='NENUNav'>
+    <view class='backBtn' style="{{page[0].iPhoneX?'top:48px;':''}}{{page[0].android?'top:32px;':''}}" hover-class='buttonHover' bindtap='cA' data-action='back'>
+      <image class='backIcon' src='/icon/back.svg' />
+    </view>
   </view>
   <view wx:else class='NENUbackCtn' hover-class='butttonHover'>
     <view class='NENUbackText'></view>
   </view>
 </template>
 
-<template name='NENUp'>
+<template name="NENUh2">
 </template>
 
-<template name='NENUfoot'>
+<template name="NENUh3">
 </template>
 
-<template name='NENUlist'>
+<template name="NENUh4">
+</template>
+
+<template name="NENUlist">
+</template>
+
+<template name="NENUp">
+</template>
+
+<template name="NENUimg">
+</template>
+
+<template name="NENUdoc">
+</template>
+
+<template name="NENUphone">
+</template>
+
+<template name='NENUgrid'>
+</template>
+
+<template name='NENUswiper'>
+</template>
+
+<template name="NENUfoot">
+</template>
+
+<template name="NENUerror">
 </template>

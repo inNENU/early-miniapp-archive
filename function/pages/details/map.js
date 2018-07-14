@@ -3,13 +3,10 @@ var u = getApp().util,
 var sliderWidth = 96;
 Page({
   data: {
-    page: [{
-      tag: 'head',
-      title: '校园地图'
-    }],
     map: {
       latitude: 43,
-      longitude: 125
+      longitude: 125,
+      scale: 18
     },
     tabs: ["本部", "净月", "长春"],
     activeIndex: 0,
@@ -18,7 +15,7 @@ Page({
   },
   onLoad: function(e) {
     let info = a.info,
-      iPhoneX;
+      iPhoneX = false;
     if (info.model.substring(0, 8) === 'iPhone X') {
       iPhoneX = true;
     };
@@ -26,47 +23,29 @@ Page({
       info: {
         iPhoneX: iPhoneX,
         screenHeight: info.screenHeight,
-        screenWidth: info.screenWidth
+        screenWidth: info.screenWidth,
+        statusBarHeight: info.statusBarHeight,
       }
-    })
-    u.sP(this.data.page, this, a, e);
-    var that = this;
-    wx.getSystemInfo({
-      success: function(res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
-        });
-      }
-    });
-  },
-  tabClick: function(e) {
-    this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
     });
   },
   onReady: function(e) {
-    // 使用 wx.createMapContext 获取 map 上下文
-    this.mapCtx = wx.createMapContext('myMap')
+    this.mapCtx = wx.createMapContext('schoolMap')
   },
-  getCenterLocation: function() {
-    var that = this;
-    this.mapCtx.getCenterLocation({
+  locate: function() {
+    let map = this.data.map;
+    wx.getLocation({
+      type: 'wgs84',
       success: function(res) {
-        let map = that.data.map;
-        map.longitude = res.longitude;
+        // console.log(res);
         map.latitude = res.latitude;
-        that.setData({
-          map: map
-        })
-        console.log(res.longitude)
-        console.log(res.latitude)
+				// this.mapCtx
+        map.longitude = res.longitude;
       }
+    });
+		console.log(map);
+    this.setData({
+      map: map
     })
-  },
-  moveToLocation: function() {
-    this.mapCtx.moveToLocation()
   },
   translateMarker: function() {
     this.mapCtx.translateMarker({
@@ -93,8 +72,20 @@ Page({
         longitude: 113.3345211,
       }]
     })
-	},
-	sN(e) {
-		u.sN(e)
-	}
+  },
+  scale(e) {
+    let map = this.data.map,
+      action = e.currentTarget.dataset.action;
+    if (action == 'enlarge') {
+      map.scale = map.scale + 1;
+    } else if (action == 'narrow') {
+      map.scale = map.scale - 1;
+    }
+    this.setData({
+      map: map
+    })
+  },
+  cA(e) {
+    u.cA(e, this)
+  },
 })

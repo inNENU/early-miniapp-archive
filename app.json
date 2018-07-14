@@ -1,5 +1,6 @@
 {
 	"pages": [
+		"pages/function/function",
 		"pages/main/main",
 		"pages/main/0.6",
 		"pages/me/me",
@@ -7,7 +8,6 @@
 		"pages/settings/theme",
 		"pages/settings/login",
 		"pages/settings/donate",
-		"pages/function/function",
 		"pages/guide/guide",
 		"templates/module1",
 		"templates/module2",

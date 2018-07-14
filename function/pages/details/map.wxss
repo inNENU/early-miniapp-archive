@@ -130,12 +130,16 @@ page, .page, .page__bd {
   background-color: #fff;
 }
 
-.divLine1 {
-  width: 100%;
-  height: 1rpx;
-  background-color: #cac9ce;
-}
-
 .scaleCell {
   height: 50%;
+}
+
+.enlargeButton {
+  height: 48%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	font-size: 22px;
+	color: #888;
+	font-weight: 500px;
 }
