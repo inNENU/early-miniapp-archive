@@ -233,11 +233,10 @@ function getContent(indicator, a, e) {
             console.log(res);
             var net = res.networkType;
             if (net == 'none' || net == 'unknown') {
-              indicator.setData({
-                page: [{
-                  tag: 'error'
-                }]
-              });
+							setPage([{
+								tag: 'error',
+								statusBarHeight: a.info.statusBarHeight
+							}], indicator, a, e);
               wx.hideLoading();
               wx.showToast({
                 title: '您未打开互联网！由于您未提前缓存此界面，界面无法加载！\n请检查您的互联网连接！',
@@ -262,7 +261,8 @@ function getContent(indicator, a, e) {
                   } else {
                     console.log('res error');
                     setPage([{
-                      tag: 'error'
+                      tag: 'error',
+                      statusBarHeight: a.info.statusBarHeight
                     }], indicator, a, e);
                   }
                   wx.hideLoading();
@@ -676,6 +676,15 @@ function donate() {
       })
     }
   })
+}
+
+function setPersonInfo(page) {
+  let nickName, imgPath;
+  if (wx.getStorageSync('login')) {
+    nickName = wx.getStorageSync('nickName'), imgPath = wx.getStorageSync('imgPath');
+  } else {
+
+  };
 }
 
 module.exports = {

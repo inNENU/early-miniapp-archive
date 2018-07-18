@@ -403,48 +403,186 @@
   <view wx:if="{{item.top}}" class='NENUnav' style="background-color:{{item.color}};padding-top:{{item.statusBarHeight}}px;">
     <view class='NENU-navText'>{{item.title}}</view>
   </view>
-  <view wx:if="{{!item.top}}" class='NENUNav'>
-    <view class='backBtn' style="{{page[0].iPhoneX?'top:48px;':''}}{{page[0].android?'top:32px;':''}}" hover-class='buttonHover' bindtap='cA' data-action='back'>
+  <view wx:else class='NENUnav2' style='background-color:{{item.color}};height:{{item.statusBarHeight}}px;'>
+    <view class='backBtn' style="top:{{item.statusBarHeight+5.5}}px;" hover-class='buttonHover' bindtap='cA' data-action='back'>
       <image class='backIcon' src='/icon/back.svg' />
     </view>
+    <view class='NENUTitle' style='margin-top:{{item.statusBarHeight}}px;'>{{item.title}}</view>
   </view>
-  <view wx:else class='NENUbackCtn' hover-class='butttonHover'>
-    <view class='NENUbackText'></view>
+  <view style='width:100%;background-color:{{item.color}};height:{{item.top?item.statusBarHeight+40:item.statusBarHeight}}px;'></view>
+</template>
+
+<template name='NENUh3'>
+  <view class='NENUH3' style="{{item.style}}">{{item.text}}</view>
+</template>
+
+<template name='NENUp'>
+  <view wx:if="{{item.head}}" class='iOShead'>{{item.head}}</view>
+  <view class='NENUP'>
+    <text style='{{item.style}}'>{{item.text}}</text>
+    <view wx:if="{{item.src&&item.error}}" class='iOSImgError'>
+      <icon type="warn" style='margin-right:5px;' />
+      <text class='grey'>图片加载失败</text>
+    </view>
+    <view wx:elif="{{item.src&&!item.load}}" class='iOSImgError'>
+      <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
+      <text class='grey'>加载中...</text>
+    </view>
+    <view class='flexbox' style="{{item.load?'':'display: none;'}}">
+      <image id="{{item.id}}" class='iOSP-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" bindtap="cA" data-action='img' />
+    </view>
   </view>
 </template>
 
-<template name="NENUh2">
+<template name='NENUlist'>
+  <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
+  <view class='iOSLctn'>
+    <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
+      <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
+        <view class='iOS-list-Container'>
+          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
+        </view>
+      </navigator>
+      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" bindtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+        data-id="{{List.id}}" data-action='picker' plain='true' open-type='{{List.open-type}}' disabled='{{List.disabled}}'>
+        <view class='iOS-list-Container'>
+          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
+          <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
+          <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
+          <view wx:elif='{{List.pickerValue}}' class='iOS-linkDesciption'>
+            <block wx:if="{{List.single}}">{{List.value}}</block>
+            <block wx:else>
+              <block wx:for="{{List.value}}" wx:key="*this">{{item}}</block>
+            </block>
+          </view>
+        </view>
+      </button>
+      <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}"
+        data-action='picker'>
+        <view class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
+            <block wx:for='{{List.value}}' wx:key="*this">{{item}}</block>
+          </view>
+        </view>
+      </picker>
+      <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="iOS-listCtn">
+        <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
+        <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
+          <view class='iOSLinkText'>{{List.text}}</view>
+          <view class="iOS-linkDesciption">{{List.desc}}
+            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" data-id="{{List.id}}" data-action='switch' />
+          </view>
+        </view>
+      </view>
+      <block wx:if='{{List.visible}}'>
+        <view class='iOS-link-divline'></view>
+        <view wx:if="{{List.slider}}" class='iOSsliderCtn'>
+          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action='slider'
+          />
+        </view>
+        <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker'>
+          <block wx:if="{{List.single}}">
+            <picker-view-column class='iOSpick-view-column'>
+              <view wx:for='{{List.pickerValue}}' wx:key="*this" class='iOSpickColumn'>{{item}}</view>
+            </picker-view-column>
+          </block>
+          <block wx:else>
+            <block wx:for='{{List.pickerValue}}' wx:key="*this">
+              <picker-view-column class='iOSpick-view-column'>
+                <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
+              </picker-view-column>
+            </block>
+          </block>
+        </picker-view>
+      </block>
+      <view wx:if="{{List.display!==false}}" class="{{List.icon?'iOS-listIcon ':''}}iOS-link-divline"></view>
+    </block>
+  </view>
+  <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
 </template>
 
-<template name="NENUh3">
+<template name='NENUimg'>
+  <view wx:if="{{item.error}}" class='iOSImgError'>
+    <icon type="warn" size='32' style='margin-bottom:5px;' />
+    <text class='grey'>图片加载失败</text>
+  </view>
+  <view wx:elif="{{!item.load}}" class='iOSImgError'>
+    <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
+    <text class='grey'>加载中...</text>
+  </view>
+  <view class='flexbox' style="{{item.load?'':'display: none;'}}">
+    <image id="{{item.id}}" class='iOS-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" bindtap="cA" data-action='img' />
+  </view>
+  <view wx:if="{{item.text}}" class='iOSN'>
+    <text>▲{{item.desc}}</text>
+  </view>
 </template>
 
-<template name="NENUh4">
-</template>
-
-<template name="NENUlist">
-</template>
-
-<template name="NENUp">
-</template>
-
-<template name="NENUimg">
-</template>
-
-<template name="NENUdoc">
+<template name='NENUdoc'>
+  <button id="{{item.id}}" class='docCtn' hover-class="buttonHover" bindtap='cA' data-url="{{item.url}}" data-action='doc'>
+    <image class='docIcon' mode='widthFix' src='/icon/{{item.docType}}.svg' />
+    <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
+  </button>
 </template>
 
 <template name="NENUphone">
+  <view class='phoneCtn' id='{{item.id}}' bindtap='cA' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}" data-action='phone'>
+    <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
+    <view class='phoneNum'>{{item.num}}</view>
+    <view class='phoneCallCtn' hover-class='buttonHover'>
+      <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
+    </view>
+    <view class='phoneAddCtn' hover-class='buttonHover'>
+      <image class='phoneAdd' mode='widthFix' src='/icon/add.svg' data-type="add" />
+    </view>
+  </view>
 </template>
 
 <template name='NENUgrid'>
+  <view wx:if="{{item.head!==false}}" class='gridHead'>{{item.head}}</view>
+  <view class='gridCtn'>
+    <navigator wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
+      <image class='gridIcon' src="{{List.icon}}" />
+      <view class='gridTitle'>{{List.text}}</view>
+    </navigator>
+  </view>
+  <view wx:if="{{item.foot}}" class='gridFoot'>{{item.foot}}</view>
 </template>
 
 <template name='NENUswiper'>
+  <swiper class='{{item.Class}}' style="{{item.style}}" indicator-dots="{{item.indicatorDots==false?'':true}}" indicator-color="{{item.dotColor?item.dotColor:'rgba(255, 255, 255, 0.5)'}}" indicator-active-color="{{item.dotActiveColor?item.dotActiveColor:'#fff'}}"
+    autoplay="{{item.autoplay==false?'':true}}" interval="{{item.interval?item.interval:'5000'}}" duration="{{item.duration?item.duration:'500'}}" circular="{{item.circular==false?'':true}}" vertical="{{item.vertical?true:''}}" previous-margin="{{item.preMargin?item.preMargin:'0px'}}"
+    next-margin="{{item.nextMargin?item.nextMargin:'0px'}}" bindchange="{{item.change?item.change:'cA'}}" bindanimationfinish="{{item.animation?item.animation:'cA'}}" data-action='swiper'>
+    <swiper-item wx:for="{{item.url}}" wx:key="*this" wx:for-item='url'>
+      <image class='{{item.imgClass}}' src="{{url}}" mode="{{item.imgMode?item.imgMode:'aspectFill'}}" />
+    </swiper-item>
+  </swiper>
 </template>
 
-<template name="NENUfoot">
+<template name='NENUfoot'>
 </template>
 
-<template name="NENUerror">
+<template name='NENUerror'>
+  <view class='NENUnav' style="background-color:{{item.color}};padding-top:{{item.statusBarHeight}}px;">
+    <view class='NENU-navText'>页面出错</view>
+  </view>
+  <view style='width:100%;background-color:{{item.color}};height:{{item.statusBarHeight+40}}px;'></view>
+  <view class='backBtn' style="top:{{item.statusBarHeight+5.5}}px;" hover-class='buttonHover' bindtap='cA' data-action='back'>
+    <image class='backIcon' src='/icon/back.svg' />
+  </view>
+  <view class='errorCtn'>
+    <icon type='warn' size='80'></icon>
+    <view class='errorText'>很抱歉，界面遇到了问题!</view>
+    <view class='errorDesc'>
+      <text>同学你好，我是Mr.Hope，问题可能出现在以下几点：\n\n1. Mr.Hope自掏腰包买的的服务器炸了；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~并感谢同学对Mr.Hope的支持~\n由于服务器是Mr.Hope自掏腰包，配置不是很好，同学可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置或者赞赏Mr.Hope的劳动成果。</text>
+    </view>
+  </view>
+  <view class='donateCtn'>
+    <navigator url='/pages/settings/donate'>
+      <button class='donateButton' hover-class='buttonHover'>捐赠</button>
+    </navigator>
+  </view>
 </template>

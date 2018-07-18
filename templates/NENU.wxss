@@ -1,19 +1,22 @@
 /* NENU theme made by MrHope */
 
-.NENU, .NENU2 {
+.NENU, .NENUgrey {
   min-height: 100%;
 }
 
-.NENUnav {
+.NENUnav, .NENUnav2 {
   width: 100%;
-  height: 40px;
   position: fixed;
   display: -webkit-flex;
   display: flex;
   background-color: #efefef;
   justify-content: center;
   align-items: center;
-	padding: 2px 0;
+}
+
+.NENUnav {
+  height: 40px;
+  padding: 2px 0;
 }
 
 .NENU-navText {
@@ -22,13 +25,30 @@
   font-weight: 500;
 }
 
-.NENUbackCtn {
+.NENUTitle {
+  position: absolute;
+  max-width: 60%;
+  padding: 2px 6px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.5;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+}
+
+/* .NENUbackCtn {
   position: fixed;
   top: 25px;
   left: 8px;
   height: 25px;
+} */
+
+.NENUH3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 5%;
 }
 
-.NENUNav{
-	
+.NENUP {
+  padding: 0 5%;
 }

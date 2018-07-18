@@ -1,9 +1,9 @@
 {
 	"pages": [
+		"pages/me/me",
 		"pages/function/function",
 		"pages/main/main",
 		"pages/main/0.6",
-		"pages/me/me",
 		"pages/shop/shop",
 		"pages/settings/theme",
 		"pages/settings/login",

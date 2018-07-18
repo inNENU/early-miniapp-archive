@@ -25,7 +25,7 @@ Page({
       {
         tag: 'list',
         head: '主题设置',
-        foot: 'wechat主题和其他主题还在建设中......',
+        foot: 'wechat主题和NENU主题还在建设中......',
         content: [{
           text: '主题设置',
           key: 'themeNum',

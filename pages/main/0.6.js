@@ -34,7 +34,11 @@ Page({
       tag: 'p',
       head: 'V0.6.7',
       text: '所有界面添加了sN函数；\n改进了utils.js；'
-    }, ],
+    }, {
+      tag: 'p',
+      head: 'V0.6.8',
+      text: '改进了NENUNav；\n改进了error界面；\n改进map页样式；'
+    }],
   },
 
   onLoad(e) {
@@ -45,8 +49,8 @@ Page({
   },
   cA(e) {
     u.cA(e, this)
-	},
-	sN(e) {
-		u.sN(e)
-	}
+  },
+  sN(e) {
+    u.sN(e)
+  }
 })

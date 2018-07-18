@@ -1,5 +1,4 @@
 <map id="schoolMap" class='schoolMap' style='width:{{info.screenWidth}};height:{{info.screenHeight}}' longitude='{{map.longitude}}' latitude='{{map.latitude}}' show-location controls='{{map.controls}}' scale='{{map.scale}}'>
-  <!-- <cover-view class='backBtn' style="{{page[0].iPhoneX?'top:48px;':''}}{{page[0].android?'top:32px;':''}}" hover-class='buttonHover' bindtap='cA' data-action='back'> -->
   <cover-view class='backBtn' style="top:{{info.statusBarHeight+6}}px;" hover-class='buttonHover' bindtap='cA' data-action='back'>
     <cover-image class='backIcon' src='/icon/back.png' />
   </cover-view>

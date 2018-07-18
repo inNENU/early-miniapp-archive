@@ -13,7 +13,7 @@ App({
     console.log(this.globalData.info);
   },
   globalData: {
-    Version: 'V 0.6.7',
+    Version: 'V 0.6.8',
     imgMode: "widthFix"
   },
   util: require('utils/util.js'),
