@@ -13,7 +13,7 @@ Page({
         content: [{
           text: '绩点计算',
           icon: '/icon/scoreCal.svg',
-          url: '/function/pages/details/cal'
+          url: '/function/cal'
         }, ]
       }, {
         tag: 'grid',
@@ -21,19 +21,19 @@ Page({
         content: [{
           text: '校园街景',
           icon: '/icon/map.svg',
-          url: '/function/pages/details/map'
+          url: '/function/map'
         }, {
           text: '四六级',
           icon: '/icon/CET.svg',
-          url: '/function/pages/details/CET'
+          url: '/function/CET'
         }, {
           text: '成绩查询',
           icon: '/icon/score.svg',
-          url: '/function/pages/details/score'
+          url: '/function/score'
         }, {
           text: '体测计算器',
           icon: '/icon/PECal.svg',
-          url: '/function/pages/details/PECal'
+          url: '/function/PECal'
         }, ]
       },
     ],

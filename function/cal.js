@@ -1,5 +1,5 @@
-var u = require('../../../utils/util.js');
-const a = getApp().globalData;
+var u = getApp().util,
+	a = getApp().globalData;
 Page({
   data: {
     page: [{

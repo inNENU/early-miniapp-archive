@@ -31,6 +31,7 @@ page {
 
 .backBtn {
   position: fixed;
+	z-index: 999;
   top: 26px;
   left: 9px;
   width: 46px;

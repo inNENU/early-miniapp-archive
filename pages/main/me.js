@@ -8,8 +8,9 @@ Page({
         top: true,
         show: true,
         grey: true
-      },
-      {
+      }, {
+        tag: 'info',
+      }, {
         tag: 'list',
         content: [{
           text: '设置',
@@ -37,8 +38,8 @@ Page({
   },
   onPageScroll(e) {
     u.nav(e, this)
-	},
-	sN(e) {
-		u.sN(e)
-	}
+  },
+  sN(e) {
+    u.sN(e)
+  }
 })

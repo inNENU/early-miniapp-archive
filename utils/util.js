@@ -233,10 +233,10 @@ function getContent(indicator, a, e) {
             console.log(res);
             var net = res.networkType;
             if (net == 'none' || net == 'unknown') {
-							setPage([{
-								tag: 'error',
-								statusBarHeight: a.info.statusBarHeight
-							}], indicator, a, e);
+              setPage([{
+                tag: 'error',
+                statusBarHeight: a.info.statusBarHeight
+              }], indicator, a, e);
               wx.hideLoading();
               wx.showToast({
                 title: '您未打开互联网！由于您未提前缓存此界面，界面无法加载！\n请检查您的互联网连接！',
@@ -678,6 +678,7 @@ function donate() {
   })
 }
 
+//尚未投入使用
 function setPersonInfo(page) {
   let nickName, imgPath;
   if (wx.getStorageSync('login')) {
@@ -685,6 +686,24 @@ function setPersonInfo(page) {
   } else {
 
   };
+}
+
+function forceLogin() {
+  if (!wx.getStorageSync('login')) {
+    wx.showModal({
+      title: '您还未登陆',
+      content: '点击确定跳转至登录页',
+      confirmText: '是',
+      showCancel: 'false',
+      success(choice) {
+        if (choice.confirm) {
+          wx.redirectTo({
+            url: '/pages/me/me',
+          })
+        }
+      }
+    })
+  }
 }
 
 module.exports = {
