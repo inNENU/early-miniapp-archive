@@ -5,7 +5,7 @@ Page({
     page: [{
         tag: 'head',
         title: '功能大厅',
-        top: true
+        action: true
       },
       {
         tag: 'grid',

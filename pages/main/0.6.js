@@ -38,6 +38,10 @@ Page({
       tag: 'p',
       head: 'V0.6.8',
       text: '改进了NENUNav；\n改进了error界面；\n改进map页样式；'
+    }, {
+      tag: 'p',
+      head: 'V0.6.9',
+      text: '修复NENUTitle位置错误；\n优化了cart页动画；\n构建common tab；'
     }],
   },
 

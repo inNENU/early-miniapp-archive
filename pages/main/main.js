@@ -5,7 +5,7 @@ Page({
     page: [{
         tag: 'head',
         title: '首页',
-        top: true,
+        action: true,
         aimStep: 1,
         grey: true,
       }, {
@@ -16,7 +16,7 @@ Page({
       {
         tag: 'p',
         head: '已知bug：',
-        text: 'iOS error返回按钮；\n测试界面NENU主题返回按钮有问题；\n地图界面返回按钮点击态失效；\n绩点计算器输入时键盘异常收起；\n切换网络后，当前加载界面会被刷新，图片显示异常；'
+        text: 'NENU主题title位置错误；\niOS error返回按钮；\n测试界面NENU主题返回按钮有问题；\n地图界面返回按钮点击态失效；\n绩点计算器输入时键盘异常收起；\n切换网络后，当前加载界面会被刷新，图片显示异常；'
       },
       {
         tag: 'p',

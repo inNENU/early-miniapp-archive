@@ -5,7 +5,7 @@ Page({
     page: [{
         tag: 'head',
         title: '我的信息',
-        top: true,
+        action: true,
         show: true,
         grey: true
       }, {

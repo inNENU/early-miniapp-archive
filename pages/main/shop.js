@@ -6,7 +6,7 @@ Page({
       {
         tag: 'head',
         title: '东青文创',
-        top: true,
+        action: true,
       },
       {
         tag: 'swiper',

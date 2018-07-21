@@ -19,8 +19,8 @@
   <block wx:if="{{item.display!==false}}">
     <view class='iOS-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
       <view wx:if="{{item.titleDisplay}}" class="iOS-titletext">{{item.title}}</view>
-      <button wx:if="{{!item.top}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
-        <view class='iOS-backArrow'></view>
+      <button wx:if="{{item.action==undefined&&item.action!=true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
+        <view wx:if="{{item.action!=true}}" class='iOS-backArrow'></view>
         <text class='iOS-nav-text'>{{item.backText}}</text>
       </button>
     </view>
@@ -408,7 +408,7 @@
     <view class='backBtn' style="top:{{item.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
       <image class='backIcon' src='/icon/back.svg' />
     </view>
-    <view class='NENUTitle' style='margin-top:{{item.statusBarHeight-2}}px;'>{{item.title}}</view>
+    <view class='NENUTitle' style='top:{{item.statusBarHeight+5.5}}px;'>{{item.title}}</view>
   </view>
   <view style='width:100%;background-color:{{item.color}};height:{{item.top?item.statusBarHeight+40:item.statusBarHeight}}px;'></view>
 </template>

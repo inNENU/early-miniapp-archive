@@ -5,7 +5,7 @@ Page({
     page: [{
         tag: 'head',
         title: '东师指南',
-        top: true,
+        action: true,
         aimStep: 1,
         grey: true
       },
