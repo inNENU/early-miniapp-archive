@@ -18,6 +18,7 @@
 .NENUnav {
   height: 40px;
   padding: 2px 0;
+  border-bottom: 1rpx solid #efeef4;
 }
 
 .NENU-navText {
@@ -33,17 +34,10 @@
   color: #fff;
   font-size: 18px;
   line-height: 1.5;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: #00000026;
   border-radius: 15px;
-  border: 1rpx solid rgba(255, 255, 255, 0.15);
+  border: 1rpx solid #ffffff26;
 }
-
-/* .NENUbackCtn {
-  position: fixed;
-  top: 25px;
-  left: 8px;
-  height: 25px;
-} */
 
 .NENU .NENUH3 {
   font-size: 18px;
@@ -96,6 +90,6 @@
   width: 60%;
   height: 100rpx;
   top: 230rpx;
-	border: 1rpx solid #ccc,1rpx solid #fff;
-	border-radius: 10px;
+  border: 1rpx solid #ccc, 1rpx solid #fff;
+  border-radius: 10px;
 }

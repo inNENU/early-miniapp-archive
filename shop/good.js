@@ -22,24 +22,27 @@ Page({
     item: {
       price: 60,
       count: '件',
-      name: '怀旧古典 充满老干部气息的东青文创定制搪瓷杯',
+      name: '东青文创定制搪瓷杯',
+      desc: '怀旧古典 充满老干部气息',
       preview: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
 
     },
-    animationData: {
-
-    }
   },
   onLoad(e) {
     this.setData({
-      info: a.info
+      info: a.info,
+      bgLayerPos: a.info.screenHeight,
+      show: false,
     });
     u.sP(this.data.page, this, a, e);
-    var animation = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease-out',
+    this.backgroundAnimation = wx.createAnimation({
+      duration: 5000,
+      timingFunction: 'linear',
     });
-    this.animation = animation;
+    this.cartAnimation = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'ease',
+    });
   },
   onPageScroll(e) {
     u.nav(e, this)
@@ -51,16 +54,25 @@ Page({
 
   },
   popSelect(e) {
-		this.animation.translateY(-a.info.screenHeight).step()
+    this.cartAnimation.translateY(-a.info.screenHeight).step();
     this.setData({
-      animationData: this.animation.export()
-    })
+      bgLayerPos: 0,
+			animationData: this.cartAnimation.export(),
+			show: true,
+    });
   },
   close(e) {
-		this.animation.translateY(a.info.screenHeight).step()
+    let that = this;
+    this.cartAnimation.translateY(a.info.screenHeight).step();
     this.setData({
-      animationData: this.animation.export()
-    })
+      animationData: this.cartAnimation.export(),
+      show: false,
+    });
+    setTimeout(function() {
+      that.setData({
+        bgLayerPos: a.info.screenHeight
+      })
+    }, 500)
   },
   goOrder(e) {
     wx.navigateTo({
@@ -69,8 +81,5 @@ Page({
       // fail: function(res) {},
       // complete: function(res) {},
     })
-	},
-	sN(e) {
-		u.sN(e)
-	}
+  },
 })

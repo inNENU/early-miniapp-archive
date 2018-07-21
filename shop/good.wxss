@@ -14,6 +14,15 @@
   background-color: #fff;
 }
 
+.itemName {
+  font-size: 18px;
+}
+
+.itemDesc {
+  font-size: 14px;
+  color: #f44;
+}
+
 .itemRMBLabal, .itemPriceTag {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
   color: #f44;
@@ -32,16 +41,6 @@
   color: #888;
 }
 
-.itemName {
-  font-size: 18px;
-}
-
-.divLine6 {
-  width: 100%;
-  height: 6px;
-  background-color: #f8f8f8;
-}
-
 .itemDetailList {
   width: 100%;
   text-align: left;
@@ -52,16 +51,16 @@
   color: #888;
 }
 
-.itemTab {
-  position: fixed;
-  bottom: 0;
-  width: 94%;
-  display: -webkit-flex;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 6px 3%;
-  border-top: 1rpx solid #acacb0;
+.itemPicHead {
+  font-size: 14px;
+  color: #888;
+  margin: 4px auto;
+}
+
+.divLine6 {
+  width: 100%;
+  height: 6px;
+  background-color: #f8f8f8;
 }
 
 .itemButtonCtn {
@@ -84,11 +83,20 @@
   background-color: #f00;
 }
 
+.backgroundLayer {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  opacity: 0;
+}
+
 .screenLayer {
   text-align: left;
   position: fixed;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .addCartMenu {
@@ -160,4 +168,33 @@
 
 .buyHover {
   background-color: rgba(255, 0, 0, 0.5);
+}
+
+/*index.wxss*/
+
+.mask-shadow {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: 1s;
+}
+
+.mask-shadow-on {
+  opacity: 0.3;
+}
+
+.mask-con {
+  position: absolute;
+  width: 100%;
+  height: 300rpx;
+  left: 0;
+  bottom: -300rpx;
+  transition: 1s;
+  text-align: center;
+  line-height: 300rpx;
+  box-shadow: 0 1px 10px #aaa;
+}
+
+.mask-con-show {
+  bottom: 0;
 }

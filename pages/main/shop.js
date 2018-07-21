@@ -3,11 +3,11 @@ var u = getApp().util,
 Page({
   data: {
     page: [
-      // {
-      //   tag: 'head',
-      //   title: '东青文创',
-      //   top: true,
-      // },
+      {
+        tag: 'head',
+        title: '东青文创',
+        top: true,
+      },
       {
         tag: 'swiper',
         Class: 'shopSwiper',
@@ -34,7 +34,7 @@ Page({
         name: '搪瓷杯',
         desc: '浓郁老干部气息，又说了废话看显示效果',
         price: 100,
-				url: '/shop/pages/good?from=东青文创',
+				url: '/shop/good?from=东青文创',
         tag: ['儒雅', '高逼格','古朴','怀旧','质感']
       },
       {
@@ -42,7 +42,7 @@ Page({
         src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
-				url: '/shop/pages/good?from=东青文创',
+				url: '/shop/good?from=东青文创',
         tag: ['儒雅', '高逼格']
       },
       {
@@ -50,7 +50,7 @@ Page({
         src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
-				url: '/shop/pages/good?from=东青文创',
+				url: '/shop/good?from=东青文创',
         tag: ['儒雅', '高逼格']
       },
       {
@@ -58,7 +58,7 @@ Page({
         src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
-				url: '/shop/pages/good?from=东青文创',
+				url: '/shop/good?from=东青文创',
         tag: ['儒雅', '高逼格']
       },
       {
@@ -66,7 +66,7 @@ Page({
         src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
-				url: '/shop/pages/good?from=东青文创',
+				url: '/shop/good?from=东青文创',
         tag: ['儒雅', '高逼格']
       },
       {
@@ -74,7 +74,7 @@ Page({
         src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         name: '搪瓷杯',
         desc: '浓郁老干部气息',
-				url: '/shop/pages/good?from=东青文创',
+				url: '/shop/good?from=东青文创',
         tag: ['儒雅', '高逼格']
       },
     ],

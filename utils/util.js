@@ -388,6 +388,10 @@ function scrollNav(e) {
 }
 
 function setPage(page, indicator, a, e) {
+  //notice
+  if (page[0].notice) {
+    notice(page[0].notice)
+  };
   //setNav
   if (page && page[0].tag == 'head') {
     page[0].statusBarHeight = a.info.statusBarHeight;
@@ -483,6 +487,8 @@ function componemtAction(e, indicator) {
       break;
     case 'back':
       wx.navigateBack({});
+      break;
+    case 'swiper':
       break;
     default:
       console.log('error');
@@ -666,6 +672,27 @@ function reConnet(indicator, a, e) {
   })
 }
 
+function notice(notice) {
+  wx.request({
+    url: 'https://mrhope.top/mp/notice' + notice,
+    success(res) {
+      if (res.statusCode == 200) {
+        let value = wx.getStorageSync(notice);
+        if (value === undefined || value < res.data.version) {
+          wx.setStorageSync(notice, res.data.version);
+          wx.showToast({
+            title: notice.title,
+            content: notice.content,
+            showCancel: false
+          })
+        }
+      }
+    }
+  })
+}
+
+//尚未投入使用
+
 function donate() {
   wx.getClipboardData({
     data: '吱口令',
@@ -678,7 +705,6 @@ function donate() {
   })
 }
 
-//尚未投入使用
 function setPersonInfo(page) {
   let nickName, imgPath;
   if (wx.getStorageSync('login')) {

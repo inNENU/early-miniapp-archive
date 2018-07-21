@@ -1,18 +1,19 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
-  <view class='backBtn' style="{{page[0].iPhoneX?'top:48px;':''}}{{page[0].android?'top:32px;':''}}" hover-class='buttonHover' bindtap='cA' data-action='back'>
+  <view class='backBtn' style="top:{{page[0].statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
     <image class='backIcon' src='/icon/back.svg' />
   </view>
   <view class='itemDetail'>
+    <view class='itemName'>{{item.name}}</view>
     <text class='itemRMBLabal'>￥</text>
     <text class='itemPriceTag'>{{item.price}}</text>
     <text class='itemPriceFoot'> / {{item.count?item.count:'件'}}</text>
-    <view class='itemName'>{{item.name}}</view>
+    <view class='itemDesc'>{{item.desc}}</view>
   </view>
   <view class='divLine6'></view>
   <view class='itemDetailList'>
-    <view class='itemDetailListItem' hover-class="buttonHover">
+    <view class='itemDetailListItem' hover-class="buttonHover" bindtap='popDarameterDetail'>
       <view class='iOSaccess'>规格</view>
     </view>
     <view class='iOS-link-divline'></view>
@@ -21,15 +22,20 @@
     </view>
   </view>
   <view class='divLine6'></view>
-  <view class='itemPicHead'>产品详情</view>
+  <view class='itemPicHead'>——产品详情——</view>
   <image wx:for="{{item.url}}" wx:key="*this" mode='widthFix' lazy-load='true' />
-  <view class='itemTab'>
+  <view class='tab'>
+    <view class='tabIconCtn'>
+      <image class='tabIcon' src='icon/cart.svg' />
+      <view class='tabName'>购物车</view>
+    </view>
     <view class='itemButtonCtn'>
       <view class='itemCart' hover-class="cartHover" bindtap='popSelect'>加入购物车</view>
       <view class='itemBuy' hover-class="buyHover" bindtap='popSelect'>立即购买</view>
     </view>
   </view>
-  <view animation="{{animationData}}" class='screenLayer' style='top:{{info.screenHeight}}px;height:{{info.screenHeight}}px'>
+  <view class="backgroundLayer {{show?'fadeIn':'fadeOut'}}" animation="{{animationData2}}" style='top:{{bgLayerPos}}px;height:{{info.screenHeight}}px;'></view>
+  <view class='screenLayer' animation="{{animationData}}" style='top:{{info.screenHeight}}px;height:{{info.screenHeight}}px'>
     <view class='addCartMenu'>
       <view class='closeBtn' hover-class='buttonHover' bindtap='close'>
         <image class='closeIcon' src='/icon/close.svg' />

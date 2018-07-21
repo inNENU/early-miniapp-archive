@@ -1,8 +1,8 @@
 {
     "pages": [
-        "pages/main/function",
-        "pages/main/main",
         "pages/main/shop",
+        "pages/main/main",
+        "pages/main/function",
         "pages/main/guide",
         "pages/main/me",
         "pages/main/0.6",
