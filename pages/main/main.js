@@ -32,41 +32,38 @@ Page({
         tag: 'list',
         head: '日志如下：',
         content: [{
-            text: 'alpha日志',
-            icon: '/icon/debug.svg',
-            aim: 'log1'
-          },
-          {
-            text: 'V0.1开发日志',
-            icon: '/icon/debug.svg',
-            aim: 'log2'
-          },
-          {
-            text: 'V0.2开发日志',
-            icon: '/icon/debug.svg',
-            aim: 'log3'
-          },
-          {
-            text: 'V0.3开发日志',
-            icon: '/icon/debug.svg',
-            aim: 'log4'
-          },
-          {
-            text: 'V0.4开发日志',
-            icon: '/icon/debug.svg',
-            aim: 'log5'
-          },
-          {
-            text: 'V0.5开发日志',
-            icon: '/icon/debug.svg',
-            aim: 'log6'
-          },
-          {
-            text: 'V0.6开发日志',
-            icon: '/icon/debug.svg',
-            url: '0.6'
-          },
-        ]
+          text: 'alpha日志',
+          icon: '/icon/debug.svg',
+          aim: 'log1'
+        }, {
+          text: 'V0.1开发日志',
+          icon: '/icon/debug.svg',
+          aim: 'log2'
+        }, {
+          text: 'V0.2开发日志',
+          icon: '/icon/debug.svg',
+          aim: 'log3'
+        }, {
+          text: 'V0.3开发日志',
+          icon: '/icon/debug.svg',
+          aim: 'log4'
+        }, {
+          text: 'V0.4开发日志',
+          icon: '/icon/debug.svg',
+          aim: 'log5'
+        }, {
+          text: 'V0.5开发日志',
+          icon: '/icon/debug.svg',
+          aim: 'log6'
+        }, {
+          text: 'V0.6开发日志',
+          icon: '/icon/debug.svg',
+          aim: 'log7'
+        }, {
+          text: 'V0.7开发日志',
+          icon: '/icon/debug.svg',
+          url: '0.7'
+        }, ]
       },
       {
         tag: 'p',

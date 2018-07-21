@@ -34,10 +34,6 @@ Page({
       show: false,
     });
     u.sP(this.data.page, this, a, e);
-    this.backgroundAnimation = wx.createAnimation({
-      duration: 5000,
-      timingFunction: 'linear',
-    });
     this.cartAnimation = wx.createAnimation({
       duration: 500,
       timingFunction: 'ease',
