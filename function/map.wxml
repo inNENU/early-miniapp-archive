@@ -1,22 +1,28 @@
-<map id="schoolMap" class='schoolMap' style='width:{{info.screenWidth}};height:{{info.screenHeight}}' longitude='{{map.longitude}}' latitude='{{map.latitude}}' show-location controls='{{map.controls}}' scale='{{map.scale}}'>
-  <cover-view class='backBtn' style="top:{{info.statusBarHeight+6}}px;" hover-class='buttonHover' bindtap='cA' data-action='back'>
+<map id="schoolMap" class='schoolMap' style='width:{{info.screenWidth}};height:{{info.screenHeight}}' longitude='{{map.longitude}}' latitude='{{map.latitude}}' show-location controls='{{map.controls}}' scale='{{map.scale}}' bindtap='map'>
+  <cover-view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;" hover-class='buttonHover' bindtap='cA' data-action='back'>
     <cover-image class='backIcon' src='/icon/back.png' />
   </cover-view>
-  <cover-view class='bottomTab'></cover-view>
-  <cover-view class='cosSwitch'>
-    <cover-view class='cosSwitchItem'>本部</cover-view>
-    <cover-view class='cosSwitchItem'>净月</cover-view>
+  <cover-view class='pointCtn' hover-class='buttonHover' bindtap="">
+    <cover-image class='pointBtn' src='/function/icon/point.png' />
   </cover-view>
-  <cover-view class='locateCtn' hover-class='buttonHover' bindtap="locate">
-    <cover-image class='locateBtn' src='/icon/locate.png' />
+  <cover-view class='scaleLargeBtn' hover-class='buttonHover' bindtap='scale' data-action='enlarge'>
+    <cover-view>+</cover-view>
   </cover-view>
-  <cover-view class='scaleButton'>
-    <cover-view class='enlargeButton' hover-class='buttonHover' bindtap='scale' data-action='enlarge'>
-      <cover-view>+</cover-view>
+  <cover-view class='divLine1'></cover-view>
+  <cover-view class='scaleSmallBtn' hover-class='buttonHover' bindtap='scale' data-action='narrow'>
+    <cover-view>-</cover-view>
+  </cover-view>
+  <cover-view class='tab'>
+    <cover-view class='locateCtn' hover-class='buttonHover' bindtap="moveToLocation">
+      <cover-image class='locateBtn' src='/function/icon/locate.png' />
     </cover-view>
-    <cover-view class='divLine1'></cover-view>
-    <cover-view class='enlargeButton' hover-class='buttonHover' bindtap='scale' data-action='narrow'>
-      <cover-view>-</cover-view>
+    <cover-view class='switch'>
+      <cover-view class="switchItem {{select==0?'activeSwitch':''}}">本部</cover-view>
+      <cover-view class="switchItem {{select==1?'activeSwitch':''}}">净月</cover-view>
+    </cover-view>
+    <cover-view class="listCtn {{list?'listActive':''}}" hover-class='buttonHover' bindtap='showList'>
+      <cover-image wx:if="{{!list}}" class='listBtn' src='/function/icon/list.png' />
+      <cover-image wx:if="{{list}}" class='listBtn' src='/function/icon/list-active.png' />
     </cover-view>
   </cover-view>
 </map>

@@ -11,7 +11,10 @@ Page({
     tabs: ["本部", "净月", "长春"],
     activeIndex: 0,
     sliderOffset: 0,
-    sliderLeft: 0
+    sliderLeft: 0,
+    select: 0,
+    list: false,
+    points: false,
   },
   onLoad: function(e) {
     let info = a.info,
@@ -32,20 +35,28 @@ Page({
     this.mapCtx = wx.createMapContext('schoolMap')
   },
   locate: function() {
-    let map = this.data.map;
+    let map = this.data.map,
+      that = this;
     wx.getLocation({
       type: 'wgs84',
       success: function(res) {
-        // console.log(res);
+        console.log(res);
         map.latitude = res.latitude;
-				// this.mapCtx
+        // this.mapCtx
         map.longitude = res.longitude;
-      }
+        that.setData({
+          map: map
+        })
+      },
     });
-		console.log(map);
-    this.setData({
-      map: map
+  },
+  moveToLocation() {
+    this.mapCtx.getCenterLocation({
+      success: function(res) {
+        console.log(res);
+      }
     })
+    this.mapCtx.moveToLocation()
   },
   translateMarker: function() {
     this.mapCtx.translateMarker({
@@ -88,4 +99,9 @@ Page({
   cA(e) {
     u.cA(e, this)
   },
+  showList(e) {
+    this.setData({
+      list: !this.data.list
+    })
+  }
 })

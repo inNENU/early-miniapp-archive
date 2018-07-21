@@ -39,9 +39,7 @@ Page({
  _**Tips：**_ 
 
 界面若为首页，请将onLoad改为onShow，并删除back函数。
-
 为了方便查错以及后续更改，在复制粘贴时保留原代码换行及缩进样式。
-
 
  **3.在xxx.wxml中输入：** 
 ```
@@ -82,6 +80,7 @@ Page({
     other code here......
   },
 ```
+
 # tag值参数表
  #### **有效的tag值：** 
 - head：小程序界面的头部，包括标题和navigationBar(必填，仅用一次填在最前）
@@ -143,8 +142,8 @@ Page({
 |url|否|String|列表指向的界面路径|当指向复杂界面时填写|
 
 **选项二：开关**
-|参数|必填|值类型|内容|备注|
 
+|参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |Switch|否|String|开关对应的函数名称|不填会自动改变界面当前开关状态与storage中swiKey的值（填写后不支持简单界面）|
 |swiKey|是|String|开关所改变的变量在本地存储中的属性名||
@@ -190,7 +189,7 @@ Page({
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |docName|是|String|文档的名称||
-|docType|是|String|文档的类|可以填写的值有“doc、docx、ppt、pptx、xls、xlsx、pdf”|
+|docType|是|String|文档的类|可以填写的值有doc、docx、ppt、pptx、xls、xlsx、pdf|
 |url|是|String|文档在服务器的路径||
 
 ##### **phone参数：**
@@ -225,7 +224,7 @@ Page({
 **_列表每个单元内包含的参数_** 
 
 |参数|必填|值类型|内容|
-|-|:-:|:-:|-|-|
+|-|:-:|:-:|-|
 |url|是|String|九宫格指向的页面路径|
 |icon|否|String|九宫格的图标的在线路径或本地路径|
 |text|否|String|九宫格的文字|
@@ -251,7 +250,7 @@ Page({
 |imgClass|否|String|swiper中图片的类名|方便使用css样式表中的定义|
 |imgMode|否|String|swiper中图片的显示模式|默认为widthFix|
 
-####_imgMode可以选择的参数：_
+#### **imgMode可以选择的参数：**
 - widthFix：宽度不变，高度自动变化，保持原图宽高比不变;
 - scaleToFill：保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素；
 - aspectFit：保持纵横比缩放图片，使图片的长边能完全显示出来；

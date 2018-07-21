@@ -1,3 +1,5 @@
+/* picker */
+
 .goodSwiper {
   width: 100%;
   height: 750rpx;
@@ -7,6 +9,8 @@
   width: 100% !important;
   height: 100% !important;
 }
+
+/* item Name */
 
 .itemDetail {
   text-align: left;
@@ -41,6 +45,8 @@
   color: #888;
 }
 
+/* item Detail */
+
 .itemDetailList {
   width: 100%;
   text-align: left;
@@ -63,6 +69,8 @@
   background-color: #f8f8f8;
 }
 
+/* item tab */
+
 .itemButtonCtn {
   color: white;
   font-size: 16px;
@@ -82,6 +90,8 @@
 .itemBuy {
   background-color: #f00;
 }
+
+/* pop menu */
 
 .backgroundLayer {
   position: fixed;
@@ -168,33 +178,4 @@
 
 .buyHover {
   background-color: rgba(255, 0, 0, 0.5);
-}
-
-/*index.wxss*/
-
-.mask-shadow {
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: 1s;
-}
-
-.mask-shadow-on {
-  opacity: 0.3;
-}
-
-.mask-con {
-  position: absolute;
-  width: 100%;
-  height: 300rpx;
-  left: 0;
-  bottom: -300rpx;
-  transition: 1s;
-  text-align: center;
-  line-height: 300rpx;
-  box-shadow: 0 1px 10px #aaa;
-}
-
-.mask-con-show {
-  bottom: 0;
 }
