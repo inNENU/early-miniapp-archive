@@ -67,7 +67,7 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" bindtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
         data-id="{{List.id}}" data-action='picker' plain='true' open-type='{{List.open-type}}' disabled='{{List.disabled}}'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
@@ -175,9 +175,9 @@
 </template>
 
 <template name='iOSswiper'>
-  <swiper class='{{item.Class}}' style="{{item.style}}" indicator-dots="{{item.indicatorDots==false?'':true}}" indicator-color="{{item.dotColor?item.dotColor:'#ffffff88'}}" indicator-active-color="{{item.dotActiveColor?item.dotActiveColor:'#fff'}}"
-    autoplay="{{item.autoplay==false?'':true}}" interval="{{item.interval?item.interval:'5000'}}" duration="{{item.duration?item.duration:'500'}}" circular="{{item.circular==false?'':true}}" vertical="{{item.vertical?true:''}}" previous-margin="{{item.preMargin?item.preMargin:'0px'}}"
-    next-margin="{{item.nextMargin?item.nextMargin:'0px'}}" bindchange="{{item.change?item.change:''}}" bindanimationfinish="{{item.animation?item.animation:''}}" data-action='swiper'>
+  <swiper class='{{item.Class}}' style="{{item.style}}" indicator-dots="{{item.indicatorDots==false?'':true}}" indicator-color="{{item.dotColor?item.dotColor:'#ffffff88'}}" indicator-active-color="{{item.dotActiveColor?item.dotActiveColor:'#fff'}}" autoplay="{{item.autoplay==false?'':true}}"
+    interval="{{item.interval?item.interval:'5000'}}" duration="{{item.duration?item.duration:'500'}}" circular="{{item.circular==false?'':true}}" vertical="{{item.vertical?true:''}}" previous-margin="{{item.preMargin?item.preMargin:'0px'}}" next-margin="{{item.nextMargin?item.nextMargin:'0px'}}"
+    bindchange="{{item.change?item.change:''}}" bindanimationfinish="{{item.animation?item.animation:''}}" data-action='swiper'>
     <swiper-item wx:for="{{item.url}}" wx:key="*this" wx:for-item='url'>
       <image class='{{item.imgClass}}' src="{{url}}" mode="{{item.imgMode?item.imgMode:'aspectFill'}}" />
     </swiper-item>
@@ -258,7 +258,7 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <view wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" bindtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+      <view wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
         data-id="{{List.id}}" data-action='picker'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
@@ -401,16 +401,18 @@
 </template>
 <!-- NENU theme -->
 <template name='NENUhead'>
-  <view wx:if="{{item.top}}" class='NENUnav' style="background-color:{{item.color}};padding-top:{{item.statusBarHeight}}px;">
-    <view class='NENU-navText'>{{item.title}}</view>
-  </view>
-  <view wx:else class='NENUnav2' style='background-color:{{item.color}};height:{{item.statusBarHeight}}px;'>
-    <view class='backBtn' style="top:{{item.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
-      <image class='backIcon' src='/icon/back.svg' />
+  <block wx:if="{{item.display!=false}}">
+    <view wx:if="{{item.action}}" class='NENUnav' style="background-color:{{item.color}};padding-top:{{item.statusBarHeight}}px;">
+      <view class='NENU-navText'>{{item.title}}</view>
     </view>
-    <view class='NENUTitle' style='top:{{item.statusBarHeight+5.5}}px;'>{{item.title}}</view>
-  </view>
-  <view style='width:100%;background-color:{{item.color}};height:{{item.top?item.statusBarHeight+40:item.statusBarHeight}}px;'></view>
+    <view wx:else class='NENUnav2' style='background-color:{{item.color}};height:{{item.statusBarHeight}}px;'>
+      <view class='backBtn' style="top:{{item.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+        <image class='backIcon' src='/icon/back.svg' />
+      </view>
+      <view class="NENUTitle {{item.titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{item.statusBarHeight+5.5}}px;'>{{item.title}}</view>
+    </view>
+    <view style='width:100%;background-color:{{item.color}};height:{{item.top?item.statusBarHeight+40:item.statusBarHeight}}px;'></view>
+  </block>
 </template>
 
 <template name='NENUh3'>
@@ -446,7 +448,7 @@
           <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
         </view>
       </navigator>
-      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" bindtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
         data-id="{{List.id}}" data-action='picker' plain='true' open-type='{{List.open-type}}' disabled='{{List.disabled}}'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />

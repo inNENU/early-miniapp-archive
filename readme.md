@@ -103,6 +103,7 @@ Page({
 |desc|否|String|标题描述文字|该文字只在特定主题下展示|
 |action|否|String|左上角按钮触发的函数名称|不填时默认执行返回，设置为true来隐藏默认的返回按钮|
 |grey|否|Boolean|属性值为true时会使用灰色背景|不填会使用白色背景|
+|display|否|Boolean|设置true隐藏head|默认显示head|
 
 ##### **h3参数：**
 |参数|必填|值类型|内容|备注|

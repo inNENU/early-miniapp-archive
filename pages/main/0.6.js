@@ -42,6 +42,10 @@ Page({
       tag: 'p',
       head: 'V0.6.9',
       text: '修复NENUTitle位置错误；\n优化了cart页动画；\n构建common tab；'
+    }, {
+      tag: 'p',
+      head: 'V0.6.10',
+      text: '增加NENUTitle位置错误；\n重新设计了map页面；\n实现定位功能；'
     }],
   },
 

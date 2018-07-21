@@ -1,6 +1,7 @@
 var u = getApp().util,
   a = getApp().globalData;
 var sliderWidth = 96;
+var trigger = true;
 Page({
   data: {
     map: {
@@ -12,9 +13,10 @@ Page({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    select: 0,
+    left: true,
     list: false,
     points: false,
+		bgLayerPos:a.info.screenHeight
   },
   onLoad: function(e) {
     let info = a.info,
@@ -50,13 +52,76 @@ Page({
       },
     });
   },
+  // map() {
+  //   let map = this.data.map,
+  //     that = this;
+  //   wx.getLocation({
+  //     type: 'wgs84',
+  //     success: function(res) {
+  //       console.log(res);
+  //       map.latitude = res.latitude;
+  //       map.longitude = res.longitude;
+  //       that.setData({
+  //         map: map
+  //       })
+  //     },
+  //   });
+  // },
   moveToLocation() {
-    this.mapCtx.getCenterLocation({
+    this.mapCtx.moveToLocation();
+  },
+  update() {
+    console.log('update')
+    this.mapCtx.getScale({
       success: function(res) {
+        console.log('get scale');
         console.log(res);
       }
-    })
-    this.mapCtx.moveToLocation()
+    });
+    this.mapCtx.getCenterLocation({
+      success: function(res) {
+        console.log('getCenterLocation');
+        console.log(res);
+      }
+    });
+  },
+  regionChange(e) {
+    // console.log('regionChange');
+    // console.log(trigger)
+    // if (e.type == 'end' && trigger) {
+    //   console.log('fuctioning');
+    //   trigger = false;
+    //   console.log(trigger);
+    //   let that = this,
+    //     map = this.data.map;
+    //   setTimeout(function() {
+    //     trigger = true;
+    //     console.log("true")
+    //     console.log(trigger)
+    //   }, 500)
+    //   var regionChange;
+    //   this.mapCtx.getScale({
+    //     success: function(res) {
+    //       map.scale = res.scale;
+    //       console.log('scale' + res.scale);
+    //       regionChange = true;
+    //     }
+    //   });
+    //   this.mapCtx.getCenterLocation({
+    //     success: function(res) {
+    //       console.log(res);
+    //       console.log('distance is' + u.gD(map.latitude, map.longitude, res.latitude, res.longitude))
+    //       if (regionChange && (u.gD(map.latitude, map.longitude, res.latitude, res.longitude) > 1)) {
+    //         map.latitude = res.latitude;
+    //         map.longitude = res.longitude;
+    //         that.setData({
+    //           map: map
+    //         });
+    //       };
+    //       regionChange = false;
+    //     }
+    //   });
+    // }
   },
   translateMarker: function() {
     this.mapCtx.translateMarker({
@@ -86,22 +151,45 @@ Page({
   },
   scale(e) {
     let map = this.data.map,
+      that = this,
+      regionChange,
       action = e.currentTarget.dataset.action;
-    if (action == 'enlarge') {
-      map.scale = map.scale + 1;
-    } else if (action == 'narrow') {
-      map.scale = map.scale - 1;
-    }
-    this.setData({
-      map: map
-    })
+    this.mapCtx.getScale({
+      success: function(res) {
+        if (action == 'enlarge') {
+          map.scale = map.scale + 1;
+        } else if (action == 'narrow') {
+          map.scale = map.scale - 1;
+        };
+        console.log('scale' + res.scale);
+        regionChange = true;
+      }
+    });
+    this.mapCtx.getCenterLocation({
+      success: function(res) {
+        console.log(res);
+        if (regionChange) {
+          map.latitude = res.latitude;
+          map.longitude = res.longitude;
+          that.setData({
+            map: map
+          });
+        };
+        regionChange = false;
+      }
+    });
   },
   cA(e) {
     u.cA(e, this)
   },
   showList(e) {
     this.setData({
-      list: !this.data.list
+      list: !this.data.list,
     })
+  },
+  change() {
+    this.setData({
+      left: !this.data.left
+    });
   }
 })

@@ -30,8 +30,7 @@ Page({
   },
   onLoad(e) {
     this.setData({
-      info: a.info,
-      bgLayerPos: a.info.screenHeight,
+      bgLayerPos: true,
       show: false,
     });
     u.sP(this.data.page, this, a, e);
@@ -56,9 +55,9 @@ Page({
   popSelect(e) {
     this.cartAnimation.translateY(-a.info.screenHeight).step();
     this.setData({
-      bgLayerPos: 0,
-			animationData: this.cartAnimation.export(),
-			show: true,
+      bgLayerPos: false,
+      animationData: this.cartAnimation.export(),
+      show: true,
     });
   },
   close(e) {
@@ -70,7 +69,7 @@ Page({
     });
     setTimeout(function() {
       that.setData({
-        bgLayerPos: a.info.screenHeight
+        bgLayerPos: true
       })
     }, 500)
   },
