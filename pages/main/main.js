@@ -21,7 +21,7 @@ Page({
       {
         tag: 'p',
         head: '即将实现的内容：',
-        text: '公众号跳转组件；\n弹窗通知部分；\n模板中加入style；\n在线缓存icon或利用iconfont压缩代码体积；\n适配iOSpicker-view夜间模式；\n思考离线照片；\n构建双排img组件；\n微信列表改为点击展开样式；\n构建新的footer；\nphone组件与doc组件宽度自调整；\n优化login界面；'
+        text: 'button的open-type；\n九宫格的标题页脚以及aim；\n公众号跳转组件；\n弹窗通知部分；\n模板中加入style；\n在线缓存icon或利用iconfont压缩代码体积；\n适配iOSpicker-view夜间模式；\n思考离线照片；\n构建双排img组件；\n微信列表改为点击展开样式；\n构建新的footer；\nphone组件与doc组件宽度自调整；\n优化login界面；'
       },
       {
         tag: 'p',

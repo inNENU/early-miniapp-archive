@@ -98,7 +98,7 @@ Page({
 #### **tag**的剩余参数请依据填写的tag值按照下表填写。
 
 ##### **head参数：**
-|参数|是否必填|值类型|内容||
+|参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |text|是|String|标题和导航栏显示的文字||
 |desc|否|String|标题描述文字|该文字只在特定主题下展示|
@@ -106,13 +106,13 @@ Page({
 |grey|否|Boolean|属性值为true时会使用灰色背景|不填会使用白色背景|
 
 ##### **h3参数：**
-|参数|是否必填|值类型|内容|备注|
+|参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |text|是|String|展示页的大标题文字||
 |style|否|String|对标题设置的css样式|当需要改变默认风格时设置|
 
 ##### **p参数：**
-|参数|是否必填|值类型|内容|备注|
+|参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |head|否|String或Boolean|填入段落的的标题|填入true会在段落前留空占位|
 |text|是|String|段落的文字||
@@ -136,53 +136,64 @@ Page({
   - bottom right：不缩放图片，只显示图片的右下边区域；
 
 ##### **list参数：**
-|参数|是否必填|值类型|内容|默认内容|
+|参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |head|否|String或Boolean|列表的的标题，不填会在标题所在处留空占位，添加参数false来取消留空占位||
 |foot|否|String|列表的结尾小标题||
 |content|是|array|该array的每个element为列表的每个组成单元||
 
 **_列表每个单元内包含的参数_** 
-|参数|是否必填|值类型|内容|默认内容|
+|参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |icon|否|String|列表图标的本地路径或在线网址||
 |text|是|String|列表单元的显示文字||
 
 **选项一：普通列表(可带链接)**
+|参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |desc|否|String|列表内容的描述||
 |aim|否|String|对应界面的json文件名|当指向简单界面时填写|
 |url|否|String|列表指向的界面路径|当指向复杂界面时填写|
 
 **选项二：开关**
-- Switch(可选)：接受一个String值，填入开关对应的函数名称，不填会自动改变界面当前开关状态与storage中swiKey的值；（填写后不支持简单界面）
-- swiKey：接受一个String值，填入开关所改变的变量在本地存储中的属性名；
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|Switch|否|String|开关对应的函数名称|不填会自动改变界面当前开关状态与storage中swiKey的值（填写后不支持简单界面）|
+|swiKey|是|String|开关所改变的变量在本地存储中的属性名||
 
-**选项三：选择器**（不支持简单界面）
-- pickerValue：接受一个String值，填入选择器中包含的值；
-- key：接受一个String值，填入选择器所改变的变量在本地存储中的属性值；
-- single(可选)：接受一个Boolean值，其值为true时为单列选择器，不填为多列选择器；
-- inlay(可选)：接受一个Boolean值，其值为true时为嵌入式picker，不填为弹出式picker；
-- picker(可选)：接受一个String值，填入picker选择器对应的函数名称(不填会自动改变界面当前选择状态与storage中key的值；);
+**选项三：选择器**
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|pickerValue|是|String|选择器中包含的值|使用变量表示时不支持简单界面|
+|key|是|String|选择器所改变的变量在本地存储中的名称||
+|single|否|Boolean|设置true时为单列选择器|默认为多列选择器|
+|inlay|否|Boolean|设置true时为嵌入式picker|默认为弹出式picker|
+|picker|否|String|picker选择器对应的函数名称|不填会自动改变界面当前选择状态与storage中key的值；|
 
 **选项四：按钮**（不支持简单界面）
-- button：接受一个String值，填入按钮对应的函数名称；
-- disabled：接受一个Boolean值，其值为true会禁用按钮，默认为false；
-- open-type：接受一个String值，支持以下变量；
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|button|是|String|按钮对应的函数名称||
+|disabled|否|Boolean|设置为true会禁用按钮|默认不禁用|
+|open-type|是|String|填入微信支持的开放能力||
 
 **选项五：滑块**（不支持简单界面）
-- slider：接受一个String值，填入滑块对应的的函数名称；
-- min(可选)：接受一个Number值，填入滑块的最小值(不填默认为0)；
-  - max(可选)：接受一个Number值，填入滑块的最大值(不填默认为100)；
-  - step(可选)：接受一个Number值，填入滑块的步长(不填默认为1)；
-  - sliKey：接受一个String值，填入滑块所改变的变量在本地存储中的变量值；
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|slider|是|String|滑块对应的的函数名称||
+|sliKey|是|String|滑块所改变的变量在本地存储中的名称||
+|min|否|Number|滑块的最小值|默认为0|
+|max|否|Number|滑块的最大值|默认为100|
+|step|否|Number|滑块的步长|默认为1|
 
 ##### **img参数：**
-- src：接受一个String值，填入图片的本地路径或在线网址；
-- res(可选)：接受一个String值，填入图片在服务器上的网址(在需要高清图片的时候使用此选项)；
-- lazy(可选)：接受一个Boolean值，其值为false时取消图片懒加载功能，不填默认执行lazyload图片；
-- text(可选)：接受一个String值，填入图片的描述文字，填入后会自动最前加入一个三角号，不填则没有描述文字；
-- imgmode(可选)：接受一个String值，填入图片的显示模式，不填为appData设定的默认值；
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|src|是|String|图片的本地路径或在线网址||
+|res|否|String|图片在服务器上的网址|需要高清图片的时候使用|
+|lazy|否|Boolean|设置false取消图片懒加载功能|默认执行lazyload|
+|text|否|String|图片的描述文字|填入后会自动最前加入一个三角号，不填则没有描述文字|
+|imgmode|否|String|图片的显示模式|默认为widthFix|
 
   **_imgmode可以选择的参数：_** 
   - widthFix：宽度不变，高度自动变化，保持原图宽高比不变;
@@ -200,58 +211,67 @@ Page({
   - bottom right：不缩放图片，只显示图片的右下边区域；
 
 ##### **doc参数：**
-- docName：接受一个String值，填入文档的名称；
-- docType：接受一个String值，填入文档的类型，可以填写的值有“doc、docx、ppt、pptx、xls、xlsx、pdf”；
-- url：接受一个String值，填入文档在服务器的路径；
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|docName|是|String|文档的名称||
+|docType|是|String|文档的类|可以填写的值有“doc、docx、ppt、pptx、xls、xlsx、pdf”|
+|url|是|String|文档在服务器的路径||
 
 ##### **phone参数：**
-- num：接受一个String或Number值，填入电话号码；
-- lName(可选)：接受一个String值，填入联系人的姓；
-- fName：接受一个String值，填入联系人的名；
-- org(可选)：接受一个String值，填入联系人所在公司；
-- remark(可选)：接受一个String值，填入联系人的备注；
-- workNum(可选)：接受一个String或Number值，填入工作电话；
-- nickName(可选)：接受一个String值，填入昵称；
-- head(可选)：接受一个String值，填入头像图片路径(仅限本地路径)；
-- wechat(可选)：接受一个String值，填入微信号；
-- province(可选)：接受一个String值，填入联系地址省份；
-- city(可选)：接受一个String值，填入联系地址城市；
-- street(可选)：接受一个String值，填入联系地址街道；
-- postCode(可选)：接受一个String值，填入联系地址邮政编码；
-- title(可选)：接受一个String值，填入职位；
-- hostNum(可选)：接受一个String或Number值，填入公司电话；
-- website(可选)：接受一个String值，填入网站；
-- email(可选)：接受一个String值，填入电子邮件；
-- homeNum(可选)：接受一个String或Number值，填入住宅电话；
+|参数|必填|值类型|内容|
+|-|:-:|:-:|-|-|
+|num|是|String或Number|联系人电话号码|
+|fName|是|String|联系人的名|
+|lName|否|String|填入联系人的姓|
+|org|否|String|联系人所在公司|
+|remark|否|String|联系人的备注|
+|workNum|否|String或Number|联系人的工作电话|
+|nickName|否|String|联系人的昵称|
+|head|否|String|联系人头像图片路径(仅限本地路径)|
+|wechat|否|String|联系人的微信号|
+|province|否|String|联系人的地址省份|
+|city|否|String|联系人的地址城市|
+|street|否|String|联系人的地址街道|
+|postCode|否|String|联系人的地址邮政编码|
+|title|否|String|联系人的职位|
+|hostNum|否|String|联系人的公司电话|
+|website|否|String|联系人的网站|
+|email|否|String|联系人的电子邮件|
+|homeNum|否|String或Number|联系人的住宅电话|
 
 ##### **grid参数：**（强烈推荐使用4的整数倍）
-- head：接受一个String值，填入九宫格的标题文字；
-- foot：接受一个String值，填入九宫格的页脚文字；
-- content：接受一个array值，该array的每个element是九宫格的每个格子内容；
-
-  **_列表每个单元内包含的参数_** 
-  - icon：接受一个String值，填入九宫格的图标的在线路径或本地路径；
-  - text：接受一个String值，填入九宫格的文字；
-  - url：接受一个String值，填入九宫格指向的页面路径；
+|参数|必填|值类型|内容|
+|-|:-:|:-:|-|-|
+|head|否|String|九宫格的标题文字|
+|foot|否|String|九宫格的页脚文字|
+|content|是|array|该array的每个element是九宫格的每个格子内容|
+**_列表每个单元内包含的参数_** 
+|参数|必填|值类型|内容|
+|-|:-:|:-:|-|-|
+|url|是|String|九宫格指向的页面路径|
+|icon|否|String|九宫格的图标的在线路径或本地路径|
+|text|否|String|九宫格的文字|
 
 ##### **swiper参数：**
-- url：接受一个array值，该array的每个element依次是swiper展示的图片的在线网址或本地路径；
-- Class(可选)：接受一个String值，填入swiper的类名，方便使用css样式表中的定义；
-- style(可选)：接受一个String值，填入css样式改变swiper的风格；
-- indicatorDots(可选)：接受一个Boolean值，是否显示面板指示点，取消显示将此项设置为false，不填默认为true；
-- dotColor(可选)：接受一个String值，填入指示点颜色，不填默认为rgba(255, 255, 255, 0.5)即50%透明度的纯白色；
-- dotActiveColor(可选)：接受一个String值，填入当前选中的指示点颜色，不填默认为#fff(纯白色)；
-- autoplay(可选)：接受一个Boolean值，是否自动切换，取消自动切换将此项设置为false，不填默认为true；
-- interval(可选)：接受一个String值，填入自动切换时间间隔，不填默认为5000；
-- duration(可选)：接受一个String值，填入滑动动画时长，不填默认为500；
-- circular(可选)：接受一个Boolean值，是否采用衔接滑动，不采用衔接滑动设置为false，不填默认为true；
-- vertical(可选)：接受一个Boolean值，滑动方向为纵向时填入true，不填默认为横向滑动；
-- preMargin(可选)：接受一个String值，前边距，可用于露出前一项的一小部分，接受 px 和 rpx 值，不填默认为0px；
-- nextMargin(可选)：接受一个String值，后边距，可用于露出后一项的一小部分，接受 px 和 rpx 值，不填默认为0px；
-- change(可选)：接受一个String值，填入swiper改变时触发的函数名称，不填默认触发cA；
-- animation(可选)：接受一个String值，填入swiper动画结束时触发的函数名称，不填默认触发cA；
-- imgClass(可选)：接受一个String值，填入swiper中图片的类名，方便使用css样式表中的定义；
-- imgMode(可选)：接受一个String值，填入swiper中图片的显示模式，不填默认为widthFix；
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|url|是|array|swiper展示的图片的在线网址或本地路径|将所有图片按顺序填入该array的每个element|
+|Class|否|String|swiper的类名|方便使用css样式表中的定义|
+|style|否|String|swiper的样式|使用css改变swiper的风格|
+|indicatorDots|否|Boolean|设置false不显示面板指示点|默认显示|
+|dotColor|否|String|指示点颜色|默认为#ffffff88|
+|dotActiveColor|否|String|当前选中的指示点颜色|默认为#fff|
+|autoplay|否|Boolean|设置为false取消自动切换|默认开启|
+|interval|否|Number|自动切换时间间隔|默认为5000|
+|duration|否|Number|滑动动画时长|默认为500|
+|circular|否|Boolean|设置为false不采用衔接滑动|默认开启|
+|vertical|否|Boolean|设置true滑动方向为纵向|默认为横向|
+|preMargin|否|String|前边距，可用于露出前一项的一小部分，接受 px 和 rpx 值|默认为0px|
+|nextMargin|否|String|后边距，可用于露出后一项的一小部分，接受 px 和 rpx 值|默认为0px|
+|change|否|String|swiper改变时触发的函数名称|默认不触发函数|
+|animation|否|String|swiper动画结束时触发的函数名称|默认不触发函数|
+|imgClass|否|String|swiper中图片的类名|方便使用css样式表中的定义|
+|imgMode|否|String|swiper中图片的显示模式|默认为widthFix|
 
   ##### **_imgMode可以选择的参数：_** 
   - widthFix：宽度不变，高度自动变化，保持原图宽高比不变;

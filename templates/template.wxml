@@ -175,9 +175,9 @@
 </template>
 
 <template name='iOSswiper'>
-  <swiper class='{{item.Class}}' style="{{item.style}}" indicator-dots="{{item.indicatorDots==false?'':true}}" indicator-color="{{item.dotColor?item.dotColor:'rgba(255, 255, 255, 0.5)'}}" indicator-active-color="{{item.dotActiveColor?item.dotActiveColor:'#fff'}}"
+  <swiper class='{{item.Class}}' style="{{item.style}}" indicator-dots="{{item.indicatorDots==false?'':true}}" indicator-color="{{item.dotColor?item.dotColor:'#ffffff88'}}" indicator-active-color="{{item.dotActiveColor?item.dotActiveColor:'#fff'}}"
     autoplay="{{item.autoplay==false?'':true}}" interval="{{item.interval?item.interval:'5000'}}" duration="{{item.duration?item.duration:'500'}}" circular="{{item.circular==false?'':true}}" vertical="{{item.vertical?true:''}}" previous-margin="{{item.preMargin?item.preMargin:'0px'}}"
-    next-margin="{{item.nextMargin?item.nextMargin:'0px'}}" bindchange="{{item.change?item.change:'cA'}}" bindanimationfinish="{{item.animation?item.animation:'cA'}}" data-action='swiper'>
+    next-margin="{{item.nextMargin?item.nextMargin:'0px'}}" bindchange="{{item.change?item.change:''}}" bindanimationfinish="{{item.animation?item.animation:''}}" data-action='swiper'>
     <swiper-item wx:for="{{item.url}}" wx:key="*this" wx:for-item='url'>
       <image class='{{item.imgClass}}' src="{{url}}" mode="{{item.imgMode?item.imgMode:'aspectFill'}}" />
     </swiper-item>
