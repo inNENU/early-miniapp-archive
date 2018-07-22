@@ -9,15 +9,15 @@
   position: fixed;
   bottom: 120rpx;
   left: 34rpx;
-  padding: 6px;
+  padding: 12rpx;
   background-color: #fff;
   border: 1rpx solid #eee;
-  border-radius: 5px;
+  border-radius: 10rpx;
 }
 
 .pointBtn {
-  width: 25px;
-  height: 25px;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 /* scale 组件 */
@@ -35,7 +35,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 48rpx;
   color: #888;
 }
 
@@ -70,7 +70,7 @@
   color: white;
 }
 
-/* locat组件 */
+/* locate组件 */
 
 .locateCtn {
   padding: 2rpx;

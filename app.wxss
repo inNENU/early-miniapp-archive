@@ -255,15 +255,15 @@ page {
 }
 
 .gridIcon {
-  width: 44px;
-  height: 44px;
-  margin-top: 16px;
+  width: 88rpx;
+  height: 88rpx;
+  margin-top: 32rpx;
 }
 
 .gridTitle {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #444;
-  margin-bottom: 6px;
+  margin-bottom: 12rpx;
 }
 
 .nm .gridTitle {
