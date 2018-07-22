@@ -15,29 +15,27 @@
         "templates/test"
     ],
     "subPackages": [{
-            "root": "shop",
-            "pages": [
-                "cart",
-                "order",
-                "good"
-            ]
-        },
-        {
-            "root": "function",
-            "pages": [
-                "cal",
-                "map"
-            ]
-        },
-        {
-            "root": "guide",
-            "pages": [
-                "templates/module1",
-                "templates/module2",
-                "templates/module3"
-            ]
-        }
-    ],
+        "root": "function",
+        "pages": [
+            "cal",
+            "map",
+            "situs"
+        ]
+    }, {
+        "root": "guide",
+        "pages": [
+            "templates/module1",
+            "templates/module2",
+            "templates/module3"
+        ]
+    }, {
+        "root": "shop",
+        "pages": [
+            "cart",
+            "order",
+            "good"
+        ]
+    }],
     "window": {
         "navigationBarBackgroundColor": "#1A9D5E",
         "navigationBarTextStyle": "white",

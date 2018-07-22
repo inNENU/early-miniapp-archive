@@ -37,8 +37,8 @@
   <view class="backgroundLayer {{show?'fadeIn':'fadeOut'}}" style="top:{{bgLayerPos?'100%':'0'}};height:100%;"></view>
   <view class='screenLayer' animation="{{animationData}}" style='top:100%;height:100%;'>
     <view class='addCartMenu'>
-      <view class='closeBtn' hover-class='buttonHover' bindtap='close'>
-        <image class='closeIcon' src='/icon/close.svg' />
+      <view class='closeMenuBtn' hover-class='buttonHover' bindtap='close'>
+        <image class='closeMenuIcon' src='/icon/close.svg' />
       </view>
       <view class='addCartDetail'>
         <image class='itemImgPreview' src='{{item.preview}}' mode='aspectFill' />

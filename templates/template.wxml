@@ -191,9 +191,9 @@
 <template name='iOSerror'>
   <view class='iOS-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
     <view class="iOS-titletext">页面出错</view>
-    <button wx:if="{{!item.top}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
+    <button wx:if="{{!item.action}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
       <view class='iOS-backArrow'></view>
-      <text class='iOS-nav-text'>{{item.backText}}</text>
+      <text class='iOS-nav-text'>返回</text>
     </button>
   </view>
   <view class='iOSnavDl' style="top:{{item.statusBarHeight+44}}px;"></view>
@@ -411,7 +411,7 @@
       </view>
       <view class="NENUTitle {{item.titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{item.statusBarHeight+5.5}}px;'>{{item.title}}</view>
     </view>
-    <view style='width:100%;background-color:{{item.color}};height:{{item.top?item.statusBarHeight+40:item.statusBarHeight}}px;'></view>
+    <view style='width:100%;background-color:{{item.color}};height:{{item.action?item.statusBarHeight+40:item.statusBarHeight}}px;'></view>
   </block>
 </template>
 
