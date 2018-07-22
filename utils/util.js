@@ -1,19 +1,19 @@
-function checkResUpdate() {
-  let resNotify = initialize('resNotify', true),
-    localList = initialize('localList', undefined);
-  console.log('resNotify ' + resNotify);
-  console.log(localList);
-  if (resNotify) {
+function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, dataUsage) {
+  let notify = initialize(notifyKey, true),
+    local = initialize(storageKey, undefined);
+  console.log(notifyKey + notify);
+  console.log(local);
+  if (notify) {
     wx.request({
-      url: 'https://mrhope.top/mp/fileList.json',
-      success(listRequest) {
-        console.log(listRequest);
-        let fileList = listRequest.data;
-        if (listRequest.statusCode == 200) {
-          if (localList == undefined) {
+      url: 'https://mrhope.top/mp/' + onlineFileName + '.json',
+      success(Request) {
+        console.log(Request);
+        let onlineData = Request.data;
+        if (Request.statusCode == 200) {
+          if (local == undefined) {
             wx.showModal({
-              title: '是否离线部分页面文字资源？',
-              content: '选择离线后可以在无网络连接时查看部分界面。(会消耗60K流量)',
+              title: title,
+              content: content,
               cancelText: '否',
               cancelColor: '#ff0000',
               confirmText: '是',
@@ -27,29 +27,29 @@ function checkResUpdate() {
                     confirmText: '保持打开',
                     success(choice2) {
                       if (choice2.cancel) {
-                        wx.setStorageSync('resNotify', false)
+                        wx.setStorageSync(notifyKey, false)
                       }
                     }
                   })
                 }
                 if (choice.confirm) {
-                  resDownload(fileList, null);
-                  wx.setStorageSync('localList', JSON.stringify(fileList));
+                  resDownload(onlineData, null);
+                  wx.setStorageSync(storageKey, JSON.stringify(onlineData));
                 }
               }
             });
-          } else if (localList !== JSON.stringify(fileList)) {
+          } else if (local !== JSON.stringify(onlineData)) {
             console.log('not match')
             wx.showModal({
-              title: '部分页面资源有更新？',
-              content: '是否立即更新界面资源？\n(会消耗10K流量)',
+              title: '部分资源有更新？',
+              content: '是否立即更新资源？\n(会消耗' + dataUsage + '流量)',
               cancelText: '否',
               cancelColor: '#ff0000',
               confirmText: '是',
               success(choice) {
                 if (choice.confirm) {
-                  resDownload(fileList, JSON.parse(localList));
-                  wx.setStorageSync('localList', JSON.stringify(fileList));
+                  resDownload(onlineData, JSON.parse(onlineData));
+                  wx.setStorageSync(storageKey, JSON.stringify(onlineData));
                 }
               }
             });
@@ -57,11 +57,19 @@ function checkResUpdate() {
             console.log('match')
           }
         } else {
-          console.warn('FileList error!')
+          console.error('Funclist error!')
         }
       }
     })
   }
+}
+
+function checkFunctionUpdate() {
+  checkUpdate('funcNotify', 'localFunc', 'funcList', '是否立即下载功能所需资源？', '下载后会使功能响应速度明显提升。(会消耗30K流量)', '20K')
+}
+
+function checkResUpdate() {
+  checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗60K流量)', '30K')
 }
 
 function resDownload(fileList, localList) {
@@ -672,6 +680,12 @@ function reConnet(indicator, a, e) {
   })
 }
 
+function go(url) {
+  wx.navigateTo({
+    url: url
+  })
+}
+
 //尚未投入使用
 function notice(notice) {
   wx.request({
@@ -693,7 +707,7 @@ function notice(notice) {
 }
 
 function getRad(d) {
-	return d * Math.PI / 180.0;
+  return d * Math.PI / 180.0;
 }
 
 function getDistance(lat1, lng1, lat2, lng2) {
@@ -706,7 +720,7 @@ function getDistance(lat1, lng1, lat2, lng2) {
   var sf = Math.sin(f);
 
   var s, c, w, r, d, h1, h2;
-	var a = 6378137.0;
+  var a = 6378137.0;
   var fl = 1 / 298.257;
 
   sg = sg * sg;
@@ -764,6 +778,68 @@ function forceLogin() {
   }
 }
 
+function getMarkers() {
+  wx.getStorage({
+    key: id,
+    success: function(key) {
+      console.log(key.data);
+      setPage(key.data, indicator, a, e);
+      wx.hideLoading();
+    },
+    fail: function(res) {
+      console.log(res);
+      if (res.errMsg == 'getStorage:fail data not found') {
+        wx.getNetworkType({
+          success: function(res) {
+            console.log(res);
+            var net = res.networkType;
+            if (net == 'none' || net == 'unknown') {
+              setPage([{
+                tag: 'error',
+                statusBarHeight: a.info.statusBarHeight
+              }], indicator, a, e);
+              wx.hideLoading();
+              wx.showToast({
+                title: '您未打开互联网！由于您未提前缓存此界面，界面无法加载！\n请检查您的互联网连接！',
+                icon: 'none',
+                duration: 10000
+              });
+              reConnet(indicator, a, e);
+            } else {
+              let source;
+              if (isNaN(e.aim.charAt(e.aim.length - 1))) {
+                source = e.aim;
+              } else {
+                source = e.aim.substring(0, e.aim.length - 1);
+              };
+              wx.request({
+                url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
+                success(res) {
+                  console.log(res);
+                  if (res.statusCode == 200) {
+                    setPage(res.data, indicator, a, e);
+                    wx.setStorageSync(e.aim, res.data);
+                  } else {
+                    console.log('res error');
+                    setPage([{
+                      tag: 'error',
+                      statusBarHeight: a.info.statusBarHeight
+                    }], indicator, a, e);
+                  }
+                  wx.hideLoading();
+                }
+              })
+            }
+          }
+        })
+      }
+    },
+  })
+  wx.request({
+    url: '',
+  })
+}
+
 module.exports = {
   cRU: checkResUpdate,
   rR: resRefresh,
@@ -786,7 +862,7 @@ module.exports = {
   donate: donate,
   cA: componemtAction,
   // formatTime: formatTime,
-  // go: go,
+  go: go,
   sN: scrollNav,
   gD: getDistance
 }
@@ -803,7 +879,7 @@ module.exports = {
 //   var second = date.getSeconds()
 //   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 // }
-// function go(url) { wx.navigateTo({ url: url }) }
+
 var events = {};
 
 function on(name, self, callback) {

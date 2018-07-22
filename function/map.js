@@ -16,25 +16,80 @@ Page({
     left: true,
     list: false,
     points: false,
-    closeTop: -31
+    closeTop: -31,
+    markers1: [{
+      iconPath: "/function/icon/marker.png",
+      id: 0,
+      latitude: 43.86188,
+      longitude: 125.33137,
+      width: 25,
+      height: 25,
+      alpha: 0.8,
+      title: '东北师范大学本部校区',
+      label: {
+        content: "本部校区",
+        color: "#1A9D5E",
+        fontSize: "10",
+        anchorX: -24,
+        anchorY: 0,
+        // anchorY: -43,
+        bgColor: '#ffffff',
+        borderWidth: 1,
+        borderColor: '#efeef4',
+        borderRadius: 2,
+        padding: "3",
+      },
+      callout: {
+        content: "吉林省长春市南关区人民大街5268号",
+        color: "#ffffff",
+        fontSize: "16",
+        borderRadius: "10",
+        bgColor: "#1A9D5E",
+        padding: "10",
+        display: "BYCLICK"
+      }
+    }, {
+      iconPath: "/function/icon/marker.png",
+      id: 1,
+      latitude: 43.857857,
+      longitude: 125.325317,
+      width: 25,
+      height: 25,
+      alpha: 0.8,
+    }, {
+      iconPath: "/function/icon/marker.png",
+      id: 2,
+      latitude: 43.863834,
+      longitude: 125.337898,
+      width: 25,
+      height: 25,
+      alpha: 0.8,
+    }, ]
   },
   onLoad: function(e) {
+    wx.showLoading({
+      title: '加载中...'
+    });
     let mapSwitch = u.init('mapSwitch', true),
       info = a.info,
-      iPhoneX = false,
       that = this,
-      map = this.data.map;
-    if (info.model.substring(0, 8) === 'iPhone X') {
-      iPhoneX = true;
-    };
+      map = this.data.map,
+      markers;
+    if (mapSwitch) {
+      console.log('left')
+      markers = this.data.markers1;
+    } else {
+      console.log('right')
+      markers = this.data.markers2;
+    }
     this.setData({
       info: {
-        iPhoneX: iPhoneX,
         screenHeight: info.screenHeight,
         screenWidth: info.screenWidth,
         statusBarHeight: info.statusBarHeight,
       },
-      mapSwitch: mapSwitch
+      mapSwitch: mapSwitch,
+      markers: markers
     });
     this.mapCtx = wx.createMapContext('schoolMap');
     console.log('create')
@@ -66,7 +121,8 @@ Page({
           });
         }
       });
-    }, 500)
+      wx.hideLoading();
+    }, 500);
   },
   onReady: function(e) {
     let that = this;
@@ -163,7 +219,19 @@ Page({
       success: function(res) {
         console.log(res);
       }
+    });
+    wx.chooseLocation({
+      success: function(res) {
+        console.log(res)
+      }
     })
+  },
+
+  markers(e) {
+    console.log(e);
+    if (e.type == 'callouttap') {
+      u.go('situs?id=' + e.markerId)
+    }
   },
   // locate: function() {
   //   let map = this.data.map,
@@ -233,30 +301,30 @@ Page({
     //   });
     // }
   },
-  translateMarker: function() {
-    this.mapCtx.translateMarker({
-      markerId: 0,
-      autoRotate: true,
-      duration: 1000,
-      destination: {
-        latitude: 23.10229,
-        longitude: 113.3345211,
-      },
-      animationEnd() {
-        console.log('animation end')
-      }
-    })
-  },
-  includePoints: function() {
-    this.mapCtx.includePoints({
-      padding: [10],
-      points: [{
-        latitude: 43.857857,
-        longitude: 125.325317,
-      }, {
-        latitude: 43.863834,
-        longitude: 125.337898,
-      }]
-    })
-  },
+  // translateMarker: function() {
+  //   this.mapCtx.translateMarker({
+  //     markerId: 0,
+  //     autoRotate: true,
+  //     duration: 1000,
+  //     destination: {
+  //       latitude: 23.10229,
+  //       longitude: 113.3345211,
+  //     },
+  //     animationEnd() {
+  //       console.log('animation end')
+  //     }
+  //   })
+  // },
+  // includePoints: function() {
+  //   this.mapCtx.includePoints({
+  //     padding: [10],
+  //     points: [{
+  //       latitude: 43.857857,
+  //       longitude: 125.325317,
+  //     }, {
+  //       latitude: 43.863834,
+  //       longitude: 125.337898,
+  //     }]
+  //   })
+  // },
 })
