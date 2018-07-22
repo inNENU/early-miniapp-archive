@@ -13,7 +13,7 @@ Page({
     }, {
       tag: 'p',
       head: 'V0.7.1',
-      text: ''
+      text: 'map界面增加marker与label；\n'
     }],
   },
   onLoad(e) {

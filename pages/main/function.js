@@ -34,6 +34,10 @@ Page({
           text: '体测计算器',
           icon: '/icon/PECal.svg',
           url: '/function/PECal'
+        }, {
+          text: '地图',
+          icon: '/icon/PECal.svg',
+          url: '/function/situs?id=0'
         }, ]
       },
     ],

@@ -348,6 +348,18 @@ page {
   color: #fff;
 }
 
+/* swiper */
+
+.swiper {
+  width: 100%;
+  height: 400rpx;
+}
+
+.swiperImg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 /* map */
 
 /* common */

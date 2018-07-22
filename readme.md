@@ -234,7 +234,7 @@ Page({
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |url|是|array|swiper展示的图片的在线网址或本地路径|将所有图片按顺序填入该array的每个element|
-|Class|否|String|swiper的类名|方便使用css样式表中的定义|
+|Class|否|String|swiper的类名|默认为width:100%;height:400rpx;|
 |style|否|String|swiper的样式|使用css改变swiper的风格|
 |indicatorDots|否|Boolean|设置false不显示面板指示点|默认显示|
 |dotColor|否|String|指示点颜色|默认为#ffffff88|
@@ -248,8 +248,8 @@ Page({
 |nextMargin|否|String|露出出后一项的边距|默认为0px，接受 px 和 rpx 值|
 |change|否|String|swiper改变时触发的函数名称|默认不触发函数|
 |animation|否|String|swiper动画结束时触发的函数名称|默认不触发函数|
-|imgClass|否|String|swiper中图片的类名|方便使用css样式表中的定义|
-|imgMode|否|String|swiper中图片的显示模式|默认为widthFix|
+|imgClass|否|String|swiper中图片的类名|默认为width:100%!important;height:100%!important;|
+|imgMode|否|String|swiper中图片的显示模式|默认为aspectFill|
 
 #### **imgMode可以选择的参数：**
 - widthFix：宽度不变，高度自动变化，保持原图宽高比不变;

@@ -3,11 +3,6 @@
   height: 400rpx;
 }
 
-.shopImg {
-  width: 100% !important;
-  height: 100% !important;
-}
-
 .goodCtn {
   background-color: #e6e6ea;
 }
