@@ -13,7 +13,7 @@ Page({
     }, {
       tag: 'p',
       head: 'V0.7.1',
-      text: 'map界面增加marker与label；\n'
+      text: 'map界面增加marker与label；\n初步适配iPad；\n初步制作了地点nav；'
     }],
   },
   onLoad(e) {

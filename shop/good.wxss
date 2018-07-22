@@ -9,23 +9,23 @@
 
 .itemDetail {
   text-align: left;
-  padding: 8px 5%;
+  padding: 16rpx 5%;
   background-color: #fff;
 }
 
 .itemName {
-  font-size: 18px;
+  font-size: 36rpx;
 }
 
 .itemDesc {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #f44;
 }
 
 .itemRMBLabal, .itemPriceTag {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
   color: #f44;
-  letter-spacing: -1px;
+  letter-spacing: -2rpx;
 }
 
 .itemRMBLabal {
@@ -33,7 +33,7 @@
 }
 
 .itemPriceTag {
-  font-size: 32px;
+  font-size: 64rpx;
 }
 
 .itemPriceFoot {
@@ -48,19 +48,19 @@
 }
 
 .itemDetailListItem {
-  padding: 6px 5%;
+  padding: 12rpx 5%;
   color: #888;
 }
 
 .itemPicHead {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #888;
   margin: 4px auto;
 }
 
 .divLine6 {
   width: 100%;
-  height: 6px;
+  height: 12rpx;
   background-color: #f8f8f8;
 }
 
@@ -68,14 +68,14 @@
 
 .itemButtonCtn {
   color: white;
-  font-size: 16px;
-  border-radius: 20px;
+  font-size: 32rpx;
+  border-radius: 40rpx;
   overflow: hidden;
 }
 
 .itemCart, .itemBuy {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 20rpx 40rpx;
 }
 
 .itemCart {
@@ -113,23 +113,23 @@
   background-color: #fff;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  padding: 10px 20rpx;
+  padding: 20rpx 20rpx;
 }
 
 .closeMenuBtn {
   position: absolute;
-  top: 10px;
-  right: 15px;
-  width: 20px;
-  height: 20px;
+  top: 20rpx;
+  right: 30rpx;
+  width: 40rpx;
+  height: 40rpx;
   border: 1rpx solid #888;
-  border-radius: 10px;
+  border-radius: 20rpx;
 }
 
 .closeMenuIcon {
-  width: 12px;
-  height: 12px;
-  margin: 4px;
+  width: 24rpx;
+  height: 24rpx;
+  margin: 8rpx;
 }
 
 .addCartDetail {
@@ -138,7 +138,7 @@
 .itemImgPreview {
   width: 250rpx;
   height: 250rpx;
-  border-radius: 5px;
+  border-radius: 10rpx;
 }
 
 .addCartParameter {
@@ -148,19 +148,19 @@
 }
 
 .price {
-  font-size: 18px;
+  font-size: 36rpx;
   color: #f00;
 }
 
 .confirmBuy {
   text-align: center;
-  font-size: 18px;
+  font-size: 36rpx;
   font-weight: 500;
   margin: 10px 40rpx 0 40rpx;
   color: #fff;
-  padding: 6px;
-  border-radius: 20px;
-  letter-spacing: 10px;
+  padding: 12rpx;
+  border-radius: 40rpx;
+  letter-spacing: 20rpx;
   background-color: #ffa500;
 }
 
