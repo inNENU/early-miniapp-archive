@@ -6,10 +6,6 @@
   text-align: center;
 }
 
-.iOS:last-child, .iOSgrey:last-child {
-  padding-bottom: 40px;
-}
-
 .iOS {
   background-color: #fff;
 }
@@ -307,10 +303,10 @@
 
 .iOSImgError {
   width: 90%;
-	height: 320px;
+  height: 320px;
   display: -webkit-flex;
   display: flex;
-	flex-direction: column;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 4px 5%;

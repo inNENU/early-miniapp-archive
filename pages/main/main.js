@@ -71,7 +71,9 @@ Page({
         text: '暂无'
       },
       {
-        tag: 'foot'
+        tag: 'foot',
+				author:'Mr.Hope',
+				time:'2018/7/22'
       },
     ],
   },
