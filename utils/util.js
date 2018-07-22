@@ -139,7 +139,7 @@ function resDownload(fileList, localList) {
             };
           },
           fail(res) {
-            console.warn(res), console.warn(refreshList[i]);
+            console.error(res), console.error(refreshList[i]);
           }
         })
       }
@@ -177,7 +177,7 @@ function resDownload(fileList, localList) {
           };
         },
         fail(res) {
-          console.warn(category[i] + 'error'), console.warn(res);
+          console.error(category[i] + 'error'), console.error(res);
         }
       });
       for (let j = 1; j <= fileList[category[i]][0]; j++) {
@@ -197,7 +197,7 @@ function resDownload(fileList, localList) {
             };
           },
           fail(res) {
-            console.warn(category[i] + 'error'), console.warn(res);
+            console.error(category[i] + 'error'), console.error(res);
           }
         })
       }
@@ -214,7 +214,7 @@ function resRefresh() {
       if (listRequest.statusCode == 200) {
         resDownload(fileList, null)
       } else {
-        console.warn('FileList error!')
+        console.error('FileList error!')
       }
     }
   })
@@ -284,11 +284,13 @@ function getContent(indicator, a, e) {
   })
 }
 
+// 初始化存储
 function initialize(key, defaultKey) {
   let value = wx.getStorageSync(key);
   return (value || value === false) ? value : (wx.setStorageSync(key, defaultKey), defaultKey);
 }
 
+//设置主题
 function setTheme(theme) {
   let value = wx.getStorageSync('theme');
   if (value) {
@@ -319,6 +321,7 @@ function setTheme(theme) {
   }
 }
 
+// 夜间模式
 function nightmode(date, startTime, endTime) {
   let nm = initialize('nightmode', true),
     nmAC = initialize('nightmodeAutoChange', true),
@@ -359,6 +362,7 @@ function nightmode(date, startTime, endTime) {
   }
 }
 
+// 导航栏动态改变
 function changeNav(e, indicator) {
   var n = indicator.data.page[0],
     T, B, S;
@@ -379,6 +383,7 @@ function changeNav(e, indicator) {
   };
 }
 
+// iOS导航栏弹性滚动特效
 function scrollNav(e) {
   let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
   console.log(pos)
@@ -395,11 +400,8 @@ function scrollNav(e) {
   }
 }
 
+// 设置界面
 function setPage(page, indicator, a, e) {
-  //notice
-  if (page[0].notice) {
-    notice(page[0].notice)
-  };
   //setNav
   if (page && page[0].tag == 'head') {
     page[0].statusBarHeight = a.info.statusBarHeight;
@@ -468,9 +470,22 @@ function setPage(page, indicator, a, e) {
     nm: a.nm,
     page: page,
     url: url,
-  })
+  });
+  //pop notice
+  if (wx.getStorageSync(page[0].title + 'noticeNotify')) {
+    let notice = wx.getStorageSync((page[0].title + 'notice'));
+    wx.showModal({
+      title: notice[0],
+      content: notice[1],
+      showCancel: false,
+      success: function() {
+        wx.clearStorageSync(page[0].title + 'noticeNotify');
+      }
+    })
+  }
 }
 
+// json组件判断触发函数
 function componemtAction(e, indicator) {
   console.log(e);
   let action = e.currentTarget.dataset.action;
@@ -503,6 +518,7 @@ function componemtAction(e, indicator) {
   }
 }
 
+// 选择器函数
 function picker(e, indicator) {
   let pos = e.currentTarget.dataset.id.split('-'),
     content = indicator.data.page[pos[0]].content[pos[1]];
@@ -531,6 +547,7 @@ function picker(e, indicator) {
   }
 }
 
+// 滑块函数
 function slider(e, indicator) {
   let pos = e.currentTarget.dataset.id.split('-'),
     content = indicator.data.page[pos[0]].content[pos[1]],
@@ -552,6 +569,7 @@ function slider(e, indicator) {
   })
 }
 
+// 开关函数
 function Switch(e, indicator) {
   let pos = e.target.dataset.id.split('-'),
     page = indicator.data.page,
@@ -564,6 +582,7 @@ function Switch(e, indicator) {
   return page;
 }
 
+// 动态根据夜间模式改变导航栏
 function tabBarChanger(nm) {
   (nm) ? wx.setTabBarStyle({
     backgroundColor: '#000000',
@@ -574,6 +593,7 @@ function tabBarChanger(nm) {
   });
 }
 
+// 图片函数
 function image(e, indicator) {
   let current = indicator.data.page[e.target.id];
   switch (e.type) {
@@ -598,6 +618,7 @@ function image(e, indicator) {
   }
 }
 
+// 打开文档
 function document(e) {
   wx.showLoading({
     title: '下载中...',
@@ -615,6 +636,7 @@ function document(e) {
   })
 }
 
+// 电话组件函数
 function phone(e, indicator) {
   let Type = e.target.dataset.type,
     info = indicator.data.page[e.currentTarget.id];
@@ -646,10 +668,12 @@ function phone(e, indicator) {
   }
 }
 
+// 返回上一页
 function back() {
   wx.navigateBack({})
 }
 
+// 输出特定元素在数组中的index
 function arrayKeynumber(array, key) {
   for (var i in array) {
     if (array[i] == key) {
@@ -658,6 +682,7 @@ function arrayKeynumber(array, key) {
   }
 }
 
+// 网络重连
 function reConnet(indicator, a, e) {
   wx.onNetworkStatusChange(function(res) {
     console.log(res.isConnected);
@@ -680,31 +705,36 @@ function reConnet(indicator, a, e) {
   })
 }
 
+// 跳转制定界面
 function go(url) {
   wx.navigateTo({
     url: url
   })
 }
 
-//尚未投入使用
-function notice(notice) {
+//-----测试中-----
+
+//弹窗检查
+function noticeCheck() {
   wx.request({
-    url: 'https://mrhope.top/mp/notice' + notice,
+    url: 'https://mrhope.top/mp/notice/notice.json',
     success(res) {
       if (res.statusCode == 200) {
-        let value = wx.getStorageSync(notice);
-        if (value === undefined || value < res.data.version) {
-          wx.setStorageSync(notice, res.data.version);
-          wx.showToast({
-            title: notice.title,
-            content: notice.content,
-            showCancel: false
-          })
+        let data = res.data,
+          category = Object.keys(data);
+        for (let i = 0; i < category.length; i++) {
+          if (data[category[i]][2] != wx.getStorageSync(category[i] + 'noticeVersion')) {
+            wx.setStorageSync(category[i] + 'notice', [data[category[i]][0], data[category[i]][1]]);
+            wx.setStorageSync(category[i] + 'noticeVersion', data[category[i]][2]);
+            wx.setStorageSync(category[i] + 'noticeNotify', true);
+          }
         }
       }
     }
   })
 }
+
+//尚未投入使用
 
 function getRad(d) {
   return d * Math.PI / 180.0;
