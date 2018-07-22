@@ -98,9 +98,9 @@ function resDownload(fileList, localList) {
       title: '更新中...0%',
       mask: true
     });
-    setTimeout(function() {
+    let timeoutFunc = setTimeout(function() {
       wx.hideLoading();
-      console.warn('hide timeout')
+      console.error('hide timeout')
     }, 10000);
     for (let i = 0; i < refreshList.length; i++) {
       wx.request({
@@ -115,7 +115,8 @@ function resDownload(fileList, localList) {
           });
           if (successNumber == fileNum) {
             wx.hideLoading();
-            console.log('hide')
+            console.log('hide');
+            clearTimeout(timeoutFunc);
           };
         },
         fail(res) {
@@ -135,7 +136,8 @@ function resDownload(fileList, localList) {
             });
             if (successNumber == fileNum) {
               wx.hideLoading();
-              console.log('hide')
+              console.log('hide');
+              clearTimeout(timeoutFunc);
             };
           },
           fail(res) {
@@ -156,9 +158,9 @@ function resDownload(fileList, localList) {
       title: '下载中...0%',
       mask: true
     });
-    setTimeout(function() {
+    let timeoutFunc = setTimeout(function() {
       wx.hideLoading();
-      console.warn('hide timeout')
+      console.error('hide timeout')
     }, 10000);
     for (let i = 0; i < category.length; i++) {
       wx.request({
@@ -173,7 +175,8 @@ function resDownload(fileList, localList) {
           });
           if (successNumber == fileNum) {
             wx.hideLoading();
-            console.log('hide')
+            console.log('hide');
+						clearTimeout(timeoutFunc);
           };
         },
         fail(res) {
@@ -193,7 +196,8 @@ function resDownload(fileList, localList) {
             });
             if (successNumber == fileNum) {
               wx.hideLoading();
-              console.log('hide')
+              console.log('hide');
+							clearTimeout(timeoutFunc);
             };
           },
           fail(res) {
@@ -479,7 +483,7 @@ function setPage(page, indicator, a, e) {
       content: notice[1],
       showCancel: false,
       success: function() {
-        wx.clearStorageSync(page[0].title + 'noticeNotify');
+        wx.removeStorageSync(page[0].title + 'noticeNotify');
       }
     })
   }
@@ -717,13 +721,17 @@ function go(url) {
 //弹窗检查
 function noticeCheck() {
   wx.request({
-    url: 'https://mrhope.top/mp/notice/notice.json',
+    url: 'https://mrhope.top/mp/notice.json',
     success(res) {
+      console.log(res); //调试
       if (res.statusCode == 200) {
         let data = res.data,
           category = Object.keys(data);
+        console.log(category); //调试
         for (let i = 0; i < category.length; i++) {
+          console.log(data[category[i]][2]); //调试
           if (data[category[i]][2] != wx.getStorageSync(category[i] + 'noticeVersion')) {
+            console.log('start if'); //调试
             wx.setStorageSync(category[i] + 'notice', [data[category[i]][0], data[category[i]][1]]);
             wx.setStorageSync(category[i] + 'noticeVersion', data[category[i]][2]);
             wx.setStorageSync(category[i] + 'noticeNotify', true);
@@ -871,6 +879,7 @@ function getMarkers() {
 }
 
 module.exports = {
+  nC: noticeCheck,
   cRU: checkResUpdate,
   rR: resRefresh,
   init: initialize,

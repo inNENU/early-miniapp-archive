@@ -14,6 +14,10 @@ Page({
       tag: 'p',
       head: 'V0.7.1',
       text: 'map界面增加marker与label；\n初步适配iPad；\n初步制作了地点nav；'
+    }, {
+      tag: 'p',
+      head: 'V0.7.2',
+      text: '制作了footer；\n制作了界面弹窗；'
     }],
   },
   onLoad(e) {

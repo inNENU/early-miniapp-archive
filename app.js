@@ -7,13 +7,14 @@ App({
   },
   onLaunch() {
     // u.cV(this.globalData.Version);
+    u.nC();
     this.globalData.T = u.sT(this.data.theme);
     this.globalData.nm = u.nm(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info);
   },
   globalData: {
-    Version: 'V 0.7.1',
+    Version: 'V 0.7.2',
     imgMode: "widthFix"
   },
   util: require('utils/util.js'),
