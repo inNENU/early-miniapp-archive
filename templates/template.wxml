@@ -44,17 +44,19 @@
   <view wx:if="{{item.head}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSP'>
     <text style='{{item.style}}'>{{item.text}}</text>
-    <view wx:if="{{item.src&&item.error}}" class='iOSImgError'>
-      <icon type="warn" style='margin-right:5px;' />
-      <text class='grey'>图片加载失败</text>
-    </view>
-    <view wx:elif="{{item.src&&!item.load}}" class='iOSImgError'>
-      <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
-      <text class='grey'>加载中...</text>
-    </view>
-    <view class='flexbox' style="{{item.load?'':'display: none;'}}">
-      <image id="{{item.id}}" class='iOSP-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-    </view>
+    <block wx:if="{{item.src}}">
+      <view wx:if="{{item.error}}" class='iOSImgError'>
+        <icon type="warn" style='margin-right:5px;' />
+        <text class='grey'>图片加载失败</text>
+      </view>
+      <view wx:elif="{{!item.load}}" class='iOSImgError'>
+        <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
+        <text class='grey'>加载中...</text>
+      </view>
+      <view class='flexbox' style="{{item.load?'':'display: none;'}}">
+        <image id="{{item.id}}" class='iOSP-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
+      </view>
+    </block>
   </view>
 </template>
 
@@ -188,16 +190,11 @@
 
 <template name='iOSfoot'>
   <view class='Footer'>
-    <block wx:if="{{item.author}}">
-      <text> 编辑人：{{item.author}} </text>
-    </block>
-    <block wx:if="{{item.time}}">
-      <text> 最后编辑于{{item.time}} </text>
-    </block>
-    <block wx:if="{{item.time||item.author}}">
-      <text>\n</text>
-    </block>
-    <text>版权所有 © Copyright\n Hope Studio 希望工作室 2017-2018</text>
+    <text wx:if="{{item.desc}}">{{item.desc}}\n</text>
+    <text wx:if="{{item.author}}"> 编辑人：{{item.author}} </text>
+    <text wx:if="{{item.time}}"> 最后编辑于{{item.time}} </text>
+    <text wx:if="{{item.time||item.author}}">\n</text>
+    <text>Copyright © 2017-2018 HopeStudio</text>
   </view>
 </template>
 
@@ -391,16 +388,11 @@
 
 <template name='wechatfoot'>
   <view class='Footer'>
-    <block wx:if="{{item.author}}">
-      <text> 编辑人：{{item.author}} </text>
-    </block>
-    <block wx:if="{{item.time}}">
-      <text> 最后编辑于{{item.time}} </text>
-    </block>
-    <block wx:if="{{item.time||item.author}}">
-      <text>\n</text>
-    </block>
-    <text>版权所有 © Copyright\n Hope Studio 希望工作室 2017-2018</text>
+    <text wx:if="{{item.desc}}">{{item.desc}}\n</text>
+    <text wx:if="{{item.author}}"> 编辑人：{{item.author}} </text>
+    <text wx:if="{{item.time}}"> 最后编辑于{{item.time}} </text>
+    <text wx:if="{{item.time||item.author}}">\n</text>
+    <text>Copyright © 2017-2018 HopeStudio</text>
   </view>
 </template>
 
@@ -595,16 +587,11 @@
 
 <template name='NENUfoot'>
   <view class='Footer'>
-    <block wx:if="{{item.author}}">
-      <text> 编辑人：{{item.author}} </text>
-    </block>
-    <block wx:if="{{item.time}}">
-      <text> 最后编辑于{{item.time}} </text>
-    </block>
-    <block wx:if="{{item.time||item.author}}">
-      <text>\n</text>
-    </block>
-    <text>版权所有 © Copyright\n Hope Studio 希望工作室 2017-2018</text>
+    <text wx:if="{{item.desc}}">{{item.desc}}\n</text>
+    <text wx:if="{{item.author}}"> 编辑人：{{item.author}} </text>
+    <text wx:if="{{item.time}}"> 最后编辑于{{item.time}} </text>
+    <text wx:if="{{item.time||item.author}}">\n</text>
+    <text>Copyright © 2017-2018 HopeStudio</text>
   </view>
 </template>
 

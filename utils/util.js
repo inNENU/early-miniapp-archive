@@ -1,3 +1,62 @@
+module.exports = {
+  nC: noticeCheck,
+  cRU: checkResUpdate,
+  cFU: checkFuncUpdate,
+  rR: resRefresh,
+  init: initialize,
+  sT: setTheme,
+  nm: nightmode,
+  nav: changeNav,
+  sP: setPage,
+  sl: slider,
+  tBC: tabBarChanger,
+  back: back,
+  sS: Switch,
+  ak: arrayKeynumber,
+  gC: getContent,
+  doc: document,
+  phone: phone,
+  on: on,
+  emit: emit,
+  remove: remove,
+  donate: donate,
+  cA: componemtAction,
+  // formatTime: formatTime,
+  go: go,
+  sN: scrollNav,
+  gD: getDistance
+}
+
+//弹窗检查
+function noticeCheck() {
+  wx.request({
+    url: 'https://mrhope.top/mp/notice.json',
+    success(res) {
+      console.log(res); //调试
+      if (res.statusCode == 200) {
+        let data = res.data,
+          category = Object.keys(data);
+        for (let i = 0; i < category.length; i++) {
+          if (data[category[i]][2] != wx.getStorageSync(category[i] + 'noticeVersion')) {
+            wx.setStorageSync(category[i] + 'notice', [data[category[i]][0], data[category[i]][1]]);
+            wx.setStorageSync(category[i] + 'noticeVersion', data[category[i]][2]);
+            wx.setStorageSync(category[i] + 'noticeNotify', true);
+          }
+        }
+      }
+    },
+    fail() {
+      wx.showToast({
+        title: '似乎未检测到互联网连接',
+        icon: 'none',
+        duration: 3000
+      })
+      console.error('noticeList error')
+    }
+  })
+}
+
+//检查资源更新
 function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, dataUsage) {
   let notify = initialize(notifyKey, true),
     local = initialize(storageKey, undefined);
@@ -64,13 +123,150 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
   }
 }
 
-function checkFunctionUpdate() {
+function checkFuncUpdate() {
   checkUpdate('funcNotify', 'localFunc', 'funcList', '是否立即下载功能所需资源？', '下载后会使功能响应速度明显提升。(会消耗30K流量)', '20K')
 }
 
 function checkResUpdate() {
   checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗60K流量)', '30K')
 }
+
+// function resDownload(fileList, localList) {
+//   console.log(fileList);
+//   console.log(localList);
+//   let category = Object.keys(fileList),
+//     fileNum = 0,
+//     successNumber = 0,
+//     percent = new Array,
+//     k;
+//   console.log(category);
+//   if (localList) {
+//     let refreshList = new Array();
+//     for (let i = 0; i < category.length; i++) {
+//       if (!localList[category[i]] || localList[category[i]][1] !== fileList[category[i]][1]) {
+//         console.log(category[i] + 'don\'t match')
+//         fileNum += fileList[category[i]][0] + 1;
+//         refreshList.push(category[i]);
+//       };
+//     };
+//     console.log("fileNum是" + fileNum);
+//     for (let i = 0; i <= fileNum; i++) {
+//       percent.push(((i / fileNum) * 100).toString().substring(0, 4));
+//     }
+//     wx.showLoading({
+//       title: '更新中...0%',
+//       mask: true
+//     });
+//     let timeoutFunc = setTimeout(function() {
+//       wx.hideLoading();
+//       console.error('hide timeout')
+//     }, 10000);
+//     for (let i = 0; i < refreshList.length; i++) {
+//       wx.request({
+//         url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
+//         success(res) {
+//           console.log(refreshList[i]), console.log(res);
+//           wx.setStorageSync(refreshList[i], res.data);
+//           successNumber += 1;
+//           wx.showLoading({
+//             title: '更新中...' + percent[successNumber] + '%',
+//             mask: true
+//           });
+//           if (successNumber == fileNum) {
+//             wx.hideLoading();
+//             console.log('hide');
+//             clearTimeout(timeoutFunc);
+//           };
+//         },
+//         fail(res) {
+//           console.warn(refreshList[i]), console.warn(res);
+//         }
+//       });
+//       for (let j = 1; j <= fileList[refreshList[i]][0]; j++) {
+//         wx.request({
+//           url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
+//           success(res) {
+//             console.log(res), console.log(refreshList[i] + j);
+//             wx.setStorageSync(refreshList[i] + j, res.data);
+//             successNumber += 1;
+//             wx.showLoading({
+//               title: '更新中...' + percent[successNumber] + '%',
+//               mask: true
+//             });
+//             if (successNumber == fileNum) {
+//               wx.hideLoading();
+//               console.log('hide');
+//               clearTimeout(timeoutFunc);
+//             };
+//           },
+//           fail(res) {
+//             console.error(res), console.error(refreshList[i]);
+//           }
+//         })
+//       }
+//     }
+//   } else {
+//     for (let i = 0; i < category.length; i++) {
+//       fileNum += fileList[category[i]][0] + 1;
+//     };
+//     for (let i = 0; i <= fileNum; i++) {
+//       percent.push(((i / fileNum) * 100).toString().substring(0, 4));
+//     };
+//     console.log(fileNum);
+//     wx.showLoading({
+//       title: '下载中...0%',
+//       mask: true
+//     });
+//     let timeoutFunc = setTimeout(function() {
+//       wx.hideLoading();
+//       console.error('hide timeout')
+//     }, 10000);
+//     for (let i = 0; i < category.length; i++) {
+//       wx.request({
+//         url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + '.json',
+//         success(res) {
+//           console.log(category[i]), console.log(res);
+//           wx.setStorageSync(category[i], res.data);
+//           successNumber += 1;
+//           wx.showLoading({
+//             title: '下载中...' + percent[successNumber] + '%',
+//             mask: true
+//           });
+//           if (successNumber == fileNum) {
+//             wx.hideLoading();
+//             console.log('hide');
+//             clearTimeout(timeoutFunc);
+//           };
+//         },
+//         fail(res) {
+//           console.error(category[i] + 'error'), console.error(res);
+//         }
+//       });
+//       for (let j = 1; j <= fileList[category[i]][0]; j++) {
+//         wx.request({
+//           url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + j + '.json',
+//           success(res) {
+//             console.log(category[i] + j), console.log(res);
+//             wx.setStorageSync(category[i] + j, res.data);
+//             successNumber += 1;
+//             wx.showLoading({
+//               title: '下载中...' + percent[successNumber] + '%',
+//               mask: true
+//             });
+//             if (successNumber == fileNum) {
+//               wx.hideLoading();
+//               console.log('hide');
+//               clearTimeout(timeoutFunc);
+//             };
+//           },
+//           fail(res) {
+//             console.error(category[i] + 'error'), console.error(res);
+//           }
+//         })
+//       }
+//     }
+//   }
+// }
 
 function resDownload(fileList, localList) {
   console.log(fileList);
@@ -176,7 +372,7 @@ function resDownload(fileList, localList) {
           if (successNumber == fileNum) {
             wx.hideLoading();
             console.log('hide');
-						clearTimeout(timeoutFunc);
+            clearTimeout(timeoutFunc);
           };
         },
         fail(res) {
@@ -197,7 +393,7 @@ function resDownload(fileList, localList) {
             if (successNumber == fileNum) {
               wx.hideLoading();
               console.log('hide');
-							clearTimeout(timeoutFunc);
+              clearTimeout(timeoutFunc);
             };
           },
           fail(res) {
@@ -225,19 +421,19 @@ function resRefresh() {
 }
 
 function getContent(indicator, a, e) {
-  console.log(indicator);
-  console.log(e);
+  console.log(indicator); //调试
+  console.log(e); //调试
   wx.showLoading({
     title: '加载中...'
   });
   wx.getStorage({
     key: e.aim,
-    success: function(key) {
-      console.log(key.data);
+    success(key) {
+      console.log(key.data); //调试
       setPage(key.data, indicator, a, e);
       wx.hideLoading();
     },
-    fail: function(res) {
+    fail(res) {
       console.log(res);
       if (res.errMsg == 'getStorage:fail data not found') {
         wx.getNetworkType({
@@ -718,30 +914,6 @@ function go(url) {
 
 //-----测试中-----
 
-//弹窗检查
-function noticeCheck() {
-  wx.request({
-    url: 'https://mrhope.top/mp/notice.json',
-    success(res) {
-      console.log(res); //调试
-      if (res.statusCode == 200) {
-        let data = res.data,
-          category = Object.keys(data);
-        console.log(category); //调试
-        for (let i = 0; i < category.length; i++) {
-          console.log(data[category[i]][2]); //调试
-          if (data[category[i]][2] != wx.getStorageSync(category[i] + 'noticeVersion')) {
-            console.log('start if'); //调试
-            wx.setStorageSync(category[i] + 'notice', [data[category[i]][0], data[category[i]][1]]);
-            wx.setStorageSync(category[i] + 'noticeVersion', data[category[i]][2]);
-            wx.setStorageSync(category[i] + 'noticeNotify', true);
-          }
-        }
-      }
-    }
-  })
-}
-
 //尚未投入使用
 
 function getRad(d) {
@@ -749,17 +921,17 @@ function getRad(d) {
 }
 
 function getDistance(lat1, lng1, lat2, lng2) {
-  var f = getRad((lat1 + lat2) / 2);
-  var g = getRad((lat1 - lat2) / 2);
-  var l = getRad((lng1 - lng2) / 2);
+  let f = getRad((lat1 + lat2) / 2);
+  let g = getRad((lat1 - lat2) / 2);
+  let l = getRad((lng1 - lng2) / 2);
 
-  var sg = Math.sin(g);
-  var sl = Math.sin(l);
-  var sf = Math.sin(f);
+  let sg = Math.sin(g);
+  let sl = Math.sin(l);
+  let sf = Math.sin(f);
 
-  var s, c, w, r, d, h1, h2;
-  var a = 6378137.0;
-  var fl = 1 / 298.257;
+  let s, c, w, r, d, h1, h2;
+  let a = 6378137.0;
+  let fl = 1 / 298.257;
 
   sg = sg * sg;
   sl = sl * sl;
@@ -878,33 +1050,6 @@ function getMarkers() {
   })
 }
 
-module.exports = {
-  nC: noticeCheck,
-  cRU: checkResUpdate,
-  rR: resRefresh,
-  init: initialize,
-  sT: setTheme,
-  nm: nightmode,
-  nav: changeNav,
-  sP: setPage,
-  sl: slider,
-  tBC: tabBarChanger,
-  back: back,
-  sS: Switch,
-  ak: arrayKeynumber,
-  gC: getContent,
-  doc: document,
-  phone: phone,
-  on: on,
-  emit: emit,
-  remove: remove,
-  donate: donate,
-  cA: componemtAction,
-  // formatTime: formatTime,
-  go: go,
-  sN: scrollNav,
-  gD: getDistance
-}
 // function formatNumber(n) {
 //   n = n.toString()
 //   return n[1] ? n : '0' + n

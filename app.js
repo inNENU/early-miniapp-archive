@@ -6,7 +6,6 @@ App({
     endTime: "5-0",
   },
   onLaunch() {
-    // u.cV(this.globalData.Version);
     u.nC();
     this.globalData.T = u.sT(this.data.theme);
     this.globalData.nm = u.nm(new Date(), this.data.startTime, this.data.endTime);
