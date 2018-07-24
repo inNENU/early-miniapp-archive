@@ -84,11 +84,14 @@ Page({
       });
     });
     w.on('nightmode', this, function(data) {
+      console.log(data)
       this.setData({
         nm: data
       });
-      u.tBC(data);
     });
+  },
+  onShow() {
+    u.tBC(a.nm);
   },
   onPageScroll(e) {
     u.nav(e, this)

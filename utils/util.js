@@ -1,5 +1,5 @@
 module.exports = {
-	checkDebug: checkDebug,
+  checkDebug: checkDebug,
   noticeCheck: noticeCheck,
   checkUpdate: checkUpdate,
   rR: resRefresh,
@@ -7,6 +7,7 @@ module.exports = {
   sT: setTheme,
   nm: nightmode,
   nav: changeNav,
+  plPg: preloadPage,
   sP: setPage,
   sl: slider,
   tBC: tabBarChanger,
@@ -237,6 +238,7 @@ function resRefresh() {
   })
 }
 
+//获取内容 被任一模板界面调用
 function getContent(indicator, a, e) {
   console.log(indicator); //调试
   console.log(e); //调试
@@ -489,18 +491,23 @@ function setPage(page, indicator, a, e) {
 
 // 预载入界面
 function preloadPage(page, a) {
+  console.log(page) //调试
   for (let i = 0; i < page.length; i++) {
     if ('content' in page[i]) {
-      if ('aim' in item) {
-        let category = item.url.split('?')[1].split('&'),
-          e = {
-            From: category[0].split('=')[1],
-            aim: category[1].split('=')[1],
-            step: category[2].split('=')[1]
-          },
-          page = wx.getStorageSync(e.aim);
-        wx.setStorageSync(e.aim + 'Temp', setPageData(page, a, e))
-      };
+      for (let j = 0; j < page[i].content.length; j++) {
+        let item = page[i].content[j];
+        if ('aim' in item) {
+          let category = item.url.split('?')[1].split('&'),
+            e = {
+              From: category[0].split('=')[1],
+              aim: category[1].split('=')[1],
+              step: category[2].split('=')[1]
+            },
+            page = wx.getStorageSync(e.aim);
+          console.log(page), console.log(a), console.log(e) //调试
+          wx.setStorageSync(e.aim + 'Temp', setPageData(page, a, e))
+        };
+      }
     }
   }
 }
@@ -620,10 +627,10 @@ function Switch(e, indicator) {
 
 // 动态根据夜间模式改变导航栏
 function tabBarChanger(nm) {
-  (nm) ? wx.setTabBarStyle({
+  (nm) ? (wx.setTabBarStyle({
     backgroundColor: '#000000',
     borderStyle: 'white'
-  }): wx.setTabBarStyle({
+  }),console.log('黑')): wx.setTabBarStyle({
     backgroundColor: '#ffffff',
     borderStyle: 'black'
   });

@@ -21,4 +21,5 @@ App({
   },
   util: require('utils/util'),
   watcher: require('utils/watcher'),
+	common: require('utils/common'),
 })

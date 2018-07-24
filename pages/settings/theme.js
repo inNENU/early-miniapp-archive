@@ -149,7 +149,6 @@ Page({
     let p = u.sS(e, this),
       list = p[3].content,
       value = e.detail.value;
-    a.nm = value;
     if (value && list[5].status) {
       wx.setScreenBrightness({
         value: list[6].value / 100
@@ -165,12 +164,13 @@ Page({
       nm: value,
       page: p
     });
+		a.nm = value;
+		w.emit('nightmode', value);
   },
   switchnmAC(e) {
     let p = u.sS(e, this),
       list = p[3].content;
     let nm = u.nm(new Date());
-    a.nm = nm;
     p[2].content[0].status = nm;
     wx.setStorageSync("nightmode", nm);
     if (nm && list[5].status) {
@@ -209,6 +209,8 @@ Page({
       nm: nm,
       page: p
     });
+    a.nm = nm;
+		w.emit('nightmode', nm);
   },
   swithDay(e) {
     let p = u.sS(e, this),

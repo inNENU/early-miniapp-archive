@@ -61,7 +61,7 @@ Page({
         content: [{
           text: '校园卡',
           icon: '/icon/card.svg',
-          aim: 'card'
+          // aim: 'card'
         }]
       },
     ],
@@ -73,12 +73,19 @@ Page({
         T: data
       });
     });
+    w.on('nightmode', this, function(data) {
+      console.log(data)
+      this.setData({
+        nm: data
+      });
+    });
     u.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗60K流量)', '30K', a)
   },
   onShow() {
     this.setData({
       nm: a.nm
-    })
+    });
+    u.plPg(this.data.page, a)
   },
   onPageScroll(e) {
     u.nav(e, this)

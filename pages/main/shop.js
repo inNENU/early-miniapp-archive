@@ -75,12 +75,13 @@ Page({
       this.setData({
         T: data
       });
-    })
-  },
-  onShow() {
-    this.setData({
-      nm: a.nm
-    })
+    });
+    w.on('nightmode', this, function(data) {
+      console.log(data)
+      this.setData({
+        nm: data
+      });
+    });
   },
   onPageScroll(e) {
     u.nav(e, this)
