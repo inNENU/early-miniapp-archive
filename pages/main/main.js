@@ -20,7 +20,7 @@ Page({
       }, {
         tag: 'p',
         head: '即将实现的内容：',
-        text: 'util.js的重组；\n预先setPage，进入后开始加载可能打开的界面；\n尝试wx.setBackgroundcolor；\nmarker.json的处理；\n标注点的筛选功能；\nbutton的open-type；\n九宫格的标题页脚以及aim；\n公众号跳转组件；\n模板中加入style；\n适配iOSpicker-view夜间模式；\n思考离线照片；\n构建双排img组件；\n微信列表改为点击展开样式；\nphone组件与doc组件宽度自调整；\n优化login界面；'
+        text: 'util.js的重组；\n尝试wx.setBackgroundcolor；\nmarker.json的处理；\n标注点的筛选功能；\nbutton的open-type；\n九宫格的标题页脚以及aim；\n公众号跳转组件；\n模板中加入style；\n适配iOSpicker-view夜间模式；\n思考离线照片；\n构建双排img组件；\n微信列表改为点击展开样式；\nphone组件与doc组件宽度自调整；\n优化login界面；'
       },
       {
         tag: 'p',

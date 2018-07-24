@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/main/function",
         "pages/main/main",
+        "pages/main/function",
         "pages/main/guide",
         "pages/main/shop",
         "pages/main/me",

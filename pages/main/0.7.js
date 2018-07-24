@@ -22,6 +22,14 @@ Page({
       tag: 'p',
       head: 'V0.7.2',
       text: 'footer改进；\n现在可以选中段落文字了；'
+    }, {
+      tag: 'p',
+      head: 'V0.7.3',
+				text: '初步完成util.js重组；\n尝试预先setPage，进入后开始加载可能打开的界面；'
+    }, {
+      tag: 'p',
+      head: 'V0.7.4',
+				text: '进一步完善界面预载入；\n大量优化已有函数的性能；'
     }],
   },
   onLoad(e) {
@@ -32,8 +40,5 @@ Page({
   },
   cA(e) {
     u.cA(e, this)
-  },
-  sN(e) {
-    u.sN(e)
   }
 })

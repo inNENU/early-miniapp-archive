@@ -16,7 +16,7 @@ App({
     u.noticeCheck();
   },
   globalData: {
-    Version: 'V 0.7.2',
+    Version: 'V 0.7.4',
     imgMode: "widthFix"
   },
   util: require('utils/util'),
