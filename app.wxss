@@ -297,9 +297,9 @@ page {
 /* footer */
 
 .Footer {
-  margin-top: 10px;
-  padding: 4px 5%;
-  font-size: 12px;
+  margin-top: 40rpx;
+  padding: 8rpx 5%;
+  font-size: 24rpx;
   color: #888;
   text-align: center;
 }

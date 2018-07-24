@@ -564,23 +564,23 @@ function nightmode(date, startTime, endTime) {
 
 // 导航栏动态改变
 function changeNav(e, indicator) {
-  var n = indicator.data.page[0],
-    T, B, S;
-  if (e.scrollTop <= 1) {
-    T = B = S = false;
-  } else if (e.scrollTop <= 42) {
-    T = B = false, S = true;
-  } else if (e.scrollTop >= 53) {
-    T = B = S = true;
-  } else {
-    T = S = true, B = false;
-  };
-  if (n.titleDisplay != T || n.borderDisplay != B || n.shadow != S) {
-    n.titleDisplay = T, n.borderDisplay = B, n.shadow = S;
-    indicator.setData({
-      page: indicator.data.page
-    })
-  };
+	var n = indicator.data.page[0],
+		T, B, S;
+	if (e.scrollTop <= 1) {
+		T = B = S = false;
+	} else if (e.scrollTop <= 42) {
+		T = B = false, S = true;
+	} else if (e.scrollTop >= 53) {
+		T = B = S = true;
+	} else {
+		T = S = true, B = false;
+	};
+	if (n.titleDisplay != T || n.borderDisplay != B || n.shadow != S) {
+		n.titleDisplay = T, n.borderDisplay = B, n.shadow = S;
+		indicator.setData({
+			page: indicator.data.page
+		})
+	};
 }
 
 // iOS导航栏弹性滚动特效

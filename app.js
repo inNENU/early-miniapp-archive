@@ -1,4 +1,4 @@
-var u = require('utils/util.js');
+var u = require('utils/util');
 App({
   data: {
     theme: "auto",
@@ -16,5 +16,5 @@ App({
     Version: 'V 0.7.2',
     imgMode: "widthFix"
   },
-  util: require('utils/util.js'),
+  util: require('utils/util'),
 })

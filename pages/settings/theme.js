@@ -104,6 +104,16 @@ Page({
           },
         ]
       },
+      {
+        tag: 'list',
+        head: '调试控制',
+        foot: '打开开关来开启调试模式',
+        content: [{
+            text: '调试控制台',
+            swiKey: 'debugMode'
+          }
+        ]
+      },
     ],
   },
   onLoad(e) {

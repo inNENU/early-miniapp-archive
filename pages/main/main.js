@@ -12,16 +12,14 @@ Page({
         tag: 'h3',
         text: '当前版本：' + a.Version,
         style: 'text-align:center;'
-      },
-      {
+      }, {
         tag: 'p',
         head: '已知bug：',
-        text: '测试界面NENU主题返回按钮有问题；\n绩点计算器输入时键盘异常收起；\n切换网络后，当前加载界面会被刷新，图片显示异常；'
-      },
-      {
+        text: '安卓tabbar阴影有问题；\nNENU标题背景有问题；\n测试界面NENU主题返回按钮有问题；\n绩点计算器输入时键盘异常收起；\n切换网络后，当前加载界面会被刷新，图片显示异常；'
+      }, {
         tag: 'p',
         head: '即将实现的内容：',
-        text: 'button的open-type；\n九宫格的标题页脚以及aim；\n公众号跳转组件；\n弹窗通知部分；\n模板中加入style；\n在线缓存icon或利用iconfont压缩代码体积；\n适配iOSpicker-view夜间模式；\n思考离线照片；\n构建双排img组件；\n微信列表改为点击展开样式；\n构建新的footer；\nphone组件与doc组件宽度自调整；\n优化login界面；'
+        text: 'button的open-type；\n九宫格的标题页脚以及aim；\n公众号跳转组件；\n模板中加入style；\n适配iOSpicker-view夜间模式；\n思考离线照片；\n构建双排img组件；\n微信列表改为点击展开样式；\nphone组件与doc组件宽度自调整；\n优化login界面；'
       },
       {
         tag: 'p',
@@ -68,12 +66,12 @@ Page({
       {
         tag: 'p',
         head: '等待官方改进才能实现的内容：',
-        text: '暂无'
+        text: 'regionchange多次触发'
       },
       {
         tag: 'foot',
-				author:'Mr.Hope',
-				time:'2018/7/22'
+        author: 'Mr.Hope',
+        time: '2018/7/22'
       },
     ],
   },
@@ -90,8 +88,5 @@ Page({
   },
   onPageScroll(e) {
     u.nav(e, this)
-  },
-  sN(e) {
-    u.sN(e)
   }
 })

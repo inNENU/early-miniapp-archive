@@ -18,6 +18,10 @@ Page({
       tag: 'p',
       head: 'V0.7.2',
       text: '制作了footer；\n制作了界面弹窗；'
+    }, {
+      tag: 'p',
+      head: 'V0.7.2',
+      text: 'footer改进；\n现在可以选中段落文字了；'
     }],
   },
   onLoad(e) {

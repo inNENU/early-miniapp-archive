@@ -27,12 +27,8 @@
       </button>
     </view>
     <view wx:if="{{item.borderDisplay}}" class='iOSnavDl' style="top:{{item.statusBarHeight+44}}px;"></view>
-    <view class='iOS-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">
-      <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
-    </view>
-    <view class='iOS-head'>
-      <text>{{item.title}}</text>
-    </view>
+    <view class='iOS-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
+    <view class='iOS-head'>{{item.title}}</view>
   </block>
 </template>
 
@@ -43,15 +39,15 @@
 <template name='iOSp'>
   <view wx:if="{{item.head}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSP'>
-    <text style='{{item.style}}'>{{item.text}}</text>
+    <text style='{{item.style}}' selectable='true'>{{item.text}}</text>
     <block wx:if="{{item.src}}">
       <view wx:if="{{item.error}}" class='iOSImgError'>
         <icon type="warn" style='margin-right:5px;' />
-        <text class='grey'>图片加载失败</text>
+        <text>图片加载失败</text>
       </view>
       <view wx:elif="{{!item.load}}" class='iOSImgError'>
         <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
-        <text class='grey'>加载中...</text>
+        <text>加载中...</text>
       </view>
       <view class='flexbox' style="{{item.load?'':'display: none;'}}">
         <image id="{{item.id}}" class='iOSP-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
@@ -133,18 +129,16 @@
 <template name='iOSimg'>
   <view wx:if="{{item.error}}" class='iOSImgError'>
     <icon type="warn" size='32' style='margin-bottom:5px;' />
-    <text class='grey'>图片加载失败</text>
+    <text>图片加载失败</text>
   </view>
   <view wx:elif="{{!item.load}}" class='iOSImgError'>
     <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
-    <text class='grey'>加载中...</text>
+    <text>加载中...</text>
   </view>
   <view class='flexbox' style="{{item.load?'':'display: none;'}}">
     <image id="{{item.id}}" class='iOS-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
   </view>
-  <view wx:if="{{item.text}}" class='iOSN'>
-    <text>▲{{item.desc}}</text>
-  </view>
+  <view wx:if="{{item.text}}" class='iOSN'>▲{{item.desc}}</view>
 </template>
 
 <template name='iOSdoc'>
@@ -193,8 +187,7 @@
     <text wx:if="{{item.desc}}">{{item.desc}}\n</text>
     <text wx:if="{{item.author}}"> 编辑人：{{item.author}} </text>
     <text wx:if="{{item.time}}"> 最后编辑于{{item.time}} </text>
-    <text wx:if="{{item.time||item.author}}">\n</text>
-    <text>Copyright © 2017-2018 HopeStudio</text>
+    <text wx:if="{{item.time||item.author}}">\n</text>Copyright © 2017-2018 HopeStudio
   </view>
 </template>
 
@@ -207,15 +200,11 @@
     </button>
   </view>
   <view class='iOSnavDl' style="top:{{item.statusBarHeight+44}}px;"></view>
-  <view class='iOS-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">
-    <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
-  </view>
+  <view class='iOS-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
   <view class='errorCtn'>
     <icon type='warn' size='80'></icon>
     <view class='errorText'>很抱歉，界面遇到了问题!</view>
-    <view class='errorDesc'>
-      <text>同学你好，我是Mr.Hope，问题可能出现在以下几点：\n\n1. Mr.Hope自掏腰包买的的服务器炸了；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~并感谢同学对Mr.Hope的支持~\n由于服务器是Mr.Hope自掏腰包，配置不是很好，同学可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置或者赞赏Mr.Hope的劳动成果。</text>
-    </view>
+    <view class='errorDesc'>这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1. 东青文创资助的服务器炸了；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器由东青文创资助，选用阿里云598元/元的服务器，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~.</view>
   </view>
   <view class='donateCtn'>
     <navigator url='/pages/settings/donate'>
@@ -234,9 +223,7 @@
         <view class='wechat-backArrow'></view>
       </button>
     </view>
-    <view class='wechat-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">
-      <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
-    </view>
+    <view class='wechat-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
     <view wx:if="{{item.desc||item.show}}" class="wechat-head">
       <view class=".wechat-title">{{item.title}}</view>
       <view wx:if="{{item.desc}}" class="wechat-desc">{{item.desc}}</view>
@@ -245,13 +232,13 @@
 </template>
 
 <template name='wechath3'>
-  <view class='wechatH3'>{{item.text}}</view>
+  <view class='wechatH3' style='{{item.style}}'>{{item.text}}</view>
 </template>
 
 <template name='wechatp'>
   <view wx:if="{{item.head}}" class='wechathead'>{{item.head}}</view>
-  <view class='wechatP'>
-    <text>{{item.text}}</text>
+  <view class='wechatP' style='{{item.style}}'>
+    <text selectable='true'>{{item.text}}</text>
   </view>
   <view class='flexbox' style="{{item.load?'':'display: none;'}}">
     <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />

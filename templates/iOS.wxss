@@ -287,7 +287,7 @@
 }
 
 .iOS-img, .iOSP-img {
-  border-radius: 8px;
+  border-radius: 16rpx;
 }
 
 .iOS-img {
@@ -303,15 +303,16 @@
 
 .iOSImgError {
   width: 90%;
-  height: 320px;
+  height: 400rpx;
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 4px 5%;
-  border-radius: 8px;
+  border-radius: 16rpx;
   background-color: #cac9ce;
+  color: #888;
 }
 
 .iOSN {
