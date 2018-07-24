@@ -1,5 +1,6 @@
 var u = getApp().util,
-  a = getApp().globalData;
+  a = getApp().globalData,
+  w = getApp().watcher;
 Page({
   data: {
     page: [{
@@ -69,14 +70,14 @@ Page({
     ],
   },
   onLoad() {
-    u.on('theme', this, function(data) {
+    u.sP(this.data.page, this, a);
+    w.on('theme', this, function(data) {
       this.setData({
         T: data
       });
-    });
+    })
   },
   onShow() {
-    u.sP(this.data.page, this, a);
     this.setData({
       nm: a.nm
     })
@@ -110,8 +111,5 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
-  },
-  sN(e) {
-    u.sN(e)
   }
 })

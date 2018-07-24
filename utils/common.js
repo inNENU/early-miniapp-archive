@@ -7,15 +7,15 @@ module.exports = {
   // sT: setTheme,
   // nm: nightmode,
   nav: changeNav,
-  // sP: setPage,
-  // sl: slider,
+  sP: setPage,
   // tBC: tabBarChanger,
+  sl: slider,
+  sS: Switch,
+  phone: phone,
+  doc: document,
   // back: back,
-  // sS: Switch,
   // ak: arrayKeynumber,
   gC: getContent,
-  // doc: document,
-  // phone: phone,
   // on: on,
   // emit: emit,
   // remove: remove,
@@ -109,4 +109,176 @@ function changeNav(e, indicator) {
       page: indicator.data.page
     })
   };
+}
+
+// json组件判断触发函数
+function componemtAction(e, indicator) {
+  console.log(e);
+  let action = e.currentTarget.dataset.action;
+  switch (action) {
+    case 'img':
+      image(e, indicator);
+      break;
+    case 'doc':
+      document(e);
+      break;
+    case 'phone':
+      phone(e, indicator);
+      break;
+    case 'picker':
+      picker(e, indicator);
+      break;
+    case 'switch':
+      Switch(e, indicator);
+      break;
+    case 'slider':
+      slider(e, indicator);
+      break;
+    case 'back':
+      wx.navigateBack({});
+      break;
+    case 'swiper':
+      break;
+    default:
+      console.log('error');
+  }
+}
+
+// 选择器函数
+function picker(e, indicator) {
+  let pos = e.currentTarget.dataset.id.split('-'),
+    content = indicator.data.page[pos[0]].content[pos[1]];
+  if (e.type == 'tap') {
+    content.visible = !content.visible;
+    indicator.setData({
+      page: indicator.data.page
+    })
+  }
+  if (e.type == 'change') {
+    let value = e.detail.value;
+    if (content.single) {
+      content.value = content.pickerValue[Number(value)];
+      content.currentValue = value;
+      wx.setStorageSync(content.key, Number(value));
+    } else {
+      for (let k = 0; k < value.length; k++) {
+        content.value[k] = content.pickerValue[k][Number(value[k])];
+        content.currentValue[k] = value[k]
+      };
+      wx.setStorageSync(content.key, value.join('-'));
+    }
+    indicator.setData({
+      page: indicator.data.page
+    })
+  }
+}
+
+// 滑块函数
+function slider(e, indicator) {
+  let pos = e.currentTarget.dataset.id.split('-'),
+    content = indicator.data.page[pos[0]].content[pos[1]],
+    value = e.detail.value;
+  switch (e.type) {
+    case 'tap':
+      content.visible = !content.visible;
+      break;
+    case 'changing':
+      content.value = value;
+      break;
+    case 'change':
+      content.value = value;
+      wx.setStorageSync(content.sliKey, value);
+      break;
+  }
+  indicator.setData({
+    page: indicator.data.page
+  })
+}
+
+// 开关函数
+function Switch(e, indicator) {
+  let pos = e.target.dataset.id.split('-'),
+    page = indicator.data.page,
+    content = page[pos[0]].content[pos[1]];
+  content.status = e.detail.value;
+  indicator.setData({
+    page: page
+  });
+  wx.setStorageSync(content.swiKey, e.detail.value);
+  return page;
+}
+
+// 图片函数
+function image(e, indicator) {
+  let current = indicator.data.page[e.target.id];
+  switch (e.type) {
+    case 'load':
+      current.load = true;
+      indicator.setData({
+        page: indicator.data.page
+      });
+      break;
+    case 'error':
+      current.error = true;
+      indicator.setData({
+        page: indicator.data.page
+      });
+      break;
+    case 'tap':
+      wx.previewImage({
+        current: current.res,
+        urls: indicator.data.url
+      });
+      break;
+  }
+}
+
+// 打开文档
+function document(e) {
+  wx.showLoading({
+    title: '下载中...',
+    mask: true
+  });
+  wx.downloadFile({
+    url: e.currentTarget.dataset.url,
+    success: function(res) {
+      wx.hideLoading();
+      let path = res.tempFilePath;
+      wx.openDocument({
+        filePath: path
+      })
+    }
+  })
+}
+
+// 电话组件函数
+function phone(e, indicator) {
+  let Type = e.target.dataset.type,
+    info = indicator.data.page[e.currentTarget.id];
+  if (Type == 'call') {
+    wx.makePhoneCall({
+      phoneNumber: info.num.toString()
+    })
+  } else if (Type == 'add') {
+    wx.addPhoneContact({
+      firstName: info.fName,
+      lastName: info.lName,
+      mobilePhoneNumber: info.num,
+      organization: info.org,
+      workPhoneNumber: info.workNum,
+      remark: info.remark,
+      photoFilePath: info.head,
+      nickName: info.nickName,
+      weChatNumber: info.wechat,
+      addressState: info.province,
+      addressCity: info.city,
+      addressStreet: info.street,
+      addressPostalCode: info.postCode,
+      title: info.title,
+      hostNumber: info.hostNum,
+      email: info.email,
+      url: info.website,
+      homePhoneNumber: info.homeNum
+    })
+  }
 }

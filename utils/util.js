@@ -1,7 +1,6 @@
 module.exports = {
-  nC: noticeCheck,
-  cRU: checkResUpdate,
-  cFU: checkFuncUpdate,
+  noticeCheck: noticeCheck,
+  checkUpdate: checkUpdate,
   rR: resRefresh,
   init: initialize,
   sT: setTheme,
@@ -16,18 +15,14 @@ module.exports = {
   gC: getContent,
   doc: document,
   phone: phone,
-  on: on,
-  emit: emit,
-  remove: remove,
   donate: donate,
   cA: componemtAction,
-  // formatTime: formatTime,
   go: go,
   sN: scrollNav,
   gD: getDistance
 }
 
-//弹窗检查
+//弹窗检查 from app.js
 function noticeCheck() {
   wx.request({
     url: 'https://mrhope.top/mp/notice.json',
@@ -56,11 +51,11 @@ function noticeCheck() {
   })
 }
 
-//检查资源更新
+//检查资源更新 from function.js & guide.js
 function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, dataUsage) {
   let notify = initialize(notifyKey, true),
     local = initialize(storageKey, undefined);
-  console.log(notifyKey + notify);
+  console.log(notifyKey + 'is' + notify); //调试
   console.log(local);
   if (notify) {
     wx.request({
@@ -98,7 +93,7 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
               }
             });
           } else if (local !== JSON.stringify(onlineData)) {
-            console.log('not match')
+            console.log('not match') //调试
             wx.showModal({
               title: '部分资源有更新？',
               content: '是否立即更新资源？\n(会消耗' + dataUsage + '流量)',
@@ -113,7 +108,7 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
               }
             });
           } else {
-            console.log('match')
+            console.log('match') //调试
           }
         } else {
           console.error('Funclist error!')
@@ -121,14 +116,6 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
       }
     })
   }
-}
-
-function checkFuncUpdate() {
-  checkUpdate('funcNotify', 'localFunc', 'funcList', '是否立即下载功能所需资源？', '下载后会使功能响应速度明显提升。(会消耗30K流量)', '20K')
-}
-
-function checkResUpdate() {
-  checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗60K流量)', '30K')
 }
 
 // function resDownload(fileList, localList) {
@@ -268,42 +255,52 @@ function checkResUpdate() {
 //   }
 // }
 
-function resDownload(fileList, localList) {
-  console.log(fileList);
-  console.log(localList);
-  let category = Object.keys(fileList),
-    fileNum = 0,
+function resSnyc(fileNumList, refreshList) {
+  wx.showLoading({
+    title: '更新中...0%',
+    mask: true
+  });
+  let percent = new Array(),
     successNumber = 0,
-    percent = new Array,
-    k;
-  console.log(category);
-  if (localList) {
-    let refreshList = new Array();
-    for (let i = 0; i < category.length; i++) {
-      if (!localList[category[i]] || localList[category[i]][1] !== fileList[category[i]][1]) {
-        console.log(category[i] + 'don\'t match')
-        fileNum += fileList[category[i]][0] + 1;
-        refreshList.push(category[i]);
-      };
-    };
-    console.log("fileNum是" + fileNum);
-    for (let i = 0; i <= fileNum; i++) {
-      percent.push(((i / fileNum) * 100).toString().substring(0, 4));
-    }
-    wx.showLoading({
-      title: '更新中...0%',
-      mask: true
+    fileNum = 0;
+  for (let i = 0; i < fileNumList.length; i++) {
+    fileNum += fileNumList[i] + 1;
+  };
+  console.log("fileNum是" + fileNum);
+  for (let i = 0; i <= fileNum; i++) {
+    percent.push(((i / fileNum) * 100).toString().substring(0, 4));
+  }
+  let timeoutFunc = setTimeout(function() {
+    wx.hideLoading();
+    console.error('hide timeout')
+  }, 10000);
+  for (let i = 0; i < refreshList.length; i++) {
+    wx.request({
+      url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
+      success(res) {
+        console.log(refreshList[i]), console.log(res);
+        wx.setStorageSync(refreshList[i], res.data);
+        successNumber += 1;
+        wx.showLoading({
+          title: '更新中...' + percent[successNumber] + '%',
+          mask: true
+        });
+        if (successNumber == fileNum) {
+          wx.hideLoading();
+          console.log('hide');
+          clearTimeout(timeoutFunc);
+        };
+      },
+      fail(res) {
+        console.warn(refreshList[i]), console.warn(res);
+      }
     });
-    let timeoutFunc = setTimeout(function() {
-      wx.hideLoading();
-      console.error('hide timeout')
-    }, 10000);
-    for (let i = 0; i < refreshList.length; i++) {
+    for (let j = 1; j <= fileNumList[i]; j++) {
       wx.request({
-        url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
+        url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
         success(res) {
-          console.log(refreshList[i]), console.log(res);
-          wx.setStorageSync(refreshList[i], res.data);
+          console.log(res), console.log(refreshList[i] + j);
+          wx.setStorageSync(refreshList[i] + j, res.data);
           successNumber += 1;
           wx.showLoading({
             title: '更新中...' + percent[successNumber] + '%',
@@ -316,92 +313,34 @@ function resDownload(fileList, localList) {
           };
         },
         fail(res) {
-          console.warn(refreshList[i]), console.warn(res);
+          console.error(res), console.error(refreshList[i] + j);
         }
-      });
-      for (let j = 1; j <= fileList[refreshList[i]][0]; j++) {
-        wx.request({
-          url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
-          success(res) {
-            console.log(res), console.log(refreshList[i] + j);
-            wx.setStorageSync(refreshList[i] + j, res.data);
-            successNumber += 1;
-            wx.showLoading({
-              title: '更新中...' + percent[successNumber] + '%',
-              mask: true
-            });
-            if (successNumber == fileNum) {
-              wx.hideLoading();
-              console.log('hide');
-              clearTimeout(timeoutFunc);
-            };
-          },
-          fail(res) {
-            console.error(res), console.error(refreshList[i]);
-          }
-        })
-      }
+      })
     }
+  }
+}
+
+function resDownload(onlineList, localList) {
+  console.log(onlineList), console.log(localList); //调试
+  let category = Object.keys(onlineList),
+    fileNumList = new Array(),
+    refreshList = new Array();
+  console.log(category);
+  if (localList) {
+    for (let i = 0; i < category.length; i++) {
+      if (!localList[category[i]] || localList[category[i]][1] !== onlineList[category[i]][1]) {
+        console.log(category[i] + 'don\'t match')
+        fileNumList.push(onlineList[category[i]][0]);
+        refreshList.push(category[i]);
+      };
+    };
+    resSnyc(fileNumList, refreshList);
   } else {
     for (let i = 0; i < category.length; i++) {
-      fileNum += fileList[category[i]][0] + 1;
+      fileNumList.push(onlineList[category[i]][0]);
     };
-    for (let i = 0; i <= fileNum; i++) {
-      percent.push(((i / fileNum) * 100).toString().substring(0, 4));
-    };
-    console.log(fileNum);
-    wx.showLoading({
-      title: '下载中...0%',
-      mask: true
-    });
-    let timeoutFunc = setTimeout(function() {
-      wx.hideLoading();
-      console.error('hide timeout')
-    }, 10000);
-    for (let i = 0; i < category.length; i++) {
-      wx.request({
-        url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + '.json',
-        success(res) {
-          console.log(category[i]), console.log(res);
-          wx.setStorageSync(category[i], res.data);
-          successNumber += 1;
-          wx.showLoading({
-            title: '下载中...' + percent[successNumber] + '%',
-            mask: true
-          });
-          if (successNumber == fileNum) {
-            wx.hideLoading();
-            console.log('hide');
-            clearTimeout(timeoutFunc);
-          };
-        },
-        fail(res) {
-          console.error(category[i] + 'error'), console.error(res);
-        }
-      });
-      for (let j = 1; j <= fileList[category[i]][0]; j++) {
-        wx.request({
-          url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + j + '.json',
-          success(res) {
-            console.log(category[i] + j), console.log(res);
-            wx.setStorageSync(category[i] + j, res.data);
-            successNumber += 1;
-            wx.showLoading({
-              title: '下载中...' + percent[successNumber] + '%',
-              mask: true
-            });
-            if (successNumber == fileNum) {
-              wx.hideLoading();
-              console.log('hide');
-              clearTimeout(timeoutFunc);
-            };
-          },
-          fail(res) {
-            console.error(category[i] + 'error'), console.error(res);
-          }
-        })
-      }
-    }
+    refreshList = category;
+    resSnyc(fileNumList, refreshList);
   }
 }
 
@@ -564,23 +503,23 @@ function nightmode(date, startTime, endTime) {
 
 // 导航栏动态改变
 function changeNav(e, indicator) {
-	var n = indicator.data.page[0],
-		T, B, S;
-	if (e.scrollTop <= 1) {
-		T = B = S = false;
-	} else if (e.scrollTop <= 42) {
-		T = B = false, S = true;
-	} else if (e.scrollTop >= 53) {
-		T = B = S = true;
-	} else {
-		T = S = true, B = false;
-	};
-	if (n.titleDisplay != T || n.borderDisplay != B || n.shadow != S) {
-		n.titleDisplay = T, n.borderDisplay = B, n.shadow = S;
-		indicator.setData({
-			page: indicator.data.page
-		})
-	};
+  var n = indicator.data.page[0],
+    T, B, S;
+  if (e.scrollTop <= 1) {
+    T = B = S = false;
+  } else if (e.scrollTop <= 42) {
+    T = B = false, S = true;
+  } else if (e.scrollTop >= 53) {
+    T = B = S = true;
+  } else {
+    T = S = true, B = false;
+  };
+  if (n.titleDisplay != T || n.borderDisplay != B || n.shadow != S) {
+    n.titleDisplay = T, n.borderDisplay = B, n.shadow = S;
+    indicator.setData({
+      page: indicator.data.page
+    })
+  };
 }
 
 // iOS导航栏弹性滚动特效
@@ -1063,35 +1002,3 @@ function getMarkers() {
 //   var second = date.getSeconds()
 //   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 // }
-
-var events = {};
-
-function on(name, self, callback) {
-  var tuple = [self, callback];
-  var callbacks = events[name];
-  if (Array.isArray(callbacks)) {
-    callbacks.push(tuple);
-  } else {
-    events[name] = [tuple];
-  }
-}
-
-function remove(name, self) {
-  var callbacks = events[name];
-  if (Array.isArray(callbacks)) {
-    events[name] = callbacks.filter((tuple) => {
-      return tuple[0] != self;
-    })
-  }
-}
-
-function emit(name, data) {
-  var callbacks = events[name];
-  if (Array.isArray(callbacks)) {
-    callbacks.map((tuple) => {
-      var self = tuple[0];
-      var callback = tuple[1];
-      callback.call(self, data);
-    })
-  }
-}

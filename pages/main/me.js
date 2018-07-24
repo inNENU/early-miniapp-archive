@@ -1,5 +1,6 @@
 var u = getApp().util,
-  a = getApp().globalData;
+  a = getApp().globalData,
+  w = getApp().watcher;
 Page({
   data: {
     page: [{
@@ -26,19 +27,19 @@ Page({
     ],
   },
   onLoad() {
-    u.on('theme', this, function(data) {
+    u.sP(this.data.page, this, a);
+    w.on('theme', this, function(data) {
       this.setData({
         T: data
       });
-    })
-  },
-  onShow() {
-    u.sP(this.data.page, this, a);
+    });
+    w.on('nightmode', this, function(data) {
+      this.setData({
+        nm: data
+      });
+    });
   },
   onPageScroll(e) {
     u.nav(e, this)
-  },
-  sN(e) {
-    u.sN(e)
   }
 })

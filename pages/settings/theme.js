@@ -1,5 +1,6 @@
 var u = getApp().util,
-  a = getApp().globalData;
+  a = getApp().globalData,
+  w = getApp().watcher;
 var date = new Date()
 var time = [
   [],
@@ -109,10 +110,9 @@ Page({
         head: '调试控制',
         foot: '打开开关来开启调试模式',
         content: [{
-            text: '调试控制台',
-            swiKey: 'debugMode'
-          }
-        ]
+          text: '调试控制台',
+          swiKey: 'debugMode'
+        }]
       },
     ],
   },
@@ -245,13 +245,10 @@ Page({
   setTheme(e) {
     u.cA(e, this);
     let theme = this.data.page[1].content[0].pickerValue[e.detail.value];
-    console.log(theme)
+    console.log(theme); //调试
     a.T = theme;
     wx.setStorageSync("theme", theme);
     u.sP(this.data.page, this, a, e);
-    u.emit('theme', theme);
-	},
-	sN(e) {
-		u.sN(e)
-	}
+    w.emit('theme', theme);
+  }
 })

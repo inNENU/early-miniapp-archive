@@ -1,5 +1,6 @@
 var u = getApp().util,
-  a = getApp().globalData;
+  a = getApp().globalData,
+  w = getApp().watcher;
 Page({
   data: {
     page: [{
@@ -67,15 +68,19 @@ Page({
   },
   onLoad() {
     u.sP(this.data.page, this, a);
-    u.cRU();
+    w.on('theme', this, function(data) {
+      this.setData({
+        T: data
+      });
+    });
+    u.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗60K流量)', '30K')
   },
-	onShow() {
-		u.sP(this.data.page, this, a)
-	},
+  onShow() {
+    this.setData({
+      nm: a.nm
+    })
+  },
   onPageScroll(e) {
     u.nav(e, this)
-	},
-	sN(e) {
-		u.sN(e)
-	}
+  }
 })
