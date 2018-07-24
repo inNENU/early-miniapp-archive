@@ -184,7 +184,7 @@ function image(e, indicator) {
     case 'tap':
       wx.previewImage({
         current: current.res,
-        urls: indicator.data.url
+        urls: indicator.data.page[0].url
       });
       break;
   }
@@ -267,7 +267,7 @@ function setPageData(page, a, e) {
   if (page && page[0].tag == 'head') {
     page[0].statusBarHeight = a.info.statusBarHeight;
     if (e && !page[0].top && 'From' in e) {
-      page[0].backText = e.From
+      page[0].leftText = e.From
     };
     if (e && !page[0].top && 'step' in e) {
       page[0].aimStep = Number(e.step) + 1

@@ -1,4 +1,4 @@
-var c = getApp().commmon,
+var c = getApp().common,
   a = getApp().globalData;
 Page({
   onLoad(e) {
@@ -12,5 +12,5 @@ Page({
   },
   cA(e) {
     c.componentAction(e, this)
-  },
+  }
 })

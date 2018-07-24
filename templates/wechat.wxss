@@ -6,10 +6,6 @@
   text-align: center;
 }
 
-.wechat:last-child, .wechatgrey:last-child {
-  padding-bottom: 40px;
-}
-
 .wechat, .wechatgrey {
   background-color: #f8f8f8;
 }
@@ -99,6 +95,14 @@
 
 .nm .wechat-backArrow {
   border-color: white;
+}
+
+.wechat-leftText {
+  font-size: 14px;
+}
+
+.nm .wechat-leftText {
+  color: #fff;
 }
 
 .wechat-head {

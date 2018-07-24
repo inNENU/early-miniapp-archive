@@ -59,7 +59,7 @@ Page({
  functionName：picker函数值；
 ```
 →functionName←(e) {
-    u.pV(e,this);
+    u.picker(e,this);
     other code here......
   },
 ```
@@ -76,7 +76,7 @@ Page({
     functionName：switch函数值；
 ```
   →functionName←(e){
-    u.sl(e,this);
+    u.slider(e,this);
     other code here......
   },
 ```
@@ -225,11 +225,12 @@ Page({
 
 **_列表每个单元内包含的参数_** 
 
-|参数|必填|值类型|内容|
-|-|:-:|:-:|-|
-|url|是|String|九宫格指向的页面路径|
-|icon|否|String|九宫格的图标的在线路径或本地路径|
-|text|否|String|九宫格的文字|
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|:-:|
+|icon|否|String|九宫格的图标的在线路径或本地路径||
+|text|否|String|九宫格的文字||
+|aim|否|String|对应界面的json文件名|当指向简单界面时填写|
+|url|否|String|九宫格指向的界面路径|当指向复杂界面时填写|
 
 ##### **swiper参数：**
 |参数|必填|值类型|内容|备注|

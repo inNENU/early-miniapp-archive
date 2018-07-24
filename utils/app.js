@@ -6,7 +6,7 @@ module.exports = {
   noticeCheck,
 }
 
-//开启开发模式  from app.js
+//开启开发模式  for app.js & theme.js
 function checkDebug() {
   if (wx.getStorageSync('debugMode')) {
     wx.setEnableDebug({
@@ -19,7 +19,7 @@ function checkDebug() {
   }
 }
 
-//弹窗检查 from app.js
+//弹窗检查 for app.js
 function noticeCheck() {
   wx.request({
     url: 'https://mrhope.top/mp/notice.json',
@@ -54,7 +54,7 @@ function initialize(key, defaultKey) {
   return (value || value === false) ? value : (wx.setStorageSync(key, defaultKey), defaultKey);
 }
 
-//设置主题
+//设置主题 for app.js & theme.js
 function setTheme(theme) {
   let value = wx.getStorageSync('theme');
   if (value) {
@@ -85,7 +85,7 @@ function setTheme(theme) {
   }
 }
 
-// 夜间模式
+// 夜间模式 for app.js & theme.js
 function nightmode(date, startTime, endTime) {
   let nm = initialize('nightmode', true),
     nmAC = initialize('nightmodeAutoChange', true),

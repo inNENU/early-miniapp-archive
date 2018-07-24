@@ -21,9 +21,9 @@
   <block wx:if="{{item.display!==false}}">
     <view class='iOS-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
       <view wx:if="{{item.titleDisplay}}" class="iOS-titletext">{{item.title}}</view>
-      <button wx:if="{{item.action==undefined&&item.action!=true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
-        <view wx:if="{{item.action!=true}}" class='iOS-backArrow'></view>
-        <text class='iOS-nav-text'>{{item.backText}}</text>
+      <button wx:if="{{item.action!=true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
+        <view wx:if="{{item.action==undefined}}" class='iOS-backArrow'></view>
+        <text class='iOS-nav-text'>{{item.leftText}}</text>
       </button>
     </view>
     <view wx:if="{{item.borderDisplay}}" class='iOSnavDl' style="top:{{item.statusBarHeight+44}}px;"></view>
@@ -219,8 +219,9 @@
   <block wx:if="{{item.display!==false}}">
     <view class="wechat-navigationBar {{item.shadow?'wechatNavShadow':''}}" style="padding-top:{{item.statusBarHeight}}px;">
       <view class="wechat-titletext">{{item.title}}</view>
-      <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
+      <button wx:if="{{item.action!=true}}" class='wechat-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
         <view class='wechat-backArrow'></view>
+        <view class='wechat-leftText'>{{item.leftText}}</view>
       </button>
     </view>
     <view class='wechat-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
