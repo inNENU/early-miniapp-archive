@@ -1,4 +1,5 @@
 module.exports = {
+	checkDebug: checkDebug,
   noticeCheck: noticeCheck,
   checkUpdate: checkUpdate,
   rR: resRefresh,
@@ -19,6 +20,18 @@ module.exports = {
   cA: componemtAction,
   go: go,
   gD: getDistance
+}
+
+function checkDebug() {
+  if (wx.getStorageSync('debugMode')) {
+    wx.setEnableDebug({
+      enableDebug: true
+    })
+  } else {
+    wx.setEnableDebug({
+      enableDebug: false
+    })
+  }
 }
 
 //弹窗检查 from app.js
@@ -120,7 +133,7 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
 //resRefresh的附属函数
 function resSnyc(fileNumList, refreshList) {
   wx.showLoading({
-    title: '更新中...0%',
+    title: '下载中...0%',
     mask: true
   });
   let percent = new Array(),
@@ -145,7 +158,7 @@ function resSnyc(fileNumList, refreshList) {
         wx.setStorageSync(refreshList[i], res.data);
         successNumber += 1;
         wx.showLoading({
-          title: '更新中...' + percent[successNumber] + '%',
+          title: '下载中...' + percent[successNumber] + '%',
           mask: true
         });
         if (successNumber == fileNum) {
@@ -166,7 +179,7 @@ function resSnyc(fileNumList, refreshList) {
           wx.setStorageSync(refreshList[i] + j, res.data);
           successNumber += 1;
           wx.showLoading({
-            title: '更新中...' + percent[successNumber] + '%',
+            title: '下载中...' + percent[successNumber] + '%',
             mask: true
           });
           if (successNumber == fileNum) {
@@ -230,62 +243,60 @@ function getContent(indicator, a, e) {
   wx.showLoading({
     title: '加载中...'
   });
-  wx.getStorage({
-    key: e.aim,
-    success(key) {
-      console.log(key.data); //调试
-      setPage(key.data, indicator, a, e);
+  if (showPage(indicator, a, e)) {
+    wx.hideLoading();
+  } else {
+    let pageData = wx.getStorageSync(e.aim);
+    if (pageData) {
+      console.log(pageData); //调试
+      setPage(pageData, indicator, a, e);
       wx.hideLoading();
-    },
-    fail(res) {
-      console.log(res);
-      if (res.errMsg == 'getStorage:fail data not found') {
-        wx.getNetworkType({
-          success: function(res) {
-            console.log(res);
-            var net = res.networkType;
-            if (net == 'none' || net == 'unknown') {
-              setPage([{
-                tag: 'error',
-                statusBarHeight: a.info.statusBarHeight
-              }], indicator, a, e);
-              wx.hideLoading();
-              wx.showToast({
-                title: '您未打开互联网！由于您未提前缓存此界面，界面无法加载！\n请检查您的互联网连接！',
-                icon: 'none',
-                duration: 10000
-              });
-              reConnet(indicator, a, e);
+    } else {
+      wx.getNetworkType({
+        success: function(res) {
+          console.log(res);
+          let net = res.networkType;
+          if (net == 'none' || net == 'unknown') {
+            setPage([{
+              tag: 'error',
+              statusBarHeight: a.info.statusBarHeight
+            }], indicator, a, e);
+            wx.hideLoading();
+            wx.showToast({
+              title: '您未打开互联网！由于您未提前缓存此界面，界面无法加载！\n请检查您的互联网连接！',
+              icon: 'none',
+              duration: 10000
+            });
+            reConnet(indicator, a, e);
+          } else {
+            let source;
+            if (isNaN(e.aim.charAt(e.aim.length - 1))) {
+              source = e.aim;
             } else {
-              let source;
-              if (isNaN(e.aim.charAt(e.aim.length - 1))) {
-                source = e.aim;
-              } else {
-                source = e.aim.substring(0, e.aim.length - 1);
-              };
-              wx.request({
-                url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
-                success(res) {
-                  console.log(res);
-                  if (res.statusCode == 200) {
-                    setPage(res.data, indicator, a, e);
-                    wx.setStorageSync(e.aim, res.data);
-                  } else {
-                    console.log('res error');
-                    setPage([{
-                      tag: 'error',
-                      statusBarHeight: a.info.statusBarHeight
-                    }], indicator, a, e);
-                  }
-                  wx.hideLoading();
+              source = e.aim.substring(0, e.aim.length - 1);
+            };
+            wx.request({
+              url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
+              success(res) {
+                console.log(res);
+                if (res.statusCode == 200) {
+                  setPage(res.data, indicator, a, e);
+                  wx.setStorageSync(e.aim, res.data);
+                } else {
+                  console.log('res error');
+                  setPage([{
+                    tag: 'error',
+                    statusBarHeight: a.info.statusBarHeight
+                  }], indicator, a, e);
                 }
-              })
-            }
+                wx.hideLoading();
+              }
+            })
           }
-        })
-      }
-    },
-  })
+        }
+      })
+    }
+  }
 }
 
 // 初始化存储
@@ -368,7 +379,7 @@ function nightmode(date, startTime, endTime) {
 
 // 导航栏动态改变
 function changeNav(e, indicator) {
-  var n = indicator.data.page[0],
+  let n = indicator.data.page[0],
     T, B, S;
   if (e.scrollTop <= 1) {
     T = B = S = false;
@@ -389,66 +400,82 @@ function changeNav(e, indicator) {
 
 //设置page数组 被setPage和preLoadPage调用
 function setPageData(page, a, e) {
-	//setNav
-	if (page && page[0].tag == 'head') {
-		page[0].statusBarHeight = a.info.statusBarHeight;
-		if (e && !page[0].top && 'From' in e) {
-			page[0].backText = e.From
-		};
-		if (e && !page[0].top && 'step' in e) {
-			page[0].aimStep = Number(e.step) + 1
-		};
-	};
-	page[0].url = new Array();
-	for (let i = 0; i < page.length; i++) {
-		//setImage
-		let Module = page[i];
-		Module.id = i;
-		if (Module.src) {
-			(Module.res) ? page[0].url.push(Module.res) : page[0].url.push(Module.src), Module.res = Module.src;
-			(Module.imgMode) ? '' : Module.imgMode = a.imgMode
-		};
-		//setList
-		if ('content' in Module) {
-			for (let j = 0; j < Module.content.length; j++) {
-				let item = Module.content[j];
-				item.id = i + "-" + j;
-				//set List navigator
-				if ('url' in item) {
-					item.url += "?From=" + page[0].title
-				};
-				if ('aim' in item) {
-					item.url = "/templates/module" + page[0].aimStep + "?From=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
-				};
-				//set List switch
-				if ('swiKey' in item) {
-					item.status = wx.getStorageSync(item.swiKey);
-				};
-				//set List slider
-				if ('sliKey' in item) {
-					item.value = wx.getStorageSync(item.sliKey);
-				};
-				//set List picker
-				if ('pickerValue' in item) {
-					if (item.single) {
-						let res = wx.getStorageSync(item.key);
-						item.value = item.pickerValue[res];
-						item.currentValue = [res]
-					} else {
-						let res = wx.getStorageSync(item.key).split('-');
-						item.currentValue = new Array();
-						item.value = new Array();
-						for (let k = 0; k < res.length; k++) {
-							item.value[k] = item.pickerValue[k][Number(res[k])];
-							item.currentValue[k] = Number(res[k]);
-						}
-					}
-				}
-			}
-		}
-	};
-	return page;
+  //setNav
+  if (page && page[0].tag == 'head') {
+    page[0].statusBarHeight = a.info.statusBarHeight;
+    if (e && !page[0].top && 'From' in e) {
+      page[0].backText = e.From
+    };
+    if (e && !page[0].top && 'step' in e) {
+      page[0].aimStep = Number(e.step) + 1
+    };
+  };
+  page[0].url = new Array();
+  for (let i = 0; i < page.length; i++) {
+    //setImage
+    let Module = page[i];
+    Module.id = i;
+    if (Module.src) {
+      (Module.res) ? page[0].url.push(Module.res): page[0].url.push(Module.src), Module.res = Module.src;
+      (Module.imgMode) ? '' : Module.imgMode = a.imgMode
+    };
+    //setList
+    if ('content' in Module) {
+      for (let j = 0; j < Module.content.length; j++) {
+        let item = Module.content[j];
+        item.id = i + "-" + j;
+        //set List navigator
+        if ('url' in item) {
+          item.url += "?From=" + page[0].title
+        };
+        if ('aim' in item) {
+          item.url = "/templates/module" + page[0].aimStep + "?From=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
+        };
+        //set List switch
+        if ('swiKey' in item) {
+          item.status = wx.getStorageSync(item.swiKey);
+        };
+        //set List slider
+        if ('sliKey' in item) {
+          item.value = wx.getStorageSync(item.sliKey);
+        };
+        //set List picker
+        if ('pickerValue' in item) {
+          if (item.single) {
+            let res = wx.getStorageSync(item.key);
+            item.value = item.pickerValue[res];
+            item.currentValue = [res]
+          } else {
+            let res = wx.getStorageSync(item.key).split('-');
+            item.currentValue = new Array();
+            item.value = new Array();
+            for (let k = 0; k < res.length; k++) {
+              item.value[k] = item.pickerValue[k][Number(res[k])];
+              item.currentValue[k] = Number(res[k]);
+            }
+          }
+        }
+      }
+    }
+  };
+  return page;
 }
+
+// 弹出通知
+function popNotice(title) {
+  if (wx.getStorageSync(title + 'noticeNotify')) {
+    let notice = wx.getStorageSync((title + 'notice'));
+    wx.showModal({
+      title: notice[0],
+      content: notice[1],
+      showCancel: false,
+      success: function() {
+        wx.removeStorageSync(title + 'noticeNotify');
+      }
+    })
+  }
+}
+
 
 // 设置界面
 function setPage(page, indicator, a, e) {
@@ -457,18 +484,7 @@ function setPage(page, indicator, a, e) {
     nm: a.nm,
     page: setPageData(page, a, e)
   });
-  //pop notice
-  if (wx.getStorageSync(page[0].title + 'noticeNotify')) {
-    let notice = wx.getStorageSync((page[0].title + 'notice'));
-    wx.showModal({
-      title: notice[0],
-      content: notice[1],
-      showCancel: false,
-      success: function() {
-        wx.removeStorageSync(page[0].title + 'noticeNotify');
-      }
-    })
-  }
+  popNotice(page[0].title);
 }
 
 // 预载入界面
@@ -481,141 +497,27 @@ function preloadPage(page, a) {
             From: category[0].split('=')[1],
             aim: category[1].split('=')[1],
             step: category[2].split('=')[1]
-          };
-
+          },
+          page = wx.getStorageSync(e.aim);
+        wx.setStorageSync(e.aim + 'Temp', setPageData(page, a, e))
       };
     }
   }
-  //setNav
-  if (page && page[0].tag == 'head') {
-    page[0].statusBarHeight = a.info.statusBarHeight;
-    if (e && !page[0].top && 'from' in e) {
-      page[0].backText = e.from
-    };
-    if (e && !page[0].top && 'step' in e) {
-      page[0].aimStep = Number(e.step) + 1
-    };
-  };
-  var url = new Array();
-  for (let i = 0; i < page.length; i++) {
-    //setImage
-    let Module = page[i];
-    Module.id = i;
-    if (Module.src) {
-      (Module.res) ? url.push(Module.res): url.push(Module.src), Module.res = Module.src;
-      (Module.imgMode) ? '' : Module.imgMode = a.imgMode
-    };
-    //setList
-    if ('content' in Module) {
-      for (let j = 0; j < Module.content.length; j++) {
-        let item = Module.content[j];
-        item.id = i + "-" + j;
-        //set List navigator
-        if ('url' in item) {
-          item.url += "?from=" + page[0].title
-        };
-        if ('aim' in item) {
-          item.url = "/templates/module" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
-        };
-        //set List switch
-        if ('swiKey' in item) {
-          item.status = wx.getStorageSync(item.swiKey);
-        };
-        //set List slider
-        if ('sliKey' in item) {
-          item.value = wx.getStorageSync(item.sliKey);
-        };
-        //set List picker
-        if ('pickerValue' in item) {
-          if (item.single) {
-            let res = wx.getStorageSync(item.key);
-            item.value = item.pickerValue[res];
-            item.currentValue = [res]
-          } else {
-            let res = wx.getStorageSync(item.key).split('-');
-            item.currentValue = new Array();
-            item.value = new Array();
-            for (let k = 0; k < res.length; k++) {
-              item.value[k] = item.pickerValue[k][Number(res[k])];
-              item.currentValue[k] = Number(res[k]);
-            }
-          }
-        }
-      }
-    }
-  };
-  indicator.setData({
-    T: a.T,
-    nm: a.nm,
-    page: page,
-    url: url,
-  });
 }
 
-
 // 显示界面
-function showPage(page, indicator, a, e) {
-  //setNav
-  if (page && page[0].tag == 'head') {
-    if (e && !page[0].top && 'from' in e) {
-      page[0].backText = e.from
-    };
-    if (e && !page[0].top && 'step' in e) {
-      page[0].aimStep = Number(e.step) + 1
-    };
-  };
-  for (let i = 0; i < page.length; i++) {
-    //setList
-    if ('content' in Module) {
-      for (let j = 0; j < Module.content.length; j++) {
-        let item = Module.content[j];
-        //set List navigator
-        if ('aim' in item) {
-          item.url = "/templates/module" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
-        };
-        //set List switch
-        if ('swiKey' in item) {
-          item.status = wx.getStorageSync(item.swiKey);
-        };
-        //set List slider
-        if ('sliKey' in item) {
-          item.value = wx.getStorageSync(item.sliKey);
-        };
-        //set List picker
-        if ('pickerValue' in item) {
-          if (item.single) {
-            let res = wx.getStorageSync(item.key);
-            item.value = item.pickerValue[res];
-            item.currentValue = [res]
-          } else {
-            let res = wx.getStorageSync(item.key).split('-');
-            item.currentValue = new Array();
-            item.value = new Array();
-            for (let k = 0; k < res.length; k++) {
-              item.value[k] = item.pickerValue[k][Number(res[k])];
-              item.currentValue[k] = Number(res[k]);
-            }
-          }
-        }
-      }
-    }
-  };
-  indicator.setData({
-    T: a.T,
-    nm: a.nm,
-    page: page,
-  });
-  //pop notice
-  if (wx.getStorageSync(page[0].title + 'noticeNotify')) {
-    let notice = wx.getStorageSync((page[0].title + 'notice'));
-    wx.showModal({
-      title: notice[0],
-      content: notice[1],
-      showCancel: false,
-      success: function() {
-        wx.removeStorageSync(page[0].title + 'noticeNotify');
-      }
-    })
+function showPage(indicator, a, e) {
+  let page = wx.getStorageSync(e.aim + 'Temp');
+  if (page) {
+    indicator.setData({
+      T: a.T,
+      nm: a.nm,
+      page: page
+    });
+    popNotice(page[0].title);
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -809,7 +711,7 @@ function back() {
 
 // 输出特定元素在数组中的index
 function arrayKeynumber(array, key) {
-  for (var i in array) {
+  for (let i in array) {
     if (array[i] == key) {
       return i
     }
@@ -936,7 +838,7 @@ function getMarkers() {
         wx.getNetworkType({
           success: function(res) {
             console.log(res);
-            var net = res.networkType;
+            let net = res.networkType;
             if (net == 'none' || net == 'unknown') {
               setPage([{
                 tag: 'error',
@@ -989,12 +891,12 @@ function getMarkers() {
 //   return n[1] ? n : '0' + n
 // }
 // function formatTime(date) {
-//   var year = date.getFullYear()
-//   var month = date.getMonth() + 1
-//   var day = date.getDate()
-//   var hour = date.getHours()
-//   var minute = date.getMinutes()
-//   var second = date.getSeconds()
+//   let year = date.getFullYear()
+//   let month = date.getMonth() + 1
+//   let day = date.getDate()
+//   let hour = date.getHours()
+//   let minute = date.getMinutes()
+//   let second = date.getSeconds()
 //   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 // }
 

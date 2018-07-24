@@ -6,6 +6,7 @@ App({
     endTime: "5-0",
   },
   onLaunch() {
+    u.checkDebug();
     this.globalData.T = u.sT(this.data.theme);
     this.globalData.nm = u.nm(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
