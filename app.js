@@ -6,16 +6,18 @@ App({
     endTime: "5-0",
   },
   onLaunch() {
-		u.noticeCheck();
     this.globalData.T = u.sT(this.data.theme);
     this.globalData.nm = u.nm(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info);
+  },
+  onShow() {
+    u.noticeCheck();
   },
   globalData: {
     Version: 'V 0.7.2',
     imgMode: "widthFix"
   },
   util: require('utils/util'),
-	watcher: require('utils/watcher'),
+  watcher: require('utils/watcher'),
 })

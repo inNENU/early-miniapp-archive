@@ -18,7 +18,6 @@ module.exports = {
   donate: donate,
   cA: componemtAction,
   go: go,
-  sN: scrollNav,
   gD: getDistance
 }
 
@@ -118,143 +117,7 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
   }
 }
 
-// function resDownload(fileList, localList) {
-//   console.log(fileList);
-//   console.log(localList);
-//   let category = Object.keys(fileList),
-//     fileNum = 0,
-//     successNumber = 0,
-//     percent = new Array,
-//     k;
-//   console.log(category);
-//   if (localList) {
-//     let refreshList = new Array();
-//     for (let i = 0; i < category.length; i++) {
-//       if (!localList[category[i]] || localList[category[i]][1] !== fileList[category[i]][1]) {
-//         console.log(category[i] + 'don\'t match')
-//         fileNum += fileList[category[i]][0] + 1;
-//         refreshList.push(category[i]);
-//       };
-//     };
-//     console.log("fileNum是" + fileNum);
-//     for (let i = 0; i <= fileNum; i++) {
-//       percent.push(((i / fileNum) * 100).toString().substring(0, 4));
-//     }
-//     wx.showLoading({
-//       title: '更新中...0%',
-//       mask: true
-//     });
-//     let timeoutFunc = setTimeout(function() {
-//       wx.hideLoading();
-//       console.error('hide timeout')
-//     }, 10000);
-//     for (let i = 0; i < refreshList.length; i++) {
-//       wx.request({
-//         url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
-//         success(res) {
-//           console.log(refreshList[i]), console.log(res);
-//           wx.setStorageSync(refreshList[i], res.data);
-//           successNumber += 1;
-//           wx.showLoading({
-//             title: '更新中...' + percent[successNumber] + '%',
-//             mask: true
-//           });
-//           if (successNumber == fileNum) {
-//             wx.hideLoading();
-//             console.log('hide');
-//             clearTimeout(timeoutFunc);
-//           };
-//         },
-//         fail(res) {
-//           console.warn(refreshList[i]), console.warn(res);
-//         }
-//       });
-//       for (let j = 1; j <= fileList[refreshList[i]][0]; j++) {
-//         wx.request({
-//           url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
-//           success(res) {
-//             console.log(res), console.log(refreshList[i] + j);
-//             wx.setStorageSync(refreshList[i] + j, res.data);
-//             successNumber += 1;
-//             wx.showLoading({
-//               title: '更新中...' + percent[successNumber] + '%',
-//               mask: true
-//             });
-//             if (successNumber == fileNum) {
-//               wx.hideLoading();
-//               console.log('hide');
-//               clearTimeout(timeoutFunc);
-//             };
-//           },
-//           fail(res) {
-//             console.error(res), console.error(refreshList[i]);
-//           }
-//         })
-//       }
-//     }
-//   } else {
-//     for (let i = 0; i < category.length; i++) {
-//       fileNum += fileList[category[i]][0] + 1;
-//     };
-//     for (let i = 0; i <= fileNum; i++) {
-//       percent.push(((i / fileNum) * 100).toString().substring(0, 4));
-//     };
-//     console.log(fileNum);
-//     wx.showLoading({
-//       title: '下载中...0%',
-//       mask: true
-//     });
-//     let timeoutFunc = setTimeout(function() {
-//       wx.hideLoading();
-//       console.error('hide timeout')
-//     }, 10000);
-//     for (let i = 0; i < category.length; i++) {
-//       wx.request({
-//         url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + '.json',
-//         success(res) {
-//           console.log(category[i]), console.log(res);
-//           wx.setStorageSync(category[i], res.data);
-//           successNumber += 1;
-//           wx.showLoading({
-//             title: '下载中...' + percent[successNumber] + '%',
-//             mask: true
-//           });
-//           if (successNumber == fileNum) {
-//             wx.hideLoading();
-//             console.log('hide');
-//             clearTimeout(timeoutFunc);
-//           };
-//         },
-//         fail(res) {
-//           console.error(category[i] + 'error'), console.error(res);
-//         }
-//       });
-//       for (let j = 1; j <= fileList[category[i]][0]; j++) {
-//         wx.request({
-//           url: 'https://mrhope.top/mp/' + category[i] + '/' + category[i] + j + '.json',
-//           success(res) {
-//             console.log(category[i] + j), console.log(res);
-//             wx.setStorageSync(category[i] + j, res.data);
-//             successNumber += 1;
-//             wx.showLoading({
-//               title: '下载中...' + percent[successNumber] + '%',
-//               mask: true
-//             });
-//             if (successNumber == fileNum) {
-//               wx.hideLoading();
-//               console.log('hide');
-//               clearTimeout(timeoutFunc);
-//             };
-//           },
-//           fail(res) {
-//             console.error(category[i] + 'error'), console.error(res);
-//           }
-//         })
-//       }
-//     }
-//   }
-// }
-
+//resRefresh的附属函数
 function resSnyc(fileNumList, refreshList) {
   wx.showLoading({
     title: '更新中...0%',
@@ -320,6 +183,7 @@ function resSnyc(fileNumList, refreshList) {
   }
 }
 
+//资源下载 from fuction.js & guide.js 被resRefresh调用
 function resDownload(onlineList, localList) {
   console.log(onlineList), console.log(localList); //调试
   let category = Object.keys(onlineList),
@@ -344,6 +208,7 @@ function resDownload(onlineList, localList) {
   }
 }
 
+//资源刷新 from theme.js
 function resRefresh() {
   wx.request({
     url: 'https://mrhope.top/mp/fileList.json',
@@ -522,33 +387,108 @@ function changeNav(e, indicator) {
   };
 }
 
-// iOS导航栏弹性滚动特效
-function scrollNav(e) {
-  let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
-  console.log(pos)
-  if (pos < 27) {
-    wx.pageScrollTo({
-      scrollTop: 0,
-      duration: 500
-    })
-  } else if (pos < 53) {
-    wx.pageScrollTo({
-      scrollTop: 53,
-      duration: 500
-    })
-  }
+//设置page数组 被setPage和preLoadPage调用
+function setPageData(page, a, e) {
+	//setNav
+	if (page && page[0].tag == 'head') {
+		page[0].statusBarHeight = a.info.statusBarHeight;
+		if (e && !page[0].top && 'From' in e) {
+			page[0].backText = e.From
+		};
+		if (e && !page[0].top && 'step' in e) {
+			page[0].aimStep = Number(e.step) + 1
+		};
+	};
+	page[0].url = new Array();
+	for (let i = 0; i < page.length; i++) {
+		//setImage
+		let Module = page[i];
+		Module.id = i;
+		if (Module.src) {
+			(Module.res) ? page[0].url.push(Module.res) : page[0].url.push(Module.src), Module.res = Module.src;
+			(Module.imgMode) ? '' : Module.imgMode = a.imgMode
+		};
+		//setList
+		if ('content' in Module) {
+			for (let j = 0; j < Module.content.length; j++) {
+				let item = Module.content[j];
+				item.id = i + "-" + j;
+				//set List navigator
+				if ('url' in item) {
+					item.url += "?From=" + page[0].title
+				};
+				if ('aim' in item) {
+					item.url = "/templates/module" + page[0].aimStep + "?From=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
+				};
+				//set List switch
+				if ('swiKey' in item) {
+					item.status = wx.getStorageSync(item.swiKey);
+				};
+				//set List slider
+				if ('sliKey' in item) {
+					item.value = wx.getStorageSync(item.sliKey);
+				};
+				//set List picker
+				if ('pickerValue' in item) {
+					if (item.single) {
+						let res = wx.getStorageSync(item.key);
+						item.value = item.pickerValue[res];
+						item.currentValue = [res]
+					} else {
+						let res = wx.getStorageSync(item.key).split('-');
+						item.currentValue = new Array();
+						item.value = new Array();
+						for (let k = 0; k < res.length; k++) {
+							item.value[k] = item.pickerValue[k][Number(res[k])];
+							item.currentValue[k] = Number(res[k]);
+						}
+					}
+				}
+			}
+		}
+	};
+	return page;
 }
 
 // 设置界面
 function setPage(page, indicator, a, e) {
+  indicator.setData({
+    T: a.T,
+    nm: a.nm,
+    page: setPageData(page, a, e)
+  });
+  //pop notice
+  if (wx.getStorageSync(page[0].title + 'noticeNotify')) {
+    let notice = wx.getStorageSync((page[0].title + 'notice'));
+    wx.showModal({
+      title: notice[0],
+      content: notice[1],
+      showCancel: false,
+      success: function() {
+        wx.removeStorageSync(page[0].title + 'noticeNotify');
+      }
+    })
+  }
+}
+
+// 预载入界面
+function preloadPage(page, a) {
+  for (let i = 0; i < page.length; i++) {
+    if ('content' in page[i]) {
+      if ('aim' in item) {
+        let category = item.url.split('?')[1].split('&'),
+          e = {
+            From: category[0].split('=')[1],
+            aim: category[1].split('=')[1],
+            step: category[2].split('=')[1]
+          };
+
+      };
+    }
+  }
   //setNav
   if (page && page[0].tag == 'head') {
     page[0].statusBarHeight = a.info.statusBarHeight;
-    if (a.info.platform.substring(0, 7) === 'android') {
-      page[0].android = true
-    } else if (a.info.model.substring(0, 8) === 'iPhone X') {
-      page[0].iPhoneX = true
-    };
     if (e && !page[0].top && 'from' in e) {
       page[0].backText = e.from
     };
@@ -609,6 +549,61 @@ function setPage(page, indicator, a, e) {
     nm: a.nm,
     page: page,
     url: url,
+  });
+}
+
+
+// 显示界面
+function showPage(page, indicator, a, e) {
+  //setNav
+  if (page && page[0].tag == 'head') {
+    if (e && !page[0].top && 'from' in e) {
+      page[0].backText = e.from
+    };
+    if (e && !page[0].top && 'step' in e) {
+      page[0].aimStep = Number(e.step) + 1
+    };
+  };
+  for (let i = 0; i < page.length; i++) {
+    //setList
+    if ('content' in Module) {
+      for (let j = 0; j < Module.content.length; j++) {
+        let item = Module.content[j];
+        //set List navigator
+        if ('aim' in item) {
+          item.url = "/templates/module" + page[0].aimStep + "?from=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
+        };
+        //set List switch
+        if ('swiKey' in item) {
+          item.status = wx.getStorageSync(item.swiKey);
+        };
+        //set List slider
+        if ('sliKey' in item) {
+          item.value = wx.getStorageSync(item.sliKey);
+        };
+        //set List picker
+        if ('pickerValue' in item) {
+          if (item.single) {
+            let res = wx.getStorageSync(item.key);
+            item.value = item.pickerValue[res];
+            item.currentValue = [res]
+          } else {
+            let res = wx.getStorageSync(item.key).split('-');
+            item.currentValue = new Array();
+            item.value = new Array();
+            for (let k = 0; k < res.length; k++) {
+              item.value[k] = item.pickerValue[k][Number(res[k])];
+              item.currentValue[k] = Number(res[k]);
+            }
+          }
+        }
+      }
+    }
+  };
+  indicator.setData({
+    T: a.T,
+    nm: a.nm,
+    page: page,
   });
   //pop notice
   if (wx.getStorageSync(page[0].title + 'noticeNotify')) {
@@ -751,7 +746,7 @@ function image(e, indicator) {
     case 'tap':
       wx.previewImage({
         current: current.res,
-        urls: indicator.data.url
+        urls: indicator.data.page[0].url
       });
       break;
   }
@@ -1001,4 +996,22 @@ function getMarkers() {
 //   var minute = date.getMinutes()
 //   var second = date.getSeconds()
 //   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+// }
+
+
+// iOS导航栏弹性滚动特效
+// function scrollNav(e) {
+// 	let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
+// 	console.log(pos)
+// 	if (pos < 27) {
+// 		wx.pageScrollTo({
+// 			scrollTop: 0,
+// 			duration: 500
+// 		})
+// 	} else if (pos < 53) {
+// 		wx.pageScrollTo({
+// 			scrollTop: 53,
+// 			duration: 500
+// 		})
+// 	}
 // }

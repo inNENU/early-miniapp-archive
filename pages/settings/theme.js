@@ -137,7 +137,7 @@ Page({
     u.nav(e, this)
   },
   refresh(e) {
-    u.rR()
+    u.rR(a)
   },
   cA(e) {
     u.cA(e, this)
