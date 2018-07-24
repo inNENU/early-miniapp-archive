@@ -1,13 +1,16 @@
-var u = getApp().util,
-  a = getApp().globalData;
+var c = getApp().commmon,
+	a = getApp().globalData;
 Page({
-  onLoad(e) {
-    u.gC(this, a, e)
-  },
-  onPageScroll(e) {
-    u.nav(e, this)
-  },
-  cA(e) {
-    u.cA(e, this)
-	}
+	onLoad(e) {
+		c.getContent(this, a, e)
+	},
+	onReady() {
+		c.preloadPage(this.data.page, a);
+	},
+	onPageScroll(e) {
+		c.nav(e, this)
+	},
+	cA(e) {
+		c.componentAction(e, this)
+	},
 })

@@ -1,4 +1,4 @@
-var u = getApp().util,
+var app = getApp().app,
   a = getApp().globalData;
 var trigger = true;
 Page({
@@ -70,7 +70,8 @@ Page({
     wx.showLoading({
       title: '加载中...'
     });
-    let mapSwitch = u.init('mapSwitch', true),
+    let value = wx.getStorageSync('mapSwitch'),
+      mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true),
       info = a.info,
       that = this,
       map = this.data.map,
@@ -206,9 +207,6 @@ Page({
       }
     });
   },
-  cA(e) {
-    u.cA(e, this)
-  },
   point() {
     this.mapCtx.getCenterLocation({
       success: function(res) {
@@ -230,8 +228,13 @@ Page({
   markers(e) {
     console.log(e);
     if (e.type == 'callouttap') {
-      u.go('situs?id=' + e.markerId)
+      wx.navigateTo({
+        url: 'situs?id=' + e.markerId,
+      })
     }
+  },
+  back() {
+    wx.navigateBack({})
   },
   // locate: function() {
   //   let map = this.data.map,

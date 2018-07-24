@@ -1,4 +1,5 @@
-var u = require('utils/util');
+var u = require('utils/util'),
+  app = require('utils/app');
 App({
   data: {
     theme: "auto",
@@ -6,14 +7,14 @@ App({
     endTime: "5-0",
   },
   onLaunch() {
-    u.checkDebug();
-    this.globalData.T = u.sT(this.data.theme);
-    this.globalData.nm = u.nm(new Date(), this.data.startTime, this.data.endTime);
+    app.checkDebug();
+    this.globalData.T = app.setTheme(this.data.theme);
+    this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info);
   },
   onShow() {
-    u.noticeCheck();
+    app.noticeCheck();
   },
   globalData: {
     Version: 'V 0.7.4',
@@ -21,5 +22,5 @@ App({
   },
   util: require('utils/util'),
   watcher: require('utils/watcher'),
-	common: require('utils/common'),
+  common: require('utils/common'),
 })

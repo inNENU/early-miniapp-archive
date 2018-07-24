@@ -1,5 +1,5 @@
-var u = getApp().util,
-  a = getApp().globalData;
+var a = getApp().globalData,
+  c = getApp().common;
 Page({
   data: {
     page: [{
@@ -25,20 +25,20 @@ Page({
     }, {
       tag: 'p',
       head: 'V0.7.3',
-				text: '初步完成util.js重组；\n尝试预先setPage，进入后开始加载可能打开的界面；'
+      text: '初步完成util.js重组；\n尝试预先setPage，进入后开始加载可能打开的界面；'
     }, {
       tag: 'p',
       head: 'V0.7.4',
-				text: '进一步完善界面预载入；\n大量优化已有函数的性能；'
+      text: '进一步完善界面预载入；\n大量优化已有函数的性能；'
     }],
   },
   onLoad(e) {
-    u.sP(this.data.page, this, a, e)
+		c.setPage(this.data.page, this, a, e)
   },
-  onPageScroll(e) {
-    u.nav(e, this)
-  },
+	onPageScroll(e) {
+		c.nav(e, this)
+	},
   cA(e) {
-    u.cA(e, this)
+		c.componentAction(e, this)
   }
 })

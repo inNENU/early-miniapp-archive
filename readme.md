@@ -1,5 +1,5 @@
 # 许可
-> Version 1.0.3
+> Version 1.0.4
 
  **这是一个由Mr.Hope独立编写的项目。全部代码均由Mr.Hope编写，如有抄袭、商用，Mr.Hope保留追究其责任的权利。** 
 ### 一. 简单界面编写说明
@@ -18,22 +18,22 @@
 
  **2.在xxx.js中输入：** 
 ```
-var u = getApp().util,
-  a = getApp().globalData;
+var c = getApp().commmon,
+	a = getApp().globalData;
 Page({
-  onLoad(e) {
-    u.gC(this, a, e)
-  },
-  onPageScroll(e) {
-    u.nav(e, this)
-  },
-  sN(e) {
-    u.sN(e)
-  },
-  cA(e) {
-    u.cA(e, this)
-  }
-  **其他函数**
+	onLoad(e) {
+		c.getContent(this, a, e)
+	},
+	onReady() {
+		c.preloadPage(this.data.page, a);
+	},
+	onPageScroll(e) {
+		c.nav(e, this)
+	},
+	cA(e) {
+		c.componentAction(e, this)
+	},
+	**其他函数**
 })
 ```
  _**Tips：**_ 
@@ -44,7 +44,7 @@ Page({
  **3.在xxx.wxml中输入：** 
 ```
 <import src="/templates/template" />
-<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}" bindtouchend="{{T=='iOS'?'sN':''}}">
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
 </view>
 ```
@@ -68,7 +68,7 @@ Page({
     functionName：switch函数值；
 ```
 →functionName←(e) {
-    u.sS(e,this);
+    u.Switch(e,this);
     other code here......
   },
 ```

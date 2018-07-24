@@ -1,6 +1,7 @@
-var u = getApp().util,
-  a = getApp().globalData,
-  w = getApp().watcher;
+var a = getApp().globalData,
+  w = getApp().watcher,
+  c = getApp().common,
+  tab = require("../../utils/tab");
 Page({
   data: {
     page: [{
@@ -77,7 +78,7 @@ Page({
     ],
   },
   onLoad() {
-    u.sP(this.data.page, this, a);
+    c.setPage(this.data.page, this, a);
     w.on('theme', this, function(data) {
       this.setData({
         T: data
@@ -91,9 +92,9 @@ Page({
     });
   },
   onShow() {
-    u.tBC(a.nm);
+    tab.tabBarChanger(a.nm);
   },
   onPageScroll(e) {
-    u.nav(e, this)
+    c.nav(e, this)
   }
 })

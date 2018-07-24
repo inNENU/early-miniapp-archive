@@ -1,8 +1,9 @@
 module.exports = {
-  sP: setPage,
-  gC: getContent,
   nav: changeNav,
-  cA: componentAction,
+  setPage,
+  preloadPage,
+  getContent,
+  componentAction,
 }
 
 
@@ -323,7 +324,7 @@ function setPageData(page, a, e) {
   return page;
 }
 
-// 弹出通知
+// 弹出通知 由setPage和showPage调用
 function popNotice(title) {
   if (wx.getStorageSync(title + 'noticeNotify')) {
     let notice = wx.getStorageSync((title + 'notice'));

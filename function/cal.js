@@ -1,4 +1,4 @@
-var u = getApp().util,
+var c = getApp().common,
 	a = getApp().globalData;
 Page({
   data: {
@@ -178,15 +178,12 @@ Page({
     }
   },
   onLoad(e) {
-    u.sP(this.data.page, this, a, e)
+    c.setPage(this.data.page, this, a, e)
   },
   onPageScroll(e) {
-    u.nav(e, this)
+    c.nav(e, this)
   },
   cA(e) {
-    u.cA(e, this)
-	},
-	sN(e) {
-		u.sN(e)
-	}
+    c.componentAction(e, this)
+  }
 })

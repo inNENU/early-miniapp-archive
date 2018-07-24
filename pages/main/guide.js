@@ -1,6 +1,7 @@
-var u = getApp().util,
-  a = getApp().globalData,
-  w = getApp().watcher;
+var a = getApp().globalData,
+  w = getApp().watcher,
+  c = getApp().common,
+  tab = require("../../utils/tab");
 Page({
   data: {
     page: [{
@@ -67,7 +68,7 @@ Page({
     ],
   },
   onLoad() {
-    u.sP(this.data.page, this, a);
+    c.setPage(this.data.page, this, a);
     w.on('theme', this, function(data) {
       this.setData({
         T: data
@@ -79,15 +80,15 @@ Page({
         nm: data
       });
     });
-    u.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗60K流量)', '30K', a)
+    tab.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗60K流量)', '30K', a)
   },
   onShow() {
     this.setData({
       nm: a.nm
     });
-    u.plPg(this.data.page, a)
+    c.preloadPage(this.data.page, a);
   },
   onPageScroll(e) {
-    u.nav(e, this)
+    c.nav(e, this)
   }
 })

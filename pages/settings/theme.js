@@ -1,6 +1,9 @@
 var u = getApp().util,
   a = getApp().globalData,
-  w = getApp().watcher;
+  c = getApp().common,
+  w = getApp().watcher,
+  app = require("../../utils/app"),
+  tab = require("../../utils/tab");
 var date = new Date()
 var time = [
   [],
@@ -16,6 +19,7 @@ for (let i = 0; i <= 59; i++) {
     time[1].push(i + '分')
   }
 };
+
 Page({
   data: {
     page: [{
@@ -111,7 +115,8 @@ Page({
         foot: '打开开关来开启调试模式',
         content: [{
           text: '调试控制台',
-          swiKey: 'debugMode'
+          swiKey: 'debugMode',
+          Switch: 'debugSwitch'
         }]
       },
     ],
@@ -131,22 +136,22 @@ Page({
     if (!nmAC) {
       list[1].display = list[2].display = list[3].display = list[5].display = false;
     };
-    u.sP(p, this, a, e);
+    c.setPage(p, this, a, e);
   },
   onPageScroll(e) {
-    u.nav(e, this)
+    c.nav(e, this)
   },
   refresh(e) {
-    u.rR(a)
+    tab.resRefresh(a)
   },
   cA(e) {
-    u.cA(e, this)
+    c.componentAction(e, this)
   },
   onUnload() {
-    a.nm = u.nm(new Date())
+    a.nm = app.nightmode(new Date())
   },
   switchnm(e) {
-    let p = u.sS(e, this),
+    let p = u.Switch(e, this),
       list = p[3].content,
       value = e.detail.value;
     if (value && list[5].status) {
@@ -164,13 +169,13 @@ Page({
       nm: value,
       page: p
     });
-		a.nm = value;
-		w.emit('nightmode', value);
+    a.nm = value;
+    w.emit('nightmode', value);
   },
   switchnmAC(e) {
-    let p = u.sS(e, this),
+    let p = u.Switch(e, this),
       list = p[3].content;
-    let nm = u.nm(new Date());
+    let nm = app.nightmode(new Date());
     p[2].content[0].status = nm;
     wx.setStorageSync("nightmode", nm);
     if (nm && list[5].status) {
@@ -210,10 +215,10 @@ Page({
       page: p
     });
     a.nm = nm;
-		w.emit('nightmode', nm);
+    w.emit('nightmode', nm);
   },
   swithDay(e) {
-    let p = u.sS(e, this),
+    let p = u.Switch(e, this),
       list = p[3].content;
     list[4].visible = list[4].display = e.detail.value;
     this.setData({
@@ -221,7 +226,7 @@ Page({
     });
   },
   swithNight(e) {
-    let p = u.sS(e, this),
+    let p = u.Switch(e, this),
       list = p[3].content;
     list[6].visible = list[6].display = e.detail.value;
     this.setData({
@@ -229,7 +234,7 @@ Page({
     });
   },
   dB(e) {
-    u.cA(e, this);
+    c.componentAction(e, this);
     if (!a.nm && this.data.page[3].content[3].status) {
       wx.setScreenBrightness({
         value: e.detail.value / 100
@@ -237,7 +242,7 @@ Page({
     }
   },
   nB(e) {
-    u.cA(e, this);
+    c.componentAction(e, this);
     if (a.nm && this.data.page[3].content[5].status) {
       wx.setScreenBrightness({
         value: e.detail.value / 100
@@ -245,12 +250,16 @@ Page({
     }
   },
   setTheme(e) {
-    u.cA(e, this);
+    c.componentAction(e, this);
     let theme = this.data.page[1].content[0].pickerValue[e.detail.value];
     console.log(theme); //调试
     a.T = theme;
     wx.setStorageSync("theme", theme);
-    u.sP(this.data.page, this, a, e);
+    c.setPage(this.data.page, this, a, e);
     w.emit('theme', theme);
+  },
+  debugSwitch(e) {
+    u.Switch(e, this);
+    app.checkDebug();
   }
 })

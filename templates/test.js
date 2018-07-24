@@ -1,5 +1,5 @@
-var u = getApp().util,
-  a = getApp().globalData;
+var c = getApp().commmon,
+	a = getApp().globalData;
 Page({
   onLoad(e) {
     var page = [{
@@ -88,15 +88,12 @@ Page({
       }
     ];
     console.log(page);
-    u.sP(page, this, a, e);
+    c.setPage(page, this, a, e);
   },
-  onPageScroll(e) {
-    u.nav(e, this)
-  },
-  cA(e) {
-    u.cA(e, this)
+	onPageScroll(e) {
+		c.nav(e, this)
 	},
-	sN(e) {
-		u.sN(e)
+	cA(e) {
+		c.componentAction(e, this)
 	}
 })

@@ -1,6 +1,7 @@
-var u = getApp().util,
-  a = getApp().globalData,
-  w = getApp().watcher;
+var a = getApp().globalData,
+	w = getApp().watcher,
+	c = getApp().common,
+	tab = require("../../utils/tab");
 Page({
   data: {
     page: [{
@@ -44,13 +45,13 @@ Page({
     ],
   },
   onLoad() {
-    u.sP(this.data.page, this, a);
+    c.setPage(this.data.page, this, a);
     w.on('theme', this, function(data) {
       this.setData({
         T: data
       });
     });
-    u.checkUpdate('funcNotify', 'localFunc', 'funcList', '是否立即下载功能所需资源？', '下载后会使功能响应速度明显提升。(会消耗30K流量)', '20K', a)
+    tab.checkUpdate('funcNotify', 'localFunc', 'funcList', '是否立即下载功能所需资源？', '下载后会使功能响应速度明显提升。(会消耗30K流量)', '20K', a)
   },
   onShow() {
     this.setData({
@@ -58,9 +59,6 @@ Page({
     })
   },
   onPageScroll(e) {
-    u.nav(e, this)
-  },
-  sN(e) {
-    u.sN(e)
+    c.nav(e, this)
   }
 })
