@@ -6,7 +6,7 @@ Page({
   },
   onReady() {
     c.preloadPage(this.data.page, a);
-		console.log(getCurrentPages())
+    console.log(getCurrentPages())
   },
   onPageScroll(e) {
     c.nav(e, this)
@@ -21,7 +21,7 @@ Page({
     }
   },
   redirect() {
-		console.log(getCurrentPages())
+    console.log(getCurrentPages())
     wx.switchTab({
       url: '/pages/main/guide'
     })
