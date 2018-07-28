@@ -39,7 +39,7 @@
 <template name='iOSp'>
   <view wx:if="{{item.head}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSP'>
-    <text style='{{item.style}}' selectable='true'>{{item.text}}</text>
+    <text style="{{item.style}}" selectable='true'>{{item.text}}</text>
     <block wx:if="{{item.src}}">
       <view wx:if="{{item.error}}" class='iOSImgError'>
         <icon type="warn" style='margin-right:5px;' />
@@ -135,10 +135,8 @@
     <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
     <text>加载中...</text>
   </view>
-  <view class='flexbox' style="{{item.load?'':'display: none;'}}">
-    <image id="{{item.id}}" class='iOS-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-  </view>
-  <view wx:if="{{item.text}}" class='iOSN'>▲{{item.desc}}</view>
+  <image id="{{item.id}}" class='iOS-img' style="{{item.load?'':'width:1rpx;height:1rpx;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
+  <view wx:if="{{item.desc}}" class='iOSN'>▲{{item.desc}}</view>
 </template>
 
 <template name='iOSdoc'>
@@ -238,11 +236,13 @@
 
 <template name='wechatp'>
   <view wx:if="{{item.head}}" class='wechathead'>{{item.head}}</view>
-  <view class='wechatP' style='{{item.style}}'>
+  <view class='wechatP' style="{{item.style}}{{item.indent?'text-indent:2em;':''}}">
     <text selectable='true'>{{item.text}}</text>
   </view>
-  <view class='flexbox' style="{{item.load?'':'display: none;'}}">
-    <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
+  <image id="{{item.id}}" class='wechat-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
+  />
+  <view wx:if="{{item.desc}}" class='wechatN'>
+    <text>▲{{item.desc}}</text>
   </view>
 </template>
 
@@ -325,13 +325,9 @@
     <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
-  <!-- <view class='flexbox' style="{{item.load?'':'display: none;'}}">
-    <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-  </view> -->
-  <image id="{{item.id}}" class='wechat-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-  <view wx:if="{{item.text}}" class='wechatN'>
-    <text>▲{{item.desc}}</text>
-  </view>
+  <image id="{{item.id}}" class='wechat-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
+  />
+  <view wx:if="{{item.desc}}" class='wechatN'>▲{{item.desc}}</view>
 </template>
 
 <template name='wechatdoc'>
@@ -519,18 +515,14 @@
 <template name='NENUimg'>
   <view wx:if="{{item.error}}" class='iOSImgError'>
     <icon type="warn" size='32' style='margin-bottom:5px;' />
-    <text class='grey'>图片加载失败</text>
+    <text>图片加载失败</text>
   </view>
   <view wx:elif="{{!item.load}}" class='iOSImgError'>
     <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
-    <text class='grey'>加载中...</text>
+    <text>加载中...</text>
   </view>
-  <view class='flexbox' style="{{item.load?'':'display: none;'}}">
-    <image id="{{item.id}}" class='iOS-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-  </view>
-  <view wx:if="{{item.text}}" class='iOSN'>
-    <text>▲{{item.desc}}</text>
-  </view>
+  <image id="{{item.id}}" class='iOS-img' style="{{item.load?'':'width:1rpx;height:1rpx;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
+  <view wx:if="{{item.desc}}" class='iOSN'>▲{{item.desc}}</view>
 </template>
 
 <template name='NENUdoc'>

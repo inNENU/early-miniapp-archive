@@ -117,6 +117,7 @@ Page({
 |head|否|String或Boolean|填入段落的的标题|填入true会在段落前留空占位|
 |text|是|String|段落的文字||
 |src|否|String|图片的本地路径或在线网址|会在段落文字底部展示所选图片|
+|desc|是|String|图片的描述文字|填入后会自动最前加入一个三角号，不填则没有描述文字|
 |res|否|String|图片在服务器上的网址|需要高清图片时设置|
 |imgmode|否|String|图片的显示模式|默认为widthFix|
 |style|否|String|对段落文字设置的css样式|当需要改变默认风格时设置|
@@ -184,7 +185,7 @@ Page({
 |src|是|String|图片的本地路径或在线网址||
 |res|否|String|图片在服务器上的网址|需要高清图片的时候使用|
 |lazy|否|Boolean|设置false取消图片懒加载功能|默认执行lazyload|
-|text|否|String|图片的描述文字|填入后会自动最前加入一个三角号，不填则没有描述文字|
+|desc|否|String|图片的描述文字|填入后会自动最前加入一个三角号，不填则没有描述文字|
 |imgmode|否|String|图片的显示模式|默认为widthFix|
 
 ##### **doc参数：**
