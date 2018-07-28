@@ -23,6 +23,9 @@ App({
   onShow() {
     app.noticeCheck();
   },
+	onError: function (msg) {
+		console.log(msg)
+	},
   globalData: {
     Version: 'V 0.7.6',
     imgMode: "widthFix"

@@ -1,97 +1,97 @@
 {
-	"pages": [
-		"pages/main/main",
-		"pages/main/function",
-		"pages/main/guide",
-		"pages/main/shop",
-		"pages/main/me",
-		"pages/main/0.7",
-		"pages/settings/theme",
-		"pages/settings/login",
-		"pages/settings/donate",
-		"templates/module1",
-		"templates/module2",
-		"templates/module3",
-		"templates/test"
-	],
-	"subPackages": [
-		{
-			"root": "function",
-			"pages": [
-				"cal",
-				"map",
-				"situs"
-			]
-		},
-		{
-			"root": "guide",
-			"pages": [
-				"templates/module1",
-				"templates/module2",
-				"templates/module3"
-			]
-		},
-		{
-			"root": "shop",
-			"pages": [
-				"cart",
-				"order",
-				"good"
-			]
-		}
-	],
-	"window": {
-		"navigationBarBackgroundColor": "#1A9D5E",
-		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "东师青年",
-		"navigationStyle": "custom",
-		"backgroundColor": "#efeef4",
-		"backgroundTextStyle": "black"
-	},
-	"tabBar": {
-		"color": "#7A7E83",
-		"selectedColor": "#3cc51f",
-		"borderStyle": "black",
-		"backgroundColor": "#ffffff",
-		"list": [
-			{
-				"pagePath": "pages/main/main",
-				"text": "首页",
-				"iconPath": "image/tab/home.png",
-				"selectedIconPath": "image/tab/home-selected.png"
-			},
-			{
-				"pagePath": "pages/main/function",
-				"text": "功能",
-				"iconPath": "image/tab/function.png",
-				"selectedIconPath": "image/tab/function-selected.png"
-			},
-			{
-				"pagePath": "pages/main/guide",
-				"text": "东师指南",
-				"iconPath": "image/tab/guide.png",
-				"selectedIconPath": "image/tab/guide-selected.png"
-			},
-			{
-				"pagePath": "pages/main/shop",
-				"text": "东青文创",
-				"iconPath": "image/tab/shop.png",
-				"selectedIconPath": "image/tab/shop-selected.png"
-			},
-			{
-				"pagePath": "pages/main/me",
-				"text": "我的东师",
-				"iconPath": "image/tab/me.png",
-				"selectedIconPath": "image/tab/me-selected.png"
-			}
-		]
-	},
-	"networkTimeout": {
-		"request": 10000,
-		"connectSocket": 10000,
-		"uploadFile": 10000,
-		"downloadFile": 10000
-	},
-	"workers": "workers",
-	"debug": true
+    "pages": [
+        "pages/main/main",
+        "pages/main/function",
+        "pages/main/guide",
+        "pages/main/shop",
+        "pages/main/me",
+        "pages/main/0.7",
+        "pages/settings/theme",
+        "pages/settings/login",
+        "pages/settings/donate",
+        "templates/module1",
+        "templates/module2",
+        "templates/module3",
+        "templates/test"
+    ],
+    "subPackages": [{
+            "root": "function",
+            "pages": [
+                "cal",
+                "map",
+                "situs"
+            ]
+        },
+        {
+            "root": "guide",
+            "pages": [
+                "templates/module1",
+                "templates/module2",
+                "templates/module3"
+            ]
+        },
+        {
+            "root": "shop",
+            "pages": [
+                "cart",
+                "order",
+                "good"
+            ]
+        }
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#1A9D5E",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "东师青年",
+        "navigationStyle": "custom",
+        "backgroundColor": "#efeef4",
+        "backgroundTextStyle": "black",
+        "backgroundColorTop": "#f4f4f4",
+        "backgroundColorBottom": "#efeef4"
+    },
+    "tabBar": {
+        "color": "#7A7E83",
+        "selectedColor": "#3cc51f",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [{
+                "pagePath": "pages/main/main",
+                "text": "首页",
+                "iconPath": "image/tab/home.png",
+                "selectedIconPath": "image/tab/home-selected.png"
+            },
+            {
+                "pagePath": "pages/main/function",
+                "text": "功能",
+                "iconPath": "image/tab/function.png",
+                "selectedIconPath": "image/tab/function-selected.png"
+            },
+            {
+                "pagePath": "pages/main/guide",
+                "text": "东师指南",
+                "iconPath": "image/tab/guide.png",
+                "selectedIconPath": "image/tab/guide-selected.png"
+            },
+            {
+                "pagePath": "pages/main/shop",
+                "text": "东青文创",
+                "iconPath": "image/tab/shop.png",
+                "selectedIconPath": "image/tab/shop-selected.png"
+            },
+            {
+                "pagePath": "pages/main/me",
+                "text": "我的东师",
+                "iconPath": "image/tab/me.png",
+                "selectedIconPath": "image/tab/me-selected.png"
+            }
+        ]
+    },
+    "networkTimeout": {
+        "request": 10000,
+        "connectSocket": 10000,
+        "uploadFile": 10000,
+        "downloadFile": 10000
+    },
+    "workers": "workers",
+    "debug": true
 }

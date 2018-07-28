@@ -167,7 +167,7 @@ Page({
 |-|:-:|:-:|-|-|
 |button|是|String|按钮对应的函数名称||
 |disabled|否|Boolean|设置为true会禁用按钮|默认不禁用|
-|open-type|是|String|填入微信支持的开放能力||
+|open-type|是|String|填入微信支持的开放能力|还在开发中.....|
 
 **选项五：滑块**（不支持简单界面）
 
@@ -253,6 +253,13 @@ Page({
 |animation|否|String|swiper动画结束时触发的函数名称|默认不触发函数|
 |imgClass|否|String|swiper中图片的类名|默认为width:100%!important;height:100%!important;|
 |imgMode|否|String|swiper中图片的显示模式|默认为aspectFill|
+
+##### **foot参数：**
+|参数|必填|值类型|内容|
+|-|:-:|:-:|-|
+|desc|否|String|页脚的额外描述文字|
+|author|否|String|编辑人|
+|time|否|String|编辑时间|
 
 #### **imgMode可以选择的参数：**
 - widthFix：宽度不变，高度自动变化，保持原图宽高比不变;

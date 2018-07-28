@@ -21,7 +21,7 @@
   <block wx:if="{{item.display!==false}}">
     <view class='iOS-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
       <view wx:if="{{item.titleDisplay}}" class="iOS-titletext">{{item.title}}</view>
-      <button wx:if="{{item.action!=true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
+      <button wx:if="{{item.action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
         <view wx:if="{{item.action==undefined}}" class='iOS-backArrow'></view>
         <text class='iOS-nav-text'>{{item.leftText}}</text>
       </button>

@@ -37,16 +37,20 @@ Page({
     }, {
       tag: 'p',
       head: 'V0.7.6',
-				text: '大量故障修复：\n修复image不能预览的问题；\初步修复wechat主题首页显示返回按钮的问题；\nfooter改进；\n改进了iOS和微信主题的head相应逻辑；\n微信主题返回按钮增加文字；'
+      text: '大量故障修复：\n修复image不能预览的问题；\初步修复wechat主题首页显示返回按钮的问题；\nfooter改进；\n改进了iOS和微信主题的head相应逻辑；\n微信主题返回按钮增加文字；'
+    }, {
+      tag: 'p',
+      head: 'V0.7.7',
+      text: '修复图片lazyload模式异常；\n初步添加worker；'
     }],
   },
   onLoad(e) {
-		c.setPage(this.data.page, this, a, e)
+    c.setPage(this.data.page, this, a, e)
   },
-	onPageScroll(e) {
-		c.nav(e, this)
-	},
+  onPageScroll(e) {
+    c.nav(e, this)
+  },
   cA(e) {
-		c.componentAction(e, this)
+    c.componentAction(e, this)
   }
 })

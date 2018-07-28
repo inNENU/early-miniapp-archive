@@ -67,7 +67,8 @@ function getContent(indicator, a, e) {
         }
       })
     }
-  }
+  };
+  return e.aim;
 }
 
 // json组件判断触发函数
@@ -266,12 +267,18 @@ function setPageData(page, a, e) {
   //setNav
   if (page && page[0].tag == 'head') {
     page[0].statusBarHeight = a.info.statusBarHeight;
-    if (e && !page[0].top && 'From' in e) {
-      page[0].leftText = e.From
-    };
-    if (e && !page[0].top && 'step' in e) {
-      page[0].aimStep = Number(e.step) + 1
-    };
+    if (e && !page[0].action) {
+      if ('From' in e) {
+        page[0].leftText = e.From
+      };
+      if ('step' in e) {
+        page[0].aimStep = Number(e.step) + 1
+      };
+      if ('share' in e) {
+        page[0].action = 'redirect';
+				console.log(redirect);//调试
+      };
+    }
   };
   page[0].url = new Array();
   for (let i = 0; i < page.length; i++) {
