@@ -199,14 +199,11 @@
 }
 
 .wechat-img {
-  margin: 12px 25px;
-  width: auto !important;
-  min-width: 60%;
-  align-self: center;
+  margin: 24rpx 50rpx;
+  width: 650rpx;
   font-weight: 500;
   border: 5px solid #fff;
   box-shadow: 0px 2px 5px 2px #888;
-  flex: auto;
 }
 
 .wechat-img +.wechat-img {

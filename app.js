@@ -1,5 +1,6 @@
 var u = require('utils/util'),
   app = require('utils/app');
+var worker = wx.createWorker('workers/worker.js') //test
 App({
   data: {
     theme: "auto",
@@ -12,6 +13,12 @@ App({
     this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info);
+    worker.postMessage({
+      msg: 'hello worker'
+    })//test
+		worker.onMessage(function (msg) {
+			console.log('[AppService] onWorkerMessage', msg)
+		})
   },
   onShow() {
     app.noticeCheck();

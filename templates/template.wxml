@@ -325,9 +325,10 @@
     <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
-  <view class='flexbox' style="{{item.load?'':'display: none;'}}">
+  <!-- <view class='flexbox' style="{{item.load?'':'display: none;'}}">
     <image id="{{item.id}}" class='wechat-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-  </view>
+  </view> -->
+  <image id="{{item.id}}" class='wechat-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
   <view wx:if="{{item.text}}" class='wechatN'>
     <text>▲{{item.desc}}</text>
   </view>

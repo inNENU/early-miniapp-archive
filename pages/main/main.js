@@ -25,7 +25,7 @@ Page({
       }, {
         tag: 'p',
         head: '即将实现的内容：',
-        text: 'notice加入每次打开界面都弹窗的功能；\ntab页载入速度的提高；\n优化wechat.wxss；\n利用head对微信主题tabbar加入阴影；\n尝试wx.setBackgroundcolor；\nmarker.json的处理；\n标注点的筛选功能；\nbutton的open-type；\n公众号跳转组件；\n构建双排img组件；\n微信列表改为点击展开样式；\nphone组件与doc组件宽度自调整；'
+        text: '修复lazyload故障；\n进入app弹窗功能实现；\nnotice加入每次打开界面都弹窗的功能；\ntab页载入速度的提高；\n优化wechat.wxss；\n利用head对微信主题tabbar加入阴影；\n尝试wx.setBackgroundcolor；\nmarker.json的处理；\n标注点的筛选功能；\nbutton的open-type；\n公众号跳转组件；\n构建双排img组件；\n微信列表改为点击展开样式；\nphone组件与doc组件宽度自调整；'
       },
       {
         tag: 'p',

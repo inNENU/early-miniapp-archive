@@ -5,10 +5,11 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"nodeModules": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "9.9.9",
+	"libVersion": "2.2.1",
 	"appid": "wx33acb831ee1831a5",
 	"projectname": "Nenuyouth",
 	"isGameTourist": false,

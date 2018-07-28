@@ -6,8 +6,8 @@ module.exports = {
 
 // 初始化存储
 function initialize(key, defaultKey) {
-	let value = wx.getStorageSync(key);
-	return (value || value === false) ? value : (wx.setStorageSync(key, defaultKey), defaultKey);
+  let value = wx.getStorageSync(key);
+  return (value || value === false) ? value : (wx.setStorageSync(key, defaultKey), defaultKey);
 }
 
 // 动态根据夜间模式改变导航栏 from main.js & me.js
@@ -72,7 +72,7 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
               confirmText: '是',
               success(choice) {
                 if (choice.confirm) {
-                  resDownload(onlineData, JSON.parse(onlineData));
+                  resDownload(onlineData, JSON.parse(local));
                   wx.setStorageSync(storageKey, JSON.stringify(onlineData));
                 }
               }
@@ -148,6 +148,7 @@ function resSnyc(fileNumList, refreshList) {
         },
         fail(res) {
           console.error(res), console.error(refreshList[i] + j);
+          successNumber += 1;
         }
       })
     }
