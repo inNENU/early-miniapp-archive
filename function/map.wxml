@@ -3,8 +3,10 @@
   <cover-view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;z-index:97;" hover-class='buttonHover' catchtap='back' data-action='back'>
     <cover-image class='backIcon' src='/icon/back.png' />
   </cover-view>
-  <cover-view class="selectCtn {{pointDisplay?'fadeIn':'fadeOut'}}" style="bottom:{{selectBottom}}rpx;z-index:96;" hover-class='pressHover' catchtap="select">
-    <cover-view class='selectBtn' src='/function/icon/point.png'></cover-view>
+  <cover-view class="selectCtn {{pointDisplay?'fadeIn':'fadeOut'}}" style="bottom:{{selectBottom}}rpx;z-index:96;" catchtap="select">
+    <cover-view wx:for="{{category}}" class="selectBtn {{selectItem==item[1]?'active':''}}" hover-class='pressHover' data-category='{{item[1]}}'>
+      <cover-view data-category='{{item[1]}}'>{{item[0]}}</cover-view>
+    </cover-view>
   </cover-view>
   <cover-view class='pointCtn' hover-class='pressHover' catchtap="point">
     <cover-image class='pointBtn' src='/function/icon/point.png' />
@@ -22,8 +24,8 @@
       <cover-image class='locateBtn' src='/function/icon/locate.png' />
     </cover-view>
     <cover-view class='switch' catchtap='Switch'>
-      <cover-view class="switchItem {{mapSwitch?'activeSwitch':''}}">本部</cover-view>
-      <cover-view class="switchItem {{mapSwitch?'':'activeSwitch'}}">净月</cover-view>
+      <cover-view class="switchItem {{mapSwitch?'active':''}}">本部</cover-view>
+      <cover-view class="switchItem {{mapSwitch?'':'active'}}">净月</cover-view>
     </cover-view>
     <cover-view class="listBtnCtn {{list?'listActive':''}}" hover-class="{{list?'active':'nomarl'}}" catchtap='showList'>
       <cover-image wx:if="{{!list}}" class='listBtn' src='/function/icon/list.png' />

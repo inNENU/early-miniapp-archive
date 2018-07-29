@@ -251,7 +251,7 @@ function setMarker(data, name) {
   let marker = initMarker(data.points),
     category = data.category,
     categoryList = Object.keys(category);
-  wx.setStorageSync(name, marker);
+  wx.setStorageSync(name + '-all', marker);
   for (let i = 0; i < categoryList.length; i++) {
     let markerDetail = new Array; //=
     for (let j = category[categoryList[i]][0]; j <= category[categoryList[i]][1]; j++) {

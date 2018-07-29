@@ -3,87 +3,48 @@ var app = getApp().app,
   includePoint1 = {
     padding: [10],
     points: [{
-      latitude: 43.857857,
-      longitude: 125.325317,
+      latitude: 43.8578480844,
+      longitude: 125.3252720833,
     }, {
-      latitude: 43.863834,
-      longitude: 125.337898,
+      latitude: 43.8633404949,
+      longitude: 125.3379964828,
     }]
   },
   includePoint2 = {
     padding: [10],
     points: [{
-      latitude: 43.8305332365,
-      longitude: 125.4292345047,
+      latitude: 43.8256570334,
+      longitude: 125.4175829887,
     }, {
-      latitude: 43.8236135536,
-      longitude: 125.4196429253,
-    }, {
-      latitude: 43.8244650120,
-      longitude: 125.4358005524,
+      latitude: 43.8247281876,
+      longitude: 125.4359936714,
     }]
   };
+
 // var trigger = true
+
 Page({
   data: {
-    map: {
-      latitude: 43.862007982140646,
-      longitude: 125.33405307523934,
-      scale: 17,
-    },
-    left: true,
+    // map: {
+    //   latitude: 43.862007982140646,
+    //   longitude: 125.33405307523934,
+    //   scale: 17,
+    // },
     list: false,
     pointDisplay: false,
     closeTop: -31,
-    selectTop: 0,
-    // markers1: [{
-    //   iconPath: "/function/icon/marker.png",
-    //   id: 0,
-    //   latitude: 43.86188,
-    //   longitude: 125.33137,
-    //   width: 25,
-    //   height: 25,
-    //   alpha: 0.8,
-    //   title: '东北师范大学本部校区',
-    //   label: {
-    //     content: "本部校区",
-    //     color: "#1A9D5E",
-    //     fontSize: "10",
-    //     anchorX: -24,
-    //     anchorY: 0,
-    //     // anchorY: -43,
-    //     bgColor: '#ffffff',
-    //     borderWidth: 1,
-    //     borderColor: '#efeef4',
-    //     borderRadius: 2,
-    //     padding: "3",
-    //   },
-    //   callout: {
-    //     content: "吉林省长春市南关区人民大街5268号",
-    //     color: "#ffffff",
-    //     fontSize: "16",
-    //     borderRadius: "10",
-    //     bgColor: "#1A9D5E",
-    //     padding: "10",
-    //     display: "BYCLICK"
-    //   }
-    // }, {
-    //   iconPath: "/function/icon/marker.png",
-    //   id: 1,
-    //   latitude: 43.857857,
-    //   longitude: 125.325317,
-    //   width: 25,
-    //   height: 25,
-    //   alpha: 0.8,
-    // }, {
-    //   iconPath: "/function/icon/marker.png",
-    //   id: 2,
-    //   latitude: 43.863834,
-    //   longitude: 125.337898,
-    //   width: 25,
-    //   height: 25,
-    //   alpha: 0.8,
-    // }, ]
+    selectBottom: 0,
+    selectItem: 'all',
+    category: [
+      ['全部', 'all'],
+      ['校门', 'gate'],
+      ['学院', 'school'],
+      ['建筑', 'buildings'],
+      ['寝室', 'dormitory'],
+      ['设施', 'facility'],
+      ['运动场', 'sportsField'],
+      ['风景', 'scenery'],
+    ]
   },
   onLoad: function(e) {
     wx.showLoading({
@@ -93,21 +54,20 @@ Page({
       mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true),
       info = a.info,
       that = this,
-      map = this.data.map,
-      markers = wx.getStorageSync(mapSwitch ? 'benbu' : 'jingyue');
+      // map = this.data.map,
+      map,
+      markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
     this.setData({
+      mapSwitch: mapSwitch,
+      markers: markers,
       info: {
         screenHeight: info.screenHeight,
         screenWidth: info.screenWidth,
         statusBarHeight: info.statusBarHeight,
       },
-      mapSwitch: mapSwitch,
-      markers: markers
     });
     this.mapCtx = wx.createMapContext('schoolMap');
-    console.log('create') //调试
     this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
-    console.log('includePoints') //调试
     setTimeout(function() {
       that.mapCtx.getScale({
         success: function(res) {
@@ -136,24 +96,6 @@ Page({
         tabHeight: rect.height
       })
     }).exec();
-  },
-  showList(e) {
-    let that = this;
-    if (this.data.list) {
-      that.setData({
-        list: !this.data.list,
-      });
-      setTimeout(function() {
-        that.setData({
-          closeTop: -31
-        })
-      }, 500)
-    } else {
-      that.setData({
-        list: !this.data.list,
-        closeTop: a.info.statusBarHeight + 5.5
-      });
-    }
   },
   Switch() {
     let temp = !this.data.mapSwitch,
@@ -221,20 +163,23 @@ Page({
   moveToLocation() {
     this.mapCtx.moveToLocation();
   },
-  update() {
-    console.log('update')
-    this.mapCtx.getScale({
-      success: function(res) {
-        console.log('get scale');
-        console.log(res);
-      }
-    });
-    this.mapCtx.getCenterLocation({
-      success: function(res) {
-        console.log('getCenterLocation');
-        console.log(res);
-      }
-    });
+  showList(e) {
+    let that = this;
+    if (this.data.list) {
+      that.setData({
+        list: !this.data.list,
+      });
+      setTimeout(function() {
+        that.setData({
+          closeTop: -31
+        })
+      }, 500)
+    } else {
+      that.setData({
+        list: !this.data.list,
+        closeTop: a.info.statusBarHeight + 5.5
+      });
+    }
   },
   point() {
     let that = this;
@@ -250,15 +195,23 @@ Page({
     } else {
       that.setData({
         pointDisplay: !this.data.pointDisplay,
-        selectBottom: 176
+        selectBottom: 190
       });
     }
   },
-  select() {
-    let name = this.data.mapSwitch ? 'benbu' : 'jingyue'
+  select(e) {
+    console.log(e)
+    let name = this.data.mapSwitch ? 'benbu' : 'jingyue',
+      markers = wx.getStorageSync(name + '-' + current),
+      current = e.target.dataset.category;
     this.setData({
-      markers: wx.getStorageSync(name + '-' + e.dataset.category)
-    })
+      markers: markers,
+      selectItem: current
+    });
+    this.mapCtx.includePoints({
+      padding: [10],
+      points: markers
+    });
   },
   markers(e) {
     console.log(e);
@@ -271,6 +224,21 @@ Page({
   back() {
     wx.navigateBack({})
   },
+  // update() {
+  //   console.log('update')
+  //   this.mapCtx.getScale({
+  //     success: function(res) {
+  //       console.log('get scale');
+  //       console.log(res);
+  //     }
+  //   });
+  //   this.mapCtx.getCenterLocation({
+  //     success: function(res) {
+  //       console.log('getCenterLocation');
+  //       console.log(res);
+  //     }
+  //   });
+  // },
   // locate: function() {
   //   let map = this.data.map,
   //     that = this;
@@ -301,44 +269,44 @@ Page({
   //     },
   //   });
   // },
-  regionChange(e) {
-    // console.log('regionChange');
-    // console.log(trigger)
-    // if (e.type == 'end' && trigger) {
-    //   console.log('fuctioning');
-    //   trigger = false;
-    //   console.log(trigger);
-    //   let that = this,
-    //     map = this.data.map;
-    //   setTimeout(function() {
-    //     trigger = true;
-    //     console.log("true")
-    //     console.log(trigger)
-    //   }, 500)
-    //   var regionChange;
-    //   this.mapCtx.getScale({
-    //     success: function(res) {
-    //       map.scale = res.scale;
-    //       console.log('scale' + res.scale);
-    //       regionChange = true;
-    //     }
-    //   });
-    //   this.mapCtx.getCenterLocation({
-    //     success: function(res) {
-    //       console.log(res);
-    //       console.log('distance is' + u.gD(map.latitude, map.longitude, res.latitude, res.longitude))
-    //       if (regionChange && (u.gD(map.latitude, map.longitude, res.latitude, res.longitude) > 1)) {
-    //         map.latitude = res.latitude;
-    //         map.longitude = res.longitude;
-    //         that.setData({
-    //           map: map
-    //         });
-    //       };
-    //       regionChange = false;
-    //     }
-    //   });
-    // }
-  },
+  // regionChange(e) {
+  // console.log('regionChange');
+  // console.log(trigger)
+  // if (e.type == 'end' && trigger) {
+  //   console.log('fuctioning');
+  //   trigger = false;
+  //   console.log(trigger);
+  //   let that = this,
+  //     map = this.data.map;
+  //   setTimeout(function() {
+  //     trigger = true;
+  //     console.log("true")
+  //     console.log(trigger)
+  //   }, 500)
+  //   var regionChange;
+  //   this.mapCtx.getScale({
+  //     success: function(res) {
+  //       map.scale = res.scale;
+  //       console.log('scale' + res.scale);
+  //       regionChange = true;
+  //     }
+  //   });
+  //   this.mapCtx.getCenterLocation({
+  //     success: function(res) {
+  //       console.log(res);
+  //       console.log('distance is' + u.gD(map.latitude, map.longitude, res.latitude, res.longitude))
+  //       if (regionChange && (u.gD(map.latitude, map.longitude, res.latitude, res.longitude) > 1)) {
+  //         map.latitude = res.latitude;
+  //         map.longitude = res.longitude;
+  //         that.setData({
+  //           map: map
+  //         });
+  //       };
+  //       regionChange = false;
+  //     }
+  //   });
+  // }
+  // },
   // translateMarker: function() {
   //   this.mapCtx.translateMarker({
   //     markerId: 0,
@@ -351,18 +319,6 @@ Page({
   //     animationEnd() {
   //       console.log('animation end')
   //     }
-  //   })
-  // },
-  // includePoints: function() {
-  //   this.mapCtx.includePoints({
-  //     padding: [10],
-  //     points: [{
-  //       latitude: 43.857857,
-  //       longitude: 125.325317,
-  //     }, {
-  //       latitude: 43.863834,
-  //       longitude: 125.337898,
-  //     }]
   //   })
   // },
 })
