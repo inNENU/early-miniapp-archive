@@ -1,7 +1,7 @@
 var a = getApp().globalData,
   w = getApp().watcher,
   c = getApp().common,
-  tab = require("../../utils/tab");
+  tab = require("../utils/tab");
 Page({
   data: {
     page: [{
