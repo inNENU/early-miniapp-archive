@@ -54,6 +54,10 @@ Page({
 						text: '校园卡',
 						icon: '/icon/card.svg',
 						aim: 'card'
+					}, {
+						text: '吃喝玩乐',
+						icon: '/icon/nearby.svg',
+						aim: 'nearby'
 					}
         ]
       }, {
@@ -63,11 +67,7 @@ Page({
           text: '测试页',
           url: '/templates/test'
         }, ]
-      }, {
-        tag: 'grid',
-        head: 'building',
-        content: []
-      },
+      }
     ],
   },
   onLoad() {

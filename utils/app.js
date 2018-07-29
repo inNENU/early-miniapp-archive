@@ -29,11 +29,25 @@ function noticeCheck() {
         let data = res.data,
           category = Object.keys(data);
         for (let i = 0; i < category.length; i++) {
-          if (data[category[i]][2] != wx.getStorageSync(category[i] + 'noticeVersion')) {
+          if (data[category[i]][3]) {
+            wx.setStorageSync(category[i] + 'notice', [data[category[i]][0], data[category[i]][1]]);
+            wx.setStorageSync(category[i] + 'noticeNotify', true);
+          } else if (data[category[i]][2] != wx.getStorageSync(category[i] + 'noticeVersion')) {
             wx.setStorageSync(category[i] + 'notice', [data[category[i]][0], data[category[i]][1]]);
             wx.setStorageSync(category[i] + 'noticeVersion', data[category[i]][2]);
             wx.setStorageSync(category[i] + 'noticeNotify', true);
           }
+        };
+        if ('app' in data) {
+          console.log('popAPP') //调试
+          wx.showModal({
+            title: data.app[0],
+            content: data.app[0],
+            showCancel: false,
+            success: function() {
+              wx.removeStorageSync('appnoticeNotify');
+            }
+          })
         }
       }
     },

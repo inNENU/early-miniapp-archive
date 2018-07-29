@@ -17,13 +17,13 @@ Page({
         tag: 'list',
         content: [{
           text: '设置',
-          url: '/pages/settings/theme'
+          url: 'settings/theme'
         }, {
           text: '登录',
-          url: '/pages/settings/login'
+          url: 'settings/login'
         }, {
           text: '关于',
-          aim: 'log'
+          url: 'settings/about'
         }, ]
       },
       {

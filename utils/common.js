@@ -276,8 +276,11 @@ function setPageData(page, a, e) {
       };
       if ('share' in e) {
         page[0].action = 'redirect';
-				console.log(redirect);//调试
+        console.log('redirect'); //调试
       };
+      if ('aim' in e) {
+        page[0].aim = e.aim;
+      }
     }
   };
   page[0].url = new Array();
@@ -332,15 +335,15 @@ function setPageData(page, a, e) {
 }
 
 // 弹出通知 由setPage和showPage调用
-function popNotice(title) {
-  if (wx.getStorageSync(title + 'noticeNotify')) {
-    let notice = wx.getStorageSync((title + 'notice'));
+function popNotice(aim) {
+  if (wx.getStorageSync(aim + 'noticeNotify')) {
+    let notice = wx.getStorageSync((aim + 'notice'));
     wx.showModal({
       title: notice[0],
       content: notice[1],
       showCancel: false,
       success: function() {
-        wx.removeStorageSync(title + 'noticeNotify');
+        wx.removeStorageSync(aim + 'noticeNotify');
       }
     })
   }
@@ -354,7 +357,7 @@ function setPage(page, indicator, a, e) {
     nm: a.nm,
     page: setPageData(page, a, e)
   });
-  popNotice(page[0].title);
+  popNotice(page[0].aim);
 }
 
 // 预载入界面
@@ -389,7 +392,7 @@ function showPage(indicator, a, e) {
       nm: a.nm,
       page: page
     });
-    popNotice(page[0].title);
+    popNotice(page[0].aim);
     return true;
   } else {
     return false;
