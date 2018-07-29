@@ -60,6 +60,9 @@ Page({
       nm: a.nm
     })
   },
+  onReady() {
+    tab.markerSet()
+  },
   onPageScroll(e) {
     c.nav(e, this)
   }

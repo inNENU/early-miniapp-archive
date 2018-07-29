@@ -2,6 +2,7 @@ module.exports = {
   checkUpdate,
   resRefresh,
   tabBarChanger,
+  markerSet
 }
 
 // 初始化存储
@@ -194,4 +195,69 @@ function resRefresh() {
       }
     }
   })
+}
+
+function initMarker(markers) {
+  for (let i = 0; i < markers.length; i++) {
+    let point = markers[i],
+      temp = {
+        iconPath: "/function/icon/marker.png",
+        width: 25,
+        height: 25,
+        alpha: 0.8,
+        label: {
+          content: point.name,
+          color: "#1A9D5E",
+          fontSize: "10",
+          anchorX: -4 - 5 * point.name.length,
+          anchorY: 0,
+          bgColor: '#ffffff',
+          borderWidth: 1,
+          borderColor: '#efeef4',
+          borderRadius: 2,
+          padding: "3",
+        },
+        callout: {
+          content: point.detail,
+          color: "#ffffff",
+          fontSize: "16",
+          borderRadius: "10",
+          bgColor: "#1A9D5E",
+          padding: "10",
+          display: "BYCLICK"
+        }
+      };
+    if (!("title" in point)) {
+      point.title = point.detail
+    };
+    delete point.name;
+    delete point.detail;
+    Object.assign(point, temp);
+  };
+  return markers;
+}
+
+function markerSet() {
+  let data = wx.getStorageSync('marker');
+  if (data) {
+    console.log(data);
+    if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
+      wx.removeStorageSync('marker');
+    }
+  }
+}
+
+function setMarker(data, name) {
+  let marker = initMarker(data.points),
+    category = data.category,
+    categoryList = Object.keys(category);
+  wx.setStorageSync(name, marker);
+  for (let i = 0; i < categoryList.length; i++) {
+    let markerDetail = new Array; //=
+    for (let j = category[categoryList[i]][0]; j <= category[categoryList[i]][1]; j++) {
+      markerDetail.push(marker[j])
+    };
+    wx.setStorageSync(name + '-' + categoryList[i], markerDetail)
+  };
+  return 'success';
 }

@@ -1,11 +1,11 @@
 {
     "pages": [
-        "pages/main",
         "pages/function",
+        "pages/main",
         "pages/guide",
         "pages/shop",
         "pages/me",
-        "pages/main/0.7",
+        "pages/main/0.8",
         "pages/main/web",
         "pages/settings/about",
         "pages/settings/theme",

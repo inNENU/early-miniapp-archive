@@ -3,6 +3,24 @@
   height: 100%;
 }
 
+/* select 组件 */
+
+.selectCtn {
+  position: fixed;
+  bottom: 176rpx;
+  left: 34rpx;
+  padding: 15rpx;
+  background-color: #fff;
+  border: 1rpx solid #eee;
+  border-radius: 10rpx;
+}
+
+.selectBtn {
+  display: inline-block;
+  height: 50rpx;
+	color: #3478f7;
+}
+
 /* point 组件*/
 
 .pointCtn {

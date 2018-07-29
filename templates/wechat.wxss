@@ -228,15 +228,3 @@
 .wechat-img+.wechatN {
   margin-top: -12px;
 }
-
-/* 
-.wechatLctn {
-  position: relative;
-  background-color: #fff;
-  line-height: 1.41176471;
-  font-size: 17px;
-}
-
-.nm .wechatLctn {
-  background-color: #000;
-} */
