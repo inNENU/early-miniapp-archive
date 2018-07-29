@@ -13,7 +13,7 @@ Page({
       },
       {
         tag: 'grid',
-        head: 'finished',
+        head: '',
         content: [{
             text: '食堂',
             icon: '/icon/dining.svg',
@@ -23,13 +23,7 @@ Page({
             text: '学习',
             icon: '/icon/study.svg',
             aim: 'study'
-          },
-        ]
-      },
-      {
-        tag: 'grid',
-        head: 'working',
-        content: [{
+          }, {
             text: '新生报到',
             icon: '/icon/check.svg',
             aim: 'check'
@@ -46,28 +40,29 @@ Page({
             text: '寝室',
             icon: '/icon/dorm.svg',
             aim: 'dorm'
-					}, {
-						text: '校园网',
-						icon: '/icon/network.svg',
-						aim: 'network'
-					}, {
-						text: '校园卡',
-						icon: '/icon/card.svg',
-						aim: 'card'
-					}, {
-						text: '吃喝玩乐',
-						icon: '/icon/nearby.svg',
-						aim: 'nearby'
-					}
+          }, {
+            text: '校园网',
+            icon: '/icon/network.svg',
+            aim: 'network'
+          }, {
+            text: '校园卡',
+            icon: '/icon/card.svg',
+            aim: 'card'
+          }, {
+            text: '吃喝玩乐',
+            icon: '/icon/nearby.svg',
+            aim: 'nearby'
+          }, {
+            text: '交通',
+            icon: '/icon/traffic.svg',
+            aim: 'traffic'
+          }, {
+            text: '学生组织',
+            icon: '/icon/studentOrg.svg',
+            aim: 'studentOrg'
+          }
         ]
-      }, {
-        tag: 'grid',
-        head: 'testing',
-        content: [{
-          text: '测试页',
-          url: '/templates/test'
-        }, ]
-      }
+      },
     ],
   },
   onLoad() {
