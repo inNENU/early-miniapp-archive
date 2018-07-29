@@ -1,15 +1,16 @@
 var a = getApp().globalData,
-	w = getApp().watcher,
-	c = getApp().common,
-	tab = require("../../utils/tab");
+  w = getApp().watcher,
+  c = getApp().common,
+  tab = require("../../utils/tab");
 Page({
   data: {
     page: [{
         tag: 'head',
         title: '我的信息',
         action: true,
-        show: true,
-        grey: true
+        grey: true,
+        aimStep: 1,
+        // show: true,
       }, {
         tag: 'info',
       }, {
@@ -20,10 +21,14 @@ Page({
         }, {
           text: '登录',
           url: '/pages/settings/login'
-        }]
+        }, {
+          text: '关于',
+          aim: 'log'
+        }, ]
       },
       {
-        tag: 'foot'
+        tag: 'foot',
+        desc: '当前版本：' + a.Version
       },
     ],
   },
@@ -42,9 +47,9 @@ Page({
     });
   },
   onShow() {
-		tab.tabBarChanger(a.nm);
+    tab.tabBarChanger(a.nm);
   },
-	onPageScroll(e) {
-		c.nav(e, this)
-	},
+  onPageScroll(e) {
+    c.nav(e, this)
+  },
 })

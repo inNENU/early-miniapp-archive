@@ -42,6 +42,10 @@ Page({
       tag: 'p',
       head: 'V0.7.7',
       text: '修复图片lazyload模式异常；\n初步添加worker；'
+    }, {
+      tag: 'p',
+      head: 'V0.7.8',
+      text: '加入了新生报到、校园卡、校园网界面；\n主页重构；'
     }],
   },
   onLoad(e) {

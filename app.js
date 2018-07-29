@@ -27,7 +27,7 @@ App({
 		console.log(msg)
 	},
   globalData: {
-    Version: 'V 0.7.6',
+    Version: 'V 0.7.7',
     imgMode: "widthFix"
   },
   util: require('utils/util'),
