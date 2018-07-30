@@ -30,12 +30,12 @@ Page({
       {
         tag: 'list',
         head: '主题设置',
-        foot: 'wechat主题和NENU主题还在建设中......',
+        foot: 'NENU主题还处于内测阶段',
         content: [{
           text: '主题设置',
           key: 'themeNum',
           single: true,
-          pickerValue: ['iOS', 'wechat', 'NENU'],
+          pickerValue: ['iOS', 'Android', 'NENU(beta)'],
           picker: 'setTheme'
         }, ]
       },
@@ -105,27 +105,20 @@ Page({
           },
           {
             text: '现在更新指南资源',
-						button: 'refreshRes'
-					}, {
-						text: '功能资源更新提示',
-						swiKey: 'funcNotify'
-					},
-					{
-						text: '现在更新功能资源',
-						button: 'refreshFunc'
-					},
+            button: 'refreshRes'
+          }, {
+            text: '功能资源更新提示',
+            swiKey: 'funcNotify'
+          },
+          {
+            text: '现在更新功能资源',
+            button: 'refreshFunc'
+          },
         ]
       },
       {
-        tag: 'list',
-        head: '调试控制',
-        foot: '打开开关来开启调试模式',
-        content: [{
-          text: '调试控制台',
-          swiKey: 'debugMode',
-          Switch: 'debugSwitch'
-        }]
-      },
+        tag: 'foot',
+      }
     ],
   },
   onLoad(e) {
@@ -152,7 +145,7 @@ Page({
     tab.resRefresh()
   },
   refreshFunc(e) {
-		tab.funcRefresh()
+    tab.funcRefresh()
   },
   cA(e) {
     c.componentAction(e, this)
@@ -268,8 +261,4 @@ Page({
     c.setPage(this.data.page, this, a, e);
     w.emit('theme', theme);
   },
-  debugSwitch(e) {
-    u.Switch(e, this);
-    app.checkDebug();
-  }
 })

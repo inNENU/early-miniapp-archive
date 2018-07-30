@@ -1,6 +1,7 @@
 /* NENU theme made by MrHope */
 
 .NENU, .NENUgrey {
+  width: 100%;
   min-height: 100%;
 }
 

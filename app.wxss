@@ -1,4 +1,4 @@
-@import "templates/wechat.wxss";
+@import "templates/Android.wxss";
 @import "templates/iOS.wxss";
 @import "templates/NENU.wxss";
 
@@ -130,8 +130,11 @@ page {
   border-radius: 0 !important;
 }
 
-.doc {
-  background-color: #fff;
+.nm .docCtn {
+  background-color: #000;
+  color: #fff;
+  border-top-color: #353631;
+  border-bottom-color: #353631;
 }
 
 .docIcon {
@@ -166,6 +169,10 @@ page {
   border-color: #c7c7cc;
 }
 
+.nm .docAccess:after {
+  border-color: #383833;
+}
+
 /* phone */
 
 .iOS .phoneCtn {
@@ -174,6 +181,11 @@ page {
 
 .wechat .phoneCtn {
   background-color: #f8f8f8;
+}
+
+.nm.iOS .phoneCtn, .nm.wechat .phoneCtn {
+  background-color: #000;
+  color: #fff;
 }
 
 .phoneCtn {

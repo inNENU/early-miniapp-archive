@@ -213,43 +213,43 @@
   </view>
 </template>
 
-<!-- wechat theme -->
+<!-- Android theme -->
 
-<template name="wechathead">
+<template name="Androidhead">
   <block wx:if="{{item.display!==false}}">
-    <view class="wechat-navigationBar {{item.shadow?'wechatNavShadow':''}}" style="padding-top:{{item.statusBarHeight}}px;">
-      <view class="wechat-titletext">{{item.title}}</view>
-      <button wx:if="{{item.action!=true}}" class='wechat-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
-        <view wx:if="{{item.action==undefined||item.action=='redirect'}}" class='wechat-backArrow'></view>
-        <view class='wechat-leftText'>{{item.leftText}}</view>
+    <view class="Android-navigationBar {{item.shadow?'AndroidNavShadow':''}}" style="padding-top:{{item.statusBarHeight}}px;">
+      <view class="Android-titletext">{{item.title}}</view>
+      <button wx:if="{{item.action!=true}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
+        <view wx:if="{{item.action==undefined||item.action=='redirect'}}" class='Android-backArrow'></view>
+        <view class='Android-leftText'>{{item.leftText}}</view>
       </button>
     </view>
-    <view class='wechat-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
-    <view wx:if="{{item.desc||item.show}}" class="wechat-head">
-      <view class=".wechat-title">{{item.title}}</view>
-      <view wx:if="{{item.desc}}" class="wechat-desc">{{item.desc}}</view>
+    <view class='Android-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
+    <view wx:if="{{item.desc||item.show}}" class="Android-head">
+      <view class="Android-title">{{item.title}}</view>
+      <view wx:if="{{item.desc}}" class="Android-desc">{{item.desc}}</view>
     </view>
   </block>
 </template>
 
-<template name='wechath3'>
-  <view class='wechatH3' style='{{item.style}}'>{{item.text}}</view>
+<template name='Androidh3'>
+  <view class='AndroidH3' style='{{item.style}}'>{{item.text}}</view>
 </template>
 
-<template name='wechatp'>
-  <view wx:if="{{item.head}}" class='wechathead'>{{item.head}}</view>
-  <view class='wechatP' style="{{item.style}}{{item.indent?'text-indent:2em;':''}}">
+<template name='Androidp'>
+  <view wx:if="{{item.head}}" class='Androidhead'>{{item.head}}</view>
+  <view class='AndroidP' style="{{item.style}}{{item.indent?'text-indent:2em;':''}}">
     <text selectable='true'>{{item.text}}</text>
   </view>
-  <image id="{{item.id}}" class='wechat-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
+  <image id="{{item.id}}" class='Android-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
   />
-  <view wx:if="{{item.desc}}" class='wechatN'>
+  <view wx:if="{{item.desc}}" class='AndroidN'>
     <text>▲{{item.desc}}</text>
   </view>
 </template>
 
-<template name='wechatlist'>
-  <view wx:if="{{item.head!==false}}" class='wechathead'>{{item.head}}</view>
+<template name='Androidlist'>
+  <view wx:if="{{item.head!==false}}" class='Androidhead'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
@@ -318,7 +318,7 @@
   <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
 </template>
 
-<template name='wechatimg'>
+<template name='Androidimg'>
   <view wx:if="{{item.error}}" class='imgError'>
     <icon type="warn" style='margin-right:5px;' />
     <text class='grey'>图片加载失败</text>
@@ -327,19 +327,19 @@
     <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
-  <image id="{{item.id}}" class='wechat-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
+  <image id="{{item.id}}" class='Android-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
   />
-  <view wx:if="{{item.desc}}" class='wechatN'>▲{{item.desc}}</view>
+  <view wx:if="{{item.desc}}" class='AndroidN'>▲{{item.desc}}</view>
 </template>
 
-<template name='wechatdoc'>
+<template name='Androiddoc'>
   <button id="{{item.id}}" class='docCtn' catchtap='cA' data-url="{{item.url}}" data-action='doc'>
     <image class='docIcon' mode='widthFix' src='/icon/{{item.docType}}.svg' />
     <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
   </button>
 </template>
 
-<template name="wechatphone">
+<template name="Androidphone">
   <view class='phoneCtn' id='{{item.id}}' catchtap='cA' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}" data-action='phone'>
     <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
     <view class='phoneNum'>{{item.num}}</view>
@@ -352,7 +352,7 @@
   </view>
 </template>
 
-<template name='wechatgrid'>
+<template name='Androidgrid'>
   <view class='gridHead'>{{item.head}}</view>
   <view class='gridCtn'>
     <navigator wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
@@ -363,7 +363,7 @@
   <view class='gridFoot'>{{item.foot}}</view>
 </template>
 
-<template name='wechatswiper'>
+<template name='Androidswiper'>
   <swiper class="{{item.Class?item.Class:'swiper'}}" style="{{item.style}}" indicator-dots="{{item.indicatorDots==false?'':true}}" indicator-color="{{item.dotColor?item.dotColor:'#ffffff88'}}" indicator-active-color="{{item.dotActiveColor?item.dotActiveColor:'#fff'}}"
     autoplay="{{item.autoplay==false?'':true}}" interval="{{item.interval?item.interval:'5000'}}" duration="{{item.duration?item.duration:'500'}}" circular="{{item.circular==false?'':true}}" vertical="{{item.vertical?true:''}}" previous-margin="{{item.preMargin?item.preMargin:'0px'}}"
     next-margin="{{item.nextMargin?item.nextMargin:'0px'}}" bindchange="{{item.change?item.change:''}}" bindanimationfinish="{{item.animation?item.animation:''}}" data-action='swiper'>
@@ -373,7 +373,7 @@
   </swiper>
 </template>
 
-<template name='wechatfoot'>
+<template name='Androidfoot'>
   <view class='Footer'>
     <text wx:if="{{item.desc}}">{{item.desc}}\n</text>
     <text wx:if="{{item.author}}"> 编辑人：{{item.author}} </text>
@@ -383,14 +383,14 @@
   </view>
 </template>
 
-<template name='wechaterror'>
-  <view class='wechat-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
-    <view class="wechat-titletext">页面出错</view>
-    <button wx:if="{{!item.top}}" class='wechat-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
-      <view class='wechat-backArrow'></view>
+<template name='Androiderror'>
+  <view class='Android-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
+    <view class="Android-titletext">页面出错</view>
+    <button wx:if="{{!item.top}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
+      <view class='Android-backArrow'></view>
     </button>
   </view>
-  <view class='wechat-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">
+  <view class='Android-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">
     <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
   </view>
   <view class='errorCtn'>

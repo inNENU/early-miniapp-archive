@@ -10,6 +10,4 @@ Page({
   onPullDownRefresh: function() {
     wx.navigateBack({})
   },
-  onShareAppMessage: function() {
-  }
 })

@@ -1,27 +1,27 @@
-/* ---wechat theme made by Mr.Hope--- */
+/* ---Android theme made by Mr.Hope--- */
 
-.wechat, .wechatgrey {
+.Android, .Androidgrey {
   width: 100%;
   min-height: 100%;
   text-align: center;
 }
 
-.wechat, .wechatgrey {
+.Android, .Androidgrey {
   background-color: #f8f8f8;
 }
 
-.nm.wechat, .nm.wechatgrey {
+.nm.Android, .nm.Androidgrey {
   background-color: #000;
 }
 
 /* 导航 */
 
-.wechat-navigationBar, .wechat-navPlaceHolder {
+.Android-navigationBar, .Android-navPlaceHolder {
   width: 100%;
   background-color: #f8f8f8;
 }
 
-.wechat-navigationBar {
+.Android-navigationBar {
   height: 44px;
   display: -webkit-flex;
   display: flex;
@@ -31,30 +31,30 @@
   z-index: 99;
 }
 
-.wechatNavShadow {
+.AndroidNavShadow {
   box-shadow: 0px 0px 4px 1.5px rgba(208, 208, 208, 80);
 }
 
-.nm .wechatNavShadow {
+.nm .AndroidNavShadow {
   box-shadow: 0px 0px 4px 1.5px rgba(47, 47, 47, 80);
 }
 
-.wechat-navPlaceHolder {
+.Android-navPlaceHolder {
   height: 69px;
   position: relative;
   font-size: 16rpx;
   color: #d9d9d9;
 }
 
-.nm .wechat-navigationBar, .nm .wechat-navPlaceHolder {
+.nm .Android-navigationBar, .nm .Android-navPlaceHolder {
   background-color: #070707;
 }
 
-.nm .wechat-navPlaceHolder {
+.nm .Android-navPlaceHolder {
   color: #262626;
 }
 
-.wechat-titletext {
+.Android-titletext {
   width: 100%;
   position: absolute;
   font-size: 17px;
@@ -64,11 +64,11 @@
   z-index: 100;
 }
 
-.nm .wechat-titletext {
+.nm .Android-titletext {
   color: white;
 }
 
-.wechat-navBack {
+.Android-navBack {
   min-width: 0 !important;
   min-height: 0 !important;
   padding: 8px 5px !important;
@@ -83,7 +83,7 @@
   z-index: 101;
 }
 
-.wechat-backArrow {
+.Android-backArrow {
   width: 8px;
   height: 8px;
   border-width: 0 0 3px 3px;
@@ -93,48 +93,48 @@
   border-color: black;
 }
 
-.nm .wechat-backArrow {
+.nm .Android-backArrow {
   border-color: white;
 }
 
-.wechat-leftText {
+.Android-leftText {
   font-size: 14px;
 }
 
-.nm .wechat-leftText {
+.nm .Android-leftText {
   color: #fff;
 }
 
-.wechat-head {
+.Android-head {
   padding: 25px 40px;
 }
 
-.nm .wechat-head {
+.nm .Android-head {
   color: white;
 }
 
-.wechat-title {
+.Android-title {
   text-align: left;
   font-size: 20px;
   font-weight: 400;
 }
 
-.nm .wechat-title {
+.nm .Android-title {
   color: white;
 }
 
-.wechat-desc {
+.Android-desc {
   text-align: left;
   font-size: 14px;
   margin-top: 5px;
   color: #888;
 }
 
-.nm .wechat-desc {
+.nm .Android-desc {
   color: #777;
 }
 
-.wechatgrey .wechathead {
+.Androidgrey .Androidhead {
   text-align: left;
   margin: 0.77em 0 0.3em 0;
   padding: 0 15px;
@@ -143,18 +143,18 @@
   min-height: 10px;
 }
 
-.wechatgrey.nm .wechathead {
+.Androidgrey.nm .Androidhead {
   color: #666;
 }
 
-.wechatH3 {
+.AndroidH3 {
   font-weight: 500;
   font-size: 18px;
   line-height: 1.6;
   margin: 0.66em 5% 0.34em 5%;
 }
 
-.wechat .wechathead {
+.Android .Androidhead {
   text-align: left;
   font-weight: 500;
   font-size: 17px;
@@ -162,30 +162,30 @@
   margin: 0.33em 25px 0.17em 25px;
 }
 
-.wechat.nm .wechathead {
+.Android.nm .Androidhead {
   color: #fff;
 }
 
-.nm .wechatH3 {
+.nm .AndroidH3 {
   color: #fff;
 }
 
-.wechatP {
+.AndroidP {
   text-align: left;
   background-color: #f8f8f8;
 }
 
-.nm .wechatP {
+.nm .AndroidP {
   color: white;
   background-color: #070707;
 }
 
-.wechat .wechatP {
+.Android .AndroidP {
   font-size: 14px;
   padding: 2px 20px;
 }
 
-.wechatgrey .wechatP {
+.Androidgrey .AndroidP {
   font-size: 17px;
   padding: 10px 15px;
   border-top: 1rpx #cac9ce solid;
@@ -193,12 +193,12 @@
   background-color: #fefefe;
 }
 
-.wechatgrey.nm .wechatP {
+.Androidgrey.nm .AndroidP {
   border-color: #353631;
   background-color: #000;
 }
 
-.wechat-img {
+.Android-img {
   margin: 24rpx 50rpx;
   width: 650rpx;
   font-weight: 500;
@@ -206,25 +206,25 @@
   box-shadow: 0px 2px 5px 2px #888;
 }
 
-.wechat-img +.wechat-img {
+.Android-img +.Android-img {
   margin-top: 0px;
 }
 
-.nm .wechat-img {
+.nm .Android-img {
   border-color: #ccc;
   box-shadow: 0px 2px 5px 2px #777;
 }
 
-.wechatN {
+.AndroidN {
   padding: 2px 10%;
   font-size: 12px;
   color: #888;
 }
 
-.nm .wechatN {
+.nm .AndroidN {
   color: #777;
 }
 
-.wechat-img+.wechatN {
+.Android-img+.AndroidN {
   margin-top: -12px;
 }

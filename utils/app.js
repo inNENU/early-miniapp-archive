@@ -83,7 +83,7 @@ function setTheme(theme) {
             num = 0;
           break;
         case 'android':
-          t = 'wechat',
+          t = 'Android',
             num = 1;
           break;
         default:
