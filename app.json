@@ -13,8 +13,7 @@
         "pages/settings/donate",
         "templates/module1",
         "templates/module2",
-        "templates/module3",
-        "templates/test"
+        "templates/module3"
     ],
     "subPackages": [{
             "root": "function",

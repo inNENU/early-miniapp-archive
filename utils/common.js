@@ -374,9 +374,11 @@ function preloadPage(page, a) {
               aim: category[1].split('=')[1],
               step: category[2].split('=')[1]
             },
-            page = wx.getStorageSync(e.aim);
-          console.log(page), console.log(a), console.log(e) //调试
-          wx.setStorageSync(e.aim + 'Temp', setPageData(page, a, e))
+            preloadPage = wx.getStorageSync(e.aim);
+          console.log(preloadPage), console.log(a), console.log(e) //调试
+          if (preloadPage) {
+            wx.setStorageSync(e.aim + 'Temp', setPageData(preloadPage, a, e))
+          }
         };
       }
     }

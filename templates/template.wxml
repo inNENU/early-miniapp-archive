@@ -60,7 +60,7 @@
   <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
-      <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
+      <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText'>{{List.text}}</view>
@@ -250,7 +250,7 @@
   <view wx:if="{{item.head!==false}}" class='wechathead'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
-      <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
+      <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText'>{{List.text}}</view>
@@ -446,7 +446,7 @@
   <view wx:if="{{item.head!==false}}" class='NENUH3'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
-      <navigator wx:if='{{List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
+      <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText'>{{List.text}}</view>
