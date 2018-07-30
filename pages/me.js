@@ -9,7 +9,7 @@ Page({
         title: '我的信息',
         action: true,
         grey: true,
-        aimStep: 1,
+        aimStep: 0,
         // show: true,
       }, {
         tag: 'info',

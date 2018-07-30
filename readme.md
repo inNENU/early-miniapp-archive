@@ -144,6 +144,8 @@ Page({
 |desc|否|String|列表内容的描述||
 |aim|否|String|对应界面的json文件名|当指向简单界面时填写|
 |url|否|String|列表指向的界面路径|当指向复杂界面时填写|
+|openType|否|String|微信提供的开放能力||
+|target|否|String|跳转目标||
 
 **选项二：开关**
 

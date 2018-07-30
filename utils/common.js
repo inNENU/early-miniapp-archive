@@ -281,6 +281,8 @@ function setPageData(page, a, e) {
       };
       if ('aim' in e) {
         page[0].aim = e.aim;
+      } else {
+        page[0].aim = page[0].title
       }
     }
   };

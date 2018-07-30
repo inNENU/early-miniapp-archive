@@ -42,7 +42,7 @@ function noticeCheck() {
           console.log('popAPP') //调试
           wx.showModal({
             title: data.app[0],
-            content: data.app[0],
+            content: data.app[1],
             showCancel: false,
             success: function() {
               wx.removeStorageSync('appnoticeNotify');
