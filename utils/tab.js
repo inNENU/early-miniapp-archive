@@ -1,6 +1,7 @@
 module.exports = {
   checkUpdate,
   resRefresh,
+	funcRefresh,
   tabBarChanger,
   markerSet
 }
@@ -181,10 +182,26 @@ function resDownload(onlineList, localList) {
   }
 }
 
-//资源刷新 from theme.js
+//指南资源刷新 from theme.js
 function resRefresh() {
   wx.request({
     url: 'https://mrhope.top/mp/fileList.json',
+    success(listRequest) {
+      console.log(listRequest);
+      let fileList = listRequest.data;
+      if (listRequest.statusCode == 200) {
+        resDownload(fileList, null)
+      } else {
+        console.error('FileList error!')
+      }
+    }
+  })
+}
+
+//界面资源刷新 from theme.js
+function funcRefresh() {
+  wx.request({
+    url: 'https://mrhope.top/mp/funcList.json',
     success(listRequest) {
       console.log(listRequest);
       let fileList = listRequest.data;

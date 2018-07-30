@@ -1,6 +1,7 @@
 module.exports = {
   nav: changeNav,
   setPage,
+  setPageData,
   preloadPage,
   getContent,
   componentAction,

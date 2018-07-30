@@ -4,7 +4,7 @@ Page({
   data: {
     page: [{
       tag: 'head',
-      title: '本部校区',
+      title: '物理学院',
       display: false,
     }, {
       tag: 'swiper',
@@ -14,12 +14,16 @@ Page({
         'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
       ],
     }, {
+      tag: 'h3',
+      text: '物理学院',
+      style: 'font-size:28px;'
+    }, {
       tag: 'p',
-      head: 'V0.7.0',
+      head: '学院简介',
       text: '修复iOS error返回按钮的问题；\n修复map界面点击态失效的问题；\n修复商品页关闭按钮位置错误的问题；\n修复map弹出列表显示错误的问题；\n修复NENU首页导航栏异常；\n修复shop界面导航栏不随主题切换的问题；'
     }, {
       tag: 'p',
-      head: 'V0.7.1',
+      head: '师资力量',
       text: 'map界面增加marker与label；\n'
     }, {
       tag: 'p',
@@ -40,7 +44,8 @@ Page({
     }, ],
   },
   onLoad(e) {
-		c.setPage(this.data.page, this, a);
+    console.log(e)
+    c.setPage(wx.getStorageSync('benbu' + e.id), this, a, e);
   },
   onPageScroll(e) {
     c.nav(e, this)

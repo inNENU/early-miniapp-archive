@@ -215,9 +215,15 @@ Page({
   },
   markers(e) {
     console.log(e);
+    let mapSwitch = this.data.mapSwitch,
+      xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
+    if (e.type == 'markertap') {
+      wx.setStorageSync(xiaoqu + e.markerId + 'temp', setPageData(wx.getStorageSync(xiaoqu + e.markerId), a, null))
+    }
     if (e.type == 'callouttap') {
+      let title = wx.getStorageSync(xiaoqu + '-all')[e.markerId].title;
       wx.navigateTo({
-        url: 'situs?id=' + e.markerId,
+        url: 'situs?id=' + e.markerId + '&xiaoqu=' + xiaoqu + '&title=' + title,
       })
     }
   },

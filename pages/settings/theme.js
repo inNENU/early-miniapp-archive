@@ -100,13 +100,20 @@ Page({
         head: '资源更新',
         foot: '如果页面显示出现问题请强制更新资源',
         content: [{
-            text: '资源更新提示',
+            text: '指南资源更新提示',
             swiKey: 'resNotify'
           },
           {
-            text: '现在更新',
-            button: 'refresh'
-          },
+            text: '现在更新指南资源',
+						button: 'refreshRes'
+					}, {
+						text: '功能资源更新提示',
+						swiKey: 'funcNotify'
+					},
+					{
+						text: '现在更新功能资源',
+						button: 'refreshFunc'
+					},
         ]
       },
       {
@@ -141,8 +148,11 @@ Page({
   onPageScroll(e) {
     c.nav(e, this)
   },
-  refresh(e) {
-    tab.resRefresh(a)
+  refreshRes(e) {
+    tab.resRefresh()
+  },
+  refreshFunc(e) {
+		tab.funcRefresh()
   },
   cA(e) {
     c.componentAction(e, this)

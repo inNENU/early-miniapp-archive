@@ -78,7 +78,7 @@ Page({
         nm: data
       });
     });
-    tab.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗60K流量)', '30K', a)
+		tab.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗80K流量)\n不下载资源可能造成部分界面异常，可以稍后在设置中进行下载', '10K', a)
   },
   onShow() {
     this.setData({

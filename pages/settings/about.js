@@ -1,4 +1,5 @@
 var c = getApp().common,
+  u = getApp().util,
   a = getApp().globalData;
 Page({
   temp: {
@@ -23,6 +24,15 @@ Page({
         text: '调试开关',
         swiKey: 'debugMode',
         Switch: 'debugSwitch'
+      }, {
+        text: '初始化小程序',
+        button: 'initApp',
+      }, {
+        text: '退出小程序',
+        url: '',
+      }, {
+        text: '退出开发者模式',
+        button: 'debugMode',
       }, ]
     }, {
       tag: 'p',
@@ -34,12 +44,18 @@ Page({
     let p = this.data.page,
       value = wx.getStorageSync('developMode'),
       developMode = (value || value == false) ? value : (wx.setStorageSync('developMode', false));
+    this.developMode = developMode;
+    p[1].content[4].display = false;
     if (developMode) {
       p[1].content[1].display = true,
-        p[1].content[2].display = true;
+        p[1].content[2].display = true,
+        p[1].content[3].display = true,
+        p[1].content[5].display = true;
     } else {
       p[1].content[1].display = false,
-        p[1].content[2].display = false;
+        p[1].content[2].display = false,
+        p[1].content[3].display = false,
+        p[1].content[5].display = false;
     }
     console.log(p)
     c.setPage(p, this, a, e);
@@ -56,28 +72,42 @@ Page({
   debugMode(e) {
     let clickNumber = this.temp.clickNumber,
       that = this;
-    if (clickNumber < 5) {
-      this.temp.clickNumber += 1;
-    } else if (clickNumber < 10) {
-      let remainNumber = 10 - clickNumber;
-      wx.showToast({
-        title: '再点击' + remainNumber + '次即可启用开发者模式',
-        icon: 'none'
-      });
-      this.temp.clickNumber += 1;
-    } else {
-      wx.showToast({
-        title: '已启用开发者模式',
-        icon: 'none'
-      });
-      let p = this.data.page;
-      p[1].content[1].display = true,
-        p[1].content[2].display = true;
+    if (developMode) {
+      wx.setStorageSync('developMode', false)
+      let p = that.data.p;
+      p[1].content[1].display = false,
+        p[1].content[2].display = false,
+        p[1].content[3].display = false,
+        p[1].content[5].display = false;
       that.setData({
         page: p
       })
-    };
-    console.log(this.temp.clickNumber)
+    } else {
+      if (clickNumber < 5) {
+        this.temp.clickNumber += 1;
+      } else if (clickNumber < 10) {
+        let remainNumber = 10 - clickNumber;
+        wx.showToast({
+          title: '再点击' + remainNumber + '次即可启用开发者模式',
+          icon: 'none'
+        });
+        this.temp.clickNumber += 1;
+      } else {
+        wx.showToast({
+          title: '已启用开发者模式',
+          icon: 'none'
+        });
+        let p = this.data.page;
+        p[1].content[1].display = true,
+          p[1].content[2].display = true,
+          p[1].content[3].display = true,
+          p[1].content[5].display = true;
+        that.setData({
+          page: p
+        });
+        wx.setStorageSync('developMode', true)
+      };
+    }
   },
   debugSwitch(e) {
     u.Switch(e, this);
@@ -90,5 +120,23 @@ Page({
         enableDebug: false
       })
     }
+  },
+  initApp() {
+    let that = this;
+    wx.clearStorageSync();
+    wx.showModal({
+      title: '小程序初始化完成',
+      content: '请单击退出小程序按钮退出小程序',
+      showCancel: false,
+      success(res) {
+        if (res.confirm) {
+          let p = that.data.p;
+          p[1].content[4].display = true;
+          that.setData({
+            page: p
+          })
+        }
+      }
+    })
   }
 })
