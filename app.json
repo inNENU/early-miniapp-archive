@@ -7,6 +7,7 @@
         "pages/me",
         "pages/main/0.8",
         "pages/main/web",
+        "pages/main/building",
         "pages/settings/about",
         "pages/settings/theme",
         "pages/settings/login",

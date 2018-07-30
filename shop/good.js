@@ -38,6 +38,20 @@ Page({
       duration: 500,
       timingFunction: 'ease',
     });
+    let timeoutFunc = setTimeout(function() {
+      wx.navigateBack({})
+    }, 5000);
+    wx.showModal({
+      title: '商品详情制作中',
+      content: '东青文创会尽快发布此界面',
+      showCancel: false,
+      success(res) {
+        if (res.confirm) {
+          clearTimeout(timeoutFunc);
+          wx.navigateBack({})
+        }
+      }
+    });
   },
   onPageScroll(e) {
     c.nav(e, this)

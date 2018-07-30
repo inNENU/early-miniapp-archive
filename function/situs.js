@@ -44,11 +44,23 @@ Page({
     }, ],
   },
   onLoad(e) {
-    console.log(e)
-    c.setPage(wx.getStorageSync('benbu' + e.id), this, a, e);
+    console.log(e);
+    this.name = c.getContent(this, a, {
+      aim: e.xiaoqu + e.id
+    });
+    // c.setPage(wx.getStorageSync('benbu' + e.id), this, a, e);
+    this.marker = wx.getStorageSync(e.xiaoqu + '-all')[e.id];
   },
   onPageScroll(e) {
     c.nav(e, this)
+  },
+  detail() {
+    let marker = this.marker;
+    wx.openLocation({
+      latitude: marker.latitude,
+      longitude: markers.longitude,
+      name: markers.title,
+    })
   },
   cA(e) {
     c.componentAction(e, this)
