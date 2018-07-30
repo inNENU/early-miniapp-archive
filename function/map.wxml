@@ -4,7 +4,7 @@
     <cover-image class='backIcon' src='/icon/back.png' />
   </cover-view>
   <cover-view class="selectCtn {{pointDisplay?'fadeIn':'fadeOut'}}" style="bottom:{{selectBottom}}rpx;z-index:96;" catchtap="select">
-    <cover-view wx:for="{{category}}" class="selectBtn {{selectItem==item[1]?'active':''}}" hover-class='pressHover' data-category='{{item[1]}}'>
+    <cover-view wx:for="{{category}}" wx:key="{{item[0]}}" class="selectBtn {{selectItem==item[1]?'active':''}}" hover-class='pressHover' data-category='{{item[1]}}'>
       <cover-view data-category='{{item[1]}}'>{{item[0]}}</cover-view>
     </cover-view>
   </cover-view>

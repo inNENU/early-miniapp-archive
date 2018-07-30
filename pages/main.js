@@ -11,14 +11,6 @@ Page({
         aimStep: 1,
         grey: true,
       },
-			{
-				tag: 'list',
-				head: '测试',
-				content: [{
-					text: '公众号',
-					url: 'main/web'
-				},]
-			},
       {
         tag: 'foot',
         author: 'Mr.Hope',

@@ -39,7 +39,6 @@ function noticeCheck() {
           }
         };
         if ('app' in data) {
-          console.log('popAPP') //调试
           wx.showModal({
             title: data.app[0],
             content: data.app[1],

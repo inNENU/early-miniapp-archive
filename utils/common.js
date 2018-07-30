@@ -10,19 +10,15 @@ module.exports = {
 
 //获取内容 被任一模板界面调用
 function getContent(indicator, a, e) {
-  console.log(indicator); //调试
-  console.log(e); //调试
+  console.log(indicator), console.log(e); //调试
   wx.showLoading({
     title: '加载中...'
   });
   if (!e.share && showPage(indicator, a, e)) {
     wx.hideLoading();
-    console.log('if')
   } else {
     let pageData = wx.getStorageSync(e.aim);
     if (pageData) {
-      console.warn('else')
-      console.warn(pageData)
       console.log(pageData); //调试
       setPage(pageData, indicator, a, e);
       wx.hideLoading();
@@ -47,8 +43,12 @@ function getContent(indicator, a, e) {
             let source;
             if (isNaN(e.aim.charAt(e.aim.length - 1))) {
               source = e.aim;
-            } else {
+            } else if (isNaN(e.aim.charAt(e.aim.length - 2))) {
               source = e.aim.substring(0, e.aim.length - 1);
+            } else if (isNaN(e.aim.charAt(e.aim.length - 3))) {
+              source = e.aim.substring(0, e.aim.length - 2);
+            } else {
+              source = e.aim.substring(0, e.aim.length - 3);
             };
             wx.request({
               url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
@@ -282,12 +282,12 @@ function setPageData(page, a, e) {
         page[0].action = 'redirect';
         console.log('redirect'); //调试
       };
-      if ('aim' in e) {
-        page[0].aim = e.aim;
-      } else {
-        page[0].aim = page[0].title
-      }
-    }
+    };
+    try {
+      page[0].aim = e.aim;
+    } catch (err) {
+      page[0].aim = page[0].title;
+    };
   };
   page[0].url = new Array();
   for (let i = 0; i < page.length; i++) {
@@ -358,34 +358,37 @@ function popNotice(aim) {
 
 // 设置界面
 function setPage(page, indicator, a, e) {
+  let pageData = setPageData(page, a, e)
   indicator.setData({
     T: a.T,
     nm: a.nm,
-    page: setPageData(page, a, e)
+    page: pageData
   });
-  popNotice(page[0].aim);
+  popNotice(pageData[0].aim);
 }
 
 // 预载入界面
 function preloadPage(page, a) {
-  console.log(page) //调试
-  for (let i = 0; i < page.length; i++) {
-    if ('content' in page[i]) {
-      for (let j = 0; j < page[i].content.length; j++) {
-        let item = page[i].content[j];
-        if ('aim' in item) {
-          let category = item.url.split('?')[1].split('&'),
-            e = {
-              From: category[0].split('=')[1],
-              aim: category[1].split('=')[1],
-              step: category[2].split('=')[1]
-            },
-            preloadPage = wx.getStorageSync(e.aim);
-          console.log(preloadPage), console.log(a), console.log(e) //调试
-          if (preloadPage) {
-            wx.setStorageSync(e.aim + 'Temp', setPageData(preloadPage, a, e))
-          }
-        };
+  if (page) {
+    console.log(page) //调试
+    for (let i = 0; i < page.length; i++) {
+      if ('content' in page[i]) {
+        for (let j = 0; j < page[i].content.length; j++) {
+          let item = page[i].content[j];
+          if ('aim' in item) {
+            let category = item.url.split('?')[1].split('&'),
+              e = {
+                From: category[0].split('=')[1],
+                aim: category[1].split('=')[1],
+                step: category[2].split('=')[1]
+              },
+              preloadPage = wx.getStorageSync(e.aim);
+            console.log(preloadPage), console.log(a), console.log(e) //调试
+            if (preloadPage) {
+              wx.setStorageSync(e.aim + 'Temp', setPageData(preloadPage, a, e))
+            }
+          };
+        }
       }
     }
   }
@@ -405,4 +408,26 @@ function showPage(indicator, a, e) {
   } else {
     return false;
   }
+}
+
+function reConnet(indicator, a, e) {
+  wx.onNetworkStatusChange(function(res) {
+    console.log(res.isConnected);
+    console.log(res.networkType);
+    if (res.isConnected) {
+      let source = (isNaN(e.aim.charAt(e.aim.length - 1))) ? e.aim : e.aim.substring(0, e.aim.length - 1);
+      wx.request({
+        url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
+        success(res) {
+          console.log(res);
+          wx.hideToast();
+          (res.statusCode == 200) ? (setPage(res.data, indicator, a, e), wx.setStorageSync(e.aim, res.data)) : indicator.setData({
+            page: [{
+              tag: 'error'
+            }]
+          })
+        }
+      })
+    }
+  })
 }

@@ -80,29 +80,6 @@ function arrayKeynumber(array, key) {
   }
 }
 
-// 网络重连
-function reConnet(indicator, a, e) {
-  wx.onNetworkStatusChange(function(res) {
-    console.log(res.isConnected);
-    console.log(res.networkType);
-    if (res.isConnected) {
-      let source = (isNaN(e.aim.charAt(e.aim.length - 1))) ? e.aim : e.aim.substring(0, e.aim.length - 1);
-      wx.request({
-        url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
-        success(res) {
-          console.log(res);
-          wx.hideToast();
-          (res.statusCode == 200) ? (setPage(res.data, indicator, a, e), wx.setStorageSync(e.aim, res.data)) : indicator.setData({
-            page: [{
-              tag: 'error'
-            }]
-          })
-        }
-      })
-    }
-  })
-}
-
 // 跳转制定界面
 function go(url) {
   wx.navigateTo({
@@ -147,18 +124,6 @@ function getDistance(lat1, lng1, lat2, lng2) {
   return d * (1 + fl * (h1 * sf * (1 - sg) - h2 * (1 - sf) * sg));
 }
 
-function donate() {
-  wx.getClipboardData({
-    data: '吱口令',
-    success: function(res) {
-      wx.showToast({
-        title: '吱口令已复制到剪切板，请打开支付宝',
-        duration: 1000,
-      })
-    }
-  })
-}
-
 function setPersonInfo(page) {
   let nickName, imgPath;
   if (wx.getStorageSync('login')) {
@@ -184,68 +149,6 @@ function forceLogin() {
       }
     })
   }
-}
-
-function getMarkers() {
-  wx.getStorage({
-    key: id,
-    success: function(key) {
-      console.log(key.data);
-      setPage(key.data, indicator, a, e);
-      wx.hideLoading();
-    },
-    fail: function(res) {
-      console.log(res);
-      if (res.errMsg == 'getStorage:fail data not found') {
-        wx.getNetworkType({
-          success: function(res) {
-            console.log(res);
-            let net = res.networkType;
-            if (net == 'none' || net == 'unknown') {
-              setPage([{
-                tag: 'error',
-                statusBarHeight: a.info.statusBarHeight
-              }], indicator, a, e);
-              wx.hideLoading();
-              wx.showToast({
-                title: '您未打开互联网！由于您未提前缓存此界面，界面无法加载！\n请检查您的互联网连接！',
-                icon: 'none',
-                duration: 10000
-              });
-              reConnet(indicator, a, e);
-            } else {
-              let source;
-              if (isNaN(e.aim.charAt(e.aim.length - 1))) {
-                source = e.aim;
-              } else {
-                source = e.aim.substring(0, e.aim.length - 1);
-              };
-              wx.request({
-                url: 'https://mrhope.top/mp/' + source + '/' + e.aim + '.json',
-                success(res) {
-                  console.log(res);
-                  if (res.statusCode == 200) {
-                    setPage(res.data, indicator, a, e);
-                    wx.setStorageSync(e.aim, res.data);
-                  } else {
-                    console.log('res error');
-                    setPage([{
-                      tag: 'error',
-                      statusBarHeight: a.info.statusBarHeight
-                    }], indicator, a, e);
-                  }
-                  wx.hideLoading();
-                }
-              })
-            }
-          }
-        })
-      }
-    },
-  })
-  wx.request({
-    url: '',
-  })
 }
 
 // function formatNumber(n) {

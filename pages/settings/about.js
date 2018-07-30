@@ -5,62 +5,53 @@ Page({
   clickNumber: 0,
   data: {
     page: [{
-        tag: 'head',
-        title: '关于',
-        aimStep: 2,
-        grey: true,
+      tag: 'head',
+      title: '关于',
+      aimStep: 2,
+      grey: true,
+    }, {
+      tag: 'list',
+      head: '版本号',
+      content: [{
+        text: a.Version,
+        button: 'debugMode'
       }, {
-        tag: 'list',
-        head: '版本号',
-        content: [{
-          text: a.Version,
-          button: 'debugMode'
-        }, {
-          text: '开发日志',
-          aim: 'log'
-        }, {
-          text: '调试开关',
-          swiKey: 'debugMode',
-          Switch: 'debugSwitch'
-        }, {
-          text: '初始化小程序',
-          button: 'initApp',
-        }, {
-          text: '退出小程序',
-          url: '',
-          openType: 'exit',
-          target: 'miniProgram'
-        }, {
-          text: '退出开发者模式',
-          button: 'debugMode',
-        }, ]
+        text: '开发日志',
+        aim: 'log'
       }, {
-        tag: 'p',
-        head: '正式版开发日志',
-        text: 'V1.0.0\n小程序正式发布；'
-      },
-      {
-        tag: 'p',
-        head: '重大bug：',
-        text: '切换网络后，当前加载界面会被刷新，图片显示异常；'
+        text: '调试开关',
+        swiKey: 'debugMode',
+        Switch: 'debugSwitch'
       }, {
-        tag: 'p',
-        head: '已知bug：',
-        text: '转发界面存在问题；\nlogin界面布局动画异常；\n安卓tabbar阴影有问题；\nNENU标题背景有问题；\n测试界面NENU主题返回按钮有问题；\n绩点计算器输入时键盘异常收起；\n绩点计算器夜间模式显示异常；\niOSpicker-view夜间模式异常；'
+        text: '初始化小程序',
+        button: 'initApp',
       }, {
-        tag: 'p',
-        head: '即将实现的内容：',
-        text: 'p标签使用text，text2，text3分段；\ntab页载入速度的提高；\n优化wechat.wxss；\n利用head对微信主题tabbar加入阴影；\n尝试wx.setBackgroundcolor；\nmarker.json的处理；\n标注点的筛选功能；\nbutton的open-type；\n公众号跳转组件；\n构建双排img组件；\n微信列表改为点击展开样式；\nphone组件与doc组件宽度自调整；'
-      },
-      {
-        tag: 'p',
-        head: '等待官方改进才能实现的内容：',
-        text: 'regionchange多次触发'
+        text: '退出小程序',
+        url: '',
+        openType: 'exit',
+        target: 'miniProgram'
       }, {
-        tag: 'foot',
-        desc: '当前版本：' + a.Version
-      }
-    ]
+        text: '退出开发者模式',
+        button: 'debugMode',
+      }, ]
+    }, {
+      tag: 'p',
+      head: '正式版开发日志',
+      text: 'V1.0.0\n小程序正式发布；'
+    }, {
+      tag: 'list',
+      head: '工作室与开发者介绍',
+      content: [{
+        text: 'Hope Studio介绍',
+        aim: 'MrHope'
+      }, {
+        text: 'Mr.Hope个人介绍',
+        aim: 'MrHope1'
+      }]
+    }, {
+      tag: 'foot',
+      desc: '当前版本：' + a.Version
+    }]
   },
   onLoad(e) {
     let p = this.data.page,
@@ -147,6 +138,17 @@ Page({
             page: p
           })
         }
+      }
+    })
+  },
+  donate() {
+    wx.getClipboardData({
+      data: 'Sl6dhW316U',
+      success: function(res) {
+        wx.showToast({
+          title: '口令已复制，请打开支付宝领取红包支持Mr.Hope',
+          duration: 1000,
+        })
       }
     })
   }

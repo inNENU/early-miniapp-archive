@@ -27,13 +27,12 @@ function tabBarChanger(nm) {
 function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, dataUsage) {
   let notify = initialize(notifyKey, true),
     local = initialize(storageKey, undefined);
-  console.log(notifyKey + 'is' + notify); //调试
-  console.log(local);
+  console.log(notifyKey + 'is' + notify), console.log(local); //调试
   if (notify) {
     wx.request({
       url: 'https://mrhope.top/mp/' + onlineFileName + '.json',
       success(Request) {
-        console.log(Request);
+        console.log(Request); //调试
         let onlineData = Request.data;
         if (Request.statusCode == 200) {
           if (local == undefined) {
@@ -114,16 +113,15 @@ function resSnyc(fileNumList, refreshList) {
     wx.request({
       url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
       success(res) {
-        console.log(refreshList[i]), console.log(res);
-        wx.setStorageSync(refreshList[i], res.data);
-        successNumber += 1;
+        console.log(refreshList[i]), console.log(res); //调试
+        successNumber += 1, wx.setStorageSync(refreshList[i], res.data);
         wx.showLoading({
           title: '下载中...' + percent[successNumber] + '%',
           mask: true
         });
         if (successNumber == fileNum) {
           wx.hideLoading();
-          console.log('hide');
+          console.log('hide'); //调试
           clearTimeout(timeoutFunc);
         };
       },
@@ -135,16 +133,15 @@ function resSnyc(fileNumList, refreshList) {
       wx.request({
         url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
         success(res) {
-          console.log(res), console.log(refreshList[i] + j);
-          wx.setStorageSync(refreshList[i] + j, res.data);
-          successNumber += 1;
+          console.log(res), console.log(refreshList[i] + j); //调试
+          successNumber += 1, wx.setStorageSync(refreshList[i] + j, res.data);
           wx.showLoading({
             title: '下载中...' + percent[successNumber] + '%',
             mask: true
           });
           if (successNumber == fileNum) {
             wx.hideLoading();
-            console.log('hide');
+            console.log('hide'); //调试
             clearTimeout(timeoutFunc);
           };
         },
@@ -163,13 +160,12 @@ function resDownload(onlineList, localList) {
   let category = Object.keys(onlineList),
     fileNumList = new Array(),
     refreshList = new Array();
-  console.log(category);
+  console.log(category); //调试
   if (localList) {
     for (let i = 0; i < category.length; i++) {
       if (!localList[category[i]] || localList[category[i]][1] !== onlineList[category[i]][1]) {
-        console.log(category[i] + 'don\'t match')
-        fileNumList.push(onlineList[category[i]][0]);
-        refreshList.push(category[i]);
+        console.log(category[i] + 'don\'t match'); //调试
+        fileNumList.push(onlineList[category[i]][0]), refreshList.push(category[i]);
       };
     };
     resSnyc(fileNumList, refreshList);
@@ -187,7 +183,7 @@ function resRefresh() {
   wx.request({
     url: 'https://mrhope.top/mp/fileList.json',
     success(listRequest) {
-      console.log(listRequest);
+      console.log(listRequest); //调试
       let fileList = listRequest.data;
       if (listRequest.statusCode == 200) {
         resDownload(fileList, null)
@@ -203,7 +199,7 @@ function funcRefresh() {
   wx.request({
     url: 'https://mrhope.top/mp/funcList.json',
     success(listRequest) {
-      console.log(listRequest);
+      console.log(listRequest); //调试
       let fileList = listRequest.data;
       if (listRequest.statusCode == 200) {
         resDownload(fileList, null)
@@ -255,14 +251,17 @@ function initMarker(markers) {
 }
 
 function markerSet() {
-  let data = wx.getStorageSync('marker'),
-    markerVersion = JSON.parse(wx.getStorageSync('localFunc')).marker[1],
-    currentVersion = wx.getStorageSync('markerVersion');
-  if (data && markerVersion != currentVersion) {
-    console.log(data);
-    if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
-      wx.setStorageSync('markerVersion', markerVersion)
+  try {
+    let data = wx.getStorageSync('marker'),
+      markerVersion = JSON.parse(wx.getStorageSync('localFunc')).marker[1],
+      currentVersion = wx.getStorageSync('markerVersion');
+    if (data && markerVersion != currentVersion) {
+      if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
+        wx.setStorageSync('markerVersion', markerVersion)
+      }
     }
+  } catch (msg) {
+    console.warn(msg)
   }
 }
 

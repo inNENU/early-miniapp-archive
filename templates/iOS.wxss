@@ -65,6 +65,7 @@
   display: -webkit-flex;
   display: flex;
   align-items: center;
+  z-index: 99;
 }
 
 .iOS-backArrow {
