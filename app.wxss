@@ -306,6 +306,15 @@ page {
   height: 100% !important;
 }
 
+/* common audio */
+
+.audio {
+  width: 80%;
+  margin: 20px 10%;
+  overflow: hidden;
+  border-radius: 34px;
+}
+
 /* footer */
 
 .Footer {

@@ -3,10 +3,19 @@
 .NENU, .NENUgrey {
   width: 100%;
   min-height: 100%;
+  color: #000;
+}
+
+.nm.NENU, .NENUgrey {
+  color: #fff;
 }
 
 .NENU {
   background-color: #fff;
+}
+
+.nm.NENU {
+  background-color: #000;
 }
 
 .NENUgrey {
@@ -190,13 +199,13 @@
   padding: 0 15px;
 }
 
-.NENUgrey.nm .NENUP {
-  border-color: #353631;
-}
-
 .iOSLctn, .NENUgrey .NENUP {
   border-top: 1rpx #cac9ce solid;
   border-bottom: 1rpx #cac9ce solid;
+}
+
+.NENUgrey.nm .NENUP {
+  border-color: #353631;
 }
 
 .iOSfoot, .NENUgrey .iOShead {
@@ -382,7 +391,7 @@
   text-align: center;
 }
 
-.nm.iOS, .nm .iOSP, .nm .iOSLctn, .nm .iOSpickerViewCtn,
+.nm.iOS, .nm .NENUP, .nm .iOSLctn, .nm .iOSpickerViewCtn,
 .nm .iOSpick-view-column {
   background-color: #000;
   color: #fff;

@@ -5,18 +5,16 @@ var a = getApp().globalData,
 Page({
   data: {
     page: [{
-        tag: 'head',
-        title: '首页',
-        action: true,
-        aimStep: 1,
-        grey: true,
-      },
-      {
-        tag: 'foot',
-        author: 'Mr.Hope',
-        time: '2018/7/22'
-      },
-    ],
+      tag: 'head',
+      title: '首页',
+      action: true,
+      aimStep: 1,
+      grey: true,
+    },{
+      tag: 'foot',
+      author: 'Mr.Hope',
+      time: '2018/7/22'
+    }, ],
   },
   onLoad() {
     c.setPage(this.data.page, this, a);

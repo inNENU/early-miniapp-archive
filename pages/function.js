@@ -15,6 +15,10 @@ Page({
         text: '校园地图',
         icon: '/icon/map.svg',
         url: '/function/map'
+      }, {
+        text: 'Voice of NENU',
+        icon: '/icon/music.svg',
+        url: '/function/music'
       }, ]
     }, {
       tag: 'grid',

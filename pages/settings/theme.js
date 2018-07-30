@@ -35,7 +35,7 @@ Page({
           text: '主题设置',
           key: 'themeNum',
           single: true,
-          pickerValue: ['iOS', 'Android', 'NENU(beta)'],
+          pickerValue: ['iOS', 'Android', 'NENU'],
           picker: 'setTheme'
         }, ]
       },

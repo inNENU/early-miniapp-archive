@@ -169,13 +169,13 @@
   padding: 0 15px;
 }
 
-.iOSgrey.nm .iOSP {
-  border-color: #353631;
-}
-
 .iOSLctn, .iOSgrey .iOSP {
   border-top: 1rpx #cac9ce solid;
   border-bottom: 1rpx #cac9ce solid;
+}
+
+.iOSgrey.nm .iOSP {
+  border-color: #353631;
 }
 
 .iOSfoot, .iOSgrey .iOShead {

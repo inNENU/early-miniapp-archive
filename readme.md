@@ -92,6 +92,7 @@ Page({
 - phone：电话
 - grid：九宫格
 - swiper：滑块视图容器
+- audio：音频
 - foot：界面的页脚
 
 #### **tag**的剩余参数请依据填写的tag值按照下表填写。
@@ -256,6 +257,15 @@ Page({
 |animation|否|String|swiper动画结束时触发的函数名称|默认不触发函数|
 |imgClass|否|String|swiper中图片的类名|默认为width:100%!important;height:100%!important;|
 |imgMode|否|String|swiper中图片的显示模式|默认为aspectFill|
+
+##### **audio参数：**
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|src|是|String|音频文件的在线网址或本地路径||
+|loop|否|Boolean|是否循环播放|默认为false|
+|controls|否|Boolean|设置false来取消显示默认控件|默认显示|
+|name|否|Boolean|音频名字|controls为false时无效|
+|author|否|Boolean|音频作者|controls为false时无效|
 
 ##### **foot参数：**
 |参数|必填|值类型|内容|

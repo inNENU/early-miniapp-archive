@@ -14,6 +14,7 @@
 <template name="foot" />
 <template name="error" />
 <template name="info" />
+<template name="audio" />
 
 <!-- iOS theme -->
 
@@ -213,6 +214,11 @@
   </view>
 </template>
 
+<template name="iOSaudio">
+  <audio class="audio" id="{{item.id}}" poster='{{item.poster}}' src='{{item.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls==false?false:true}}" />
+  <!-- <audio id="{{item.id}}" poster='{{item.poster}}' src='{{ietm.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls}}" bindplay="{{item.bindplay?item.bindplay:'cA'}}" bindpause="{{item.bindpause?item.bindpause:'cA'}}" bindtimeupdate="{{item.bindtimeupdate?item.bindtimeupdate:'cA'}}" /> -->
+</template>
+
 <!-- Android theme -->
 
 <template name="Androidhead">
@@ -403,6 +409,11 @@
   <view class='donateCtn'>
     <button class='donateButton' open-type='contact'>捐赠</button>
   </view>
+</template>
+
+<template name="Androidaudio">
+  <audio class="audio" id="{{item.id}}" poster='{{item.poster}}' src='{{item.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls==false?false:true}}" />
+  <!-- <audio id="{{item.id}}" poster='{{item.poster}}' src='{{ietm.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls}}" bindplay="{{item.bindplay?item.bindplay:'cA'}}" bindpause="{{item.bindpause?item.bindpause:'cA'}}" bindtimeupdate="{{item.bindtimeupdate?item.bindtimeupdate:'cA'}}" /> -->
 </template>
 
 <!-- NENU theme -->
@@ -614,4 +625,9 @@
       </view>
     </view>
   </view>
+</template>
+
+<template name="NENUaudio">
+  <audio class="audio" id="{{item.id}}" poster='{{item.poster}}' src='{{item.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls==false?false:true}}" />
+  <!-- <audio id="{{item.id}}" poster='{{item.poster}}' src='{{ietm.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls}}" bindplay="{{item.bindplay?item.bindplay:'cA'}}" bindpause="{{item.bindpause?item.bindpause:'cA'}}" bindtimeupdate="{{item.bindtimeupdate?item.bindtimeupdate:'cA'}}" /> -->
 </template>
