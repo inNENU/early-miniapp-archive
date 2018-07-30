@@ -12,15 +12,15 @@ Page({
         aimStep: 0,
         // show: true,
       }, {
-        tag: 'info',
-      }, {
+      //   tag: 'info',
+      // }, {
         tag: 'list',
         content: [{
           text: '设置',
           url: 'settings/theme'
-        }, {
-          text: '登录',
-          url: 'settings/login'
+        // }, {
+        //   text: '登录',
+        //   url: 'settings/login'
         }, {
           text: '关于',
           url: 'settings/about'

@@ -1,7 +1,9 @@
 var app = getApp().app,
+  c = getApp().common,
+  t = require('../utils/tab'),
   a = getApp().globalData,
   includePoint1 = {
-    padding: [10],
+		padding: [30, 20, 30, 20],
     points: [{
       latitude: 43.8578480844,
       longitude: 125.3252720833,
@@ -11,7 +13,7 @@ var app = getApp().app,
     }]
   },
   includePoint2 = {
-    padding: [10],
+		padding: [30, 20, 30, 20],
     points: [{
       latitude: 43.8256570334,
       longitude: 125.4175829887,
@@ -25,11 +27,11 @@ var app = getApp().app,
 
 Page({
   data: {
-    // map: {
-    //   latitude: 43.862007982140646,
-    //   longitude: 125.33405307523934,
-    //   scale: 17,
-    // },
+    map: {
+      latitude: 43.862007982140646,
+      longitude: 125.33405307523934,
+      scale: 17,
+    },
     list: false,
     pointDisplay: false,
     closeTop: -31,
@@ -50,37 +52,31 @@ Page({
     wx.showLoading({
       title: '加载中...'
     });
-    let value = wx.getStorageSync('mapSwitch'),
+    t.markerSet();
+    let that = this,
+      value = wx.getStorageSync('mapSwitch'),
       mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true),
-      info = a.info,
-      that = this,
-      // map = this.data.map,
-      map,
+      map = this.data.map,
       markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
     this.setData({
       mapSwitch: mapSwitch,
       markers: markers,
-      info: {
-        screenHeight: info.screenHeight,
-        screenWidth: info.screenWidth,
-        statusBarHeight: info.statusBarHeight,
-      },
+      info: a.info
     });
     this.mapCtx = wx.createMapContext('schoolMap');
     this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
     setTimeout(function() {
       that.mapCtx.getScale({
-        success: function(res) {
-          map.scale = res.scale;
-          console.log('scale') //调试
+        success(r1) {
           that.mapCtx.getCenterLocation({
-            success: function(res) {
-              map.latitude = res.latitude;
-              map.longitude = res.longitude;
+            success(r2) {
               that.setData({
-                map: map
+                map: {
+                  scale: r1.scale,
+                  latitude: r2.latitude,
+                  longitude: r2.longitude
+                }
               });
-              console.log('set') //调试
             }
           });
         }
@@ -91,38 +87,34 @@ Page({
   onReady: function(e) {
     let that = this;
     wx.createSelectorQuery().select('#mapTab').boundingClientRect(function(rect) {
-      console.log(rect.height);
       that.setData({
         tabHeight: rect.height
       })
     }).exec();
   },
   Switch() {
-    let temp = !this.data.mapSwitch,
-      that = this,
+    let that = this,
+      temp = !this.data.mapSwitch,
       map = this.data.map,
-      markers = wx.getStorageSync(temp ? 'benbu' : 'jingyue');
+      markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
     this.setData({
       mapSwitch: temp,
       markers: markers
     });
     this.mapCtx = wx.createMapContext('schoolMap');
-    console.log('create') //调试
     this.mapCtx.includePoints(temp ? includePoint1 : includePoint2);
-    console.log('includePoints') //调试
     setTimeout(function() {
       that.mapCtx.getScale({
-        success: function(res) {
-          map.scale = res.scale;
-          console.log('scale') //调试
+        success(r1) {
           that.mapCtx.getCenterLocation({
-            success: function(res) {
-              map.latitude = res.latitude;
-              map.longitude = res.longitude;
+            success(r2) {
               that.setData({
-                map: map
+                map: {
+                  scale: r1.scale,
+                  latitude: r2.latitude,
+                  longitude: r2.longitude
+                }
               });
-              console.log('set') //调试
             }
           });
         }
@@ -131,60 +123,42 @@ Page({
     wx.setStorageSync("mapSwitch", temp);
   },
   scale(e) {
-    let map = this.data.map,
-      that = this,
-      regionChange,
-      action = e.currentTarget.dataset.action;
-    this.mapCtx.getScale({
-      success: function(res) {
-        if (action == 'enlarge') {
-          map.scale = map.scale + 1;
-        } else if (action == 'narrow') {
-          map.scale = map.scale - 1;
-        };
-        console.log('scale' + res.scale);
-        regionChange = true;
-      }
-    });
+    let that = this,
+      map = this.data.map;
     this.mapCtx.getCenterLocation({
-      success: function(res) {
-        console.log(res);
-        if (regionChange) {
-          map.latitude = res.latitude;
-          map.longitude = res.longitude;
-          that.setData({
-            map: map
-          });
-        };
-        regionChange = false;
+      success(r2) {
+        that.setData({
+          map: {
+            scale: map.scale + (e.currentTarget.dataset.action == 'enlarge' ? 1 : -1),
+            latitude: r2.latitude,
+            longitude: r2.longitude
+          }
+        });
       }
     });
+    // this.mapCtx.getScale({
+    //   success(r1) {
+    //     that.mapCtx.getCenterLocation({
+    //       success(r2) {
+    //         that.setData({
+    //           map: {
+    //             scale: r1.scale + (e.currentTarget.dataset.action == 'enlarge' ? 1 : -1),
+    //             latitude: r2.latitude,
+    //             longitude: r2.longitude
+    //           }
+    //         });
+    //       }
+    //     });
+    //   }
+    // });
   },
   moveToLocation() {
     this.mapCtx.moveToLocation();
   },
-  showList(e) {
-    let that = this;
-    if (this.data.list) {
-      that.setData({
-        list: !this.data.list,
-      });
-      setTimeout(function() {
-        that.setData({
-          closeTop: -31
-        })
-      }, 500)
-    } else {
-      that.setData({
-        list: !this.data.list,
-        closeTop: a.info.statusBarHeight + 5.5
-      });
-    }
-  },
   point() {
     let that = this;
     if (this.data.pointDisplay) {
-      that.setData({
+      this.setData({
         pointDisplay: !this.data.pointDisplay,
       });
       setTimeout(function() {
@@ -193,40 +167,55 @@ Page({
         })
       }, 500)
     } else {
-      that.setData({
+      this.setData({
         pointDisplay: !this.data.pointDisplay,
         selectBottom: 190
       });
     }
   },
   select(e) {
-    console.log(e)
     let name = this.data.mapSwitch ? 'benbu' : 'jingyue',
-      markers = wx.getStorageSync(name + '-' + current),
-      current = e.target.dataset.category;
+      current = e.target.dataset.category,
+      markers = wx.getStorageSync(name + '-' + current);
     this.setData({
       markers: markers,
       selectItem: current
     });
     this.mapCtx.includePoints({
-      padding: [10],
+      padding: [30, 20, 30, 20],
       points: markers
     });
   },
   markers(e) {
-    console.log(e);
     let mapSwitch = this.data.mapSwitch,
       xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
     if (e.type == 'markertap') {
       let pageData = wx.getStorageSync(xiaoqu + e.markerId);
       if (pageData) {
-        wx.setStorageSync(xiaoqu + e.markerId + 'temp', setPageData(pageData, a, null))
+        wx.setStorageSync(xiaoqu + e.markerId + 'temp', c.setPageData(pageData, a, null))
       }
-    }
-    if (e.type == 'callouttap') {
+    } else if (e.type == 'callouttap') {
       wx.navigateTo({
         url: 'situs?id=' + e.markerId + '&xiaoqu=' + xiaoqu,
       })
+    }
+  },
+  showList(e) {
+    let that = this;
+    if (this.data.list) {
+      this.setData({
+        list: !this.data.list,
+      });
+      setTimeout(function() {
+        that.setData({
+          closeTop: -31
+        })
+      }, 500)
+    } else {
+      this.setData({
+        list: !this.data.list,
+        closeTop: a.info.statusBarHeight + 5.5
+      });
     }
   },
   back() {
@@ -245,36 +234,6 @@ Page({
   //       console.log('getCenterLocation');
   //       console.log(res);
   //     }
-  //   });
-  // },
-  // locate: function() {
-  //   let map = this.data.map,
-  //     that = this;
-  //   wx.getLocation({
-  //     type: 'wgs84',
-  //     success: function(res) {
-  //       console.log(res);
-  //       map.latitude = res.latitude;
-  //       map.longitude = res.longitude;
-  //       that.setData({
-  //         map: map
-  //       })
-  //     },
-  //   });
-  // },
-  // map() {
-  //   let map = this.data.map,
-  //     that = this;
-  //   wx.getLocation({
-  //     type: 'wgs84',
-  //     success: function(res) {
-  //       console.log(res);
-  //       map.latitude = res.latitude;
-  //       map.longitude = res.longitude;
-  //       that.setData({
-  //         map: map
-  //       })
-  //     },
   //   });
   // },
   // regionChange(e) {
@@ -329,4 +288,6 @@ Page({
   //     }
   //   })
   // },
+  regionChange(e) {},
+  update(e) {},
 })

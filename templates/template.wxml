@@ -22,7 +22,7 @@
     <view class='iOS-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
       <view wx:if="{{item.titleDisplay}}" class="iOS-titletext">{{item.title}}</view>
       <button wx:if="{{item.action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
-        <view wx:if="{{item.action==undefined}}" class='iOS-backArrow'></view>
+        <view wx:if="{{item.action==undefined||item.action=='redirect'}}" class='iOS-backArrow'></view>
         <text class='iOS-nav-text'>{{item.leftText}}</text>
       </button>
     </view>
@@ -220,7 +220,7 @@
     <view class="wechat-navigationBar {{item.shadow?'wechatNavShadow':''}}" style="padding-top:{{item.statusBarHeight}}px;">
       <view class="wechat-titletext">{{item.title}}</view>
       <button wx:if="{{item.action!=true}}" class='wechat-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
-        <view class='wechat-backArrow'></view>
+        <view wx:if="{{item.action==undefined||item.action=='redirect'}}" class='wechat-backArrow'></view>
         <view class='wechat-leftText'>{{item.leftText}}</view>
       </button>
     </view>
@@ -410,6 +410,10 @@
 <template name='NENUhead'>
   <block wx:if="{{item.display!=false}}">
     <view wx:if="{{item.action}}" class='NENUnav' style="background-color:{{item.color}};padding-top:{{item.statusBarHeight}}px;">
+      <button wx:if="{{item.action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
+        <view wx:if="{{item.action==undefined||item.action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
+        <text class='iOS-nav-text' style='color:#fff;'>{{item.leftText}}</text>
+      </button>
       <view class='NENU-navText'>{{item.title}}</view>
     </view>
     <view wx:else class='NENUnav2' style='background-color:{{item.color}};height:{{item.statusBarHeight}}px;'>
@@ -418,7 +422,7 @@
       </view>
       <view class="NENUTitle {{item.titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{item.statusBarHeight+5.5}}px;'>{{item.title}}</view>
     </view>
-    <view style='width:100%;background-color:{{item.color}};height:{{item.action?item.statusBarHeight+40:item.statusBarHeight}}px;'></view>
+    <view style="width:100%;background-color:{{item.color}};height:{{item.action?item.statusBarHeight+40:item.statusBarHeight}}px;margin-bottom:{{item.action?'0px':'50px'}};"></view>
   </block>
 </template>
 
@@ -427,7 +431,7 @@
 </template>
 
 <template name='NENUp'>
-  <view wx:if="{{item.head}}" class='NENUH3'>{{item.head}}</view>
+  <view wx:if="{{item.head}}" class='iOShead'>{{item.head}}</view>
   <view class='NENUP'>
     <text style='{{item.style}}'>{{item.text}}</text>
     <view wx:if="{{item.src&&item.error}}" class='iOSImgError'>
@@ -445,7 +449,7 @@
 </template>
 
 <template name='NENUlist'>
-  <view wx:if="{{item.head!==false}}" class='NENUH3'>{{item.head}}</view>
+  <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSLctn'>
     <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">

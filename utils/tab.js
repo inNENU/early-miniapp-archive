@@ -1,7 +1,7 @@
 module.exports = {
   checkUpdate,
   resRefresh,
-	funcRefresh,
+  funcRefresh,
   tabBarChanger,
   markerSet
 }
@@ -255,11 +255,13 @@ function initMarker(markers) {
 }
 
 function markerSet() {
-  let data = wx.getStorageSync('marker');
-  if (data) {
+  let data = wx.getStorageSync('marker'),
+    markerVersion = JSON.parse(wx.getStorageSync('localFunc')).marker[1],
+    currentVersion = wx.getStorageSync('markerVersion');
+  if (data && markerVersion != currentVersion) {
     console.log(data);
     if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
-      wx.removeStorageSync('marker');
+      wx.setStorageSync('markerVersion', markerVersion)
     }
   }
 }

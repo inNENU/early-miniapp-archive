@@ -13,12 +13,12 @@ Page({
   cA(e) {
     c.componentAction(e, this)
   },
-  onShareAppMessage() {
-    return {
-      title: this.data.page[0].title,
-      path: '/templates/module1?From=主页&step=1&share=true&aim=' + this.name
-    }
-  },
+	onShareAppMessage() {
+		return {
+			title: this.data.page[0].title,
+			path: '/templates/module1?From=主页&step=1&share=true&aim=' + this.name
+		}
+	},
   redirect() {
     wx.switchTab({
       url: '/pages/main/guide'

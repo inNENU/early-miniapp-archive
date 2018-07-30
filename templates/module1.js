@@ -6,7 +6,6 @@ Page({
   },
   onReady() {
     c.preloadPage(this.data.page, a);
-    console.log(getCurrentPages())
   },
   onPageScroll(e) {
     c.nav(e, this)
@@ -20,10 +19,10 @@ Page({
       path: '/templates/module1?From=主页&step=1&share=true&aim=' + this.name
     }
   },
-  redirect() {
+	redirect() {
     console.log(getCurrentPages())
     wx.switchTab({
-      url: '/pages/main/guide'
+      url: '/pages/guide'
     })
   },
 })

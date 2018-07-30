@@ -91,7 +91,7 @@
   z-index: 100;
 }
 
-.nm .iOS-titletext, .nm .iOS-head, .nm .iOSH3, .nm .iOSH4, .iOS.nm .iOShead,
+.nm .iOS-titletext, .nm .iOS-head, .nm .iOSH3, .iOS.nm .iOShead,
 .nm .iOSLinkText, .nm .iOSpickerViewCtn {
   color: #fff;
 }

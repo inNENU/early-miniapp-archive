@@ -15,11 +15,14 @@ function getContent(indicator, a, e) {
   wx.showLoading({
     title: '加载中...'
   });
-  if (showPage(indicator, a, e)) {
+  if (!e.share && showPage(indicator, a, e)) {
     wx.hideLoading();
+    console.log('if')
   } else {
     let pageData = wx.getStorageSync(e.aim);
     if (pageData) {
+      console.warn('else')
+      console.warn(pageData)
       console.log(pageData); //调试
       setPage(pageData, indicator, a, e);
       wx.hideLoading();

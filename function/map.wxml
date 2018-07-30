@@ -1,6 +1,6 @@
 <map id="schoolMap" class='schoolMap' style='width:100%;height:100%;' longitude='{{map.longitude}}' latitude='{{map.latitude}}' scale='{{map.scale}}' show-location controls='{{map.controls}}' markers='{{markers}}' bindmarkertap="markers" bindcallouttap="markers"
   bindupdated='update' bindregionchange='regionChange'>
-  <cover-view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;z-index:97;" hover-class='buttonHover' catchtap='back' data-action='back'>
+  <cover-view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;z-index:97;" hover-class='buttonHover' catchtap='back'>
     <cover-image class='backIcon' src='/icon/back.png' />
   </cover-view>
   <cover-view class="selectCtn {{pointDisplay?'fadeIn':'fadeOut'}}" style="bottom:{{selectBottom}}rpx;z-index:96;" catchtap="select">
