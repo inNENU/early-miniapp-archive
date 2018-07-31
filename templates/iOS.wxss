@@ -133,7 +133,7 @@
 
 .iOSH3, .iOS .iOShead {
   font-weight: 500;
-  padding: 9px 5% 3px 5%;
+  padding: 12px 5% 4px 5%;
 }
 
 .iOSH3 +.iOShead, .iOSH3 +.iOSH3 {
@@ -148,6 +148,7 @@
 .iOSgrey .iOSP {
   font-size: 17px;
   padding: 10px 15px;
+  line-height: 1.6em;
 }
 
 .iOSH3 {
@@ -167,6 +168,8 @@
 .iOS .iOSP {
   font-size: 16px;
   padding: 0 15px;
+  line-height: 1.6;
+  text-align: justify;
 }
 
 .iOSLctn, .iOSgrey .iOSP {
@@ -215,6 +218,7 @@
 
 .iOSLinkText {
   padding: 10px 0;
+  line-height: 1.5;
 }
 
 .iOS-listIcon {

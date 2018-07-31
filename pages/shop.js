@@ -84,6 +84,25 @@ Page({
       });
     });
   },
+	onReady() {
+		let that = this;
+		wx.request({
+			url: 'https://mrhope.top/mp/main/shop.json',
+			success(res) {
+				if (res.statusCode == 200) {
+					c.setPage(res.data, that, a);
+				}
+			}
+		})
+		wx.request({
+			url: 'https://mrhope.top/mp/main/goods.json',
+			success(res) {
+				if (res.statusCode == 200) {
+					that.setData({goods:res.data})
+				}
+			}
+		})
+	},
   onPageScroll(e) {
     c.nav(e, this)
   },

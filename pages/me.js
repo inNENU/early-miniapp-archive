@@ -6,7 +6,7 @@ Page({
   data: {
     page: [{
         tag: 'head',
-        title: '我的信息',
+        title: '我的东师',
         action: true,
         grey: true,
         aimStep: 0,

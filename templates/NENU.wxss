@@ -176,6 +176,7 @@
 }
 
 .NENUgrey .NENUP {
+  color: #000;
   font-size: 17px;
   padding: 10px 15px;
 }

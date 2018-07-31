@@ -80,6 +80,17 @@ Page({
   onShow() {
     c.preloadPage(this.data.page, a);
   },
+	onReady() {
+		let that = this;
+		wx.request({
+			url: 'https://mrhope.top/mp/main/guide.json',
+			success(res) {
+				if (res.statusCode == 200) {
+					c.setPage(res.data, that, a);
+				}
+			}
+		})
+	},
   onPageScroll(e) {
     c.nav(e, this)
   }

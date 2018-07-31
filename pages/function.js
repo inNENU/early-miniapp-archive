@@ -24,16 +24,16 @@ Page({
       tag: 'grid',
       head: '即将推出',
       content: [{
-        text: '校园街景',
-        icon: '/icon/PECal.svg',
+        text: '校园风光',
+        icon: '/icon/scenery.svg',
         url: 'main/building'
       }, {
         text: '成绩查询',
-        icon: '/icon/score.svg',
+        icon: '/icon/exam.svg',
         url: 'main/building'
       }, {
         text: '课表查询',
-        icon: '/icon/score.svg',
+        icon: '/icon/schedule.svg',
         url: 'main/building'
       }, {
         text: '考场查询',
@@ -50,6 +50,14 @@ Page({
       }, {
         text: '绩点计算',
         icon: '/icon/scoreCal.svg',
+        url: 'main/building'
+      }, {
+        text: '故障报修',
+        icon: '/icon/repair.svg',
+        url: 'main/building'
+      }, {
+        text: '表白墙',
+        icon: '/icon/heart.svg',
         url: 'main/building'
       }, ]
     }, ],
@@ -69,7 +77,16 @@ Page({
     })
   },
   onReady() {
-    tab.markerSet()
+    tab.markerSet();
+    let that = this;
+    wx.request({
+      url: 'https://mrhope.top/mp/main/function.json',
+      success(res) {
+        if (res.statusCode == 200) {
+          c.setPage(res.data, that, a);
+        }
+      }
+    })
   },
   onPageScroll(e) {
     c.nav(e, this)
