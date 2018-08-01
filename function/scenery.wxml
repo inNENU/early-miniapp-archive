@@ -1,0 +1,17 @@
+<import src="/templates/template" />
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
+  <view class='imgCtn' style='height:{{(info.screenHeight-44-info.statusBarHeight)*0.7}}px;'>
+    <view class='fowardBtn'>
+      <image class='btnImg' src='/function/icon/back.svg' mode='widthFix' />
+    </view>
+    <view class='showCtn'>
+      <image class='showImg' src="{{currentSrc}}" mode='widthFix' />
+    </view>
+    <view class='nextBtn'>
+      <image class='btnImg' src='/function/icon/next.svg' mode='widthFix' />
+    </view>
+  </view>
+  <scroll-view scroll-x class='imgGroup' style='height:{{(info.screenHeight-44-info.statusBarHeight)*0.3}}px;'>
+  </scroll-view>
+</view>

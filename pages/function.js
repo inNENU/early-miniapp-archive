@@ -19,15 +19,15 @@ Page({
         text: 'Voice of NENU',
         icon: '/icon/music.svg',
         url: '/function/music'
+      }, {
+        text: '校园风光',
+        icon: '/icon/scenery.svg',
+        url: '/function/scenery'
       }, ]
     }, {
       tag: 'grid',
       head: '即将推出',
       content: [{
-        text: '校园风光',
-        icon: '/icon/scenery.svg',
-        url: 'main/building'
-      }, {
         text: '成绩查询',
         icon: '/icon/exam.svg',
         url: 'main/building'
