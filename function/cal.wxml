@@ -1,6 +1,6 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
+  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{...item}}" />
   <view class='gradeHeader'>
     <scroll-view scroll-x class='picker'>
       新计算

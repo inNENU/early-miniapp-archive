@@ -10,5 +10,5 @@
     </button>
     <view class='NENU-navText'>{{page[0].title}}</view>
   </view>
-  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
+  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{...item}}" />
 </view>

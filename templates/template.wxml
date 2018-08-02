@@ -19,48 +19,48 @@
 <!-- iOS theme -->
 
 <template name="iOShead">
-  <block wx:if="{{item.display!==false}}">
-    <view class='iOS-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
-      <view wx:if="{{item.titleDisplay}}" class="iOS-titletext">{{item.title}}</view>
-      <button wx:if="{{item.action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
-        <view wx:if="{{item.action==undefined||item.action=='redirect'}}" class='iOS-backArrow'></view>
-        <text class='iOS-nav-text'>{{item.leftText}}</text>
+  <block wx:if="{{display!==false}}">
+    <view class='iOS-navigationBar' style="padding-top:{{statusBarHeight}}px;">
+      <view wx:if="{{titleDisplay}}" class="iOS-titletext">{{title}}</view>
+      <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
+        <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow'></view>
+        <text class='iOS-nav-text'>{{leftText}}</text>
       </button>
     </view>
-    <view wx:if="{{item.borderDisplay}}" class='iOSnavDl' style="top:{{item.statusBarHeight+44}}px;"></view>
-    <view class='iOS-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
-    <view class='iOS-head'>{{item.title}}</view>
+    <view wx:if="{{borderDisplay}}" class='iOSnavDl' style="top:{{statusBarHeight+44}}px;"></view>
+    <view class='iOS-navPlaceHolder' style="height:{{statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
+    <view class='iOS-head'>{{title}}</view>
   </block>
 </template>
 
 <template name='iOSh3'>
-  <view class='iOSH3' style="{{item.style}}">{{item.text}}</view>
+  <view class='iOSH3' style="{{style}}">{{text}}</view>
 </template>
 
 <template name='iOSp'>
-  <view wx:if="{{item.head}}" class='iOShead'>{{item.head}}</view>
+  <view wx:if="{{head}}" class='iOShead'>{{head}}</view>
   <view class='iOSP'>
-    <text style="{{item.style}}" selectable='true' space='true' decode='true'>{{item.text}}</text>
-    <block wx:if="{{item.src}}">
-      <view wx:if="{{item.error}}" class='iOSImgError'>
+    <text style="{{style}}" selectable='true' space='true' decode='true'>{{text}}</text>
+    <block wx:if="{{src}}">
+      <view wx:if="{{error}}" class='iOSImgError'>
         <icon type="warn" style='margin-right:5px;' />
         <text>图片加载失败</text>
       </view>
-      <view wx:elif="{{!item.load}}" class='iOSImgError'>
-        <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
+      <view wx:elif="{{!load}}" class='iOSImgError'>
+        <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" />
         <text>加载中...</text>
       </view>
-      <view class='flexbox' style="{{item.load?'':'display: none;'}}">
-        <image id="{{item.id}}" class='iOSP-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
+      <view class='flexbox' style="{{load?'':'display: none;'}}">
+        <image id="{{id}}" class='iOSP-img' mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
       </view>
     </block>
   </view>
 </template>
 
 <template name='iOSlist'>
-  <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
+  <view wx:if="{{head!==false}}" class='iOShead'>{{head}}</view>
   <view class='iOSLctn'>
-    <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
+    <block wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
@@ -124,33 +124,33 @@
       <view wx:if="{{List.display!==false}}" class="{{List.icon?'iOS-listIcon ':''}}iOS-link-divline"></view>
     </block>
   </view>
-  <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
+  <view wx:if="{{foot!==false}}" class='iOSfoot'>{{foot}}</view>
 </template>
 
 <template name='iOSimg'>
-  <view wx:if="{{item.error}}" class='iOSImgError'>
+  <view wx:if="{{error}}" class='iOSImgError'>
     <icon type="warn" size='32' style='margin-bottom:5px;' />
     <text>图片加载失败</text>
   </view>
-  <view wx:elif="{{!item.load}}" class='iOSImgError'>
-    <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
+  <view wx:elif="{{!load}}" class='iOSImgError'>
+    <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" />
     <text>加载中...</text>
   </view>
-  <image id="{{item.id}}" class='iOS-img' style="{{item.load?'':'width:1rpx;height:1rpx;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-  <view wx:if="{{item.desc}}" class='iOSN'>▲{{item.desc}}</view>
+  <image id="{{id}}" class='iOS-img' style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
+  <view wx:if="{{desc}}" class='iOSN'>▲{{desc}}</view>
 </template>
 
 <template name='iOSdoc'>
-  <button id="{{item.id}}" class='docCtn' hover-class="buttonHover" catchtap='cA' data-url="{{item.url}}" data-action='doc'>
-    <image class='docIcon' mode='widthFix' src='/icon/{{item.docType}}.svg' />
-    <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
+  <button id="{{id}}" class='docCtn' hover-class="buttonHover" catchtap='cA' data-url="{{url}}" data-action='doc'>
+    <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
+    <view class='docname docAccess'>{{docName}}.{{docType}}</view>
   </button>
 </template>
 
 <template name="iOSphone">
-  <view class='phoneCtn' id='{{item.id}}' catchtap='cA' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}" data-action='phone'>
+  <view class='phoneCtn' id='{{id}}' catchtap='cA' data-num="{{num}}" data-fName="{{fName}}" data-lName="{{lName}}" data-org="{{org}}" data-workNum="{{workNum}}" data-remark="{{remark}}" data-action='phone'>
     <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
-    <view class='phoneNum'>{{item.num}}</view>
+    <view class='phoneNum'>{{num}}</view>
     <view class='phoneCallCtn' hover-class='buttonHover'>
       <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
     </view>
@@ -161,45 +161,45 @@
 </template>
 
 <template name='iOSgrid'>
-  <view wx:if="{{item.head!==false}}" class='gridHead'>{{item.head}}</view>
+  <view wx:if="{{head!==false}}" class='gridHead'>{{head}}</view>
   <view class='gridCtn'>
-    <navigator wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
+    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
       <image class='gridIcon' src="{{List.icon}}" />
       <view class='gridTitle'>{{List.text}}</view>
     </navigator>
   </view>
-  <view wx:if="{{item.foot}}" class='gridFoot'>{{item.foot}}</view>
+  <view wx:if="{{foot}}" class='gridFoot'>{{foot}}</view>
 </template>
 
 <template name='iOSswiper'>
-  <swiper class="{{item.Class?item.Class:'swiper'}}" style="{{item.style}}" indicator-dots="{{item.indicatorDots==false?'':true}}" indicator-color="{{item.dotColor?item.dotColor:'#ffffff88'}}" indicator-active-color="{{item.dotActiveColor?item.dotActiveColor:'#fff'}}"
-    autoplay="{{item.autoplay==false?'':true}}" interval="{{item.interval?item.interval:'5000'}}" duration="{{item.duration?item.duration:'500'}}" circular="{{item.circular==false?'':true}}" vertical="{{item.vertical?true:''}}" previous-margin="{{item.preMargin?item.preMargin:'0px'}}"
-    next-margin="{{item.nextMargin?item.nextMargin:'0px'}}" bindchange="{{item.change?item.change:''}}" bindanimationfinish="{{item.animation?item.animation:''}}" data-action='swiper'>
-    <swiper-item wx:for="{{item.url}}" wx:key="*this" wx:for-item='url'>
-      <image class="{{item.imgClass?item.imgClass:'swiperImg'}}" src="{{url}}" mode="{{item.imgMode?item.imgMode:'aspectFill'}}" />
+  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}"
+    autoplay="{{autoplay==false?'':true}}" interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}"
+    next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}" bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
+    <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
+      <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
     </swiper-item>
   </swiper>
 </template>
 
 <template name='iOSfoot'>
   <view class='Footer'>
-    <text wx:if="{{item.desc}}">{{item.desc}}\n</text>
-    <text wx:if="{{item.author}}"> 编辑人：{{item.author}} </text>
-    <text wx:if="{{item.time}}"> 最后编辑于{{item.time}} </text>
-    <text wx:if="{{item.time||item.author}}">\n</text>Copyright © 2017-2018 HopeStudio
+    <text wx:if="{{desc}}">{{desc}}\n</text>
+    <text wx:if="{{author}}"> 编辑人：{{author}} </text>
+    <text wx:if="{{time}}"> 最后编辑于{{time}} </text>
+    <text wx:if="{{time||author}}">\n</text>Copyright © 2017-2018 HopeStudio
   </view>
 </template>
 
 <template name='iOSerror'>
-  <view class='iOS-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
+  <view class='iOS-navigationBar' style="padding-top:{{statusBarHeight}}px;">
     <view class="iOS-titletext">页面出错</view>
-    <button wx:if="{{!item.action}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
+    <button wx:if="{{!action}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
       <view class='iOS-backArrow'></view>
       <text class='iOS-nav-text'>返回</text>
     </button>
   </view>
-  <view class='iOSnavDl' style="top:{{item.statusBarHeight+44}}px;"></view>
-  <view class='iOS-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
+  <view class='iOSnavDl' style="top:{{statusBarHeight+44}}px;"></view>
+  <view class='iOS-navPlaceHolder' style="height:{{statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
   <view class='errorCtn'>
     <icon type='warn' size='80'></icon>
     <view class='errorText'>很抱歉，界面遇到了问题!</view>
@@ -215,49 +215,49 @@
 </template>
 
 <template name="iOSaudio">
-  <audio class="audio" id="{{item.id}}" poster='{{item.poster}}' src='{{item.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls==false?false:true}}" />
-  <!-- <audio id="{{item.id}}" poster='{{item.poster}}' src='{{ietm.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls}}" bindplay="{{item.bindplay?item.bindplay:'cA'}}" bindpause="{{item.bindpause?item.bindpause:'cA'}}" bindtimeupdate="{{item.bindtimeupdate?item.bindtimeupdate:'cA'}}" /> -->
+  <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
+  <!-- <audio id="{{id}}" poster='{{poster}}' src='{{ietm.src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls}}" bindplay="{{bindplay?bindplay:'cA'}}" bindpause="{{bindpause?bindpause:'cA'}}" bindtimeupdate="{{bindtimeupdate?bindtimeupdate:'cA'}}" /> -->
 </template>
 
 <!-- Android theme -->
 
 <template name="Androidhead">
-  <block wx:if="{{item.display!==false}}">
-    <view class="Android-navigationBar {{item.shadow?'AndroidNavShadow':''}}" style="padding-top:{{item.statusBarHeight}}px;">
-      <view class="Android-titletext">{{item.title}}</view>
-      <button wx:if="{{item.action!=true}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
-        <view wx:if="{{item.action==undefined||item.action=='redirect'}}" class='Android-backArrow'></view>
-        <view class='Android-leftText'>{{item.leftText}}</view>
+  <block wx:if="{{display!==false}}">
+    <view class="Android-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
+      <view class="Android-titletext">{{title}}</view>
+      <button wx:if="{{action!=true}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
+        <view wx:if="{{action==undefined||action=='redirect'}}" class='Android-backArrow'></view>
+        <view class='Android-leftText'>{{leftText}}</view>
       </button>
     </view>
-    <view class='Android-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
-    <view wx:if="{{item.desc||item.show}}" class="Android-head">
-      <view class="Android-title">{{item.title}}</view>
-      <view wx:if="{{item.desc}}" class="Android-desc">{{item.desc}}</view>
+    <view class='Android-navPlaceHolder' style="height:{{statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
+    <view wx:if="{{desc||show}}" class="Android-head">
+      <view class="Android-title">{{title}}</view>
+      <view wx:if="{{desc}}" class="Android-desc">{{desc}}</view>
     </view>
   </block>
 </template>
 
 <template name='Androidh3'>
-  <view class='AndroidH3' style='{{item.style}}'>{{item.text}}</view>
+  <view class='AndroidH3' style='{{style}}'>{{text}}</view>
 </template>
 
 <template name='Androidp'>
-  <view wx:if="{{item.head}}" class='Androidhead'>{{item.head}}</view>
-  <view class='AndroidP' style="{{item.style}}">
-    <text selectable='true' space='true' decode='true'>{{item.text}}</text>
+  <view wx:if="{{head}}" class='Androidhead'>{{head}}</view>
+  <view class='AndroidP' style="{{style}}">
+    <text selectable='true' space='true' decode='true'>{{text}}</text>
   </view>
-  <image id="{{item.id}}" class='Android-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
+  <image id="{{id}}" class='Android-img' style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
   />
-  <view wx:if="{{item.desc}}" class='AndroidN'>
-    <text>▲{{item.desc}}</text>
+  <view wx:if="{{desc}}" class='AndroidN'>
+    <text>▲{{desc}}</text>
   </view>
 </template>
 
 <template name='Androidlist'>
-  <view wx:if="{{item.head!==false}}" class='Androidhead'>{{item.head}}</view>
+  <view wx:if="{{head!==false}}" class='Androidhead'>{{head}}</view>
   <view class='iOSLctn'>
-    <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
+    <block wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
@@ -321,34 +321,34 @@
       <view wx:if="{{List.display!==false}}" class="{{List.icon?'iOS-listIcon ':''}}iOS-link-divline"></view>
     </block>
   </view>
-  <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
+  <view wx:if="{{foot!==false}}" class='iOSfoot'>{{foot}}</view>
 </template>
 
 <template name='Androidimg'>
-  <view wx:if="{{item.error}}" class='imgError'>
+  <view wx:if="{{error}}" class='imgError'>
     <icon type="warn" style='margin-right:5px;' />
     <text class='grey'>图片加载失败</text>
   </view>
-  <view wx:elif="{{!item.load}}" class='imgError'>
-    <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
+  <view wx:elif="{{!load}}" class='imgError'>
+    <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
-  <image id="{{item.id}}" class='Android-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
+  <image id="{{id}}" class='Android-img' style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
   />
-  <view wx:if="{{item.desc}}" class='AndroidN'>▲{{item.desc}}</view>
+  <view wx:if="{{desc}}" class='AndroidN'>▲{{desc}}</view>
 </template>
 
 <template name='Androiddoc'>
-  <button id="{{item.id}}" class='docCtn' catchtap='cA' data-url="{{item.url}}" data-action='doc'>
-    <image class='docIcon' mode='widthFix' src='/icon/{{item.docType}}.svg' />
-    <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
+  <button id="{{id}}" class='docCtn' catchtap='cA' data-url="{{url}}" data-action='doc'>
+    <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
+    <view class='docname docAccess'>{{docName}}.{{docType}}</view>
   </button>
 </template>
 
 <template name="Androidphone">
-  <view class='phoneCtn' id='{{item.id}}' catchtap='cA' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}" data-action='phone'>
+  <view class='phoneCtn' id='{{id}}' catchtap='cA' data-num="{{num}}" data-fName="{{fName}}" data-lName="{{lName}}" data-org="{{org}}" data-workNum="{{workNum}}" data-remark="{{remark}}" data-action='phone'>
     <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
-    <view class='phoneNum'>{{item.num}}</view>
+    <view class='phoneNum'>{{num}}</view>
     <view class='phoneCallCtn' hover-class='buttonHover'>
       <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
     </view>
@@ -359,44 +359,44 @@
 </template>
 
 <template name='Androidgrid'>
-  <view class='gridHead'>{{item.head}}</view>
+  <view class='gridHead'>{{head}}</view>
   <view class='gridCtn'>
-    <navigator wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
+    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
       <image class='gridIcon' src="{{List.icon}}" />
       <view class='gridTitle'>{{List.text}}</view>
     </navigator>
   </view>
-  <view class='gridFoot'>{{item.foot}}</view>
+  <view class='gridFoot'>{{foot}}</view>
 </template>
 
 <template name='Androidswiper'>
-  <swiper class="{{item.Class?item.Class:'swiper'}}" style="{{item.style}}" indicator-dots="{{item.indicatorDots==false?'':true}}" indicator-color="{{item.dotColor?item.dotColor:'#ffffff88'}}" indicator-active-color="{{item.dotActiveColor?item.dotActiveColor:'#fff'}}"
-    autoplay="{{item.autoplay==false?'':true}}" interval="{{item.interval?item.interval:'5000'}}" duration="{{item.duration?item.duration:'500'}}" circular="{{item.circular==false?'':true}}" vertical="{{item.vertical?true:''}}" previous-margin="{{item.preMargin?item.preMargin:'0px'}}"
-    next-margin="{{item.nextMargin?item.nextMargin:'0px'}}" bindchange="{{item.change?item.change:''}}" bindanimationfinish="{{item.animation?item.animation:''}}" data-action='swiper'>
-    <swiper-item wx:for="{{item.url}}" wx:key="*this" wx:for-item='url'>
-      <image class="{{item.imgClass?item.imgClass:'swiperImg'}}" src="{{url}}" mode="{{item.imgMode?item.imgMode:'aspectFill'}}" />
+  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}"
+    autoplay="{{autoplay==false?'':true}}" interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}"
+    next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}" bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
+    <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
+      <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
     </swiper-item>
   </swiper>
 </template>
 
 <template name='Androidfoot'>
   <view class='Footer'>
-    <text wx:if="{{item.desc}}">{{item.desc}}\n</text>
-    <text wx:if="{{item.author}}"> 编辑人：{{item.author}} </text>
-    <text wx:if="{{item.time}}"> 最后编辑于{{item.time}} </text>
-    <text wx:if="{{item.time||item.author}}">\n</text>
+    <text wx:if="{{desc}}">{{desc}}\n</text>
+    <text wx:if="{{author}}"> 编辑人：{{author}} </text>
+    <text wx:if="{{time}}"> 最后编辑于{{time}} </text>
+    <text wx:if="{{time||author}}">\n</text>
     <text>Copyright © 2017-2018 HopeStudio</text>
   </view>
 </template>
 
 <template name='Androiderror'>
-  <view class='Android-navigationBar' style="padding-top:{{item.statusBarHeight}}px;">
+  <view class='Android-navigationBar' style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">页面出错</view>
-    <button wx:if="{{!item.top}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
+    <button wx:if="{{!top}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
       <view class='Android-backArrow'></view>
     </button>
   </view>
-  <view class='Android-navPlaceHolder' style="height:{{item.statusBarHeight+44}}px;">
+  <view class='Android-navPlaceHolder' style="height:{{statusBarHeight+44}}px;">
     <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
   </view>
   <view class='errorCtn'>
@@ -412,57 +412,57 @@
 </template>
 
 <template name="Androidaudio">
-  <audio class="audio" id="{{item.id}}" poster='{{item.poster}}' src='{{item.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls==false?false:true}}" />
-  <!-- <audio id="{{item.id}}" poster='{{item.poster}}' src='{{ietm.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls}}" bindplay="{{item.bindplay?item.bindplay:'cA'}}" bindpause="{{item.bindpause?item.bindpause:'cA'}}" bindtimeupdate="{{item.bindtimeupdate?item.bindtimeupdate:'cA'}}" /> -->
+  <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
+  <!-- <audio id="{{id}}" poster='{{poster}}' src='{{ietm.src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls}}" bindplay="{{bindplay?bindplay:'cA'}}" bindpause="{{bindpause?bindpause:'cA'}}" bindtimeupdate="{{bindtimeupdate?bindtimeupdate:'cA'}}" /> -->
 </template>
 
 <!-- NENU theme -->
 
 <template name='NENUhead'>
-  <block wx:if="{{item.display!=false}}">
-    <view wx:if="{{item.action}}" class='NENUnav' style="background-color:{{item.color}};padding-top:{{item.statusBarHeight}}px;">
-      <button wx:if="{{item.action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{item.action==undefined?'cA':item.action}}" data-action='back'>
-        <view wx:if="{{item.action==undefined||item.action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
-        <text class='iOS-nav-text' style='color:#fff;'>{{item.leftText}}</text>
+  <block wx:if="{{display!=false}}">
+    <view wx:if="{{action}}" class='NENUnav' style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
+      <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
+        <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
+        <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
       </button>
-      <view class='NENU-navText'>{{item.title}}</view>
+      <view class='NENU-navText'>{{title}}</view>
     </view>
-    <view wx:else class='NENUnav2' style='background-color:{{item.color}};height:{{item.statusBarHeight}}px;'>
-      <view class='backBtn' style="top:{{item.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+    <view wx:else class='NENUnav2' style='background-color:{{color}};height:{{statusBarHeight}}px;'>
+      <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
         <image class='backIcon' src='/icon/back.svg' />
       </view>
-      <view class="NENUTitle {{item.titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{item.statusBarHeight+5.5}}px;'>{{item.title}}</view>
+      <view class="NENUTitle {{titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{statusBarHeight+5.5}}px;'>{{title}}</view>
     </view>
-    <view style="width:100%;background-color:{{item.color}};height:{{item.action?item.statusBarHeight+40:item.statusBarHeight}}px;margin-bottom:{{item.action?'0px':'50px'}};"></view>
+    <view style="width:100%;background-color:{{color}};height:{{action?statusBarHeight+40:statusBarHeight}}px;margin-bottom:{{action?'0px':'50px'}};"></view>
   </block>
 </template>
 
 <template name='NENUh3'>
-  <view class='NENUH3' style="{{item.style}}">{{item.text}}</view>
+  <view class='NENUH3' style="{{style}}">{{text}}</view>
 </template>
 
 <template name='NENUp'>
-  <view wx:if="{{item.head}}" class='iOShead'>{{item.head}}</view>
+  <view wx:if="{{head}}" class='iOShead'>{{head}}</view>
   <view class='NENUP'>
-    <text style='{{item.style}}' selectable='true' space='true' decode='true'>{{item.text}}</text>
-    <view wx:if="{{item.src&&item.error}}" class='iOSImgError'>
+    <text style='{{style}}' selectable='true' space='true' decode='true'>{{text}}</text>
+    <view wx:if="{{src&&error}}" class='iOSImgError'>
       <icon type="warn" style='margin-right:5px;' />
       <text class='grey'>图片加载失败</text>
     </view>
-    <view wx:elif="{{item.src&&!item.load}}" class='iOSImgError'>
-      <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
+    <view wx:elif="{{src&&!load}}" class='iOSImgError'>
+      <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" />
       <text class='grey'>加载中...</text>
     </view>
-    <view class='flexbox' style="{{item.load?'':'display: none;'}}">
-      <image id="{{item.id}}" class='iOSP-img' mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
+    <view class='flexbox' style="{{load?'':'display: none;'}}">
+      <image id="{{id}}" class='iOSP-img' mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
     </view>
   </view>
 </template>
 
 <template name='NENUlist'>
-  <view wx:if="{{item.head!==false}}" class='iOShead'>{{item.head}}</view>
+  <view wx:if="{{head!==false}}" class='iOShead'>{{head}}</view>
   <view class='iOSLctn'>
-    <block wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}">
+    <block wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}">
       <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
@@ -526,33 +526,33 @@
       <view wx:if="{{List.display!==false}}" class="{{List.icon?'iOS-listIcon ':''}}iOS-link-divline"></view>
     </block>
   </view>
-  <view wx:if="{{item.foot!==false}}" class='iOSfoot'>{{item.foot}}</view>
+  <view wx:if="{{foot!==false}}" class='iOSfoot'>{{foot}}</view>
 </template>
 
 <template name='NENUimg'>
-  <view wx:if="{{item.error}}" class='iOSImgError'>
+  <view wx:if="{{error}}" class='iOSImgError'>
     <icon type="warn" size='32' style='margin-bottom:5px;' />
     <text>图片加载失败</text>
   </view>
-  <view wx:elif="{{!item.load}}" class='iOSImgError'>
-    <image class='loadingImg' mode="{{item.imgMode}}" src="/icon/loading.svg" />
+  <view wx:elif="{{!load}}" class='iOSImgError'>
+    <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" />
     <text>加载中...</text>
   </view>
-  <image id="{{item.id}}" class='iOS-img' style="{{item.load?'':'width:1rpx;height:1rpx;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-  <view wx:if="{{item.desc}}" class='iOSN'>▲{{item.desc}}</view>
+  <image id="{{id}}" class='iOS-img' style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
+  <view wx:if="{{desc}}" class='iOSN'>▲{{desc}}</view>
 </template>
 
 <template name='NENUdoc'>
-  <button id="{{item.id}}" class='docCtn' hover-class="buttonHover" catchtap='cA' data-url="{{item.url}}" data-action='doc'>
-    <image class='docIcon' mode='widthFix' src='/icon/{{item.docType}}.svg' />
-    <view class='docname docAccess'>{{item.docName}}.{{item.docType}}</view>
+  <button id="{{id}}" class='docCtn' hover-class="buttonHover" catchtap='cA' data-url="{{url}}" data-action='doc'>
+    <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
+    <view class='docname docAccess'>{{docName}}.{{docType}}</view>
   </button>
 </template>
 
 <template name="NENUphone">
-  <view class='phoneCtn' id='{{item.id}}' catchtap='cA' data-num="{{item.num}}" data-fName="{{item.fName}}" data-lName="{{item.lName}}" data-org="{{item.org}}" data-workNum="{{item.workNum}}" data-remark="{{item.remark}}" data-action='phone'>
+  <view class='phoneCtn' id='{{id}}' catchtap='cA' data-num="{{num}}" data-fName="{{fName}}" data-lName="{{lName}}" data-org="{{org}}" data-workNum="{{workNum}}" data-remark="{{remark}}" data-action='phone'>
     <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
-    <view class='phoneNum'>{{item.num}}</view>
+    <view class='phoneNum'>{{num}}</view>
     <view class='phoneCallCtn' hover-class='buttonHover'>
       <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
     </view>
@@ -563,42 +563,42 @@
 </template>
 
 <template name='NENUgrid'>
-  <view wx:if="{{item.head!==false}}" class='gridHead'>{{item.head}}</view>
+  <view wx:if="{{head!==false}}" class='gridHead'>{{head}}</view>
   <view class='gridCtn'>
-    <navigator wx:for="{{item.content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
+    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
       <image class='gridIcon' src="{{List.icon}}" />
       <view class='gridTitle'>{{List.text}}</view>
     </navigator>
   </view>
-  <view wx:if="{{item.foot}}" class='gridFoot'>{{item.foot}}</view>
+  <view wx:if="{{foot}}" class='gridFoot'>{{foot}}</view>
 </template>
 
 <template name='NENUswiper'>
-  <swiper class="{{item.Class?item.Class:'swiper'}}" style="{{item.style}}" indicator-dots="{{item.indicatorDots==false?'':true}}" indicator-color="{{item.dotColor?item.dotColor:'#ffffff88'}}" indicator-active-color="{{item.dotActiveColor?item.dotActiveColor:'#fff'}}"
-    autoplay="{{item.autoplay==false?'':true}}" interval="{{item.interval?item.interval:'5000'}}" duration="{{item.duration?item.duration:'500'}}" circular="{{item.circular==false?'':true}}" vertical="{{item.vertical?true:''}}" previous-margin="{{item.preMargin?item.preMargin:'0px'}}"
-    next-margin="{{item.nextMargin?item.nextMargin:'0px'}}" bindchange="{{item.change?item.change:''}}" bindanimationfinish="{{item.animation?item.animation:''}}" data-action='swiper'>
-    <swiper-item wx:for="{{item.url}}" wx:key="*this" wx:for-item='url'>
-      <image class="{{item.imgClass?item.imgClass:'swiperImg'}}" src="{{url}}" mode="{{item.imgMode?item.imgMode:'aspectFill'}}" />
+  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}"
+    autoplay="{{autoplay==false?'':true}}" interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}"
+    next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}" bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
+    <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
+      <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
     </swiper-item>
   </swiper>
 </template>
 
 <template name='NENUfoot'>
   <view class='Footer'>
-    <text wx:if="{{item.desc}}">{{item.desc}}\n</text>
-    <text wx:if="{{item.author}}"> 编辑人：{{item.author}} </text>
-    <text wx:if="{{item.time}}"> 最后编辑于{{item.time}} </text>
-    <text wx:if="{{item.time||item.author}}">\n</text>
+    <text wx:if="{{desc}}">{{desc}}\n</text>
+    <text wx:if="{{author}}"> 编辑人：{{author}} </text>
+    <text wx:if="{{time}}"> 最后编辑于{{time}} </text>
+    <text wx:if="{{time||author}}">\n</text>
     <text>Copyright © 2017-2018 HopeStudio</text>
   </view>
 </template>
 
 <template name='NENUerror'>
-  <view class='NENUnav' style="background-color:{{item.color}};padding-top:{{item.statusBarHeight}}px;">
+  <view class='NENUnav' style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
     <view class='NENU-navText'>页面出错</view>
   </view>
-  <view style='width:100%;background-color:{{item.color}};height:{{item.statusBarHeight+40}}px;'></view>
-  <view class='backBtn' style="top:{{item.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+  <view style='width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;'></view>
+  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
     <image class='backIcon' src='/icon/back.svg' />
   </view>
   <view class='errorCtn'>
@@ -628,6 +628,6 @@
 </template>
 
 <template name="NENUaudio">
-  <audio class="audio" id="{{item.id}}" poster='{{item.poster}}' src='{{item.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls==false?false:true}}" />
-  <!-- <audio id="{{item.id}}" poster='{{item.poster}}' src='{{ietm.src}}' name='{{item.name}}' author='{{item.author}}' loop="{{item.loop}}" controls="{{item.controls}}" bindplay="{{item.bindplay?item.bindplay:'cA'}}" bindpause="{{item.bindpause?item.bindpause:'cA'}}" bindtimeupdate="{{item.bindtimeupdate?item.bindtimeupdate:'cA'}}" /> -->
+  <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
+  <!-- <audio id="{{id}}" poster='{{poster}}' src='{{ietm.src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls}}" bindplay="{{bindplay?bindplay:'cA'}}" bindpause="{{bindpause?bindpause:'cA'}}" bindtimeupdate="{{bindtimeupdate?bindtimeupdate:'cA'}}" /> -->
 </template>

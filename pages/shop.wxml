@@ -1,6 +1,6 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
+  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{...item}}" />
   <view class="wechatSearchBar">
     <view class="weui-search-bar__form">
       <view class="weui-search-bar__box">

@@ -1,6 +1,6 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
+  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{...item}}" />
   <view wx:for="{{cartItem}}" class='cartItemCtn'>
     <image class='itemImgPreview' src='{{item.preview}}' />
 		<view class='itemDetails'>

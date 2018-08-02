@@ -1,6 +1,6 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
+  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{...item}}" />
   <view class='backBtn' style="top:{{page[0].statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
     <image class='backIcon' src='/icon/back.svg' />
   </view>
