@@ -8,14 +8,16 @@
   align-items: center;
 }
 
-.fowardBtn {
-  width: 100rpx;
-  padding: 0 10rpx 0 40rpx;
+.lastBtn {
+  width: 80rpx;
+  opacity: 0.6;
+  padding: 0 10rpx 0 10rpx;
 }
 
 .nextBtn {
-  width: 100rpx;
-  padding: 0 40rpx 0 10rpx;
+  width: 80rpx;
+  opacity: 0.6;
+  padding: 0 10rpx 0 10rpx;
 }
 
 .btnImg {
@@ -23,7 +25,7 @@
 }
 
 .showCtn {
-  width: 550rpx;
+  width: 590rpx;
 }
 
 .showImg {
@@ -32,4 +34,8 @@
 
 .imgGroup {
   width: 100%;
+}
+
+.click {
+  opacity: 0.8;
 }

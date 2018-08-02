@@ -1,6 +1,7 @@
 @import "templates/Android.wxss";
 @import "templates/iOS.wxss";
 @import "templates/NENU.wxss";
+@import "templates/riple-min.wxss";
 
 page {
   height: 100%;

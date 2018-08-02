@@ -40,7 +40,7 @@
 <template name='iOSp'>
   <view wx:if="{{item.head}}" class='iOShead'>{{item.head}}</view>
   <view class='iOSP'>
-    <text style="{{item.style}}" selectable='true'>{{item.text}}</text>
+    <text style="{{item.style}}" selectable='true' space='true' decode='true'>{{item.text}}</text>
     <block wx:if="{{item.src}}">
       <view wx:if="{{item.error}}" class='iOSImgError'>
         <icon type="warn" style='margin-right:5px;' />
@@ -244,8 +244,8 @@
 
 <template name='Androidp'>
   <view wx:if="{{item.head}}" class='Androidhead'>{{item.head}}</view>
-  <view class='AndroidP' style="{{item.style}}{{item.indent?'text-indent:2em;':''}}">
-    <text selectable='true'>{{item.text}}</text>
+  <view class='AndroidP' style="{{item.style}}">
+    <text selectable='true' space='true' decode='true'>{{item.text}}</text>
   </view>
   <image id="{{item.id}}" class='Android-img' style="{{item.load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{item.imgMode}}" lazy-load="{{item.lazy!==false}}" src="{{item.src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
   />
@@ -444,7 +444,7 @@
 <template name='NENUp'>
   <view wx:if="{{item.head}}" class='iOShead'>{{item.head}}</view>
   <view class='NENUP'>
-    <text style='{{item.style}}'>{{item.text}}</text>
+    <text style='{{item.style}}' selectable='true' space='true' decode='true'>{{item.text}}</text>
     <view wx:if="{{item.src&&item.error}}" class='iOSImgError'>
       <icon type="warn" style='margin-right:5px;' />
       <text class='grey'>图片加载失败</text>

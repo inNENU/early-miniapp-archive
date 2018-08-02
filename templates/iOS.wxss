@@ -127,7 +127,7 @@
 
 /* iOS content */
 
-.iOSH3, .iOSLinkText, .iOShead, .iOSP, .iOSfoot {
+.iOSH3, .iOSLinkText, .iOShead, .iOSfoot {
   text-align: left;
 }
 
@@ -149,6 +149,7 @@
   font-size: 17px;
   padding: 10px 15px;
   line-height: 1.6em;
+  text-align: justify;
 }
 
 .iOSH3 {

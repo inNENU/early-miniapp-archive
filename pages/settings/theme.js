@@ -23,103 +23,87 @@ for (let i = 0; i <= 59; i++) {
 Page({
   data: {
     page: [{
-        tag: 'head',
-        title: '主题设置',
-        grey: true
-      },
-      {
-        tag: 'list',
-        head: '主题设置',
-        foot: 'NENU主题还处于内测阶段',
-        content: [{
-          text: '主题设置',
-          key: 'themeNum',
-          single: true,
-          pickerValue: ['iOS', 'Android', 'NENU'],
-          picker: 'setTheme'
-        }, ]
-      },
-      {
-        tag: 'list',
-        head: '夜间模式',
-        foot: '“夜间模式”启用后，所有界面的背景被置于暗色并采用亮色文字以在保护眼睛的同时，保持暗光下显示效果。',
-        content: [{
-          text: '夜间模式',
-          Switch: 'switchnm',
-          swiKey: 'nightmode'
-        }, ]
-      },
-      {
-        tag: 'list',
-        foot: '亮度数据为百分比',
-        content: [{
-            text: '设定时间',
-            Switch: 'switchnmAC',
-            swiKey: 'nightmodeAutoChange'
-          },
-          {
-            text: '开始时间',
-            inlay: true,
-            key: 'nmStart',
-            pickerValue: time
-          },
-          {
-            text: '结束时间',
-            inlay: true,
-            key: 'nmEnd',
-            pickerValue: time
-          },
-          {
-            text: '日间亮度调整开关',
-            Switch: 'swithDay',
-            swiKey: 'dayBrightnessChange'
-          },
-          {
-            text: '日间模式亮度',
-            slider: 'dB',
-            min: 0,
-            max: 100,
-            sliKey: 'dayBrightness'
-          },
-          {
-            text: '夜间亮度调整开关',
-            Switch: 'swithNight',
-            swiKey: 'nightBrightnessChange'
-          },
-          {
-            text: '夜间模式亮度',
-            slider: 'nB',
-            min: 0,
-            max: 100,
-            sliKey: 'nightBrightness'
-          },
-        ]
-      },
-      {
-        tag: 'list',
-        head: '资源更新',
-        foot: '如果页面显示出现问题请强制更新资源',
-        content: [{
-            text: '指南资源更新提示',
-            swiKey: 'resNotify'
-          },
-          {
-            text: '现在更新指南资源',
-            button: 'refreshRes'
-          }, {
-            text: '功能资源更新提示',
-            swiKey: 'funcNotify'
-          },
-          {
-            text: '现在更新功能资源',
-            button: 'refreshFunc'
-          },
-        ]
-      },
-      {
-        tag: 'foot',
-      }
-    ],
+      tag: 'head',
+      title: '主题设置',
+      grey: true
+    }, {
+      tag: 'list',
+      head: '主题设置',
+      foot: 'NENU主题还处于内测阶段',
+      content: [{
+        text: '主题设置',
+        key: 'themeNum',
+        single: true,
+        pickerValue: ['iOS', 'Android', 'NENU'],
+        picker: 'setTheme'
+      }, ]
+    }, {
+      tag: 'list',
+      head: '夜间模式',
+      foot: '“夜间模式”启用后，所有界面的背景被置于暗色并采用亮色文字以在保护眼睛的同时，保持暗光下显示效果。',
+      content: [{
+        text: '夜间模式',
+        Switch: 'switchnm',
+        swiKey: 'nightmode'
+      }, ]
+    }, {
+      tag: 'list',
+      foot: '亮度数据为百分比',
+      content: [{
+        text: '设定时间',
+        Switch: 'switchnmAC',
+        swiKey: 'nightmodeAutoChange'
+      }, {
+        text: '开始时间',
+        inlay: true,
+        key: 'nmStart',
+        pickerValue: time
+      }, {
+        text: '结束时间',
+        inlay: true,
+        key: 'nmEnd',
+        pickerValue: time
+      }, {
+        text: '日间亮度调整开关',
+        Switch: 'swithDay',
+        swiKey: 'dayBrightnessChange'
+      }, {
+        text: '日间模式亮度',
+        slider: 'dB',
+        min: 0,
+        max: 100,
+        sliKey: 'dayBrightness'
+      }, {
+        text: '夜间亮度调整开关',
+        Switch: 'swithNight',
+        swiKey: 'nightBrightnessChange'
+      }, {
+        text: '夜间模式亮度',
+        slider: 'nB',
+        min: 0,
+        max: 100,
+        sliKey: 'nightBrightness'
+      }, ]
+    }, {
+      tag: 'list',
+      head: '资源更新',
+      foot: '如果页面显示出现问题请强制更新资源',
+      content: [{
+        text: '功能资源更新提示',
+        swiKey: 'funcNotify'
+      }, {
+        text: '现在更新功能资源',
+        button: 'refreshFunc'
+      }, {
+        text: '指南资源更新提示',
+        swiKey: 'resNotify'
+      }, {
+        text: '现在更新指南资源',
+        button: 'refreshRes'
+      }, ]
+    }, {
+      tag: 'foot',
+    }],
   },
   onLoad(e) {
     let p = this.data.page,
