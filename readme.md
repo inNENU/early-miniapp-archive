@@ -44,9 +44,9 @@ Page({
  **3.在xxx.wxml中输入：** 
 ```
 <import src="/templates/template" />
-<scroll-view scroll-y class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
-</scroll-view>
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template is="all" data="{{page,T}}" />
+</view>
 ```
 **4. 对照tag值参数表文件进行界面内容编写。**
 

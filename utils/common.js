@@ -366,6 +366,7 @@ function setPage(page, indicator, a, e) {
     page: pageData
   });
   popNotice(pageData[0].aim);
+  setBgcolor(a, page[0].grey);
 }
 
 // 预载入界面
@@ -407,6 +408,7 @@ function showPage(indicator, a, e) {
       page: page
     });
     popNotice(page[0].aim);
+    setBgcolor(a, page[0].grey);
     return true;
   } else {
     return false;
@@ -435,12 +437,82 @@ function reConnet(indicator, a, e) {
   })
 }
 
-function setBgcolor(nm, grey) {
-  if (nm) {
-		wx.setBackgroundColor({
-			backgroundColor: '#ffffff', // 窗口的背景色为白色
-			backgroundColorTop: '#ffffff', // 顶部窗口的背景色为白色
-			backgroundColorBottom: '#ffffff', // 底部窗口的背景色为白色
-		})
+function setBgcolor(a, grey) {
+  console.log('setBgcolor')
+  if (a.nm && grey) {
+    switch (a.T) {
+      case 'Andriod':
+        wx.setBackgroundColor({
+          backgroundColor: '#070707',
+          backgroundColorTop: '#070707',
+          backgroundColorBottom: '#070707'
+        });
+        break;
+      case 'iOS':
+        wx.setBackgroundColor({
+          backgroundColor: '#10110b',
+          backgroundColorTop: '#0a0a08',
+          backgroundColorBottom: '#10110b'
+        });
+        break;
+      case 'NENU':
+        wx.setBackgroundColor({
+          backgroundColor: '#10110b',
+          backgroundColorTop: '#10110b',
+          backgroundColorBottom: '#10110b'
+        });
+    }
+  } else if (a.nm && !grey) {
+    switch (a.T) {
+      case 'iOS':
+        wx.setBackgroundColor({
+          backgroundColor: '#000',
+          backgroundColorTop: '#0a0a08',
+          backgroundColorBottom: '#000'
+        });
+        break;
+      case 'Andriod':
+      case 'NENU':
+        wx.setBackgroundColor({
+          backgroundColor: '#000',
+          backgroundColorTop: '#000',
+          backgroundColorBottom: '#000'
+        });
+    }
+  } else if (!a.nm && grey) {
+    switch (a.T) {
+      case 'Andriod':
+        wx.setBackgroundColor({
+          backgroundColor: '#f8f8f8',
+          backgroundColorTop: '#f8f8f8',
+          backgroundColorBottom: '#f8f8f8'
+        });
+        break;
+      case 'NENU':
+        wx.setBackgroundColor({
+          backgroundColorTop: '#efeef4',
+        });
+    }
+  } else {
+    switch (a.T) {
+      case 'Andriod':
+        wx.setBackgroundColor({
+          backgroundColor: '#f8f8f8',
+          backgroundColorTop: '#f8f8f8',
+          backgroundColorBottom: '#f8f8f8'
+        });
+        break;
+      case 'NENU':
+        wx.setBackgroundColor({
+          backgroundColor: '#fff',
+          backgroundColorTop: '#fff',
+          backgroundColorBottom: '#fff'
+        });
+        break;
+      case 'iOS':
+        wx.setBackgroundColor({
+          backgroundColorBottom: '#fff',
+        });
+    }
   }
 }

@@ -10,8 +10,12 @@
   background-color: #f8f8f8;
 }
 
-.nm.Android, .nm.Androidgrey {
+.nm.Android {
   background-color: #000;
+}
+
+.nm.Androidgrey {
+  background-color: #070707;
 }
 
 /* 导航 */
@@ -48,10 +52,6 @@
 
 .nm .Android-navigationBar, .nm .Android-navPlaceHolder {
   background-color: #070707;
-}
-
-.nm .Android-navPlaceHolder {
-  color: #262626;
 }
 
 .Android-titletext {
