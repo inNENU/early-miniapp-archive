@@ -1,5 +1,25 @@
-<!-- test -->
+<!-- all -->
 <template name="all">
+  <block wx:if="{{!T}}">
+    <view class="Android-navigationBar" style="padding-top:24px;">
+      <view class="Android-titletext">加载中</view>
+      <button class='Android-navBack' hover-class="navBackHover" plain='true'>
+        <view class='Android-backArrow'></view>
+        <view class='Android-leftText'>返回</view>
+      </button>
+    </view>
+    <view style='width:100%;height:100%;display:flex;justify-content:center;align-items:center;font-size:20px;color:#888;'>
+      <text>加载中......</text>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+      <template wx:for="{{page}}" wx:key is="{{T+item.tag}}" data="{{...item}}" />
+    </view>
+  </block>
+</template>
+
+<template name="all2">
   <template wx:if="{{T}}" wx:for="{{page}}" wx:key is="{{T+item.tag}}" data="{{...item}}" />
 </template>
 

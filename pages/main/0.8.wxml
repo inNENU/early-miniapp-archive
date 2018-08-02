@@ -1,6 +1,6 @@
 <import src="/templates/template" />
 <import src="/templates/foot-nenu" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template is="all" data="{{page,T}}" />
+  <template is="all2" data="{{page,T}}" />
   <template is="foot" />
 </view>
