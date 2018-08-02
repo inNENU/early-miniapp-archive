@@ -1,0 +1,50 @@
+<view class="{{nm?'nm':''}} playerBg">
+  <view style='height:10%;'></view>
+  <view class='headerCtn'>
+    <view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+      <image class='backIcon' src='/icon/back.svg' />
+    </view>
+  </view>
+  <view class="coverCtn">
+    <image class="cover" src="{{cover}}" />
+  </view>
+  <view class='progressBar'>
+    <slider max='{{songLength}}' value="{{currentTime}}" block-size='15' selected-color='#3cc51f' block-color="#3cc51f" bindchange='' bindchanging='' />
+  </view>
+  <view wx:if="{{nm}}" class='playerCtn'>
+    <view class='buttonCtn' hover-class='active'>
+      <image class='cycleBtn' src='/function/icon/back.svg' />
+    </view>
+    <view class='buttonCtn' hover-class='active'>
+      <image class='previousBtn' src='/function/icon/back.svg' />
+    </view>
+    <view class='buttonCtn2' hover-class='active' catchtap='play'>
+      <image class='playBtn' src="{{play?'/function/icon/pause.svg':'/function/icon/play.svg'}}" />
+    </view>
+    <view class='buttonCtn' hover-class='active'>
+      <image class='nextBtn' src='/function/icon/back.svg' />
+    </view>
+    <view class='buttonCtn' hover-class='active'>
+      <image class='listBtn' src='/function/icon/back.svg' />
+    </view>
+  </view>
+  <view wx:if="{{!nm}}" class='playerCtn'>
+    <view class='buttonCtn' hover-class='active'>
+      <image class='cycleBtn' src='/function/icon/back.svg' />
+    </view>
+    <view class='buttonCtn' hover-class='active'>
+      <image class='previousBtn' src='/function/icon/back.svg' />
+    </view>
+    <view class='buttonCtn2' hover-class='active' catchtap='play'>
+      <image class='playBtn' src="{{play?'/function/icon/pause.svg':'/function/icon/play.svg'}}" />
+    </view>
+    <view class='buttonCtn' hover-class='active'>
+      <image class='nextBtn' src='/function/icon/back.svg' />
+    </view>
+    <view class='buttonCtn' hover-class='active'>
+      <image class='listBtn' src='/function/icon/back.svg' />
+    </view>
+  </view>
+  <view style='height:10%;'></view>
+</view>
+<audio src="{{musicUrl}}" id="myMusic" bindtimeupdate="timeUpdate" />

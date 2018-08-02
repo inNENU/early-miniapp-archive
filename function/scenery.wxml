@@ -1,7 +1,7 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
-  <view class='imgCtn' style='height:{{(info.screenHeight-44-info.statusBarHeight)*0.7}}px;'>
+  <view class='imgCtn' style='height:{{(info.screenHeight-44-info.statusBarHeight-50)*0.7}}px;'>
     <view class='lastBtn' hover-class='click'>
       <image class='btnImg' src="/function/icon/back.svg" mode='widthFix' />
     </view>
@@ -12,8 +12,8 @@
       <image class='btnImg' src="/function/icon/next.svg" mode='widthFix' />
     </view>
   </view>
-  <scroll-view scroll-x class='imgGroup' style='height:{{(info.screenHeight-44-info.statusBarHeight)*0.3}}px;'>
-    <view wx:for="{{urls}}">
+  <scroll-view scroll-x class='imgGroup' style='height:{{(info.screenHeight-44-info.statusBarHeight-50)*0.3}}px;'>
+    <view wx:for="{{imgs}}">
       <image id="{{item.id}}" class='imgPreview' src="{{item.url}}" mode='widthFix' />
     </view>
   </scroll-view>

@@ -2,15 +2,7 @@
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{item}}" />
 </view>
-<!-- <view class='container'>
-  <audio poster='{{poster2}}' src='{{src2}}' name='东北师范大学校歌' author='东北师范大学' controls />
-  <audio poster='{{poster3}}' src='{{src3}}' name='东师姑娘' author='新媒体中心填词歌曲' controls />
-  <audio poster='{{poster4}}' src='{{src4}}' name='远方有你' author='原创毕业季纪念歌曲' controls />
-  <audio poster='{{poster5}}' src='{{src5}}' name='一生有你' author='520女生节礼物' controls />
-  <audio poster='{{poster6}}' src='{{src6}}' name='微微一笑很东师' author='新媒体中心填词歌曲' controls />
-  <audio poster='{{poster7}}' src='{{src7}}' name='师德公约' author='2018东北师范大学原创' controls />
-</view>
-<audio src="{{musicUrl}}" id="myMusic" bindtimeupdate="timeUpdate" /> -->
+<!-- <audio src="{{musicUrl}}" id="myMusic" bindtimeupdate="timeUpdate" /> -->
 <!-- <view class="music">
   <image animation="{{animationData}}" class="bgImage" src="{{bgImage}}"></image>
 </view>

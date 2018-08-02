@@ -23,6 +23,10 @@ Page({
         text: '校园风光',
         icon: '/icon/scenery.svg',
         url: '/function/scenery'
+      }, {
+        text: '播放器',
+        icon: '/icon/scenery.svg',
+        url: '/function/player'
       }, ]
     }, {
       tag: 'grid',
@@ -76,18 +80,18 @@ Page({
       nm: a.nm
     })
   },
-  onReady() {
-    tab.markerSet();
-    let that = this;
-    wx.request({
-      url: 'https://mrhope.top/mp/main/function.json',
-      success(res) {
-        if (res.statusCode == 200) {
-          c.setPage(res.data, that, a);
-        }
-      }
-    })
-  },
+  // onReady() {
+  //   tab.markerSet();
+  //   let that = this;
+  //   wx.request({
+  //     url: 'https://mrhope.top/mp/main/function.json',
+  //     success(res) {
+  //       if (res.statusCode == 200) {
+  //         c.setPage(res.data, that, a);
+  //       }
+  //     }
+  //   })
+  // },
   onPageScroll(e) {
     c.nav(e, this)
   }

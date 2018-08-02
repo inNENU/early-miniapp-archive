@@ -34,8 +34,14 @@
 
 .imgGroup {
   width: 100%;
+  padding: 10px 20px 50px 20px;
 }
 
 .click {
   opacity: 0.8;
+}
+
+.imgPreview {
+  width: auto;
+  height: 80%;
 }
