@@ -10,75 +10,6 @@
 
 **3.上传json文件到服务器的htdocs/miniProgram文件夹，添加json文件名至fileList.json并增加其版本号。**
 
-### 二. 复杂界面编写说明
-
- 对文件进行合理命名，使用“文件主题+编号”格式。
-
- **1.在指定的路径下新建xxx.js与xxx.wxml文件，并将其界面路径添加至app.json中的pages数组中。**
-
- **2.在xxx.js中输入：** 
-```
-var c = getApp().commmon,
-	a = getApp().globalData;
-Page({
-	onLoad(e) {
-		c.getContent(this, a, e)
-	},
-	onReady() {
-		c.preloadPage(this.data.page, a);
-	},
-	onPageScroll(e) {
-		c.nav(e, this)
-	},
-	cA(e) {
-		c.componentAction(e, this)
-	},
-	**其他函数**
-})
-```
- _**Tips：**_ 
-
-界面若为首页，请将onLoad改为onShow，并删除back函数。
-为了方便查错以及后续更改，在复制粘贴时保留原代码换行及缩进样式。
-
- **3.在xxx.wxml中输入：** 
-```
-<import src="/templates/template" />
-<template is="all" data="{{page,T,nm}}" />
-```
-**4. 对照tag值参数表文件进行界面内容编写。**
-
-页面的编写主要通过操纵处于界面data下名为**page**的**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。
- 
-**5. 在xxx.js中添加与编写函数。**
-#####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
-##### **picker函数**
-- 若填写了picker函数：
- functionName：picker函数值；
-```
-→functionName←(e) {
-    u.picker(e,this);
-    other code here......
-  },
-```
-##### **switch函数**
-- 若填写了switch函数：
-    functionName：switch函数值；
-```
-→functionName←(e) {
-    u.Switch(e,this);
-    other code here......
-  },
-```
-##### slider函数：
-    functionName：switch函数值；
-```
-  →functionName←(e){
-    u.slider(e,this);
-    other code here......
-  },
-```
-
 # tag值参数表
  #### **有效的tag值：** 
 - head：小程序界面的头部，包括标题和navigationBar
@@ -286,3 +217,75 @@ Page({
 - top right：不缩放图片，只显示图片的右上边区域；
 - bottom left：不缩放图片，只显示图片的左下边区域；
 - bottom right：不缩放图片，只显示图片的右下边区域；
+
+### 二. 复杂界面编写说明
+
+ 对文件进行合理命名，使用“文件主题+编号”格式。
+
+ **1.在指定的路径下新建xxx.js与xxx.wxml文件，并将其界面路径添加至app.json中的pages数组中。**
+
+ **2.在xxx.js中输入：** 
+```
+var c = getApp().commmon,
+	a = getApp().globalData;
+Page({
+	data:{
+		page:[
+			**此处填写page**
+		]
+	},
+	onLoad(e) {
+		c.setPage(this.data.page,this, a, e)
+	},
+	onReady() {
+		c.preloadPage(this.data.page, a);
+	},
+	onPageScroll(e) {
+		c.nav(e, this)
+	},
+	cA(e) {
+		c.componentAction(e, this)
+	},
+	**其他函数**
+})
+```
+ _**Tips：**_ 
+为了方便查错以及后续更改，在复制粘贴时保留原代码换行及缩进样式。
+
+ **3.在xxx.wxml中输入：** 
+```
+<import src="/templates/template" />
+<template is="all" data="{{page,T,nm}}" />
+```
+**4. 对照tag值参数表文件进行界面内容编写。**
+
+页面的编写主要通过操纵处于界面data下名为**page**的**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。
+ 
+**5. 在xxx.js中添加与编写函数。**
+#####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
+##### **picker函数**
+- 若填写了picker函数：
+ functionName：picker函数值；
+```
+→functionName←(e) {
+    u.picker(e,this);
+    other code here......
+  },
+```
+##### **switch函数**
+- 若填写了switch函数：
+    functionName：switch函数值；
+```
+→functionName←(e) {
+    u.Switch(e,this);
+    other code here......
+  },
+```
+##### slider函数：
+    functionName：switch函数值；
+```
+  →functionName←(e){
+    u.slider(e,this);
+    other code here......
+  },
+```
