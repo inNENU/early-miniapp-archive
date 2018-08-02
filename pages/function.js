@@ -4,10 +4,12 @@ var a = getApp().globalData,
   tab = require("../utils/tab");
 Page({
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
       tag: 'head',
       title: '功能大厅',
-      action: true
+      action: true,
     }, {
       tag: 'grid',
       head: '',
@@ -94,5 +96,5 @@ Page({
   // },
   onPageScroll(e) {
     c.nav(e, this)
-  }
+  },
 })

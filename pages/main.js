@@ -4,6 +4,8 @@ var a = getApp().globalData,
   tab = require("../utils/tab");
 Page({
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
       tag: 'head',
       title: '首页',

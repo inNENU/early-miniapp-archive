@@ -1,9 +1,11 @@
 var a = getApp().globalData,
-	w = getApp().watcher,
-	c = getApp().common,
-	tab = require("../utils/tab");
+  w = getApp().watcher,
+  c = getApp().common,
+  tab = require("../utils/tab");
 Page({
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
         tag: 'head',
         title: '东青文创',
@@ -84,30 +86,32 @@ Page({
       });
     });
   },
-	onReady() {
-		let that = this;
-		wx.request({
-			url: 'https://mrhope.top/mp/main/shop.json',
-			success(res) {
-				if (res.statusCode == 200) {
-					c.setPage(res.data, that, a);
-				}
-			}
-		})
-		wx.request({
-			url: 'https://mrhope.top/mp/main/goods.json',
-			success(res) {
-				if (res.statusCode == 200) {
-					that.setData({goods:res.data})
-				}
-			}
-		})
-	},
+  onReady() {
+    let that = this;
+    wx.request({
+      url: 'https://mrhope.top/mp/main/shop.json',
+      success(res) {
+        if (res.statusCode == 200) {
+          c.setPage(res.data, that, a);
+        }
+      }
+    })
+    wx.request({
+      url: 'https://mrhope.top/mp/main/goods.json',
+      success(res) {
+        if (res.statusCode == 200) {
+          that.setData({
+            goods: res.data
+          })
+        }
+      }
+    })
+  },
   onPageScroll(e) {
     c.nav(e, this)
   },
   cA(e) {
-		c.componentAction(e, this)
+    c.componentAction(e, this)
   },
   swiperChange(e) {
     console.log(e);

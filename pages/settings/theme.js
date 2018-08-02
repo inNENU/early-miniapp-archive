@@ -22,6 +22,8 @@ for (let i = 0; i <= 59; i++) {
 
 Page({
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
       tag: 'head',
       title: '主题设置',

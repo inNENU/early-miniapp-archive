@@ -2,6 +2,8 @@ var a = getApp().globalData,
   c = getApp().common;
 Page({
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
       tag: 'head',
       title: 'V0.8开发日志',
@@ -18,6 +20,14 @@ Page({
       tag: 'p',
       head: 'V0.8.2',
       text: '加入音乐界面；'
+    }, {
+      tag: 'p',
+      head: 'V0.8.3',
+      text: '初步构建校园风光wxml；\n数处bug修复；'
+    }, {
+      tag: 'p',
+      head: 'V0.8.4',
+      text: '界面渲染速度进一步提高；\n初步构建播放器界面；\n改进template；'
     }],
   },
   onLoad(e) {

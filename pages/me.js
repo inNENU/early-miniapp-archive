@@ -4,26 +4,28 @@ var a = getApp().globalData,
   tab = require("../utils/tab");
 Page({
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
         tag: 'head',
         title: '我的东师',
         action: true,
         grey: true,
-        aimStep: 0,
         // show: true,
       }, {
-      //   tag: 'info',
-      // }, {
+        //   tag: 'info',
+        // }, {
         tag: 'list',
         content: [{
           text: '设置',
           url: 'settings/theme'
-        // }, {
-        //   text: '登录',
-        //   url: 'settings/login'
+          // }, {
+          //   text: '登录',
+          //   url: 'settings/login'
         }, {
           text: '关于',
-          url: 'settings/about'
+          url: 'settings/about',
+          desc: a.Version
         }, ]
       },
       {

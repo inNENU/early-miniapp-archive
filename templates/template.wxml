@@ -7,13 +7,13 @@
   </block>
   <block wx:else>
     <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-      <template wx:if="{{T}}" wx:for="{{page}}" wx:key is="{{T+item.tag}}" data="{{...item}}" />
+      <template wx:if="{{T}}" wx:for="{{page}}" wx:key="id" is="{{T+item.tag}}" data="{{...item}}" />
     </view>
   </block>
 </template>
 
 <template name="all2">
-  <template wx:if="{{T}}" wx:for="{{page}}" wx:key is="{{T+item.tag}}" data="{{...item}}" />
+  <template wx:if="{{T}}" wx:for="{{page}}" wx:key="id" is="{{T+item.tag}}" data="{{...item}}" />
 </template>
 
 <!-- loading -->
@@ -90,7 +90,7 @@
 <template name='iOSlist'>
   <view wx:if="{{head!==false}}" class='iOShead'>{{head}}</view>
   <view class='iOSLctn'>
-    <block wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}">
+    <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
       <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
@@ -99,7 +99,7 @@
         </view>
       </navigator>
       <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
-        data-id="{{List.id}}" data-action='picker' plain='true' open-type='{{List.open-type}}' disabled='{{List.disabled}}'>
+        data-id="{{List.id}}" data-action='picker' plain='true' open-type='{{List.openType}}' disabled='{{List.disabled}}'>
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
@@ -193,7 +193,7 @@
 <template name='iOSgrid'>
   <view wx:if="{{head!==false}}" class='gridHead'>{{head}}</view>
   <view class='gridCtn'>
-    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
+    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
       <image class='gridIcon' src="{{List.icon}}" />
       <view class='gridTitle'>{{List.text}}</view>
     </navigator>
@@ -285,7 +285,7 @@
 <template name='Androidlist'>
   <view wx:if="{{head!==false}}" class='Androidhead'>{{head}}</view>
   <view class='iOSLctn'>
-    <block wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}">
+    <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
       <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
@@ -388,7 +388,7 @@
 <template name='Androidgrid'>
   <view class='gridHead'>{{head}}</view>
   <view class='gridCtn'>
-    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
+    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
       <image class='gridIcon' src="{{List.icon}}" />
       <view class='gridTitle'>{{List.text}}</view>
     </navigator>
@@ -488,7 +488,7 @@
 <template name='NENUlist'>
   <view wx:if="{{head!==false}}" class='iOShead'>{{head}}</view>
   <view class='iOSLctn'>
-    <block wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}">
+    <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
       <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
         <view class='iOS-list-Container'>
           <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
@@ -591,7 +591,7 @@
 <template name='NENUgrid'>
   <view wx:if="{{head!==false}}" class='gridHead'>{{head}}</view>
   <view class='gridCtn'>
-    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
+    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
       <image class='gridIcon' src="{{List.icon}}" />
       <view class='gridTitle'>{{List.text}}</view>
     </navigator>
