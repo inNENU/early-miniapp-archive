@@ -3,24 +3,6 @@
   <template wx:if="{{T}}" wx:for="{{page}}" wx:key is="{{T+item.tag}}" data="{{...item}}" />
 </template>
 
-<!-- empty template -->
-
-<template name="head" />
-<template name="h2" />
-<template name="h3" />
-<template name="h4" />
-<template name="list" />
-<template name="p" />
-<template name="img" />
-<template name="doc" />
-<template name="phone" />
-<template name='grid' />
-<template name='swiper' />
-<template name="foot" />
-<template name="error" />
-<template name="info" />
-<template name="audio" />
-
 <!-- iOS theme -->
 
 <template name="iOShead">

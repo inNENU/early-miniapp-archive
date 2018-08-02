@@ -5,6 +5,7 @@ module.exports = {
   preloadPage,
   getContent,
   componentAction,
+  setBgcolor
 }
 
 
@@ -432,4 +433,14 @@ function reConnet(indicator, a, e) {
       })
     }
   })
+}
+
+function setBgcolor(nm, grey) {
+  if (nm) {
+		wx.setBackgroundColor({
+			backgroundColor: '#ffffff', // 窗口的背景色为白色
+			backgroundColorTop: '#ffffff', // 顶部窗口的背景色为白色
+			backgroundColorBottom: '#ffffff', // 底部窗口的背景色为白色
+		})
+  }
 }
