@@ -1,3 +1,8 @@
+<!-- test -->
+<template name="all">
+  <template wx:if="{{T}}" wx:for="{{page}}" wx:key is="{{T+item.tag}}" data="{{...item}}" />
+</template>
+
 <!-- empty template -->
 
 <template name="head" />
@@ -172,9 +177,9 @@
 </template>
 
 <template name='iOSswiper'>
-  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}"
-    autoplay="{{autoplay==false?'':true}}" interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}"
-    next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}" bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
+  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}" autoplay="{{autoplay==false?'':true}}"
+    interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}" next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}"
+    bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
     <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
       <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
     </swiper-item>
@@ -216,7 +221,6 @@
 
 <template name="iOSaudio">
   <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
-  <!-- <audio id="{{id}}" poster='{{poster}}' src='{{ietm.src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls}}" bindplay="{{bindplay?bindplay:'cA'}}" bindpause="{{bindpause?bindpause:'cA'}}" bindtimeupdate="{{bindtimeupdate?bindtimeupdate:'cA'}}" /> -->
 </template>
 
 <!-- Android theme -->
@@ -247,8 +251,7 @@
   <view class='AndroidP' style="{{style}}">
     <text selectable='true' space='true' decode='true'>{{text}}</text>
   </view>
-  <image id="{{id}}" class='Android-img' style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
-  />
+  <image id="{{id}}" class='Android-img' style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
   <view wx:if="{{desc}}" class='AndroidN'>
     <text>▲{{desc}}</text>
   </view>
@@ -333,8 +336,7 @@
     <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" />
     <text class='grey'>加载中...</text>
   </view>
-  <image id="{{id}}" class='Android-img' style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img'
-  />
+  <image id="{{id}}" class='Android-img' style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
   <view wx:if="{{desc}}" class='AndroidN'>▲{{desc}}</view>
 </template>
 
@@ -370,9 +372,9 @@
 </template>
 
 <template name='Androidswiper'>
-  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}"
-    autoplay="{{autoplay==false?'':true}}" interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}"
-    next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}" bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
+  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}" autoplay="{{autoplay==false?'':true}}"
+    interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}" next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}"
+    bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
     <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
       <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
     </swiper-item>
@@ -413,7 +415,6 @@
 
 <template name="Androidaudio">
   <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
-  <!-- <audio id="{{id}}" poster='{{poster}}' src='{{ietm.src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls}}" bindplay="{{bindplay?bindplay:'cA'}}" bindpause="{{bindpause?bindpause:'cA'}}" bindtimeupdate="{{bindtimeupdate?bindtimeupdate:'cA'}}" /> -->
 </template>
 
 <!-- NENU theme -->
@@ -574,9 +575,9 @@
 </template>
 
 <template name='NENUswiper'>
-  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}"
-    autoplay="{{autoplay==false?'':true}}" interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}"
-    next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}" bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
+  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}" autoplay="{{autoplay==false?'':true}}"
+    interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}" next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}"
+    bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
     <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
       <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
     </swiper-item>
@@ -629,5 +630,4 @@
 
 <template name="NENUaudio">
   <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
-  <!-- <audio id="{{id}}" poster='{{poster}}' src='{{ietm.src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls}}" bindplay="{{bindplay?bindplay:'cA'}}" bindpause="{{bindpause?bindpause:'cA'}}" bindtimeupdate="{{bindtimeupdate?bindtimeupdate:'cA'}}" /> -->
 </template>

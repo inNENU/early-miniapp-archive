@@ -114,7 +114,7 @@ function resSnyc(fileNumList, refreshList) {
       url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
       success(res) {
         console.log(refreshList[i]), console.log(res); //调试
-        successNumber += 1, wx.setStorageSync(refreshList[i], res.data);
+        successNumber += 1, wx.setStorageSync(refreshList[i], res.data), wx.removeStorageSync(refreshList[i] + 'Temp');
         wx.showLoading({
           title: '下载中...' + percent[successNumber] + '%',
           mask: true
@@ -134,7 +134,7 @@ function resSnyc(fileNumList, refreshList) {
         url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
         success(res) {
           console.log(res), console.log(refreshList[i] + j); //调试
-          successNumber += 1, wx.setStorageSync(refreshList[i] + j, res.data);
+          successNumber += 1, wx.setStorageSync(refreshList[i] + j, res.data), wx.removeStorageSync(refreshList[i] + j + 'Temp');
           wx.showLoading({
             title: '下载中...' + percent[successNumber] + '%',
             mask: true
