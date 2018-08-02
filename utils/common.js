@@ -15,7 +15,7 @@ function getContent(indicator, a, e) {
   wx.showLoading({
     title: '加载中...'
   });
-  if (!e.share && showPage(indicator, a, e)) {
+  if (showPage(indicator, a, e)) {
     wx.hideLoading();
   } else {
     let pageData = wx.getStorageSync(e.aim);
@@ -57,7 +57,9 @@ function getContent(indicator, a, e) {
                 console.log(res);
                 if (res.statusCode == 200) {
                   setPage(res.data, indicator, a, e);
-                  wx.setStorageSync(e.aim, res.data);
+                  if (!e.share) {
+                    wx.setStorageSync(e.aim, res.data);
+                  }
                 } else {
                   console.log('res error');
                   setPage([{
@@ -402,6 +404,9 @@ function preloadPage(page, a) {
 function showPage(indicator, a, e) {
   let page = wx.getStorageSync(e.aim + 'Temp');
   if (page) {
+    if (e.share) {
+      page[0].action = 'redirect';
+    }
     indicator.setData({
       T: a.T,
       nm: a.nm,

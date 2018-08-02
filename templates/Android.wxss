@@ -12,10 +12,12 @@
 
 .nm.Android {
   background-color: #000;
+  color: #fff;
 }
 
 .nm.Androidgrey {
   background-color: #070707;
+  color: #fff;
 }
 
 /* 导航 */

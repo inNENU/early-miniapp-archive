@@ -1,8 +1,12 @@
 var c = getApp().common,
   a = getApp().globalData;
 Page({
+	data: {
+		T: a.T,
+		nm: a.nm
+	},
   onLoad(e) {
-    c.getContent(this, a, e)
+    // c.getContent(this, a, e)
   },
   onReady() {
     c.preloadPage(this.data.page, a);

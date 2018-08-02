@@ -44,9 +44,7 @@ Page({
  **3.在xxx.wxml中输入：** 
 ```
 <import src="/templates/template" />
-<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template is="all" data="{{page,T}}" />
-</view>
+<template is="all" data="{{page,T,nm}}" />
 ```
 **4. 对照tag值参数表文件进行界面内容编写。**
 

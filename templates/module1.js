@@ -1,6 +1,10 @@
 var c = getApp().common,
   a = getApp().globalData;
 Page({
+  data: {
+    T: a.T,
+    nm: a.nm
+  },
   onLoad(e) {
     this.name = c.getContent(this, a, e);
   },
