@@ -104,7 +104,7 @@
 
 .docCtn {
   width: 100%;
-  background-color: #fff;
+  background-color: #fefefe;
   padding: 10px 0 !important;
   line-height: 2;
   display: -webkit-flex;
@@ -118,8 +118,8 @@
 }
 
 .nm .docCtn {
-  background-color: #10110b;
-  color: #fff;
+  background-color: #10110b !important;
+  color: #fff !important;
   border-top-color: #353631;
   border-bottom-color: #353631;
 }
@@ -168,6 +168,7 @@
   align-items: center;
   padding: 0 15px;
   line-height: 2.5;
+  background-color: #fefefe;
 }
 
 .phoneIcon {
@@ -199,8 +200,8 @@
 }
 
 .nm .phoneCtn {
-  background-color: #10110b;
-  color: #fff;
+  background-color: #10110b !important;
+  color: #fff !important;
 }
 
 /* grid */

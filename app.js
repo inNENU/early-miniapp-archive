@@ -8,7 +8,6 @@ App({
     endTime: "5-0",
   },
   onLaunch() {
-		
     app.checkDebug();
     this.globalData.T = app.setTheme(this.data.theme);
     this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
@@ -35,7 +34,7 @@ App({
     })
   },
   globalData: {
-    Version: 'V 0.9.0',
+    Version: 'V 0.9.1',
     imgMode: "widthFix"
   },
   util: require('utils/util'),

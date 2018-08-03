@@ -210,7 +210,3 @@
   background-color: #000;
   color: #fff;
 }
-
-.iOS .phoneCtn, .iOS .docCtn {
-  background-color: #fefefe;
-}

@@ -5,10 +5,10 @@
   min-height: 100%;
   text-align: center;
   background-color: #f8f8f8;
-  font-family: FZKTJW,
+  font-family: "Helvetica Neue",
+                 FZKTJW,
                  -apple-system-font,
                  "PingFang SC",
-                 "Helvetica Neue",
                  Helvetica,
                  STHeiti,
                  Tahoma,
@@ -213,8 +213,4 @@
 
 .Android-img+.AndroidN {
   margin-top: -12px;
-}
-
-.Android .phoneCtn, .Android.docCtn {
-  background-color: #fefefe;
 }

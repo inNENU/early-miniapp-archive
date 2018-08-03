@@ -5,7 +5,8 @@
   min-height: 100%;
   color: #000;
   background-color: #fff;
-  font-family: FZSSJW,
+  font-family: "Helvetica Neue",
+                 FZSSJW,
                  -apple-system-font,
                  "PingFang SC",
                  "Helvetica Neue",
