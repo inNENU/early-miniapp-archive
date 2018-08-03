@@ -46,6 +46,47 @@
   </view>
 </template>
 
+<!-- common template -->
+<template name='doc'>
+  <button id="{{id}}" class='docCtn' hover-class="buttonHover" catchtap='cA' data-url="{{url}}" data-action='doc'>
+    <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
+    <view class='docname docAccess'>{{docName}}.{{docType}}</view>
+  </button>
+</template>
+
+<template name='phone'>
+  <view class='phoneCtn' id='{{id}}' catchtap='cA' data-action='phone'>
+    <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
+    <view class='phoneNum'>{{num}}</view>
+    <view class='phoneCallCtn' hover-class='buttonHover'>
+      <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
+    </view>
+    <view class='phoneAddCtn' hover-class='buttonHover'>
+      <image class='phoneAdd' mode='widthFix' src='/icon/add.svg' data-type="add" />
+    </view>
+  </view>
+</template>
+
+<template name='grid'>
+  <view wx:if="{{head!==false}}" class='gridHead'>{{head}}</view>
+  <view class='gridCtn'>
+    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
+      <image class='gridIcon' src="{{List.icon}}" />
+      <view class='gridTitle'>{{List.text}}</view>
+    </navigator>
+  </view>
+  <view wx:if="{{foot}}" class='gridFoot'>{{foot}}</view>
+</template>
+
+<template name='foot'>
+  <view class='Footer'>
+    <text wx:if="{{desc}}">{{desc}}\n</text>
+    <text wx:if="{{author}}"> 编辑人：{{author}} </text>
+    <text wx:if="{{time}}"> 最后编辑于{{time}} </text>
+    <text wx:if="{{time||author}}">\n</text>Copyright © 2017-2018 HopeStudio
+  </view>
+</template>
+
 <!-- iOS theme -->
 
 <template name="iOShead">
@@ -171,34 +212,15 @@
 </template>
 
 <template name='iOSdoc'>
-  <button id="{{id}}" class='docCtn' hover-class="buttonHover" catchtap='cA' data-url="{{url}}" data-action='doc'>
-    <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
-    <view class='docname docAccess'>{{docName}}.{{docType}}</view>
-  </button>
+  <template is='doc' data="{{id,url,docName,docType}}" />
 </template>
 
 <template name="iOSphone">
-  <view class='phoneCtn' id='{{id}}' catchtap='cA' data-num="{{num}}" data-fName="{{fName}}" data-lName="{{lName}}" data-org="{{org}}" data-workNum="{{workNum}}" data-remark="{{remark}}" data-action='phone'>
-    <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
-    <view class='phoneNum'>{{num}}</view>
-    <view class='phoneCallCtn' hover-class='buttonHover'>
-      <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
-    </view>
-    <view class='phoneAddCtn' hover-class='buttonHover'>
-      <image class='phoneAdd' mode='widthFix' src='/icon/add.svg' data-type="add" />
-    </view>
-  </view>
+  <template is='phone' data="{{id,num}}" />
 </template>
 
 <template name='iOSgrid'>
-  <view wx:if="{{head!==false}}" class='gridHead'>{{head}}</view>
-  <view class='gridCtn'>
-    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
-      <image class='gridIcon' src="{{List.icon}}" />
-      <view class='gridTitle'>{{List.text}}</view>
-    </navigator>
-  </view>
-  <view wx:if="{{foot}}" class='gridFoot'>{{foot}}</view>
+  <template is='grid' data="{{head,content,foot}}" />
 </template>
 
 <template name='iOSswiper'>
@@ -212,12 +234,7 @@
 </template>
 
 <template name='iOSfoot'>
-  <view class='Footer'>
-    <text wx:if="{{desc}}">{{desc}}\n</text>
-    <text wx:if="{{author}}"> 编辑人：{{author}} </text>
-    <text wx:if="{{time}}"> 最后编辑于{{time}} </text>
-    <text wx:if="{{time||author}}">\n</text>Copyright © 2017-2018 HopeStudio
-  </view>
+  <template is='foot' data="{{desc,author,time}}" />
 </template>
 
 <template name='iOSerror'>
@@ -366,34 +383,15 @@
 </template>
 
 <template name='Androiddoc'>
-  <button id="{{id}}" class='docCtn' catchtap='cA' data-url="{{url}}" data-action='doc'>
-    <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
-    <view class='docname docAccess'>{{docName}}.{{docType}}</view>
-  </button>
+  <template is='doc' data="{{id,url,docName,docType}}" />
 </template>
 
 <template name="Androidphone">
-  <view class='phoneCtn' id='{{id}}' catchtap='cA' data-num="{{num}}" data-fName="{{fName}}" data-lName="{{lName}}" data-org="{{org}}" data-workNum="{{workNum}}" data-remark="{{remark}}" data-action='phone'>
-    <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
-    <view class='phoneNum'>{{num}}</view>
-    <view class='phoneCallCtn' hover-class='buttonHover'>
-      <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
-    </view>
-    <view class='phoneAddCtn' hover-class='buttonHover'>
-      <image class='phoneAdd' mode='widthFix' src='/icon/add.svg' data-type="add" />
-    </view>
-  </view>
+  <template is='phone' data="{{id,num}}" />
 </template>
 
 <template name='Androidgrid'>
-  <view class='gridHead'>{{head}}</view>
-  <view class='gridCtn'>
-    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
-      <image class='gridIcon' src="{{List.icon}}" />
-      <view class='gridTitle'>{{List.text}}</view>
-    </navigator>
-  </view>
-  <view class='gridFoot'>{{foot}}</view>
+  <template is='grid' data="{{head,content,foot}}" />
 </template>
 
 <template name='Androidswiper'>
@@ -407,13 +405,7 @@
 </template>
 
 <template name='Androidfoot'>
-  <view class='Footer'>
-    <text wx:if="{{desc}}">{{desc}}\n</text>
-    <text wx:if="{{author}}"> 编辑人：{{author}} </text>
-    <text wx:if="{{time}}"> 最后编辑于{{time}} </text>
-    <text wx:if="{{time||author}}">\n</text>
-    <text>Copyright © 2017-2018 HopeStudio</text>
-  </view>
+  <template is='foot' data="{{desc,author,time}}" />
 </template>
 
 <template name='Androiderror'>
@@ -569,34 +561,15 @@
 </template>
 
 <template name='NENUdoc'>
-  <button id="{{id}}" class='docCtn' hover-class="buttonHover" catchtap='cA' data-url="{{url}}" data-action='doc'>
-    <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
-    <view class='docname docAccess'>{{docName}}.{{docType}}</view>
-  </button>
+  <template is='doc' data="{{id,url,docName,docType}}" />
 </template>
 
 <template name="NENUphone">
-  <view class='phoneCtn' id='{{id}}' catchtap='cA' data-num="{{num}}" data-fName="{{fName}}" data-lName="{{lName}}" data-org="{{org}}" data-workNum="{{workNum}}" data-remark="{{remark}}" data-action='phone'>
-    <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
-    <view class='phoneNum'>{{num}}</view>
-    <view class='phoneCallCtn' hover-class='buttonHover'>
-      <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
-    </view>
-    <view class='phoneAddCtn' hover-class='buttonHover'>
-      <image class='phoneAdd' mode='widthFix' src='/icon/add.svg' data-type="add" />
-    </view>
-  </view>
+  <template is='phone' data="{{id,num}}" />
 </template>
 
 <template name='NENUgrid'>
-  <view wx:if="{{head!==false}}" class='gridHead'>{{head}}</view>
-  <view class='gridCtn'>
-    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
-      <image class='gridIcon' src="{{List.icon}}" />
-      <view class='gridTitle'>{{List.text}}</view>
-    </navigator>
-  </view>
-  <view wx:if="{{foot}}" class='gridFoot'>{{foot}}</view>
+  <template is='grid' data="{{head,content,foot}}" />
 </template>
 
 <template name='NENUswiper'>
@@ -610,13 +583,7 @@
 </template>
 
 <template name='NENUfoot'>
-  <view class='Footer'>
-    <text wx:if="{{desc}}">{{desc}}\n</text>
-    <text wx:if="{{author}}"> 编辑人：{{author}} </text>
-    <text wx:if="{{time}}"> 最后编辑于{{time}} </text>
-    <text wx:if="{{time||author}}">\n</text>
-    <text>Copyright © 2017-2018 HopeStudio</text>
-  </view>
+  <template is='foot' data="{{desc,author,time}}" />
 </template>
 
 <template name='NENUerror'>
