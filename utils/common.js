@@ -5,7 +5,8 @@ module.exports = {
   preloadPage,
   getContent,
   componentAction,
-  setBgcolor
+  setBgcolor,
+  loadFont
 }
 
 
@@ -361,6 +362,7 @@ function popNotice(aim) {
 
 // 设置界面
 function setPage(page, indicator, a, e) {
+  loadFont(a.T);
   let pageData = setPageData(page, a, e)
   indicator.setData({
     T: a.T,
@@ -402,6 +404,7 @@ function preloadPage(page, a) {
 
 // 显示界面
 function showPage(indicator, a, e) {
+  loadFont(a.T);
   let page = wx.getStorageSync(e.aim + 'Temp');
   if (page) {
     if (e.share) {
@@ -519,5 +522,25 @@ function setBgcolor(a, grey) {
           backgroundColorBottom: '#fff',
         });
     }
+  }
+}
+
+function loadFont(theme) {
+  if (theme == 'Android') {
+    wx.loadFontFace({
+			family: 'FZKTJW',
+			source: 'url("https://mrhope.top/ttf/FZKTJW.ttf")',
+			complete(res) {
+				console.log('楷体字体' + res.status); //调试
+      }
+    });
+  } else if (theme == "NENU") {
+    wx.loadFontFace({
+			family: 'FZSSJW',
+			source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+      complete(res) {
+				console.log('宋体字体' + res.status); //调试
+      }
+    });
   }
 }

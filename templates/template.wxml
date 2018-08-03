@@ -58,7 +58,9 @@
       <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="listCtn">
         <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
         <view wx:if="{{List.display!==false}}" class='list-Container'>
-          <view class='LinkText'>{{List.text}}</view>
+          <view class='LinkText'>
+            <text selectable='true' space='emsp' decode='true'>{{List.text}}</text>
+          </view>
           <view class="linkDesciption">{{List.desc}}
             <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" data-id="{{List.id}}" data-action='switch' />
           </view>
@@ -308,10 +310,10 @@
     <view class='NENU-navText'>{{title}}</view>
   </view>
   <view wx:else class='NENUnav2' style='background-color:{{color}};height:{{statusBarHeight}}px;'>
-    <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+    <view class='backBtn' style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
       <image class='backIcon' src='/icon/back.svg' />
     </view>
-    <view class="NENUTitle {{titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{statusBarHeight+5.5}}px;'>{{title}}</view>
+    <view class="NENUTitle {{titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{statusBarHeight+5}}px;'>{{title}}</view>
   </view>
   <view style="width:100%;background-color:{{color}};height:{{action?statusBarHeight+40:statusBarHeight}}px;margin-bottom:{{action?'0px':'50px'}};"></view>
 </template>

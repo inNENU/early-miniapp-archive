@@ -1,5 +1,5 @@
 <import src="/templates/template" />
-<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+<view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <view class="backBtn {{page[0].titleDisplay?'fadeOut':'fadeIn'}}" style="top:{{page[0].statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
     <image class='backIcon' src='/icon/back.svg' />
   </view>
@@ -10,5 +10,5 @@
     </button>
     <view class='NENU-navText'>{{page[0].title}}</view>
   </view>
-  <template wx:for="{{page}}" wx:key is="{{T}}{{item.tag}}" data="{{...item}}" />
+  <template is="all2" data="{{page,T}}" />
 </view>

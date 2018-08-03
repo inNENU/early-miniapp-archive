@@ -8,11 +8,13 @@ App({
     endTime: "5-0",
   },
   onLaunch() {
+		
     app.checkDebug();
     this.globalData.T = app.setTheme(this.data.theme);
     this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info); //调试
+		this.common.loadFont(this.globalData.T);
     // worker.postMessage({
     //   msg: 'hello worker'
     // })//test
@@ -26,15 +28,15 @@ App({
   onError: function(msg) {
     console.warn('error msg is'), console.warn(msg) //调试
   },
-  globalData: {
-    Version: 'V 0.8.6',
-    imgMode: "widthFix"
-  },
   onPageNotFound(msg) {
     console.warn('Page not found!'), console.warn(msg); //调试
     wx.switchTab({
       url: 'pages/main'
     })
+  },
+  globalData: {
+    Version: 'V 0.8.8',
+    imgMode: "widthFix"
   },
   util: require('utils/util'),
   watcher: require('utils/watcher'),

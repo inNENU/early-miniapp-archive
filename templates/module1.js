@@ -28,5 +28,5 @@ Page({
     wx.switchTab({
       url: '/pages/guide'
     })
-  },
+  }
 })

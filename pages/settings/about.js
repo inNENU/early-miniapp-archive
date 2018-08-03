@@ -54,7 +54,7 @@ Page({
       tag: 'list',
       head: '小程序开发历程',
       content: [{
-        text: '&emsp;&emsp;Mr.Hope希望服务于东师学子，故Mr.Hope自2017年以来，利用自己的业余时间。不断开发小程序。但由于Mr.Hope专业是物理学，在小程序开发的过程中Mr.Hope需要学习大量的相关知识，所以从开发至小程序发布，时间已经过去了一年了，小程序才刚刚达到可以发布的程度。还请大家见谅。Mr.Hope会在接下来的时间里，努力完善小程序的。'
+        text: '  Mr.Hope希望服务于东师学子，故Mr.Hope自2017年以来，利用自己的业余时间。不断开发小程序。但由于Mr.Hope专业是物理学，在小程序开发的过程中Mr.Hope需要学习大量的相关知识，所以从开发至小程序发布，时间已经过去了一年了，小程序才刚刚达到可以发布的程度。还请大家见谅。Mr.Hope会在接下来的时间里，努力完善小程序的。'
       }, {
         text: '问题反馈：QQ1178522294'
       }]
@@ -78,6 +78,15 @@ Page({
     c.setPage(p, this, a, e);
   },
   onReady() {
+    let that = this;
+    wx.request({
+      url: 'https://mrhope.top/mp/main/about.json',
+      success(res) {
+        if (res.statusCode == 200) {
+          c.setPage(arrayObject.concat(that.data.page.slice(0, 2), res.data, that.data.page.slice(-1)), that, a);
+        }
+      }
+    });
     c.preloadPage(this.data.page, a);
   },
   onPageScroll(e) {

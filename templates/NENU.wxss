@@ -5,6 +5,15 @@
   min-height: 100%;
   color: #000;
   background-color: #fff;
+  font-family: FZSSJW,
+                 -apple-system-font,
+                 "PingFang SC",
+                 "Helvetica Neue",
+                 Helvetica,
+                 STHeiti,
+                 Tahoma,
+                 Simsun,
+                 sans-serif !important;
 }
 
 .NENU.grey {

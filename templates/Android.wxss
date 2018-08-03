@@ -5,6 +5,15 @@
   min-height: 100%;
   text-align: center;
   background-color: #f8f8f8;
+  font-family: FZKTJW,
+                 -apple-system-font,
+                 "PingFang SC",
+                 "Helvetica Neue",
+                 Helvetica,
+                 STHeiti,
+                 Tahoma,
+                 Simsun,
+                 sans-serif !important;
 }
 
 .nm.Android {
@@ -144,7 +153,7 @@
   padding: 0 15px;
   color: #999;
   font-size: 14px;
-	font-weight: 400;
+  font-weight: 400;
   min-height: 10px;
 }
 
@@ -164,10 +173,10 @@
   border-top: 1rpx #cac9ce solid;
   border-bottom: 1rpx #cac9ce solid;
   background-color: #fefefe;
-	display: -webkit-flex;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .grey.nm .AndroidP {
