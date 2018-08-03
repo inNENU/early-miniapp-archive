@@ -315,7 +315,7 @@
     </view>
     <view class="NENUTitle {{titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{statusBarHeight+5}}px;'>{{title}}</view>
   </view>
-  <view style="width:100%;background-color:{{color}};height:{{action?statusBarHeight+40:statusBarHeight}}px;margin-bottom:{{action?'0px':'50px'}};"></view>
+  <view style="width:100%;height:{{action?statusBarHeight+40:statusBarHeight}}px;margin-bottom:{{action?'0px':'50px'}};"></view>
 </template>
 
 <template name='NENUimg'>

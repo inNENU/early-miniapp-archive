@@ -17,7 +17,7 @@
 }
 
 .NENU.grey {
-  background-color: #f8f8f8;
+  background-color: #f0f0f0;
 }
 
 .nm.NENU {
@@ -48,6 +48,10 @@
   padding: 2px 0;
   border-bottom: 1rpx solid #efeef4;
   justify-content: flex-start;
+}
+
+.nm .NENUnav {
+  border-color: #10110b;
 }
 
 .NENU-navText {
@@ -122,6 +126,7 @@
 }
 
 .grey.nm .NENUP {
+  background-color: #010101;
   border-color: #353631;
 }
 

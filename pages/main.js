@@ -14,8 +14,16 @@ Page({
       grey: true,
     }, {
       tag: 'list',
+      head: '报到当天',
       content: [{
-				text: '我的学院在哪里？我的寝室在哪里？'
+        text: '报到的流程'
+      }, {
+        text: '我的寝室在哪'
+      }]
+    }, {
+      tag: 'list',
+      content: [{
+        text: '我的学院在哪里？我的寝室在哪里？'
       }, {
         text: '查看详情',
         url: '/function/map'
@@ -28,11 +36,7 @@ Page({
         text: '查看详情',
         aim: 'dorm'
       }]
-    }, {
-      tag: 'foot',
-      author: 'Mr.Hope',
-      time: '2018/7/31'
-    }, ],
+    }],
   },
   onLoad() {
     c.setPage(this.data.page, this, a);

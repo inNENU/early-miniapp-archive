@@ -451,9 +451,9 @@ function setBgcolor(a, grey) {
     switch (a.T) {
       case 'Andriod':
         wx.setBackgroundColor({
-          backgroundColor: '#070707',
-          backgroundColorTop: '#070707',
-          backgroundColorBottom: '#070707'
+          backgroundColor: '#10110b',
+          backgroundColorTop: '#10110b',
+          backgroundColorBottom: '#10110b'
         });
         break;
       case 'iOS':
@@ -465,9 +465,9 @@ function setBgcolor(a, grey) {
         break;
       case 'NENU':
         wx.setBackgroundColor({
-          backgroundColor: '#10110b',
-          backgroundColorTop: '#10110b',
-          backgroundColorBottom: '#10110b'
+          backgroundColor: '#070707',
+          backgroundColorTop: '#070707',
+          backgroundColorBottom: '#070707'
         });
     }
   } else if (a.nm && !grey) {
@@ -498,7 +498,16 @@ function setBgcolor(a, grey) {
         break;
       case 'NENU':
         wx.setBackgroundColor({
-          backgroundColorTop: '#efeef4',
+					backgroundColorTop: '#f0f0f0',
+					backgroundColor: '#f0f0f0',
+					backgroundColorBottom: '#f0f0f0'
+        });
+        break;
+      case 'iOS':
+        wx.setBackgroundColor({
+          backgroundColorTop: '#f4f4f4',
+					backgroundColor: '#efeef4',
+					backgroundColorBottom: '#efeef4'
         });
     }
   } else {
@@ -519,6 +528,8 @@ function setBgcolor(a, grey) {
         break;
       case 'iOS':
         wx.setBackgroundColor({
+					backgroundColorTop: '#f4f4f4',
+					backgroundColor: '#fff',
           backgroundColorBottom: '#fff',
         });
     }
@@ -528,18 +539,18 @@ function setBgcolor(a, grey) {
 function loadFont(theme) {
   if (theme == 'Android') {
     wx.loadFontFace({
-			family: 'FZKTJW',
-			source: 'url("https://mrhope.top/ttf/FZKTJW.ttf")',
-			complete(res) {
-				console.log('楷体字体' + res.status); //调试
+      family: 'FZKTJW',
+      source: 'url("https://mrhope.top/ttf/FZKTJW.ttf")',
+      complete(res) {
+        console.log('楷体字体' + res.status); //调试
       }
     });
   } else if (theme == "NENU") {
     wx.loadFontFace({
-			family: 'FZSSJW',
-			source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+      family: 'FZSSJW',
+      source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
       complete(res) {
-				console.log('宋体字体' + res.status); //调试
+        console.log('宋体字体' + res.status); //调试
       }
     });
   }
