@@ -35,7 +35,7 @@ App({
     })
   },
   globalData: {
-    Version: 'V 0.8.8',
+    Version: 'V 0.9.0',
     imgMode: "widthFix"
   },
   util: require('utils/util'),
