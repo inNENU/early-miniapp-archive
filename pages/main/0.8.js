@@ -28,6 +28,14 @@ Page({
       tag: 'p',
       head: 'V0.8.4',
       text: '界面渲染速度进一步提高；\n初步构建播放器界面；\n改进template；'
+    }, {
+      tag: 'p',
+      head: 'V0.8.5',
+      text: 'template进一步压缩；\n主题wxss优化压缩；'
+    }, {
+      tag: 'p',
+      head: 'V0.8.6',
+      text: '优化NENU主题；\n改进页脚；'
     }],
   },
   onLoad(e) {

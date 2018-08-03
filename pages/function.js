@@ -10,6 +10,7 @@ Page({
       tag: 'head',
       title: '功能大厅',
       action: true,
+      grey: true
     }, {
       tag: 'grid',
       head: '',
@@ -50,10 +51,6 @@ Page({
         icon: '/icon/PECal.svg',
         url: 'main/building'
       }, {
-        text: '四六级',
-        icon: '/icon/CET.svg',
-        url: 'main/building'
-      }, {
         text: '绩点计算',
         icon: '/icon/scoreCal.svg',
         url: 'main/building'
@@ -82,18 +79,17 @@ Page({
       nm: a.nm
     })
   },
-  // onReady() {
-  //   tab.markerSet();
-  //   let that = this;
-  //   wx.request({
-  //     url: 'https://mrhope.top/mp/main/function.json',
-  //     success(res) {
-  //       if (res.statusCode == 200) {
-  //         c.setPage(res.data, that, a);
-  //       }
-  //     }
-  //   })
-  // },
+  onReady() {
+    let that = this;
+    wx.request({
+      url: 'https://mrhope.top/mp/main/function.json',
+      success(res) {
+        if (res.statusCode == 200) {
+          c.setPage(res.data, that, a);
+        }
+      }
+    })
+  },
   onPageScroll(e) {
     c.nav(e, this)
   },

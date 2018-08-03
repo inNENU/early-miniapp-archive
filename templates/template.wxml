@@ -6,47 +6,91 @@
     </view>
   </block>
   <block wx:else>
-    <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-      <template wx:if="{{T}}" wx:for="{{page}}" wx:key="id" is="{{T+item.tag}}" data="{{...item}}" />
+    <view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+      <template wx:for="{{page}}" wx:key="id" is="{{item.tag}}" data="{{...item,T}}" />
     </view>
   </block>
 </template>
 
 <template name="all2">
-  <template wx:if="{{T}}" wx:for="{{page}}" wx:key="id" is="{{T+item.tag}}" data="{{...item}}" />
-</template>
-
-<!-- loading -->
-<template name="iOSLoading">
-  <view class='iOS-navigationBar' style="padding-top:{{statusBarHeight}}px;">
-    <view class="iOS-titletext">加载中...</view>
-  </view>
-  <view style='width:100%;height:100%;display:flex;justify-content:center;align-items:center;font-size:20px;'>
-    <text>加载中......</text>
-  </view>
-</template>
-
-<template name="AndroidLoading">
-  <view class="Android-navigationBar" style="padding-top:24px;">
-    <view class="Android-titletext">加载中...</view>
-  </view>
-  <view style='width:100%;height:100%;display:flex;justify-content:center;align-items:center;font-size:20px;'>
-    <text>加载中......</text>
-  </view>
-</template>
-
-<template name="NENULoading">
-  <view class='NENUnav2' style='background-color:#3cc51f;height:22px;'>
-    <view class='backBtn' style="top:27.5px;" hover-class='buttonHover'>
-      <image class='backIcon' src='/icon/back.svg' />
-    </view>
-  </view>
-  <view style='width:100%;height:100%;display:flex;justify-content:center;align-items:center;font-size:20px;'>
-    <text>加载中......</text>
-  </view>
+  <template wx:if="{{T}}" wx:for="{{page}}" wx:key="id" is="{{item.tag}}" data="{{...item,T}}" />
 </template>
 
 <!-- common template -->
+
+<template name='h3'>
+  <view class='{{T}}H3' style="{{style}}">{{text}}</view>
+</template>
+
+<template name='list'>
+  <view wx:if="{{head!==false}}" class='commonhead'>{{head}}</view>
+  <view class='Lctn'>
+    <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
+      <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
+        <view class='list-Container'>
+          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+          <view class='LinkText'>{{List.text}}</view>
+          <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
+        </view>
+      </navigator>
+      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+        data-id="{{List.id}}" data-action='picker' plain='true' disabled='{{List.disabled}}'>
+        <view class='list-Container'>
+          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+          <view class='LinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
+          <view wx:if='{{List.slider}}' class='linkDesciption'>{{List.value}}</view>
+          <view wx:elif='{{List.pickerValue}}' class='linkDesciption'>
+            <block wx:if="{{List.single}}">{{List.value}}</block>
+            <block wx:else>
+              <block wx:for="{{List.value}}" wx:key="*this">{{item}}</block>
+            </block>
+          </view>
+        </view>
+      </button>
+      <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}" data-action='picker'>
+        <view class='list-Container'>
+          <view class='LinkText'>{{List.text}}</view>
+          <view wx:if='{{List.pickerValue}}' class='linkDesciption'>
+            <block wx:for='{{List.value}}' wx:key="*this">{{item}}</block>
+          </view>
+        </view>
+      </picker>
+      <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="listCtn">
+        <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+        <view wx:if="{{List.display!==false}}" class='list-Container'>
+          <view class='LinkText'>{{List.text}}</view>
+          <view class="linkDesciption">{{List.desc}}
+            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" data-id="{{List.id}}" data-action='switch' />
+          </view>
+        </view>
+      </view>
+      <block wx:if='{{List.visible}}'>
+        <view class='link-divline'></view>
+        <view wx:if="{{List.slider}}" class='sliderCtn'>
+          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action='slider'
+          />
+        </view>
+        <picker-view wx:if="{{List.pickerValue}}" indicator-class='pickSelected' class='pickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker'>
+          <block wx:if="{{List.single}}">
+            <picker-view-column class='pick-view-column'>
+              <view wx:for='{{List.pickerValue}}' wx:key="*this" class='pickColumn'>{{item}}</view>
+            </picker-view-column>
+          </block>
+          <block wx:else>
+            <block wx:for='{{List.pickerValue}}' wx:key="*this">
+              <picker-view-column class='pick-view-column'>
+                <view wx:for="{{item}}" wx:key="*this" class='pickColumn'>{{item}}</view>
+              </picker-view-column>
+            </block>
+          </block>
+        </picker-view>
+      </block>
+      <view wx:if="{{List.display!==false}}" class="{{List.icon?'listIcon ':''}}link-divline"></view>
+    </block>
+  </view>
+  <view wx:if="{{foot!==false}}" class='commonfoot'>{{foot}}</view>
+</template>
+
 <template name='doc'>
   <button id="{{id}}" class='docCtn' hover-class="buttonHover" catchtap='cA' data-url="{{url}}" data-action='doc'>
     <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
@@ -78,8 +122,28 @@
   <view wx:if="{{foot}}" class='gridFoot'>{{foot}}</view>
 </template>
 
+<template name='swiper'>
+  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}" autoplay="{{autoplay==false?'':true}}"
+    interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}" next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}"
+    bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
+    <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
+      <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
+    </swiper-item>
+  </swiper>
+</template>
+
+<template name="audio">
+  <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
+</template>
+
 <template name='foot'>
   <view class='Footer'>
+    <view class='footerCtn'>
+      <view>行遍千山万水，归来仍是东师青年——\n</view>
+      <navigator class="footLogo rotate" openType="switchTab" url="/pages/main" hover-class="none">
+        <image style='width:100%;height:100%;' mode="{{imagemode}}" src="/image/logo.png" />
+      </navigator>
+    </view>
     <text wx:if="{{desc}}">{{desc}}\n</text>
     <text wx:if="{{author}}"> 编辑人：{{author}} </text>
     <text wx:if="{{time}}"> 最后编辑于{{time}} </text>
@@ -87,115 +151,43 @@
   </view>
 </template>
 
-<!-- iOS theme -->
-
-<template name="iOShead">
+<!-- different template -->
+<template name="head">
   <block wx:if="{{display!==false}}">
-    <view class='iOS-navigationBar' style="padding-top:{{statusBarHeight}}px;">
-      <view wx:if="{{titleDisplay}}" class="iOS-titletext">{{title}}</view>
-      <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
-        <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow'></view>
-        <text class='iOS-nav-text'>{{leftText}}</text>
-      </button>
-    </view>
-    <view wx:if="{{borderDisplay}}" class='iOSnavDl' style="top:{{statusBarHeight+44}}px;"></view>
-    <view class='iOS-navPlaceHolder' style="height:{{statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
-    <view class='iOS-head'>{{title}}</view>
+    <template is="{{T}}Head" data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight}}" />
   </block>
 </template>
 
-<template name='iOSh3'>
-  <view class='iOSH3' style="{{style}}">{{text}}</view>
-</template>
-
-<template name='iOSp'>
-  <view wx:if="{{head}}" class='iOShead'>{{head}}</view>
-  <view class='iOSP'>
+<template name='p'>
+  <view wx:if="{{head}}" class='{{T}}head'>{{head}}</view>
+  <view class='{{T}}P'>
     <text style="{{style}}" selectable='true' space='true' decode='true'>{{text}}</text>
     <block wx:if="{{src}}">
-      <view wx:if="{{error}}" class='iOSImgError'>
-        <icon type="warn" style='margin-right:5px;' />
-        <text>图片加载失败</text>
-      </view>
-      <view wx:elif="{{!load}}" class='iOSImgError'>
-        <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" />
-        <text>加载中...</text>
-      </view>
-      <view class='flexbox' style="{{load?'':'display: none;'}}">
-        <image id="{{id}}" class='iOSP-img' mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-      </view>
+      <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy}}" />
     </block>
   </view>
 </template>
 
-<template name='iOSlist'>
-  <view wx:if="{{head!==false}}" class='iOShead'>{{head}}</view>
-  <view class='iOSLctn'>
-    <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
-      <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
-        <view class='iOS-list-Container'>
-          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
-        </view>
-      </navigator>
-      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
-        data-id="{{List.id}}" data-action='picker' plain='true' open-type='{{List.openType}}' disabled='{{List.disabled}}'>
-        <view class='iOS-list-Container'>
-          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
-          <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
-          <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
-          <view wx:elif='{{List.pickerValue}}' class='iOS-linkDesciption'>
-            <block wx:if="{{List.single}}">{{List.value}}</block>
-            <block wx:else>
-              <block wx:for="{{List.value}}" wx:key="*this">{{item}}</block>
-            </block>
-          </view>
-        </view>
-      </button>
-      <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}"
-        data-action='picker'>
-        <view class='iOS-list-Container'>
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
-            <block wx:for='{{List.value}}' wx:key="*this">{{item}}</block>
-          </view>
-        </view>
-      </picker>
-      <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="iOS-listCtn">
-        <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
-        <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption">{{List.desc}}
-            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" data-id="{{List.id}}" data-action='switch' />
-          </view>
-        </view>
-      </view>
-      <block wx:if='{{List.visible}}'>
-        <view class='iOS-link-divline'></view>
-        <view wx:if="{{List.slider}}" class='iOSsliderCtn'>
-          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action='slider'
-          />
-        </view>
-        <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker'>
-          <block wx:if="{{List.single}}">
-            <picker-view-column class='iOSpick-view-column'>
-              <view wx:for='{{List.pickerValue}}' wx:key="*this" class='iOSpickColumn'>{{item}}</view>
-            </picker-view-column>
-          </block>
-          <block wx:else>
-            <block wx:for='{{List.pickerValue}}' wx:key="*this">
-              <picker-view-column class='iOSpick-view-column'>
-                <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
-              </picker-view-column>
-            </block>
-          </block>
-        </picker-view>
-      </block>
-      <view wx:if="{{List.display!==false}}" class="{{List.icon?'iOS-listIcon ':''}}iOS-link-divline"></view>
-    </block>
+<template name='img'>
+  <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy}}" />
+</template>
+
+<template name='error'>
+  <template is="{{T}}error" data="{{action,statusBarHeight}}" />
+</template>
+
+<!-- iOS theme -->
+<template name='iOSHead'>
+  <view class='iOS-navigationBar' style="padding-top:{{statusBarHeight}}px;">
+    <view wx:if="{{titleDisplay}}" class="iOS-titletext">{{title}}</view>
+    <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
+      <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow'></view>
+      <text class='iOS-nav-text'>{{leftText}}</text>
+    </button>
   </view>
-  <view wx:if="{{foot!==false}}" class='iOSfoot'>{{foot}}</view>
+  <view wx:if="{{borderDisplay}}" class='iOSnavDl' style="top:{{statusBarHeight+44}}px;"></view>
+  <view class='iOS-navPlaceHolder' style="height:{{statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
+  <view class='iOS-head'>{{title}}</view>
 </template>
 
 <template name='iOSimg'>
@@ -211,30 +203,13 @@
   <view wx:if="{{desc}}" class='iOSN'>▲{{desc}}</view>
 </template>
 
-<template name='iOSdoc'>
-  <template is='doc' data="{{id,url,docName,docType}}" />
-</template>
-
-<template name="iOSphone">
-  <template is='phone' data="{{id,num}}" />
-</template>
-
-<template name='iOSgrid'>
-  <template is='grid' data="{{head,content,foot}}" />
-</template>
-
-<template name='iOSswiper'>
-  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}" autoplay="{{autoplay==false?'':true}}"
-    interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}" next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}"
-    bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
-    <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
-      <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
-    </swiper-item>
-  </swiper>
-</template>
-
-<template name='iOSfoot'>
-  <template is='foot' data="{{desc,author,time}}" />
+<template name="iOSLoading">
+  <view class='iOS-navigationBar' style="padding-top:{{statusBarHeight}}px;">
+    <view class="iOS-titletext">加载中...</view>
+  </view>
+  <view style='width:100%;height:100%;display:flex;justify-content:center;align-items:center;font-size:20px;'>
+    <text>加载中......</text>
+  </view>
 </template>
 
 <template name='iOSerror'>
@@ -261,151 +236,43 @@
   </view>
 </template>
 
-<template name="iOSaudio">
-  <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
-</template>
-
 <!-- Android theme -->
 
-<template name="Androidhead">
-  <block wx:if="{{display!==false}}">
-    <view class="Android-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
-      <view class="Android-titletext">{{title}}</view>
-      <button wx:if="{{action!=true}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
-        <view wx:if="{{action==undefined||action=='redirect'}}" class='Android-backArrow'></view>
-        <view class='Android-leftText'>{{leftText}}</view>
-      </button>
-    </view>
-    <view class='Android-navPlaceHolder' style="height:{{statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
-    <view wx:if="{{desc||show}}" class="Android-head">
-      <view class="Android-title">{{title}}</view>
-      <view wx:if="{{desc}}" class="Android-desc">{{desc}}</view>
-    </view>
-  </block>
-</template>
-
-<template name='Androidh3'>
-  <view class='AndroidH3' style='{{style}}'>{{text}}</view>
-</template>
-
-<template name='Androidp'>
-  <view wx:if="{{head}}" class='Androidhead'>{{head}}</view>
-  <view class='AndroidP' style="{{style}}">
-    <text selectable='true' space='true' decode='true'>{{text}}</text>
+<template name="AndroidHead">
+  <view class="Android-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
+    <view class="Android-titletext">{{title}}</view>
+    <button wx:if="{{action!=true}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
+      <view wx:if="{{action==undefined||action=='redirect'}}" class='Android-backArrow'></view>
+      <view class='Android-leftText'>{{leftText}}</view>
+    </button>
   </view>
-  <image id="{{id}}" class='Android-img' style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-  <view wx:if="{{desc}}" class='AndroidN'>
-    <text>▲{{desc}}</text>
+  <view class='Android-navPlaceHolder' style="height:{{statusBarHeight+44}}px;">到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</view>
+  <view wx:if="{{desc||show}}" class="Android-head">
+    <view class="Android-title">{{title}}</view>
+    <view wx:if="{{desc}}" class="Android-desc">{{desc}}</view>
   </view>
-</template>
-
-<template name='Androidlist'>
-  <view wx:if="{{head!==false}}" class='Androidhead'>{{head}}</view>
-  <view class='iOSLctn'>
-    <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
-      <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
-        <view class='iOS-list-Container'>
-          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
-        </view>
-      </navigator>
-      <view wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
-        data-id="{{List.id}}" data-action='picker'>
-        <view class='iOS-list-Container'>
-          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
-          <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
-          <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
-          <view wx:elif='{{List.pickerValue}}' class='iOS-linkDesciption'>
-            <block wx:if="{{List.single}}">{{List.value}}</block>
-            <block wx:else>
-              <block wx:for="{{List.value}}" wx:key="*this">{{item}}</block>
-            </block>
-          </view>
-        </view>
-      </view>
-      <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}"
-        data-action='picker'>
-        <view class='iOS-list-Container'>
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
-            <block wx:for='{{List.value}}' wx:key="*this">{{item}}</block>
-          </view>
-        </view>
-      </picker>
-      <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="iOS-listCtn">
-        <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
-        <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption">{{List.desc}}
-            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" data-id="{{List.id}}" data-action='switch' />
-          </view>
-        </view>
-      </view>
-      <block wx:if='{{List.visible}}'>
-        <view class='iOS-link-divline'></view>
-        <view wx:if="{{List.slider}}" class='iOSsliderCtn'>
-          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action='slider'
-          />
-        </view>
-        <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker'>
-          <block wx:if="{{List.single}}">
-            <picker-view-column class='iOSpick-view-column'>
-              <view wx:for='{{List.pickerValue}}' wx:key="*this" class='iOSpickColumn'>{{item}}</view>
-            </picker-view-column>
-          </block>
-          <block wx:else>
-            <block wx:for='{{List.pickerValue}}' wx:key="*this">
-              <picker-view-column class='iOSpick-view-column'>
-                <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
-              </picker-view-column>
-            </block>
-          </block>
-        </picker-view>
-      </block>
-      <view wx:if="{{List.display!==false}}" class="{{List.icon?'iOS-listIcon ':''}}iOS-link-divline"></view>
-    </block>
-  </view>
-  <view wx:if="{{foot!==false}}" class='iOSfoot'>{{foot}}</view>
 </template>
 
 <template name='Androidimg'>
   <view wx:if="{{error}}" class='imgError'>
     <icon type="warn" style='margin-right:5px;' />
-    <text class='grey'>图片加载失败</text>
+    <text class='Grey'>图片加载失败</text>
   </view>
   <view wx:elif="{{!load}}" class='imgError'>
     <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" />
-    <text class='grey'>加载中...</text>
+    <text class='Grey'>加载中...</text>
   </view>
   <image id="{{id}}" class='Android-img' style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
   <view wx:if="{{desc}}" class='AndroidN'>▲{{desc}}</view>
 </template>
 
-<template name='Androiddoc'>
-  <template is='doc' data="{{id,url,docName,docType}}" />
-</template>
-
-<template name="Androidphone">
-  <template is='phone' data="{{id,num}}" />
-</template>
-
-<template name='Androidgrid'>
-  <template is='grid' data="{{head,content,foot}}" />
-</template>
-
-<template name='Androidswiper'>
-  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}" autoplay="{{autoplay==false?'':true}}"
-    interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}" next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}"
-    bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
-    <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
-      <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
-    </swiper-item>
-  </swiper>
-</template>
-
-<template name='Androidfoot'>
-  <template is='foot' data="{{desc,author,time}}" />
+<template name="AndroidLoading">
+  <view class="Android-navigationBar" style="padding-top:24px;">
+    <view class="Android-titletext">加载中...</view>
+  </view>
+  <view style='width:100%;height:100%;display:flex;justify-content:center;align-items:center;font-size:20px;'>
+    <text>加载中......</text>
+  </view>
 </template>
 
 <template name='Androiderror'>
@@ -430,121 +297,23 @@
   </view>
 </template>
 
-<template name="Androidaudio">
-  <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
-</template>
-
 <!-- NENU theme -->
 
-<template name='NENUhead'>
-  <block wx:if="{{display!=false}}">
-    <view wx:if="{{action}}" class='NENUnav' style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
-      <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
-        <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
-        <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
-      </button>
-      <view class='NENU-navText'>{{title}}</view>
-    </view>
-    <view wx:else class='NENUnav2' style='background-color:{{color}};height:{{statusBarHeight}}px;'>
-      <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
-        <image class='backIcon' src='/icon/back.svg' />
-      </view>
-      <view class="NENUTitle {{titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{statusBarHeight+5.5}}px;'>{{title}}</view>
-    </view>
-    <view style="width:100%;background-color:{{color}};height:{{action?statusBarHeight+40:statusBarHeight}}px;margin-bottom:{{action?'0px':'50px'}};"></view>
-  </block>
-</template>
-
-<template name='NENUh3'>
-  <view class='NENUH3' style="{{style}}">{{text}}</view>
-</template>
-
-<template name='NENUp'>
-  <view wx:if="{{head}}" class='iOShead'>{{head}}</view>
-  <view class='NENUP'>
-    <text style='{{style}}' selectable='true' space='true' decode='true'>{{text}}</text>
-    <view wx:if="{{src&&error}}" class='iOSImgError'>
-      <icon type="warn" style='margin-right:5px;' />
-      <text class='grey'>图片加载失败</text>
-    </view>
-    <view wx:elif="{{src&&!load}}" class='iOSImgError'>
-      <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" />
-      <text class='grey'>加载中...</text>
-    </view>
-    <view class='flexbox' style="{{load?'':'display: none;'}}">
-      <image id="{{id}}" class='iOSP-img' mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
-    </view>
+<template name='NENUHead'>
+  <view wx:if="{{action}}" class='NENUnav' style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
+    <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
+      <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
+      <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
+    </button>
+    <view class='NENU-navText'>{{title}}</view>
   </view>
-</template>
-
-<template name='NENUlist'>
-  <view wx:if="{{head!==false}}" class='iOShead'>{{head}}</view>
-  <view class='iOSLctn'>
-    <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
-      <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="iOS-listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
-        <view class='iOS-list-Container'>
-          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption {{List.url?'iOSaccess':''}}">{{List.desc}}</view>
-        </view>
-      </navigator>
-      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="iOS-listCtn" hover-class="buttonHover" catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
-        data-id="{{List.id}}" data-action='picker' plain='true' open-type='{{List.open-type}}' disabled='{{List.disabled}}'>
-        <view class='iOS-list-Container'>
-          <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
-          <view class='iOSLinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
-          <view wx:if='{{List.slider}}' class='iOS-linkDesciption'>{{List.value}}</view>
-          <view wx:elif='{{List.pickerValue}}' class='iOS-linkDesciption'>
-            <block wx:if="{{List.single}}">{{List.value}}</block>
-            <block wx:else>
-              <block wx:for="{{List.value}}" wx:key="*this">{{item}}</block>
-            </block>
-          </view>
-        </view>
-      </button>
-      <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='iOS-listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}"
-        data-action='picker'>
-        <view class='iOS-list-Container'>
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view wx:if='{{List.pickerValue}}' class='iOS-linkDesciption'>
-            <block wx:for='{{List.value}}' wx:key="*this">{{item}}</block>
-          </view>
-        </view>
-      </picker>
-      <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="iOS-listCtn">
-        <image wx:if="{{List.icon}}" class='iOS-listIcon' src='{{List.icon}}' data-icon='true' />
-        <view wx:if="{{List.display!==false}}" class='iOS-list-Container'>
-          <view class='iOSLinkText'>{{List.text}}</view>
-          <view class="iOS-linkDesciption">{{List.desc}}
-            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" data-id="{{List.id}}" data-action='switch' />
-          </view>
-        </view>
-      </view>
-      <block wx:if='{{List.visible}}'>
-        <view class='iOS-link-divline'></view>
-        <view wx:if="{{List.slider}}" class='iOSsliderCtn'>
-          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action='slider'
-          />
-        </view>
-        <picker-view wx:if="{{List.pickerValue}}" indicator-class='iOSpickSelected' class='iOSpickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker'>
-          <block wx:if="{{List.single}}">
-            <picker-view-column class='iOSpick-view-column'>
-              <view wx:for='{{List.pickerValue}}' wx:key="*this" class='iOSpickColumn'>{{item}}</view>
-            </picker-view-column>
-          </block>
-          <block wx:else>
-            <block wx:for='{{List.pickerValue}}' wx:key="*this">
-              <picker-view-column class='iOSpick-view-column'>
-                <view wx:for="{{item}}" wx:key="*this" class='iOSpickColumn'>{{item}}</view>
-              </picker-view-column>
-            </block>
-          </block>
-        </picker-view>
-      </block>
-      <view wx:if="{{List.display!==false}}" class="{{List.icon?'iOS-listIcon ':''}}iOS-link-divline"></view>
-    </block>
+  <view wx:else class='NENUnav2' style='background-color:{{color}};height:{{statusBarHeight}}px;'>
+    <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+      <image class='backIcon' src='/icon/back.svg' />
+    </view>
+    <view class="NENUTitle {{titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{statusBarHeight+5.5}}px;'>{{title}}</view>
   </view>
-  <view wx:if="{{foot!==false}}" class='iOSfoot'>{{foot}}</view>
+  <view style="width:100%;background-color:{{color}};height:{{action?statusBarHeight+40:statusBarHeight}}px;margin-bottom:{{action?'0px':'50px'}};"></view>
 </template>
 
 <template name='NENUimg'>
@@ -560,30 +329,15 @@
   <view wx:if="{{desc}}" class='iOSN'>▲{{desc}}</view>
 </template>
 
-<template name='NENUdoc'>
-  <template is='doc' data="{{id,url,docName,docType}}" />
-</template>
-
-<template name="NENUphone">
-  <template is='phone' data="{{id,num}}" />
-</template>
-
-<template name='NENUgrid'>
-  <template is='grid' data="{{head,content,foot}}" />
-</template>
-
-<template name='NENUswiper'>
-  <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}" autoplay="{{autoplay==false?'':true}}"
-    interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}" next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}"
-    bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
-    <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
-      <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
-    </swiper-item>
-  </swiper>
-</template>
-
-<template name='NENUfoot'>
-  <template is='foot' data="{{desc,author,time}}" />
+<template name="NENULoading">
+  <view class='NENUnav2' style='background-color:#3cc51f;height:22px;'>
+    <view class='backBtn' style="top:27.5px;" hover-class='buttonHover'>
+      <image class='backIcon' src='/icon/back.svg' />
+    </view>
+  </view>
+  <view style='width:100%;height:100%;display:flex;justify-content:center;align-items:center;font-size:20px;'>
+    <text>加载中......</text>
+  </view>
 </template>
 
 <template name='NENUerror'>
@@ -618,8 +372,4 @@
       </view>
     </view>
   </view>
-</template>
-
-<template name="NENUaudio">
-  <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
 </template>

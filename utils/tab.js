@@ -251,17 +251,31 @@ function initMarker(markers) {
 }
 
 function markerSet() {
-  try {
-    let data = wx.getStorageSync('marker'),
-      markerVersion = JSON.parse(wx.getStorageSync('localFunc')).marker[1],
-      currentVersion = wx.getStorageSync('markerVersion');
-    if (data && markerVersion != currentVersion) {
+  let data = wx.getStorageSync('marker'),
+    markerVersion = JSON.parse(wx.getStorageSync('localFunc')).marker[1],
+    currentVersion = wx.getStorageSync('markerVersion');
+  if (!data) {
+    wx.request({
+      url: 'https://mrhope.top/mp/marker/marker.json',
+      success(res) {
+        if (res.statusCode == 200) {
+          wx.setStorageSync('marker', res.data), data = res.data;
+          if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
+            try {
+              wx.setStorageSync('markerVersion', markerVersion)
+            } catch (msg) {
+              console.warn(msg)
+            }
+          }
+        }
+      }
+    })
+  } else {
+    if (markerVersion != currentVersion) {
       if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
         wx.setStorageSync('markerVersion', markerVersion)
       }
     }
-  } catch (msg) {
-    console.warn(msg)
   }
 }
 

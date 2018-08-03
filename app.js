@@ -27,7 +27,7 @@ App({
     console.warn('error msg is'), console.warn(msg) //调试
   },
   globalData: {
-    Version: 'V 0.8.4',
+    Version: 'V 0.8.6',
     imgMode: "widthFix"
   },
   onPageNotFound(msg) {

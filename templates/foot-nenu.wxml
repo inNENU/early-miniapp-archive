@@ -1,7 +1,0 @@
-<view class='footer-container fix-bottom'>
-  <navigator openType="switchTab" url="/pages/main/main" hover-class="none">
-    <image class="foot-logo" mode="{{imagemode}}" src="/image/logo.png" />
-    <text>行遍千山万水，归来仍是东师青年——\n</text>
-  </navigator>
-</view>
-<view class='footerPlaceHolder'></view>

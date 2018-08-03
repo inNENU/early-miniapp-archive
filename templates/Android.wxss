@@ -4,9 +4,6 @@
   width: 100%;
   min-height: 100%;
   text-align: center;
-}
-
-.Android, .Androidgrey {
   background-color: #f8f8f8;
 }
 
@@ -15,8 +12,8 @@
   color: #fff;
 }
 
-.nm.Androidgrey {
-  background-color: #070707;
+.nm.Android.grey {
+  background-color: #10110b;
   color: #fff;
 }
 
@@ -46,14 +43,18 @@
 }
 
 .Android-navPlaceHolder {
-  height: 69px;
   position: relative;
+  height: 69px;
   font-size: 16rpx;
   color: #d9d9d9;
 }
 
 .nm .Android-navigationBar, .nm .Android-navPlaceHolder {
-  background-color: #070707;
+  background-color: #000;
+}
+
+.grey.nm .Android-navigationBar, .grey.nm .Android-navPlaceHolder {
+  background-color: #10110b;
 }
 
 .Android-titletext {
@@ -62,26 +63,21 @@
   font-size: 17px;
   font-weight: 500;
   line-height: 1;
-  text-align: center;
   z-index: 100;
 }
 
-.nm .Android-titletext {
-  color: white;
-}
-
 .Android-navBack {
+  position: relative;
   min-width: 0 !important;
   min-height: 0 !important;
-  padding: 8px 5px !important;
-  border: none !important;
-  background-color: rgba(0, 0, 0, 0) !important;
-  margin: 0 3%;
-  line-height: 2.4;
-  position: relative;
   display: -webkit-flex;
   display: flex;
   align-items: center;
+  margin: 0 3%;
+  padding: 8px 5px !important;
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  line-height: 2.4;
   z-index: 101;
 }
 
@@ -104,25 +100,17 @@
 }
 
 .nm .Android-leftText {
-  color: #fff;
+  color: #cacaca;
 }
 
 .Android-head {
   padding: 25px 40px;
 }
 
-.nm .Android-head {
-  color: white;
-}
-
 .Android-title {
   text-align: left;
   font-size: 20px;
   font-weight: 400;
-}
-
-.nm .Android-title {
-  color: white;
 }
 
 .Android-desc {
@@ -136,7 +124,22 @@
   color: #777;
 }
 
-.Androidgrey .Androidhead {
+.AndroidH3 {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0.66em 5% 0.34em 5%;
+}
+
+.Androidhead {
+  text-align: left;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0.33em 25px 0.17em 25px;
+}
+
+.grey .Androidhead {
   text-align: left;
   margin: 0.77em 0 0.3em 0;
   padding: 0 15px;
@@ -145,49 +148,17 @@
   min-height: 10px;
 }
 
-.Androidgrey.nm .Androidhead {
+.grey.nm .Androidhead {
   color: #666;
 }
 
-.AndroidH3 {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.6;
-  margin: 0.66em 5% 0.34em 5%;
-}
-
-.Android .Androidhead {
-  text-align: left;
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 1.6;
-  margin: 0.33em 25px 0.17em 25px;
-}
-
-.Android.nm .Androidhead {
-  color: #fff;
-}
-
-.nm .AndroidH3 {
-  color: #fff;
-}
-
 .AndroidP {
-  text-align: left;
-  background-color: #f8f8f8;
-}
-
-.nm .AndroidP {
-  color: white;
-  background-color: #070707;
-}
-
-.Android .AndroidP {
   font-size: 14px;
   padding: 2px 20px;
+  text-align: left;
 }
 
-.Androidgrey .AndroidP {
+.grey .AndroidP {
   font-size: 17px;
   padding: 10px 15px;
   border-top: 1rpx #cac9ce solid;
@@ -195,17 +166,17 @@
   background-color: #fefefe;
 }
 
-.Androidgrey.nm .AndroidP {
+.grey.nm .AndroidP {
   border-color: #353631;
   background-color: #000;
 }
 
 .Android-img {
-  margin: 24rpx 50rpx;
-  width: 650rpx;
+  margin: 24rpx 8%;
+  width: 84%;
   font-weight: 500;
   border: 5px solid #fff;
-  box-shadow: 0px 2px 5px 2px #888;
+  box-shadow: 0px 2px 5px 2px rgba(95, 95, 95, 0.5);
 }
 
 .Android-img +.Android-img {
@@ -213,8 +184,8 @@
 }
 
 .nm .Android-img {
-  border-color: #ccc;
-  box-shadow: 0px 2px 5px 2px #777;
+  border-color: #070707;
+  box-shadow: 0px 2px 5px 2px rgba(143, 143, 143, 0.5);
 }
 
 .AndroidN {
@@ -229,4 +200,8 @@
 
 .Android-img+.AndroidN {
   margin-top: -12px;
+}
+
+.Android .phoneCtn, .Android.docCtn {
+  background-color: #fefefe;
 }

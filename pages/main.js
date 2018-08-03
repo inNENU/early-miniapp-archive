@@ -15,7 +15,7 @@ Page({
     }, {
       tag: 'list',
       content: [{
-        text: '找不到自己的的学院和寝室？'
+				text: '我的学院在哪里？我的寝室在哪里？'
       }, {
         text: '查看详情',
         url: '/function/map'
