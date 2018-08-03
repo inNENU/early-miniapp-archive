@@ -7,32 +7,30 @@ Page({
     T: a.T,
     nm: a.nm,
     page: [{
-        tag: 'head',
-        title: '我的东师',
-        action: true,
-        grey: true,
-        // show: true,
-      }, {
-        //   tag: 'info',
+      tag: 'head',
+      title: '我的东师',
+      action: true,
+      grey: true,
+      // show: true,
+    }, {
+      //   tag: 'info',
+      // }, {
+      tag: 'list',
+      content: [{
+        text: '设置',
+        url: 'settings/theme'
         // }, {
-        tag: 'list',
-        content: [{
-          text: '设置',
-          url: 'settings/theme'
-          // }, {
-          //   text: '登录',
-          //   url: 'settings/login'
-        }, {
-          text: '关于',
-          url: 'settings/about',
-          desc: a.Version
-        }, ]
-      },
-      {
-        tag: 'foot',
-        desc: '当前版本：' + a.Version
-      },
-    ],
+        //   text: '登录',
+        //   url: 'settings/login'
+      }, {
+        text: '关于',
+        url: 'settings/about',
+        desc: a.Version
+      }, ]
+    }, {
+      tag: 'foot',
+      desc: '当前版本：' + a.Version
+    }, ],
   },
   onLoad() {
     c.setPage(this.data.page, this, a);

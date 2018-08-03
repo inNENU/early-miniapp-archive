@@ -27,15 +27,23 @@ Page({
     }, {
       tag: 'p',
       head: 'V0.8.4',
-      text: '界面渲染速度进一步提高；\n初步构建播放器界面；\n改进template；'
+      text: '界面渲染速度进一步提高；\n初步构建播放器界面；\n改进template，加入template-all模板；'
     }, {
       tag: 'p',
       head: 'V0.8.5',
-      text: 'template进一步压缩；\n主题wxss优化压缩；'
+      text: 'template进一步压缩，通用模板一体化；\n优化压缩iOS.wxss；'
     }, {
       tag: 'p',
       head: 'V0.8.6',
-      text: '优化NENU主题；\n改进页脚；'
+      text: '优化压缩Android.wxss；\n修复tabbar阴影在安卓上显示异常的问题；\n改进页脚；'
+    }, {
+      tag: 'p',
+      head: 'V0.8.7',
+      text: '优化压缩NENU.wxss；\n改进NENU头部标题；\n抽取构建common.wxss；\n加入wx.setBackgroundcolor；'
+    }, {
+      tag: 'p',
+      head: 'V0.8.8',
+      text: 'Android图片bug修复；\n改进shop页显示；\n改进p标签文字；'
     }],
   },
   onLoad(e) {
