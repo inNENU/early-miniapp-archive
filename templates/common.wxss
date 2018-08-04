@@ -501,7 +501,7 @@
 }
 
 .footerCtn {
-  font-size: 10px;
+  font-size: 20rpx;
   letter-spacing: 2rpx;
   line-height: 1.6;
   font-weight: 300;

@@ -162,9 +162,11 @@
 }
 
 .AndroidP {
-  font-size: 15px;
-  padding: 2px 20px;
+  font-size: 30rpx;
+  padding: 4rpx 40rpx;
   text-align: justify;
+  line-height: 1.6em;
+  letter-spacing: 1rpx;
 }
 
 .grey .AndroidP {
@@ -176,7 +178,6 @@
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .grey.nm .AndroidP {
@@ -185,6 +186,7 @@
 }
 
 .Android-img {
+  align-self: center;
   margin: 24rpx auto;
   width: 610rpx;
   font-weight: 500;

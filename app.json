@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/main",
         "pages/function",
+        "pages/main",
         "pages/guide",
         "pages/shop",
         "pages/me",
@@ -92,7 +92,7 @@
         "request": 10000,
         "connectSocket": 10000,
         "uploadFile": 10000,
-        "downloadFile": 10000
+        "downloadFile": 25000
     },
     "workers": "workers",
     "debug": true

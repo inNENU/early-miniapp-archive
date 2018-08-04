@@ -71,7 +71,6 @@ page {
 .hide {
   display: none;
 }
-
 /* animation */
 
 .fadeIn, .fadeOut {

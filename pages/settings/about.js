@@ -83,7 +83,7 @@ Page({
       url: 'https://mrhope.top/mp/main/about.json',
       success(res) {
         if (res.statusCode == 200) {
-          c.setPage(arrayObject.concat(that.data.page.slice(0, 2), res.data, that.data.page.slice(-1)), that, a);
+          c.setPage(that.data.page.slice(0, 2).concat(res.data, that.data.page.slice(-1)), that, a);
         }
       }
     });

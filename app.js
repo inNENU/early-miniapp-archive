@@ -13,7 +13,7 @@ App({
     this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info); //调试
-		this.common.loadFont(this.globalData.T);
+    this.common.loadFont(this.globalData.T);
     // worker.postMessage({
     //   msg: 'hello worker'
     // })//test
@@ -35,7 +35,10 @@ App({
   },
   globalData: {
     Version: 'V 0.9.1',
-    imgMode: "widthFix"
+    imgMode: "widthFix",
+    music: {
+      play: false
+    }
   },
   util: require('utils/util'),
   watcher: require('utils/watcher'),

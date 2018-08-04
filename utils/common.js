@@ -498,16 +498,16 @@ function setBgcolor(a, grey) {
         break;
       case 'NENU':
         wx.setBackgroundColor({
-					backgroundColorTop: '#f0f0f0',
-					backgroundColor: '#f0f0f0',
-					backgroundColorBottom: '#f0f0f0'
+          backgroundColorTop: '#f0f0f0',
+          backgroundColor: '#f0f0f0',
+          backgroundColorBottom: '#f0f0f0'
         });
         break;
       case 'iOS':
         wx.setBackgroundColor({
           backgroundColorTop: '#f4f4f4',
-					backgroundColor: '#efeef4',
-					backgroundColorBottom: '#efeef4'
+          backgroundColor: '#efeef4',
+          backgroundColorBottom: '#efeef4'
         });
     }
   } else {
@@ -528,8 +528,8 @@ function setBgcolor(a, grey) {
         break;
       case 'iOS':
         wx.setBackgroundColor({
-					backgroundColorTop: '#f4f4f4',
-					backgroundColor: '#fff',
+          backgroundColorTop: '#f4f4f4',
+          backgroundColor: '#fff',
           backgroundColorBottom: '#fff',
         });
     }
@@ -537,21 +537,25 @@ function setBgcolor(a, grey) {
 }
 
 function loadFont(theme) {
-  if (theme == 'Android') {
-    wx.loadFontFace({
-      family: 'FZKTJW',
-      source: 'url("https://mrhope.top/ttf/FZKTJW.ttf")',
-      complete(res) {
-        console.log('楷体字体' + res.status); //调试
-      }
-    });
-  } else if (theme == "NENU") {
-    wx.loadFontFace({
-      family: 'FZSSJW',
-      source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
-      complete(res) {
-        console.log('宋体字体' + res.status); //调试
-      }
-    });
+  try {
+    if (theme == 'Android') {
+      wx.loadFontFace({
+        family: 'FZKTJW',
+        source: 'url("https://mrhope.top/ttf/FZKTJW.ttf")',
+        complete(res) {
+          console.log('楷体字体' + res.status); //调试
+        }
+      });
+    } else if (theme == "NENU") {
+      wx.loadFontFace({
+        family: 'FZSSJW',
+        source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+        complete(res) {
+          console.log('宋体字体' + res.status); //调试
+        }
+      });
+    }
+  } catch (msg) {
+    console.warn(msg)
   }
 }

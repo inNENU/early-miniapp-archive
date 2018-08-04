@@ -8,6 +8,10 @@ Page({
     canplay: false,
     currentTime: 0,
     songLength: 1,
+    presentMinute: '0',
+    presentSecond: '00',
+    totalMinute: '0',
+    totalSecond: '00',
     songs: [{
       src: "https://res.wx.qq.com/voice/getvoice?mediaid=MzA5MTQ4NjUzMl80MDI2NzgyODI=",
       poster: "https://mrhope.top/icon/nenuyouth.png",
@@ -44,7 +48,8 @@ Page({
       }
     });
     let that = this,
-      i = 3,
+      mode = wx.getStorageSync('playMode'),
+      i = this.data.i,
       currentSong = this.data.songs[i];
     this.setData({
       songName: currentSong.name,
@@ -52,7 +57,8 @@ Page({
       cover: currentSong.poster,
       info: a.info,
       nm: a.nm,
-      musicPlay: a.musicPlay ? true : false
+      musicPlay: a.music.play,
+      mode: mode ? mode : (wx.setStorageSync('playMode', 0), 0)
     });
     if (!a.musicPlay) {
       audioContext = wx.createInnerAudioContext('myMusic');
@@ -63,11 +69,30 @@ Page({
           canplay: true
         });
       });
-      audioContext.onTimeUpdate(function(e) {
-        console.log()
-        console.log('TimeUpdate,currentTime是' + audioContext.currentTime) //调试
+      audioContext.onPlay(function(e) {
+        console.log('duration是' + audioContext.duration); //调试
+        let totalSecond = (parseInt(audioContext.duration % 60)).toString();
         that.setData({
-          currentTime: parseInt(audioContext.currentTime * 100) / 100
+          songLength: parseInt(audioContext.duration * 100) / 100,
+          totalMinute: parseInt(audioContext.duration / 60).toString(),
+          totalSecond: totalSecond.length == 1 ? '0' + totalSecond : totalSecond,
+          musicPlay: true
+        });
+      });
+      audioContext.onPause(function(e) {
+        that.setData({
+          musicPlay: false
+        })
+      });
+      audioContext.onTimeUpdate(function(e) {
+        console.log('TimeUpdate,currentTime是' + audioContext.currentTime) //调试
+        console.log('TimeUpdate,bufferedTime是' + audioContext.buffered) //调试
+        let presentSecond = (parseInt(audioContext.currentTime % 60)).toString();
+        that.setData({
+          currentTime: parseInt(audioContext.currentTime * 100) / 100,
+          presentMinute: parseInt(audioContext.currentTime / 60).toString(),
+          presentSecond: presentSecond.length == 1 ? '0' + presentSecond : presentSecond,
+          bufferedTime: audioContext.buffered
         });
       });
     } else {
@@ -75,13 +100,14 @@ Page({
         canplay: true
       });
     }
-    audioContext.onPlay(function(e) {
-      console.log('duration是' + audioContext.duration) //调试
-      that.setData({
-        songLength: parseInt(audioContext.duration * 100) / 100
-      });
-    })
-
+  },
+  loadCover(e) {
+    console.log(e)
+    if (e.type == 'load') {
+      this.setData({
+        coverLoad: true
+      })
+    }
   },
   play: function() {
     let isPlay = this.data.musicPlay
@@ -92,29 +118,42 @@ Page({
     }
     this.setData({
       musicPlay: !isPlay,
-      // length: audioContext.duration
     });
-    a.musicPlay = !isPlay;
+    a.music.play = !isPlay;
     console.log('play Func获得duration为' + audioContext.duration) //调试
   },
   drag(e) {
     console.log(e)
     if (e.type == 'changing') {
-      audioContext.pause();
+      audioContext.seek(e.detail.value / 100);
+      // audioContext.pause();
       this.setData({
-        musicPlay: false
+        // musicPlay: false
       })
     } else if (e.type == 'change') {
       console.log(e.detail.value); //调试
       this.setData({
         currentTime: e.detail.value / 100,
-        musicPlay: true
+        // musicPlay: true
       });
       audioContext.seek(e.detail.value / 100);
-      audioContext.play()
+      // audioContext.play()
     }
   },
   cA(e) {
     c.componentAction(e, this)
   },
+  modeSwitch() {
+    let mode = this.data.mode == 3 ? 0 : this.data.mode + 1;
+    this.setData({
+      mode: mode
+    });
+    wx.setStorageSync('playMode', mode)
+  },
+  next() {
+    let i = this.data.i
+    switch (this.data.mode) {
+      case 0:
+    }
+  }
 })
