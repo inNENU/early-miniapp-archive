@@ -12,6 +12,7 @@ Page({
     presentSecond: '00',
     totalMinute: '0',
     totalSecond: '00',
+    i: 1,
     songs: [{
       src: "https://res.wx.qq.com/voice/getvoice?mediaid=MzA5MTQ4NjUzMl80MDI2NzgyODI=",
       poster: "https://mrhope.top/icon/nenuyouth.png",
