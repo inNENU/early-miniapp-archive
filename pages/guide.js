@@ -66,31 +66,33 @@ P('guide', {
       },
     ],
   },
+  onPreload(res) {
+    if (!S.preSet(this.$take(res.query.name), a, null, this, false)) {
+      this.set = true;
+    };
+    console.log('Guide preload finished time:', new Date() - a.d, 'ms');
+  },
   onLoad() {
-    c.setPage(this.data.page, this, a);
-    w.on('theme', this, function(data) {
+    if (!this.set) {
+      S.Set(this.data.page, a, null, this, false);
+    };
+    S.Notice(this.aim);
+    tab.checkUpdate('funcNotify', 'localFunc', 'funcList', '是否立即下载功能所需资源？', '下载后会使功能响应速度明显提升。(会消耗90K流量)\n不下载资源可能造成部分界面异常，可以稍后在设置中进行下载', '40K', a)
+    P.on('theme', this, function(data) {
       this.setData({
         T: data
       });
     });
-    w.on('nightmode', this, function(data) {
+    P.on('nightmode', this, function(data) {
       this.setData({
         nm: data
       });
     });
-    S.Notice(this.aim);
-    tab.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗80K流量)\n不下载资源可能造成部分界面异常，可以稍后在设置中进行下载', '10K', a)
   },
   onReady() {
-    let that = this;
-    wx.request({
-      url: 'https://mrhope.top/mp/main/guide.json',
-      success(res) {
-        if (res.statusCode == 200) {
-          c.setPage(res.data, that, a);
-        }
-      }
-    });
+    if (!this.set) {
+      //request
+    }
     S.preLoad(this, a);
   },
   onPageScroll(e) {

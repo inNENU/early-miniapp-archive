@@ -133,7 +133,7 @@ function getPageData(page, globalData, opt) {
 }
 
 //设置界面，在onNavigate时调用，将界面数据写入初始数据
-function setPage(page, globalData, opt, indicator, online = true) {
+function presetPage(page, globalData, opt, indicator, online = true) {
   // loadFont(globalData.T);
   indicator.data = {
     T: globalData.T,
@@ -146,7 +146,18 @@ function setPage(page, globalData, opt, indicator, online = true) {
     } catch (msg) {
       return opt.aim
     }
+  } else {
+    return false
   }
+}
+
+//设置界面数据，在界面初始化之后使用
+function setPage(page, globalData, opt, indicator) {
+  indicator.setData({
+    T: globalData.T,
+    nm: globalData.nm,
+    page: getPageData(page, globalData, opt)
+  });
 }
 
 //弹出通知，在onLoad时被调用
@@ -364,12 +375,14 @@ module.exports = {
   // Local: getLocalPage,
   // Online: getOnlinePage,
   // Get: getPageData,
+  preSet: presetPage,
   Set: setPage,
   Notice: popNotice,
   nav: changeNav,
   component: componentAction,
   setBgcolor,
-  loadFont
+  loadFont,
+  request
 }
 
 function setBgcolor(a, grey) {
@@ -485,4 +498,14 @@ function loadFont(theme) {
   } catch (msg) {
     console.warn(msg)
   }
+}
+
+function request(path, Func) {
+  wx.request({
+    url: `https://mrhope.top/mp/${x}.json`,
+    success(res) {
+      if (res.statusCode == 200) Func
+      else console.warn(`request ${x} fail`)
+    }
+  });
 }

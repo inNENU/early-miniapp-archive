@@ -4,8 +4,12 @@ var wxpage = require('utils/wxpage'),
   u = require('utils/util'),
   app = require('utils/app');
 
+// var worker = wx.createWorker('workers/worker.js') //test
 
 A({
+  util: require('utils/util'),
+  watcher: require('utils/watcher'),
+  common: require('utils/common'),
   data: {
     theme: "auto",
     startTime: '20-0',
@@ -18,6 +22,7 @@ A({
     }
   },
   onLaunch: function(opts) {
+    console.log('APP is Running', opts)
     this.globalData.d = new Date();
     app.checkDebug();
     this.globalData.T = app.setTheme(this.data.theme);
@@ -25,10 +30,9 @@ A({
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info); //调试
     this.common.loadFont(this.globalData.T);
-    wxpage.on('some_message', function(msg) {
-      console.log('Receive message:', msg)
-    })
-    console.log('APP is Running', opts)
+    // wxpage.on('some_message', function(msg) {
+    //   console.log('Receive message:', msg)
+    // })
   },
   onAwake: function(time) {
     console.log('onAwake, after', time, 'ms')
@@ -51,18 +55,4 @@ A({
       play: false
     }
   },
-  util: require('utils/util'),
-  watcher: require('utils/watcher'),
-  common: require('utils/common'),
 })
-// var worker = wx.createWorker('workers/worker.js') //test
-// App({
-
-//   onLaunch() {
-
-//   },
-//   onShow() {
-//     
-//   },
-
-// })

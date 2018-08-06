@@ -4,8 +4,6 @@ var P = require('../utils/wxpage'),
   w = getApp().watcher,
   tab = require("../utils/tab");
 
-
-
 P('main', {
   data: {
     T: a.T,
@@ -22,7 +20,7 @@ P('main', {
       content: [{
         text: '报到的流程'
       }, {
-        text: '我的寝室在哪'
+        text: '我的寝室在哪？'
       }]
     }, {
       tag: 'list',
@@ -42,21 +40,25 @@ P('main', {
       }]
     }],
   },
-  onPageLaunch: function() {
+  onPageLaunch() {
     console.log('主页面启动：', new Date() - a.d, 'ms');
-    S.Set(this.data.page, a, null, this, false);
+    S.preSet(this.data.page, a, null, this, false);
     tab.tabBarChanger(a.nm);
   },
-  onReady() {
+  onShow() {
     let that = this;
     wx.request({
       url: 'https://mrhope.top/mp/main/main.json',
       success(res) {
         if (res.statusCode == 200) {
-          S.Set(that.data.page, a, null, that, false);
+          console.log(res);
+          S.Set(that.data.page, a, null, that);
+          console.log('Set online data')
         }
       }
     });
+  },
+  onReady() {
     P.on('theme', this, function(data) {
       this.setData({
         T: data
@@ -66,7 +68,20 @@ P('main', {
       this.setData({
         nm: data
       });
+      tab.tabBarChanger(data);
     });
+    let that = this;
+    ['guide', 'function', 'shop'].forEach(x => {
+      wx.request({
+        url: `https://mrhope.top/mp/main/${x}.json`,
+        success(res) {
+          if (res.statusCode == 200) {
+            that.$put(x, res.data);
+            that.$preload(`${x}?name=${x}`);
+          }
+        }
+      });
+    })
   },
   onPageScroll(e) {
     S.nav(e, this)
