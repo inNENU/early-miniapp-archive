@@ -1,8 +1,10 @@
-var P = require('../utils/wxpage')
-var a = getApp().globalData,
+var P = require('../utils/wxpage'),
+  S = require('../utils/setPage'),
+  a = getApp().globalData,
   w = getApp().watcher,
-  c = getApp().common,
   tab = require("../utils/tab");
+
+
 
 P('main', {
   data: {
@@ -40,22 +42,9 @@ P('main', {
       }]
     }],
   },
-  onLoad: function(res) {
-    console.log('## On page load, with query:', res)
-    c.setPage(this.data.page, this, a);
-    w.on('theme', this, function(data) {
-      this.setData({
-        T: data
-      });
-    });
-    w.on('nightmode', this, function(data) {
-      console.log(data)
-      this.setData({
-        nm: data
-      });
-    });
-  },
-  onShow() {
+  onPageLaunch: function() {
+    console.log('主页面启动：', new Date() - a.d, 'ms');
+    S.Set(this.data.page, a, null, this, false);
     tab.tabBarChanger(a.nm);
   },
   onReady() {
@@ -64,12 +53,25 @@ P('main', {
       url: 'https://mrhope.top/mp/main/main.json',
       success(res) {
         if (res.statusCode == 200) {
-          c.setPage(res.data, that, a);
+          S.Set(that.data.page, a, null, that, false);
         }
       }
-    })
+    });
+    P.on('theme', this, function(data) {
+      this.setData({
+        T: data
+      });
+    });
+    P.on('nightmode', this, function(data) {
+      this.setData({
+        nm: data
+      });
+    });
   },
   onPageScroll(e) {
-    c.nav(e, this)
-  }
+    S.nav(e, this)
+  },
+  cA(e) {
+    S.component(e, this)
+  },
 })

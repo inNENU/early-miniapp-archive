@@ -1,8 +1,10 @@
 var wxpage = require('utils/wxpage'),
   A = require('utils/wxpage').A,
-  C = require('utils/wxpage').C;
-var u = require('utils/util'),
+  C = require('utils/wxpage').C,
+  u = require('utils/util'),
   app = require('utils/app');
+
+
 A({
   data: {
     theme: "auto",
@@ -16,6 +18,7 @@ A({
     }
   },
   onLaunch: function(opts) {
+    this.globalData.d = new Date();
     app.checkDebug();
     this.globalData.T = app.setTheme(this.data.theme);
     this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
@@ -44,7 +47,6 @@ A({
   },
   globalData: {
     Version: 'V 0.9.1',
-    imgMode: "widthFix",
     music: {
       play: false
     }

@@ -1,7 +1,7 @@
-var P = require('../utils/wxpage')
-var a = getApp().globalData,
+var P = require('../utils/wxpage'),
+	S = require('../utils/setPage'),
+	a = getApp().globalData,
 	w = getApp().watcher,
-	c = getApp().common,
 	tab = require("../utils/tab");
 
 P('function', {
@@ -68,7 +68,7 @@ P('function', {
     }, ],
   },
   onLoad() {
-    c.setPage(this.data.page, this, a);
+    S.setPage(this.data.page, this, a);
     w.on('theme', this, function(data) {
       this.setData({
         T: data
@@ -93,10 +93,10 @@ P('function', {
       }
     })
   },
-  onPageScroll(e) {
-    c.nav(e, this)
-  },
-	navigate(res) {
-		this.$route(res.currentTarget.dataset.url)
+	onPageScroll(e) {
+		S.nav(e, this)
+	},
+	cA(e) {
+		S.component(e, this)
 	},
 })

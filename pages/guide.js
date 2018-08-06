@@ -1,8 +1,7 @@
-var P = require('../utils/wxpage');
-var S = require('../utils/setPage');
-var a = getApp().globalData,
+var P = require('../utils/wxpage'),
+  S = require('../utils/setPage'),
+  a = getApp().globalData,
   w = getApp().watcher,
-  c = getApp().common,
   tab = require("../utils/tab");
 
 P('guide', {
@@ -75,7 +74,6 @@ P('guide', {
       });
     });
     w.on('nightmode', this, function(data) {
-      console.log(data)
       this.setData({
         nm: data
       });
@@ -96,10 +94,9 @@ P('guide', {
     S.preLoad(this, a);
   },
   onPageScroll(e) {
-    c.nav(e, this)
+    S.nav(e, this)
   },
-  navigate(res) {
-    console.log('start route to' + res.currentTarget.dataset.url)
-    this.$route(res.currentTarget.dataset.url)
+  cA(e) {
+    S.component(e, this)
   },
 })

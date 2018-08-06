@@ -1,5 +1,5 @@
 //预加载界面，在上一个界面被调用，写入存储
-function preLoad(indicator, globalData, online = true) {
+function preLoad(indicator, globalData) {
   indicator.data.page.forEach(x => {
     if ('content' in x) {
       x.content.forEach(y => {
@@ -133,14 +133,20 @@ function getPageData(page, globalData, opt) {
 }
 
 //设置界面，在onNavigate时调用，将界面数据写入初始数据
-function setPage(page, globalData, opt, indicator) {
+function setPage(page, globalData, opt, indicator, online = true) {
   // loadFont(globalData.T);
   indicator.data = {
     T: globalData.T,
     nm: globalData.nm,
-    page: page
+    page: online ? page : getPageData(page, globalData, opt)
   };
-  return opt.query.aim;
+  if (opt) {
+    try {
+      return opt.query.aim;
+    } catch (msg) {
+      return opt.aim
+    }
+  }
 }
 
 //弹出通知，在onLoad时被调用
@@ -161,33 +167,61 @@ function popNotice(aim) {
 
 
 // json组件判断触发函数
-function componentAction(e, indicator) {
-  console.log(e);
-  let action = e.currentTarget.dataset.action;
+function componentAction(res, indicator) {
+  console.log(res);
+  let action = res.currentTarget.dataset.action;
   switch (action) {
     case 'img':
-      image(e, indicator);
+      image(res, indicator);
+      break;
+    case 'navigate':
+      indicator.$route(res.currentTarget.dataset.url)
       break;
     case 'back':
-      wx.navigateBack({});
+      indicator.$back();
       break;
     case 'doc':
-      document(e);
+      document(res);
       break;
     case 'phone':
-      phone(e, indicator);
+      phone(res, indicator);
       break;
     case 'picker':
-      picker(e, indicator);
+      picker(res, indicator);
       break;
     case 'switch':
-      Switch(e, indicator);
+      Switch(res, indicator);
       break;
     case 'slider':
-      slider(e, indicator);
+      slider(res, indicator);
       break;
     default:
-      console.log('error');
+      console.warn('error');
+  }
+}
+
+// 图片函数
+function image(e, indicator) {
+  let current = indicator.data.page[e.target.id];
+  switch (e.type) {
+    case 'load':
+      current.load = true;
+      indicator.setData({
+        page: indicator.data.page
+      });
+      break;
+    case 'error':
+      current.error = true;
+      indicator.setData({
+        page: indicator.data.page
+      });
+      break;
+    case 'tap':
+      wx.previewImage({
+        current: current.res,
+        urls: indicator.data.page[0].url
+      });
+      break;
   }
 }
 
@@ -253,31 +287,6 @@ function Switch(e, indicator) {
   });
   wx.setStorageSync(content.swiKey, e.detail.value);
   return page;
-}
-
-// 图片函数
-function image(e, indicator) {
-  let current = indicator.data.page[e.target.id];
-  switch (e.type) {
-    case 'load':
-      current.load = true;
-      indicator.setData({
-        page: indicator.data.page
-      });
-      break;
-    case 'error':
-      current.error = true;
-      indicator.setData({
-        page: indicator.data.page
-      });
-      break;
-    case 'tap':
-      wx.previewImage({
-        current: current.res,
-        urls: indicator.data.page[0].url
-      });
-      break;
-  }
 }
 
 // 打开文档
@@ -352,10 +361,128 @@ function changeNav(e, indicator) {
 
 module.exports = {
   preLoad,
+  // Local: getLocalPage,
   // Online: getOnlinePage,
   // Get: getPageData,
   Set: setPage,
   Notice: popNotice,
   nav: changeNav,
-  component: componentAction
+  component: componentAction,
+  setBgcolor,
+  loadFont
+}
+
+function setBgcolor(a, grey) {
+  console.log('setBgcolor')
+  if (a.nm && grey) {
+    switch (a.T) {
+      case 'Andriod':
+        wx.setBackgroundColor({
+          backgroundColor: '#10110b',
+          backgroundColorTop: '#10110b',
+          backgroundColorBottom: '#10110b'
+        });
+        break;
+      case 'iOS':
+        wx.setBackgroundColor({
+          backgroundColor: '#10110b',
+          backgroundColorTop: '#0a0a08',
+          backgroundColorBottom: '#10110b'
+        });
+        break;
+      case 'NENU':
+        wx.setBackgroundColor({
+          backgroundColor: '#070707',
+          backgroundColorTop: '#070707',
+          backgroundColorBottom: '#070707'
+        });
+    }
+  } else if (a.nm && !grey) {
+    switch (a.T) {
+      case 'iOS':
+        wx.setBackgroundColor({
+          backgroundColor: '#000',
+          backgroundColorTop: '#0a0a08',
+          backgroundColorBottom: '#000'
+        });
+        break;
+      case 'Andriod':
+      case 'NENU':
+        wx.setBackgroundColor({
+          backgroundColor: '#000',
+          backgroundColorTop: '#000',
+          backgroundColorBottom: '#000'
+        });
+    }
+  } else if (!a.nm && grey) {
+    switch (a.T) {
+      case 'Andriod':
+        wx.setBackgroundColor({
+          backgroundColor: '#f8f8f8',
+          backgroundColorTop: '#f8f8f8',
+          backgroundColorBottom: '#f8f8f8'
+        });
+        break;
+      case 'NENU':
+        wx.setBackgroundColor({
+          backgroundColorTop: '#f0f0f0',
+          backgroundColor: '#f0f0f0',
+          backgroundColorBottom: '#f0f0f0'
+        });
+        break;
+      case 'iOS':
+        wx.setBackgroundColor({
+          backgroundColorTop: '#f4f4f4',
+          backgroundColor: '#efeef4',
+          backgroundColorBottom: '#efeef4'
+        });
+    }
+  } else {
+    switch (a.T) {
+      case 'Andriod':
+        wx.setBackgroundColor({
+          backgroundColor: '#f8f8f8',
+          backgroundColorTop: '#f8f8f8',
+          backgroundColorBottom: '#f8f8f8'
+        });
+        break;
+      case 'NENU':
+        wx.setBackgroundColor({
+          backgroundColor: '#fff',
+          backgroundColorTop: '#fff',
+          backgroundColorBottom: '#fff'
+        });
+        break;
+      case 'iOS':
+        wx.setBackgroundColor({
+          backgroundColorTop: '#f4f4f4',
+          backgroundColor: '#fff',
+          backgroundColorBottom: '#fff',
+        });
+    }
+  }
+}
+
+function loadFont(theme) {
+  try {
+    if (theme == 'Android') {
+      wx.loadFontFace({
+        family: 'FZKTJW',
+        source: 'url("https://mrhope.top/ttf/FZKTJW.ttf")',
+        complete(res) {
+          console.log('楷体字体' + res.status); //调试
+        }
+      });
+    } else if (theme == "NENU") {
+      wx.loadFontFace({
+        family: 'FZSSJW',
+        source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+        complete(res) {
+          console.log('宋体字体' + res.status); //调试
+        }
+      });
+    }
+  } catch (msg) {
+    console.warn(msg)
+  }
 }

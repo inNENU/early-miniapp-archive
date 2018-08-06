@@ -26,7 +26,7 @@
   <view wx:if="{{head!==false}}" class='commonhead'>{{head}}</view>
   <view class='Lctn'>
     <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
-      <view wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="navigate" data-url='{{List.url}}' data-aim="{{List.aim}}">
+      <view wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="cA" data-action='navigate' data-url='{{List.url}}' data-aim="{{List.aim}}">
         <view class='list-Container'>
           <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='LinkText'>{{List.text}}</view>
@@ -117,7 +117,7 @@
 <template name='grid'>
   <view wx:if="{{head!==false}}" class='gridHead'>{{head}}</view>
   <view class='gridCtn'>
-    <view wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' hover-stay-time='100' catchtap="navigate" data-url='{{List.url}}' data-aim="{{List.aim}}">
+    <view wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' hover-stay-time='100' catchtap="cA" data-action='navigate' data-url='{{List.url}}' data-aim="{{List.aim}}">
       <image class='gridIcon' src="{{List.icon}}" />
       <view class='gridTitle'>{{List.text}}</view>
     </view>
