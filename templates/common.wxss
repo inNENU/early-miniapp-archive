@@ -490,6 +490,20 @@
   color: #fff;
 }
 
+/* .pickerMask {
+  background-color: rgba(0, 0, 0, 0.438);
+} */
+
+/* .pickerMask {
+  height: 160px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(219, 218, 223, 0.1), rgba(255, 255, 255, 0.9));
+} */
+
+/* .pickSelected {
+  font-size: 20px;
+  height: 38px;
+}  */
+
 /* footer */
 
 .Footer {

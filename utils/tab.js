@@ -114,7 +114,7 @@ function resSnyc(fileNumList, refreshList) {
       url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
       success(res) {
         console.log(refreshList[i]), console.log(res); //调试
-        successNumber += 1, wx.setStorageSync(refreshList[i], res.data), wx.removeStorageSync(refreshList[i] + 'Temp');
+        successNumber += 1, wx.setStorageSync(refreshList[i], preSetPageData(res.data));
         wx.showLoading({
           title: '下载中...' + percent[successNumber] + '%',
           mask: true
@@ -134,7 +134,7 @@ function resSnyc(fileNumList, refreshList) {
         url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
         success(res) {
           console.log(res), console.log(refreshList[i] + j); //调试
-          successNumber += 1, wx.setStorageSync(refreshList[i] + j, res.data), wx.removeStorageSync(refreshList[i] + j + 'Temp');
+          successNumber += 1, wx.setStorageSync(refreshList[i] + j, preSetPageData(res.data));
           wx.showLoading({
             title: '下载中...' + percent[successNumber] + '%',
             mask: true
@@ -292,4 +292,27 @@ function setMarker(data, name) {
     wx.setStorageSync(name + '-' + categoryList[i], markerDetail)
   };
   return 'success';
+}
+
+function preSetPageData(page) {
+  if (page) {
+    //setNav
+    if (page[0].tag == 'head') {
+      page[0].url = new Array();
+      for (let i = 0; i < page.length; i++) {
+        //setImage
+        let Module = page[i];
+        Module.id = i;
+        if (Module.src) {
+          (Module.res) ? page[0].url.push(Module.res): page[0].url.push(Module.src), Module.res = Module.src;
+          (Module.imgMode) ? Module.imgMode: Module.imgMode = 'widthFix'
+        };
+      };
+    } else {
+      console.warn('No head tag in page!');
+    };
+  } else {
+    console.warn('No pageData!')
+  }
+  return page;
 }

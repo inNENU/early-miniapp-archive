@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/function",
         "pages/main",
+        "pages/function",
         "pages/guide",
         "pages/shop",
         "pages/me",
@@ -12,13 +12,13 @@
         "pages/settings/theme",
         "pages/settings/login",
         "pages/settings/donate",
-        "templates/module1",
-        "templates/module2",
-        "templates/module3",
-        "templates/module4",
-        "templates/module5",
-        "templates/module6",
-        "templates/module7"
+        "modules/module1",
+        "modules/module2",
+        "modules/module3",
+        "modules/module4",
+        "modules/module5",
+        "modules/module6",
+        "modules/module7"
     ],
     "subPackages": [{
             "root": "function",

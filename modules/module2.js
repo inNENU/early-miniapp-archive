@@ -1,0 +1,32 @@
+var P = require('../utils/wxpage'),
+	S = require('../utils/setPage');
+var a = getApp().globalData;
+
+P('module2', {
+	onNavigate(res) {
+		console.log('将要跳转：', res)
+		this.aim = S.Set(this.$session.get(res.query.aim + 'Temp'), a, res, this);
+		console.log(this.aim + '载入'), console.log(this.data);
+	},
+	onLoad(res) {
+		S.Notice(this.aim);
+	},
+	onReady() {
+		S.preLoad(this, a);
+	},
+	navigate(res) {
+		this.$route(res.currentTarget.dataset.url)
+	},
+	onPageScroll(e) {
+		S.nav(e, this)
+	},
+	cA(e) {
+		S.component(e, this)
+	},
+	onShareAppMessage() {
+		return {
+			title: this.data.page[0].title,
+			path: '/templates/module1?From=主页&step=1&share=true&aim=' + this.name
+		}
+	},
+})

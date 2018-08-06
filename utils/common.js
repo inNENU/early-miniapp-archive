@@ -5,6 +5,7 @@ module.exports = {
   preloadPage,
   getContent,
   componentAction,
+  component: componentAction,
   setBgcolor,
   loadFont
 }
@@ -312,7 +313,7 @@ function setPageData(page, a, e) {
           item.url += "?From=" + page[0].title
         };
         if ('aim' in item) {
-          item.url = "/templates/module" + page[0].aimStep + "?From=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
+          item.url = "/modules/module" + page[0].aimStep + "?From=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
         };
         //set List switch
         if ('swiKey' in item) {

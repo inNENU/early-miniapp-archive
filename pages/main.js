@@ -1,8 +1,10 @@
+var P = require('../utils/wxpage')
 var a = getApp().globalData,
   w = getApp().watcher,
   c = getApp().common,
   tab = require("../utils/tab");
-Page({
+
+P('main', {
   data: {
     T: a.T,
     nm: a.nm,
@@ -38,7 +40,8 @@ Page({
       }]
     }],
   },
-  onLoad() {
+  onLoad: function(res) {
+    console.log('## On page load, with query:', res)
     c.setPage(this.data.page, this, a);
     w.on('theme', this, function(data) {
       this.setData({

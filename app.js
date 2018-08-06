@@ -1,27 +1,36 @@
+var wxpage = require('utils/wxpage'),
+  A = require('utils/wxpage').A,
+  C = require('utils/wxpage').C;
 var u = require('utils/util'),
   app = require('utils/app');
-// var worker = wx.createWorker('workers/worker.js') //test
-App({
+A({
   data: {
     theme: "auto",
     startTime: '20-0',
     endTime: "5-0",
   },
-  onLaunch() {
+  config: {
+    route: ['/pages/$page', '/modules/$page'],
+    resolvePath(name) {
+      return '/modules/' + name
+    }
+  },
+  onLaunch: function(opts) {
     app.checkDebug();
     this.globalData.T = app.setTheme(this.data.theme);
     this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info); //调试
     this.common.loadFont(this.globalData.T);
-    // worker.postMessage({
-    //   msg: 'hello worker'
-    // })//test
-    // worker.onMessage(function (msg) {
-    // 	console.log('[AppService] onWorkerMessage', msg)
-    // })
+    wxpage.on('some_message', function(msg) {
+      console.log('Receive message:', msg)
+    })
+    console.log('APP is Running', opts)
   },
-  onShow() {
+  onAwake: function(time) {
+    console.log('onAwake, after', time, 'ms')
+  },
+  onShow: function() {
     app.noticeCheck();
   },
   onError: function(msg) {
@@ -44,3 +53,14 @@ App({
   watcher: require('utils/watcher'),
   common: require('utils/common'),
 })
+// var worker = wx.createWorker('workers/worker.js') //test
+// App({
+
+//   onLaunch() {
+
+//   },
+//   onShow() {
+//     
+//   },
+
+// })

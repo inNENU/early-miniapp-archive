@@ -1,8 +1,11 @@
+var P = require('../utils/wxpage');
+var S = require('../utils/setPage');
 var a = getApp().globalData,
   w = getApp().watcher,
   c = getApp().common,
   tab = require("../utils/tab");
-Page({
+
+P('guide', {
   data: {
     T: a.T,
     nm: a.nm,
@@ -77,10 +80,8 @@ Page({
         nm: data
       });
     });
+    S.Notice(this.aim);
     tab.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载界面所需资源？', '下载后可离线查看大部分界面。(会消耗80K流量)\n不下载资源可能造成部分界面异常，可以稍后在设置中进行下载', '10K', a)
-  },
-  onShow() {
-    c.preloadPage(this.data.page, a);
   },
   onReady() {
     let that = this;
@@ -91,9 +92,14 @@ Page({
           c.setPage(res.data, that, a);
         }
       }
-    })
+    });
+    S.preLoad(this, a);
   },
   onPageScroll(e) {
     c.nav(e, this)
-  }
+  },
+  navigate(res) {
+    console.log('start route to' + res.currentTarget.dataset.url)
+    this.$route(res.currentTarget.dataset.url)
+  },
 })

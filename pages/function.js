@@ -1,8 +1,10 @@
+var P = require('../utils/wxpage')
 var a = getApp().globalData,
-  w = getApp().watcher,
-  c = getApp().common,
-  tab = require("../utils/tab");
-Page({
+	w = getApp().watcher,
+	c = getApp().common,
+	tab = require("../utils/tab");
+
+P('function', {
   data: {
     T: a.T,
     nm: a.nm,
@@ -80,18 +82,21 @@ Page({
     });
     tab.checkUpdate('funcNotify', 'localFunc', 'funcList', '是否立即下载功能所需资源？', '下载后会使功能响应速度明显提升。(会消耗50K流量)\n不下载资源可能造成部分界面异常，可以稍后在设置中进行下载', '25K', a)
   },
-  // onReady() {
-  //   let that = this;
-  //   wx.request({
-  //     url: 'https://mrhope.top/mp/main/function.json',
-  //     success(res) {
-  //       if (res.statusCode == 200) {
-  //         c.setPage(res.data, that, a);
-  //       }
-  //     }
-  //   })
-  // },
+  onReady() {
+    let that = this;
+    wx.request({
+      url: 'https://mrhope.top/mp/main/function.json',
+      success(res) {
+        if (res.statusCode == 200) {
+          c.setPage(res.data, that, a);
+        }
+      }
+    })
+  },
   onPageScroll(e) {
     c.nav(e, this)
   },
+	navigate(res) {
+		this.$route(res.currentTarget.dataset.url)
+	},
 })

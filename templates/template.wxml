@@ -26,14 +26,14 @@
   <view wx:if="{{head!==false}}" class='commonhead'>{{head}}</view>
   <view class='Lctn'>
     <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
-      <navigator wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="listCtn" url='{{List.url}}' target="{{List.target?List.target:''}}" open-type="{{List.openType?List.openType:'navigate'}}">
+      <view wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="navigate" data-url='{{List.url}}' data-aim="{{List.aim}}">
         <view class='list-Container'>
           <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
           <view class='LinkText'>{{List.text}}</view>
           <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
         </view>
-      </navigator>
-      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+      </view>
+      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
         data-id="{{List.id}}" data-action='picker' plain='true' disabled='{{List.disabled}}'>
         <view class='list-Container'>
           <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
@@ -47,7 +47,8 @@
           </view>
         </view>
       </button>
-      <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='listCtn' hover-class="buttonHover" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}" data-action='picker'>
+      <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='listCtn' hover-class="buttonHover" hover-stay-time='100' bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}"
+        data-action='picker'>
         <view class='list-Container'>
           <view class='LinkText'>{{List.text}}</view>
           <view wx:if='{{List.pickerValue}}' class='linkDesciption'>
@@ -72,7 +73,7 @@
           <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action='slider'
           />
         </view>
-        <picker-view wx:if="{{List.pickerValue}}" indicator-class='pickSelected' class='pickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker'>
+        <picker-view wx:if="{{List.pickerValue}}" indicator-class='pickSelected' class='pickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker' mask-class='pickerMask'>
           <block wx:if="{{List.single}}">
             <picker-view-column class='pick-view-column'>
               <view wx:for='{{List.pickerValue}}' wx:key="*this" class='pickColumn'>{{item}}</view>
@@ -94,7 +95,7 @@
 </template>
 
 <template name='doc'>
-  <button id="{{id}}" class='docCtn' hover-class="buttonHover" catchtap='cA' data-url="{{url}}" data-action='doc'>
+  <button id="{{id}}" class='docCtn' hover-class="buttonHover" hover-stay-time='100' catchtap='cA' data-url="{{url}}" data-action='doc'>
     <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
     <view class='docname docAccess'>{{docName}}.{{docType}}</view>
   </button>
@@ -104,10 +105,10 @@
   <view class='phoneCtn' id='{{id}}' catchtap='cA' data-action='phone'>
     <image class='phoneIcon' mode='widthFix' src='/icon/phone.svg' />
     <view class='phoneNum'>{{num}}</view>
-    <view class='phoneCallCtn' hover-class='buttonHover'>
+    <view class='phoneCallCtn' hover-class='buttonHover' hover-stay-time='100'>
       <image class='phoneCall' mode='widthFix' src='/icon/call.svg' data-type="call" />
     </view>
-    <view class='phoneAddCtn' hover-class='buttonHover'>
+    <view class='phoneAddCtn' hover-class='buttonHover' hover-stay-time='100'>
       <image class='phoneAdd' mode='widthFix' src='/icon/add.svg' data-type="add" />
     </view>
   </view>
@@ -116,10 +117,10 @@
 <template name='grid'>
   <view wx:if="{{head!==false}}" class='gridHead'>{{head}}</view>
   <view class='gridCtn'>
-    <navigator wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' url='{{List.url}}'>
+    <view wx:for="{{content}}" wx:for-item="List" wx:key="text" class='gridBox' hover-class='buttonHover' hover-stay-time='100' catchtap="navigate" data-url='{{List.url}}' data-aim="{{List.aim}}">
       <image class='gridIcon' src="{{List.icon}}" />
       <view class='gridTitle'>{{List.text}}</view>
-    </navigator>
+    </view>
   </view>
   <view wx:if="{{foot}}" class='gridFoot'>{{foot}}</view>
 </template>
@@ -182,7 +183,7 @@
 <template name='iOSHead'>
   <view class='iOS-navigationBar' style="padding-top:{{statusBarHeight}}px;">
     <view wx:if="{{titleDisplay}}" class="iOS-titletext">{{title}}</view>
-    <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
+    <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" hover-stay-time='100' plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
       <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow'></view>
       <text class='iOS-nav-text'>{{leftText}}</text>
     </button>
@@ -217,7 +218,7 @@
 <template name='iOSerror'>
   <view class='iOS-navigationBar' style="padding-top:{{statusBarHeight}}px;">
     <view class="iOS-titletext">页面出错</view>
-    <button wx:if="{{!action}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
+    <button wx:if="{{!action}}" class='iOS-navBack' hover-class="navBackHover" hover-stay-time='100' plain='true' catchtap='cA' data-action='back'>
       <view class='iOS-backArrow'></view>
       <text class='iOS-nav-text'>返回</text>
     </button>
@@ -233,7 +234,7 @@
   </view>
   <view class='donateCtn'>
     <navigator url='/pages/settings/donate'>
-      <button class='donateButton' hover-class='buttonHover'>捐赠</button>
+      <button class='donateButton' hover-class='buttonHover' hover-stay-time='100'>捐赠</button>
     </navigator>
   </view>
 </template>
@@ -243,7 +244,7 @@
 <template name="AndroidHead">
   <view class="Android-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">{{title}}</view>
-    <button wx:if="{{action!=true}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
+    <button wx:if="{{action!=true}}" class='Android-navBack' hover-class="navBackHover" hover-stay-time='100' plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
       <view wx:if="{{action==undefined||action=='redirect'}}" class='Android-backArrow'></view>
       <view class='Android-leftText'>{{leftText}}</view>
     </button>
@@ -280,7 +281,7 @@
 <template name='Androiderror'>
   <view class='Android-navigationBar' style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">页面出错</view>
-    <button wx:if="{{!top}}" class='Android-navBack' hover-class="navBackHover" plain='true' catchtap='cA' data-action='back'>
+    <button wx:if="{{!top}}" class='Android-navBack' hover-class="navBackHover" hover-stay-time='100' plain='true' catchtap='cA' data-action='back'>
       <view class='Android-backArrow'></view>
     </button>
   </view>
@@ -303,14 +304,14 @@
 
 <template name='NENUHead'>
   <view wx:if="{{action}}" class='NENUnav' style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
-    <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
+    <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" hover-stay-time='100' plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
       <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
       <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
     </button>
     <view class='NENU-navText'>{{title}}</view>
   </view>
   <view wx:else class='NENUnav2' style='background-color:{{color}};height:{{statusBarHeight}}px;'>
-    <view class='backBtn' style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+    <view class='backBtn' style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' hover-stay-time='100' catchtap='cA' data-action='back'>
       <image class='backIcon' src='/icon/back.svg' />
     </view>
     <view class="NENUTitle {{titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{statusBarHeight+5}}px;'>{{title}}</view>
@@ -333,7 +334,7 @@
 
 <template name="NENULoading">
   <view class='NENUnav2' style='background-color:#3cc51f;height:22px;'>
-    <view class='backBtn' style="top:27.5px;" hover-class='buttonHover'>
+    <view class='backBtn' style="top:27.5px;" hover-class='buttonHover' hover-stay-time='100'>
       <image class='backIcon' src='/icon/back.svg' />
     </view>
   </view>
@@ -347,7 +348,7 @@
     <view class='NENU-navText'>页面出错</view>
   </view>
   <view style='width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;'></view>
-  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' hover-stay-time='100' catchtap='cA' data-action='back'>
     <image class='backIcon' src='/icon/back.svg' />
   </view>
   <view class='errorCtn'>
@@ -359,7 +360,7 @@
   </view>
   <view class='donateCtn'>
     <navigator url='/pages/settings/donate'>
-      <button class='donateButton' hover-class='buttonHover'>捐赠</button>
+      <button class='donateButton' hover-class='buttonHover' hover-stay-time='100'>捐赠</button>
     </navigator>
   </view>
 </template>

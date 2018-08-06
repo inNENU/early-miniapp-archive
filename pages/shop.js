@@ -1,8 +1,10 @@
+var P = require('../utils/wxpage')
 var a = getApp().globalData,
-  w = getApp().watcher,
-  c = getApp().common,
-  tab = require("../utils/tab");
-Page({
+	w = getApp().watcher,
+	c = getApp().common,
+	tab = require("../utils/tab");
+
+P('shop', {
   data: {
     T: a.T,
     nm: a.nm,

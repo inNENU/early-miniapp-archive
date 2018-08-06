@@ -1,8 +1,10 @@
+var P = require('../utils/wxpage')
 var a = getApp().globalData,
-  w = getApp().watcher,
-  c = getApp().common,
-  tab = require("../utils/tab");
-Page({
+	w = getApp().watcher,
+	c = getApp().common,
+	tab = require("../utils/tab");
+
+P('me', {
   data: {
     T: a.T,
     nm: a.nm,
@@ -51,5 +53,8 @@ Page({
   },
   onPageScroll(e) {
     c.nav(e, this)
+  },
+  navigate(res) {
+    this.$route(res.currentTarget.dataset.url)
   },
 })
