@@ -1,7 +1,9 @@
 var u = getApp().util,
   a = getApp().globalData,
-  c = getApp().common,
-  w = getApp().watcher,
+  // c = getApp().common,
+  // w = getApp().watcher,
+  P = require("../../utils/wxpage"),
+  S = require('../../utils/setPage'),
   app = require("../../utils/app"),
   tab = require("../../utils/tab");
 var date = new Date()
@@ -20,10 +22,8 @@ for (let i = 0; i <= 59; i++) {
   }
 };
 
-Page({
+P('theme', {
   data: {
-    T: a.T,
-    nm: a.nm,
     page: [{
       tag: 'head',
       title: '主题设置',
@@ -107,7 +107,7 @@ Page({
       tag: 'foot',
     }],
   },
-  onLoad(e) {
+  onPreload(res) {
     let p = this.data.page,
       list = p[3].content,
       nmAC = wx.getStorageSync('nightmodeAutoChange'),
@@ -122,10 +122,22 @@ Page({
     if (!nmAC) {
       list[1].display = list[2].display = list[3].display = list[5].display = false;
     };
-    c.setPage(p, this, a, e);
+    if (!S.preSet(this.data.page, a, res.query, this, false)) {
+      this.set = true;
+    };
+    console.log('Settings preload finished time:', new Date() - date, 'ms');
+  },
+  onLoad(res) {
+    if (!this.set) {
+      S.Set(this.data.page, a, res, this, false);
+    };
+    S.Notice(this.aim);
+  },
+  onReady() {
+    S.preLoad(this, a);
   },
   onPageScroll(e) {
-    c.nav(e, this)
+    S.nav(e, this)
   },
   refreshRes(e) {
     tab.resRefresh()
@@ -134,13 +146,13 @@ Page({
     tab.funcRefresh()
   },
   cA(e) {
-    c.componentAction(e, this)
+    S.component(e, this)
   },
   onUnload() {
     a.nm = app.nightmode(new Date())
   },
   switchnm(e) {
-    let p = u.Switch(e, this),
+    let p = S.Switch(e, this),
       list = p[3].content,
       value = e.detail.value;
     if (value && list[5].status) {
@@ -159,10 +171,10 @@ Page({
       page: p
     });
     a.nm = value;
-    w.emit('nightmode', value);
+    this.$emit('nightmode', value);
   },
   switchnmAC(e) {
-    let p = u.Switch(e, this),
+    let p = S.Switch(e, this),
       list = p[3].content;
     let nm = app.nightmode(new Date());
     p[2].content[0].status = nm;
@@ -204,10 +216,10 @@ Page({
       page: p
     });
     a.nm = nm;
-    w.emit('nightmode', nm);
+    this.$emit('nightmode', nm);
   },
   swithDay(e) {
-    let p = u.Switch(e, this),
+    let p = S.Switch(e, this),
       list = p[3].content;
     list[4].visible = list[4].display = e.detail.value;
     this.setData({
@@ -215,7 +227,7 @@ Page({
     });
   },
   swithNight(e) {
-    let p = u.Switch(e, this),
+    let p = S.Switch(e, this),
       list = p[3].content;
     list[6].visible = list[6].display = e.detail.value;
     this.setData({
@@ -223,7 +235,7 @@ Page({
     });
   },
   dB(e) {
-    c.componentAction(e, this);
+    S.component(e, this);
     if (!a.nm && this.data.page[3].content[3].status) {
       wx.setScreenBrightness({
         value: e.detail.value / 100
@@ -231,7 +243,7 @@ Page({
     }
   },
   nB(e) {
-    c.componentAction(e, this);
+    S.component(e, this);
     if (a.nm && this.data.page[3].content[5].status) {
       wx.setScreenBrightness({
         value: e.detail.value / 100
@@ -239,12 +251,12 @@ Page({
     }
   },
   setTheme(e) {
-    c.componentAction(e, this);
+    S.component(e, this);
     let theme = this.data.page[1].content[0].pickerValue[e.detail.value];
-    console.log(theme); //调试
     a.T = theme;
     wx.setStorageSync("theme", theme);
-    c.setPage(this.data.page, this, a, e);
-    w.emit('theme', theme);
+    S.setPage(this.data.page, a, e, this)
+    this.$emit('theme', theme);
+    console.log('theme切换为' + theme); //调试
   },
 })

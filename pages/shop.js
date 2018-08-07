@@ -1,8 +1,7 @@
-var P = require('../utils/wxpage')
-var a = getApp().globalData,
-	w = getApp().watcher,
-	c = getApp().common,
-	tab = require("../utils/tab");
+var P = require('../utils/wxpage'),
+  S = require('../utils/setPage'),
+  a = getApp().globalData,
+  tab = require("../utils/tab");
 
 P('shop', {
   data: {
@@ -47,46 +46,50 @@ P('shop', {
       tag: ['青春', '前卫']
     }],
   },
+  onPreload(res) {
+    if (!S.preSet(this.$take(res.query.name), a, null, this, false)) {
+      this.set = true;
+    };
+    console.log('Shop preload finished time:', new Date() - a.d, 'ms');
+  },
   onLoad() {
-    c.setPage(this.data.page, this, a);
-    w.on('theme', this, function(data) {
-      this.setData({
+    this.setData({
+      T: a.T,
+      nm: a.nm
+    })
+    if (!this.set) {
+      S.Set(this.data.page, a, null, this, false);
+    };
+    S.Notice(this.aim);
+    let that = this;
+    this.$on('theme', function(data) {
+      that.setData({
         T: data
       });
     });
-    w.on('nightmode', this, function(data) {
-      console.log(data)
-      this.setData({
+    this.$on('nightmode', function(data) {
+      that.setData({
         nm: data
       });
     });
   },
   onReady() {
-    let that = this;
-    wx.request({
-      url: 'https://mrhope.top/mp/main/shop.json',
-      success(res) {
-        if (res.statusCode == 200) {
-          c.setPage(res.data, that, a);
-        }
-      }
-    })
-    wx.request({
-      url: 'https://mrhope.top/mp/main/goods.json',
-      success(res) {
-        if (res.statusCode == 200) {
-          that.setData({
-            goods: res.data
-          })
-        }
-      }
-    })
+    if (!this.set) {
+      S.request('main/shop', function(data, indicator) {
+        S.Set(data, a, null, indicator);
+      }, this)
+    };
+    S.request('main/goods', function(data, indicator) {
+      indicator.setData({
+        goods: data
+      })
+    }, this)
   },
   onPageScroll(e) {
-    c.nav(e, this)
+    S.nav(e, this)
   },
   cA(e) {
-    c.componentAction(e, this)
+    S.component(e, this)
   },
   swiperChange(e) {
     console.log(e);

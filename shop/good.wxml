@@ -24,7 +24,7 @@
   <view class='divLine6'></view>
   <view class='itemPicHead'>——产品详情——</view>
   <image wx:for="{{item.url}}" wx:key="*this" mode='widthFix' lazy-load='true' />
-  <view class='tab'>
+  <!-- <view class='tab'>
     <view class='tabIconCtn'>
       <image class='tabIcon' src='icon/cart.svg' />
       <view class='tabName'>购物车</view>
@@ -66,5 +66,5 @@
       </view>
       <view class='confirmBuy' hover-class="cartHover">确定</view>
     </view>
-  </view>
+  </view> -->
 </view>

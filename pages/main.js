@@ -1,13 +1,10 @@
 var P = require('../utils/wxpage'),
   S = require('../utils/setPage'),
   a = getApp().globalData,
-  w = getApp().watcher,
   tab = require("../utils/tab");
 
 P('main', {
   data: {
-    T: a.T,
-    nm: a.nm,
     page: [{
       tag: 'head',
       title: '首页',
@@ -45,42 +42,33 @@ P('main', {
     S.preSet(this.data.page, a, null, this, false);
     tab.tabBarChanger(a.nm);
   },
-  onShow() {
-    let that = this;
-    wx.request({
-      url: 'https://mrhope.top/mp/main/main.json',
-      success(res) {
-        if (res.statusCode == 200) {
-          console.log(res);
-          S.Set(that.data.page, a, null, that);
-          console.log('Set online data')
-        }
-      }
-    });
+  onLoad() {
+    S.request('main/main', function(data, indicator) {
+      S.Set(data, a, null, indicator);
+    }, this)
   },
   onReady() {
-    P.on('theme', this, function(data) {
-      this.setData({
+    let that = this;
+    this.$on('theme', function(data) {
+      that.setData({
         T: data
       });
     });
-    P.on('nightmode', this, function(data) {
-      this.setData({
+    this.$on('nightmode', function(data) {
+      that.setData({
         nm: data
       });
-      tab.tabBarChanger(data);
     });
-    let that = this;
-    ['guide', 'function', 'shop'].forEach(x => {
-      wx.request({
-        url: `https://mrhope.top/mp/main/${x}.json`,
-        success(res) {
-          if (res.statusCode == 200) {
-            that.$put(x, res.data);
-            that.$preload(`${x}?name=${x}`);
-          }
-        }
-      });
+    // w.on('theme', this, function(data) {
+    //   this.setData({
+    //     T: data
+    //   });
+    // });
+    ['guide', 'function', 'shop', 'me'].forEach(x => {
+      S.request('main/' + x, function(data, indicator) {
+        indicator.$put(x, data);
+        indicator.$preload(`${x}?name=${x}`);
+      }, this)
     })
   },
   onPageScroll(e) {

@@ -1,12 +1,10 @@
 var wxpage = require('utils/wxpage'),
-  A = require('utils/wxpage').A,
-  C = require('utils/wxpage').C,
   u = require('utils/util'),
   app = require('utils/app');
 
 // var worker = wx.createWorker('workers/worker.js') //test
 
-A({
+wxpage.A({
   util: require('utils/util'),
   watcher: require('utils/watcher'),
   common: require('utils/common'),

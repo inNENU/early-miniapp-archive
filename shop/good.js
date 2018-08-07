@@ -42,7 +42,7 @@ Page({
       wx.navigateBack({})
     }, 5000);
     wx.showModal({
-      title: '商品详情制作中',
+      title: '详情制作中',
       content: '东青文创会尽快发布此界面',
       showCancel: false,
       success(res) {

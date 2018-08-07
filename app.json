@@ -34,8 +34,6 @@
         {
             "root": "shop",
             "pages": [
-                "cart",
-                "order",
                 "good"
             ]
         }

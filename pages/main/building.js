@@ -1,5 +1,5 @@
 Page({
-  onLoad: function(options) {
+  onLoad(options) {
     let timeoutFunc = setTimeout(function() {
       wx.navigateBack({})
     }, 5000);

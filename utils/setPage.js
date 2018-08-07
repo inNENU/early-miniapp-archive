@@ -151,13 +151,45 @@ function presetPage(page, globalData, opt, indicator, online = true) {
   }
 }
 
-//设置界面数据，在界面初始化之后使用
+//设置本地界面数据，在界面初始化之后使用
 function setPage(page, globalData, opt, indicator) {
   indicator.setData({
     T: globalData.T,
     nm: globalData.nm,
     page: getPageData(page, globalData, opt)
   });
+}
+
+//设置在线界面数据，在界面初始化之后使用
+function setOnlinePage(globalData, opt, indicator) {
+  let source, length = opt.aim.length;
+  if (isNaN(opt.aim.charAt(length - 1))) {
+    source = opt.aim;
+  } else if (isNaN(opt.aim.charAt(length - 2))) {
+    source = opt.aim.substring(0, length - 1);
+  } else if (isNaN(opt.aim.charAt(length - 3))) {
+    source = opt.aim.substring(0, length - 2);
+  } else {
+    source = opt.aim.substring(0, length - 3);
+  };
+  wx.request({
+    url: 'https://mrhope.top/mp/' + source + '/' + opt.aim + '.json',
+    success(res) {
+      console.log(res);
+      if (res.statusCode == 200) {
+        setPage(getPageData(res.data, globalData, opt), globalData, opt, indicator);
+        if (!opt.share) {
+          wx.setStorageSync(opt.aim, res.data);
+        }
+      } else {
+        console.warn('res error');
+        setPage([{
+          tag: 'error',
+          statusBarHeight: globalData.info.statusBarHeight
+        }], globalData, opt, indicator);
+      }
+    }
+  })
 }
 
 //弹出通知，在onLoad时被调用
@@ -372,17 +404,18 @@ function changeNav(e, indicator) {
 
 module.exports = {
   preLoad,
-  // Local: getLocalPage,
-  // Online: getOnlinePage,
-  // Get: getPageData,
   preSet: presetPage,
   Set: setPage,
+  Online: setOnlinePage,
+  // Local: getLocalPage,
+  // Get: getPageData,
   Notice: popNotice,
   nav: changeNav,
   component: componentAction,
+  Switch,
   setBgcolor,
   loadFont,
-  request
+  request,
 }
 
 function setBgcolor(a, grey) {
@@ -500,12 +533,13 @@ function loadFont(theme) {
   }
 }
 
-function request(path, Func) {
+function request(path, Func, indicator) {
   wx.request({
-    url: `https://mrhope.top/mp/${x}.json`,
+    url: `https://mrhope.top/mp/${path}.json`,
     success(res) {
-      if (res.statusCode == 200) Func
-      else console.warn(`request ${x} fail`)
+      console.log(res)
+      if (res.statusCode == 200) Func(res.data, indicator)
+      else console.warn(`request ${path} fail: ${res.statusCode}`)
     }
   });
 }

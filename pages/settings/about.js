@@ -1,7 +1,8 @@
-var c = getApp().common,
-  u = getApp().util,
+var P = require('../../utils/wxpage'),
+  S = require('../../utils/setPage'),
   a = getApp().globalData;
-Page({
+
+P('about', {
   clickNumber: 0,
   data: {
     T: a.T,
@@ -63,7 +64,7 @@ Page({
       desc: '当前版本：' + a.Version
     }]
   },
-  onLoad(e) {
+  onPreLoad(res) {
     let p = this.data.page,
       value = wx.getStorageSync('developMode'),
       developMode = (value || value == false) ? value : (wx.setStorageSync('developMode', false));
@@ -75,25 +76,29 @@ Page({
       p[1].content[1].display = false, p[1].content[2].display = false, p[1].content[3].display = false, p[1].content[5].display = false;
     }
     console.log(p)
-    c.setPage(p, this, a, e);
+    if (S.preSet(p, a, res, this)) {
+      this.set = true
+    }
+  },
+  onLoad(res) {
+    if (!this.set) {
+      S.Set(this.data.page, a, res, this, false);
+    };
+    S.Notice(this.aim);
   },
   onReady() {
-    let that = this;
-    wx.request({
-      url: 'https://mrhope.top/mp/main/about.json',
-      success(res) {
-        if (res.statusCode == 200) {
-          c.setPage(that.data.page.slice(0, 2).concat(res.data, that.data.page.slice(-1)), that, a);
-        }
-      }
-    });
-    c.preloadPage(this.data.page, a);
+    if (!this.set) {
+      S.request('main/about', function(data, indicator) {
+        S.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, indicator);
+      }, this)
+    };
+    S.preLoad(this, a);
   },
   onPageScroll(e) {
-    c.nav(e, this);
+    S.nav(e, this);
   },
   cA(e) {
-    c.componentAction(e, this)
+    S.component(e, this)
   },
   debugMode(e) {
     let clickNumber = this.clickNumber;

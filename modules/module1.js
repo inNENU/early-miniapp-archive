@@ -1,14 +1,18 @@
 var P = require('../utils/wxpage'),
-  S = require('../utils/setPage');
-var a = getApp().globalData;
+  S = require('../utils/setPage'),
+  a = getApp().globalData;
 
 P('module1', {
   onNavigate(res) {
     console.log('将要跳转：', res)
-    this.aim = S.Set(this.$session.get(res.query.aim + 'Temp'), a, res, this);
+    this.aim = S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this);
+    this.set = true;
     console.log(this.aim + '载入'), console.log(this.data);
   },
   onLoad(res) {
+    if (!this.set) {
+      this.aim = S.Online(a, res, this)
+    }
     S.Notice(this.aim);
   },
   onReady() {

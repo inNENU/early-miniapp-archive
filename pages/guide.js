@@ -1,7 +1,6 @@
 var P = require('../utils/wxpage'),
   S = require('../utils/setPage'),
   a = getApp().globalData,
-  w = getApp().watcher,
   tab = require("../utils/tab");
 
 P('guide', {
@@ -73,25 +72,32 @@ P('guide', {
     console.log('Guide preload finished time:', new Date() - a.d, 'ms');
   },
   onLoad() {
+    this.setData({
+      T: a.T,
+      nm: a.nm
+    })
     if (!this.set) {
       S.Set(this.data.page, a, null, this, false);
     };
     S.Notice(this.aim);
-    tab.checkUpdate('funcNotify', 'localFunc', 'funcList', '是否立即下载功能所需资源？', '下载后会使功能响应速度明显提升。(会消耗90K流量)\n不下载资源可能造成部分界面异常，可以稍后在设置中进行下载', '40K', a)
-    P.on('theme', this, function(data) {
-      this.setData({
+    tab.checkUpdate('resNotify', 'localList', 'resList', '是否立即下载指南页所需资源？', '下载后可离线查看界面文字。(会消耗60K流量)\n不下载资源可能会造成部分界面异常，可以稍后在设置中进行下载', '20K', a)
+    let that = this;
+    this.$on('theme', function(data) {
+      that.setData({
         T: data
       });
     });
-    P.on('nightmode', this, function(data) {
-      this.setData({
+    this.$on('nightmode', function(data) {
+      that.setData({
         nm: data
       });
     });
   },
   onReady() {
     if (!this.set) {
-      //request
+      S.request('main/guide', function(data, indicator) {
+        S.Set(data, a, null, indicator);
+      }, this)
     }
     S.preLoad(this, a);
   },
