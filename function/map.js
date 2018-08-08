@@ -1,9 +1,5 @@
-var app = getApp().app,
-  c = getApp().common,
-  t = require('../utils/tab'),
-  a = getApp().globalData,
-  includePoint1 = {
-		padding: [30, 20, 30, 20],
+var includePoint1 = {
+    padding: [30, 20, 30, 20],
     points: [{
       latitude: 43.8578480844,
       longitude: 125.3252720833,
@@ -13,7 +9,7 @@ var app = getApp().app,
     }]
   },
   includePoint2 = {
-		padding: [30, 20, 30, 20],
+    padding: [30, 20, 30, 20],
     points: [{
       latitude: 43.8256570334,
       longitude: 125.4175829887,
@@ -23,9 +19,14 @@ var app = getApp().app,
     }]
   };
 
+var P = require('../utils/wxpage'),
+  S = require('../utils/setPage'),
+  app = getApp().app,
+  t = require('../utils/tab'),
+  a = getApp().globalData;
 // var trigger = true
 
-Page({
+P('map', {
   data: {
     map: {
       latitude: 43.862007982140646,
@@ -191,9 +192,9 @@ Page({
       xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
     if (e.type == 'markertap') {
       let pageData = wx.getStorageSync(xiaoqu + e.markerId);
-      if (pageData) {
-        wx.setStorageSync(xiaoqu + e.markerId + 'temp', c.setPageData(pageData, a, null))
-      }
+      // if (pageData) {
+      //   wx.setStorageSync(xiaoqu + e.markerId + 'temp', c.setPageData(pageData, a, null))
+      // }
     } else if (e.type == 'callouttap') {
       wx.navigateTo({
         url: 'situs?id=' + e.markerId + '&xiaoqu=' + xiaoqu,

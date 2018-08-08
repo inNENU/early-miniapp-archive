@@ -114,7 +114,7 @@ function resSnyc(fileNumList, refreshList) {
       url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
       success(res) {
         console.log(refreshList[i]), console.log(res); //调试
-        successNumber += 1, wx.setStorageSync(refreshList[i], preSetPageData(res.data));
+        successNumber += 1, wx.setStorageSync(refreshList[i], res.data);
         wx.showLoading({
           title: '下载中...' + percent[successNumber] + '%',
           mask: true
@@ -134,7 +134,7 @@ function resSnyc(fileNumList, refreshList) {
         url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
         success(res) {
           console.log(res), console.log(refreshList[i] + j); //调试
-          successNumber += 1, wx.setStorageSync(refreshList[i] + j, preSetPageData(res.data));
+          successNumber += 1, wx.setStorageSync(refreshList[i] + j, res.data);
           wx.showLoading({
             title: '下载中...' + percent[successNumber] + '%',
             mask: true
@@ -210,69 +210,26 @@ function funcRefresh() {
   })
 }
 
-function initMarker(markers) {
-  for (let i = 0; i < markers.length; i++) {
-    let point = markers[i],
-      temp = {
-        iconPath: "/function/icon/marker.png",
-        width: 25,
-        height: 25,
-        alpha: 0.8,
-        label: {
-          content: point.name,
-          color: "#1A9D5E",
-          fontSize: "10",
-          anchorX: -4 - 5 * point.name.length,
-          anchorY: 0,
-          bgColor: '#ffffff',
-          borderWidth: 1,
-          borderColor: '#efeef4',
-          borderRadius: 2,
-          padding: "3",
-        },
-        callout: {
-          content: point.detail,
-          color: "#ffffff",
-          fontSize: "16",
-          borderRadius: "10",
-          bgColor: "#1A9D5E",
-          padding: "10",
-          display: "BYCLICK"
-        }
-      };
-    if (!("title" in point)) {
-      point.title = point.detail
-    };
-    delete point.name;
-    delete point.detail;
-    Object.assign(point, temp);
-  };
-  return markers;
-}
 
 function markerSet() {
-  let data = wx.getStorageSync('marker'),
+  let markerData = wx.getStorageSync('marker'),
     markerVersion = JSON.parse(wx.getStorageSync('localFunc')).marker[1],
     currentVersion = wx.getStorageSync('markerVersion');
-  if (!data) {
-    wx.request({
-      url: 'https://mrhope.top/mp/marker/marker.json',
-      success(res) {
-        if (res.statusCode == 200) {
-          wx.setStorageSync('marker', res.data), data = res.data;
-          if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
-            try {
-              wx.setStorageSync('markerVersion', markerVersion)
-            } catch (msg) {
-              console.warn(msg)
-            }
-          }
+  if (!markerData) {
+    request('marker/marker', function(data, indicator) {
+      wx.setStorageSync('marker', data);
+      if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
+        try {
+          wx.setStorageSync('markerVersion', markerVersion)
+        } catch (msg) {
+          console.warn(msg);
+          console.warn('Marker Version set failure.')
         }
       }
-    })
+    }, null)
   } else {
     if (markerVersion != currentVersion) {
-      if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
+      if (setMarker(markerData[0], 'benbu') && setMarker(markerData[1], 'jingyue')) {
         wx.setStorageSync('markerVersion', markerVersion)
       }
     }
@@ -294,25 +251,54 @@ function setMarker(data, name) {
   return 'success';
 }
 
-function preSetPageData(page) {
-  if (page) {
-    //setNav
-    if (page[0].tag == 'head') {
-      page[0].url = new Array();
-      for (let i = 0; i < page.length; i++) {
-        //setImage
-        let Module = page[i];
-        Module.id = i;
-        if (Module.src) {
-          (Module.res) ? page[0].url.push(Module.res): page[0].url.push(Module.src), Module.res = Module.src;
-          (Module.imgMode) ? Module.imgMode: Module.imgMode = 'widthFix'
-        };
-      };
-    } else {
-      console.warn('No head tag in page!');
+//初始化marker，被setMarker调用
+function initMarker(markers) {
+  markers.forEach(x => {
+    let temp = {
+      iconPath: "/function/icon/marker.png",
+      width: 25,
+      height: 25,
+      alpha: 0.8,
+      label: {
+        content: x.name,
+        color: "#1A9D5E",
+        fontSize: "10",
+        anchorX: -4 - 5 * x.name.length,
+        anchorY: 0,
+        bgColor: '#ffffff',
+        borderWidth: 1,
+        borderColor: '#efeef4',
+        borderRadius: 2,
+        padding: "3",
+      },
+      callout: {
+        content: x.detail,
+        color: "#ffffff",
+        fontSize: "16",
+        borderRadius: "10",
+        bgColor: "#1A9D5E",
+        padding: "10",
+        display: "BYCLICK"
+      }
     };
-  } else {
-    console.warn('No pageData!')
-  }
-  return page;
+    if (!("title" in x)) {
+      x.title = x.detail
+    };
+    delete x.name;
+    delete x.detail;
+    Object.assign(x, temp);
+  })
+  return markers;
+}
+
+//wx.request包装
+function request(path, Func, indicator) {
+  wx.request({
+    url: `https://mrhope.top/mp/${path}.json`,
+    success(res) {
+      console.log(res)
+      if (res.statusCode == 200) Func(res.data, indicator)
+      else console.warn(`request ${path} fail: ${res.statusCode}`)
+    }
+  });
 }

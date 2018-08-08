@@ -397,6 +397,7 @@ function changeNav(e, indicator) {
   };
 }
 
+//wx.request包装
 function request(path, Func, indicator) {
   wx.request({
     url: `https://mrhope.top/mp/${path}.json`,
