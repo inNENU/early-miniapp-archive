@@ -6,8 +6,6 @@ var wxpage = require('utils/wxpage'),
 
 wxpage.A({
   util: require('utils/util'),
-  watcher: require('utils/watcher'),
-  common: require('utils/common'),
   data: {
     theme: "auto",
     startTime: '20-0',
@@ -27,7 +25,7 @@ wxpage.A({
     this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info); //调试
-    this.common.loadFont(this.globalData.T);
+    // this.common.loadFont(this.globalData.T);
     // wxpage.on('some_message', function(msg) {
     //   console.log('Receive message:', msg)
     // })

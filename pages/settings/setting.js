@@ -1,7 +1,5 @@
 var u = getApp().util,
   a = getApp().globalData,
-  // c = getApp().common,
-  // w = getApp().watcher,
   P = require("../../utils/wxpage"),
   S = require('../../utils/setPage'),
   app = require("../../utils/app"),
