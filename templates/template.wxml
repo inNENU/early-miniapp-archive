@@ -98,7 +98,7 @@
       <view wx:if="{{List.display!==false}}" class="{{List.icon?'listIcon ':''}}link-divline"></view>
     </block>
   </view>
-  <view wx:if="{{foot!==false}}" class='commonfoot'>{{foot}}</view>
+  <view wx:if="{{foot}}" class='commonfoot'>{{foot}}</view>
 </template>
 
 <template name='doc'>

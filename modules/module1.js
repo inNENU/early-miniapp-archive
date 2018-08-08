@@ -5,15 +5,18 @@ var P = require('../utils/wxpage'),
 P('module1', {
   onNavigate(res) {
     console.log('将要跳转：', res)
-    if (this.aim = S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this) && this.aim) {
+    this.aim = S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this)
+    if (this.aim) {
       this.set = true;
+      console.log('预载入成功')
     };
     console.log(this.aim + '载入'), console.log(this.data);
   },
   onLoad(res) {
     if (!this.set) {
       console.log(res)
-      this.aim = S.Online(a, res, this)
+      this.aim = S.Online(a, res, this);
+      console.log('onLoad 成功')
     }
     S.Notice(this.aim);
   },
@@ -38,9 +41,6 @@ P('module1', {
     }
   },
   redirect() {
-    $switch('guide')
-    // wx.switchTab({
-    //   url: '/pages/guide'
-    // })
+    this.$switch('/pages/guide')
   },
 })

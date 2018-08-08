@@ -65,7 +65,7 @@ P('about', {
       desc: '当前版本：' + a.Version
     }]
   },
-	onPreload(res) {
+  onPreload(res) {
     let p = this.data.page,
       value = wx.getStorageSync('developMode'),
       developMode = (value || value == false) ? value : (wx.setStorageSync('developMode', false));
@@ -78,7 +78,8 @@ P('about', {
     }
     console.log(p)
     if (S.preSet(p, a, res, this)) {
-      this.set = true
+      this.set = true;
+      console.log('About set!')
     };
     console.log('About preload finished');
   },
@@ -87,6 +88,7 @@ P('about', {
       S.Set(this.data.page, a, res, this, false);
     };
     S.Notice(this.aim);
+    console.log('About onLoad finished.')
   },
   onReady() {
     if (!this.set) {

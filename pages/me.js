@@ -17,7 +17,7 @@ P('me', {
       tag: 'list',
       content: [{
         text: '设置',
-        url: 'settings/theme'
+        url: 'settings/setting'
         // }, {
         //   text: '登录',
         //   url: 'settings/login'
