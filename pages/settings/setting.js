@@ -22,7 +22,7 @@ for (let i = 0; i <= 59; i++) {
   }
 };
 
-P('theme', {
+P('setting', {
   data: {
     page: [{
       tag: 'head',
@@ -125,7 +125,7 @@ P('theme', {
     if (!S.preSet(this.data.page, a, res.query, this, false)) {
       this.set = true;
     };
-    console.log('Settings preload finished time:', new Date() - date, 'ms');
+    console.log('Settings preload finished.');
   },
   onLoad(res) {
     if (!this.set) {

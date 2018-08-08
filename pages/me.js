@@ -63,6 +63,8 @@ P('me', {
         S.Set(data, a, null, indicator);
       }, this)
     };
+    this.$preload('setting');
+		this.$preload('about');
   },
   onPageScroll(e) {
     S.nav(e, this)

@@ -80,7 +80,7 @@ P('guide', {
       S.Set(this.data.page, a, null, this, false);
     };
     S.Notice(this.aim);
-    tab.checkUpdate('resNotify', 'localList', 'resList', '是否立即下载指南页所需资源？', '下载后可离线查看界面文字。(会消耗60K流量)\n不下载资源可能会造成部分界面异常，可以稍后在设置中进行下载', '20K', a)
+    tab.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载指南页所需资源？', '下载后可离线查看界面文字。(会消耗60K流量)\n不下载资源可能会造成部分界面异常，可以稍后在设置中进行下载', '20K', a)
     let that = this;
     this.$on('theme', function(data) {
       that.setData({

@@ -5,11 +5,11 @@ function preLoad(indicator, globalData) {
       x.content.forEach(y => {
         if ('aim' in y) {
           let head = indicator.data.page[0];
-          indicator.$session.set(y.aim + 'Temp', getOnlinePage({
+          getOnlinePage({
             From: head.title,
             aim: y.aim,
             step: head.aimStep
-          }, globalData))
+          }, globalData, indicator)
         };
       })
     }
@@ -17,10 +17,10 @@ function preLoad(indicator, globalData) {
 }
 
 //获取在线页面，被preLoad调用
-function getOnlinePage(opt, globalData) {
-  let page, pageData = wx.getStorageSync(opt.aim);
+function getOnlinePage(opt, globalData, indicator) {
+  let pageData = wx.getStorageSync(opt.aim);
   if (pageData) {
-    page = getPageData(pageData, globalData, opt);
+    indicator.$session.set(opt.aim + 'Temp', getPageData(pageData, globalData, opt));
   } else {
     let source, length = opt.aim.length;
     if (isNaN(opt.aim.charAt(length - 1))) {
@@ -37,21 +37,20 @@ function getOnlinePage(opt, globalData) {
       success(res) {
         console.log(res);
         if (res.statusCode == 200) {
-          page = getPageData(res.data, globalData, opt);
           if (!opt.share) {
             wx.setStorageSync(opt.aim, res.data);
           }
+          indicator.$session.set(opt.aim + 'Temp', getPageData(res.data, globalData, opt));
         } else {
           console.warn('res error');
-          page = [{
+          indicator.$session.set(opt.aim + 'Temp', getPageData([{
             tag: 'error',
             statusBarHeight: globalData.info.statusBarHeight
-          }];
+          }], globalData, opt));;
         }
       }
     })
   };
-  return page;
 }
 
 //获得界面数据，被getOnlinePage调用，生成正确的界面数据
@@ -140,7 +139,7 @@ function presetPage(page, globalData, opt, indicator, online = true) {
     nm: globalData.nm,
     page: online ? page : getPageData(page, globalData, opt)
   };
-  if (opt) {
+  if (opt && page) {
     try {
       return opt.query.aim;
     } catch (msg) {
@@ -190,6 +189,7 @@ function setOnlinePage(globalData, opt, indicator) {
       }
     }
   })
+  return opt.aim;
 }
 
 //弹出通知，在onLoad时被调用
@@ -402,6 +402,17 @@ function changeNav(e, indicator) {
   };
 }
 
+function request(path, Func, indicator) {
+  wx.request({
+    url: `https://mrhope.top/mp/${path}.json`,
+    success(res) {
+      console.log(res)
+      if (res.statusCode == 200) Func(res.data, indicator)
+      else console.warn(`request ${path} fail: ${res.statusCode}`)
+    }
+  });
+}
+
 module.exports = {
   preLoad,
   preSet: presetPage,
@@ -531,15 +542,4 @@ function loadFont(theme) {
   } catch (msg) {
     console.warn(msg)
   }
-}
-
-function request(path, Func, indicator) {
-  wx.request({
-    url: `https://mrhope.top/mp/${path}.json`,
-    success(res) {
-      console.log(res)
-      if (res.statusCode == 200) Func(res.data, indicator)
-      else console.warn(`request ${path} fail: ${res.statusCode}`)
-    }
-  });
 }

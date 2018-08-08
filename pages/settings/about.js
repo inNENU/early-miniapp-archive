@@ -1,6 +1,7 @@
 var P = require('../../utils/wxpage'),
   S = require('../../utils/setPage'),
-  a = getApp().globalData;
+  a = getApp().globalData,
+  u = getApp().utils;
 
 P('about', {
   clickNumber: 0,
@@ -30,7 +31,7 @@ P('about', {
         button: 'initApp',
       }, {
         text: '退出小程序',
-        url: '',
+        navigate: true,
         openType: 'exit',
         target: 'miniProgram'
       }, {
@@ -64,7 +65,7 @@ P('about', {
       desc: '当前版本：' + a.Version
     }]
   },
-  onPreLoad(res) {
+	onPreload(res) {
     let p = this.data.page,
       value = wx.getStorageSync('developMode'),
       developMode = (value || value == false) ? value : (wx.setStorageSync('developMode', false));
@@ -78,7 +79,8 @@ P('about', {
     console.log(p)
     if (S.preSet(p, a, res, this)) {
       this.set = true
-    }
+    };
+    console.log('About preload finished');
   },
   onLoad(res) {
     if (!this.set) {
@@ -89,7 +91,7 @@ P('about', {
   onReady() {
     if (!this.set) {
       S.request('main/about', function(data, indicator) {
-        S.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, indicator);
+        S.Set(indicator.data.page.slice(0, 2).concat(data, indicator.data.page.slice(-1)), a, null, indicator);
       }, this)
     };
     S.preLoad(this, a);
@@ -136,7 +138,7 @@ P('about', {
     }
   },
   debugSwitch(e) {
-    u.Switch(e, this);
+    S.Switch(e, this);
     if (wx.getStorageSync('debugMode')) {
       wx.setEnableDebug({
         enableDebug: true

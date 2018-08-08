@@ -5,18 +5,22 @@ var a = getApp().globalData;
 P('module2', {
 	onNavigate(res) {
 		console.log('将要跳转：', res)
-		this.aim = S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this);
-		this.set = true;
+		if (this.aim = S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this) && this.aim) {
+			this.set = true;
+		};
 		console.log(this.aim + '载入'), console.log(this.data);
 	},
 	onLoad(res) {
 		if (!this.set) {
+			console.log(res)
 			this.aim = S.Online(a, res, this)
 		}
 		S.Notice(this.aim);
 	},
 	onReady() {
-		S.preLoad(this, a);
+		if (this.set) {
+			S.preLoad(this, a);
+		}
 	},
 	navigate(res) {
 		this.$route(res.currentTarget.dataset.url)

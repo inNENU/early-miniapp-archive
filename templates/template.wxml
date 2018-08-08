@@ -56,6 +56,13 @@
           </view>
         </view>
       </picker>
+      <navigator wx:elif='{{List.display!==false&&List.navigate}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' url='{{List.navigate}}' openType='{{List.openType}}' target='{{List.target}}'>
+        <view class='list-Container'>
+          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+          <view class='LinkText'>{{List.text}}</view>
+          <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
+        </view>
+      </navigator>
       <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="listCtn">
         <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
         <view wx:if="{{List.display!==false}}" class='list-Container'>
