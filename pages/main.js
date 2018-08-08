@@ -16,16 +16,6 @@ P('main', {
       head: '报到当天',
       content: [{
         text: '报到的流程'
-      }, {
-        text: '我的寝室在哪？'
-      }]
-    }, {
-      tag: 'list',
-      content: [{
-        text: '我的学院在哪里？我的寝室在哪里？'
-      }, {
-        text: '查看详情',
-        url: '/function/map'
       }]
     }, {
       tag: 'list',

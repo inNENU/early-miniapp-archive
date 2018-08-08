@@ -419,7 +419,6 @@ module.exports = {
   Notice: popNotice,
   nav: changeNav,
   component: componentAction,
-  Switch,
   setBgcolor,
   loadFont,
   request,

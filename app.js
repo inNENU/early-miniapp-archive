@@ -1,11 +1,9 @@
 var wxpage = require('utils/wxpage'),
-  u = require('utils/util'),
   app = require('utils/app');
 
 // var worker = wx.createWorker('workers/worker.js') //test
 
 wxpage.A({
-  util: require('utils/util'),
   data: {
     theme: "auto",
     startTime: '20-0',

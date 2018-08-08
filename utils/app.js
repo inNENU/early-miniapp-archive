@@ -28,22 +28,22 @@ function noticeCheck() {
       if (res.statusCode == 200) {
         let data = res.data,
           category = Object.keys(data);
-        for (let i = 0; i < category.length; i++) {
-          if (data[category[i]][3]) {
-            wx.setStorageSync(category[i] + 'notice', [data[category[i]][0], data[category[i]][1]]);
-            wx.setStorageSync(category[i] + 'noticeNotify', true);
-          } else if (data[category[i]][2] != wx.getStorageSync(category[i] + 'noticeVersion')) {
-            wx.setStorageSync(category[i] + 'notice', [data[category[i]][0], data[category[i]][1]]);
-            wx.setStorageSync(category[i] + 'noticeVersion', data[category[i]][2]);
-            wx.setStorageSync(category[i] + 'noticeNotify', true);
+        category.forEach(x => {
+          if (data[x][3]) {
+            wx.setStorageSync(x + 'notice', [data[x][0], data[x][1]]);
+            wx.setStorageSync(x + 'noticeNotify', true);
+          } else if (data[x][2] != wx.getStorageSync(x + 'noticeVersion')) {
+            wx.setStorageSync(x + 'notice', [data[x][0], data[x][1]]);
+            wx.setStorageSync(x + 'noticeVersion', data[x][2]);
+            wx.setStorageSync(x + 'noticeNotify', true);
           }
-        };
+        })
         if ('app' in data) {
           wx.showModal({
             title: data.app[0],
             content: data.app[1],
             showCancel: false,
-            success: function() {
+            success() {
               wx.removeStorageSync('appnoticeNotify');
             }
           })

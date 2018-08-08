@@ -1,7 +1,7 @@
 var P = require('../../utils/wxpage'),
   S = require('../../utils/setPage'),
-  a = getApp().globalData,
-  u = getApp().utils;
+	u = require('../../utils/util'),
+  a = getApp().globalData;
 
 P('about', {
   clickNumber: 0,
@@ -142,7 +142,7 @@ P('about', {
     }
   },
   debugSwitch(e) {
-    S.Switch(e, this);
+    u.Switch(e, this);
     if (wx.getStorageSync('debugMode')) {
       wx.setEnableDebug({
         enableDebug: true

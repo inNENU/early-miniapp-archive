@@ -1,7 +1,7 @@
-var u = getApp().util,
-  a = getApp().globalData,
+var a = getApp().globalData,
   P = require("../../utils/wxpage"),
   S = require('../../utils/setPage'),
+  u = require('../../utils/util'),
   app = require("../../utils/app"),
   tab = require("../../utils/tab");
 var date = new Date()
@@ -24,7 +24,7 @@ P('setting', {
   data: {
     page: [{
       tag: 'head',
-      title: '主题设置',
+      title: '设置',
       grey: true
     }, {
       tag: 'list',
@@ -151,7 +151,7 @@ P('setting', {
     a.nm = app.nightmode(new Date())
   },
   switchnm(e) {
-    let p = S.Switch(e, this),
+    let p = u.Switch(e, this),
       list = p[3].content,
       value = e.detail.value;
     if (value && list[5].status) {
@@ -173,7 +173,7 @@ P('setting', {
     this.$emit('nightmode', value);
   },
   switchnmAC(e) {
-    let p = S.Switch(e, this),
+    let p = u.Switch(e, this),
       list = p[3].content;
     let nm = app.nightmode(new Date());
     p[2].content[0].status = nm;
@@ -218,7 +218,7 @@ P('setting', {
     this.$emit('nightmode', nm);
   },
   swithDay(e) {
-    let p = S.Switch(e, this),
+    let p = u.Switch(e, this),
       list = p[3].content;
     list[4].visible = list[4].display = e.detail.value;
     this.setData({
@@ -226,7 +226,7 @@ P('setting', {
     });
   },
   swithNight(e) {
-    let p = S.Switch(e, this),
+    let p = u.Switch(e, this),
       list = p[3].content;
     list[6].visible = list[6].display = e.detail.value;
     this.setData({
@@ -254,7 +254,7 @@ P('setting', {
     let theme = this.data.page[1].content[0].pickerValue[e.detail.value];
     a.T = theme;
     wx.setStorageSync("theme", theme);
-		S.Set(this.data.page, a, null, this);
+    S.Set(this.data.page, a, null, this);
     this.$emit('theme', theme);
     console.log('theme切换为' + theme); //调试
   },

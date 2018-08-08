@@ -7,7 +7,7 @@ P('function', {
   data: {
     page: [{
       tag: 'head',
-      title: '功能大厅本地',
+      title: '功能大厅',
       action: true,
       grey: true
     }, {
