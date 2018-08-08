@@ -132,12 +132,12 @@ function getPageData(page, globalData, opt) {
 }
 
 //设置界面，在onNavigate时调用，将界面数据写入初始数据
-function presetPage(page, globalData, opt, indicator, online = true) {
+function presetPage(page, globalData, opt, indicator, Set = true) {
   // loadFont(globalData.T);
   indicator.data = {
     T: globalData.T,
     nm: globalData.nm,
-    page: online ? page : getPageData(page, globalData, opt)
+		page: Set ? page : getPageData(page, globalData, opt)
   };
   if (opt && page) {
     try {

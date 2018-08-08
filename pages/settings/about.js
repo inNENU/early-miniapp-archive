@@ -76,16 +76,18 @@ P('about', {
     } else {
       p[1].content[1].display = false, p[1].content[2].display = false, p[1].content[3].display = false, p[1].content[5].display = false;
     }
-    console.log(p)
-    if (S.preSet(p, a, res, this)) {
+    console.log(p);
+    console.log(res.query)
+    if (!S.preSet(p, a, res.query, this, false)) {
       this.set = true;
-      console.log('About set!')
+      console.log('About preload');
     };
     console.log('About preload finished');
   },
   onLoad(res) {
     if (!this.set) {
       S.Set(this.data.page, a, res, this, false);
+      console.log('About onLoad.')
     };
     S.Notice(this.aim);
     console.log('About onLoad finished.')

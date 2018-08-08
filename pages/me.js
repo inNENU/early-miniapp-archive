@@ -63,8 +63,8 @@ P('me', {
         S.Set(data, a, null, indicator);
       }, this)
     };
-    this.$preload('setting');
-		this.$preload('about');
+		this.$preload('setting?From=我的东师');
+		this.$preload('about?From=我的东师');
   },
   onPageScroll(e) {
     S.nav(e, this)

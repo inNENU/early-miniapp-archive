@@ -1,7 +1,9 @@
-var a = getApp().globalData,
-  c = getApp().common,
-  audioContext;
-Page({
+var P = require('../utils/wxpage'),
+  S = require('../utils/setPage'),
+  audioContext,
+  a = getApp().globalData;
+
+P('music', {
   data: {
     cover: '/image/nenuyouth.png',
     musicPlay: false,
@@ -142,7 +144,7 @@ Page({
     }
   },
   cA(e) {
-    c.componentAction(e, this)
+    S.component(e, this)
   },
   modeSwitch() {
     let mode = this.data.mode == 3 ? 0 : this.data.mode + 1;

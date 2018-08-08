@@ -1,9 +1,9 @@
-var a = getApp().globalData,
-  c = getApp().common;
-Page({
+var P = require('../../utils/wxpage'),
+  S = require('../../utils/setPage'),
+  a = getApp().globalData;
+
+P('0.9', {
   data: {
-    T: a.T,
-    nm: a.nm,
     page: [{
       tag: 'head',
       title: 'V0.9开发日志',
@@ -20,15 +20,33 @@ Page({
       tag: 'p',
       head: 'V0.9.2',
       text: '音乐播放器界面制作了进度条；\n关于界面报错修复；\段落空格大小修复；'
+    }, {
+      tag: 'p',
+      head: 'V0.9.3',
+      text: '设计修改底层框架思路，完善预加载，减少界面启动速度；'
+    }, {
+      tag: 'p',
+      head: 'V0.9.4',
+      text: '引入wxpage并做初步调试；'
+    }, {
+      tag: 'p',
+      head: 'V0.9.5',
+      text: 'modules引入preload；\n数个bug修复；\n重构setPage.js；'
+    }, {
+      tag: 'p',
+      head: 'V0.9.6',
+      text: '主页引入preload；\n数个bug修复；'
     }],
   },
-  onLoad(e) {
-    c.setPage(this.data.page, this, a, e)
+  onLoad(res) {
+    S.Set(this.data.page, a, res, this, false);
+    S.Notice(this.aim);
+    console.log('V0.9Log onLoad finished.')
   },
   onPageScroll(e) {
-    c.nav(e, this)
+    S.nav(e, this)
   },
   cA(e) {
-    c.componentAction(e, this)
+    S.component(e, this)
   }
 })

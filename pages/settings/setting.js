@@ -122,6 +122,7 @@ P('setting', {
     };
     if (!S.preSet(this.data.page, a, res.query, this, false)) {
       this.set = true;
+			console.log('Preload set');
     };
     console.log('Settings preload finished.');
   },
