@@ -11,14 +11,7 @@
         "pages/settings/setting",
         "pages/settings/about",
         "pages/settings/login",
-        "pages/settings/donate",
-        "modules/module1",
-        "modules/module2",
-        "modules/module3",
-        "modules/module4",
-        "modules/module5",
-        "modules/module6",
-        "modules/module7"
+        "pages/settings/donate"
     ],
     "subPackages": [{
             "root": "function",
@@ -35,6 +28,18 @@
             "root": "shop",
             "pages": [
                 "good"
+            ]
+        },
+        {
+            "root": "modules",
+            "pages": [
+                "module1",
+                "module2",
+                "module3",
+                "module4",
+                "module5",
+                "module6",
+                "module7"
             ]
         }
     ],
