@@ -56,6 +56,8 @@ P('me', {
   },
   onShow() {
     tab.tabBarChanger(a.nm);
+    this.$preload('setting?From=我的东师');
+    this.$preload('about?From=我的东师');
   },
   onReady() {
     if (!this.set) {
@@ -63,8 +65,6 @@ P('me', {
         S.Set(data, a, null, indicator);
       }, this)
     };
-		this.$preload('setting?From=我的东师');
-		this.$preload('about?From=我的东师');
   },
   onPageScroll(e) {
     S.nav(e, this)

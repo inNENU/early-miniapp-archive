@@ -36,6 +36,10 @@ P('0.9', {
       tag: 'p',
       head: 'V0.9.6',
       text: '主页引入preload；\n数个bug修复；'
+    }, {
+      tag: 'p',
+      head: 'V0.9.7',
+      text: '暂时解决map载入异常的问题；\n修复主题和夜间模式切换的问题；'
     }],
   },
   onLoad(res) {

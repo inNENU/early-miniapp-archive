@@ -122,7 +122,7 @@ P('setting', {
     };
     if (!S.preSet(this.data.page, a, res.query, this, false)) {
       this.set = true;
-			console.log('Preload set');
+      console.log('Preload set');
     };
     console.log('Settings preload finished.');
   },
@@ -254,7 +254,7 @@ P('setting', {
     let theme = this.data.page[1].content[0].pickerValue[e.detail.value];
     a.T = theme;
     wx.setStorageSync("theme", theme);
-    S.setPage(this.data.page, a, e, this)
+		S.Set(this.data.page, a, null, this);
     this.$emit('theme', theme);
     console.log('theme切换为' + theme); //调试
   },
