@@ -75,53 +75,48 @@ function getPageData(page, globalData, opt) {
           page[0].aim = page[0].title;
         }
       };
-      for (let i = 0; i < page.length; i++) {
-        //setImage
-        let Module = page[i];
-        Module.id = i;
-        if (Module.src) {
-          (Module.res) ? page[0].url.push(Module.res): page[0].url.push(Module.src), Module.res = Module.src;
-          (Module.imgMode) ? '' : Module.imgMode = 'widthFix'
+      page.forEach((x, y) => {
+        x.id = y;
+        if (x.src) {
+          (x.res) ? page[0].url.push(x.res): page[0].url.push(x.src), x.res = x.src;
+          (x.imgMode) ? '' : x.imgMode = 'widthFix'
         };
         //setList
-        if ('content' in Module) {
-          for (let j = 0; j < Module.content.length; j++) {
-            let item = Module.content[j];
-            item.id = i + "-" + j;
+        if ('content' in x) {
+          x.content.forEach((i, j) => {
+            i.id = y + "-" + j;
             //set List navigator
-            if ('url' in item) {
-              item.url += "?From=" + page[0].title
+            if ('url' in i) {
+              i.url += "?From=" + page[0].title
             };
-            if ('aim' in item) {
-              item.url = "module" + page[0].aimStep + "?From=" + page[0].title + "&aim=" + item.aim + "&step=" + page[0].aimStep
+            if ('aim' in i) {
+              i.url = "module" + page[0].aimStep + "?From=" + page[0].title + "&aim=" + i.aim + "&step=" + page[0].aimStep
             };
             //set List switch
-            if ('swiKey' in item) {
-              item.status = wx.getStorageSync(item.swiKey);
+            if ('swiKey' in i) {
+              i.status = wx.getStorageSync(i.swiKey);
             };
             //set List slider
-            if ('sliKey' in item) {
-              item.value = wx.getStorageSync(item.sliKey);
+            if ('sliKey' in i) {
+              i.value = wx.getStorageSync(i.sliKey);
             };
             //set List picker
-            if ('pickerValue' in item) {
-              if (item.single) {
-                let res = wx.getStorageSync(item.key);
-                item.value = item.pickerValue[res];
-                item.currentValue = [res]
+            if ('pickerValue' in i) {
+              if (i.single) {
+                let res = wx.getStorageSync(i.key);
+                i.value = i.pickerValue[res], i.currentValue = [res]
               } else {
-                let res = wx.getStorageSync(item.key).split('-');
-                item.currentValue = new Array();
-                item.value = new Array();
-                for (let k = 0; k < res.length; k++) {
-                  item.value[k] = item.pickerValue[k][Number(res[k])];
-                  item.currentValue[k] = Number(res[k]);
-                }
+                let res = wx.getStorageSync(i.key).split('-');
+                i.currentValue = new Array(), i.value = new Array();
+                res.forEach((k, l) => {
+                  i.value[l] = i.pickerValue[l][Number(k)];
+                  i.currentValue[l] = Number(k);
+                })
               }
             }
-          }
+          })
         }
-      };
+      });
     } else {
       console.warn('No head tag in page!');
     };
@@ -137,7 +132,7 @@ function presetPage(page, globalData, opt, indicator, Set = true) {
   indicator.data = {
     T: globalData.T,
     nm: globalData.nm,
-		page: Set ? page : getPageData(page, globalData, opt)
+    page: Set ? page : getPageData(page, globalData, opt)
   };
   if (opt && page) {
     try {
@@ -285,10 +280,10 @@ function picker(e, indicator) {
       content.currentValue = value;
       wx.setStorageSync(content.key, Number(value));
     } else {
-      for (let k = 0; k < value.length; k++) {
-        content.value[k] = content.pickerValue[k][Number(value[k])];
-        content.currentValue[k] = value[k]
-      };
+      value.forEach((x, y) => {
+        content.value[y] = content.pickerValue[y][Number(x)];
+        content.currentValue[y] = x
+      })
       wx.setStorageSync(content.key, value.join('-'));
     }
     indicator.setData({
