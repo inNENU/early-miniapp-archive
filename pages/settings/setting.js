@@ -139,10 +139,14 @@ P('setting', {
     S.nav(e, this)
   },
   refreshRes(e) {
-    tab.resRefresh()
+    tab.request('fileList', function(data, indicator) {
+      tab.resDownload(data, null)
+    }, null)
   },
   refreshFunc(e) {
-    tab.funcRefresh()
+    tab.request('funcList', function(data, indicator) {
+      tab.resDownload(data, null)
+    }, null)
   },
   cA(e) {
     S.component(e, this)

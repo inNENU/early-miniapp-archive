@@ -1,9 +1,9 @@
 module.exports = {
   checkUpdate,
-  resRefresh,
-  funcRefresh,
   tabBarChanger,
-  markerSet
+  markerSet,
+  request,
+	resDownload
 }
 
 // 初始化存储
@@ -98,9 +98,9 @@ function resSnyc(fileNumList, refreshList) {
   let percent = new Array(),
     successNumber = 0,
     fileNum = 0;
-  for (let i = 0; i < fileNumList.length; i++) {
-    fileNum += fileNumList[i] + 1;
-  };
+  fileNumList.forEach(x => {
+    fileNum += x + 1;
+  })
   console.log("fileNum是" + fileNum);
   for (let i = 0; i <= fileNum; i++) {
     percent.push(((i / fileNum) * 100).toString().substring(0, 4));
@@ -109,12 +109,12 @@ function resSnyc(fileNumList, refreshList) {
     wx.hideLoading();
     console.error('hide timeout')
   }, 10000);
-  for (let i = 0; i < refreshList.length; i++) {
+  refreshList.forEach((x, y) => {
     wx.request({
-      url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + '.json',
+      url: 'https://mrhope.top/mp/' + x + '/' + x + '.json',
       success(res) {
-        console.log(refreshList[i]), console.log(res); //调试
-        successNumber += 1, wx.setStorageSync(refreshList[i], res.data);
+        console.log(x), console.log(res); //调试
+        successNumber += 1, wx.setStorageSync(x, res.data);
         wx.showLoading({
           title: '下载中...' + percent[successNumber] + '%',
           mask: true
@@ -126,15 +126,15 @@ function resSnyc(fileNumList, refreshList) {
         };
       },
       fail(res) {
-        console.warn(refreshList[i]), console.warn(res);
+        console.warn(x), console.warn(res);
       }
     });
-    for (let j = 1; j <= fileNumList[i]; j++) {
+    for (let j = 1; j <= fileNumList[y]; j++) {
       wx.request({
-        url: 'https://mrhope.top/mp/' + refreshList[i] + '/' + refreshList[i] + j + '.json',
+        url: 'https://mrhope.top/mp/' + x + '/' + x + j + '.json',
         success(res) {
-          console.log(res), console.log(refreshList[i] + j); //调试
-          successNumber += 1, wx.setStorageSync(refreshList[i] + j, res.data);
+          console.log(res), console.log(x + j); //调试
+          successNumber += 1, wx.setStorageSync(x + j, res.data);
           wx.showLoading({
             title: '下载中...' + percent[successNumber] + '%',
             mask: true
@@ -146,12 +146,12 @@ function resSnyc(fileNumList, refreshList) {
           };
         },
         fail(res) {
-          console.error(res), console.error(refreshList[i] + j);
+          console.error(res), console.error(x + j);
           successNumber += 1;
         }
       })
     }
-  }
+  })
 }
 
 //资源下载 from fuction.js & guide.js 被resRefresh调用
@@ -162,54 +162,21 @@ function resDownload(onlineList, localList) {
     refreshList = new Array();
   console.log(category); //调试
   if (localList) {
-    for (let i = 0; i < category.length; i++) {
-      if (!localList[category[i]] || localList[category[i]][1] !== onlineList[category[i]][1]) {
-        console.log(category[i] + 'don\'t match'); //调试
-        fileNumList.push(onlineList[category[i]][0]), refreshList.push(category[i]);
+    category.forEach(x => {
+      if (!localList[x] || localList[x][1] !== onlineList[x][1]) {
+        console.log(x + 'don\'t match'); //调试
+        fileNumList.push(onlineList[x][0]), refreshList.push(x);
       };
-    };
+    })
     resSnyc(fileNumList, refreshList);
   } else {
-    for (let i = 0; i < category.length; i++) {
-      fileNumList.push(onlineList[category[i]][0]);
-    };
+    category.forEach(x => {
+      fileNumList.push(onlineList[x][0]);
+    })
     refreshList = category;
     resSnyc(fileNumList, refreshList);
   }
 }
-
-//指南资源刷新 from theme.js
-function resRefresh() {
-  wx.request({
-    url: 'https://mrhope.top/mp/fileList.json',
-    success(listRequest) {
-      console.log(listRequest); //调试
-      let fileList = listRequest.data;
-      if (listRequest.statusCode == 200) {
-        resDownload(fileList, null)
-      } else {
-        console.error('FileList error!')
-      }
-    }
-  })
-}
-
-//界面资源刷新 from theme.js
-function funcRefresh() {
-  wx.request({
-    url: 'https://mrhope.top/mp/funcList.json',
-    success(listRequest) {
-      console.log(listRequest); //调试
-      let fileList = listRequest.data;
-      if (listRequest.statusCode == 200) {
-        resDownload(fileList, null)
-      } else {
-        console.error('FileList error!')
-      }
-    }
-  })
-}
-
 
 function markerSet() {
   let markerData = wx.getStorageSync('marker'),
