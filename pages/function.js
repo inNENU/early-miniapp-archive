@@ -57,10 +57,10 @@ P('function', {
         text: '故障报修',
         icon: '/icon/repair.svg',
         url: 'main/building'
-      }, {
-        text: '表白墙',
-        icon: '/icon/heart.svg',
-        url: 'main/building'
+      // }, {
+      //   text: 'TA说',
+      //   icon: '/icon/heart.svg',
+      //   url: 'main/building'
       }, ]
     }, ],
   },
@@ -98,7 +98,6 @@ P('function', {
         S.Set(data, a, null, indicator);
       }, this)
     };
-    this.$preload('/function/situs');
   },
   onPageScroll(e) {
     S.nav(e, this)

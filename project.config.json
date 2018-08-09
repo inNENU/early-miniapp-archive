@@ -34,10 +34,10 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "分享卡片",
-					"pathName": "modules/module1",
-					"query": "aim=dorm&From=主页&share=true",
+					"pathName": "modules/sharePage",
+					"query": "aim=check4&From=主页&share=true",
 					"scene": "1011"
 				}
 			]

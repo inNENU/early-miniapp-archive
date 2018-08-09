@@ -50,15 +50,17 @@ P('map', {
     ]
   },
   onPreload(res) {
+    console.log('start map preload')
+  },
+  onNavigate(res) {
+    console.log("将要跳转Map")
     t.markerSet();
     let value = wx.getStorageSync('mapSwitch'),
       mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true);
     this.data.mapSwitch = mapSwitch, this.data.markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all'), this.data.info = a.info;
     this.mapCtx = wx.createMapContext('schoolMap'), this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2), this.set = true;
+    console.log('Map navigate finish')
   },
-	onNavigate(res){
-		console.log("将要跳转Map")
-	},
   onLoad: function(e) {
     let that = this;
     wx.showLoading({
@@ -252,14 +254,11 @@ P('map', {
       xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
     if (e.type == 'markertap') {
       this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}`)
-      // let pageData = wx.getStorageSync(xiaoqu + e.markerId);
-      // if (pageData) {
-      //   wx.setStorageSync(xiaoqu + e.markerId + 'temp', c.setPageData(pageData, a, null))
-      // }
     } else if (e.type == 'callouttap') {
-      wx.navigateTo({
-        url: 'situs?id=' + e.markerId + '&xiaoqu=' + xiaoqu,
-      })
+      this.$route(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}`)
+      // wx.navigateTo({
+      //   url: 'situs?id=' + e.markerId + '&xiaoqu=' + xiaoqu,
+      // })
     }
   },
   showList(e) {

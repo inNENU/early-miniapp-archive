@@ -37,7 +37,7 @@ P('module3', {
 	onShareAppMessage() {
 		return {
 			title: this.data.page[0].title,
-			path: '/templates/module1?From=主页&step=1&share=true&aim=' + this.name
+			path: `/modules/sharePage?From=主页&step=1&share=true&aim=${this.aim}&path=/pages/guide`
 		}
 	},
 })
