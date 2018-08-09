@@ -1,19 +1,22 @@
 //预加载界面，在上一个界面被调用，写入存储
 function preLoad(indicator, globalData) {
-  indicator.data.page.forEach(x => {
-    if ('content' in x) {
-      x.content.forEach(y => {
-        if ('aim' in y) {
-          let head = indicator.data.page[0];
-          getOnlinePage({
-            From: head.title,
-            aim: y.aim,
-            step: head.aimStep
-          }, globalData, indicator)
-        };
-      })
-    }
-  });
+  let page = indicator.data.page;
+  if (page) {
+    page.forEach(x => {
+      if ('content' in x) {
+        x.content.forEach(y => {
+          if ('aim' in y) {
+            let head = page[0];
+            getOnlinePage({
+              From: head.title,
+              aim: y.aim,
+              step: head.aimStep
+            }, globalData, indicator)
+          };
+        })
+      }
+    });
+  }
 }
 
 //获取在线页面，被preLoad调用

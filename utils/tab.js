@@ -180,41 +180,40 @@ function resDownload(onlineList, localList) {
 
 function markerSet() {
   let markerData = wx.getStorageSync('marker'),
-    markerVersion = JSON.parse(wx.getStorageSync('localFunc')).marker[1],
+    localList = JSON.parse(wx.getStorageSync('localFunc')),
+    markerVersion = localList ? localList.marker[1] : null,
     currentVersion = wx.getStorageSync('markerVersion');
   if (!markerData) {
     request('marker/marker', function(data, indicator) {
       wx.setStorageSync('marker', data);
-      if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue')) {
-        try {
-          wx.setStorageSync('markerVersion', markerVersion)
-        } catch (msg) {
-          console.warn(msg);
-          console.warn('Marker Version set failure.')
-        }
-      }
-    }, null)
+      if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue') && markerVersion) {
+        wx.setStorageSync('markerVersion', markerVersion)
+      } else {
+        console.warn('Marker set failure.')
+      };
+    }, null);
   } else {
     if (markerVersion != currentVersion) {
       if (setMarker(markerData[0], 'benbu') && setMarker(markerData[1], 'jingyue')) {
         wx.setStorageSync('markerVersion', markerVersion)
-      }
+      } else {
+        console.warn('Marker set failure.')
+      };
     }
   }
 }
 
 function setMarker(data, name) {
   let marker = initMarker(data.points),
-    category = data.category,
-    categoryList = Object.keys(category);
+    category = data.category;
   wx.setStorageSync(name + '-all', marker);
-  for (let i = 0; i < categoryList.length; i++) {
-    let markerDetail = new Array; //=
-    for (let j = category[categoryList[i]][0]; j <= category[categoryList[i]][1]; j++) {
+  Object.keys(category).forEach(x => {
+    let markerDetail = new Array;
+    for (let j = category[x][0]; j <= category[x][1]; j++) {
       markerDetail.push(marker[j])
     };
-    wx.setStorageSync(name + '-' + categoryList[i], markerDetail)
-  };
+    wx.setStorageSync(name + '-' + x, markerDetail)
+  })
   return 'success';
 }
 
@@ -251,8 +250,7 @@ function initMarker(markers) {
     if (!("title" in x)) {
       x.title = x.detail
     };
-    delete x.name;
-    delete x.detail;
+    delete x.name, delete x.detail;
     Object.assign(x, temp);
   })
   return markers;

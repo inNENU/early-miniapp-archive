@@ -23,19 +23,16 @@ P('situs', {
   },
   onPreload(res) {
     this.xiaoqu = res.query.xiaoqu, this.id = res.query.id;
-    if (!S.preSet(wx.getStorageSync(this.xiaoqu + this.id), a, null, this, false)) {
-      this.set = true;
-    };
+    this.aim = S.preSet(wx.getStorageSync(res.query.aim), a, res, this, false)
     console.log('Situs preload');
   },
   onLoad(res) {
-    if (!this.set) {
-      console.log(res)
-      this.aim = S.Online(a, {
-        aim: res.xiaoqu + res.id
-      }, this);
+    console.log(res)
+    if (res.aim != this.aim) {
+      this.aim = S.Online(a, res, this);
       console.log('onLoad 成功')
     }
+    console.log(this.data.page)
     S.Notice(this.aim);
   },
   onReady() {
@@ -54,5 +51,14 @@ P('situs', {
   },
   cA(e) {
     S.component(e, this)
-  }
+  },
+  onShareAppMessage() {
+    return {
+      title: this.data.page[0].title,
+      path: `/function/situs?From=主页&step=1&share=true&xiaoqu=${this.xiaoqu}&id=${this.id}&aim=${this.aim}`
+    }
+  },
+  redirect() {
+    this.$launch('/pages/main')
+  },
 })

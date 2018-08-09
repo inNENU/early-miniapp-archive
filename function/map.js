@@ -21,7 +21,6 @@ var includePoint1 = {
 
 var P = require('../utils/wxpage'),
   S = require('../utils/setPage'),
-  app = getApp().app,
   t = require('../utils/tab'),
   a = getApp().globalData;
 // var trigger = true
@@ -49,17 +48,14 @@ P('map', {
       ['风景', 'scenery'],
     ]
   },
-  onPreload(res) {
-    console.log('start map preload')
-  },
   onNavigate(res) {
     console.log("将要跳转Map")
     t.markerSet();
     let value = wx.getStorageSync('mapSwitch'),
       mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true);
     this.data.mapSwitch = mapSwitch, this.data.markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all'), this.data.info = a.info;
-    this.mapCtx = wx.createMapContext('schoolMap'), this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2), this.set = true;
-    console.log('Map navigate finish')
+    this.set = true;
+    console.log('Map navigate finish');
   },
   onLoad: function(e) {
     let that = this;
@@ -67,21 +63,24 @@ P('map', {
       title: '加载中...'
     });
     if (this.set) {
-      that.mapCtx.getScale({
-        success(r1) {
-          that.mapCtx.getCenterLocation({
-            success(r2) {
-              that.setData({
-                map: {
-                  scale: r1.scale,
-                  latitude: r2.latitude,
-                  longitude: r2.longitude
-                }
-              });
-            }
-          });
-        }
-      });
+      this.mapCtx = wx.createMapContext('schoolMap'), this.mapCtx.includePoints(this.data.mapSwitch ? includePoint1 : includePoint2);
+      setTimeout(function() {
+        that.mapCtx.getScale({
+          success(r1) {
+            that.mapCtx.getCenterLocation({
+              success(r2) {
+                that.setData({
+                  map: {
+                    scale: r1.scale,
+                    latitude: r2.latitude,
+                    longitude: r2.longitude
+                  }
+                });
+              }
+            });
+          }
+        });
+      }, 500)
       wx.hideLoading();
     } else {
       t.markerSet();
@@ -113,40 +112,6 @@ P('map', {
         wx.hideLoading();
       }, 500);
     }
-    // wx.showLoading({
-    //   title: '加载中...'
-    // });
-    // t.markerSet();
-    // let that = this,
-    //   value = wx.getStorageSync('mapSwitch'),
-    //   mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true),
-    //   map = this.data.map,
-    //   markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
-    // this.setData({
-    //   mapSwitch: mapSwitch,
-    //   markers: markers,
-    //   info: a.info
-    // });
-    // this.mapCtx = wx.createMapContext('schoolMap');
-    // this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
-    // setTimeout(function() {
-    //   that.mapCtx.getScale({
-    //     success(r1) {
-    //       that.mapCtx.getCenterLocation({
-    //         success(r2) {
-    //           that.setData({
-    //             map: {
-    //               scale: r1.scale,
-    //               latitude: r2.latitude,
-    //               longitude: r2.longitude
-    //             }
-    //           });
-    //         }
-    //       });
-    //     }
-    //   });
-    //   wx.hideLoading();
-    // }, 500);
   },
   onReady: function(e) {
     let that = this;
@@ -159,7 +124,6 @@ P('map', {
   Switch() {
     let that = this,
       temp = !this.data.mapSwitch,
-      // map = this.data.map,
       markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
     this.setData({
       mapSwitch: temp,
@@ -253,9 +217,9 @@ P('map', {
     let mapSwitch = this.data.mapSwitch,
       xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
     if (e.type == 'markertap') {
-      this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}`)
+      this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu+e.markerId}`)
     } else if (e.type == 'callouttap') {
-      this.$route(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}`)
+      this.$route(`/function/situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu + e.markerId}`)
       // wx.navigateTo({
       //   url: 'situs?id=' + e.markerId + '&xiaoqu=' + xiaoqu,
       // })

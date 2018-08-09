@@ -98,6 +98,7 @@ P('function', {
         S.Set(data, a, null, indicator);
       }, this)
     };
+		tab.markerSet();
   },
   onPageScroll(e) {
     S.nav(e, this)
