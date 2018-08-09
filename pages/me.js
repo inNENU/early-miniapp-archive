@@ -10,17 +10,11 @@ P('me', {
       title: '我的东师',
       action: true,
       grey: true,
-      // show: true,
     }, {
-      //   tag: 'info',
-      // }, {
       tag: 'list',
       content: [{
         text: '设置',
         url: 'settings/setting'
-        // }, {
-        //   text: '登录',
-        //   url: 'settings/login'
       }, {
         text: '关于',
         url: 'settings/about',
@@ -32,7 +26,7 @@ P('me', {
     }, ],
   },
   onPreload(res) {
-    if (!S.preSet(this.$take(res.query.name), a, null, this, false)) {
+    if (!S.preSet(this.data.page, a, null, this, false)) {
       this.set = true;
     };
     console.log('Me preload finished time:', new Date() - a.d, 'ms');
@@ -61,9 +55,7 @@ P('me', {
   },
   onReady() {
     if (!this.set) {
-      S.request('main/me', function(data, indicator) {
-        S.Set(data, a, null, indicator);
-      }, this)
+      S.Set(this.data.page, a, null, indicator);
     };
   },
   onPageScroll(e) {

@@ -49,24 +49,22 @@ P('map', {
       ['风景', 'scenery'],
     ]
   },
+  onPreload(res) {
+    t.markerSet();
+    let value = wx.getStorageSync('mapSwitch'),
+      mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true);
+    this.data.mapSwitch = mapSwitch, this.data.markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all'), this.data.info = a.info;
+    this.mapCtx = wx.createMapContext('schoolMap'), this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2), this.set = true;
+  },
+	onNavigate(res){
+		console.log("将要跳转Map")
+	},
   onLoad: function(e) {
+    let that = this;
     wx.showLoading({
       title: '加载中...'
     });
-    t.markerSet();
-    let that = this,
-      value = wx.getStorageSync('mapSwitch'),
-      mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true),
-      map = this.data.map,
-      markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
-    this.setData({
-      mapSwitch: mapSwitch,
-      markers: markers,
-      info: a.info
-    });
-    this.mapCtx = wx.createMapContext('schoolMap');
-    this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
-    setTimeout(function() {
+    if (this.set) {
       that.mapCtx.getScale({
         success(r1) {
           that.mapCtx.getCenterLocation({
@@ -83,7 +81,70 @@ P('map', {
         }
       });
       wx.hideLoading();
-    }, 500);
+    } else {
+      t.markerSet();
+      let value = wx.getStorageSync('mapSwitch'),
+        mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true);
+      this.setData({
+        mapSwitch: mapSwitch,
+        markers: wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all'),
+        info: a.info
+      });
+      this.mapCtx = wx.createMapContext('schoolMap');
+      this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
+      setTimeout(function() {
+        that.mapCtx.getScale({
+          success(r1) {
+            that.mapCtx.getCenterLocation({
+              success(r2) {
+                that.setData({
+                  map: {
+                    scale: r1.scale,
+                    latitude: r2.latitude,
+                    longitude: r2.longitude
+                  }
+                });
+              }
+            });
+          }
+        });
+        wx.hideLoading();
+      }, 500);
+    }
+    // wx.showLoading({
+    //   title: '加载中...'
+    // });
+    // t.markerSet();
+    // let that = this,
+    //   value = wx.getStorageSync('mapSwitch'),
+    //   mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true),
+    //   map = this.data.map,
+    //   markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
+    // this.setData({
+    //   mapSwitch: mapSwitch,
+    //   markers: markers,
+    //   info: a.info
+    // });
+    // this.mapCtx = wx.createMapContext('schoolMap');
+    // this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
+    // setTimeout(function() {
+    //   that.mapCtx.getScale({
+    //     success(r1) {
+    //       that.mapCtx.getCenterLocation({
+    //         success(r2) {
+    //           that.setData({
+    //             map: {
+    //               scale: r1.scale,
+    //               latitude: r2.latitude,
+    //               longitude: r2.longitude
+    //             }
+    //           });
+    //         }
+    //       });
+    //     }
+    //   });
+    //   wx.hideLoading();
+    // }, 500);
   },
   onReady: function(e) {
     let that = this;
@@ -96,7 +157,7 @@ P('map', {
   Switch() {
     let that = this,
       temp = !this.data.mapSwitch,
-      map = this.data.map,
+      // map = this.data.map,
       markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
     this.setData({
       mapSwitch: temp,
@@ -124,13 +185,12 @@ P('map', {
     wx.setStorageSync("mapSwitch", temp);
   },
   scale(e) {
-    let that = this,
-      map = this.data.map;
+    let that = this;
     this.mapCtx.getCenterLocation({
       success(r2) {
         that.setData({
           map: {
-            scale: map.scale + (e.currentTarget.dataset.action == 'enlarge' ? 1 : -1),
+            scale: that.data.map.scale + (e.currentTarget.dataset.action == 'enlarge' ? 1 : -1),
             latitude: r2.latitude,
             longitude: r2.longitude
           }
@@ -191,7 +251,8 @@ P('map', {
     let mapSwitch = this.data.mapSwitch,
       xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
     if (e.type == 'markertap') {
-      let pageData = wx.getStorageSync(xiaoqu + e.markerId);
+      this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}`)
+      // let pageData = wx.getStorageSync(xiaoqu + e.markerId);
       // if (pageData) {
       //   wx.setStorageSync(xiaoqu + e.markerId + 'temp', c.setPageData(pageData, a, null))
       // }

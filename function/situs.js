@@ -1,10 +1,12 @@
-var c = getApp().common,
+var P = require('../utils/wxpage'),
+  S = require('../utils/setPage'),
   a = getApp().globalData;
-Page({
+
+P('situs', {
   data: {
     page: [{
       tag: 'head',
-      title: '物理学院',
+      title: '加载中',
       display: false,
     }, {
       tag: 'swiper',
@@ -15,44 +17,29 @@ Page({
       ],
     }, {
       tag: 'h3',
-      text: '物理学院',
+      text: '加载中',
       style: 'font-size:28px;'
-    }, {
-      tag: 'p',
-      head: '学院简介',
-      text: '修复iOS error返回按钮的问题；\n修复map界面点击态失效的问题；\n修复商品页关闭按钮位置错误的问题；\n修复map弹出列表显示错误的问题；\n修复NENU首页导航栏异常；\n修复shop界面导航栏不随主题切换的问题；'
-    }, {
-      tag: 'p',
-      head: '师资力量',
-      text: 'map界面增加marker与label；\n'
-    }, {
-      tag: 'p',
-      head: 'V0.7.0',
-      text: '修复iOS error返回按钮的问题；\n修复map界面点击态失效的问题；\n修复商品页关闭按钮位置错误的问题；\n修复map弹出列表显示错误的问题；\n修复NENU首页导航栏异常；\n修复shop界面导航栏不随主题切换的问题；'
-    }, {
-      tag: 'p',
-      head: 'V0.7.1',
-      text: 'map界面增加marker与label；\n'
-    }, {
-      tag: 'p',
-      head: 'V0.7.0',
-      text: '修复iOS error返回按钮的问题；\n修复map界面点击态失效的问题；\n修复商品页关闭按钮位置错误的问题；\n修复map弹出列表显示错误的问题；\n修复NENU首页导航栏异常；\n修复shop界面导航栏不随主题切换的问题；'
-    }, {
-      tag: 'p',
-      head: 'V0.7.1',
-      text: 'map界面增加marker与label；\n'
     }, ],
   },
-  onLoad(e) {
-    console.log(e);
-    this.name = c.getContent(this, a, {
-      aim: e.xiaoqu + e.id
-    });
-    // c.setPage(wx.getStorageSync('benbu' + e.id), this, a, e);
-    this.marker = wx.getStorageSync(e.xiaoqu + '-all')[e.id];
+  onPreload(res) {
+    this.xiaoqu = res.query.xiaoqu, this.id = res.query.id;
+    if (!S.preSet(wx.getStorageSync(this.xiaoqu + this.id), a, null, this, false)) {
+      this.set = true;
+    };
+    console.log('Situs preload');
   },
-  onPageScroll(e) {
-    c.nav(e, this)
+  onLoad(res) {
+    if (!this.set) {
+      console.log(res)
+      this.aim = S.Online(a, {
+        aim: res.xiaoqu + res.id
+      }, this);
+      console.log('onLoad 成功')
+    }
+    S.Notice(this.aim);
+  },
+  onReady() {
+    this.marker = wx.getStorageSync(this.xiaoqu + '-all')[this.id];
   },
   detail() {
     let marker = this.marker;
@@ -62,7 +49,10 @@ Page({
       name: markers.title,
     })
   },
+  onPageScroll(e) {
+    S.nav(e, this)
+  },
   cA(e) {
-    c.componentAction(e, this)
+    S.component(e, this)
   }
 })

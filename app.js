@@ -10,7 +10,7 @@ wxpage.A({
     endTime: "5-0",
   },
   config: {
-    route: ['/pages/$page', '/modules/$page'],
+    route: ['/pages/$page', '/modules/$page', '/function/$page'],
     resolvePath(name) {
       return '/modules/' + name
     }

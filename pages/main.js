@@ -54,12 +54,13 @@ P('main', {
     //     T: data
     //   });
     // });
-    ['guide', 'function', 'shop', 'me'].forEach(x => {
+    ['guide', 'function', 'shop'].forEach(x => {
       S.request('main/' + x, function(data, indicator) {
         indicator.$put(x, data);
         indicator.$preload(`${x}?name=${x}`);
       }, this)
-    })
+    });
+    this.$preload(`me`);
   },
   onPageScroll(e) {
     S.nav(e, this)

@@ -3,7 +3,7 @@ module.exports = {
   tabBarChanger,
   markerSet,
   request,
-	resDownload
+  resDownload
 }
 
 // 初始化存储

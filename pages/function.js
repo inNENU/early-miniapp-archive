@@ -97,7 +97,8 @@ P('function', {
       S.request('main/function', function(data, indicator) {
         S.Set(data, a, null, indicator);
       }, this)
-    }
+    };
+    this.$preload('/function/situs');
   },
   onPageScroll(e) {
     S.nav(e, this)
