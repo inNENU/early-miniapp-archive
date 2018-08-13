@@ -32,15 +32,7 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": [
-				{
-					"id": 0,
-					"name": "分享卡片",
-					"pathName": "modules/sharePage",
-					"query": "aim=check4&From=主页&share=true",
-					"scene": "1011"
-				}
-			]
+			"list": []
 		}
 	}
 }

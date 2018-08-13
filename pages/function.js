@@ -57,10 +57,6 @@ P('function', {
         text: '故障报修',
         icon: '/icon/repair.svg',
         url: 'main/building'
-      // }, {
-      //   text: 'TA说',
-      //   icon: '/icon/heart.svg',
-      //   url: 'main/building'
       }, ]
     }, ],
   },

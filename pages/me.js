@@ -14,9 +14,11 @@ P('me', {
       tag: 'list',
       content: [{
         text: '设置',
+				icon:"/icon/setting.svg",
         url: 'settings/setting'
       }, {
         text: '关于',
+				icon:"/icon/about.svg",
         url: 'settings/about',
         desc: a.Version
       }, ]

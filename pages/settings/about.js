@@ -1,6 +1,6 @@
 var P = require('../../utils/wxpage'),
   S = require('../../utils/setPage'),
-	u = require('../../utils/util'),
+  u = require('../../utils/util'),
   a = getApp().globalData;
 
 P('about', {
@@ -70,11 +70,14 @@ P('about', {
       value = wx.getStorageSync('developMode'),
       developMode = (value || value == false) ? value : (wx.setStorageSync('developMode', false));
     this.developMode = developMode;
-    p[1].content[4].display = false;
     if (developMode) {
-      p[1].content[1].display = true, p[1].content[2].display = true, p[1].content[3].display = true, p[1].content[5].display = true;
+      p[1].content.forEach(x => {
+        x.display = true;
+      })
     } else {
-      p[1].content[1].display = false, p[1].content[2].display = false, p[1].content[3].display = false, p[1].content[5].display = false;
+      p[1].content.forEach((x, y) => {
+        x.display = y == 0 ? true : false;
+      })
     }
     console.log(p);
     console.log(res.query)
@@ -109,11 +112,13 @@ P('about', {
   debugMode(e) {
     let clickNumber = this.clickNumber;
     if (this.developMode) {
-      wx.setStorageSync('developMode', false)
-      let p = this.data.page;
-      p[1].content[1].display = false, p[1].content[2].display = false, p[1].content[3].display = false, p[1].content[5].display = false;
+      wx.setStorageSync('developMode', false);
+			let p = this.data.page;
+			p[1].content.forEach((x, y) => {
+        x.display = y == 0 ? true : false;
+      })
       this.setData({
-        page: p
+				page: p
       });
       this.clickNumber = 0, this.developMode = false;
     } else {
@@ -131,10 +136,12 @@ P('about', {
           title: '已启用开发者模式',
           icon: 'none'
         });
-        let p = this.data.page;
-        p[1].content[1].display = true, p[1].content[2].display = true, p[1].content[3].display = true, p[1].content[5].display = true;
+				let p = this.data.page;
+				p[1].content.forEach(x => {
+          x.display = true;
+        });
         this.setData({
-          page: p
+					page: p
         });
         wx.setStorageSync('developMode', true);
         this.developMode = true;
