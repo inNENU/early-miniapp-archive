@@ -9,7 +9,7 @@
 		"nodeModules": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.2",
+	"libVersion": "2.2.3",
 	"appid": "wx33acb831ee1831a5",
 	"projectname": "Nenuyouth",
 	"isGameTourist": false,

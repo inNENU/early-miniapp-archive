@@ -179,10 +179,13 @@ function resDownload(onlineList, localList) {
 }
 
 function markerSet() {
-  let markerData = wx.getStorageSync('marker'),
-    localList = JSON.parse(wx.getStorageSync('localFunc')),
+  let localList, markerData = wx.getStorageSync('marker'),
+    temp = wx.getStorageSync('localFunc'),
     markerVersion = localList ? localList.marker[1] : null,
     currentVersion = wx.getStorageSync('markerVersion');
+  if (temp) {
+    localList = JSON.parse(temp)
+  }
   if (!markerData) {
     request('marker/marker', function(data, indicator) {
       wx.setStorageSync('marker', data);
