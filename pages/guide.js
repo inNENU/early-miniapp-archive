@@ -20,47 +20,47 @@ P('guide', {
         content: [{
           text: '新生报到',
           icon: '/icon/check.svg',
-          aim: 'check'
+          aim: 'check0'
         }, {
           text: '学习',
           icon: '/icon/study.svg',
-          aim: 'study'
+          aim: 'study0'
         }, {
           text: '食堂',
           icon: '/icon/dining.svg',
-          aim: 'dining'
+          aim: 'dining0'
         }, {
           text: '生活',
           icon: '/icon/life.svg',
-          aim: 'life'
+          aim: 'life0'
         }, {
           text: '寝室',
           icon: '/icon/dorm.svg',
-          aim: 'dorm'
+          aim: 'dorm0'
         }, {
           text: '校园网',
           icon: '/icon/network.svg',
-          aim: 'network'
+          aim: 'network0'
         }, {
           text: '校园卡',
           icon: '/icon/card.svg',
-          aim: 'card'
+          aim: 'card0'
         }, {
           text: '吃喝玩乐',
           icon: '/icon/nearby.svg',
-          aim: 'nearby'
+          aim: 'nearby0'
         }, {
           text: '交通',
           icon: '/icon/traffic.svg',
-          aim: 'traffic'
+          aim: 'traffic0'
         }, {
           text: '学生组织',
           icon: '/icon/studentOrg.svg',
-          aim: 'studentOrg'
+          aim: 'studentOrg0'
         }, {
           text: '资助',
           icon: '/icon/subsidize.svg',
-          aim: 'subsidize'
+          aim: 'subsidize0'
         }, ]
       },
     ],
@@ -80,7 +80,7 @@ P('guide', {
       S.Set(this.data.page, a, null, this, false);
     };
     S.Notice(this.aim);
-    tab.checkUpdate('resNotify', 'localList', 'fileList', '是否立即下载指南页所需资源？', '下载后可离线查看界面文字。(会消耗60K流量)\n不下载资源可能会造成部分界面异常，可以稍后在设置中进行下载', '20K', a)
+    tab.checkUpdate('resNotify', 'localList', 'guideRes', '是否立即下载指南页所需资源？', '下载后可离线查看界面文字。(会消耗60K流量)\n不下载资源可能会造成部分界面异常，可以稍后在设置中进行下载', '20K', a)
     let that = this;
     this.$on('theme', function(data) {
       that.setData({

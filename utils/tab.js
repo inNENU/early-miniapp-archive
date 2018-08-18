@@ -89,18 +89,80 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
   }
 }
 
+// //resRefresh的附属函数
+// function resSnyc(fileNumList, refreshList) {
+//   wx.showLoading({
+//     title: '下载中...0%',
+//     mask: true
+//   });
+//   let percent = new Array(),
+//     successNumber = 0,
+//     fileNum = 0;
+//   fileNumList.forEach(x => {
+//     fileNum += x + 1;
+//   })
+//   console.log("fileNum是" + fileNum);
+//   for (let i = 0; i <= fileNum; i++) {
+//     percent.push(((i / fileNum) * 100).toString().substring(0, 4));
+//   }
+//   let timeoutFunc = setTimeout(function() {
+//     wx.hideLoading();
+//     console.error('hide timeout')
+//   }, 10000);
+//   refreshList.forEach((x, y) => {
+//     wx.request({
+//       url: 'https://mrhope.top/mp/' + x + '/' + x + '.json',
+//       success(res) {
+//         console.log(x), console.log(res); //调试
+//         successNumber += 1, wx.setStorageSync(x, res.data);
+//         wx.showLoading({
+//           title: '下载中...' + percent[successNumber] + '%',
+//           mask: true
+//         });
+//         if (successNumber == fileNum) {
+//           wx.hideLoading();
+//           console.log('hide'); //调试
+//           clearTimeout(timeoutFunc);
+//         };
+//       },
+//       fail(res) {
+//         console.warn(x), console.warn(res);
+//       }
+//     });
+//     for (let j = 1; j <= fileNumList[y]; j++) {
+//       wx.request({
+//         url: 'https://mrhope.top/mp/' + x + '/' + x + j + '.json',
+//         success(res) {
+//           console.log(res), console.log(x + j); //调试
+//           successNumber += 1, wx.setStorageSync(x + j, res.data);
+//           wx.showLoading({
+//             title: '下载中...' + percent[successNumber] + '%',
+//             mask: true
+//           });
+//           if (successNumber == fileNum) {
+//             wx.hideLoading();
+//             console.log('hide'); //调试
+//             clearTimeout(timeoutFunc);
+//           };
+//         },
+//         fail(res) {
+//           console.error(res), console.error(x + j);
+//           successNumber += 1;
+//         }
+//       })
+//     }
+//   })
+// }
+
 //resRefresh的附属函数
-function resSnyc(fileNumList, refreshList) {
+function resSnyc(refreshList) {
   wx.showLoading({
     title: '下载中...0%',
     mask: true
   });
   let percent = new Array(),
     successNumber = 0,
-    fileNum = 0;
-  fileNumList.forEach(x => {
-    fileNum += x + 1;
-  })
+    fileNum = refreshList.length;
   console.log("fileNum是" + fileNum);
   for (let i = 0; i <= fileNum; i++) {
     percent.push(((i / fileNum) * 100).toString().substring(0, 4));
@@ -109,12 +171,15 @@ function resSnyc(fileNumList, refreshList) {
     wx.hideLoading();
     console.error('hide timeout')
   }, 10000);
-  refreshList.forEach((x, y) => {
+  refreshList.forEach(x => {
     wx.request({
-      url: 'https://mrhope.top/mp/' + x + '/' + x + '.json',
+      url: `https://mrhope.top/mp/${x}/${x}.json`,
       success(res) {
         console.log(x), console.log(res); //调试
-        successNumber += 1, wx.setStorageSync(x, res.data);
+        res.data.forEach((y, z) => {
+          wx.setStorageSync(x + z, y);
+        })
+        successNumber += 1;
         wx.showLoading({
           title: '下载中...' + percent[successNumber] + '%',
           mask: true
@@ -129,52 +194,77 @@ function resSnyc(fileNumList, refreshList) {
         console.warn(x), console.warn(res);
       }
     });
-    for (let j = 1; j <= fileNumList[y]; j++) {
-      wx.request({
-        url: 'https://mrhope.top/mp/' + x + '/' + x + j + '.json',
-        success(res) {
-          console.log(res), console.log(x + j); //调试
-          successNumber += 1, wx.setStorageSync(x + j, res.data);
-          wx.showLoading({
-            title: '下载中...' + percent[successNumber] + '%',
-            mask: true
-          });
-          if (successNumber == fileNum) {
-            wx.hideLoading();
-            console.log('hide'); //调试
-            clearTimeout(timeoutFunc);
-          };
-        },
-        fail(res) {
-          console.error(res), console.error(x + j);
-          successNumber += 1;
-        }
-      })
-    }
   })
 }
+
+// //资源下载 from fuction.js & guide.js 被resRefresh调用
+// function resDownload(onlineList, localList) {
+//   console.log(onlineList), console.log(localList); //调试
+//   let category = Object.keys(onlineList),
+//     fileNumList = new Array(),
+//     refreshList = new Array();
+//   console.log(category); //调试
+//   if (localList) {
+//     category.forEach(x => {
+//       if (!localList[x] || localList[x][1] !== onlineList[x][1]) {
+//         console.log(x + 'don\'t match'); //调试
+//         fileNumList.push(onlineList[x][0]), refreshList.push(x);
+//       };
+//     })
+//     resSnyc(fileNumList, refreshList);
+//   } else {
+//     category.forEach(x => {
+//       fileNumList.push(onlineList[x][0]);
+//     })
+//     refreshList = category;
+//     resSnyc(fileNumList, refreshList);
+//   }
+// }
+
+// function markerSet() {
+//   let localList, markerData = wx.getStorageSync('marker'),
+//     temp = wx.getStorageSync('localFunc'),
+//     markerVersion = localList ? localList.marker[1] : null,
+//     currentVersion = wx.getStorageSync('markerVersion');
+//   if (temp) {
+//     localList = JSON.parse(temp)
+//   }
+//   if (!markerData) {
+//     request('marker/marker', function(data, indicator) {
+//       wx.setStorageSync('marker', data);
+//       if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue') && markerVersion) {
+//         wx.setStorageSync('markerVersion', markerVersion)
+//       } else {
+//         console.warn('Marker set failure.')
+//       };
+//     }, null);
+//   } else {
+//     if (markerVersion != currentVersion) {
+//       if (setMarker(markerData[0], 'benbu') && setMarker(markerData[1], 'jingyue')) {
+//         wx.setStorageSync('markerVersion', markerVersion)
+//       } else {
+//         console.warn('Marker set failure.')
+//       };
+//     }
+//   }
+// }
 
 //资源下载 from fuction.js & guide.js 被resRefresh调用
 function resDownload(onlineList, localList) {
   console.log(onlineList), console.log(localList); //调试
-  let category = Object.keys(onlineList),
-    fileNumList = new Array(),
-    refreshList = new Array();
+  let category = Object.keys(onlineList);
   console.log(category); //调试
   if (localList) {
+    let refreshList = new Array();
     category.forEach(x => {
-      if (!localList[x] || localList[x][1] !== onlineList[x][1]) {
+      if (localList[x] !== onlineList[x]) {
         console.log(x + 'don\'t match'); //调试
-        fileNumList.push(onlineList[x][0]), refreshList.push(x);
+        refreshList.push(x);
       };
     })
-    resSnyc(fileNumList, refreshList);
+    resSnyc(refreshList);
   } else {
-    category.forEach(x => {
-      fileNumList.push(onlineList[x][0]);
-    })
-    refreshList = category;
-    resSnyc(fileNumList, refreshList);
+    resSnyc(category);
   }
 }
 
