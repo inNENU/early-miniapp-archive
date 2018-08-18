@@ -1,0 +1,115 @@
+.videoBg {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.nm .videoBg {
+  background-color: #000;
+}
+
+.headerCtn {
+  width: 90%;
+  height: 10%;
+  padding: 0 5%;
+}
+
+.videoName, .videoAuthor {
+  color: #888;
+  font-family: FZSSJW,
+                 -apple-system-font,
+                 "PingFang SC",
+                 "Helvetica Neue",
+                 Helvetica,
+                 STHeiti,
+                 Tahoma,
+                 Simsun,
+                 sans-serif !important;
+}
+
+.videoName {
+  font-size: 44rpx;
+  margin-bottom: 20rpx;
+}
+
+.videoAuthor {
+  font-size: 32rpx;
+}
+
+.videoPlayer {
+  width: 100%;
+  height: 35%;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player {
+  width: 700rpx;
+  max-height: 400rpx;
+}
+
+.videoList {
+  width: 100%;
+  height: 40%;
+  border-top-left-radius: 4%;
+  border-top-right-radius: 4%;
+  box-shadow: 0 -2px 5px rgba(219, 218, 223, 0.95);
+}
+
+.nm .videoList {
+  box-shadow: 0 -2px 5px rgba(36, 37, 32, 0.95);
+}
+
+.video-ListCtn {
+  width: 100%;
+  text-align: left;
+  /* display: -webkit-flex;
+	display: flex;
+	align-items: center;
+	justify-content: space-between; */
+}
+
+.videoListCtn {
+  width: 90%;
+  padding: 16rpx 5%;
+}
+
+.videoListName {
+  font-size: 32rpx;
+  color: #333;
+  font-family: FZSSJW,
+                 -apple-system-font,
+                 "PingFang SC",
+                 "Helvetica Neue",
+                 Helvetica,
+                 STHeiti,
+                 Tahoma,
+                 Simsun,
+                 sans-serif !important;
+}
+
+.nm .videoListName {
+  color: #ccc;
+}
+
+.videoListAuthor {
+  font-size: 26rpx;
+  color: #888;
+}
+
+.active .videoListName, .active .videoListAuthor {
+  color: #3478f7;
+}
+
+.divLine {
+  width: 92%;
+  height: 1rpx;
+  margin: 0 4%;
+  background-color: #cac9ce;
+}
+
+.nm .divLine {
+  background-color: #53534f;
+}

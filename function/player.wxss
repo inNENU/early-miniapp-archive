@@ -29,7 +29,7 @@
 
 .songName {
   font-size: 44rpx;
-  margin: 20rpx auto;
+  margin-bottom: 20rpx;
 }
 
 .songAuthor {

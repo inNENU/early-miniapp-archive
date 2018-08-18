@@ -1,19 +1,35 @@
-<view class="{{nm?'nm':''}} playerBg">
-  <view style='height:10%;'></view>
+<view class="{{nm?'nm':''}} commonBg">
+  <view style='height:15%;'></view>
   <view class='headerCtn'>
     <view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
       <image class='backIcon' src='/icon/back.svg' />
     </view>
-    <view class='songName'>{{songName}}</view>
-    <view class='songAuthor'>—— {{songAuthor}} ——</view>
+    <view class='videoName'>{{videoName}}</view>
+    <view class='videoAuthor'>—— {{videoAuthor}} ——</view>
   </view>
+  <view class='videoPlayer'>
+    <video class='player' src="{{src}}" controls='true' />
+  </view>
+  <scroll-view scroll-y class='videoList'>
+    <view style='height:6%;'></view>
+    <view wx:for="{{videoList}}" class='video-ListCtn'>
+      <view class="videoListCtn {{item.current?'active':''}}" id='{{index}}' hover-class='buttonHover' catchtap='play'>
+        <view class='videoListName'>{{item.name}}</view>
+        <view class='videoListAuthor'>{{item.author}}</view>
+      </view>
+      <view class='divLine'></view>
+    </view>
+    <view style='height:6%;'></view>
+  </scroll-view>
+</view>
+<!-- <view class="{{nm?'nm':''}} playerBg">
   <view class="coverCtn">
     <image wx:if="{{!coverLoad}}" class="cover {{musicPlay?'rotate':''}}" src='/function/icon/cd.svg' />
     <image class="cover {{musicPlay?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{cover}}" bindload='loadCover' />
   </view>
   <view class='progressBarCtn'>
     <view class='timeDisplay'>{{presentMinute?presentMinute:"--"}}:{{presentSecond?presentSecond:"--"}}</view>
-    <slider class='progressBar' min='0' max='{{songLength*100}}' step='1' value="{{currentTime*100}}" block-size='15' backgroundColor='e9e9e9' selected-color='#27C087' block-color="#27C087" bindchange='drag' bindchanging='drag' />
+    <slider class='progressBar' min='0' max='{{videoLength*100}}' step='1' value="{{currentTime*100}}" block-size='15' backgroundColor='e9e9e9' selected-color='#27C087' block-color="#27C087" bindchange='drag' bindchanging='drag' />
     <view class='timeDisplay'>{{totalMinute?totalMinute:"--"}}:{{totalSecond?totalSecond:"--"}}</view>
   </view>
   <view wx:if="{{nm}}" class='playerCtn'>
@@ -24,7 +40,7 @@
       <image wx:if="{{mode==3}}" class='cycleBtn' src='/function/icon/orderPlay.svg' />
     </view>
     <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='previousBtn' src='/function/icon/previousSong.svg' />
+      <image class='previousBtn' src='/function/icon/previousvideo.svg' />
     </view>
     <view wx:if="{{canplay}}" class='buttonCtn2' hover-class='active' hover-start-time='0' hover-stay-time='50' catchtap='play'>
       <image class='playBtn' src="{{musicPlay?'/function/icon/pause.svg':'/function/icon/play.svg'}}" />
@@ -33,7 +49,7 @@
       <image class='playBtn' src="/function/icon/loading.svg" />
     </view>
     <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='nextBtn' src='/function/icon/nextSong.svg' />
+      <image class='nextBtn' src='/function/icon/nextvideo.svg' />
     </view>
     <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
       <image class='listBtn' src='/function/icon/musicList.svg' />
@@ -47,7 +63,7 @@
       <image wx:if="{{mode==3}}" class='cycleBtn' src='/function/icon/orderPlay.svg' />
     </view>
     <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='previousBtn' src='/function/icon/previousSong.svg' />
+      <image class='previousBtn' src='/function/icon/previousvideo.svg' />
     </view>
     <view wx:if="{{canplay}}" class='buttonCtn2' hover-class='active' hover-start-time='0' hover-stay-time='50' catchtap='play'>
       <image class='playBtn' src="{{musicPlay?'/function/icon/pause.svg':'/function/icon/play.svg'}}" />
@@ -56,11 +72,11 @@
       <image class='playBtn' src="/function/icon/loading.svg" />
     </view>
     <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='nextBtn' src='/function/icon/nextSong.svg' />
+      <image class='nextBtn' src='/function/icon/nextvideo.svg' />
     </view>
     <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
       <image class='listBtn' src='/function/icon/musicList.svg' />
     </view>
   </view>
-  <view style='height:10%;'></view>
-</view>
+  <view style='height:5%;'></view>
+</view> -->
