@@ -1,7 +1,7 @@
 var P = require('../utils/wxpage'),
   S = require('../utils/setPage'),
-  audioContext,
-  a = getApp().globalData;
+  a = getApp().globalData,
+  audioContext = a.music.audioContext;
 
 P('music', {
   data: {
@@ -14,8 +14,8 @@ P('music', {
     presentSecond: '00',
     totalMinute: '0',
     totalSecond: '00',
-    i: 1,
-    songs: [{
+    i: 0,
+    songList: [{
       src: "https://res.wx.qq.com/voice/getvoice?mediaid=MzA5MTQ4NjUzMl80MDI2NzgyODI=",
       poster: "https://mrhope.top/icon/nenuyouth.png",
       name: '东师姑娘',
@@ -53,7 +53,7 @@ P('music', {
     let that = this,
       mode = wx.getStorageSync('playMode'),
       i = this.data.i,
-      currentSong = this.data.songs[i];
+      currentSong = this.data.songList[i];
     this.setData({
       songName: currentSong.name,
       songAuthor: currentSong.author,
@@ -65,7 +65,7 @@ P('music', {
     });
     if (!a.musicPlay) {
       audioContext = wx.createInnerAudioContext('myMusic');
-      audioContext.src = this.data.songs[i].src;
+      audioContext.src = this.data.songList[i].src;
       audioContext.onCanplay(function(e) {
         console.log('Canplay') //调试
         that.setData({

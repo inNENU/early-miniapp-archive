@@ -1,13 +1,3 @@
-.playerBg {
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-}
-
-.nm .playerBg {
-  background-color: #000;
-}
-
 .headerCtn {
   width: 90%;
   height: 10%;

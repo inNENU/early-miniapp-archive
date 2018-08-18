@@ -1,4 +1,4 @@
-<view class="{{nm?'nm':''}} playerBg">
+<view class="{{nm?'nm':''}} commonBg">
   <view style='height:10%;'></view>
   <view class='headerCtn'>
     <view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
@@ -63,4 +63,15 @@
     </view>
   </view>
   <view style='height:10%;'></view>
+  <view class='songList'>
+    <view style='height:6%;'></view>
+    <view wx:for="{{songList}}" class='video-ListCtn'>
+      <view class="videoListCtn {{item.current?'active':''}}" id='{{index}}' hover-class='buttonHover' catchtap='play'>
+        <view class='videoListName'>{{item.name}}</view>
+        <view class='videoListAuthor'>{{item.author}}</view>
+      </view>
+      <view class='divLine'></view>
+    </view>
+    <view style='height:6%;'></view>
+  </view>
 </view>
