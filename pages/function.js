@@ -24,7 +24,7 @@ P('function', {
       }, {
         text: '影约东师',
         icon: '/icon/movie.svg',
-        url: '/function/movie'
+        url: '/function/video'
       }, ]
     }, {
       tag: 'grid',
