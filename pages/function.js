@@ -23,7 +23,7 @@ P('function', {
         url: '/function/player'
       }, {
         text: '影约东师',
-        icon: '/icon/scenery.svg',
+        icon: '/icon/movie.svg',
         url: '/function/movie'
       }, ]
     }, {

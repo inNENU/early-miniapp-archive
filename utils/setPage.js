@@ -23,6 +23,7 @@ function preLoad(indicator, globalData) {
 function getOnlinePage(opt, globalData, indicator) {
   let pageData = wx.getStorageSync(opt.aim);
   if (pageData) {
+		console.log(getPageData(pageData, globalData, opt))
     indicator.$session.set(opt.aim + 'Temp', getPageData(pageData, globalData, opt));
   } else {
     let source, length = opt.aim.length;
@@ -132,6 +133,7 @@ function getPageData(page, globalData, opt) {
 //设置界面，在onNavigate时调用，将界面数据写入初始数据
 function presetPage(page, globalData, opt, indicator, Set = true) {
   // loadFont(globalData.T);
+  console.log(page);
   indicator.data = {
     T: globalData.T,
     nm: globalData.nm,

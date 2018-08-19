@@ -16,11 +16,10 @@ P('module1', {
     }
     S.Notice(this.aim);
   },
-	onReady() {
-		if (this.aim) {
-			S.preLoad(this, a);
-		}
-	},
+  onReady() {
+    S.preLoad(this, a);
+    console.log('preload')
+  },
   navigate(res) {
     this.$route(res.currentTarget.dataset.url)
   },
@@ -36,13 +35,4 @@ P('module1', {
       path: `/modules/sharePage?From=主页&step=1&share=true&aim=${this.aim}&path=/pages/guide`
     }
   },
-  // onShareAppMessage() {
-  //   return {
-  //     title: this.data.page[0].title,
-  //     path: `/modules/module1?From=主页&step=1&share=true&aim=${this.aim}`
-  //   }
-  // },
-  // redirect() {
-  //   this.$switch('/pages/guide')
-  // },
 })
