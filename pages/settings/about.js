@@ -21,7 +21,7 @@ P('about', {
         button: 'debugMode'
       }, {
         text: '开发日志',
-        aim: 'log'
+        aim: 'log0'
       }, {
         text: '调试开关',
         swiKey: 'debugMode',
@@ -47,18 +47,20 @@ P('about', {
       head: '工作室与开发者介绍',
       content: [{
         text: 'Hope Studio介绍',
-        aim: 'MrHope'
+        aim: 'MrHope0'
       }, {
         text: 'Mr.Hope个人介绍',
         aim: 'MrHope1'
+      }, {
+        text: '   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月、赵星妮在界面编写、排版与订正上给予的无私帮助。'
+      }, {
+        text: '问题反馈：QQ1178522294'
       }]
     }, {
       tag: 'list',
-      head: '小程序开发历程',
       content: [{
-        text: '  Mr.Hope希望服务于东师学子，故Mr.Hope自2017年以来，利用自己的业余时间。不断开发小程序。但由于Mr.Hope专业是物理学，在小程序开发的过程中Mr.Hope需要学习大量的相关知识，所以从开发至小程序发布，时间已经过去了一年了，小程序才刚刚达到可以发布的程度。还请大家见谅。Mr.Hope会在接下来的时间里，努力完善小程序的。'
-      }, {
-        text: '问题反馈：QQ1178522294'
+        text: '小程序功能太少?',
+        aim: "MrHope2"
       }]
     }, {
       tag: 'foot',
@@ -113,12 +115,12 @@ P('about', {
     let clickNumber = this.clickNumber;
     if (this.developMode) {
       wx.setStorageSync('developMode', false);
-			let p = this.data.page;
-			p[1].content.forEach((x, y) => {
+      let p = this.data.page;
+      p[1].content.forEach((x, y) => {
         x.display = y == 0 ? true : false;
       })
       this.setData({
-				page: p
+        page: p
       });
       this.clickNumber = 0, this.developMode = false;
     } else {
@@ -136,12 +138,12 @@ P('about', {
           title: '已启用开发者模式',
           icon: 'none'
         });
-				let p = this.data.page;
-				p[1].content.forEach(x => {
+        let p = this.data.page;
+        p[1].content.forEach(x => {
           x.display = true;
         });
         this.setData({
-					page: p
+          page: p
         });
         wx.setStorageSync('developMode', true);
         this.developMode = true;
