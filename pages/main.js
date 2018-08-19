@@ -36,7 +36,7 @@ P('main', {
     S.request('main/main', function(data, indicator) {
       S.Set(data, a, null, indicator);
     }, this);
-		tab.tabBarChanger(a.nm);
+    tab.tabBarChanger(a.nm);
   },
   onReady() {
     let that = this;

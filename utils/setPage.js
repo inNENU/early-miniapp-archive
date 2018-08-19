@@ -23,7 +23,7 @@ function preLoad(indicator, globalData) {
 function getOnlinePage(opt, globalData, indicator) {
   let pageData = wx.getStorageSync(opt.aim);
   if (pageData) {
-		console.log(getPageData(pageData, globalData, opt))
+    console.log(getPageData(pageData, globalData, opt))
     indicator.$session.set(opt.aim + 'Temp', getPageData(pageData, globalData, opt));
   } else {
     let source, length = opt.aim.length;
@@ -211,7 +211,6 @@ function popNotice(aim) {
 
 // json组件判断触发函数
 function componentAction(res, indicator) {
-  console.log(res);
   let action = res.currentTarget.dataset.action;
   switch (action) {
     case 'img':
@@ -237,6 +236,9 @@ function componentAction(res, indicator) {
       break;
     case 'slider':
       slider(res, indicator);
+      break;
+    case 'share':
+      share(res, indicator);
       break;
     default:
       console.warn('error');
@@ -378,6 +380,64 @@ function phone(e, indicator) {
       url: info.website,
       homePhoneNumber: info.homeNum
     })
+  }
+}
+
+//分享按钮
+function share(e, indicator) {
+  let touch = e.touches[0];
+  // if (e.target.dataset.object = 'button') {
+  if (e.type == 'touchstart') {
+    indicator.left = touch.pageX - e.currentTarget.offsetLeft;
+    indicator.top = touch.pageY - e.currentTarget.offsetTop;
+    indicator.time = e.timeStamp;
+  } else if (e.type == 'touchmove') {
+    indicator.setData({
+      'page[0].top': touch.pageY - indicator.top,
+      'page[0].left': touch.pageX - indicator.left,
+    })
+  } else if (e.type == 'touchend' && indicator.time > e.timeStamp - 200) {
+    console.log('tap');
+    indicator.setData({
+      'page[0].menuDisplay': true
+    })
+  } else if (e.type == 'tap') {
+    indicator.setData({
+      'page[0].menuDisplay': false
+    });
+    if (e.target.dataset.object == 'download') {
+      console.log('download')
+      wx.downloadFile({
+        url: `https://mrhope.top/mp/share/${indicator.data.page[0].aim}.png`,
+        success(res) {
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success(msg) {
+              wx.showToast({
+                title: '二维码保存成功',
+                icon: 'none'
+              })
+              console.log(msg)
+            },
+            fail(msg) {
+              console.log(msg)
+              wx.showToast({
+                title: '二维码保存失败',
+                icon: 'none'
+              })
+              console.warn('save fail')
+            }
+          })
+        },
+        fail() {
+          console.warn('download fail');
+          wx.showToast({
+            title: '二维码下载失败',
+            icon: 'none'
+          })
+        }
+      })
+    }
   }
 }
 

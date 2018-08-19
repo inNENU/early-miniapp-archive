@@ -118,7 +118,6 @@
   50% {
     transform: scaleX(1);
   }
-
 }
 
 .loadingShadow {
@@ -669,4 +668,75 @@
   width: 40rpx;
   height: 40rpx;
   margin: 0;
+}
+
+/* share */
+
+.shareIconCtn {
+  width: 80rpx;
+  height: 80rpx;
+  position: fixed;
+  z-index: 200;
+  right: 40rpx;
+  bottom: 100rpx;
+  background-color: #3cc51f;
+  border-radius: 50%;
+  box-shadow: 1px 1px 3px rgba(127, 127, 127, 0.15);
+}
+
+.shareHover {
+  background-color: #32a71a;
+}
+
+.shareIcon {
+  width: 70%;
+  height: 70%;
+  margin: 15%;
+}
+
+.shareMask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 100%;
+  z-index: 201;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.shareLayer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 100%;
+  z-index: 202;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.shareBtnCtn {
+  width: 100%;
+}
+
+.shareBtn {
+  width: 100%;
+  height: 48px;
+  background-color: #fff !important;
+  line-height: 2.4;
+  border: none !important;
+  border-radius: 0 !important;
+  border-top: 1rpx #cac9ce solid !important;
+}
+
+.cancelBtn {
+  width: 100%;
+  height: 60px;
+  border: none !important;
+  background-color: #fff;
+  border-radius: 0 !important;
+  border-top: 8px #d9d9d9 solid !important;
+}
+
+.shareBtnHover {
+  background-color: #eee !important;
 }
