@@ -51,14 +51,14 @@
 }
 
 .timeDisplay {
-  width: 8%;
+  width: 10%;
   font-size: 15px;
   color: #999;
 }
 
 .progressBar {
-  width: 84%;
-  margin: 10px;
+  width: 80%;
+  margin: 10px 15px;
 }
 
 slider {
@@ -88,14 +88,16 @@ slider {
 .playBtn, .cycleBtn, .previousBtn, .nextBtn, .listBtn {
   width: 100%;
   height: 100%;
-  -webkit-filter: drop-shadow(-1px 3px 5px rgba(191, 190, 195, 0.95));
-  filter: drop-shadow(-1px 3px 5px rgba(191, 190, 195, 0.95));
+  -webkit-filter: drop-shadow(-1px 3px 3px rgba(191, 190, 195, 0.95));
+  filter: drop-shadow(-1px 3px 3px rgba(191, 190, 195, 0.95));
 }
 
 .cycleBtn2 {
   width: 80%;
   height: 80%;
   margin: 10%;
+  -webkit-filter: drop-shadow(-1px 3px 3px rgba(191, 190, 195, 0.95));
+  filter: drop-shadow(-1px 3px 3px rgba(191, 190, 195, 0.95));
 }
 
 .active {

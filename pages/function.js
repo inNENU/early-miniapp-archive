@@ -18,17 +18,13 @@ P('function', {
         icon: '/icon/map.svg',
         url: '/function/map'
       }, {
-        text: 'Voice of NENU',
+        text: '音律东师',
         icon: '/icon/music.svg',
-        url: '/function/music'
-      }, {
-        text: '校园风光',
-        icon: '/icon/scenery.svg',
-        url: '/function/scenery'
-      }, {
-        text: '播放器',
-        icon: '/icon/scenery.svg',
         url: '/function/player'
+      }, {
+        text: '影约东师',
+        icon: '/icon/scenery.svg',
+        url: '/function/movie'
       }, ]
     }, {
       tag: 'grid',
@@ -57,7 +53,15 @@ P('function', {
         text: '故障报修',
         icon: '/icon/repair.svg',
         url: 'main/building'
-      }, ]
+      }, {
+        text: '东师掠影',
+        icon: '/icon/scenery.svg',
+        url: '/function/scenery'
+      }, {
+        text: 'TA 说',
+        icon: '/icon/heart.svg',
+        url: 'main/building'
+      }]
     }, ],
   },
   onPreload(res) {
@@ -94,7 +98,7 @@ P('function', {
         S.Set(data, a, null, indicator);
       }, this)
     };
-		tab.markerSet();
+    tab.markerSet();
   },
   onPageScroll(e) {
     S.nav(e, this)

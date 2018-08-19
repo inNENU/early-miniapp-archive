@@ -52,7 +52,7 @@ function noticeCheck() {
     },
     fail() {
       wx.showToast({
-        title: '似乎未检测到互联网连接',
+        title: '服务器似乎不堪重负',
         icon: 'none',
         duration: 3000
       })

@@ -44,10 +44,11 @@ wxpage.A({
     })
   },
   globalData: {
-    Version: 'V 1.0.0 beta1',
+    Version: 'V 1.0.0',
     music: {
       play: false,
-      audioContext: null,
+      played: false,
+      index: 0
     }
   },
 })
