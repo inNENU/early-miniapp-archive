@@ -1,11 +1,135 @@
-.commonBg{
-	width: 100%;
-	height: 100%;
-	background-color: #fff;
+.commonBg {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
 }
 
 .nm.commonBg {
   background-color: #000;
+}
+
+/* loading */
+
+.commonLoading {
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingIconCtn {
+  width: 200rpx;
+  height: 250rpx;
+  -webkit-filter: drop-shadow(-1px 1px 2px rgba(191, 190, 195, 0.15));
+  filter: drop-shadow(-1px 1px 2px rgba(191, 190, 195, 0.15));
+}
+
+.loadingIcon {
+  width: 200rpx;
+  height: 200rpx;
+  position: relative;
+}
+
+@keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    top: 0px;
+  }
+
+  10% {
+    -webkit-transform: rotate(-7.2deg);
+    transform: rotate(-7.2deg);
+    top: -18rpx;
+  }
+
+  20% {
+    -webkit-transform: rotate(-28.8deg);
+    transform: rotate(-28.8deg);
+    top: -32rpx;
+  }
+
+  30% {
+    -webkit-transform: rotate(-64.8deg);
+    transform: rotate(-64.8deg);
+    top: -42rpx;
+  }
+
+  40% {
+    -webkit-transform: rotate(-115.2deg);
+    transform: rotate(-115.2deg);
+    top: -48rpx;
+  }
+
+  50% {
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+    top: -50rpx;
+  }
+
+  60% {
+    -webkit-transform: rotate(-244.8deg);
+    transform: rotate(-244.8deg);
+    top: -48rpx;
+  }
+
+  70% {
+    -webkit-transform: rotate(-295.2deg);
+    transform: rotate(-295.2deg);
+    top: -42rpx;
+  }
+
+  80% {
+    -webkit-transform: rotate(-331.2deg);
+    transform: rotate(-331.2deg);
+    top: -32rpx;
+  }
+
+  90% {
+    -webkit-transform: rotate(-352.8deg);
+    transform: rotate(-352.8deg);
+    top: -18rpx;
+  }
+
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    top: 0px;
+  }
+}
+
+.loading {
+  -webkit-animation: loading 2s linear 0s none infinite alternate-reverse;
+  animation: loading 2s linear 0s none infinite alternate-reverse;
+}
+
+.loadingText {
+  color: #888;
+  font-size: 32rpx;
+}
+
+@keyframes shadow {
+  0%, 100% {
+    transform: scaleX(1.4);
+  }
+
+  50% {
+    transform: scaleX(1);
+  }
+
+}
+
+.loadingShadow {
+  width: 120rpx;
+  height: 20rpx;
+  margin: -20rpx 40rpx 0 40rpx;
+  border-radius: 50%;
+  background: rgba(191, 190, 195, 0.15);
+  box-shadow: 0 0 5px rgba(191, 190, 195, 0.15);
+  -webkit-animation: shadow 2s ease 0s none infinite alternate-reverse;
+  animation: shadow 2s ease 0s none infinite alternate-reverse;
 }
 
 /* Nav */

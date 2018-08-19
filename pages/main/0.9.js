@@ -51,7 +51,7 @@ P('0.9', {
     }, {
       tag: 'p',
       head: 'V0.9.10',
-      text: '完善功能；'
+      text: '完善功能，重构了loading界面；'
     }],
   },
   onLoad(res) {
