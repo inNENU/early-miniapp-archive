@@ -34,6 +34,9 @@
 |action|否|String|左上角按钮触发的函数名称|不填时默认执行返回，设置为true来隐藏默认的返回按钮|
 |grey|否|Boolean|属性值为true时会使用灰色背景|不填会使用白色背景|
 |display|否|Boolean|设置true隐藏head|默认显示head|
+|shareable|否|Boolean|设置界面是否可以被分享|默认为false|
+|contact|否|Boolean|显示联系开发者按钮|默认为false|
+|feedback|否|Boolean|显示意见反馈按钮|默认为false|
 
 ##### **h3参数：**
 |参数|必填|值类型|内容|备注|
