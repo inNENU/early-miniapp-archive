@@ -12,7 +12,7 @@
   </view>
   <scroll-view scroll-y class='videoList'>
     <view style='height:6%;'></view>
-    <view wx:for="{{videoList}}" class='video-ListCtn'>
+    <view wx:for="{{videoList}}" wx:key="{{videoList.name}}" class='video-ListCtn'>
       <view class="videoListCtn {{id==index?'active':''}}" id='{{index}}' hover-class='buttonHover' catchtap='play'>
         <view class='videoListName'>{{item.name}}</view>
         <view class='videoListAuthor'>{{item.author}}</view>

@@ -8,34 +8,8 @@ P('music', {
     canplay: false,
     currentTime: 0,
     songLength: 1,
-    songList: [{
-      src: "https://res.wx.qq.com/voice/getvoice?mediaid=MzA5MTQ4NjUzMl80MDI2NzgyODI=",
-      cover: "https://mrhope.top/icon/nenuyouth.png",
-      title: '东师姑娘',
-      singer: '新媒体中心填词歌曲'
-    }, {
-      src: "https://res.wx.qq.com/voice/getvoice?mediaid=MzUxMTg5NzIxOF8yMjQ3NDgzNzQ2",
-      cover: "/image/logo.png",
-      title: '远方有你',
-      singer: '词改编：党委学生工作部'
-    }, {
-      src: "https://res.wx.qq.com/voice/getvoice?mediaid=MzA5MTQ4NjUzMl81MDQzODM1MjQ=",
-      cover: "https://mrhope.top/icon/nenuyouth.png",
-      title: '一生有你',
-      singer: '东师青年520女生节礼物'
-    }, {
-      src: "https://res.wx.qq.com/voice/getvoice?mediaid=MzA5MTQ4NjUzMl81MDQzODEwODg=",
-      cover: "https://mrhope.top/icon/nenuyouth.png",
-      title: '微微一笑很东师',
-      singer: '新媒体中心填词歌曲'
-    }, {
-      src: "https://res.wx.qq.com/voice/getvoice?mediaid=MzA5MTQ4NjUzMl8yNjUxODc1MzI3",
-      cover: "https://mrhope.top/icon/nenuyouth.png",
-      title: '师德公约',
-      singer: '东北师范大学宣'
-    }]
   },
-  onLoad() {
+  onNavigate(res) {
     wx.loadFontFace({
       family: 'FZSSJW',
       source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
@@ -43,27 +17,68 @@ P('music', {
         console.log('宋体字体' + res.status); //调试
       }
     });
-    let that = this,
-      mode = wx.getStorageSync('playMode'),
-      currentSong = this.data.songList[a.music.index];
-    this.setData({
-      i: a.music.index,
-      title: currentSong.title,
-      singer: currentSong.singer,
-      cover: currentSong.cover,
-      info: a.info,
-      nm: a.nm,
-      play: a.music.play,
-      mode: mode ? mode : (wx.setStorageSync('playMode', 0), 0)
-    });
-    manager = wx.getBackgroundAudioManager();
-    if (a.music.played) {
-      this.setData({
-        canplay: true
-      });
+    let currentSong, index = a.music.index,
+      songList = wx.getStorageSync('funcResList0'),
+      mode = wx.getStorageSync('playMode');
+    this.data.i = index, this.data.info = a.info, this.data.nm = a.nm, this.data.play = a.music.play, this.data.mode = mode ? mode : (wx.setStorageSync('playMode', 0), 0);
+    if (songList) {
+      currentSong = songList[index];
+      this.data.songList = songList, this.data.title = currentSong.title, this.data.singer = currentSong.singer, this.data.cover = currentSong.cover, this.set = true;
     } else {
-      manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = 'NenuYouth', manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
-    };
+      S.request('funcResList/funcResList0', function(data, indicator) {
+        currentSong = data[index];
+        indicator.data.songList = data, indicator.data.title = currentSong.title, indicator.data.singer = currentSong.singer, indicator.data.cover = currentSong.cover, indicator.set = true;
+      }, this)
+    }
+  },
+  onLoad(e) {
+    manager = wx.getBackgroundAudioManager();
+    let currentSong, that = this;
+    if (!this.set) {
+      let index = a.music.index,
+        songList = wx.getStorageSync('funcResList0'),
+        mode = wx.getStorageSync('playMode');
+      this.setData({
+        i: index,
+        info: a.info,
+        nm: a.nm,
+        play: a.music.play,
+        mode: mode ? mode : (wx.setStorageSync('playMode', 0), 0)
+      })
+      if (songList) {
+        currentSong = songList[index];
+        this.setData({
+          songList: songList,
+          title: currentSong.title,
+          singer: currentSong.singer,
+          cover: currentSong.cover,
+        });
+        if (a.music.played) {
+          this.setData({
+            canplay: true
+          });
+        } else {
+          manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = 'NenuYouth', manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
+        };
+      } else {
+        S.request('funcResList/funcResList0', function(data, indicator) {
+          currentSong = data[index];
+          indicator.setData({
+            songList: data,
+            title: currentSong.title,
+            singer: currentSong.singer,
+            cover: currentSong.cover,
+          });
+          if (a.music.played) {
+            this.setData({
+              canplay: true
+            });
+          } else {
+            manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = 'NenuYouth', manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
+          };
+        }, this)
+      }
+    }
     manager.onCanplay(setTimeout(function() {
       console.log('Canplay') //调试
       that.setData({
@@ -165,8 +180,9 @@ P('music', {
         i = j;
         break;
       default:
-        i = i - 1 == 0 ? total : i - 1;
+        i = i == 0 ? total - 1 : i - 1;
     };
+    console.log(i)
     this.Switch(i);
   },
   Switch(i) {
@@ -207,6 +223,7 @@ P('music', {
     wx.setStorageSync('playMode', mode);
     wx.showToast({
       title: modeName + '模式',
+      icon: 'none'
     })
   },
 })
