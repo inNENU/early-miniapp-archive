@@ -6,24 +6,18 @@ P('sharePage', {
   onNavigate(res) {
     console.log('将要跳转：', res)
     this.aim = S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this);
-    // this.path = res.path;
-    if (this.aim) {
-      this.set = true;
-      console.log('预载入成功')
-    };
     console.log(this.aim + '载入'), console.log(this.data);
   },
   onLoad(res) {
-    if (!this.set) {
+    if (!this.aim) {
       console.log(res)
       this.aim = S.Online(a, res, this);
-      // this.path = res.path;
       console.log('onLoad 成功')
     }
     S.Notice(this.aim);
   },
   onReady() {
-    if (this.set) {
+    if (this.aim) {
       S.preLoad(this, a);
     }
   },

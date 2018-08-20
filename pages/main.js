@@ -15,16 +15,34 @@ P('main', {
       tag: 'list',
       head: '报到当天',
       content: [{
-        text: '报到的流程'
+        text: '我该做什么',
+        aim: 'check12'
+      }, {
+        text: '报到的流程',
+        aim: 'check9'
       }]
     }, {
       tag: 'list',
       content: [{
-        text: '寝室环境是怎样的？寝室是几人寝？寝室有独立卫浴么？'
-      }, {
-        text: '查看详情',
-        aim: 'dorm'
-      }]
+          text: "我的学院在哪里？我的寝室在哪里？食堂在哪里？"
+        }, {
+          text: "查看详情",
+          url: "/function/map"
+        }, {
+          text: '寝室环境是怎样的？寝室是几人寝？寝室有独立卫浴么？'
+        }, {
+          text: "本部寝室环境",
+          aim: "dorm3"
+        },
+        {
+          text: "净月寝室环境",
+          aim: "dorm4"
+        },
+        {
+          text: "了解更多",
+          aim: "dorm0"
+        }
+      ]
     }],
   },
   onPageLaunch() {

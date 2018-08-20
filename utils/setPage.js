@@ -160,7 +160,7 @@ function setPage(page, globalData, opt, indicator) {
 }
 
 //设置在线界面数据，在界面初始化之后使用
-function setOnlinePage(globalData, opt, indicator) {
+function setOnlinePage(globalData, opt, indicator, preload = true) {
   let source, length = opt.aim.length;
   if (isNaN(opt.aim.charAt(length - 1))) {
     source = opt.aim;
@@ -179,6 +179,10 @@ function setOnlinePage(globalData, opt, indicator) {
         setPage(getPageData(res.data, globalData, opt), globalData, opt, indicator);
         if (!opt.share) {
           wx.setStorageSync(opt.aim, res.data);
+        };
+        if (preload) {
+          preLoad(indicator, globalData);
+          console.log('preload finish')
         }
       } else {
         console.warn('res error');

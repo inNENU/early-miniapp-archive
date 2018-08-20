@@ -182,7 +182,7 @@
       <view class='shareBtnCtn'>
         <button wx:if="{{shareable}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' open-type='share'>分享到微信</button>
         <button wx:if="{{shareable}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' data-object='download'>保存页面二维码</button>
-        <button wx:if="{{contact}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' open-type='contact'>联系开发者</button>
+        <button wx:if="{{contact}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' open-type='contact'>提交页面错误</button>
         <button wx:if="{{feedback}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' open-type='feedback'>意见反馈</button>
         <button class='cancelBtn' hover-class='shareBtnHover'>取消</button>
       </view>

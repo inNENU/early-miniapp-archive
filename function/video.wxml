@@ -13,7 +13,7 @@
   <scroll-view scroll-y class='videoList'>
     <view style='height:6%;'></view>
     <view wx:for="{{videoList}}" class='video-ListCtn'>
-      <view class="videoListCtn {{item.current?'active':''}}" id='{{index}}' hover-class='buttonHover' catchtap='play'>
+      <view class="videoListCtn {{id==index?'active':''}}" id='{{index}}' hover-class='buttonHover' catchtap='play'>
         <view class='videoListName'>{{item.name}}</view>
         <view class='videoListAuthor'>{{item.author}}</view>
       </view>
@@ -22,61 +22,3 @@
     <view style='height:6%;'></view>
   </scroll-view>
 </view>
-<!-- <view class="{{nm?'nm':''}} playerBg">
-  <view class="coverCtn">
-    <image wx:if="{{!coverLoad}}" class="cover {{musicPlay?'rotate':''}}" src='/function/icon/cd.svg' />
-    <image class="cover {{musicPlay?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{cover}}" bindload='loadCover' />
-  </view>
-  <view class='progressBarCtn'>
-    <view class='timeDisplay'>{{presentMinute?presentMinute:"--"}}:{{presentSecond?presentSecond:"--"}}</view>
-    <slider class='progressBar' min='0' max='{{videoLength*100}}' step='1' value="{{currentTime*100}}" block-size='15' backgroundColor='e9e9e9' selected-color='#27C087' block-color="#27C087" bindchange='drag' bindchanging='drag' />
-    <view class='timeDisplay'>{{totalMinute?totalMinute:"--"}}:{{totalSecond?totalSecond:"--"}}</view>
-  </view>
-  <view wx:if="{{nm}}" class='playerCtn'>
-    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50' bindtap='modeSwitch'>
-      <image wx:if="{{mode==0}}" class='cycleBtn2' src='/function/icon/recyclePlayAll.svg' />
-      <image wx:if="{{mode==1}}" class='cycleBtn2' src='/function/icon/recyclePlaySingle.svg' />
-      <image wx:if="{{mode==2}}" class='cycleBtn' src='/function/icon/randomPlay.svg' />
-      <image wx:if="{{mode==3}}" class='cycleBtn' src='/function/icon/orderPlay.svg' />
-    </view>
-    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='previousBtn' src='/function/icon/previousvideo.svg' />
-    </view>
-    <view wx:if="{{canplay}}" class='buttonCtn2' hover-class='active' hover-start-time='0' hover-stay-time='50' catchtap='play'>
-      <image class='playBtn' src="{{musicPlay?'/function/icon/pause.svg':'/function/icon/play.svg'}}" />
-    </view>
-    <view wx:else class='buttonCtn2' hover-class='active'>
-      <image class='playBtn' src="/function/icon/loading.svg" />
-    </view>
-    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='nextBtn' src='/function/icon/nextvideo.svg' />
-    </view>
-    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='listBtn' src='/function/icon/musicList.svg' />
-    </view>
-  </view>
-  <view wx:if="{{!nm}}" class='playerCtn'>
-    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50' bindtap='modeSwitch'>
-      <image wx:if="{{mode==0}}" class='cycleBtn2' src='/function/icon/recyclePlayAll.svg' />
-      <image wx:if="{{mode==1}}" class='cycleBtn2' src='/function/icon/recyclePlaySingle.svg' />
-      <image wx:if="{{mode==2}}" class='cycleBtn' src='/function/icon/randomPlay.svg' />
-      <image wx:if="{{mode==3}}" class='cycleBtn' src='/function/icon/orderPlay.svg' />
-    </view>
-    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='previousBtn' src='/function/icon/previousvideo.svg' />
-    </view>
-    <view wx:if="{{canplay}}" class='buttonCtn2' hover-class='active' hover-start-time='0' hover-stay-time='50' catchtap='play'>
-      <image class='playBtn' src="{{musicPlay?'/function/icon/pause.svg':'/function/icon/play.svg'}}" />
-    </view>
-    <view wx:else class='buttonCtn2' hover-class='active'>
-      <image class='playBtn' src="/function/icon/loading.svg" />
-    </view>
-    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='nextBtn' src='/function/icon/nextvideo.svg' />
-    </view>
-    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='listBtn' src='/function/icon/musicList.svg' />
-    </view>
-  </view>
-  <view style='height:5%;'></view>
-</view> -->

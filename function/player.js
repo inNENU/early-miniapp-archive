@@ -84,15 +84,11 @@ P('music', {
     });
     manager.onTimeUpdate(function(e) {
       console.log(`TimeUpdate,currentTime是${manager.currentTime},bufferedTime是${manager.buffered},duration是${manager.duration}`) //调试
-      let presentSecond = (parseInt(manager.currentTime % 60)).toString();
-      if (that.data.songLength == 1) {
-        let totalSecond = (parseInt(manager.duration % 60)).toString();
-        that.setData({
-          songLength: parseInt(manager.duration * 100) / 100,
-          total: [parseInt(manager.duration / 60).toString(), totalSecond.length == 1 ? '0' + totalSecond : totalSecond],
-        });
-      }
+      let presentSecond = (parseInt(manager.currentTime % 60)).toString(),
+        totalSecond = (parseInt(manager.duration % 60)).toString();
       that.setData({
+        songLength: parseInt(manager.duration * 100) / 100,
+        total: [parseInt(manager.duration / 60).toString(), totalSecond.length == 1 ? '0' + totalSecond : totalSecond],
         currentTime: parseInt(manager.currentTime * 100) / 100,
         present: [parseInt(manager.currentTime / 60).toString(), presentSecond.length == 1 ? '0' + presentSecond : presentSecond],
         bufferedTime: manager.buffered,
@@ -190,10 +186,27 @@ P('music', {
     S.component(e, this)
   },
   modeSwitch() {
-    let mode = this.data.mode == 3 ? 0 : this.data.mode + 1;
+    let modeName, mode = this.data.mode == 3 ? 0 : this.data.mode + 1;
     this.setData({
       mode: mode
     });
-    wx.setStorageSync('playMode', mode)
+    switch (mode) {
+      case 0:
+        modeName = '列表循环';
+        break;
+      case 1:
+        modeName = '单曲循环';
+        break;
+      case 2:
+        modeName = '顺序播放';
+        break;
+      case 3:
+        modeName = '随机播放';
+        break;
+    }
+    wx.setStorageSync('playMode', mode);
+    wx.showToast({
+      title: modeName + '模式',
+    })
   },
 })

@@ -17,8 +17,10 @@ P('module2', {
 		S.Notice(this.aim);
 	},
 	onReady() {
-		S.preLoad(this, a);
-		console.log('preload')
+		if (this.aim) {
+			S.preLoad(this, a);
+			console.log('preload')
+		}
 	},
 	navigate(res) {
 		this.$route(res.currentTarget.dataset.url)

@@ -92,7 +92,6 @@ P('guide', {
         nm: data
       });
     });
-    this.$route('/modules/test')
   },
   onReady() {
     if (!this.set) {
