@@ -13,8 +13,8 @@ P('about', {
       title: '关于',
       aimStep: 1,
       grey: true,
-      shareable: true,
       feedback: true,
+      contact: true
     }, {
       tag: 'list',
       head: '版本号',
@@ -57,6 +57,9 @@ P('about', {
         text: '   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月在界面编写、排版与订正上给予的无私帮助。'
       }, {
         text: '问题反馈：请联系QQ1178522294或点击右下角并选择联系开发者'
+      }, {
+        button: "donate",
+        text: "支持Mr.Hope"
       }]
     }, {
       tag: 'list',
@@ -87,25 +90,22 @@ P('about', {
     console.log(res.query)
     if (!S.preSet(p, a, res.query, this, false)) {
       this.set = true;
-      console.log('About preload');
     };
-    console.log('About preload finished');
   },
   onLoad(res) {
     if (!this.set) {
       S.Set(this.data.page, a, res, this, false);
-      console.log('About onLoad.')
     };
     S.Notice(this.aim);
-    console.log('About onLoad finished.')
   },
   onReady() {
-    if (!this.set) {
-      S.request('main/about', function(data, indicator) {
-        S.Set(indicator.data.page.slice(0, 2).concat(data, indicator.data.page.slice(-1)), a, null, indicator);
-      }, this)
-    };
-    S.preLoad(this, a);
+    if (this.set) {
+      S.preLoad(this, a);
+    }
+    S.request('main/about', function(data, indicator) {
+      S.Set(indicator.data.page.slice(0, 2).concat(data, indicator.data.page.slice(-1)), a, null, indicator);
+      S.preLoad(indicator, a);
+    }, this)
   },
   onPageScroll(e) {
     S.nav(e, this);

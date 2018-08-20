@@ -3,24 +3,7 @@ var P = require('../utils/wxpage'),
   a = getApp().globalData;
 
 P('situs', {
-  data: {
-    page: [{
-      tag: 'head',
-      title: '加载中',
-      display: false,
-    }, {
-      tag: 'swiper',
-      url: [
-        'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-        'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-      ],
-    }, {
-      tag: 'h3',
-      text: '加载中',
-      style: 'font-size:28px;'
-    }, ],
-  },
+  data: {},
   onPreload(res) {
     this.xiaoqu = res.query.xiaoqu, this.id = res.query.id;
     this.aim = S.preSet(wx.getStorageSync(res.query.aim), a, res, this, false)

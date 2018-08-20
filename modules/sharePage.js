@@ -33,4 +33,10 @@ P('sharePage', {
   redirect() {
     this.$launch('/pages/main')
   },
+  onShareAppMessage() {
+    return {
+      title: this.data.page[0].title,
+      path: `/modules/sharePage?From=主页&step=1&share=true&aim=${this.aim}`
+    }
+  },
 })

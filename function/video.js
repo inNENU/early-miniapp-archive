@@ -20,6 +20,7 @@ P('video', {
     } else {
       S.request('funcResList/funcResList1', function(data, indicator) {
         indicator.data.videoList = data, indicator.data.videoName = data[id].name, indicator.data.videoAuthor = data[id].author, indicator.data.src = data[id].src, indicator.set = true;
+        wx.setStorageSync('funcResList1', data);
       }, this)
     }
   },
@@ -47,9 +48,11 @@ P('video', {
             videoAuthor: data[id].author,
             src: data[id].src,
           });
+          wx.setStorageSync('funcResList1', data);
         }, this)
       }
-    }
+    };
+    S.Notice('movie');
   },
   play(e) {
     let id = e.currentTarget.id,

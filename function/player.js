@@ -28,6 +28,7 @@ P('music', {
       S.request('funcResList/funcResList0', function(data, indicator) {
         currentSong = data[index];
         indicator.data.songList = data, indicator.data.title = currentSong.title, indicator.data.singer = currentSong.singer, indicator.data.cover = currentSong.cover, indicator.set = true;
+        wx.setStorageSync('funcResList0', data);
       }, this)
     }
   },
@@ -76,6 +77,7 @@ P('music', {
           } else {
             manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = 'NenuYouth', manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
           };
+          wx.setStorageSync('funcResList0', data)
         }, this)
       }
     }
@@ -132,6 +134,7 @@ P('music', {
         icon: 'none'
       });
     });
+		S.Notice('music');
   },
   loadCover(e) {
     if (e.type == 'load') {
