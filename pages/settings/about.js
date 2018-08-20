@@ -187,9 +187,16 @@ P('about', {
       data: 'Sl6dhW316U',
       success: function(res) {
         wx.showToast({
-          title: '口令已复制，请打开支付宝领取红包支持Mr.Hope',
+          title: '口令已复制',
           duration: 1000,
-        })
+        });
+        setTimeout(function() {
+          wx.showToast({
+            title: '请打开支付宝领取红包支持Mr.Hope',
+            icon: 'none',
+            duration: 2000,
+          })
+        }, 1000)
       }
     })
   }
