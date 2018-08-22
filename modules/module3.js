@@ -12,6 +12,7 @@ P('module3', {
 		if (this.aim != res.aim) {
 			console.log(res)
 			this.aim = S.Online(a, res, this);
+			wx.reportMonitor('preload failure', 1)
 			console.log('onLoad 成功')
 		}
 		S.Notice(this.aim);
@@ -19,6 +20,7 @@ P('module3', {
 	onReady() {
 		if (this.aim) {
 			S.preLoad(this, a);
+			wx.reportMonitor('preload success', 1)
 			console.log('preload')
 		}
 	},

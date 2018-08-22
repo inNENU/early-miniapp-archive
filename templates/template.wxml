@@ -195,7 +195,7 @@
   <view class='{{T}}P'>
     <text style="{{style}}" selectable='true' space='ensp' decode='true'>{{text}}</text>
     <block wx:if="{{src}}">
-      <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy}}" />
+      <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy,desc}}" />
     </block>
   </view>
 </template>

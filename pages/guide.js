@@ -107,4 +107,10 @@ P('guide', {
   cA(e) {
     S.component(e, this)
   },
+	onShareAppMessage() {
+		return {
+			title: '东师指南',
+			path: `/pages/guide`
+		}
+	},
 })

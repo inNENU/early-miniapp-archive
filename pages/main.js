@@ -87,4 +87,10 @@ P('main', {
   cA(e) {
     S.component(e, this)
   },
+	onShareAppMessage() {
+		return {
+			title: 'NenuYouth',
+			path: `/pages/main`
+		}
+	},
 })

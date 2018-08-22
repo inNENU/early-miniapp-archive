@@ -57,10 +57,6 @@ P('function', {
         text: '东师掠影',
         icon: '/icon/scenery.svg',
         url: '/function/scenery'
-      }, {
-        text: 'TA 说',
-        icon: '/icon/heart.svg',
-        url: 'main/building'
       }]
     }, ],
   },
