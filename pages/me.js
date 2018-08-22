@@ -38,7 +38,7 @@ P('me', {
     if (!this.set) {
       S.Set(this.data.page, a, null, this, false);
     };
-    S.Notice(this.aim);
+    S.Notice('me');
     this.$on('theme', function(data) {
       that.setData({
         T: data

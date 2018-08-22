@@ -101,7 +101,7 @@ P('about', {
     if (!this.set) {
       S.Set(this.data.page, a, res, this, false);
     };
-    S.Notice(this.aim);
+    S.Notice('about');
   },
   onReady() {
     if (this.set) {

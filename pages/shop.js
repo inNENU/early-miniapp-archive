@@ -59,7 +59,7 @@ P('shop', {
     if (!this.set) {
       S.Set(this.data.page, a, null, this, false);
     };
-    S.Notice(this.aim);
+    S.Notice('shop');
     let that = this;
     this.$on('theme', function(data) {
       that.setData({
