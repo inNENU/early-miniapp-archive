@@ -77,6 +77,9 @@ P('about', {
       desc: '当前版本：' + a.Version
     }]
   },
+  onNavigate() {
+    console.log('nav')
+  },
   onPreload(res) {
     let p = this.data.page,
       value = wx.getStorageSync('developMode'),

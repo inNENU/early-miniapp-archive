@@ -6,7 +6,7 @@ var wxpage = require('utils/wxpage'),
 wxpage.A({
   data: {
     theme: "auto",
-    startTime: '20-0',
+    startTime: '0-0',
     endTime: "5-0",
   },
   config: {
@@ -44,7 +44,7 @@ wxpage.A({
     })
   },
   globalData: {
-    Version: 'V 1.0.3',
+    Version: 'V 1.0.4',
     music: {
       play: false,
       played: false,

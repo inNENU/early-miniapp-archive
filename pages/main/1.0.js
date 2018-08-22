@@ -2,7 +2,7 @@ var P = require('../../utils/wxpage'),
   S = require('../../utils/setPage'),
   a = getApp().globalData;
 
-P('0.9', {
+P('1.0', {
   data: {
     page: [{
       tag: 'head',
@@ -20,6 +20,10 @@ P('0.9', {
       tag: 'p',
       head: "V1.0.3 2018.08.22",
       text: '增加了事件监控；\n移除腾讯判定违规内容；'
+    }, {
+      tag: 'p',
+      head: "V1.0.4 2018.08.23",
+      text: '新增公众号组件；\n添加公众号文章跳转功能；'
     }],
   },
   onLoad(res) {

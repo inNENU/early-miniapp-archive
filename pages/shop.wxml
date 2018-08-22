@@ -1,7 +1,7 @@
 <import src="/templates/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template is="all2" data="{{page,T}}" />
-  <!-- <view class="wechatSearchBar">
+  <view class="wechatSearchBar">
     <view class="weui-search-bar__form">
       <view class="weui-search-bar__box">
         <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
@@ -22,10 +22,10 @@
   <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
     <navigator url="" class="weui-cell" hover-class="weui-cell_active">
       <view class="weui-cell__bd">
-        <view>实时搜索文本</view>
+        <view>搜索开发中</view>
       </view>
     </navigator>
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+    <!-- <navigator url="" class="weui-cell" hover-class="weui-cell_active">
       <view class="weui-cell__bd">
         <view>实时搜索文本</view>
       </view>
@@ -39,8 +39,8 @@
       <view class="weui-cell__bd">
         <view>实时搜索文本</view>
       </view>
-    </navigator>
-  </view> -->
+    </navigator> -->
+  </view>
   <view class='goodCtn'>
     <view class='goodLeftCtn'>
       <block wx:for="{{goods}}" wx:key="id">

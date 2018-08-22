@@ -1,7 +1,6 @@
 /*!
  * wxpage v1.1.6
  * https://github.com/tvfe/wxpage
- * License MIT
  */
 module.exports =
 /******/ (function(modules) { // webpackBootstrap

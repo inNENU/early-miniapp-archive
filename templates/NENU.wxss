@@ -116,6 +116,7 @@
 .NENUP {
   font-size: 16px;
   padding: 0 5%;
+  word-wrap: break-word;
 }
 
 .grey .NENUP {

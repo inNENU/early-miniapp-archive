@@ -165,8 +165,9 @@
   font-size: 30rpx;
   padding: 4rpx 40rpx;
   text-align: justify;
-  line-height: 1.6em;
+  line-height: 1.6;
   letter-spacing: 1rpx;
+  word-wrap: break-word;
 }
 
 .grey .AndroidP {

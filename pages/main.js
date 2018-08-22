@@ -68,11 +68,6 @@ P('main', {
         nm: data
       });
     });
-    // w.on('theme', this, function(data) {
-    //   this.setData({
-    //     T: data
-    //   });
-    // });
     ['guide', 'function', 'shop'].forEach(x => {
       S.request('main/' + x, function(data, indicator) {
         indicator.$put(x, data);

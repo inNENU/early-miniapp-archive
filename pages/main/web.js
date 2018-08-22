@@ -1,14 +1,15 @@
-Page({
-  data: {
-    src: 'https://mp.weixin.qq.com/s/DkDKvGvTy2n4aNxm4gGXRw'
-  },
-  onLoad(e) {
+var P = require('../../utils/wxpage');
+
+P('web', {
+  onLoad(res) {
+    console.log('a')
     this.setData({
-      src: e.src
+      url: res.url
     });
-    let title = e.title ? e.title : '东师青年';
-    wx.setNavigationBarTitle({
-      title: title
-    })
-  }
+    //   let title = e.title ? e.title : '东师青年';
+    //   console.log(title)
+    //   wx.setNavigationBarTitle({
+    //     title: title
+    //   })
+  },
 })

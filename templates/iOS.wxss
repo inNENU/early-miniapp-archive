@@ -156,6 +156,7 @@
   padding: 0 15px;
   line-height: 1.6;
   text-align: justify;
+	word-wrap: break-word;
 }
 
 .grey .iOSP {
