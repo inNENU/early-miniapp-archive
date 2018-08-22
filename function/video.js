@@ -5,13 +5,6 @@ var P = require('../utils/wxpage'),
 P('video', {
   data: {},
   onNavigate(res) {
-    wx.loadFontFace({
-      family: 'FZSSJW',
-      source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
-      complete(res) {
-        console.log('宋体字体' + res.status); //调试
-      }
-    });
     let id = res.query.id ? res.id : 0,
       videoList = wx.getStorageSync('funcResList1');
     this.data.info = a.info, this.data.nm = a.nm, this.data.id = id;
@@ -25,6 +18,13 @@ P('video', {
     }
   },
   onLoad(e) {
+    wx.loadFontFace({
+      family: 'FZSSJW',
+      source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+      complete(res) {
+        console.log('宋体字体' + res.status); //调试
+      }
+    });
     if (!this.set) {
       let id = e.id ? e.id : 0,
         videoList = wx.getStorageSync('funcResList1');

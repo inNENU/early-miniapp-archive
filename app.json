@@ -9,9 +9,7 @@
         "pages/main/web",
         "pages/main/building",
         "pages/settings/setting",
-        "pages/settings/about",
-        "pages/settings/login",
-        "pages/settings/donate"
+        "pages/settings/about"
     ],
     "subPackages": [{
             "root": "function",

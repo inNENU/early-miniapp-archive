@@ -29,7 +29,7 @@ P('setting', {
     }, {
       tag: 'list',
       head: '主题设置',
-      foot: 'NENU主题还处于内测阶段',
+      foot: 'NENU主题处于内测阶段',
       content: [{
         text: '主题设置',
         key: 'themeNum',
@@ -139,12 +139,12 @@ P('setting', {
     S.nav(e, this)
   },
   refreshRes(e) {
-    tab.request('fileList', function(data, indicator) {
+    tab.request('guideRes', function(data, indicator) {
       tab.resDownload(data, null)
     }, null)
   },
   refreshFunc(e) {
-    tab.request('funcList', function(data, indicator) {
+    tab.request('functionRes', function(data, indicator) {
       tab.resDownload(data, null)
     }, null)
   },

@@ -35,7 +35,7 @@
     <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
       <image class='nextBtn' src='/function/icon/nextSong.svg' catchtap='next' />
     </view>
-    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
+    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50' catchtap='list'>
       <image class='listBtn' src='/function/icon/musicList.svg' />
     </view>
   </view>

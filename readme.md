@@ -1,16 +1,6 @@
-# 许可
-> Version 1.0.5
-
- **这是一个由Mr.Hope独立编写的项目。全部代码均由Mr.Hope编写，如有抄袭、商用，Mr.Hope保留追究其责任的权利。** 
-### 一. 简单界面编写说明
-
-**1. 新建一个json文件，对文件进行合理命名，使用“文件主题+编号”格式，命名为xxx.json。**
-
-**2. 在json中创建一个array，页面的编写主要通过该array来完成。该array的每个元素均为一个Object。对于数组中的每个Object，其内必须包含一个有效的tag值，tag值决定了该object所显示的内容。按照tag值参数表对数组进行填写，编写界面内容。**
-
-**3.上传json文件到服务器的htdocs/miniProgram文件夹，添加json文件名至fileList.json并增加其版本号。**
-
 # tag值参数表
+> Version 1.0.5
+---
  #### **有效的tag值：** 
 - head：小程序界面的头部，包括标题和navigationBar
 - h3：大标题
@@ -23,9 +13,7 @@
 - swiper：滑块视图容器
 - audio：音频
 - foot：界面的页脚
-
-#### **tag**的剩余参数请依据填写的tag值按照下表填写。
-
+---
 ##### **head参数：**(必填，仅用一次填在最前）
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
@@ -37,13 +25,13 @@
 |shareable|否|Boolean|设置界面是否可以被分享|默认为false|
 |contact|否|Boolean|显示联系开发者按钮|默认为false|
 |feedback|否|Boolean|显示意见反馈按钮|默认为false|
-
+---
 ##### **h3参数：**
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |text|是|String|展示页的大标题文字||
 |style|否|String|对标题设置的css样式|当需要改变默认风格时设置|
-
+---
 ##### **p参数：**
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
@@ -54,7 +42,7 @@
 |res|否|String|图片在服务器上的网址|需要高清图片时设置|
 |imgmode|否|String|图片的显示模式|默认为widthFix|
 |style|否|String|对段落文字设置的css样式|当需要改变默认风格时设置|
-
+---
 ##### **list参数：**
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
@@ -113,7 +101,7 @@
 |min|否|Number|滑块的最小值|默认为0|
 |max|否|Number|滑块的最大值|默认为100|
 |step|否|Number|滑块的步长|默认为1|
-
+---
 ##### **img参数：**
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
@@ -122,14 +110,14 @@
 |lazy|否|Boolean|设置false取消图片懒加载功能|默认执行lazyload|
 |desc|否|String|图片的描述文字|填入后会自动最前加入一个三角号，不填则没有描述文字|
 |imgmode|否|String|图片的显示模式|默认为widthFix|
-
+---
 ##### **doc参数：**
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |docName|是|String|文档的名称||
 |docType|是|String|文档的类|可以填写的值有doc、docx、ppt、pptx、xls、xlsx、pdf|
 |url|是|String|文档在服务器的路径||
-
+---
 ##### **phone参数：**
 |参数|必填|值类型|内容|
 |-|:-:|:-:|-|
@@ -151,7 +139,7 @@
 |website|否|String|联系人的网站|
 |email|否|String|联系人的电子邮件|
 |homeNum|否|String或Number|联系人的住宅电话|
-
+---
 ##### **grid参数：**（强烈推荐使用4的整数倍）
 |参数|必填|值类型|内容|
 |-|:-:|:-:|-|
@@ -167,7 +155,7 @@
 |text|否|String|九宫格的文字||
 |aim|否|String|对应界面的json文件名|当指向简单界面时填写|
 |url|否|String|九宫格指向的界面路径|当指向复杂界面时填写|
-
+---
 ##### **swiper参数：**
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
@@ -188,7 +176,7 @@
 |animation|否|String|swiper动画结束时触发的函数名称|默认不触发函数|
 |imgClass|否|String|swiper中图片的类名|默认为width:100%!important;height:100%!important;|
 |imgMode|否|String|swiper中图片的显示模式|默认为aspectFill|
-
+---
 ##### **audio参数：**
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
@@ -197,14 +185,14 @@
 |controls|否|Boolean|设置false来取消显示默认控件|默认显示|
 |name|否|Boolean|音频名字|controls为false时无效|
 |author|否|Boolean|音频作者|controls为false时无效|
-
+---
 ##### **foot参数：**
 |参数|必填|值类型|内容|
 |-|:-:|:-:|-|
 |desc|否|String|页脚的额外描述文字|
 |author|否|String|编辑人|
 |time|否|String|编辑时间|
-
+---
 #### **imgMode可以选择的参数：**
 - widthFix：宽度不变，高度自动变化，保持原图宽高比不变;
 - scaleToFill：保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素；
@@ -219,75 +207,3 @@
 - top right：不缩放图片，只显示图片的右上边区域；
 - bottom left：不缩放图片，只显示图片的左下边区域；
 - bottom right：不缩放图片，只显示图片的右下边区域；
-
-### 二. 复杂界面编写说明
-
- 对文件进行合理命名，使用“文件主题+编号”格式。
-
- **1.在指定的路径下新建xxx.js与xxx.wxml文件，并将其界面路径添加至app.json中的pages数组中。**
-
- **2.在xxx.js中输入：** 
-```
-var c = getApp().commmon,
-	a = getApp().globalData;
-Page({
-	data:{
-		page:[
-			**此处填写page**
-		]
-	},
-	onLoad(e) {
-		c.setPage(this.data.page,this, a, e)
-	},
-	onReady() {
-		c.preloadPage(this.data.page, a);
-	},
-	onPageScroll(e) {
-		c.nav(e, this)
-	},
-	cA(e) {
-		c.componentAction(e, this)
-	},
-	**其他函数**
-})
-```
- _**Tips：**_ 
-为了方便查错以及后续更改，在复制粘贴时保留原代码换行及缩进样式。
-
- **3.在xxx.wxml中输入：** 
-```
-<import src="/templates/template" />
-<template is="all" data="{{page,T,nm}}" />
-```
-**4. 对照tag值参数表文件进行界面内容编写。**
-
-页面的编写主要通过操纵处于界面data下名为**page**的**array**来完成。该**array**的每个元素均为一个**Object**。对于数组中的每个**Object**，其内必须包含**一个有效的tag值**，**tag值**决定了该object所显示的内容。
- 
-**5. 在xxx.js中添加与编写函数。**
-#####  请在 **→ ←** 中填入pages数组中定义的变量名称。并在“other codes here”处填入其他必要代码。
-##### **picker函数**
-- 若填写了picker函数：
- functionName：picker函数值；
-```
-→functionName←(e) {
-    u.picker(e,this);
-    other code here......
-  },
-```
-##### **switch函数**
-- 若填写了switch函数：
-    functionName：switch函数值；
-```
-→functionName←(e) {
-    u.Switch(e,this);
-    other code here......
-  },
-```
-##### slider函数：
-    functionName：switch函数值；
-```
-  →functionName←(e){
-    u.slider(e,this);
-    other code here......
-  },
-```

@@ -7,7 +7,6 @@ P('shop', {
   data: {
     T: a.T,
     nm: a.nm,
-
     page: [{
       tag: "head",
       title: "东青文创",
@@ -90,9 +89,6 @@ P('shop', {
   },
   cA(e) {
     S.component(e, this)
-  },
-  swiperChange(e) {
-    console.log(e);
   },
   showInput: function() {
     this.setData({

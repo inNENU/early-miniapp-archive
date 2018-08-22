@@ -8,12 +8,19 @@ P('0.9', {
       tag: 'head',
       title: '更新日志',
       grey: true
+    }, {
+      tag: 'p',
+      head: "V1.0.1 2018.08.20",
+      text: '部分bug修复；'
+    }, {
+      tag: 'p',
+      head: "V1.0.2 2018.08.21",
+      text: '增加了分享悬浮窗；'
     }],
   },
   onLoad(res) {
     S.Set(this.data.page, a, res, this, false);
     S.Notice(this.aim);
-    console.log('V0.9Log onLoad finished.')
   },
   onPageScroll(e) {
     S.nav(e, this)

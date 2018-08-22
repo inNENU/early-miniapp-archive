@@ -10,13 +10,6 @@ P('music', {
     songLength: 1,
   },
   onNavigate(res) {
-    wx.loadFontFace({
-      family: 'FZSSJW',
-      source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
-      complete(res) {
-        console.log('宋体字体' + res.status); //调试
-      }
-    });
     let currentSong, index = a.music.index,
       songList = wx.getStorageSync('funcResList0'),
       mode = wx.getStorageSync('playMode');
@@ -33,6 +26,13 @@ P('music', {
     }
   },
   onLoad(e) {
+    wx.loadFontFace({
+      family: 'FZSSJW',
+      source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+      complete(res) {
+        console.log('宋体字体' + res.status); //调试
+      }
+    });
     manager = wx.getBackgroundAudioManager();
     let currentSong, that = this;
     if (!this.set) {
@@ -134,7 +134,7 @@ P('music', {
         icon: 'none'
       });
     });
-		S.Notice('music');
+    S.Notice('music');
   },
   loadCover(e) {
     if (e.type == 'load') {
@@ -229,4 +229,10 @@ P('music', {
       icon: 'none'
     })
   },
+  list() {
+    wx.showToast({
+      title: '开发中',
+      'icon': 'none'
+    })
+  }
 })
