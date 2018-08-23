@@ -111,7 +111,8 @@ P('map', {
         });
         wx.hideLoading();
       }, 500);
-    }
+    };
+    S.Notice('map');
   },
   onReady: function(e) {
     let that = this;

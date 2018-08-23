@@ -61,6 +61,10 @@ P('guide', {
           text: '资助',
           icon: '/icon/subsidize.svg',
           aim: 'subsidize0'
+        }, {
+          text: 'SIM卡',
+          icon: '/icon/sim.svg',
+          aim: 'sim0'
         }, ]
       },
     ],

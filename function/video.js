@@ -34,20 +34,53 @@ P('video', {
         id: id
       })
       if (videoList) {
-        this.setData({
-          videoList: videoList,
-          videoName: videoList[id].name,
-          videoAuthor: videoList[id].author,
-          src: videoList[id].src,
-        });
+        let that = this,
+          item = videoList[id];
+        if ('vid' in item) {
+          wx.request({
+						url: `https://mrhope.top/mpServer/videoQQ.php?vid=${item.vid}`,
+            success(res) {
+              let detail = res.data.vl.vi[0];
+              that.setData({
+                videoName: item.name,
+                videoAuthor: item.author,
+                src: `${detail.ul.ui[0].url}${detail.fn}?vkey=${detail.ul.ui[0].url}`,
+                videoList: videoList
+              })
+            }
+          })
+        } else {
+          this.setData({
+            videoName: videoList[id].name,
+            videoAuthor: videoList[id].author,
+            src: videoList[id].src,
+            videoList: videoList
+          });
+        }
       } else {
         S.request('funcResList/funcResList1', function(data, indicator) {
-          indicator.setData({
-            videoList: data,
-            videoName: data[id].name,
-            videoAuthor: data[id].author,
-            src: data[id].src,
-          });
+          let item = data[id];
+          if ('vid' in item) {
+            wx.request({
+							url: `https://mrhope.top/mpServer/videoQQ.php?vid=${item.vid}`,
+              success(res) {
+                let detail = res.data.vl.vi[0];
+                indicator.setData({
+                  videoName: item.name,
+                  videoAuthor: item.author,
+                  src: `${detail.ul.ui[0].url}${detail.fn}?vkey=${detail.ul.ui[0].url}`,
+									videoList: data
+                })
+              }
+            })
+          } else {
+            indicator.setData({
+              videoName: item.name,
+              videoAuthor: item.author,
+              src: item.src,
+							videoList: data
+            });
+          }
           wx.setStorageSync('funcResList1', data);
         }, this)
       }
@@ -55,14 +88,30 @@ P('video', {
     S.Notice('movie');
   },
   play(e) {
-    let id = e.currentTarget.id,
-      videoList = this.data.videoList;
-    this.setData({
-      videoName: videoList[id].name,
-      videoAuthor: videoList[id].author,
-      src: videoList[id].src,
-      id: id
-    });
+    let that = this,
+      id = e.currentTarget.id,
+      item = this.data.videoList[id];
+    if ('vid' in item) {
+      wx.request({
+				url: `https://mrhope.top/mpServer/videoQQ.php?vid=${item.vid}`,
+        success(res) {
+          let detail = res.data.vl.vi[0];
+          that.setData({
+            videoName: item.name,
+            videoAuthor: item.author,
+            src: `${detail.ul.ui[0].url}${detail.fn}?vkey=${detail.ul.ui[0].url}`,
+            id: id
+          })
+        }
+      })
+    } else {
+      this.setData({
+				videoName: item.name,
+				videoAuthor: item.author,
+				src: item.src,
+        id: id
+      });
+    }
   },
   cA(e) {
     S.component(e, this)
