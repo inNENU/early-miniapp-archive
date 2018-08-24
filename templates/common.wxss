@@ -424,8 +424,14 @@
 .audio {
   width: 80%;
   margin: 20px 10%;
-  overflow: hidden;
-  border-radius: 34px;
+}
+
+/* video */
+
+.video {
+  width: 92%;
+  margin: 20px 4%;
+  height: 388.125rpx;
 }
 
 /* error */

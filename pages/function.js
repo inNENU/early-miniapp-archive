@@ -25,6 +25,10 @@ P('function', {
         text: '影约东师',
         icon: '/icon/movie.svg',
         url: '/function/video'
+      }, {
+        text: '校园公众号',
+        icon: '/icon/gzh.svg',
+        aim: 'gzh0'
       }, ]
     }, {
       tag: 'grid',

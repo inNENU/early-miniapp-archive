@@ -154,7 +154,7 @@
 </template>
 
 <template name="video">
-  <audio class="video" id="{{id}}" src='{{src}}' controls="{{controls==false?false:true}}" loop="{{loop}}" autoplay="{{autoplay}}" initial-time='{{startTime}}' duration='{{duration}}' danmu-btn='{{danmuBtn}}' danmu-list="{{danmuList}}" enable-danmu="{{danmuList&&danmuBtn?true:false}}"
+  <video class="video" id="{{id}}" src='{{src}}' controls="{{controls==false?false:true}}" loop="{{loop}}" autoplay="{{autoplay}}" initial-time='{{startTime}}' duration='{{duration}}' danmu-btn='{{danmuBtn}}' danmu-list="{{danmuList}}" enable-danmu="{{danmuList&&danmuBtn?true:false}}"
     poster="{{poster}}" bindplay='cA' bindwaiting="cA" binderror="cA" data-action='video' />
 </template>
 
