@@ -161,7 +161,7 @@
 <template name='gzh'>
   <view class='gzhCtn' hover-class='buttonHover' catchtap='cA' data-action='navigate' data-url='/pages/main/web?url={{url}}'>
     <view class="{{old?'gzhImgCtn':'gzhNewImgCtn'}}">
-      <image class='gzhImg' src='{{src}}' mode="{{imgMode?imgMode:'aspectFill'}}" />
+      <image class='gzhImg' src='{{src}}' mode="aspectFill" />
     </view>
     <view class='gzhText'>
       <view class='gzhIconCtn'>
