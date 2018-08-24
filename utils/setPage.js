@@ -244,6 +244,9 @@ function componentAction(res, indicator) {
     case 'share':
       share(res, indicator);
       break;
+    case 'video':
+      video(res, indicator);
+      break;
     default:
       console.warn('error');
   }
@@ -442,6 +445,24 @@ function share(e, indicator) {
         }
       })
     }
+  }
+}
+
+function video(e, indicator) {
+	console.log(e.type)
+  if (e.type == 'waiting') {
+    wx.showToast({
+      title: '缓冲中...',
+      icon: 'none'
+    })
+  } else if (e.type == 'play') {
+    wx.hideToast()
+  } else if (e.type == 'error') {
+    wx.showToast({
+      title: '视频加载出错',
+      icon: 'none',
+      duration: 2000
+    })
   }
 }
 

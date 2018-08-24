@@ -144,13 +144,18 @@
     interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}" next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}"
     bindanimationfinish="{{animation?animation:''}}" data-action='swiper'>
     <swiper-item wx:for="{{url}}" wx:key="*this" wx:for-item='url'>
-      <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="{{imgMode?imgMode:'aspectFill'}}" />
+      <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="aspectFill" />
     </swiper-item>
   </swiper>
 </template>
 
 <template name="audio">
   <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
+</template>
+
+<template name="video">
+  <audio class="video" id="{{id}}" src='{{src}}' controls="{{controls==false?false:true}}" loop="{{loop}}" autoplay="{{autoplay}}" initial-time='{{startTime}}' duration='{{duration}}' danmu-btn='{{danmuBtn}}' danmu-list="{{danmuList}}" enable-danmu="{{danmuList&&danmuBtn?true:false}}"
+    poster="{{poster}}" bindplay='cA' bindwaiting="cA" binderror="cA" data-action='video' />
 </template>
 
 <template name='gzh'>
@@ -198,7 +203,7 @@
       <view class='shareBtnCtn'>
         <button wx:if="{{shareable}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' open-type='share'>分享到微信</button>
         <button wx:if="{{shareable}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' data-object='download'>保存页面二维码</button>
-        <button wx:if="{{contact}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' open-type='contact'>提交页面错误</button>
+        <button wx:if="{{contact}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' open-type='contact'>联系开发者</button>
         <button wx:if="{{feedback}}" class='shareBtn' hover-class='shareBtnHover' hover-start-time='0' plain='true' open-type='feedback'>意见反馈</button>
         <button class='cancelBtn' hover-class='shareBtnHover'>取消</button>
       </view>

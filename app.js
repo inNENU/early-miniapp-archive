@@ -44,7 +44,7 @@ wxpage.A({
     })
   },
   globalData: {
-    Version: 'V 1.0.5',
+    Version: 'V 1.0.6',
     music: {
       play: false,
       played: false,

@@ -8,7 +8,8 @@
     <view class='videoAuthor'>—— {{videoAuthor}} ——</view>
   </view>
   <view class='videoPlayer'>
-    <video class='player' src="{{src}}" controls='true' />
+    <txv-video wx:if="{{vid}}" class='player' vid="{{vid}}" controls='true' bindstatechange='cA' data-action='video'></txv-video>
+    <video wx:else class='player' src="{{src}}" controls='true' bindplay='cA' bindwaiting="cA" binderror="cA" data-action='video' />
   </view>
   <scroll-view scroll-y class='videoList'>
     <view style='height:6%;'></view>
