@@ -1,21 +1,49 @@
-# tag值参数表
+# 参数说明
 
-> Version 1.0.5
+> Version 1.0.6
 ---
+<!-- TOC -->
+
+- [参数说明](#参数说明)
+    - [**有效的tag值：**](#有效的tag值)
+        - [**head参数：**(必填，仅用一次填在最前）](#head参数必填仅用一次填在最前)
+        - [**h3参数：**](#h3参数)
+        - [**p参数：**](#p参数)
+        - [**list参数：**](#list参数)
+            - [列表每一项参数：](#列表每一项参数)
+                - [选项一：普通列表(可带链接)](#选项一普通列表可带链接)
+                - [选项二：开关（填写Switch后不支持简单界面）](#选项二开关填写switch后不支持简单界面)
+                - [选项三：选择器](#选项三选择器)
+                - [选项四：按钮（不支持简单界面）](#选项四按钮不支持简单界面)
+                - [选项五：滑块（不支持简单界面）](#选项五滑块不支持简单界面)
+        - [img参数：](#img参数)
+        - [doc参数：](#doc参数)
+        - [phone参数：](#phone参数)
+        - [grid参数（强烈推荐使用4的整数倍）：](#grid参数强烈推荐使用4的整数倍)
+            - [每个格子参数如下：](#每个格子参数如下)
+        - [swiper参数：](#swiper参数)
+        - [audio参数：](#audio参数)
+        - [video参数：](#video参数)
+        - [gzh参数：](#gzh参数)
+        - [foot参数：](#foot参数)
+        - [imgMode可以选择的参数：](#imgmode可以选择的参数)
+
+<!-- /TOC -->
 
 ## **有效的tag值：**
 
-- head：小程序界面的头部，包括标题和navigationBar
-- h3：大标题
-- p：段落
-- list：列表
-- img：图片
-- doc：文档
-- phone：电话
-- grid：九宫格
-- swiper：滑块视图容器
-- audio：音频
-- foot：界面的页脚
+- [head](#head参数必填仅用一次填在最前)：小程序界面的头部，包括标题和navigationBar
+- [h3](#h3参数)：大标题
+- [p](#p参数)：段落(可附带段落标题和段落图片)
+- [list](#list参数)：列表(可附带普通文字描述、跳转组件、按钮、选择器、开关和滑块等)
+- [img](#img参数)：图片(可附带图片说明)
+- [doc](#doc参数)：文档(支持office与pdf文件)
+- [phone](#phone参数)：电话(用于电话展示、快速保存联系人或拨打电话)
+- [grid](#grid参数)：九宫格(展示格子)
+- [swiper](#swiper参数)：滑块视图容器(可以制作图片轮播图)
+- [audio](#audio参数)：音频(页面音频播放)
+- [gzh](#gzh参数)：公众号跳转组件(仅支持跳转绑定公众号图文)
+- [foot](#foot参数)：界面的页脚(页脚信息展示)
 
 ---
 
@@ -26,11 +54,11 @@
 |title|是|String|标题和导航栏显示的文字||
 |desc|否|String|标题描述文字|该文字只在特定主题下展示|
 |action|否|String|左上角按钮触发的函数名称|不填时默认执行返回，设置为true来隐藏默认的返回按钮|
-|grey|否|Boolean|属性值为true时会使用灰色背景|不填会使用白色背景|
+|grey|否|Boolean|设置true使用灰色背景|默认为白色背景|
 |display|否|Boolean|设置true隐藏head|默认显示head|
 |shareable|否|Boolean|设置界面是否可以被分享|默认为false|
-|contact|否|Boolean|显示联系开发者按钮|默认为false|
-|feedback|否|Boolean|显示意见反馈按钮|默认为false|
+|contact|否|Boolean|显示“联系开发者”按钮|默认为false|
+|feedback|否|Boolean|显示“意见反馈”按钮|默认为false|
 
 ---
 
@@ -39,7 +67,7 @@
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |text|是|String|展示页的大标题文字||
-|style|否|String|对标题设置的css样式|当需要改变默认风格时设置|
+|style|否|String|设置标题风格|填入css样式|
 
 ---
 
@@ -49,11 +77,12 @@
 |-|:-:|:-:|-|-|
 |head|否|String或Boolean|填入段落的的标题|填入true会在段落前留空占位|
 |text|是|String|段落的文字||
+|align|否|String|段落的对齐方式|仅支持left(默认)、right、center、justify|
 |src|否|String|图片的本地路径或在线网址|会在段落文字底部展示所选图片|
 |desc|是|String|图片的描述文字|填入后会自动最前加入一个三角号，不填则没有描述文字|
 |res|否|String|图片在服务器上的网址|需要高清图片时设置|
 |imgmode|否|String|图片的显示模式|默认为widthFix|
-|style|否|String|对段落文字设置的css样式|当需要改变默认风格时设置|
+|style|否|String|设置段落文字风格|填入css样式|
 
 ---
 
@@ -65,7 +94,7 @@
 |foot|否|String|列表的结尾小标题||
 |content|是|array|该array的每个element为列表的每个组成单元||
 
-#### _列表每个单元内包含的参数_
+#### 列表每一项参数：
 
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
@@ -80,15 +109,16 @@
 |desc|否|String|列表内容的描述||
 |aim|否|String|对应界面的json文件名|当指向简单界面时填写|
 |url|否|String|列表指向的界面路径|当指向复杂界面时填写|
-|openType|否|String|微信提供的开放能力||
-|target|否|String|跳转目标||
+|navigate|否|Boolean|设置true使用navigator组件|默认为false|
+|openType|否|String|微信提供的开放能力|仅navigate为true时有效|
+|target|否|String|跳转目标|仅navigate为true时有效|
 
-##### 选项二：开关
+##### 选项二：开关（填写Switch后不支持简单界面）
 
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
-|Switch|否|String|开关对应的函数名称|不填会自动改变界面当前开关状态与storage中swiKey的值（填写后不支持简单界面）|
-|swiKey|是|String|开关所改变的变量在本地存储中的属性名||
+|swiKey|是|String|所控变量在storage中的key值||
+|Switch|否|String|开关对应的函数名称|不填仅改变storage中swiKey的值|
 
 ##### 选项三：选择器
 
@@ -98,23 +128,21 @@
 |key|是|String|选择器所改变的变量在本地存储中的名称||
 |single|否|Boolean|设置true时为单列选择器|默认为多列选择器|
 |inlay|否|Boolean|设置true时为嵌入式picker|默认为弹出式picker|
-|picker|否|String|picker选择器对应的函数名称|不填会自动改变界面当前选择状态与storage中key的值；|
+|picker|否|String|picker选择器对应的函数名称|不填仅改变界面显示值与storage中key的值；|
 
-##### 选项四：按钮
+##### 选项四：按钮（不支持简单界面）
 
-（不支持简单界面）
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |button|是|String|按钮对应的函数名称||
 |disabled|否|Boolean|设置为true会禁用按钮|默认不禁用|
 
-##### 选项五：滑块
+##### 选项五：滑块（不支持简单界面）
 
-（不支持简单界面）
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
 |slider|是|String|滑块对应的的函数名称||
-|sliKey|是|String|滑块所改变的变量在本地存储中的名称||
+|sliKey|是|String|所控变量在storage中的key值||
 |min|否|Number|滑块的最小值|默认为0|
 |max|否|Number|滑块的最大值|默认为100|
 |step|否|Number|滑块的步长|默认为1|
@@ -127,9 +155,11 @@
 |-|:-:|:-:|-|-|
 |src|是|String|图片的本地路径或在线网址||
 |res|否|String|图片在服务器上的网址|需要高清图片的时候使用|
-|lazy|否|Boolean|设置false取消图片懒加载功能|默认执行lazyload|
+|lazy|否|Boolean|设置false取消图片lazyload|默认执行lazyload|
 |desc|否|String|图片的描述文字|填入后会自动最前加入一个三角号，不填则没有描述文字|
-|imgmode|否|String|图片的显示模式|默认为widthFix|
+|imgmode|否|String|图片显示模式|默认为widthFix|
+
+*Tips：* 图片懒加载是指只有图片滚动到页面显示区域才开始加载图片。
 
 ---
 
@@ -137,9 +167,9 @@
 
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|-|
-|docName|是|String|文档的名称||
-|docType|是|String|文档的类|可以填写的值有doc、docx、ppt、pptx、xls、xlsx、pdf|
-|url|是|String|文档在服务器的路径||
+|docName|是|String|文档名称||
+|docType|是|String|文档类别|仅支持doc、docx、ppt、pptx、xls、xlsx、pdf|
+|url|是|String|文档在线路径||
 
 ---
 
@@ -168,16 +198,15 @@
 
 ---
 
-### grid参数：
+### grid参数（强烈推荐使用4的整数倍）：
 
-（强烈推荐使用4的整数倍）
 |参数|必填|值类型|内容|
 |-|:-:|:-:|-|
 |head|否|String|九宫格的标题文字|
 |foot|否|String|九宫格的页脚文字|
 |content|是|array|该array的每个element是九宫格的每个格子内容|
 
-#### _列表每个单元是一个Object，包含的参数如下_
+#### 每个格子参数如下：
 
 |参数|必填|值类型|内容|备注|
 |-|:-:|:-:|-|:-:|
@@ -221,6 +250,35 @@
 |controls|否|Boolean|设置false来取消显示默认控件|默认显示|
 |name|否|Boolean|音频名字|controls为false时无效|
 |author|否|Boolean|音频作者|controls为false时无效|
+
+---
+
+### video参数：
+
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|src|是|String|要播放视频的资源地址||
+|loop|否|Boolean|是否循环播放|默认为false|
+|controls|否|Boolean|设置false来取消显示默认控件|默认显示|
+|poster|否|String|视频封面的图片网络资源地址|controls为false时无效|
+|autoplay|否|Boolean|是否自动播放|默认为false|
+|startTime|否|Boolean|视频初始播放位置||
+|danmu-list|否|Object Array|弹幕列表||
+|danmu-btn|否|Boolean|是否显示弹幕按钮|只在初始化有效|
+
+---
+
+### gzh参数：
+
+|参数|必填|值类型|内容|备注|
+|-|:-:|:-:|-|-|
+|url|是|String|跳转的图文链接||
+|src|是|String|封面图片在线地址||
+|title|是|String|图文标题||
+|desc|是|String|图文描述||
+|old|否|Boolean|设置true启用旧版样式|默认为新版样式|
+|icon|否|String|公众号的头像在线地址||
+|gzhName|否|String|公众号名称||
 
 ---
 
