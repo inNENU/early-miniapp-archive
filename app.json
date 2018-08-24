@@ -5,9 +5,7 @@
         "pages/guide",
         "pages/shop",
         "pages/me",
-        "pages/main/1.0",
-        "pages/main/web",
-        "pages/main/building",
+        "pages/settings/1.0",
         "pages/settings/setting",
         "pages/settings/about"
     ],
@@ -38,7 +36,9 @@
                 "module5",
                 "module6",
                 "module7",
-                "sharePage"
+                "sharePage",
+                "web",
+                "building"
             ]
         }
     ],

@@ -44,10 +44,10 @@ P('about', {
       tag: 'list',
       head: '正式版开发日志',
       content: [{
-        text: 'V1.0.0\n小程序正式发布；'
+        text: 'V1.0.7\nbug修复与显示优化；\n新增分享悬浮窗；\n新增腾讯视频播放；\n新增公众号文章跳转；\n新增强制更新功能；'
       }, {
-        text: '查看更多',
-        url: '/pages/main/1.0'
+        text: '查看详细日志',
+        url: '/pages/settings/1.0'
       }]
     }, {
       tag: 'list',
@@ -109,10 +109,10 @@ P('about', {
     if (this.set) {
       S.preLoad(this, a);
     }
-    S.request('main/about', function(data, indicator) {
-      S.Set(indicator.data.page.slice(0, 2).concat(data, indicator.data.page.slice(-1)), a, null, indicator);
-      S.preLoad(indicator, a);
-    }, this)
+    // S.request('main/about', function(data, indicator) {
+    //   S.Set(indicator.data.page.slice(0, 2).concat(data, indicator.data.page.slice(-1)), a, null, indicator);
+    //   S.preLoad(indicator, a);
+    // }, this)
   },
   onPageScroll(e) {
     S.nav(e, this);

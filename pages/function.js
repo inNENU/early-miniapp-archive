@@ -36,39 +36,39 @@ P('function', {
       content: [{
         text: '内网公告',
         icon: '/icon/notice.svg',
-        url: 'main/building?month=9'
+        url: '/modules/building?month=9'
       }, {
         text: '体测计算器',
         icon: '/icon/PECal.svg',
-        url: 'main/building?month=9'
+        url: '/modules/building?month=9'
       }, {
         text: '成绩查询',
         icon: '/icon/exam.svg',
-        url: 'main/building?month=10'
+        url: '/modules/building?month=10'
       }, {
         text: '课表查询',
         icon: '/icon/schedule.svg',
-        url: 'main/building?month=10'
+        url: '/modules/building?month=10'
       }, {
         text: '考场查询',
         icon: '/icon/score.svg',
-        url: 'main/building?month=10'
+        url: '/modules/building?month=10'
       }, {
         text: '绩点计算',
         icon: '/icon/scoreCal.svg',
-        url: 'main/building?month=10'
+        url: '/modules/building?month=10'
       }, {
         text: '故障报修',
         icon: '/icon/repair.svg',
-        url: 'main/building?month=11'
+        url: '/modules/building?month=11'
       }, {
         text: '东师掠影',
         icon: '/icon/scenery.svg',
-        url: 'main/building?month=11'
+        url: '/modules/building?month=11'
       }, {
         text: '校历',
         icon: '/icon/calendar.svg',
-        url: 'main/building?month=11'
+        url: '/modules/building?month=11'
       }]
     }, ],
   },

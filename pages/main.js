@@ -70,12 +70,13 @@ P('main', {
     tab.tabBarChanger(a.nm);
   },
   onLoad() {
+    tab.tabBarChanger(a.nm);
     wx.startPullDownRefresh();
     S.request('main/main', function(data, indicator) {
       S.Set(data, a, null, indicator);
       wx.stopPullDownRefresh();
     }, this);
-    tab.tabBarChanger(a.nm);
+    S.Notice('main');
   },
   onReady() {
     let that = this;

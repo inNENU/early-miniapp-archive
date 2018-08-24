@@ -1,4 +1,4 @@
-var P = require('../../utils/wxpage');
+var P = require('../utils/wxpage');
 
 P('web', {
   onLoad(res) {

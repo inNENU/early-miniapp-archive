@@ -18,7 +18,7 @@ wxpage.A({
   onLaunch: function(opts) {
     console.log('APP is Running', opts)
     this.globalData.d = new Date();
-    app.checkDebug();
+    // app.checkDebug();
     this.globalData.T = app.setTheme(this.data.theme);
     this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
@@ -62,7 +62,7 @@ wxpage.A({
     })
   },
   globalData: {
-    Version: 'V 1.0.6',
+    Version: 'V 1.0.7',
     music: {
       play: false,
       played: false,

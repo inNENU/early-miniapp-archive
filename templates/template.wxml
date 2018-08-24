@@ -77,7 +77,7 @@
             <text selectable='true' space='ensp' decode='true'>{{List.text}}</text>
           </view>
           <view class="linkDesciption">{{List.desc}}
-            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" data-id="{{List.id}}" data-action='switch' />
+            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" color="{{color}}" data-id="{{List.id}}" data-action='switch' />
           </view>
         </view>
       </view>
@@ -170,7 +170,7 @@
 </template>
 
 <template name='gzh'>
-  <view class='gzhCtn' hover-class='buttonHover' catchtap='cA' data-action='navigate' data-url='/pages/main/web?url={{url}}&title={{title}}'>
+  <view class='gzhCtn' hover-class='buttonHover' catchtap='cA' data-action='navigate' data-url='/modules/web?url={{url}}&title={{title}}'>
     <view class="{{old?'gzhImgCtn':'gzhNewImgCtn'}}">
       <image class='gzhImg' src='{{src}}' mode="aspectFill" />
     </view>

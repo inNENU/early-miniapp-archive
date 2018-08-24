@@ -7,7 +7,8 @@ P('1.0', {
     page: [{
       tag: 'head',
       title: '更新日志',
-      grey: true
+      grey: true,
+      aim: 'currentLog'
     }, {
       tag: 'p',
       head: "V1.0.1 2018.08.20",
@@ -31,7 +32,14 @@ P('1.0', {
     }, {
       tag: 'p',
       head: "V1.0.6 2018.08.24",
-      text: '修复腾讯视频无法播放的问题；\n添加视频组件；'
+      text: '添加视频组件；\n修复腾讯视频无法播放的问题；\n更换了部分icon；'
+    }, {
+      tag: 'p',
+      head: "V1.0.7 2018.08.25",
+      text: '对NENU主题导航栏显示效果进行优化；\n添加错误监控报警；\n加入强制更新器；'
+    }, {
+      tag: 'foot',
+      author: 'Mr.Hope'
     }],
   },
   onLoad(res) {

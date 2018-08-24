@@ -1,9 +1,2 @@
 <import src="/templates/template" />
 <template is="all" data="{{page,T,nm}}" />
-<!-- <movable-area class="moveArea">
-  <movable-view class="moveCtn" x='300' y='600' direction="all">
-    <button class='contactBtn' open-type='contact' style='width:60rpx;height:60rpx;' plain='true'>
-      <image class='contactImg' src='/icon/CET.svg' />
-    </button>
-  </movable-view>
-</movable-area> -->

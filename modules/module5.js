@@ -23,7 +23,7 @@ P('module5', {
 			wx.reportMonitor('1', 1)
 			console.log('preload')
 		}
-	},,
+	},
 	navigate(res) {
 		this.$route(res.currentTarget.dataset.url)
 	},
