@@ -180,7 +180,7 @@
 
 .backBtn {
   position: fixed;
-  z-index: 999;
+  z-index: 99;
   top: 26px;
   left: 9px;
   width: 46px;
@@ -231,6 +231,60 @@
   justify-content: center;
   align-items: center;
   padding: 8px 5%;
+}
+
+/* intro */
+
+.introBox {
+  width: 100%;
+  height: 450rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.introBg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-filter: blur(8px);
+  -moz-filter: blur(8px);
+  -o-filter: blur(8px);
+  -ms-filter: blur(8px);
+  filter: blur(8px);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.introCtn {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.introIcon {
+  width: 240rpx !important;
+  height: 240rpx !important;
+}
+
+.introName {
+  font-size: 36rpx;
+  text-shadow: 0 0 1px #888;
+  margin: 8rpx 0;
+}
+
+.introDesc {
+  color: #333;
+  max-width: 80%;
 }
 
 /* doc */

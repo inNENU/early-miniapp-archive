@@ -108,6 +108,17 @@
   <view wx:if="{{foot}}" class='commonfoot'>{{foot}}</view>
 </template>
 
+<template name='intro'>
+  <view class='introBox'>
+    <image class='introBg' src='{{src}}' mode='aspectFill' />
+    <view class='introCtn'>
+      <image class='introIcon' src='{{src}}' />
+      <view class='introName'>{{name}}</view>
+      <view class='introDesc'>{{desc}}</view>
+    </view>
+  </view>
+</template>
+
 <template name='doc'>
   <button id="{{id}}" class='docCtn' hover-class="buttonHover" hover-stay-time='100' catchtap='cA' data-url="{{url}}" data-action='doc'>
     <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
@@ -335,20 +346,28 @@
 <!-- NENU theme -->
 
 <template name='NENUHead'>
-  <view wx:if="{{action}}" class='NENUnav' style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
-    <button wx:if="{{action!==true}}" class='iOS-navBack' hover-class="navBackHover" hover-stay-time='100' plain='true' catchtap="{{action==undefined?'cA':action}}" data-action='back'>
-      <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
-      <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
-    </button>
-    <view class='NENU-navText'>{{title}}</view>
-  </view>
-  <view wx:else class='NENUnav2' style='background-color:{{color}};height:{{statusBarHeight}}px;'>
-    <view class='backBtn' style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' hover-stay-time='100' catchtap='cA' data-action='back'>
+  <block wx:if="{{action==undefined}}">
+    <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catchtap="cA" data-action='back'>
       <image class='backIcon' src='/icon/back.svg' />
     </view>
-    <view class="NENUTitle {{titleDisplay?'fadeOut':'fadeIn'}}" style='top:{{statusBarHeight+5}}px;'>{{title}}</view>
-  </view>
-  <view style="width:100%;height:{{action?statusBarHeight+40:statusBarHeight}}px;margin-bottom:{{action?'0px':'50px'}};"></view>
+    <view class="NENUnav {{titleDisplay?'fadeOut':'fadeIn'}}" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
+      <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catchtap="cA" data-action='back'>
+        <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
+        <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
+      </button>
+      <view class='NENU-navText'>{{title}}</view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="NENUnav" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
+      <button wx:if="{{action!==true}}" class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catchtap="{{action}}">
+        <view wx:if="{{action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
+        <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
+      </button>
+      <view class='NENU-navText'>{{title}}</view>
+    </view>
+  </block>
+  <view style="width:100%;height:{{statusBarHeight+40}}px;"></view>
 </template>
 
 <template name='NENUimg'>

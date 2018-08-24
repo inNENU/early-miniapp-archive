@@ -75,6 +75,17 @@ P('main', {
       }, this)
     });
     this.$preload(`me`);
+		//调试
+		// console.log(wx.getStorageInfoSync())
+    // wx.openUrl({
+    //   url: 'http://mrhope.top',
+    //   fail: (msg) => {
+    //     console.log('fail:', msg)
+    //   },
+    //   success: (msg) => {
+    //     console.log('success:', msg)
+    //   }
+    // })
   },
   onPageScroll(e) {
     S.nav(e, this)

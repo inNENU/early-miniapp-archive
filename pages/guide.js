@@ -58,6 +58,10 @@ P('guide', {
           icon: '/icon/studentOrg.svg',
           aim: 'studentOrg0'
         }, {
+          text: '社团',
+          icon: '/icon/corporation.svg',
+          aim: 'corporation0'
+        }, {
           text: '资助',
           icon: '/icon/subsidize.svg',
           aim: 'subsidize0'
@@ -111,10 +115,10 @@ P('guide', {
   cA(e) {
     S.component(e, this)
   },
-	onShareAppMessage() {
-		return {
-			title: '东师指南',
-			path: `/pages/guide`
-		}
-	},
+  onShareAppMessage() {
+    return {
+      title: '东师指南',
+      path: `/pages/guide`
+    }
+  },
 })
