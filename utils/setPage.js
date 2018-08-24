@@ -46,12 +46,15 @@ function getOnlinePage(opt, globalData, indicator) {
           }
           indicator.$session.set(opt.aim + 'Temp', getPageData(res.data, globalData, opt));
         } else {
-          console.warn('res error');
+          console.warn('res error'), wx.reportMonitor('16', 1);
           indicator.$session.set(opt.aim + 'Temp', getPageData([{
             tag: 'error',
             statusBarHeight: globalData.info.statusBarHeight
           }], globalData, opt));;
         }
+      },
+      fail(res) {
+        console.warn(res), wx.reportMonitor('17', 1);
       }
     })
   };
@@ -122,10 +125,10 @@ function getPageData(page, globalData, opt) {
         }
       });
     } else {
-      console.warn('No head tag in page!');
+      console.warn('No head tag in page!'), wx.reportMonitor('14', 1);
     };
   } else {
-    console.warn('No pageData!')
+    console.warn('No pageData!'), wx.reportMonitor('15', 1);
   }
   return page;
 }
@@ -185,12 +188,15 @@ function setOnlinePage(globalData, opt, indicator, preload = true) {
           console.log('preload finish')
         }
       } else {
-        console.warn('res error');
+        console.warn('res error'), wx.reportMonitor('12', 1);
         setPage([{
           tag: 'error',
           statusBarHeight: globalData.info.statusBarHeight
         }], globalData, opt, indicator);
       }
+    },
+    fail(res) {
+      console.warn(res), wx.reportMonitor('13', 1);
     }
   })
   return opt.aim;
@@ -248,7 +254,7 @@ function componentAction(res, indicator) {
       video(res, indicator);
       break;
     default:
-      console.warn('error');
+      console.warn('error'), wx.reportMonitor('11', 1);
   }
 }
 
@@ -263,7 +269,7 @@ function image(e, indicator) {
       });
       break;
     case 'error':
-      current.error = true;
+      current.error = true, wx.reportMonitor('10', 1);
       indicator.setData({
         page: indicator.data.page
       });
@@ -354,6 +360,13 @@ function document(e) {
       wx.openDocument({
         filePath: res.tempFilePath
       })
+    },
+    fail(res) {
+      wx.hideLoading(), wx.reportMonitor('9', 1);
+      wx.showToast({
+        title: '文档下载失败',
+        icon: 'none'
+      });
     }
   })
 }
@@ -417,31 +430,34 @@ function share(e, indicator) {
       wx.downloadFile({
         url: `https://mrhope.top/mp/share/${indicator.data.page[0].aim}.png`,
         success(res) {
-          wx.saveImageToPhotosAlbum({
-            filePath: res.tempFilePath,
-            success(msg) {
-              wx.showToast({
-                title: '二维码保存成功',
-                icon: 'none'
-              })
-              console.log(msg)
-            },
-            fail(msg) {
-              console.log(msg)
-              wx.showToast({
-                title: '二维码保存失败',
-                icon: 'none'
-              })
-              console.warn('save fail')
-            }
-          })
+          if (res.statusCode == 200) {
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success(msg) {
+                console.log(msg), wx.reportMonitor('8', 1);
+                wx.showToast({
+                  title: '二维码保存成功',
+                  icon: 'none'
+                })
+              },
+              fail(msg) {
+                console.log(msg), console.warn('save fail'), wx.reportMonitor('6', 1);
+                wx.showToast({
+                  title: '二维码保存失败',
+                  icon: 'none'
+                })
+              }
+            })
+          } else {
+            console.warn(`QRCode statusCode error:${res.statusCode}`), wx.reportMonitor('7', 1);
+          }
         },
         fail() {
-          console.warn('download fail');
+          console.warn('download fail'), wx.reportMonitor('6', 1);
           wx.showToast({
             title: '二维码下载失败',
             icon: 'none'
-          })
+          });
         }
       })
     }
@@ -449,7 +465,7 @@ function share(e, indicator) {
 }
 
 function video(e, indicator) {
-	console.log(e.type)
+  console.log(e.type)
   if (e.type == 'waiting') {
     wx.showToast({
       title: '缓冲中...',
@@ -462,7 +478,8 @@ function video(e, indicator) {
       title: '视频加载出错',
       icon: 'none',
       duration: 2000
-    })
+    });
+    wx.reportMonitor('5', 1);
   }
 }
 
@@ -494,7 +511,10 @@ function request(path, Func, indicator) {
     success(res) {
       console.log(res)
       if (res.statusCode == 200) Func(res.data, indicator)
-      else console.warn(`request ${path} fail: ${res.statusCode}`)
+      else console.warn(`request ${path} fail: ${res.statusCode}`), wx.reportMonitor('3', 1);
+    },
+    fail(res) {
+      console.log(res), wx.reportMonitor('4', 1);
     }
   });
 }
@@ -504,8 +524,6 @@ module.exports = {
   preSet: presetPage,
   Set: setPage,
   Online: setOnlinePage,
-  // Local: getLocalPage,
-  // Get: getPageData,
   Notice: popNotice,
   nav: changeNav,
   component: componentAction,

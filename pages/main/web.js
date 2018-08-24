@@ -2,14 +2,19 @@ var P = require('../../utils/wxpage');
 
 P('web', {
   onLoad(res) {
-    console.log('a')
+    let title = res.title;
+    wx.setNavigationBarTitle({
+      title: title
+    })
     this.setData({
-      url: res.url
+      url: res.url,
+      title
     });
-    //   let title = e.title ? e.title : '东师青年';
-    //   console.log(title)
-    //   wx.setNavigationBarTitle({
-    //     title: title
-    //   })
+  },
+  onShareAppMessage() {
+    return {
+      title: this.data.title,
+      path: `/pages/main/web?url=${this.data.url}`
+    }
   },
 })

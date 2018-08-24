@@ -12,7 +12,7 @@ P('module5', {
 		if (this.aim != res.aim) {
 			console.log(res)
 			this.aim = S.Online(a, res, this);
-			wx.reportMonitor('preload failure', 1)
+			wx.reportMonitor('0', 1)
 			console.log('onLoad 成功')
 		}
 		S.Notice(this.aim);
@@ -20,10 +20,10 @@ P('module5', {
 	onReady() {
 		if (this.aim) {
 			S.preLoad(this, a);
-			wx.reportMonitor('preload success', 1)
+			wx.reportMonitor('1', 1)
 			console.log('preload')
 		}
-	},
+	},,
 	navigate(res) {
 		this.$route(res.currentTarget.dataset.url)
 	},

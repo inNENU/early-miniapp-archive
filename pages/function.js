@@ -102,11 +102,19 @@ P('function', {
   },
   onReady() {
     if (!this.set) {
+      wx.startPullDownRefresh();
       S.request('main/function', function(data, indicator) {
         S.Set(data, a, null, indicator);
+        wx.stopPullDownRefresh();
       }, this)
     };
     tab.markerSet();
+  },
+  onPullDownRefresh() {
+    S.request('main/function', function(data, indicator) {
+      S.Set(data, a, null, indicator);
+      wx.stopPullDownRefresh();
+    }, this);
   },
   onPageScroll(e) {
     S.nav(e, this)

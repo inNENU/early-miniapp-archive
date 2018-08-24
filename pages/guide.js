@@ -58,7 +58,7 @@ P('guide', {
           icon: '/icon/studentOrg.svg',
           aim: 'studentOrg0'
         }, {
-          text: '社团',
+          text: '社团1	·',
           icon: '/icon/corporation.svg',
           aim: 'corporation0'
         }, {
@@ -103,12 +103,20 @@ P('guide', {
   },
   onReady() {
     if (!this.set) {
+			wx.startPullDownRefresh();
       S.request('main/guide', function(data, indicator) {
         S.Set(data, a, null, indicator);
+				wx.stopPullDownRefresh();
       }, this)
     }
     S.preLoad(this, a);
   },
+	onPullDownRefresh() {
+		S.request('main/guide', function (data, indicator) {
+			S.Set(data, a, null, indicator);
+			wx.stopPullDownRefresh();
+		}, this);
+	},
   onPageScroll(e) {
     S.nav(e, this)
   },

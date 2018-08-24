@@ -15,7 +15,7 @@ P('sharePage', {
       console.log('onLoad 成功')
     }
     S.Notice(this.aim);
-		wx.reportMonitor('share', 1)
+		wx.reportMonitor('2', 1)
   },
   onReady() {
     if (this.aim) {

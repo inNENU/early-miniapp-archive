@@ -161,16 +161,16 @@
 </template>
 
 <template name="audio">
-  <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{src}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
+  <audio class="audio" id="{{id}}" poster='{{poster}}' src='{{res}}' name='{{name}}' author='{{author}}' loop="{{loop}}" controls="{{controls==false?false:true}}" />
 </template>
 
 <template name="video">
-  <video class="video" id="{{id}}" src='{{src}}' controls="{{controls==false?false:true}}" loop="{{loop}}" autoplay="{{autoplay}}" initial-time='{{startTime}}' duration='{{duration}}' danmu-btn='{{danmuBtn}}' danmu-list="{{danmuList}}" enable-danmu="{{danmuList&&danmuBtn?true:false}}"
+  <video class="video" id="{{id}}" src='{{res}}' controls="{{controls==false?false:true}}" loop="{{loop}}" autoplay="{{autoplay}}" initial-time='{{startTime}}' duration='{{duration}}' danmu-btn='{{danmuBtn}}' danmu-list="{{danmuList}}" enable-danmu="{{danmuList&&danmuBtn?true:false}}"
     poster="{{poster}}" bindplay='cA' bindwaiting="cA" binderror="cA" data-action='video' />
 </template>
 
 <template name='gzh'>
-  <view class='gzhCtn' hover-class='buttonHover' catchtap='cA' data-action='navigate' data-url='/pages/main/web?url={{url}}'>
+  <view class='gzhCtn' hover-class='buttonHover' catchtap='cA' data-action='navigate' data-url='/pages/main/web?url={{url}}&title={{title}}'>
     <view class="{{old?'gzhImgCtn':'gzhNewImgCtn'}}">
       <image class='gzhImg' src='{{src}}' mode="aspectFill" />
     </view>
