@@ -11,17 +11,22 @@ P('module5', {
 	onLoad(res) {
 		if (this.aim != res.aim) {
 			console.log(res)
-			this.aim = S.Online(a, res, this);
-			wx.reportMonitor('0', 1)
-			console.log('onLoad 成功')
+			let aim = this.aim = S.Online(a, res, this);
+			wx.reportAnalytics('page_aim_count', {
+				aim
+			});
+			wx.reportMonitor('0', 1), console.log('onLoad 成功');
 		}
 		S.Notice(this.aim);
 	},
 	onReady() {
 		if (this.aim) {
 			S.preLoad(this, a);
-			wx.reportMonitor('1', 1)
-			console.log('preload')
+			let aim = this.aim;
+			wx.reportAnalytics('page_aim_count', {
+				aim
+      });
+			wx.reportMonitor('1', 1), console.log('preload');
 		}
 	},
 	navigate(res) {
@@ -39,4 +44,7 @@ P('module5', {
 			path: `/modules/sharePage?From=主页&step=1&share=true&aim=${this.aim}`
 		}
 	},
+	onUnload() {
+		this.data.page = null;
+	}
 })

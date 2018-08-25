@@ -24,10 +24,10 @@ P('about', {
       }, {
         text: '开发日志',
         aim: 'log0'
-      }, {
-        text: '调试开关',
-        swiKey: 'debugMode',
-        Switch: 'debugSwitch'
+        // }, {
+        //   text: '调试开关',
+        //   swiKey: 'debugMode',
+        //   Switch: 'debugSwitch'
       }, {
         text: '初始化小程序',
         button: 'initApp',
@@ -159,18 +159,18 @@ P('about', {
       };
     }
   },
-  debugSwitch(e) {
-    u.Switch(e, this);
-    if (wx.getStorageSync('debugMode')) {
-      wx.setEnableDebug({
-        enableDebug: true
-      })
-    } else {
-      wx.setEnableDebug({
-        enableDebug: false
-      })
-    }
-  },
+  // debugSwitch(e) {
+  //   u.Switch(e, this);
+  //   if (wx.getStorageSync('debugMode')) {
+  //     wx.setEnableDebug({
+  //       enableDebug: true
+  //     })
+  //   } else {
+  //     wx.setEnableDebug({
+  //       enableDebug: false
+  //     })
+  //   }
+  // },
   initApp() {
     let that = this,
       p = this.data.page;
@@ -178,37 +178,29 @@ P('about', {
     wx.showModal({
       title: '小程序初始化完成',
       content: '请单击退出小程序按钮退出小程序',
-      showCancel: false,
-      success(res) {
-        if (res.confirm) {
-          p[1].content[4].display = true;
-          that.setData({
-            page: p
-          })
-        }
-      }
+      showCancel: false
     })
   },
-  donate() {
-    wx.getClipboardData({
-      data: 'Sl6dhW316U',
-      success: function(res) {
-        wx.showToast({
-          title: '口令已复制',
-          duration: 1000,
-        });
-        setTimeout(function() {
-          wx.showToast({
-            title: '请打开支付宝领取红包支持Mr.Hope',
-            icon: 'none',
-            duration: 2000,
-          })
-        }, 1000)
-        // 感谢您选择捐赠以支持Mr.Hope，您的每一次捐赠都会让小程序变得更好！
-        // 请点击下方的捐赠按钮并手动跳转到支付宝来注您捐赠的用途：
-        // 升级服务器配置；
-        // 支持Mr.Hope
-      }
-    })
-  }
+  // donate() {
+  //   wx.getClipboardData({
+  //     data: 'Sl6dhW316U',
+  //     success: function(res) {
+  //       wx.showToast({
+  //         title: '口令已复制',
+  //         duration: 1000,
+  //       });
+  //       setTimeout(function() {
+  //         wx.showToast({
+  //           title: '请打开支付宝领取红包支持Mr.Hope',
+  //           icon: 'none',
+  //           duration: 2000,
+  //         })
+  //       }, 1000)
+  //       // 感谢您选择捐赠以支持Mr.Hope，您的每一次捐赠都会让小程序变得更好！
+  //       // 请点击下方的捐赠按钮并手动跳转到支付宝来注您捐赠的用途：
+  //       // 升级服务器配置；
+  //       // 支持Mr.Hope
+  //     }
+  //   })
+  // }
 })
