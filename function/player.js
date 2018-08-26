@@ -36,10 +36,12 @@ P('music', {
     manager = wx.getBackgroundAudioManager();
     let currentSong, that = this;
     if (!this.set) {
-      let index = a.music.index,
+      let index,
         songList = wx.getStorageSync('funcResList0'),
         mode = wx.getStorageSync('playMode');
+      index = e.index ? (a.music.index = e.index, e.index) : a.music.index;
       this.setData({
+        share: e.share,
         i: index,
         info: a.info,
         nm: a.nm,
@@ -233,6 +235,17 @@ P('music', {
     wx.showToast({
       title: '开发中',
       'icon': 'none'
+    })
+  },
+  onShareAppMessage() {
+    return {
+      title: this.data.title,
+      path: `/function/player?index=${this.data.i}&share=true`
+    }
+  },
+  redirect() {
+    wx.switchTab({
+      url: '/pages/main',
     })
   }
 })

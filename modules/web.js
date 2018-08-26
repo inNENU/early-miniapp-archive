@@ -14,7 +14,7 @@ P('web', {
   onShareAppMessage() {
     return {
       title: this.data.title,
-      path: `/pages/main/web?url=${this.data.url}`
+      path: `/pages/modules/web?url=${this.data.url}`
     }
   },
 })

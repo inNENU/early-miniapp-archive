@@ -19,55 +19,55 @@ P('guide', {
         head: '',
         content: [{
           text: '新生报到',
-          icon: '/icon/check.svg',
+          icon: '/icon/guide/check.svg',
           aim: 'check0'
         }, {
           text: '学习',
-          icon: '/icon/study.svg',
+          icon: '/icon/guide/study.svg',
           aim: 'study0'
         }, {
           text: '食堂',
-          icon: '/icon/dining.svg',
+          icon: '/icon/guide/dining.svg',
           aim: 'dining0'
         }, {
           text: '生活',
-          icon: '/icon/life.svg',
+          icon: '/icon/guide/life.svg',
           aim: 'life0'
         }, {
           text: '寝室',
-          icon: '/icon/dorm.svg',
+          icon: '/icon/guide/dorm.svg',
           aim: 'dorm0'
         }, {
           text: '校园网',
-          icon: '/icon/network.svg',
+          icon: '/icon/guide/network.svg',
           aim: 'network0'
         }, {
           text: '校园卡',
-          icon: '/icon/card.svg',
+          icon: '/icon/guide/card.svg',
           aim: 'card0'
         }, {
           text: '吃喝玩乐',
-          icon: '/icon/nearby.svg',
+          icon: '/icon/guide/nearby.svg',
           aim: 'nearby0'
         }, {
           text: '交通',
-          icon: '/icon/traffic.svg',
+          icon: '/icon/guide/traffic.svg',
           aim: 'traffic0'
         }, {
           text: '学生组织',
-          icon: '/icon/studentOrg.svg',
+          icon: '/icon/guide/studentOrg.svg',
           aim: 'studentOrg0'
         }, {
-          text: '社团1	·',
-          icon: '/icon/corporation.svg',
+          text: '社团',
+          icon: '/icon/guide/corporation.svg',
           aim: 'corporation0'
         }, {
           text: '资助',
-          icon: '/icon/subsidize.svg',
+          icon: '/icon/guide/subsidize.svg',
           aim: 'subsidize0'
         }, {
           text: 'SIM卡',
-          icon: '/icon/sim.svg',
+          icon: '/icon/guide/sim.svg',
           aim: 'sim0'
         }, ]
       },
@@ -88,7 +88,7 @@ P('guide', {
       S.Set(this.data.page, a, null, this, false);
     };
     S.Notice('guide');
-    tab.checkUpdate('resNotify', 'localList', 'guideRes', '是否立即下载指南页所需资源？', '下载后可离线查看界面。(会消耗60K流量)\n不下载资源会造成界面加载卡顿，可以稍后在设置中进行下载', '20K', a)
+    tab.checkUpdate('resNotify', 'localList', 'guideRes', '20K')
     let that = this;
     this.$on('theme', function(data) {
       that.setData({
@@ -103,20 +103,21 @@ P('guide', {
   },
   onReady() {
     if (!this.set) {
-			wx.startPullDownRefresh();
+      wx.startPullDownRefresh();
       S.request('main/guide', function(data, indicator) {
         S.Set(data, a, null, indicator);
-				wx.stopPullDownRefresh();
+        wx.stopPullDownRefresh();
       }, this)
     }
     S.preLoad(this, a);
   },
-	onPullDownRefresh() {
-		S.request('main/guide', function (data, indicator) {
-			S.Set(data, a, null, indicator);
-			wx.stopPullDownRefresh();
-		}, this);
-	},
+  onPullDownRefresh() {
+    S.request('main/guide', function(data, indicator) {
+      S.Set(data, a, null, indicator);
+      wx.stopPullDownRefresh();
+    }, this);
+    tab.checkUpdate('resNotify', 'localList', 'guideRes', '20K')
+  },
   onPageScroll(e) {
     S.nav(e, this)
   },

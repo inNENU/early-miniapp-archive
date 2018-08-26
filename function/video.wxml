@@ -1,7 +1,7 @@
 <view class="{{nm?'nm':''}} commonBg">
   <view style='height:15%;'></view>
   <view class='headerCtn'>
-    <view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+    <view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'cA'}}" data-action='back'>
       <image class='backIcon' src='/icon/back.svg' />
     </view>
     <view class='videoName'>{{videoName}}</view>

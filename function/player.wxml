@@ -1,7 +1,7 @@
 <view class="{{nm?'nm':''}} commonBg">
   <view style='height:10%;'></view>
   <view class='headerCtn'>
-    <view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap='cA' data-action='back'>
+    <view class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'cA'}}" data-action='back'>
       <image class='backIcon' src='/icon/back.svg' />
     </view>
     <view class='songName'>{{title}}</view>
@@ -24,7 +24,7 @@
       <image wx:if="{{mode==3}}" class='cycleBtn' src='/function/icon/randomPlay.svg' />
     </view>
     <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
-      <image class='previousBtn' src='/function/icon/previousSong.svg'  catchtap='previous'  />
+      <image class='previousBtn' src='/function/icon/previousSong.svg' catchtap='previous' />
     </view>
     <view wx:if="{{canplay}}" class='buttonCtn2' hover-class='active' hover-start-time='0' hover-stay-time='50' catchtap='play'>
       <image class='playBtn' src="{{play?'/function/icon/pause.svg':'/function/icon/play.svg'}}" />

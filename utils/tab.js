@@ -24,11 +24,13 @@ function tabBarChanger(nm) {
 }
 
 //检查资源更新 from function.js & guide.js
-function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, dataUsage) {
+function checkUpdate(notifyKey, storageKey, onlineFileName, dataUsage) {
   let notify = initialize(notifyKey, true),
-    local = initialize(storageKey, undefined);
-  console.log(notifyKey + 'is' + notify), console.log(local); //调试
-  if (notify) {
+    local = initialize(storageKey, undefined),
+    localTime = initialize(`${storageKey}Time`, Math.round(new Date() / 1000)),
+    currentTime = Math.round(new Date() / 1000);
+  console.log(`${notifyKey} is ${notify}`), console.log(local), console.log(`localTime is ${localTime}`), console.log(`currentTime is ${currentTime}`); //调试
+  if (notify || currentTime > localTime + 200000) {
     wx.request({
       url: 'https://mrhope.top/mp/' + onlineFileName + '.json',
       success(Request) {
@@ -37,57 +39,75 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
         if (Request.statusCode == 200) {
           if (local == undefined) {
             wx.showModal({
-              title: title,
-              content: content,
-              cancelText: '否',
+              title: '打开资源更新提示？',
+              content: '开启后在资源更新时会提示您更新资源文件。',
+              cancelText: '关闭',
               cancelColor: '#ff0000',
-              confirmText: '是',
-              success(choice) {
-                if (choice.cancel) {
+              confirmText: '打开',
+              success(choice2) {
+                if (choice2.confirm) resDownload(onlineData, null, storageKey);
+                if (choice2.cancel) {
                   wx.showModal({
-                    title: '是否要关闭此提示？',
-                    content: '关闭后不会再显示类似提示。您可以在设置中重新打开提示。',
-                    cancelText: '关闭',
-                    cancelColor: '#ff0000',
-                    confirmText: '保持打开',
-                    success(choice2) {
-                      if (choice2.cancel) {
-                        wx.setStorageSync(notifyKey, false)
-                      }
+                    title: '更新提示已关闭',
+                    content: '您可以在设置中重新打开提示。请注意：小程序会定期对界面文件进行强制更新。下面开始首次下载。',
+                    showCancel: false,
+                    success(res) {
+                      wx.setStorageSync(notifyKey, false);
+                      resDownload(onlineData, null, storageKey);
                     }
                   })
                 }
-                if (choice.confirm) {
-                  resDownload(onlineData, null);
-                  wx.setStorageSync(storageKey, JSON.stringify(onlineData));
-                }
               }
-            });
+            })
           } else if (local !== JSON.stringify(onlineData)) {
             console.log('not match') //调试
-            wx.showModal({
-              title: '部分资源有更新？',
-              content: '是否立即更新资源？\n(会消耗' + dataUsage + '流量)',
-              cancelText: '否',
-              cancelColor: '#ff0000',
-              confirmText: '是',
-              success(choice) {
-                if (choice.confirm) {
-                  resDownload(onlineData, JSON.parse(local));
-                  wx.setStorageSync(storageKey, JSON.stringify(onlineData));
+            if (notify) {
+              wx.showModal({
+                title: '部分资源有更新？',
+                content: `是否立即更新资源？\n(会消耗${dataUsage}流量)`,
+                cancelText: '否',
+                cancelColor: '#ff0000',
+                confirmText: '是',
+                success(choice) {
+                  if (choice.confirm) resDownload(onlineData, JSON.parse(local), storageKey);
                 }
-              }
-            });
+              });
+            } else {
+              resDownload(onlineData, JSON.parse(local), storageKey);
+            }
           } else {
             console.log('match') //调试
           }
         } else {
-          console.error('Funclist error!')
+          console.error(`Resjson errorcode is ${Request.statusCode}`), wx.reportMonitor('18', 1);
         }
+      },
+      fail(Request) {
+        console.error('Resjson download failure'), wx.reportMonitor('19', 1);
       }
     })
   }
 }
+
+//资源下载 from fuction.js & guide.js 被resRefresh调用
+function resDownload(onlineList, localList, storageKey) {
+  //console.log(onlineList), console.log(localList); //调试
+  let category = Object.keys(onlineList);
+  console.log(category); //调试
+  if (localList) {
+    let refreshList = new Array();
+    category.forEach(x => {
+      if (localList[x] !== onlineList[x]) {
+        console.log(x + 'don\'t match'); //调试
+        refreshList.push(x);
+      };
+    })
+    resSnyc(refreshList);
+  } else resSnyc(category);
+  wx.setStorageSync(storageKey, JSON.stringify(onlineList));
+  wx.setStorageSync(`${storageKey}Time`, Math.round(new Date() / 1000));
+}
+
 // function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, dataUsage) {
 //   let notify = initialize(notifyKey, true),
 //     local = initialize(storageKey, undefined);
@@ -156,63 +176,47 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, data
 //resRefresh的附属函数
 function resSnyc(refreshList) {
   wx.showLoading({
-    title: '下载中...0%',
+    title: '更新中...0%',
     mask: true
   });
   let percent = new Array(),
     successNumber = 0,
     fileNum = refreshList.length;
-  console.log("fileNum是" + fileNum);
   for (let i = 0; i <= fileNum; i++) {
     percent.push(((i / fileNum) * 100).toString().substring(0, 4));
   }
   let timeoutFunc = setTimeout(function() {
     wx.hideLoading();
-    console.error('hide timeout')
+    console.error('update timeout'), wx.reportMonitor('20', 1);
   }, 10000);
   refreshList.forEach(x => {
     wx.request({
       url: `https://mrhope.top/mp/${x}/${x}.json`,
       success(res) {
-        console.log(x), console.log(res); //调试
-        res.data.forEach((y, z) => {
-          wx.setStorageSync(x + z, y);
-        })
-        successNumber += 1;
-        wx.showLoading({
-          title: '下载中...' + percent[successNumber] + '%',
-          mask: true
-        });
-        if (successNumber == fileNum) {
-          wx.hideLoading();
-          console.log('hide'); //调试
-          clearTimeout(timeoutFunc);
-        };
+        if (res.statusCode == '200') {
+          console.log(x), console.log(res); //调试
+          res.data.forEach((y, z) => {
+            wx.setStorageSync(x + z, y);
+          })
+          successNumber += 1;
+          wx.showLoading({
+            title: `更新中...${percent[successNumber]}%`,
+            mask: true
+          });
+          if (successNumber == fileNum) {
+            wx.hideLoading();
+            console.log('hide'); //调试
+            clearTimeout(timeoutFunc);
+          };
+        } else {
+          console.warn(`${x} statueCode ${res.statusCode}`), wx.reportMonitor('22', 1);
+        }
       },
       fail(res) {
-        console.warn(x), console.warn(res);
+        console.warn(`${x} download failure`), console.warn(res), wx.reportMonitor('21', 1);
       }
     });
   })
-}
-
-//资源下载 from fuction.js & guide.js 被resRefresh调用
-function resDownload(onlineList, localList) {
-  console.log(onlineList), console.log(localList); //调试
-  let category = Object.keys(onlineList);
-  console.log(category); //调试
-  if (localList) {
-    let refreshList = new Array();
-    category.forEach(x => {
-      if (localList[x] !== onlineList[x]) {
-        console.log(x + 'don\'t match'); //调试
-        refreshList.push(x);
-      };
-    })
-    resSnyc(refreshList);
-  } else {
-    resSnyc(category);
-  }
 }
 
 function markerSet() {

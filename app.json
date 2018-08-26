@@ -61,32 +61,32 @@
         "list": [{
                 "pagePath": "pages/main",
                 "text": "首页",
-                "iconPath": "image/tab/home.png",
-                "selectedIconPath": "image/tab/home-selected.png"
+                "iconPath": "icon/tab/home.png",
+                "selectedIconPath": "icon/tab/home-selected.png"
             },
             {
                 "pagePath": "pages/function",
                 "text": "功能",
-                "iconPath": "image/tab/function.png",
-                "selectedIconPath": "image/tab/function-selected.png"
+                "iconPath": "icon/tab/function.png",
+                "selectedIconPath": "icon/tab/function-selected.png"
             },
             {
                 "pagePath": "pages/guide",
                 "text": "东师指南",
-                "iconPath": "image/tab/guide.png",
-                "selectedIconPath": "image/tab/guide-selected.png"
+                "iconPath": "icon/tab/guide.png",
+                "selectedIconPath": "icon/tab/guide-selected.png"
             },
             {
                 "pagePath": "pages/shop",
                 "text": "东青文创",
-                "iconPath": "image/tab/shop.png",
-                "selectedIconPath": "image/tab/shop-selected.png"
+                "iconPath": "icon/tab/shop.png",
+                "selectedIconPath": "icon/tab/shop-selected.png"
             },
             {
                 "pagePath": "pages/me",
                 "text": "我的东师",
-                "iconPath": "image/tab/me.png",
-                "selectedIconPath": "image/tab/me-selected.png"
+                "iconPath": "icon/tab/me.png",
+                "selectedIconPath": "icon/tab/me-selected.png"
             }
         ]
     },

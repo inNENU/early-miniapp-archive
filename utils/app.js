@@ -54,9 +54,9 @@ function noticeCheck() {
       wx.showToast({
         title: '服务器似乎不堪重负',
         icon: 'none',
-        duration: 3000
+        duration: 2000
       })
-      console.error('noticeList error')
+      console.error('noticeList error'), wx.reportMonitor('24', 1)
     }
   })
 }
@@ -136,5 +136,27 @@ function nightmode(date, startTime, endTime) {
       });
     }
     return nm;
+  }
+}
+
+function checkUpdate(forceUpdate = true, reset = false) {
+  if (forceUpdate) {
+    const updateManager = wx.getUpdateManager()
+    updateManager.onCheckForUpdate(function(res) {
+      console.log(res.hasUpdate)
+    })
+    updateManager.onUpdateReady(function() {
+      wx.showModal({
+        title: '提示',
+        content: '新版本已安装，请重启应用' + reset ? '该版本会初始化小程序。' : '',
+        showCancel: reset ? true : false,
+        success(res) {
+          if (res.confirm) updateManager.applyUpdate();
+        }
+      })
+    })
+    updateManager.onUpdateFailed(function() {
+      console.warn('Update failure'), wx.reportMonitor('23', 1)
+    })
   }
 }

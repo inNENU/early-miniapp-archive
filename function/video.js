@@ -29,6 +29,7 @@ P('video', {
       let id = e.id ? e.id : 0,
         videoList = wx.getStorageSync('funcResList1');
       this.setData({
+        share: e.share,
         info: a.info,
         nm: a.nm,
         id: id
@@ -72,4 +73,15 @@ P('video', {
   cA(e) {
     S.component(e, this)
   },
+  onShareAppMessage() {
+    return {
+      title: this.data.title,
+      path: `/function/video?id=${this.data.id}&share=true`
+    }
+  },
+  redirect() {
+    wx.switchTab({
+      url: '/pages/main',
+    })
+  }
 })

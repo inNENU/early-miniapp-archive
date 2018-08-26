@@ -42,6 +42,6 @@ P('situs', {
     }
   },
   redirect() {
-    this.$launch('/pages/main')
+		this.$switch('/pages/main')
   },
 })
