@@ -108,71 +108,6 @@ function resDownload(onlineList, localList, storageKey) {
   wx.setStorageSync(`${storageKey}Time`, Math.round(new Date() / 1000));
 }
 
-// function checkUpdate(notifyKey, storageKey, onlineFileName, title, content, dataUsage) {
-//   let notify = initialize(notifyKey, true),
-//     local = initialize(storageKey, undefined);
-//   console.log(notifyKey + 'is' + notify), console.log(local); //调试
-//   if (notify) {
-//     wx.request({
-//       url: 'https://mrhope.top/mp/' + onlineFileName + '.json',
-//       success(Request) {
-//         console.log(Request); //调试
-//         let onlineData = Request.data;
-//         if (Request.statusCode == 200) {
-//           if (local == undefined) {
-//             wx.showModal({
-//               title: title,
-//               content: content,
-//               cancelText: '否',
-//               cancelColor: '#ff0000',
-//               confirmText: '是',
-//               success(choice) {
-//                 if (choice.cancel) {
-//                   wx.showModal({
-//                     title: '是否要关闭此提示？',
-//                     content: '关闭后不会再显示类似提示。您可以在设置中重新打开提示。',
-//                     cancelText: '关闭',
-//                     cancelColor: '#ff0000',
-//                     confirmText: '保持打开',
-//                     success(choice2) {
-//                       if (choice2.cancel) {
-//                         wx.setStorageSync(notifyKey, false)
-//                       }
-//                     }
-//                   })
-//                 }
-//                 if (choice.confirm) {
-//                   resDownload(onlineData, null);
-//                   wx.setStorageSync(storageKey, JSON.stringify(onlineData));
-//                 }
-//               }
-//             });
-//           } else if (local !== JSON.stringify(onlineData)) {
-//             console.log('not match') //调试
-//             wx.showModal({
-//               title: '部分资源有更新？',
-//               content: '是否立即更新资源？\n(会消耗' + dataUsage + '流量)',
-//               cancelText: '否',
-//               cancelColor: '#ff0000',
-//               confirmText: '是',
-//               success(choice) {
-//                 if (choice.confirm) {
-//                   resDownload(onlineData, JSON.parse(local));
-//                   wx.setStorageSync(storageKey, JSON.stringify(onlineData));
-//                 }
-//               }
-//             });
-//           } else {
-//             console.log('match') //调试
-//           }
-//         } else {
-//           console.error('Funclist error!')
-//         }
-//       }
-//     })
-//   }
-// }
-
 //resRefresh的附属函数
 function resSnyc(refreshList) {
   wx.showLoading({
@@ -233,7 +168,7 @@ function markerSet() {
       if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue') && markerVersion) {
         wx.setStorageSync('markerVersion', markerVersion)
       } else {
-        console.warn('Marker set failure.')
+				console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
       };
     }, null);
   } else {
@@ -241,7 +176,7 @@ function markerSet() {
       if (setMarker(markerData[0], 'benbu') && setMarker(markerData[1], 'jingyue')) {
         wx.setStorageSync('markerVersion', markerVersion)
       } else {
-        console.warn('Marker set failure.')
+				console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
       };
     }
   }

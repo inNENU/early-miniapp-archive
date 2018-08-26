@@ -2,7 +2,6 @@ module.exports = {
   picker,
   slider,
   Switch,
-  gD: getDistance
 }
 
 // 选择器函数

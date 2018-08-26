@@ -90,12 +90,18 @@ P('main', {
         nm: data
       });
     });
-    ['guide', 'function', 'shop'].forEach(x => {
+    ['guide', 'function'].forEach(x => {
       S.request('main/' + x, function(data, indicator) {
         indicator.$put(x, data);
         indicator.$preload(`${x}?name=${x}`);
       }, this)
     });
+    // ['guide', 'function', 'shop'].forEach(x => {
+    //   S.request('main/' + x, function(data, indicator) {
+    //     indicator.$put(x, data);
+    //     indicator.$preload(`${x}?name=${x}`);
+    //   }, this)
+    // });
     this.$preload(`me`);
     //调试
     // wx.openUrl({

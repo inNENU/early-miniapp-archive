@@ -75,13 +75,11 @@ P('video', {
   },
   onShareAppMessage() {
     return {
-      title: this.data.title,
+			title: this.data.videoName,
       path: `/function/video?id=${this.data.id}&share=true`
     }
   },
   redirect() {
-    wx.switchTab({
-      url: '/pages/main',
-    })
+    this.$switch('/pages/main')
   }
 })

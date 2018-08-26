@@ -3,6 +3,7 @@ module.exports = {
   setTheme,
   nightmode,
   checkDebug,
+  checkUpdate,
   noticeCheck,
 }
 
@@ -56,7 +57,7 @@ function noticeCheck() {
         icon: 'none',
         duration: 2000
       })
-      console.error('noticeList error'), wx.reportMonitor('24', 1)
+      console.error('noticeList error'), wx.reportMonitor('24', 1);
     }
   })
 }

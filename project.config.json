@@ -31,8 +31,27 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 2,
+			"list": [
+				{
+					"id": 0,
+					"name": "B模式测试",
+					"pathName": "modules/sharePage",
+					"query": "scene=share/true*From/主页*step/1*aim/dorm0"
+				},
+				{
+					"id": -1,
+					"name": "更新",
+					"pathName": "pages/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "播放器",
+					"pathName": "function/player",
+					"query": "index=5&share=true"
+				}
+			]
 		}
 	}
 }

@@ -3,7 +3,6 @@
         "pages/main",
         "pages/function",
         "pages/guide",
-        "pages/shop",
         "pages/me",
         "pages/settings/1.0",
         "pages/settings/setting",
@@ -18,12 +17,6 @@
                 "player",
                 "video",
                 "scenery"
-            ]
-        },
-        {
-            "root": "shop",
-            "pages": [
-                "good"
             ]
         },
         {
@@ -75,12 +68,6 @@
                 "text": "东师指南",
                 "iconPath": "icon/tab/guide.png",
                 "selectedIconPath": "icon/tab/guide-selected.png"
-            },
-            {
-                "pagePath": "pages/shop",
-                "text": "东青文创",
-                "iconPath": "icon/tab/shop.png",
-                "selectedIconPath": "icon/tab/shop-selected.png"
             },
             {
                 "pagePath": "pages/me",

@@ -24,6 +24,7 @@ wxpage.A({
     this.globalData.info = wx.getSystemInfoSync();
     console.log(this.globalData.info); //调试
     app.noticeCheck();
+    app.checkUpdate();
     // this.common.loadFont(this.globalData.T);
     // wxpage.on('some_message', function(msg) {
     //   console.log('Receive message:', msg)
@@ -32,6 +33,7 @@ wxpage.A({
   onAwake: function(time) {
     console.log('onAwake, after', time, 'ms')
     app.noticeCheck();
+    app.checkUpdate();
   },
   onShow: function() {},
   onError: function(msg) {
@@ -44,7 +46,7 @@ wxpage.A({
     })
   },
   globalData: {
-    Version: 'V 1.0.7',
+    Version: 'V 1.0.8',
     music: {
       play: false,
       played: false,
