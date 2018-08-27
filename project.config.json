@@ -9,7 +9,7 @@
 		"nodeModules": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.3",
+	"libVersion": "2.2.4",
 	"appid": "wx33acb831ee1831a5",
 	"projectname": "Nenuyouth",
 	"isGameTourist": false,
@@ -31,13 +31,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "B模式测试",
 					"pathName": "modules/sharePage",
-					"query": "scene=share/true*From/主页*step/1*aim/dorm0"
+					"query": "scene=dorm0"
 				},
 				{
 					"id": -1,

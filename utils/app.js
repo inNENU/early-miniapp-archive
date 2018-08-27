@@ -39,7 +39,7 @@ function noticeCheck() {
             wx.setStorageSync(x + 'noticeNotify', true);
           }
         })
-        if ('app' in data) {
+        if (wx.getStorageSync('appnoticeNotify')) {
           wx.showModal({
             title: data.app[0],
             content: data.app[1],

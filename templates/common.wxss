@@ -237,7 +237,7 @@
 
 .introBox {
   width: 100%;
-  height: 450rpx;
+  height: 380rpx;
   position: relative;
   overflow: hidden;
 }
@@ -272,8 +272,8 @@
 }
 
 .introIcon {
-  width: 240rpx !important;
-  height: 240rpx !important;
+  width: 200rpx !important;
+  height: 200rpx !important;
 }
 
 .introName {
@@ -283,7 +283,8 @@
 }
 
 .introDesc {
-  color: #333;
+	font-size: 28rpx;
+  color: #444;
   max-width: 80%;
 }
 

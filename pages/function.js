@@ -87,7 +87,7 @@ P('function', {
       S.Set(this.data.page, a, null, this, false);
     };
     S.Notice('function');
-    tab.checkUpdate('funcNotify', 'localFunc', 'functionRes', '40K')
+    tab.checkUpdate('funcNotify', 'localFunc', 'functionRes', '20K')
     let that = this;
     this.$on('theme', function(data) {
       that.setData({

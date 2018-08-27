@@ -11,13 +11,7 @@ P('sharePage', {
   onLoad(res) {
     if (!this.aim) {
       if ('scene' in res) {
-        let temp = new Object(),
-          scene = decodeURIComponent(res.scene);
-        for (let i = 0; i < scene.split('*').length; i++) {
-          let arr = scene.split('*')[i].split('/');
-          temp[arr[0]] = arr[1];
-        }
-        res = temp;
+        res.From = "主页", res.aim = decodeURIComponent(res.scene), res.share = true, res.step = 1;
       }
       console.log(res)
       this.aim = S.Online(a, res, this);
