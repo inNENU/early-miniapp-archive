@@ -145,11 +145,15 @@ function checkUpdate(forceUpdate = true, reset = false) {
     const updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function(res) {
       console.log(res.hasUpdate)
+      if (res.hasUpdate) wx.showToast({
+        title: '检测到更新，下载中...',
+        icon: 'none'
+      });
     })
     updateManager.onUpdateReady(function() {
       wx.showModal({
         title: '提示',
-        content: '新版本已安装，请重启应用' + reset ? '该版本会初始化小程序。' : '',
+        content: reset ? '新版本已安装，请重启应用。该版本会初始化小程序。' : '新版本已安装，请重启应用。',
         showCancel: reset ? true : false,
         success(res) {
           if (res.confirm) updateManager.applyUpdate();

@@ -428,7 +428,7 @@ function share(e, indicator) {
     if (e.target.dataset.object == 'download') {
       console.log('download')
       wx.downloadFile({
-        url: `https://mrhope.top/mp/share/${indicator.data.page[0].aim}.png`,
+        url: `https://mrhope.top/mp/share/${indicator.data.page[0].aim}.jpg`,
         success(res) {
           if (res.statusCode == 200) {
             wx.saveImageToPhotosAlbum({
