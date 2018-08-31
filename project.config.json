@@ -6,7 +6,7 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"nodeModules": false
+		"nodeModules": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.2.4",
@@ -32,26 +32,7 @@
 		},
 		"miniprogram": {
 			"current": 1,
-			"list": [
-				{
-					"id": 0,
-					"name": "B模式测试",
-					"pathName": "modules/sharePage",
-					"query": "scene=dorm0"
-				},
-				{
-					"id": 1,
-					"name": "更新",
-					"pathName": "pages/main",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "播放器",
-					"pathName": "function/player",
-					"query": "index=5&share=true"
-				}
-			]
+			"list": []
 		}
 	}
 }
