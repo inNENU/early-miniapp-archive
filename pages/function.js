@@ -89,12 +89,12 @@ P('function', {
     S.Notice('function');
     tab.checkUpdate('funcNotify', 'localFunc', 'functionRes', '20K')
     let that = this;
-    this.$on('theme', function(data) {
+    this.$on('theme', data => {
       that.setData({
         T: data
       });
     });
-    this.$on('nightmode', function(data) {
+    this.$on('nightmode', data => {
       that.setData({
         nm: data
       });
@@ -103,7 +103,7 @@ P('function', {
   onReady() {
     if (!this.set) {
       wx.startPullDownRefresh();
-      S.request('main/function', function(data, indicator) {
+      S.request('main/function', (data, indicator) => {
         S.Set(data, a, null, indicator);
         wx.stopPullDownRefresh();
       }, this)
@@ -111,7 +111,7 @@ P('function', {
     tab.markerSet();
   },
   onPullDownRefresh() {
-    S.request('main/function', function(data, indicator) {
+    S.request('main/function', (data, indicator) => {
       S.Set(data, a, null, indicator);
       wx.stopPullDownRefresh();
     }, this);

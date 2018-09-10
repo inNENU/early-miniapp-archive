@@ -72,7 +72,7 @@ P('main', {
   onLoad() {
     tab.tabBarChanger(a.nm);
     wx.startPullDownRefresh();
-    S.request('main/main', function(data, indicator) {
+    S.request('main/main', (data, indicator) => {
       S.Set(data, a, null, indicator);
       wx.stopPullDownRefresh();
     }, this);
@@ -80,18 +80,18 @@ P('main', {
   },
   onReady() {
     let that = this;
-    this.$on('theme', function(data) {
+    this.$on('theme', data => {
       that.setData({
         T: data
       });
     });
-    this.$on('nightmode', function(data) {
+    this.$on('nightmode', data => {
       that.setData({
         nm: data
       });
     });
     ['guide', 'function'].forEach(x => {
-      S.request('main/' + x, function(data, indicator) {
+      S.request('main/' + x, (data, indicator) => {
         indicator.$put(x, data);
         indicator.$preload(`${x}?name=${x}`);
       }, this)
@@ -115,7 +115,7 @@ P('main', {
     // })
   },
   onPullDownRefresh() {
-    S.request('main/main', function(data, indicator) {
+    S.request('main/main', (data, indicator) => {
       S.Set(data, a, null, indicator);
       wx.stopPullDownRefresh();
     }, this);

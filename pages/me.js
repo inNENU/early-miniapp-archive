@@ -14,11 +14,11 @@ P('me', {
       tag: 'list',
       content: [{
         text: '设置',
-				icon:"/icon/setting.svg",
+        icon: "/icon/setting.svg",
         url: 'settings/setting'
       }, {
         text: '关于',
-				icon:"/icon/about.svg",
+        icon: "/icon/about.svg",
         url: 'settings/about',
         desc: a.Version
       }, ]
@@ -39,12 +39,12 @@ P('me', {
       S.Set(this.data.page, a, null, this, false);
     };
     S.Notice('me');
-    this.$on('theme', function(data) {
+    this.$on('theme', data => {
       that.setData({
         T: data
       });
     });
-    this.$on('nightmode', function(data) {
+    this.$on('nightmode', data => {
       that.setData({
         nm: data
       });

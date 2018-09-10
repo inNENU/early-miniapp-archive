@@ -43,7 +43,8 @@
         "backgroundColor": "#efeef4",
         "backgroundTextStyle": "black",
         "backgroundColorTop": "#f5f5f7",
-        "backgroundColorBottom": "#efeef4"
+        "backgroundColorBottom": "#efeef4",
+        "pageOrientation": "auto"
     },
     "tabBar": {
         "color": "#7A7E83",
@@ -85,7 +86,7 @@
     },
     "plugins": {
         "qqVideo": {
-            "version": "1.1.7",
+            "version": "1.1.8",
             "provider": "wxa75efa648b60994b"
         }
     },

@@ -9,22 +9,18 @@ module.exports = {
 
 //开启开发模式  for app.js & theme.js
 function checkDebug() {
-  if (wx.getStorageSync('debugMode')) {
-    wx.setEnableDebug({
-      enableDebug: true
-    })
-  } else {
-    wx.setEnableDebug({
-      enableDebug: false
-    })
-  }
+  wx.getStorageSync('debugMode') ? wx.setEnableDebug({
+    enableDebug: true
+  }) : wx.setEnableDebug({
+    enableDebug: false
+  })
 }
 
 //弹窗检查 for app.js
 function noticeCheck() {
   wx.request({
     url: 'https://mrhope.top/mp/notice.json',
-    success(res) {
+    success: res => {
       console.log(res); //调试
       if (res.statusCode == 200) {
         let data = res.data,

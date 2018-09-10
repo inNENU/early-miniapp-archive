@@ -90,12 +90,12 @@ P('guide', {
     S.Notice('guide');
     tab.checkUpdate('resNotify', 'localList', 'guideRes', '20K')
     let that = this;
-    this.$on('theme', function(data) {
+    this.$on('theme', data => {
       that.setData({
         T: data
       });
     });
-    this.$on('nightmode', function(data) {
+    this.$on('nightmode', data => {
       that.setData({
         nm: data
       });
@@ -104,7 +104,7 @@ P('guide', {
   onReady() {
     if (!this.set) {
       wx.startPullDownRefresh();
-      S.request('main/guide', function(data, indicator) {
+      S.request('main/guide', (data, indicator) => {
         S.Set(data, a, null, indicator);
         wx.stopPullDownRefresh();
       }, this)
@@ -112,7 +112,7 @@ P('guide', {
     S.preLoad(this, a);
   },
   onPullDownRefresh() {
-    S.request('main/guide', function(data, indicator) {
+    S.request('main/guide', (data, indicator) => {
       S.Set(data, a, null, indicator);
       wx.stopPullDownRefresh();
     }, this);
