@@ -9,7 +9,7 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.5",
+	"libVersion": "2.3.0",
 	"appid": "wx33acb831ee1831a5",
 	"projectname": "Nenuyouth",
 	"isGameTourist": false,
@@ -31,8 +31,14 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": -1,
+					"name": "模拟更新",
+					"pathName": "pages/main"
+				}
+			]
 		}
 	}
 }

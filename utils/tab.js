@@ -32,8 +32,8 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, dataUsage) {
   console.log(`${notifyKey} is ${notify}`), console.log(local), console.log(`localTime is ${localTime}`), console.log(`currentTime is ${currentTime}`); //调试
   if (notify || currentTime > localTime + 200000) {
     wx.request({
-      url: 'https://mrhope.top/mp/' + onlineFileName + '.json',
-      success(Request) {
+      url: `https://mrhope.top/mpFiles/${onlineFileName}.json`,
+      success: Request => {
         console.log(Request); //调试
         let onlineData = Request.data;
         if (Request.statusCode == 200) {
@@ -44,14 +44,14 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, dataUsage) {
               cancelText: '关闭',
               cancelColor: '#ff0000',
               confirmText: '打开',
-              success(choice2) {
+              success: choice2 => {
                 if (choice2.confirm) resDownload(onlineData, null, storageKey);
                 if (choice2.cancel) {
                   wx.showModal({
                     title: '更新提示已关闭',
                     content: '您可以在设置中重新打开提示。请注意：小程序会定期对界面文件进行强制更新。下面开始首次下载。',
                     showCancel: false,
-                    success(res) {
+                    success: res => {
                       wx.setStorageSync(notifyKey, false);
                       resDownload(onlineData, null, storageKey);
                     }
@@ -126,7 +126,7 @@ function resSnyc(refreshList) {
   }, 10000);
   refreshList.forEach(x => {
     wx.request({
-      url: `https://mrhope.top/mp/${x}/${x}.json`,
+			url: `https://mrhope.top/mpFiles/${x}/${x}.json`,
       success(res) {
         if (res.statusCode == '200') {
           console.log(x), console.log(res); //调试
@@ -168,7 +168,7 @@ function markerSet() {
       if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue') && markerVersion) {
         wx.setStorageSync('markerVersion', markerVersion)
       } else {
-				console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
+        console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
       };
     }, null);
   } else {
@@ -176,7 +176,7 @@ function markerSet() {
       if (setMarker(markerData[0], 'benbu') && setMarker(markerData[1], 'jingyue')) {
         wx.setStorageSync('markerVersion', markerVersion)
       } else {
-				console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
+        console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
       };
     }
   }
@@ -238,7 +238,7 @@ function initMarker(markers) {
 //wx.request包装
 function request(path, Func, indicator) {
   wx.request({
-    url: `https://mrhope.top/mp/${path}.json`,
+		url: `https://mrhope.top/mpFiles/${path}.json`,
     success(res) {
       console.log(res)
       if (res.statusCode == 200) Func(res.data, indicator)

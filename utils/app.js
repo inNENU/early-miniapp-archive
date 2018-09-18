@@ -19,7 +19,7 @@ function checkDebug() {
 //弹窗检查 for app.js
 function noticeCheck() {
   wx.request({
-    url: 'https://mrhope.top/mp/notice.json',
+    url: `https://mrhope.top/mpFiles/notice.json`,
     success: res => {
       console.log(res); //调试
       if (res.statusCode == 200) {
@@ -71,8 +71,7 @@ function setTheme(theme) {
     return value
   } else {
     if (theme == "auto") {
-      let p = wx.getSystemInfoSync().platform,
-        t, num;
+      let t, num, p = wx.getSystemInfoSync().platform;
       switch (p) {
         case 'ios':
           t = 'iOS',
@@ -86,8 +85,7 @@ function setTheme(theme) {
           t = 'iOS',
             num = 0;
       }
-      wx.setStorageSync('theme', t);
-      wx.setStorageSync('themeNum', num);
+      wx.setStorageSync('theme', t), wx.setStorageSync('themeNum', num);
       return t;
     } else {
       return theme;
@@ -106,32 +104,23 @@ function nightmode(date, startTime, endTime) {
     s = initialize('nmStart', startTime).split('-'),
     e = initialize('nmEnd', endTime).split('-'),
     time = date.getHours() * 100 + date.getMinutes();
-  let start = Number(s[0]) * 100 + Number(s[1]),
-    end = Number(e[0]) * 100 + Number(e[1]),
-    temp;
+  let temp, value, start = Number(s[0]) * 100 + Number(s[1]),
+    end = Number(e[0]) * 100 + Number(e[1]);
   if (nmAC) {
     (start <= end) ? temp = ((time >= start && time <= end) ? true : false): temp = ((time <= start && time >= end) ? false : true);
-    if (temp && nBC) {
-      wx.setScreenBrightness({
-        value: nB / 100
-      })
-    } else if (!temp && dBC) {
-      wx.setScreenBrightness({
-        value: dB / 100
-      })
-    }
+    if (temp && nBC) value = nB / 100
+    else if (!temp && dBC) value = dB / 100;
+    wx.setScreenBrightness({
+      value
+    });
     wx.setStorageSync('nightmode', temp);
     return temp;
   } else {
-    if (nm && nBC) {
-      wx.setScreenBrightness({
-        value: nB / 100
-      });
-    } else if (!nm && dBC) {
-      wx.setScreenBrightness({
-        value: dB / 100
-      });
-    }
+    if (nm && nBC) value = nB / 100
+    else if (!nm && dBC) value = dB / 100;
+    wx.setScreenBrightness({
+      value
+    });
     return nm;
   }
 }
@@ -139,24 +128,24 @@ function nightmode(date, startTime, endTime) {
 function checkUpdate(forceUpdate = true, reset = false) {
   if (forceUpdate) {
     const updateManager = wx.getUpdateManager()
-    updateManager.onCheckForUpdate(function(res) {
+    updateManager.onCheckForUpdate(res => {
       console.log(res.hasUpdate)
       if (res.hasUpdate) wx.showToast({
         title: '检测到更新，下载中...',
         icon: 'none'
       });
     })
-    updateManager.onUpdateReady(function() {
+    updateManager.onUpdateReady(() => {
       wx.showModal({
         title: '提示',
         content: reset ? '新版本已安装，请重启应用。该版本会初始化小程序。' : '新版本已安装，请重启应用。',
         showCancel: reset ? true : false,
-        success(res) {
+        success: res => {
           if (res.confirm) updateManager.applyUpdate();
         }
       })
     })
-    updateManager.onUpdateFailed(function() {
+    updateManager.onUpdateFailed(() => {
       console.warn('Update failure'), wx.reportMonitor('23', 1)
     })
   }

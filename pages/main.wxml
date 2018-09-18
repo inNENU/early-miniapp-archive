@@ -1,3 +1,2 @@
 <import src="/templates/template" />
 <template is="all" data="{{page,T,nm}}" />
-<!-- <template is="intro" data="{{src:'/image/nenuyouth.png',name:'东师青年',desc:'校学生会官方平台'}}" /> -->
