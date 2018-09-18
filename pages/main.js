@@ -14,15 +14,6 @@ P('main', {
       shareable: true,
       aim: "main"
     }, {
-      tag: "gzh",
-      icon: "/image/nenuyouth.png",
-      gzhName: "东师青年",
-      title: "还有1天 | 东师18级新生军训百科大全",
-      desc: "教官还有1天到达战场，请东师青年们做好准备",
-      src: "http://mmbiz.qpic.cn/mmbiz_jpg/s67UCDghNJkKuuvr8cgR7DExeye4kHNa55yqfuwicSzlhr4E6jNBkdJFYtkeEicaibEOKcqjiau4NblzPVtYiawHf4Q/0?wx_fmt=jpeg",
-      remark: "军训指南",
-      url: "https://mp.weixin.qq.com/s/gxeOZgotvpS-W7DCOxVVGg"
-    }, {
       tag: "list",
       head: "进一步了解东师",
       content: [{

@@ -19,7 +19,7 @@ function checkDebug() {
 //弹窗检查 for app.js
 function noticeCheck() {
   wx.request({
-    url: `https://mrhope.top/mpFiles/notice.json`,
+    url: `https://mrhope.top/mpRes/notice.json`,
     success: res => {
       console.log(res); //调试
       if (res.statusCode == 200) {

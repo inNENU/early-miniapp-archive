@@ -29,6 +29,10 @@ P('function', {
         text: '校园公众号',
         icon: '/icon/function/gzh.svg',
         aim: 'gzh0'
+      }, {
+        text: '体测计算器',
+        icon: '/icon/function/PECal.svg',
+        url: '/function/PEcal'
       }, ]
     }, {
       tag: 'grid',
@@ -36,10 +40,6 @@ P('function', {
       content: [{
         text: '内网公告',
         icon: '/icon/function/notice.svg',
-        url: '/modules/building?month=9'
-      }, {
-        text: '体测计算器',
-        icon: '/icon/function/PECal.svg',
         url: '/modules/building?month=9'
       }, {
         text: '成绩查询',

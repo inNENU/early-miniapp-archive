@@ -37,7 +37,7 @@ function getOnlinePage(opt, globalData, indicator) {
       source = opt.aim.substring(0, length - 3);
     };
     wx.request({
-      url: `https://mrhope.top/mpFiles/${source}/${opt.aim}.json`,
+			url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
       success(res) {
         console.log(res);
         if (res.statusCode == 200) {
@@ -175,7 +175,7 @@ function setOnlinePage(globalData, opt, indicator, preload = false) {
     source = opt.aim.substring(0, length - 3);
   };
   wx.request({
-    url: `https://mrhope.top/mpFiles/${source}/${opt.aim}.json`,
+		url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
     success: res => {
       console.log(res);
       if (res.statusCode == 200) {
@@ -507,7 +507,7 @@ function changeNav(e, indicator) {
 //wx.request包装
 function request(path, Func, indicator) {
   wx.request({
-		url: `https://mrhope.top/mpFiles/${path}.json`,
+		url: `https://mrhope.top/mpRes/${path}.json`,
     success(res) {
       console.log(res)
       if (res.statusCode == 200) Func(res.data, indicator)

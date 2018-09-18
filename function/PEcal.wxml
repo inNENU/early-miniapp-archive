@@ -1,2 +1,17 @@
-<!--function/PEcal.wxml-->
-<text>function/PEcal.wxml</text>
+<import src="/templates/template" />
+<!-- <template is="all" data="{{page,T,nm}}" /> -->
+<view class="{{nm?'nm':''}}">
+  <template is='head' data="{{...page[0],T}}" />
+  <view class='scoreBox'>
+    <view class='BMICtn'>
+      <view class='scoreTitle'>BMI：</view>
+      <view class='scoreDisplay'>{{score}}{{state}}</view>
+    </view>
+    <view class='scoreCtn'>
+      <view class='scoreTitle'>体测成绩：</view>
+      <view class='scoreDisplay'>{{score}}{{state}}</view>
+    </view>
+  </view>
+  <view class='list'></view>
+  <view class='calBtn'>计算</view>
+</view>

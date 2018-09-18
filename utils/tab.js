@@ -32,7 +32,7 @@ function checkUpdate(notifyKey, storageKey, onlineFileName, dataUsage) {
   console.log(`${notifyKey} is ${notify}`), console.log(local), console.log(`localTime is ${localTime}`), console.log(`currentTime is ${currentTime}`); //调试
   if (notify || currentTime > localTime + 200000) {
     wx.request({
-      url: `https://mrhope.top/mpFiles/${onlineFileName}.json`,
+			url: `https://mrhope.top/mpRes/${onlineFileName}.json`,
       success: Request => {
         console.log(Request); //调试
         let onlineData = Request.data;
@@ -126,7 +126,7 @@ function resSnyc(refreshList) {
   }, 10000);
   refreshList.forEach(x => {
     wx.request({
-			url: `https://mrhope.top/mpFiles/${x}/${x}.json`,
+			url: `https://mrhope.top/mpRes/${x}/${x}.json`,
       success(res) {
         if (res.statusCode == '200') {
           console.log(x), console.log(res); //调试
@@ -238,7 +238,7 @@ function initMarker(markers) {
 //wx.request包装
 function request(path, Func, indicator) {
   wx.request({
-		url: `https://mrhope.top/mpFiles/${path}.json`,
+		url: `https://mrhope.top/mpRes/${path}.json`,
     success(res) {
       console.log(res)
       if (res.statusCode == 200) Func(res.data, indicator)
