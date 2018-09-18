@@ -92,5 +92,6 @@
         }
     },
     "workers": "workers",
-    "debug": true
+    "debug": true,
+		"resizable": true
 }

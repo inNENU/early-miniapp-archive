@@ -15,8 +15,13 @@ page {
                  Tahoma,
                  Simsun,
                  sans-serif;
-  /* font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif; */
   text-align: center;
+}
+
+@media (min-width:480px) {
+  page {
+    font-size: 20px;
+  }
 }
 
 /* donate */
@@ -71,6 +76,7 @@ page {
 .hide {
   display: none;
 }
+
 /* animation */
 
 .fadeIn, .fadeOut {

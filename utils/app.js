@@ -108,19 +108,25 @@ function nightmode(date, startTime, endTime) {
     end = Number(e[0]) * 100 + Number(e[1]);
   if (nmAC) {
     (start <= end) ? temp = ((time >= start && time <= end) ? true : false): temp = ((time <= start && time >= end) ? false : true);
-    if (temp && nBC) value = nB / 100
-    else if (!temp && dBC) value = dB / 100;
-    wx.setScreenBrightness({
-      value
-    });
+    if (temp && nBC)
+      wx.setScreenBrightness({
+        value: nB / 100
+      })
+    else if (!temp && dBC)
+      wx.setScreenBrightness({
+        value: dB / 100
+      });
     wx.setStorageSync('nightmode', temp);
     return temp;
   } else {
-    if (nm && nBC) value = nB / 100
-    else if (!nm && dBC) value = dB / 100;
-    wx.setScreenBrightness({
-      value
-    });
+    if (nm && nBC)
+      wx.setScreenBrightness({
+        value: nB / 100
+      })
+    else if (!nm && dBC)
+      wx.setScreenBrightness({
+        value: dB / 100
+      });
     return nm;
   }
 }

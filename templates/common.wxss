@@ -20,15 +20,15 @@
 }
 
 .loadingIconCtn {
-  width: 200rpx;
-  height: 250rpx;
+  width: 100px;
+  height: 125px;
   -webkit-filter: drop-shadow(-1px 1px 2px rgba(191, 190, 195, 0.15));
   filter: drop-shadow(-1px 1px 2px rgba(191, 190, 195, 0.15));
 }
 
 .loadingIcon {
-  width: 200rpx;
-  height: 200rpx;
+  width: 100px;
+  height: 100px;
   position: relative;
 }
 
@@ -107,7 +107,14 @@
 
 .loadingText {
   color: #888;
-  font-size: 32rpx;
+  margin: 4px auto;
+}
+
+@media (min-width:480px) {
+  .loadingText {
+    font-size: 24px;
+    margin: 12px auto;
+  }
 }
 
 @keyframes shadow {
@@ -121,9 +128,9 @@
 }
 
 .loadingShadow {
-  width: 120rpx;
-  height: 20rpx;
-  margin: -20rpx 40rpx 0 40rpx;
+  width: 60px;
+  height: 10px;
+  margin: -10px 20px 0 20px;
   border-radius: 50%;
   background: rgba(191, 190, 195, 0.15);
   box-shadow: 0 0 5px rgba(191, 190, 195, 0.15);
@@ -283,7 +290,7 @@
 }
 
 .introDesc {
-	font-size: 28rpx;
+  font-size: 28rpx;
   color: #444;
   max-width: 80%;
 }
@@ -540,6 +547,8 @@
   background-color: #fefefe;
   border-top: 1rpx #cac9ce solid;
   border-bottom: 1rpx #cac9ce solid;
+  margin: 0 auto;
+  max-width: 517px;
 }
 
 .nm .Lctn {
@@ -734,8 +743,8 @@
 /* share */
 
 .shareIconCtn {
-  width: 80rpx;
-  height: 80rpx;
+  width: 40px;
+  height: 40px;
   position: fixed;
   z-index: 200;
   right: 40rpx;
@@ -806,11 +815,12 @@
 
 .gzhCtn {
   width: 90%;
-  margin: 12px 5%;
+  margin: 12px auto;
   border-radius: 16rpx;
   text-align: left;
   overflow: hidden;
   box-shadow: 1px 1px 2px 3px rgba(191, 192, 195, 0.15);
+  max-width: 517px;
 }
 
 .nm .gzhCtn {
@@ -825,6 +835,7 @@
 .gzhNewImgCtn {
   width: 100%;
   height: 290rpx;
+  max-height: 220px;
 }
 
 .gzhImg {
@@ -874,4 +885,26 @@
 .gzhIconDesc {
   font-size: 14px;
   color: #888;
+  margin: 2px auto;
+}
+
+@media (min-width:480px) {
+  .gzhTitle {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .gzhDesc {
+    font-size: 18px;
+  }
+
+  .gzhIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .gzhIconDesc {
+    font-size: 16px;
+  }
 }
