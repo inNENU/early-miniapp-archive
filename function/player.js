@@ -41,12 +41,12 @@ P('music', {
         mode = wx.getStorageSync('playMode');
       index = e.index ? (a.music.index = e.index, e.index) : a.music.index;
       this.setData({
-        share: e.share,
+        share: e.share ? e.share : false,
         i: index,
         info: a.info,
         nm: a.nm,
         play: a.music.play,
-        mode: mode ? mode : (wx.setStorageSync('playMode', 0), 0)
+        mode: mode ? mode : (wx.setStorageSync('playMode', 0), 0),
       })
       if (songList) {
         currentSong = songList[index];

@@ -141,6 +141,25 @@
   font-weight: 400;
   color: #666;
   padding: 23px 15px 5px 15px;
+  max-width: 487px;
+  margin: 0 auto;
+}
+
+@media (min-width:768px) {
+  .iOSH3 {
+    min-height: 26px;
+    font-size: 24px;
+  }
+
+  .iOShead {
+    min-height: 22px;
+    font-size: 21px;
+  }
+
+  .grey .iOShead {
+    font-size: 14px;
+    min-height: 10px;
+  }
 }
 
 .grey.nm .iOShead {
@@ -156,7 +175,15 @@
   padding: 0 15px;
   line-height: 1.6;
   text-align: justify;
-	word-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (min-width:768px) {
+  .iOSP {
+    font-size: 18px;
+  }
 }
 
 .grey .iOSP {
@@ -167,6 +194,8 @@
   background-color: #fefefe;
   border-top: 1rpx #cac9ce solid;
   border-bottom: 1rpx #cac9ce solid;
+  max-width: 487px;
+  margin: 0 auto;
 }
 
 .grey.nm .iOSP {
@@ -175,8 +204,14 @@
 
 .iOS-img {
   width: 90% !important;
-  margin: 4px 5%;
+  /* margin: 4px 5%; */
+  margin: 4px auto;
   border-radius: 16rpx;
+  max-width: 600px !important;
+}
+
+.iOSP .iOS-img {
+  width: 100% !important;
 }
 
 .iOSImgError {

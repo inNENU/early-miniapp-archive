@@ -61,12 +61,12 @@ P('shop', {
     };
     S.Notice('shop');
     let that = this;
-    this.$on('theme', function(data) {
+    this.$on('theme', data => {
       that.setData({
         T: data
       });
     });
-    this.$on('nightmode', function(data) {
+    this.$on('nightmode', data => {
       that.setData({
         nm: data
       });
@@ -74,11 +74,11 @@ P('shop', {
   },
   onReady() {
     if (!this.set) {
-      S.request('main/shop', function(data, indicator) {
+      S.request('main/shop', (data, indicator) => {
         S.Set(data, a, null, indicator);
       }, this)
     };
-    S.request('main/goods', function(data, indicator) {
+    S.request('main/goods', (data, indicator) => {
       indicator.setData({
         goods: data
       })
@@ -90,23 +90,23 @@ P('shop', {
   cA(e) {
     S.component(e, this)
   },
-  showInput: function() {
+  showInput() {
     this.setData({
       inputShowed: true
     });
   },
-  hideInput: function() {
+  hideInput() {
     this.setData({
       inputVal: "",
       inputShowed: false
     });
   },
-  clearInput: function() {
+  clearInput() {
     this.setData({
       inputVal: ""
     });
   },
-  inputTyping: function(e) {
+  inputTyping(e) {
     this.setData({
       inputVal: e.detail.value
     });

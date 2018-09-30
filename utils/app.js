@@ -135,7 +135,7 @@ function checkUpdate(forceUpdate = true, reset = false) {
   if (forceUpdate) {
     const updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(res => {
-      console.log(res.hasUpdate)
+      console.log(`HasUpdate status ${res.hasUpdate}`)
       if (res.hasUpdate) wx.showToast({
         title: '检测到更新，下载中...',
         icon: 'none'
