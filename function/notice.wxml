@@ -1,0 +1,8 @@
+<import src="/templates/template" />
+<view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template is="all2" data="{{page,T}}" />
+	<view wx:if="{{notice}}" class='noticeCtn'>
+	<view class='title'>{{title}}</view>
+	<view class='time'>{{time}}</view>
+	</view>
+</view>

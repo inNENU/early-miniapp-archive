@@ -1,5 +1,16 @@
-//预加载界面，在上一个界面被调用，写入存储
-function preLoad(indicator, globalData) {
+// //开始
+// var ii = 0,
+//   aa;
+// while (ii < 100000000) {
+//   aa = (ii / (ii - 1)) ^ 1.23456789;
+//   ii % 10000000 == 0 ? console.log('trigger') : '';
+//   ii++;
+// }
+// console.log('finish')
+// //结束
+
+//预加载界面，在界面被调用时，将该界面包含的所有aim对应json处理后写入存储
+function preLoad(indicator, globalData) { //参数：页面指针，全局变量
   let page = indicator.data.page;
   if (page) {
     page.forEach(x => {
@@ -19,8 +30,8 @@ function preLoad(indicator, globalData) {
   }
 }
 
-//获取在线页面，被preLoad调用
-function getOnlinePage(opt, globalData, indicator) {
+//从本地或网络获取在线页面的json并处理存储，被preLoad调用
+function getOnlinePage(opt, globalData, indicator) { //参数：页面传参，全局变量，页面指针
   let pageData = wx.getStorageSync(opt.aim);
   if (pageData) {
     console.log(getPageData(pageData, globalData, opt))
@@ -37,7 +48,7 @@ function getOnlinePage(opt, globalData, indicator) {
       source = opt.aim.substring(0, length - 3);
     };
     wx.request({
-			url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
+      url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
       success(res) {
         console.log(res);
         if (res.statusCode == 200) {
@@ -60,7 +71,7 @@ function getOnlinePage(opt, globalData, indicator) {
   };
 }
 
-//获得界面数据，被getOnlinePage调用，生成正确的界面数据
+//获得界面数据，生成正确的界面数据
 function getPageData(page, globalData, opt) {
   if (page) {
     if (page[0].tag == 'head') {
@@ -135,7 +146,6 @@ function getPageData(page, globalData, opt) {
 
 //设置界面，在onNavigate时调用，将界面数据写入初始数据
 function presetPage(page, globalData, opt, indicator, Set = true) {
-  // loadFont(globalData.T);
   console.log(page);
   indicator.data = {
     T: globalData.T,
@@ -144,13 +154,15 @@ function presetPage(page, globalData, opt, indicator, Set = true) {
   };
   if (opt && page) {
     try {
-      return opt.query.aim;
+      // return opt.query.aim;
+      indicator.aim = opt.query.aim;
     } catch (msg) {
-      return opt.aim
+      // return opt.aim;
+      indicator.aim = opt.aim;
     }
-  } else {
-    return false
   }
+  console.log(indicator.aim + '载入', 'data是：', indicator.data);
+  return;
 }
 
 //设置本地界面数据，在界面初始化之后使用
@@ -175,7 +187,7 @@ function setOnlinePage(globalData, opt, indicator, preload = false) {
     source = opt.aim.substring(0, length - 3);
   };
   wx.request({
-		url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
+    url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
     success: res => {
       console.log(res);
       if (res.statusCode == 200) {
@@ -203,7 +215,7 @@ function setOnlinePage(globalData, opt, indicator, preload = false) {
 }
 
 //弹出通知，在onLoad时被调用
-function popNotice(aim) {
+function popNotice(aim) { //参数：当前界面的aim值
   if (wx.getStorageSync(aim + 'noticeNotify')) {
     let notice = wx.getStorageSync((aim + 'notice'));
     wx.showModal({
@@ -507,7 +519,7 @@ function changeNav(e, indicator) {
 //wx.request包装
 function request(path, Func, indicator) {
   wx.request({
-		url: `https://mrhope.top/mpRes/${path}.json`,
+    url: `https://mrhope.top/mpRes/${path}.json`,
     success(res) {
       console.log(res)
       if (res.statusCode == 200) Func(res.data, indicator)

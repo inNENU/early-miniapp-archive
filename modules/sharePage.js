@@ -3,11 +3,10 @@ var P = require('../utils/wxpage'),
   a = getApp().globalData;
 
 P('sharePage', {
-  onNavigate(res) {
-    console.log('将要跳转：', res)
-    this.aim = S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this);
-    console.log(this.aim + '载入'), console.log(this.data);
-  },
+	onNavigate(res) {
+		console.log('将要跳转：', res)
+		S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this)
+	},
   onLoad(res) {
     if (!this.aim) {
       if ('scene' in res) {

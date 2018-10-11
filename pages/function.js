@@ -21,14 +21,18 @@ P('function', {
         text: '音律东师',
         icon: '/icon/function/music.svg',
         url: '/function/player'
-      }, {
-        text: '影约东师',
-        icon: '/icon/function/movie.svg',
-        url: '/function/video'
+        // }, {
+        //   text: '影约东师',
+        //   icon: '/icon/function/movie.svg',
+        //   url: '/function/video'
       }, {
         text: '校园公众号',
         icon: '/icon/function/gzh.svg',
         aim: 'gzh0'
+      }, {
+        text: '内网公告',
+        icon: '/icon/function/notice.svg',
+        url: '/function/notice'
       }, {
         text: '体测计算器',
         icon: '/icon/function/PECal.svg',
@@ -38,10 +42,6 @@ P('function', {
       tag: 'grid',
       head: '即将推出',
       content: [{
-        text: '内网公告',
-        icon: '/icon/function/notice.svg',
-        url: '/modules/building?month=9'
-      }, {
         text: '成绩查询',
         icon: '/icon/function/exam.svg',
         url: '/modules/building?month=10'
@@ -72,12 +72,12 @@ P('function', {
       }]
     }, ],
   },
-  onPreload(res) {
-    if (!S.preSet(this.$take(res.query.name), a, null, this, false)) {
-      this.set = true;
-    };
-    console.log('Function preload finished time:', new Date() - a.d, 'ms');
-  },
+  // onPreload(res) {
+  //   if (!S.preSet(this.$take(res.query.name), a, null, this, false)) {
+  //     this.set = true;
+  //   };
+  //   console.log('Function preload finished time:', new Date() - a.d, 'ms');
+  // },
   onLoad() {
     this.setData({
       T: a.T,
@@ -101,13 +101,13 @@ P('function', {
     });
   },
   onReady() {
-    if (!this.set) {
-      wx.startPullDownRefresh();
-      S.request('main/function', (data, indicator) => {
-        S.Set(data, a, null, indicator);
-        wx.stopPullDownRefresh();
-      }, this)
-    };
+    // if (!this.set) {
+    //   wx.startPullDownRefresh();
+    //   S.request('main/function', (data, indicator) => {
+    //     S.Set(data, a, null, indicator);
+    //     wx.stopPullDownRefresh();
+    //   }, this)
+    // };
     tab.markerSet();
   },
   onPullDownRefresh() {

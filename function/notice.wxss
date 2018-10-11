@@ -1,0 +1,31 @@
+.noticeCtn {
+  width: 90%;
+  margin: 14px 5%;
+  border-radius: 16px;
+  box-shadow: 1px 3px 5px #caccee;
+  background-color: #fff;
+}
+
+.nm .noticeCtn {
+  background-color: #000;
+}
+
+.title {
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.nm .title {
+  color: #fff;
+}
+
+.time {
+  margin-left: 5%;
+  font-size: 14px;
+  color: #666;
+}
+
+.nm .time {
+  color: #999;
+}

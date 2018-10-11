@@ -25,7 +25,6 @@ wxpage.A({
     console.log(this.globalData.info); //调试
     app.noticeCheck();
     app.checkUpdate();
-    // this.common.loadFont(this.globalData.T);
     // wxpage.on('some_message', function(msg) {
     //   console.log('Receive message:', msg)
     // })
@@ -46,7 +45,7 @@ wxpage.A({
     })
   },
   globalData: {
-    Version: 'V 1.1.0',
+    Version: 'V 1.1.1',
     music: {
       play: false,
       played: false,
