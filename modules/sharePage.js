@@ -3,20 +3,17 @@ var P = require('../utils/wxpage'),
   a = getApp().globalData;
 
 P('sharePage', {
-	onNavigate(res) {
-		console.log('将要跳转：', res)
-		S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this)
-	},
+  onNavigate(res) {
+    S.preSet(this.$session.get(res.query.aim + 'Temp'), a, res, this)
+  },
   onLoad(res) {
     if (!this.aim) {
       if ('scene' in res) {
         res.From = "主页", res.aim = decodeURIComponent(res.scene), res.share = true, res.step = 1;
       }
       console.log(res)
-      this.aim = S.Online(a, res, this);
-      console.log('onLoad 成功')
+      S.Online(a, res, this);
     }
-    S.Notice(this.aim);
     wx.reportMonitor('2', 1)
   },
   onReady() {
@@ -42,4 +39,7 @@ P('sharePage', {
       path: `/modules/sharePage?From=主页&step=1&share=true&aim=${this.aim}`
     }
   },
+  onUnload() {
+    delete this.data.page;
+  }
 })

@@ -27,21 +27,21 @@ function noticeCheck() {
           category = Object.keys(data);
         category.forEach(x => {
           if (data[x][3]) {
-            wx.setStorageSync(x + 'notice', [data[x][0], data[x][1]]);
-            wx.setStorageSync(x + 'noticeNotify', true);
+            wx.setStorageSync(`${x}notice`, [data[x][0], data[x][1]]);
+            wx.setStorageSync(`${x}Notify`, true);
           } else if (data[x][2] != wx.getStorageSync(x + 'noticeVersion')) {
-            wx.setStorageSync(x + 'notice', [data[x][0], data[x][1]]);
-            wx.setStorageSync(x + 'noticeVersion', data[x][2]);
-            wx.setStorageSync(x + 'noticeNotify', true);
+            wx.setStorageSync(`${x}notice`, [data[x][0], data[x][1]]);
+            wx.setStorageSync(`${x}noticeVersion`, data[x][2]);
+            wx.setStorageSync(`${x}Notify`, true);
           }
         })
-        if (wx.getStorageSync('appnoticeNotify')) {
+        if (wx.getStorageSync('appNotify')) {
           wx.showModal({
             title: data.app[0],
             content: data.app[1],
             showCancel: false,
-            success() {
-              wx.removeStorageSync('appnoticeNotify');
+            success: () => {
+              wx.removeStorageSync('appNotify');
             }
           })
         }

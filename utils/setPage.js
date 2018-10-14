@@ -72,7 +72,7 @@ function getOnlinePage(opt, globalData, indicator) { //参数：页面传参，�
 }
 
 //获得界面数据，生成正确的界面数据
-function getPageData(page, globalData, opt) {
+function getPageData(page, globalData, opt) { //参数：page数组，全局数据，页面传参
   if (page) {
     if (page[0].tag == 'head') {
       page[0].statusBarHeight = globalData.info.statusBarHeight, page[0].url = new Array();
@@ -145,20 +145,20 @@ function getPageData(page, globalData, opt) {
 }
 
 //设置界面，在onNavigate时调用，将界面数据写入初始数据
-function presetPage(page, globalData, opt, indicator, Set = true) {
-  console.log(page);
+function presetPage(page, globalData, option, indicator, Set = true) {
+  console.log('将要跳转：', option)
   indicator.data = {
     T: globalData.T,
     nm: globalData.nm,
-    page: Set ? page : getPageData(page, globalData, opt)
+    page: Set ? page : getPageData(page, globalData, option)
   };
-  if (opt && page) {
+  if (option && page) {
     try {
       // return opt.query.aim;
-      indicator.aim = opt.query.aim;
+      indicator.aim = option.query.aim;
     } catch (msg) {
       // return opt.aim;
-      indicator.aim = opt.aim;
+      indicator.aim = option.aim;
     }
   }
   console.log(indicator.aim + '载入', 'data是：', indicator.data);
@@ -175,64 +175,83 @@ function setPage(page, globalData, opt, indicator) {
 }
 
 //设置在线界面数据，在界面初始化之后使用
-function setOnlinePage(globalData, opt, indicator, preload = false) {
-  let source, length = opt.aim.length;
-  if (isNaN(opt.aim.charAt(length - 1))) {
-    source = opt.aim;
-  } else if (isNaN(opt.aim.charAt(length - 2))) {
-    source = opt.aim.substring(0, length - 1);
-  } else if (isNaN(opt.aim.charAt(length - 3))) {
-    source = opt.aim.substring(0, length - 2);
-  } else {
-    source = opt.aim.substring(0, length - 3);
-  };
-  wx.request({
-    url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
-    success: res => {
-      console.log(res);
-      if (res.statusCode == 200) {
-        setPage(getPageData(res.data, globalData, opt), globalData, opt, indicator);
-        if (!opt.share) {
-          wx.setStorageSync(opt.aim, res.data);
-        };
-        if (!preload) {
-          preLoad(indicator, globalData);
-          console.log('preload finish')
+// if (this.aim != res.aim) {
+//   console.log(res)
+//   let aim = this.aim = S.Online(a, res, this);
+//   wx.reportAnalytics('page_aim_count', {
+//     aim
+//   });
+//   wx.reportMonitor('0', 1), console.log('onLoad 成功');
+// }
+// S.Notice(this.aim);
+
+
+
+function setOnlinePage(globalData, opt, indicator, preload = true) {
+  if (indicator.aim != opt.aim) {
+    console.log('onLoad开始：', opt);
+    indicator.aim = opt.aim;
+    let source, length = opt.aim.length;
+    while (!isNaN(opt.aim.charAt(length))) length--;
+    source = opt.aim.substring(0, length + 1);
+    wx.request({
+      url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
+      success: res => {
+        console.log(res);
+        if (res.statusCode == 200) {
+          setPage(getPageData(res.data, globalData, opt), globalData, opt, indicator);
+          if (!opt.share) {
+            wx.setStorageSync(opt.aim, res.data);
+          };
+          if (preload) {
+            preLoad(indicator, globalData);
+            console.log('preload finish')
+          }
+        } else {
+          console.warn('res error'), wx.reportMonitor('12', 1);
+          setPage([{
+            tag: 'error',
+            statusBarHeight: globalData.info.statusBarHeight
+          }], globalData, opt, indicator);
         }
-      } else {
-        console.warn('res error'), wx.reportMonitor('12', 1);
+        wx.reportMonitor('0', 1), console.log('onLoad 成功');
+      },
+      fail: res => {
+        console.warn(res), wx.reportMonitor('13', 1);
         setPage([{
           tag: 'error',
           statusBarHeight: globalData.info.statusBarHeight
         }], globalData, opt, indicator);
-      }
-    },
-    fail(res) {
-      console.warn(res), wx.reportMonitor('13', 1);
-    }
-  })
-  return opt.aim;
-}
-
-//弹出通知，在onLoad时被调用
-function popNotice(aim) { //参数：当前界面的aim值
-  if (wx.getStorageSync(aim + 'noticeNotify')) {
-    let notice = wx.getStorageSync((aim + 'notice'));
-    wx.showModal({
-      title: notice[0],
-      content: notice[1],
-      showCancel: false,
-      success() {
-        wx.removeStorageSync(aim + 'noticeNotify');
+      },
+      complete: () => {
+        popNotice(opt.aim);
       }
     })
   }
 }
 
+//弹出通知，在onLoad时被调用
+function popNotice(aim) { //参数：当前界面的aim值
+  if (wx.getStorageSync(`${aim}Notify`)) {
+    let notice = wx.getStorageSync((`${aim}notice`));
+    wx.showModal({
+      title: notice[0],
+      content: notice[1],
+      showCancel: false,
+      success() {
+        wx.removeStorageSync(`${aim}Notify`);
+      }
+    }), console.log('弹出通知');
+  }
+  wx.reportAnalytics('page_aim_count', { //aim统计分析
+    aim
+  });
+}
 
 
-// json组件判断触发函数
-function componentAction(res, indicator) {
+
+// 组件函数
+function componentAction(res, indicator) { //参数：组件传参，页面指针
   let action = res.currentTarget.dataset.action;
   switch (action) {
     case 'img':
@@ -367,13 +386,13 @@ function document(e) {
   });
   wx.downloadFile({
     url: e.currentTarget.dataset.url,
-    success(res) {
+    success: res => {
       wx.hideLoading();
       wx.openDocument({
         filePath: res.tempFilePath
       })
     },
-    fail(res) {
+    fail: res => {
       wx.hideLoading(), wx.reportMonitor('9', 1);
       wx.showToast({
         title: '文档下载失败',
@@ -418,7 +437,6 @@ function phone(e, indicator) {
 //分享按钮
 function share(e, indicator) {
   let touch = e.touches[0];
-  // if (e.target.dataset.object = 'button') {
   if (e.type == 'touchstart') {
     indicator.left = touch.pageX - e.currentTarget.offsetLeft;
     indicator.top = touch.pageY - e.currentTarget.offsetTop;
@@ -476,6 +494,7 @@ function share(e, indicator) {
   }
 }
 
+//视频组件函数
 function video(e, indicator) {
   console.log(e.type)
   if (e.type == 'waiting') {
