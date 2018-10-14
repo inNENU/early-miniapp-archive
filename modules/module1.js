@@ -24,16 +24,16 @@ P('module1', {
   // onShow() {
   //   console.log(this.aim)
   // },
-  onReady() {
-    if (this.aim) {
-      S.preLoad(this, a);
-      // let aim = this.aim;
-      // wx.reportAnalytics('page_aim_count', {
-      //   aim
-      // });
-      wx.reportMonitor('1', 1), console.log('preload');
-    }
-  },
+  // onReady() {
+  //   if (this.aim) {
+  //     S.preLoad(this, a);
+  //     // let aim = this.aim;
+  //     // wx.reportAnalytics('page_aim_count', {
+  //     //   aim
+  //     // });
+  //     wx.reportMonitor('1', 1), console.log('preload');
+  //   }
+  // },
   navigate(res) {
     this.$route(res.currentTarget.dataset.url)
   },

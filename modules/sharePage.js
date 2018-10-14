@@ -11,15 +11,9 @@ P('sharePage', {
       if ('scene' in res) {
         res.From = "主页", res.aim = decodeURIComponent(res.scene), res.share = true, res.step = 1;
       }
-      console.log(res)
       S.Online(a, res, this);
     }
     wx.reportMonitor('2', 1)
-  },
-  onReady() {
-    if (this.aim) {
-      S.preLoad(this, a);
-    }
   },
   navigate(res) {
     this.$route(res.currentTarget.dataset.url)

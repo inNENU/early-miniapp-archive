@@ -1,9 +1,9 @@
 // //开始
 // var ii = 0,
 //   aa;
-// while (ii < 100000000) {
+// while (ii < 1e8) {
 //   aa = (ii / (ii - 1)) ^ 1.23456789;
-//   ii % 10000000 == 0 ? console.log('trigger') : '';
+//   ii % 1e7 == 0 ? console.log('trigger') : '';
 //   ii++;
 // }
 // console.log('finish')
@@ -27,14 +27,14 @@ function preLoad(indicator, globalData) { //参数：页面指针，全局变量
         })
       }
     });
-  }
+  };
+  wx.reportMonitor('1', 1);
 }
 
 //从本地或网络获取在线页面的json并处理存储，被preLoad调用
 function getOnlinePage(opt, globalData, indicator) { //参数：页面传参，全局变量，页面指针
   let pageData = wx.getStorageSync(opt.aim);
   if (pageData) {
-    console.log(getPageData(pageData, globalData, opt))
     indicator.$session.set(opt.aim + 'Temp', getPageData(pageData, globalData, opt));
   } else {
     let source, length = opt.aim.length;
@@ -145,7 +145,7 @@ function getPageData(page, globalData, opt) { //参数：page数组，全局数�
 }
 
 //设置界面，在onNavigate时调用，将界面数据写入初始数据
-function presetPage(page, globalData, option, indicator, Set = true) {
+function presetPage(page, globalData, option, indicator, Set = true) { //参数：page数组，全局数据，页面传参，页面指针，page处理状态(默认为已处理)
   console.log('将要跳转：', option)
   indicator.data = {
     T: globalData.T,
@@ -154,19 +154,16 @@ function presetPage(page, globalData, option, indicator, Set = true) {
   };
   if (option && page) {
     try {
-      // return opt.query.aim;
       indicator.aim = option.query.aim;
     } catch (msg) {
-      // return opt.aim;
       indicator.aim = option.aim;
     }
   }
   console.log(indicator.aim + '载入', 'data是：', indicator.data);
-  return;
 }
 
 //设置本地界面数据，在界面初始化之后使用
-function setPage(page, globalData, opt, indicator) {
+function setPage(page, globalData, opt, indicator) { //参数：page数组，全局数据，页面传参，页面指针
   indicator.setData({
     T: globalData.T,
     nm: globalData.nm,
@@ -175,19 +172,7 @@ function setPage(page, globalData, opt, indicator) {
 }
 
 //设置在线界面数据，在界面初始化之后使用
-// if (this.aim != res.aim) {
-//   console.log(res)
-//   let aim = this.aim = S.Online(a, res, this);
-//   wx.reportAnalytics('page_aim_count', {
-//     aim
-//   });
-//   wx.reportMonitor('0', 1), console.log('onLoad 成功');
-// }
-// S.Notice(this.aim);
-
-
-
-function setOnlinePage(globalData, opt, indicator, preload = true) {
+function setOnlinePage(globalData, opt, indicator, preload = true) { //参数：全局变量，页面传参，页面指针，是否需要预加载(默认需要)
   if (indicator.aim != opt.aim) {
     console.log('onLoad开始：', opt);
     indicator.aim = opt.aim;
@@ -204,8 +189,7 @@ function setOnlinePage(globalData, opt, indicator, preload = true) {
             wx.setStorageSync(opt.aim, res.data);
           };
           if (preload) {
-            preLoad(indicator, globalData);
-            console.log('preload finish')
+            preLoad(indicator, globalData), console.log('preload finish');
           }
         } else {
           console.warn('res error'), wx.reportMonitor('12', 1);
@@ -227,6 +211,8 @@ function setOnlinePage(globalData, opt, indicator, preload = true) {
         popNotice(opt.aim);
       }
     })
+  } else {
+    preLoad(indicator, globalData), console.log('preload finish');
   }
 }
 
@@ -515,7 +501,7 @@ function video(e, indicator) {
 }
 
 // 导航栏动态改变
-function changeNav(e, indicator) {
+function changeNav(e, indicator) { //参数：组件传参，页面指针
   let n = indicator.data.page[0],
     T, B, S;
   if (e.scrollTop <= 1) {
@@ -536,7 +522,7 @@ function changeNav(e, indicator) {
 }
 
 //wx.request包装
-function request(path, Func, indicator) {
+function request(path, Func, indicator) { //参数：网址路径，执行函数，页面指针
   wx.request({
     url: `https://mrhope.top/mpRes/${path}.json`,
     success(res) {

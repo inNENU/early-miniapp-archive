@@ -9,12 +9,6 @@ P('module3', {
 	onLoad(res) {
 		S.Online(a, res, this);
 	},
-	onReady() {
-		if (this.aim) {
-			S.preLoad(this, a);
-			wx.reportMonitor('1', 1), console.log('preload');
-		}
-	},
 	navigate(res) {
 		this.$route(res.currentTarget.dataset.url)
 	},
