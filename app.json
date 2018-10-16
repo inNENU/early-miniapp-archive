@@ -67,7 +67,7 @@
 		"pageOrientation": "auto"
 	},
 	"tabBar": {
-		"color": "#7A7E83",
+		"color": "#8a8a8a",
 		"selectedColor": "#3cc51f",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
@@ -76,26 +76,26 @@
 			{
 				"pagePath": "pages/main",
 				"text": "首页",
-				"iconPath": "icon/tab/home.png",
-				"selectedIconPath": "icon/tab/home-selected.png"
+				"iconPath": "icon/tab/Home.png",
+				"selectedIconPath": "icon/tab/@Home.png"
 			},
 			{
 				"pagePath": "pages/function",
 				"text": "功能",
-				"iconPath": "icon/tab/function.png",
-				"selectedIconPath": "icon/tab/function-selected.png"
+				"iconPath": "icon/tab/Function.png",
+				"selectedIconPath": "icon/tab/@Function.png"
 			},
 			{
 				"pagePath": "pages/guide",
 				"text": "东师指南",
-				"iconPath": "icon/tab/guide.png",
-				"selectedIconPath": "icon/tab/guide-selected.png"
+				"iconPath": "icon/tab/Guide.png",
+				"selectedIconPath": "icon/tab/@Guide.png"
 			},
 			{
 				"pagePath": "pages/me",
 				"text": "我的东师",
-				"iconPath": "icon/tab/me.png",
-				"selectedIconPath": "icon/tab/me-selected.png"
+				"iconPath": "icon/tab/Me.png",
+				"selectedIconPath": "icon/tab/@Me.png"
 			}
 		]
 	},

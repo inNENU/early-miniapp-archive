@@ -15,26 +15,6 @@ P('main', {
       aim: "main"
     }, {
       tag: "list",
-      head: "进一步了解东师",
-      content: [{
-        text: "理发、洗浴、照相等",
-        desc: "生活",
-        aim: "life0"
-      }, {
-        text: "有哪些学生组织",
-        aim: "studentOrg0"
-      }, {
-        text: "如何上网",
-        aim: "network0"
-      }, {
-        text: "吃的怎么样",
-        aim: "dining0"
-      }, {
-        text: "平时我该到哪去玩？",
-        aim: "nearby0"
-      }]
-    }, {
-      tag: "list",
       head: "了解学业",
       content: [{
         text: "我要上哪些课？",
@@ -57,7 +37,8 @@ P('main', {
   },
   onPageLaunch() {
     console.log('主页面启动：', new Date() - a.d, 'ms');
-    S.preSet(this.data.page, a, null, this, false);
+    let page = wx.getStorageSync('main');
+    S.preSet(page ? page : this.data.page, a, null, this, false);
     tab.tabBarChanger(a.nm);
   },
   onLoad() {
@@ -66,6 +47,7 @@ P('main', {
     S.request('main/main', (data, indicator) => {
       S.Set(data, a, null, indicator);
       wx.stopPullDownRefresh();
+      wx.setStorageSync('main', data);
     }, this);
     S.Notice('main');
   },
@@ -85,6 +67,7 @@ P('main', {
       S.request('main/' + x, (data, indicator) => {
         indicator.$put(x, data);
         indicator.$preload(`${x}?name=${x}`);
+        wx.setStorageSync(x, data);
       }, this)
     });
     // ['guide', 'function', 'shop'].forEach(x => {

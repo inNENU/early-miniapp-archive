@@ -1,14 +1,3 @@
-// //开始
-// var ii = 0,
-//   aa;
-// while (ii < 1e8) {
-//   aa = (ii / (ii - 1)) ^ 1.23456789;
-//   ii % 1e7 == 0 ? console.log('trigger') : '';
-//   ii++;
-// }
-// console.log('finish')
-// //结束
-
 //预加载界面，在界面被调用时，将该界面包含的所有aim对应json处理后写入存储
 function preLoad(indicator, globalData) { //参数：页面指针，全局变量
   let page = indicator.data.page;
@@ -35,7 +24,7 @@ function preLoad(indicator, globalData) { //参数：页面指针，全局变量
 function getOnlinePage(opt, globalData, indicator) { //参数：页面传参，全局变量，页面指针
   let pageData = wx.getStorageSync(opt.aim);
   if (pageData) {
-    indicator.$session.set(opt.aim + 'Temp', getPageData(pageData, globalData, opt));
+    indicator.$session.set(opt.aim + 'Temp', disposePage(pageData, globalData, opt));
   } else {
     let source, length = opt.aim.length;
     if (isNaN(opt.aim.charAt(length - 1))) {
@@ -55,10 +44,10 @@ function getOnlinePage(opt, globalData, indicator) { //参数：页面传参，�
           if (!opt.share) {
             wx.setStorageSync(opt.aim, res.data);
           }
-          indicator.$session.set(opt.aim + 'Temp', getPageData(res.data, globalData, opt));
+          indicator.$session.set(opt.aim + 'Temp', disposePage(res.data, globalData, opt));
         } else {
           console.warn('res error'), wx.reportMonitor('16', 1);
-          indicator.$session.set(opt.aim + 'Temp', getPageData([{
+          indicator.$session.set(opt.aim + 'Temp', disposePage([{
             tag: 'error',
             statusBarHeight: globalData.info.statusBarHeight
           }], globalData, opt));;
@@ -72,7 +61,7 @@ function getOnlinePage(opt, globalData, indicator) { //参数：页面传参，�
 }
 
 //获得界面数据，生成正确的界面数据
-function getPageData(page, globalData, opt) { //参数：page数组，全局数据，页面传参
+function disposePage(page, globalData, opt) { //参数：page数组，全局数据，页面传参
   if (page) {
     if (page[0].tag == 'head') {
       page[0].statusBarHeight = globalData.info.statusBarHeight, page[0].url = new Array();
@@ -150,7 +139,7 @@ function presetPage(page, globalData, option, indicator, Set = true) { //参数�
   indicator.data = {
     T: globalData.T,
     nm: globalData.nm,
-    page: Set ? page : getPageData(page, globalData, option)
+    page: Set ? page : disposePage(page, globalData, option)
   };
   if (option && page) {
     try {
@@ -167,7 +156,7 @@ function setPage(page, globalData, opt, indicator) { //参数：page数组，全
   indicator.setData({
     T: globalData.T,
     nm: globalData.nm,
-    page: getPageData(page, globalData, opt)
+    page: disposePage(page, globalData, opt)
   });
 }
 
@@ -184,7 +173,7 @@ function setOnlinePage(globalData, opt, indicator, preload = true) { //参数：
       success: res => {
         console.log(res);
         if (res.statusCode == 200) {
-          setPage(getPageData(res.data, globalData, opt), globalData, opt, indicator);
+          setPage(disposePage(res.data, globalData, opt), globalData, opt, indicator);
           if (!opt.share) {
             wx.setStorageSync(opt.aim, res.data);
           };
@@ -198,7 +187,7 @@ function setOnlinePage(globalData, opt, indicator, preload = true) { //参数：
             statusBarHeight: globalData.info.statusBarHeight
           }], globalData, opt, indicator);
         }
-        wx.reportMonitor('0', 1), console.log('onLoad 成功');
+        console.log('onLoad 成功'), wx.reportMonitor('0', 1);
       },
       fail: res => {
         console.warn(res), wx.reportMonitor('13', 1);

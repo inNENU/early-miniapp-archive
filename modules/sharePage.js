@@ -13,7 +13,7 @@ P('sharePage', {
       }
       S.Online(a, res, this);
     }
-    wx.reportMonitor('2', 1)
+    wx.reportMonitor('2', 1);
   },
   navigate(res) {
     this.$route(res.currentTarget.dataset.url)

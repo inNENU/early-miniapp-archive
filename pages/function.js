@@ -72,19 +72,23 @@ P('function', {
       }]
     }, ],
   },
-  // onPreload(res) {
-  //   if (!S.preSet(this.$take(res.query.name), a, null, this, false)) {
-  //     this.set = true;
-  //   };
-  //   console.log('Function preload finished time:', new Date() - a.d, 'ms');
-  // },
+  onPreload(res) {
+    S.preSet(this.$take(res.query.name), a, {
+      aim: 'function'
+    }, this, false)
+    this.set = true;
+    console.log('Function preload finished time:', new Date() - a.d, 'ms');
+  },
   onLoad() {
     this.setData({
       T: a.T,
       nm: a.nm
     })
     if (!this.set) {
-      S.Set(this.data.page, a, null, this, false);
+      let page = wx.getStorageSync('function');
+      S.Set(page ? page : this.data.page, a, {
+        aim: 'function'
+      }, this, false);
     };
     S.Notice('function');
     tab.checkUpdate('funcNotify', 'localFunc', 'functionRes', '20K')
@@ -101,21 +105,23 @@ P('function', {
     });
   },
   onReady() {
-    // if (!this.set) {
-    //   wx.startPullDownRefresh();
-    //   S.request('main/function', (data, indicator) => {
-    //     S.Set(data, a, null, indicator);
-    //     wx.stopPullDownRefresh();
-    //   }, this)
-    // };
+    if (!this.set) {
+      wx.startPullDownRefresh();
+      S.request('main/function', (data, indicator) => {
+        S.Set(data, a, null, indicator);
+        wx.stopPullDownRefresh();
+        wx.setStorageSync('function', data);
+      }, this)
+    };
     tab.markerSet();
   },
   onPullDownRefresh() {
     S.request('main/function', (data, indicator) => {
       S.Set(data, a, null, indicator);
       wx.stopPullDownRefresh();
+      wx.setStorageSync('function', data);
     }, this);
-    tab.checkUpdate('funcNotify', 'localFunc', 'functionRes', '40K')
+    tab.checkUpdate('funcNotify', 'localFunc', 'functionRes', '20K')
   },
   onPageScroll(e) {
     S.nav(e, this)

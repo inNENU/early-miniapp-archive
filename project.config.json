@@ -31,10 +31,10 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "模拟更新",
 					"pathName": "pages/main",
 					"query": ""

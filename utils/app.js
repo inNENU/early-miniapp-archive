@@ -16,7 +16,7 @@ function checkDebug() {
   })
 }
 
-//弹窗检查 for app.js
+//弹窗通知检查 for app.js
 function noticeCheck() {
   wx.request({
     url: `https://mrhope.top/mpRes/notice.json`,
@@ -131,28 +131,49 @@ function nightmode(date, startTime, endTime) {
   }
 }
 
-function checkUpdate(forceUpdate = true, reset = false) {
-  if (forceUpdate) {
-    const updateManager = wx.getUpdateManager()
-    updateManager.onCheckForUpdate(res => {
-      console.log(`HasUpdate status ${res.hasUpdate}`)
-      if (res.hasUpdate) wx.showToast({
+//检查小程序更新并应用
+function checkUpdate() { //参数：是否强制更新(默认是)，是否重置小程序(默认否)
+  const updateManager = wx.getUpdateManager();
+  let forceUpdate = true,
+    reset = false
+  updateManager.onCheckForUpdate(res => {
+    console.log(`HasUpdate status ${res.hasUpdate}`)
+    if (res.hasUpdate) {
+      wx.request({
+        url: `https://mrhope.top/mpRes/config.json`,
+        success: res => {
+          console.log(res); //调试
+          if (res.statusCode == 200) {
+            ({
+              forceUpdate,
+              reset,
+              version
+            } = res.data);
+          };
+        }
+      });
+      wx.showToast({
         title: '检测到更新，下载中...',
         icon: 'none'
       });
-    })
-    updateManager.onUpdateReady(() => {
+
+    }
+  })
+  updateManager.onUpdateReady(() => {
+    if (forceUpdate) {
       wx.showModal({
-        title: '提示',
-        content: reset ? '新版本已安装，请重启应用。该版本会初始化小程序。' : '新版本已安装，请重启应用。',
-        showCancel: reset ? true : false,
+        title: '找到更新',
+        content: `版本${version}已下载，请重启应用。${(reset ? '该版本会初始化小程序。' : '')}`,
+        showCancel: reset ? false : true,
+        confirmText: '应用',
+        cancelText: '取消',
         success: res => {
           if (res.confirm) updateManager.applyUpdate();
         }
       })
-    })
-    updateManager.onUpdateFailed(() => {
-      console.warn('Update failure'), wx.reportMonitor('23', 1)
-    })
-  }
+    }
+  })
+  updateManager.onUpdateFailed(() => {
+    console.warn('Update failure'), wx.reportMonitor('23', 1)
+  })
 }

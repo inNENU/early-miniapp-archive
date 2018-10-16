@@ -156,13 +156,13 @@
   bottom: 0;
   z-index: 99;
   width: 94%;
-  min-height: 80rpx;
-  max-height: 100rpx;
+  min-height: 40px;
+  max-height: 52px;
   display: -webkit-flex !important;
   display: flex !important;
   justify-content: space-between;
   align-items: center;
-  padding: 10rpx 3%;
+  padding: 5px 3%;
   background-color: #fff;
   box-shadow: 0 -2px 5px rgba(219, 218, 223, 0.95);
 }
@@ -760,8 +760,8 @@
   height: 40px;
   position: fixed;
   z-index: 200;
-  right: 40rpx;
-  bottom: 100rpx;
+  right: 20px;
+  bottom: 50px;
   background-color: #3cc51f;
   border-radius: 50%;
   box-shadow: 1px 1px 3px rgba(127, 127, 127, 0.15);

@@ -74,9 +74,10 @@ P('guide', {
     ],
   },
   onPreload(res) {
-    if (!S.preSet(this.$take(res.query.name), a, null, this, false)) {
-      this.set = true;
-    };
+    S.preSet(this.$take(res.query.name), a, {
+      aim: 'guide'
+    }, this, false);
+    this.set = true;
     console.log('Guide preload finished time:', new Date() - a.d, 'ms');
   },
   onLoad() {
@@ -85,19 +86,22 @@ P('guide', {
       nm: a.nm
     })
     if (!this.set) {
-      S.Set(this.data.page, a, null, this, false);
+      let page = wx.getStorageSync('guide');
+      S.Set(page ? page : this.data.page, a, {
+        aim: 'guide'
+      }, this, false);
     };
     S.Notice('guide');
-    tab.checkUpdate('resNotify', 'localList', 'guideRes', '20K')
+    tab.checkUpdate('resNotify', 'localList', 'guideRes', '10K')
     let that = this;
-    this.$on('theme', data => {
+    this.$on('theme', T => {
       that.setData({
-        T: data
+        T
       });
     });
-    this.$on('nightmode', data => {
+    this.$on('nightmode', nm => {
       that.setData({
-        nm: data
+        nm
       });
     });
   },
@@ -105,18 +109,24 @@ P('guide', {
     if (!this.set) {
       wx.startPullDownRefresh();
       S.request('main/guide', (data, indicator) => {
-        S.Set(data, a, null, indicator);
+        S.Set(data, a, {
+          aim: 'guide'
+        }, indicator);
         wx.stopPullDownRefresh();
+        wx.setStorageSync('guide', data);
       }, this)
     }
     S.preLoad(this, a);
   },
   onPullDownRefresh() {
     S.request('main/guide', (data, indicator) => {
-      S.Set(data, a, null, indicator);
+      S.Set(data, a, {
+        aim: 'guide'
+      }, indicator);
       wx.stopPullDownRefresh();
+      wx.setStorageSync('guide', data);
     }, this);
-    tab.checkUpdate('resNotify', 'localList', 'guideRes', '20K')
+    tab.checkUpdate('resNotify', 'localList', 'guideRes', '10K')
   },
   onPageScroll(e) {
     S.nav(e, this)
