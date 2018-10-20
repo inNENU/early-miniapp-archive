@@ -88,6 +88,10 @@ function disposePage(page, globalData, opt) { //参数：page数组，全局数�
           (x.res) ? page[0].url.push(x.res): page[0].url.push(x.src), x.res = x.src;
           (x.imgMode) ? '' : x.imgMode = 'widthFix'
         };
+        if (x.docName) {
+          let temp = x.docName.split('.')[1];
+          x.docType = temp == 'docx' || temp == 'doc' ? 'doc' : temp == 'pptx' || temp == 'ppt' ? 'ppt' : temp == 'xlsx' || temp == 'xls' ? 'xls' : temp == 'jpg' || temp == 'jpeg' ? 'jpg' : temp == 'png' || temp == 'gif' ? temp : temp == 'mp4' || temp == 'mov' || temp == 'avi' || temp == 'rmvb' ? 'video' : 'document';
+        }
         //setList
         if ('content' in x) {
           x.content.forEach((i, j) => {
@@ -355,26 +359,36 @@ function Switch(e, indicator) {
 
 // 打开文档
 function document(e) {
-  wx.showLoading({
-    title: '下载中...',
-    mask: true
-  });
-  wx.downloadFile({
-    url: e.currentTarget.dataset.url,
-    success: res => {
-      wx.hideLoading();
-      wx.openDocument({
-        filePath: res.tempFilePath
-      })
-    },
-    fail: res => {
-      wx.hideLoading(), wx.reportMonitor('9', 1);
-      wx.showToast({
-        title: '文档下载失败',
-        icon: 'none'
-      });
-    }
-  })
+  let {
+    docType: Type,
+    url
+  } = e.currentTarget.dataset;
+  if (Type in ['doc', 'ppt', 'xls']) {
+    wx.showLoading({
+      title: '下载中...',
+      mask: true
+    });
+    wx.downloadFile({
+      url,
+      success: res => {
+        wx.hideLoading();
+        wx.openDocument({
+          filePath: res.tempFilePath
+        })
+      },
+      fail: res => {
+        wx.hideLoading(), wx.reportMonitor('9', 1);
+        wx.showToast({
+          title: '文档下载失败',
+          icon: 'none'
+        });
+      }
+    })
+  } else if (Type in ['jpg', 'png', 'gif']) {
+    wx.previewImage({
+      urls: [url]
+    })
+  }
 }
 
 // 电话组件函数
@@ -502,12 +516,15 @@ function changeNav(e, indicator) { //参数：组件传参，页面指针
   } else {
     T = S = true, B = false;
   };
-  if (n.titleDisplay != T || n.borderDisplay != B || n.shadow != S) {
-    n.titleDisplay = T, n.borderDisplay = B, n.shadow = S;
-    indicator.setData({
-      page: indicator.data.page
-    })
-  };
+  if (n.titleDisplay != T) indicator.setData({
+    'page[0].titleDisplay': T
+  })
+  else if (n.borderDisplay != B) indicator.setData({
+    'page[0].borderDisplay': B
+  })
+  else if (n.shadow != S) indicator.setData({
+    'page[0].shadow': S
+  })
 }
 
 //wx.request包装

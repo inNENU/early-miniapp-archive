@@ -63,17 +63,11 @@ P('main', {
         nm: data
       });
     });
-    ['guide', 'function'].forEach(x => {
-      S.request('main/' + x, (data, indicator) => {
-        indicator.$put(x, data);
-        indicator.$preload(`${x}?name=${x}`);
-        wx.setStorageSync(x, data);
-      }, this)
-    });
-    // ['guide', 'function', 'shop'].forEach(x => {
-    //   S.request('main/' + x, function(data, indicator) {
+    // ['guide', 'function'].forEach(x => {
+    //   S.request(`main/${x}`, (data, indicator) => {
     //     indicator.$put(x, data);
     //     indicator.$preload(`${x}?name=${x}`);
+    //     wx.setStorageSync(x, data);
     //   }, this)
     // });
     this.$preload(`me`);

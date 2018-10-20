@@ -57,7 +57,7 @@ P('me', {
   },
   onReady() {
     if (!this.set) {
-      S.Set(this.data.page, a, null, indicator);
+      S.Set(this.data.page, a, null, this);
     };
   },
   onPageScroll(e) {

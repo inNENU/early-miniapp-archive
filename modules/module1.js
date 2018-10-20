@@ -9,31 +9,6 @@ P('module1', {
   onLoad(res) {
     S.Online(a, res, this);
   },
-  // onLoad(res) {
-  //   if (this.aim != res.aim) {
-  //     console.log(res)
-  //     let aim = this.aim = S.Online(a, res, this);
-  //     console.log(aim);
-  //     wx.reportAnalytics('page_aim_count', {
-  //       aim
-  //     });
-  //     wx.reportMonitor('0', 1), console.log('onLoad 成功');
-  //   }
-  //   S.Notice(this.aim);
-  // },
-  // onShow() {
-  //   console.log(this.aim)
-  // },
-  // onReady() {
-  //   if (this.aim) {
-  //     S.preLoad(this, a);
-  //     // let aim = this.aim;
-  //     // wx.reportAnalytics('page_aim_count', {
-  //     //   aim
-  //     // });
-  //     wx.reportMonitor('1', 1), console.log('preload');
-  //   }
-  // },
   navigate(res) {
     this.$route(res.currentTarget.dataset.url)
   },
@@ -50,7 +25,6 @@ P('module1', {
     }
   },
   onUnload() {
-    // this.data.page = null;
     delete this.data.page;
   }
 })

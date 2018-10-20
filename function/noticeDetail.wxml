@@ -1,0 +1,12 @@
+<import src="/templates/template" />
+<view class="{{T}} {{nm?'nm':''}}">
+  <template is="all2" data="{{page,T}}" />
+	<view class='{{T}}H3'>{{notice.title}}</view>
+  <view class='{{T}}P' style="text-align:left;">
+    <text style="{{style}}" selectable='true' space='ensp' decode='true'>{{notice.content}}</text>
+  </view>
+  <view class='{{T}}P' style="text-align:right;">
+    <text style="{{style}}" selectable='true' space='ensp' decode='true'>{{notice.footer}}</text>
+  </view>
+  <template is="page2" data="{{page:page2,T}}" />
+</view>

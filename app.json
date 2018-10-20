@@ -1,7 +1,7 @@
 {
 	"pages": [
-		"pages/main",
 		"pages/function",
+		"pages/main",
 		"pages/guide",
 		"pages/me",
 		"pages/settings/1.1",
@@ -18,7 +18,8 @@
 				"player",
 				"PEcal",
 				"scenery",
-				"notice"
+				"notice",
+				"noticeDetail"
 			]
 		},
 		{

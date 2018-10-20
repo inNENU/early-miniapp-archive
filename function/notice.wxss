@@ -1,9 +1,10 @@
 .noticeCtn {
-  width: 90%;
-  margin: 14px 5%;
-  border-radius: 16px;
-  box-shadow: 1px 3px 5px #caccee;
+  width: cac(100% - 50px);
+  margin: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 1px 3px 5px #caccee88;
   background-color: #fff;
+  padding: 5px 13px;
 }
 
 .nm .noticeCtn {
@@ -11,7 +12,8 @@
 }
 
 .title {
-  font-size: 16px;
+  text-align: left;
+  font-size: 18px;
   line-height: 1.2;
   font-weight: 500;
 }
@@ -21,9 +23,10 @@
 }
 
 .time {
-  margin-left: 5%;
+  margin-top: 10px;
   font-size: 14px;
   color: #666;
+  text-align: right;
 }
 
 .nm .time {

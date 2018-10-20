@@ -105,15 +105,16 @@ P('function', {
     });
   },
   onReady() {
-    if (!this.set) {
-      wx.startPullDownRefresh();
-      S.request('main/function', (data, indicator) => {
-        S.Set(data, a, null, indicator);
-        wx.stopPullDownRefresh();
-        wx.setStorageSync('function', data);
-      }, this)
-    };
-    tab.markerSet();
+    // if (!this.set) {
+    //   wx.startPullDownRefresh();
+    //   S.request('main/function', (data, indicator) => {
+    //     S.Set(data, a, null, indicator);
+    //     wx.stopPullDownRefresh();
+    //     wx.setStorageSync('function', data);
+    //   }, this)
+    // }else{
+    // tab.markerSet();
+    // }
   },
   onPullDownRefresh() {
     S.request('main/function', (data, indicator) => {

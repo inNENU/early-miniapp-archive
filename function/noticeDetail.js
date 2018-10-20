@@ -2,42 +2,40 @@ var P = require('../utils/wxpage'),
   S = require('../utils/setPage'),
   a = getApp().globalData;
 
-P('notice', {
+P('noticeDetail', {
   data: {
     page: [{
       tag: 'head',
-      title: '内网公告',
-      leftText: "功能大厅"
+      title: '通知详情',
+      leftText: "通知列表",
+      grey: true
     }],
+    notice: [],
     page2: [{
       tag: 'foot'
-    }],
-    notice: []
+    }]
   },
-  onLoad(options) {
+  onLoad(res) {
     S.Set(this.data.page, a, null, this, false);
-    S.request('notice/notice', (data, indicator) => {
+    S.request(`notice/${res.id}`, (data, indicator) => {
       indicator.setData({
         notice: data
       })
-    }, this)
+    }, this);
+    this.id = res.id;
   },
   onPullDownRefresh() {
-    S.request('notice/notice', (data, indicator) => {
+    S.request(`notice/${this.id}`, (data, indicator) => {
       indicator.setData({
         notice: data
       })
       wx.stopPullDownRefresh();
-    }, this)
+    }, this);
   },
   onPageScroll(e) {
     S.nav(e, this)
   },
   cA(e) {
     S.component(e, this)
-  },
-  notice(res) {
-    let id = res.currentTarget.dataset.id;
-    this.$route(`/function/noticeDetail?id=${id}`)
   }
 })
