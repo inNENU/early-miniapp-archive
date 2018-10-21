@@ -120,7 +120,7 @@
 </template>
 
 <template name='doc'>
-  <button id="{{id}}" class='docCtn' hover-class="buttonHover" hover-stay-time='100' catchtap='cA' data-url="{{url}}" data-type='{{docType}}' data-action='doc'>
+  <button id="{{id}}" class='docCtn' hover-class="buttonHover" hover-stay-time='100' catchtap='cA' data-url="{{url}}" data-docType='{{docType}}' data-action='doc'>
     <image class='docIcon' mode='widthFix' src='/icon/{{docType}}.svg' />
     <view class='docname docAccess'>{{docName}}.{{docType}}</view>
   </button>

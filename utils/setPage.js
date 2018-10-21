@@ -90,7 +90,8 @@ function disposePage(page, globalData, opt) { //参数：page数组，全局数�
         };
         if (x.docName) {
           let temp = x.docName.split('.')[1];
-          x.docType = temp == 'docx' || temp == 'doc' ? 'doc' : temp == 'pptx' || temp == 'ppt' ? 'ppt' : temp == 'xlsx' || temp == 'xls' ? 'xls' : temp == 'jpg' || temp == 'jpeg' ? 'jpg' : temp == 'png' || temp == 'gif' ? temp : temp == 'mp4' || temp == 'mov' || temp == 'avi' || temp == 'rmvb' ? 'video' : 'document';
+          x.docName = x.docName.split('.')[0];
+          x.docType = temp == 'docx' || temp == 'doc' ? 'doc' : temp == 'pptx' || temp == 'ppt' ? 'ppt' : temp == 'xlsx' || temp == 'xls' ? 'xls' : temp == 'jpg' || temp == 'jpeg' ? 'jpg' : temp == 'pdf' || temp == 'png' || temp == 'gif' ? temp : temp == 'mp4' || temp == 'mov' || temp == 'avi' || temp == 'rmvb' ? 'video' : 'document';
         }
         //setList
         if ('content' in x) {
@@ -360,10 +361,12 @@ function Switch(e, indicator) {
 // 打开文档
 function document(e) {
   let {
-    docType: Type,
+    doctype,
     url
   } = e.currentTarget.dataset;
-  if (Type in ['doc', 'ppt', 'xls']) {
+  console.log(doctype, url, e.currentTarget.dataset); //调试
+  if (['doc', 'ppt', 'xls', 'pdf'].indexOf(doctype) > -1) {
+    console.log('if1');
     wx.showLoading({
       title: '下载中...',
       mask: true
@@ -384,7 +387,8 @@ function document(e) {
         });
       }
     })
-  } else if (Type in ['jpg', 'png', 'gif']) {
+  } else if (['jpg', 'png', 'gif'].indexOf(doctype) > -1) {
+    console.log('if2');
     wx.previewImage({
       urls: [url]
     })

@@ -70,7 +70,7 @@ P('function', {
         icon: '/icon/function/calendar.svg',
         url: '/modules/building?month=11'
       }]
-    }, ],
+    }],
   },
   onPreload(res) {
     S.preSet(this.$take(res.query.name), a, {
