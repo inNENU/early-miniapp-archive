@@ -1,15 +1,9 @@
 <import src="/templates/template" />
 <view class="{{T}} {{nm?'nm':''}}">
   <template is="all2" data="{{page,T}}" />
-  <view class='{{T}}H3'>{{notice.title}}</view>
-  <view class='{{T}}P' style="text-align:left;">
-    <text style="{{style}}" selectable='true' space='ensp' decode='true'>{{notice.content}}</text>
-  </view>
-  <view class='{{T}}P' style="text-align:right;">
-    <text style="{{style}}" selectable='true' space='ensp' decode='true'>{{notice.footer}}</text>
-  </view>
-  <view wx:if="{{attachment}}" class='{{T}}H3'>附件：</view>
-  <view wx:else class='{{T}}p'>\n没有附件\n</view>
-  <template wx:if="{{attachment}}" is="all2" data="{{page:attachment,T}}" />
-  <template is="all2" data="{{page:page2,T}}" />
+  <block wx:if="{{attachment}}">
+    <view class='{{T}}P'>附件：</view>
+    <template wx:if="{{attachment}}" is="all2" data="{{page:attachment,T}}" />
+  </block>
+  <template is="foot" />
 </view>

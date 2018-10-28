@@ -1,7 +1,5 @@
-/*!
- * wxpage v1.1.6
- * https://github.com/tvfe/wxpage
- */
+// wxpage v1.1.7
+
 module.exports =
 /******/ (function (modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -699,7 +697,8 @@ module.exports =
 						 */
 						ctx.$curPage = getPage
 						ctx.$curPageName = curPageName
-					}
+					},
+					getPageName
 				}
 				/**
 				 * Navigate handler
@@ -1109,6 +1108,7 @@ module.exports =
 				WXPage.message = message
 				WXPage.cache = cache
 				WXPage.fns = fns
+				WXPage.getPageName = bridge.getPageName
 
 				/**
 				 * Config handler

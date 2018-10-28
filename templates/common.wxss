@@ -298,18 +298,20 @@
 /* doc */
 
 .docCtn {
+	position:relative;
   width: 100%;
   background-color: #fefefe;
-  padding: 10px 0 !important;
-  line-height: 2;
+  padding: 16px 0;
+  /* padding: 16px 0 !important; */
+  line-height: 1.2;
   display: -webkit-flex;
   display: flex;
   align-items: center;
-  border-left: none !important;
-  border-right: none !important;
+  /* border-left: none !important;
+  border-right: none !important; */
   border-top: 1rpx #cac9ce solid;
   border-bottom: 1rpx #cac9ce solid;
-  border-radius: 0 !important;
+  /* border-radius: 0 !important; */
 }
 
 .nm .docCtn {
@@ -317,6 +319,10 @@
   color: #fff !important;
   border-top-color: #353631;
   border-bottom-color: #353631;
+}
+
+.docCtn+.docCtn {
+  border-top: none;
 }
 
 .docIcon {

@@ -1,7 +1,7 @@
 {
 	"pages": [
-		"pages/function",
 		"pages/main",
+		"pages/function",
 		"pages/guide",
 		"pages/me",
 		"pages/settings/1.1",
@@ -108,5 +108,11 @@
 	},
 	"workers": "workers",
 	"debug": true,
-	"resizable": true
+	"resizable": true,
+	"plugins": {
+		"wxparserPlugin": {
+			"version": "0.2.1",
+			"provider": "wx9d4d4ffa781ff3ac"
+		}
+	}
 }

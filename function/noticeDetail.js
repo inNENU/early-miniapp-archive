@@ -9,15 +9,21 @@ P('noticeDetail', {
       title: '通知详情',
       leftText: "通知列表",
       grey: true
-    }],
-    notice: [],
-    page2: [{
-      tag: 'foot'
+    }, {
+      tag: 'h3',
+      text: '加载中...'
+    }, {
+      tag: 'p',
+      text: '\n\n\n\nloading......\n\n\n\n'
+    }, {
+      tag: 'p',
+      align: 'right',
+      text: '机构：  \n时间：  '
     }]
   },
   onLoad(res) {
     S.Set(this.data.page, a, null, this, false);
-    S.request(`notice/${res.id}`, (data, indicator) => {
+    S.request(`mpServer/notice/${res.id}`, (data, indicator) => {
       let attachment = data.attachment;
       if (attachment) {
         delete data.attachment;
@@ -27,19 +33,23 @@ P('noticeDetail', {
           x.docType = temp == 'docx' || temp == 'doc' ? 'doc' : temp == 'pptx' || temp == 'ppt' ? 'ppt' : temp == 'xlsx' || temp == 'xls' ? 'xls' : temp == 'jpg' || temp == 'jpeg' ? 'jpg' : temp == 'pdf' || temp == 'png' || temp == 'gif' ? temp : temp == 'mp4' || temp == 'mov' || temp == 'avi' || temp == 'rmvb' ? 'video' : 'document';
         });
         indicator.setData({
-          notice: data,
+          'page[1].text': data.title,
+          'page[2].text': data.content,
+          'page[3].text': data.footer,
           attachment
         })
       } else {
         indicator.setData({
-          notice: S.dispose(data)
+          'page[1].text': data.title,
+          'page[2].text': data.content,
+          'page[3].text': data.footer,
         })
       }
     }, this);
     this.id = res.id;
   },
   onPullDownRefresh() {
-    S.request(`notice/${this.id}`, (data, indicator) => {
+    S.request(`mpServer/notice/${this.id}`, (data, indicator) => {
       indicator.setData({
         notice: data
       })

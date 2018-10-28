@@ -44,7 +44,7 @@ P('main', {
   onLoad() {
     tab.tabBarChanger(a.nm);
     wx.startPullDownRefresh();
-    S.request('main/main', (data, indicator) => {
+    S.request('mpRes/main/main', (data, indicator) => {
       S.Set(data, a, null, indicator);
       wx.stopPullDownRefresh();
       wx.setStorageSync('main', data);
@@ -64,7 +64,7 @@ P('main', {
       });
     });
     // ['guide', 'function'].forEach(x => {
-    //   S.request(`main/${x}`, (data, indicator) => {
+    //   S.request(`mpRes/main/${x}`, (data, indicator) => {
     //     indicator.$put(x, data);
     //     indicator.$preload(`${x}?name=${x}`);
     //     wx.setStorageSync(x, data);
@@ -83,7 +83,7 @@ P('main', {
     // })
   },
   onPullDownRefresh() {
-    S.request('main/main', (data, indicator) => {
+    S.request('mpRes/main/main', (data, indicator) => {
       S.Set(data, a, null, indicator);
       wx.stopPullDownRefresh();
     }, this);

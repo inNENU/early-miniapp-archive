@@ -108,7 +108,7 @@ P('guide', {
   onReady() {
     if (!this.set) {
       wx.startPullDownRefresh();
-      S.request('main/guide', (data, indicator) => {
+      S.request('mpRes/main/guide', (data, indicator) => {
         S.Set(data, a, {
           aim: 'guide'
         }, indicator);
@@ -119,7 +119,7 @@ P('guide', {
     S.preLoad(this, a);
   },
   onPullDownRefresh() {
-    S.request('main/guide', (data, indicator) => {
+		S.request('mpRes/main/guide', (data, indicator) => {
       S.Set(data, a, {
         aim: 'guide'
       }, indicator);

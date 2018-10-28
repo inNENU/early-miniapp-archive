@@ -27,15 +27,17 @@ function getOnlinePage(opt, globalData, indicator) { //参数：页面传参，�
     indicator.$session.set(opt.aim + 'Temp', disposePage(pageData, globalData, opt));
   } else {
     let source, length = opt.aim.length;
-    if (isNaN(opt.aim.charAt(length - 1))) {
-      source = opt.aim;
-    } else if (isNaN(opt.aim.charAt(length - 2))) {
-      source = opt.aim.substring(0, length - 1);
-    } else if (isNaN(opt.aim.charAt(length - 3))) {
-      source = opt.aim.substring(0, length - 2);
-    } else {
-      source = opt.aim.substring(0, length - 3);
-    };
+		while (!isNaN(opt.aim.charAt(length))) length--;
+    source = opt.aim.substring(0, length + 1);
+    // if (isNaN(opt.aim.charAt(length - 1))) {
+    //   source = opt.aim;
+    // } else if (isNaN(opt.aim.charAt(length - 2))) {
+    //   source = opt.aim.substring(0, length - 1);
+    // } else if (isNaN(opt.aim.charAt(length - 3))) {
+    //   source = opt.aim.substring(0, length - 2);
+    // } else {
+    //   source = opt.aim.substring(0, length - 3);
+    // };
     wx.request({
       url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
       success(res) {
@@ -534,7 +536,7 @@ function changeNav(e, indicator) { //参数：组件传参，页面指针
 //wx.request包装
 function request(path, Func, indicator) { //参数：网址路径，执行函数，页面指针
   wx.request({
-    url: `https://mrhope.top/mpRes/${path}.json`,
+    url: `https://mrhope.top/${path}.json`,
     success(res) {
       console.log(res)
       if (res.statusCode == 200) Func(res.data, indicator)

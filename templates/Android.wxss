@@ -162,7 +162,7 @@
 }
 
 .AndroidP {
-  font-size: 30rpx;
+  font-size: 15px;
   padding: 4rpx 40rpx;
   text-align: justify;
   line-height: 1.6;

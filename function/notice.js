@@ -16,14 +16,14 @@ P('notice', {
   },
   onLoad(options) {
     S.Set(this.data.page, a, null, this, false);
-    S.request('notice/notice', (data, indicator) => {
+    S.request('mpServer/notice/notice', (data, indicator) => {
       indicator.setData({
         notice: data
       })
     }, this)
   },
   onPullDownRefresh() {
-    S.request('notice/notice', (data, indicator) => {
+		S.request('mpServer/notice/notice', (data, indicator) => {
       indicator.setData({
         notice: data
       })
