@@ -27,7 +27,7 @@ function getOnlinePage(opt, globalData, indicator) { //参数：页面传参，�
     indicator.$session.set(opt.aim + 'Temp', disposePage(pageData, globalData, opt));
   } else {
     let source, length = opt.aim.length;
-		while (!isNaN(opt.aim.charAt(length))) length--;
+    while (!isNaN(opt.aim.charAt(length))) length--;
     source = opt.aim.substring(0, length + 1);
     // if (isNaN(opt.aim.charAt(length - 1))) {
     //   source = opt.aim;
@@ -245,6 +245,9 @@ function componentAction(res, indicator) { //参数：组件传参，页面指�
     case 'back':
       indicator.$back();
       break;
+    case 'list':
+      list(res, indicator);
+      break;
     case 'doc':
       document(res);
       break;
@@ -269,6 +272,17 @@ function componentAction(res, indicator) { //参数：组件传参，页面指�
     default:
       console.warn('error'), wx.reportMonitor('11', 1);
   }
+}
+
+//列表函数 for Android
+
+function list(e, indicator) {
+  let id = e.currentTarget.id,
+    page = indicator.data.page;
+  page[id].display = !page[id].display;
+  indicator.setData({
+    page
+  })
 }
 
 // 图片函数

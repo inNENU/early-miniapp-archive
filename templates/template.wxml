@@ -29,85 +29,6 @@
   <view class='{{T}}H3' style="{{style}}">{{text}}</view>
 </template>
 
-<template name='list'>
-  <view wx:if="{{head!==false}}" class='commonhead'>{{head}}</view>
-  <view class='Lctn'>
-    <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
-      <view wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="cA" data-action='navigate' data-url='{{List.url}}' data-aim="{{List.aim}}">
-        <view class='list-Container'>
-          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
-          <view class='LinkText'>{{List.text}}</view>
-          <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
-        </view>
-      </view>
-      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
-        data-id="{{List.id}}" data-action='picker' plain='true' disabled='{{List.disabled}}'>
-        <view class='list-Container'>
-          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
-          <view class='LinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
-          <view wx:if='{{List.slider}}' class='linkDesciption'>{{List.value}}</view>
-          <view wx:elif='{{List.pickerValue}}' class='linkDesciption'>
-            <block wx:if="{{List.single}}">{{List.value}}</block>
-            <block wx:else>
-              <block wx:for="{{List.value}}" wx:key="*this">{{item}}</block>
-            </block>
-          </view>
-        </view>
-      </button>
-      <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='listCtn' hover-class="buttonHover" hover-stay-time='100' bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}"
-        data-action='picker'>
-        <view class='list-Container'>
-          <view class='LinkText'>{{List.text}}</view>
-          <view wx:if='{{List.pickerValue}}' class='linkDesciption'>
-            <block wx:for='{{List.value}}' wx:key="*this">{{item}}</block>
-          </view>
-        </view>
-      </picker>
-      <navigator wx:elif='{{List.display!==false&&List.navigate}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' url='{{List.navigate}}' openType='{{List.openType}}' target='{{List.target}}'>
-        <view class='list-Container'>
-          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
-          <view class='LinkText'>{{List.text}}</view>
-          <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
-        </view>
-      </navigator>
-      <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="listCtn">
-        <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
-        <view wx:if="{{List.display!==false}}" class='list-Container'>
-          <view class='LinkText'>
-            <text selectable='true' space='ensp' decode='true'>{{List.text}}</text>
-          </view>
-          <view class="linkDesciption">{{List.desc}}
-            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" color="{{color}}" data-id="{{List.id}}" data-action='switch' />
-          </view>
-        </view>
-      </view>
-      <block wx:if='{{List.visible}}'>
-        <view class='link-divline'></view>
-        <view wx:if="{{List.slider}}" class='sliderCtn'>
-          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action='slider'
-          />
-        </view>
-        <picker-view wx:if="{{List.pickerValue}}" indicator-class='pickSelected' class='pickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker' mask-class='pickerMask'>
-          <block wx:if="{{List.single}}">
-            <picker-view-column class='pick-view-column'>
-              <view wx:for='{{List.pickerValue}}' wx:key="*this" class='pickColumn'>{{item}}</view>
-            </picker-view-column>
-          </block>
-          <block wx:else>
-            <block wx:for='{{List.pickerValue}}' wx:key="*this">
-              <picker-view-column class='pick-view-column'>
-                <view wx:for="{{item}}" wx:key="*this" class='pickColumn'>{{item}}</view>
-              </picker-view-column>
-            </block>
-          </block>
-        </picker-view>
-      </block>
-      <view wx:if="{{List.display!==false}}" class="{{List.icon?'listIcon ':''}}link-divline"></view>
-    </block>
-  </view>
-  <view wx:if="{{foot}}" class='commonfoot'>{{foot}}</view>
-</template>
-
 <template name='intro'>
   <view class='introBox'>
     <image class='introBg' src='{{src}}' mode='aspectFill' />
@@ -236,6 +157,10 @@
   <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy,desc}}" />
 </template>
 
+<template name='list'>
+  <template is="{{T}}list" data="{{head,content,foot,id,display}}" />
+</template>
+
 <template name='error'>
   <template is="{{T}}error" data="{{action,statusBarHeight}}" />
 </template>
@@ -291,6 +216,85 @@
   </view>
 </template>
 
+<template name='iOSlist'>
+  <view wx:if="{{head!==false}}" class='commonhead'>{{head}}</view>
+  <view class='Lctn'>
+    <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
+      <view wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="cA" data-action='navigate' data-url='{{List.url}}' data-aim="{{List.aim}}">
+        <view class='list-Container'>
+          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+          <view class='LinkText'>{{List.text}}</view>
+          <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
+        </view>
+      </view>
+      <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+        data-id="{{List.id}}" data-action='picker' plain='true' disabled='{{List.disabled}}'>
+        <view class='list-Container'>
+          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+          <view class='LinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
+          <view wx:if='{{List.slider}}' class='linkDesciption'>{{List.value}}</view>
+          <view wx:elif='{{List.pickerValue}}' class='linkDesciption'>
+            <block wx:if="{{List.single}}">{{List.value}}</block>
+            <block wx:else>
+              <block wx:for="{{List.value}}" wx:key="*this">{{item}}</block>
+            </block>
+          </view>
+        </view>
+      </button>
+      <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='listCtn' hover-class="buttonHover" hover-stay-time='100' bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}"
+        data-action='picker'>
+        <view class='list-Container'>
+          <view class='LinkText'>{{List.text}}</view>
+          <view wx:if='{{List.pickerValue}}' class='linkDesciption'>
+            <block wx:for='{{List.value}}' wx:key="*this">{{item}}</block>
+          </view>
+        </view>
+      </picker>
+      <navigator wx:elif='{{List.display!==false&&List.navigate}}' id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time='100' url='{{List.navigate}}' openType='{{List.openType}}' target='{{List.target}}'>
+        <view class='list-Container'>
+          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+          <view class='LinkText'>{{List.text}}</view>
+          <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
+        </view>
+      </navigator>
+      <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="listCtn">
+        <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+        <view wx:if="{{List.display!==false}}" class='list-Container'>
+          <view class='LinkText'>
+            <text selectable='true' space='ensp' decode='true'>{{List.text}}</text>
+          </view>
+          <view class="linkDesciption">{{List.desc}}
+            <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" color="{{color}}" data-id="{{List.id}}" data-action='switch' />
+          </view>
+        </view>
+      </view>
+      <block wx:if='{{List.visible}}'>
+        <view class='link-divline'></view>
+        <view wx:if="{{List.slider}}" class='sliderCtn'>
+          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action='slider'
+          />
+        </view>
+        <picker-view wx:if="{{List.pickerValue}}" indicator-class='pickSelected' class='pickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker' mask-class='pickerMask'>
+          <block wx:if="{{List.single}}">
+            <picker-view-column class='pick-view-column'>
+              <view wx:for='{{List.pickerValue}}' wx:key="*this" class='pickColumn'>{{item}}</view>
+            </picker-view-column>
+          </block>
+          <block wx:else>
+            <block wx:for='{{List.pickerValue}}' wx:key="*this">
+              <picker-view-column class='pick-view-column'>
+                <view wx:for="{{item}}" wx:key="*this" class='pickColumn'>{{item}}</view>
+              </picker-view-column>
+            </block>
+          </block>
+        </picker-view>
+      </block>
+      <view wx:if="{{List.display!==false}}" class="{{List.icon?'listIcon ':''}}link-divline"></view>
+    </block>
+  </view>
+  <view wx:if="{{foot}}" class='commonfoot'>{{foot}}</view>
+</template>
+
 <!-- Android theme -->
 
 <template name="AndroidHead">
@@ -340,6 +344,91 @@
   </view>
   <view class='donateCtn'>
     <button class='donateButton' open-type='contact'>捐赠</button>
+  </view>
+</template>
+
+<template name='Androidlist'>
+  <view class='AndroidLctn'>
+    <view id='{{id}}' class='AndroidListHeadBtn' hover-class='buttonHover' hover-start-time='0' hover-stay-time='150' catchtap='cA' data-action='list'>
+      <view wx:if="{{head!==false}}" class='AndroidListHead'>{{head&&head!=' '?head:'展开列表'}}</view>
+      <view wx:else class='AndroidListHead'>展开列表</view>
+      <image class="AndroidListArrow {{open?'':''}}" src='/icon/arrowDown.svg' />
+    </view>
+    <block wx:if="{{display}}">
+      <block wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}">
+        <view wx:if='{{List.display!==false&&List.url}}' id="{{List.id}}" class="AndroidListCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="cA" data-action='navigate' data-url='{{List.url}}' data-aim="{{List.aim}}">
+          <view class='list-Container'>
+            <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+            <view class='LinkText'>{{List.text}}</view>
+            <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
+          </view>
+        </view>
+        <button wx:elif='{{List.display!==false&&(List.inlay||List.button||List.slider)}}' id="{{List.id}}" class="AndroidListCtn" hover-class="buttonHover" hover-stay-time='100' catchtap="{{List.pickerValue&&!List.picker?'cA':''}}{{List.pickerValue&&List.picker?'List.picker':''}}{{List.button?List.button:''}}{{List.slider?List.slider:''}}"
+          data-id="{{List.id}}" data-action='picker' plain='true' disabled='{{List.disabled}}'>
+          <view class='list-Container'>
+            <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+            <view class='LinkText' style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
+            <view wx:if='{{List.slider}}' class='linkDesciption'>{{List.value}}</view>
+            <view wx:elif='{{List.pickerValue}}' class='linkDesciption'>
+              <block wx:if="{{List.single}}">{{List.value}}</block>
+              <block wx:else>
+                <block wx:for="{{List.value}}" wx:key="*this">{{item}}</block>
+              </block>
+            </view>
+          </view>
+        </button>
+        <picker wx:elif="{{List.display!==false&&List.pickerValue}}" id="{{List.id}}" class='AndroidListCtn' hover-class="buttonHover" hover-stay-time='100' bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}"
+          data-id="{{List.id}}" data-action='picker'>
+          <view class='list-Container'>
+            <view class='LinkText'>{{List.text}}</view>
+            <view wx:if='{{List.pickerValue}}' class='linkDesciption'>
+              <block wx:for='{{List.value}}' wx:key="*this">{{item}}</block>
+            </view>
+          </view>
+        </picker>
+        <navigator wx:elif='{{List.display!==false&&List.navigate}}' id="{{List.id}}" class="AndroidListCtn" hover-class="buttonHover" hover-stay-time='100' url='{{List.navigate}}' openType='{{List.openType}}' target='{{List.target}}'>
+          <view class='list-Container'>
+            <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+            <view class='LinkText'>{{List.text}}</view>
+            <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
+          </view>
+        </navigator>
+        <view wx:elif="{{List.display!==false}}" id="{{List.id}}" class="AndroidListCtn">
+          <image wx:if="{{List.icon}}" class='listIcon' src='{{List.icon}}' data-icon='true' />
+          <view wx:if="{{List.display!==false}}" class='list-Container'>
+            <view class='LinkText'>
+              <text selectable='true' space='ensp' decode='true'>{{List.text}}</text>
+            </view>
+            <view class="linkDesciption">{{List.desc}}
+              <switch wx:if='{{List.swiKey}}' checked='{{List.status}}' bindchange="{{List.Switch?List.Switch:'cA'}}" color="{{color}}" data-id="{{List.id}}" data-action='switch' />
+            </view>
+          </view>
+        </view>
+        <block wx:if='{{List.visible}}'>
+          <view class='link-divline'></view>
+          <view wx:if="{{List.slider}}" class='sliderCtn'>
+            <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value='{{List.value}}' bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action='slider'
+            />
+          </view>
+          <picker-view wx:if="{{List.pickerValue}}" indicator-class='pickSelected' class='pickerViewCtn' value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action='picker' mask-class='pickerMask'>
+            <block wx:if="{{List.single}}">
+              <picker-view-column class='pick-view-column'>
+                <view wx:for='{{List.pickerValue}}' wx:key="*this" class='pickColumn'>{{item}}</view>
+              </picker-view-column>
+            </block>
+            <block wx:else>
+              <block wx:for='{{List.pickerValue}}' wx:key="*this">
+                <picker-view-column class='pick-view-column'>
+                  <view wx:for="{{item}}" wx:key="*this" class='pickColumn'>{{item}}</view>
+                </picker-view-column>
+              </block>
+            </block>
+          </picker-view>
+        </block>
+        <view wx:if="{{List.display!==false}}" class="{{List.icon?'listIcon ':''}}link-divline"></view>
+      </block>
+      <view wx:if="{{foot}}" class='commonfoot'>{{foot}}</view>
+    </block>
   </view>
 </template>
 
