@@ -10,7 +10,7 @@
 		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.2",
+	"libVersion": "2.4.0",
 	"appid": "wx33acb831ee1831a5",
 	"projectname": "Nenuyouth",
 	"isGameTourist": false,

@@ -551,12 +551,12 @@ function changeNav(e, indicator) { //参数：组件传参，页面指针
 function request(path, Func, indicator) { //参数：网址路径，执行函数，页面指针
   wx.request({
     url: `https://mrhope.top/${path}.json`,
-    success(res) {
+    success: res => {
       console.log(res)
       if (res.statusCode == 200) Func(res.data, indicator)
       else console.warn(`request ${path} fail: ${res.statusCode}`), wx.reportMonitor('3', 1);
     },
-    fail(res) {
+    fail: res => {
       console.log(res), wx.reportMonitor('4', 1);
     }
   });
