@@ -352,7 +352,7 @@
     <view id='{{id}}' class='AndroidListHeadBtn' hover-class='buttonHover' hover-start-time='0' hover-stay-time='150' catchtap='cA' data-action='list'>
       <view wx:if="{{head!==false}}" class='AndroidListHead'>{{head&&head!=' '?head:'展开列表'}}</view>
       <view wx:else class='AndroidListHead'>展开列表</view>
-      <image class="AndroidListArrow {{open?'':''}}" src='/icon/arrowDown.svg' />
+      <image class="AndroidListArrow {{display?'AndroidListRotate':'AndroidListRotateNone'}}" src='/icon/arrowDown.svg' />
     </view>
     <block wx:if="{{display}}">
       <block wx:for="{{content}}" wx:for-item="List" wx:key="{{List.text}}">

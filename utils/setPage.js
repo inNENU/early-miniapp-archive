@@ -1,166 +1,147 @@
 //预加载界面，在界面被调用时，将该界面包含的所有aim对应json处理后写入存储
-function preLoad(indicator, globalData) { //参数：页面指针，全局变量
-  let page = indicator.data.page;
+const preLoad = (ctx, globalData) => { //参数：页面指针，全局变量
+  let page = ctx.data.page;
   if (page) {
-    page.forEach(x => {
-      if ('content' in x) {
-        x.content.forEach(y => {
-          if ('aim' in y) {
+    page.forEach(component => {
+      if ("content" in component) {
+        component.content.forEach(y => {
+          if ("aim" in y) {
             let head = page[0];
             getOnlinePage({
               From: head.title,
               aim: y.aim,
-              step: head.aimStep
-            }, globalData, indicator)
-          };
-        })
+              depth: head.aimDepth
+            }, globalData, ctx);
+          }
+        });
       }
     });
-  };
-  wx.reportMonitor('1', 1);
-}
+  }
+  wx.reportMonitor("1", 1);
+};
 
 //从本地或网络获取在线页面的json并处理存储，被preLoad调用
-function getOnlinePage(opt, globalData, indicator) { //参数：页面传参，全局变量，页面指针
-  let pageData = wx.getStorageSync(opt.aim);
-  if (pageData) {
-    indicator.$session.set(opt.aim + 'Temp', disposePage(pageData, globalData, opt));
-  } else {
-    let source, length = opt.aim.length;
-    while (!isNaN(opt.aim.charAt(length))) length--;
-    source = opt.aim.substring(0, length + 1);
-    // if (isNaN(opt.aim.charAt(length - 1))) {
-    //   source = opt.aim;
-    // } else if (isNaN(opt.aim.charAt(length - 2))) {
-    //   source = opt.aim.substring(0, length - 1);
-    // } else if (isNaN(opt.aim.charAt(length - 3))) {
-    //   source = opt.aim.substring(0, length - 2);
-    // } else {
-    //   source = opt.aim.substring(0, length - 3);
-    // };
+const getOnlinePage = (opt, globalData, ctx) => { //参数：页面传参，全局变量，页面指针
+  let pageData = wx.getStorageSync(opt.aim); //尝试从存储中读取界面数据
+  if (pageData) { //已存在界面数据
+    ctx.$session.set(opt.aim + "Temp", disposePage(pageData, globalData, opt)); //预处理后写入缓存
+  } else { //不存在界面数据，需在线获取
+    let length = opt.aim.length;
+    while (!isNaN(opt.aim.charAt(length))) length--; //获取字母长度以便确定文件夹名称
     wx.request({
-      url: `https://mrhope.top/mpRes/${source}/${opt.aim}.json`,
-      success(res) {
-        console.log(res);
-        if (res.statusCode == 200) {
-          if (!opt.share) {
-            wx.setStorageSync(opt.aim, res.data);
-          }
-          indicator.$session.set(opt.aim + 'Temp', disposePage(res.data, globalData, opt));
-        } else {
-          console.warn('res error'), wx.reportMonitor('16', 1);
-          indicator.$session.set(opt.aim + 'Temp', disposePage([{
-            tag: 'error',
+      url: `https://mrhope.top/mpRes/${opt.aim.substring(0, length + 1)}/${opt.aim}.json`, //服务器json路径
+      success: res => {
+        console.log(res); //调试模式：输出下载内容
+        if (res.statusCode == 200) { //资源获取正常
+          opt.share ? "" : wx.setStorageSync(opt.aim, res.data); //非分享界面下将页面数据写入存储
+          ctx.$session.set(opt.aim + "Temp", disposePage(res.data, globalData, opt));
+        } else { //资源获取状态码异常
+          console.warn("res error"), wx.reportMonitor("16", 1); //输出报警
+          ctx.$session.set(opt.aim + "Temp", disposePage([{ //设置故障页数据到该页面缓存中
+            tag: "error",
             statusBarHeight: globalData.info.statusBarHeight
-          }], globalData, opt));;
+          }], globalData, opt));
         }
       },
-      fail(res) {
-        console.warn(res), wx.reportMonitor('17', 1);
+      fail: res => { //网络请求失败
+        console.warn(res), wx.reportMonitor("17", 1); //输出报警
       }
-    })
-  };
-}
+    });
+  }
+};
 
 //获得界面数据，生成正确的界面数据
-function disposePage(page, globalData, opt) { //参数：page数组，全局数据，页面传参
+const disposePage = (page, globalData, opt) => { //参数：page数组，全局数据，页面传参
   if (page) {
-    if (page[0].tag == 'head') {
+    if (page[0].tag == "head") {
       page[0].statusBarHeight = globalData.info.statusBarHeight, page[0].url = new Array();
       if (opt && !page[0].action) {
-        if ('From' in opt) {
-          page[0].leftText = opt.From
-        };
-        if ('step' in opt) {
-          page[0].aimStep = Number(opt.step) + 1
-        };
-        if ('share' in opt) {
-          page[0].action = 'redirect';
-          console.log('redirect'); //调试
-        };
-        if ('aim' in opt) {
-          page[0].aim = opt.aim;
-        } else {
-          page[0].aim = page[0].title;
+        "aim" in opt ? page[0].aim = opt.aim : page[0].aim = page[0].title; //设置界面名称
+        "From" in opt ? page[0].leftText = opt.From : ""; //设置页面来源
+        if ("depth" in opt) {
+          page[0].aimDepth = Number(opt.depth) + 1;
         }
-      };
+        if ("share" in opt) {
+          page[0].action = "redirect", console.log("redirect"); //重定向到sharePage
+        }
+      }
       page.forEach((x, y) => {
         x.id = y;
         if (x.src) {
           (x.res) ? page[0].url.push(x.res): page[0].url.push(x.src), x.res = x.src;
-          (x.imgMode) ? '' : x.imgMode = 'widthFix'
-        };
+          (x.imgMode) ? "" : x.imgMode = "widthFix";
+        }
         if (x.docName) {
-          let temp = x.docName.split('.')[1];
-          x.docName = x.docName.split('.')[0];
-          x.docType = temp == 'docx' || temp == 'doc' ? 'doc' : temp == 'pptx' || temp == 'ppt' ? 'ppt' : temp == 'xlsx' || temp == 'xls' ? 'xls' : temp == 'jpg' || temp == 'jpeg' ? 'jpg' : temp == 'pdf' || temp == 'png' || temp == 'gif' ? temp : temp == 'mp4' || temp == 'mov' || temp == 'avi' || temp == 'rmvb' ? 'video' : 'document';
+          let temp = x.docName.split(".")[1];
+          x.docName = x.docName.split(".")[0];
+          x.docType = temp == "docx" || temp == "doc" ? "doc" : temp == "pptx" || temp == "ppt" ? "ppt" : temp == "xlsx" || temp == "xls" ? "xls" : temp == "jpg" || temp == "jpeg" ? "jpg" : temp == "pdf" || temp == "png" || temp == "gif" ? temp : temp == "mp4" || temp == "mov" || temp == "avi" || temp == "rmvb" ? "video" : "document";
         }
         //setList
-        if ('content' in x) {
+        if ("content" in x) {
           x.content.forEach((i, j) => {
             i.id = y + "-" + j;
             //set List navigator
-            if ('url' in i) {
-              i.url += "?From=" + page[0].title
-            };
-            if ('aim' in i) {
-              i.url = "module" + page[0].aimStep + "?From=" + page[0].title + "&aim=" + i.aim + "&step=" + page[0].aimStep
-            };
+            if ("url" in i) {
+              i.url += "?From=" + page[0].title;
+            }
+            if ("aim" in i) {
+              i.url = "module" + page[0].aimDepth + "?From=" + page[0].title + "&aim=" + i.aim + "&depth=" + page[0].aimDepth;
+            }
             //set List switch
-            if ('swiKey' in i) {
+            if ("swiKey" in i) {
               i.status = wx.getStorageSync(i.swiKey);
-            };
+            }
             //set List slider
-            if ('sliKey' in i) {
+            if ("sliKey" in i) {
               i.value = wx.getStorageSync(i.sliKey);
-            };
+            }
             //set List picker
-            if ('pickerValue' in i) {
+            if ("pickerValue" in i) {
               if (i.single) {
                 let res = wx.getStorageSync(i.key);
-                i.value = i.pickerValue[res], i.currentValue = [res]
+                i.value = i.pickerValue[res], i.currentValue = [res];
               } else {
-                let res = wx.getStorageSync(i.key).split('-');
+                let res = wx.getStorageSync(i.key).split("-");
                 i.currentValue = new Array(), i.value = new Array();
                 res.forEach((k, l) => {
                   i.value[l] = i.pickerValue[l][Number(k)];
                   i.currentValue[l] = Number(k);
-                })
+                });
               }
             }
-          })
+          });
         }
       });
     } else {
-      console.warn('No head tag in page!'), wx.reportMonitor('14', 1);
-    };
+      console.warn("No head tag in page!"), wx.reportMonitor("14", 1);
+    }
   } else {
-    console.warn('No pageData!'), wx.reportMonitor('15', 1);
+    console.warn("No pageData!"), wx.reportMonitor("15", 1);
   }
   return page;
-}
+};
 
 //设置界面，在onNavigate时调用，将界面数据写入初始数据
-function presetPage(page, globalData, option, indicator, Set = true) { //参数：page数组，全局数据，页面传参，页面指针，page处理状态(默认为已处理)
-  console.log('将要跳转：', option)
-  indicator.data = {
+function presetPage(page, globalData, option, ctx, Set = true) { //参数：page数组，全局数据，页面传参，页面指针，page处理状态(默认为已处理)
+  console.log("将要跳转：", option);
+  ctx.data = {
     T: globalData.T,
     nm: globalData.nm,
     page: Set ? page : disposePage(page, globalData, option)
   };
   if (option && page) {
     try {
-      indicator.aim = option.query.aim;
+      ctx.aim = option.query.aim;
     } catch (msg) {
-      indicator.aim = option.aim;
+      ctx.aim = option.aim;
     }
   }
-  console.log(indicator.aim + '载入', 'data是：', indicator.data);
+  console.log(ctx.aim + "载入", "data是：", ctx.data);
 }
 
 //设置本地界面数据，在界面初始化之后使用
-function setPage(page, globalData, opt, indicator) { //参数：page数组，全局数据，页面传参，页面指针
-  indicator.setData({
+function setPage(page, globalData, opt, ctx) { //参数：page数组，全局数据，页面传参，页面指针
+  ctx.setData({
     T: globalData.T,
     nm: globalData.nm,
     page: disposePage(page, globalData, opt)
@@ -168,10 +149,10 @@ function setPage(page, globalData, opt, indicator) { //参数：page数组，全
 }
 
 //设置在线界面数据，在界面初始化之后使用
-function setOnlinePage(globalData, opt, indicator, preload = true) { //参数：全局变量，页面传参，页面指针，是否需要预加载(默认需要)
-  if (indicator.aim != opt.aim) {
-    console.log('onLoad开始：', opt);
-    indicator.aim = opt.aim;
+function setOnlinePage(globalData, opt, ctx, preload = true) { //参数：全局变量，页面传参，页面指针，是否需要预加载(默认需要)
+  if (ctx.aim != opt.aim) {
+    console.log("onLoad开始：", opt);
+    ctx.aim = opt.aim;
     let source, length = opt.aim.length;
     while (!isNaN(opt.aim.charAt(length))) length--;
     source = opt.aim.substring(0, length + 1);
@@ -180,35 +161,35 @@ function setOnlinePage(globalData, opt, indicator, preload = true) { //参数：
       success: res => {
         console.log(res);
         if (res.statusCode == 200) {
-          setPage(disposePage(res.data, globalData, opt), globalData, opt, indicator);
+          setPage(disposePage(res.data, globalData, opt), globalData, opt, ctx);
           if (!opt.share) {
             wx.setStorageSync(opt.aim, res.data);
-          };
+          }
           if (preload) {
-            preLoad(indicator, globalData), console.log('preload finish');
+            preLoad(ctx, globalData), console.log("preload finish");
           }
         } else {
-          console.warn('res error'), wx.reportMonitor('12', 1);
+          console.warn("res error"), wx.reportMonitor("12", 1);
           setPage([{
-            tag: 'error',
+            tag: "error",
             statusBarHeight: globalData.info.statusBarHeight
-          }], globalData, opt, indicator);
+          }], globalData, opt, ctx);
         }
-        console.log('onLoad 成功'), wx.reportMonitor('0', 1);
+        console.log("onLoad 成功"), wx.reportMonitor("0", 1);
       },
       fail: res => {
-        console.warn(res), wx.reportMonitor('13', 1);
+        console.warn(res), wx.reportMonitor("13", 1);
         setPage([{
-          tag: 'error',
+          tag: "error",
           statusBarHeight: globalData.info.statusBarHeight
-        }], globalData, opt, indicator);
+        }], globalData, opt, ctx);
       },
       complete: () => {
         popNotice(opt.aim);
       }
-    })
+    });
   } else {
-    preLoad(indicator, globalData), console.log('preload finish');
+    preLoad(ctx, globalData), console.log("preload finish");
   }
 }
 
@@ -223,9 +204,9 @@ function popNotice(aim) { //参数：当前界面的aim值
       success() {
         wx.removeStorageSync(`${aim}Notify`);
       }
-    }), console.log('弹出通知');
+    }), console.log("弹出通知");
   }
-  wx.reportAnalytics('page_aim_count', { //aim统计分析
+  wx.reportAnalytics("page_aim_count", { //aim统计分析
     aim
   });
 }
@@ -233,94 +214,94 @@ function popNotice(aim) { //参数：当前界面的aim值
 
 
 // 组件函数
-function componentAction(res, indicator) { //参数：组件传参，页面指针
+function componentAction(res, ctx) { //参数：组件传参，页面指针
   let action = res.currentTarget.dataset.action;
   switch (action) {
-    case 'img':
-      image(res, indicator);
+    case "img":
+      image(res, ctx);
       break;
-    case 'navigate':
-      indicator.$route(res.currentTarget.dataset.url)
+    case "navigate":
+      ctx.$route(res.currentTarget.dataset.url);
       break;
-    case 'back':
-      indicator.$back();
+    case "back":
+      ctx.$back();
       break;
-    case 'list':
-      list(res, indicator);
+    case "list":
+      list(res, ctx);
       break;
-    case 'doc':
+    case "doc":
       document(res);
       break;
-    case 'phone':
-      phone(res, indicator);
+    case "phone":
+      phone(res, ctx);
       break;
-    case 'picker':
-      picker(res, indicator);
+    case "picker":
+      picker(res, ctx);
       break;
-    case 'switch':
-      Switch(res, indicator);
+    case "switch":
+      Switch(res, ctx);
       break;
-    case 'slider':
-      slider(res, indicator);
+    case "slider":
+      slider(res, ctx);
       break;
-    case 'share':
-      share(res, indicator);
+    case "share":
+      share(res, ctx);
       break;
-    case 'video':
-      video(res, indicator);
+    case "video":
+      video(res, ctx);
       break;
     default:
-      console.warn('error'), wx.reportMonitor('11', 1);
+      console.warn("error"), wx.reportMonitor("11", 1);
   }
 }
 
 //列表函数 for Android
 
-function list(e, indicator) {
+function list(e, ctx) {
   let id = e.currentTarget.id,
-    page = indicator.data.page;
+    page = ctx.data.page;
   page[id].display = !page[id].display;
-  indicator.setData({
+  ctx.setData({
     page
-  })
+  });
 }
 
 // 图片函数
-function image(e, indicator) {
-  let current = indicator.data.page[e.target.id];
+function image(e, ctx) {
+  let current = ctx.data.page[e.target.id];
   switch (e.type) {
-    case 'load':
+    case "load":
       current.load = true;
-      indicator.setData({
-        page: indicator.data.page
+      ctx.setData({
+        page: ctx.data.page
       });
       break;
-    case 'error':
-      current.error = true, wx.reportMonitor('10', 1);
-      indicator.setData({
-        page: indicator.data.page
+    case "error":
+      current.error = true, wx.reportMonitor("10", 1);
+      ctx.setData({
+        page: ctx.data.page
       });
       break;
-    case 'tap':
+    case "tap":
       wx.previewImage({
         current: current.res,
-        urls: indicator.data.page[0].url
+        urls: ctx.data.page[0].url
       });
       break;
   }
 }
 
 // 选择器函数
-function picker(e, indicator) {
-  let pos = e.currentTarget.dataset.id.split('-'),
-    content = indicator.data.page[pos[0]].content[pos[1]];
-  if (e.type == 'tap') {
+function picker(e, ctx) {
+  let pos = e.currentTarget.dataset.id.split("-"),
+    content = ctx.data.page[pos[0]].content[pos[1]];
+  if (e.type == "tap") {
     content.visible = !content.visible;
-    indicator.setData({
-      page: indicator.data.page
-    })
+    ctx.setData({
+      page: ctx.data.page
+    });
   }
-  if (e.type == 'change') {
+  if (e.type == "change") {
     let value = e.detail.value;
     if (content.single) {
       content.value = content.pickerValue[Number(value)];
@@ -329,45 +310,45 @@ function picker(e, indicator) {
     } else {
       value.forEach((x, y) => {
         content.value[y] = content.pickerValue[y][Number(x)];
-        content.currentValue[y] = x
-      })
-      wx.setStorageSync(content.key, value.join('-'));
+        content.currentValue[y] = x;
+      });
+      wx.setStorageSync(content.key, value.join("-"));
     }
-    indicator.setData({
-      page: indicator.data.page
-    })
+    ctx.setData({
+      page: ctx.data.page
+    });
   }
 }
 
 // 滑块函数
-function slider(e, indicator) {
-  let pos = e.currentTarget.dataset.id.split('-'),
-    content = indicator.data.page[pos[0]].content[pos[1]],
+function slider(e, ctx) {
+  let pos = e.currentTarget.dataset.id.split("-"),
+    content = ctx.data.page[pos[0]].content[pos[1]],
     value = e.detail.value;
   switch (e.type) {
-    case 'tap':
+    case "tap":
       content.visible = !content.visible;
       break;
-    case 'changing':
+    case "changing":
       content.value = value;
       break;
-    case 'change':
+    case "change":
       content.value = value;
       wx.setStorageSync(content.sliKey, value);
       break;
   }
-  indicator.setData({
-    page: indicator.data.page
-  })
+  ctx.setData({
+    page: ctx.data.page
+  });
 }
 
 // 开关函数
-function Switch(e, indicator) {
-  let pos = e.target.dataset.id.split('-'),
-    page = indicator.data.page,
+function Switch(e, ctx) {
+  let pos = e.target.dataset.id.split("-"),
+    page = ctx.data.page,
     content = page[pos[0]].content[pos[1]];
   content.status = e.detail.value;
-  indicator.setData({
+  ctx.setData({
     page: page
   });
   wx.setStorageSync(content.swiKey, e.detail.value);
@@ -381,10 +362,10 @@ function document(e) {
     url
   } = e.currentTarget.dataset;
   console.log(doctype, url, e.currentTarget.dataset); //调试
-  if (['doc', 'ppt', 'xls', 'pdf'].indexOf(doctype) > -1) {
-    console.log('if1');
+  if (["doc", "ppt", "xls", "pdf"].indexOf(doctype) > -1) {
+    console.log("if1");
     wx.showLoading({
-      title: '下载中...',
+      title: "下载中...",
       mask: true
     });
     wx.downloadFile({
@@ -393,33 +374,33 @@ function document(e) {
         wx.hideLoading();
         wx.openDocument({
           filePath: res.tempFilePath
-        })
+        });
       },
       fail: res => {
-        wx.hideLoading(), wx.reportMonitor('9', 1);
+        wx.hideLoading(), wx.reportMonitor("9", 1);
         wx.showToast({
-          title: '文档下载失败',
-          icon: 'none'
+          title: "文档下载失败",
+          icon: "none"
         });
       }
-    })
-  } else if (['jpg', 'png', 'gif'].indexOf(doctype) > -1) {
-    console.log('if2');
+    });
+  } else if (["jpg", "png", "gif"].indexOf(doctype) > -1) {
+    console.log("if2");
     wx.previewImage({
       urls: [url]
-    })
+    });
   }
 }
 
 // 电话组件函数
-function phone(e, indicator) {
+function phone(e, ctx) {
   let Type = e.target.dataset.type,
-    info = indicator.data.page[e.currentTarget.id];
-  if (Type == 'call') {
+    info = ctx.data.page[e.currentTarget.id];
+  if (Type == "call") {
     wx.makePhoneCall({
       phoneNumber: info.num.toString()
-    })
-  } else if (Type == 'add') {
+    });
+  } else if (Type == "add") {
     wx.addPhoneContact({
       firstName: info.fName,
       lastName: info.lName,
@@ -439,93 +420,93 @@ function phone(e, indicator) {
       email: info.email,
       url: info.website,
       homePhoneNumber: info.homeNum
-    })
+    });
   }
 }
 
 //分享按钮
-function share(e, indicator) {
+function share(e, ctx) {
   let touch = e.touches[0];
-  if (e.type == 'touchstart') {
-    indicator.left = touch.pageX - e.currentTarget.offsetLeft;
-    indicator.top = touch.pageY - e.currentTarget.offsetTop;
-    indicator.time = e.timeStamp;
-  } else if (e.type == 'touchmove') {
-    indicator.setData({
-      'page[0].top': touch.pageY - indicator.top,
-      'page[0].left': touch.pageX - indicator.left,
-    })
-  } else if (e.type == 'touchend' && indicator.time > e.timeStamp - 200) {
-    console.log('tap');
-    indicator.setData({
-      'page[0].menuDisplay': true
-    })
-  } else if (e.type == 'tap') {
-    indicator.setData({
-      'page[0].menuDisplay': false
+  if (e.type == "touchstart") {
+    ctx.left = touch.pageX - e.currentTarget.offsetLeft;
+    ctx.top = touch.pageY - e.currentTarget.offsetTop;
+    ctx.time = e.timeStamp;
+  } else if (e.type == "touchmove") {
+    ctx.setData({
+      "page[0].top": touch.pageY - ctx.top,
+      "page[0].left": touch.pageX - ctx.left,
     });
-    if (e.target.dataset.object == 'download') {
-      console.log('download')
+  } else if (e.type == "touchend" && ctx.time > e.timeStamp - 200) {
+    console.log("tap");
+    ctx.setData({
+      "page[0].menuDisplay": true
+    });
+  } else if (e.type == "tap") {
+    ctx.setData({
+      "page[0].menuDisplay": false
+    });
+    if (e.target.dataset.object == "download") {
+      console.log("download");
       wx.downloadFile({
-        url: `https://mrhope.top/mpImage/share/${indicator.data.page[0].aim}.jpg`,
+        url: `https://mrhope.top/mpImage/share/${ctx.data.page[0].aim}.jpg`,
         success(res) {
           if (res.statusCode == 200) {
             wx.saveImageToPhotosAlbum({
               filePath: res.tempFilePath,
               success(msg) {
-                console.log(msg), wx.reportMonitor('8', 1);
+                console.log(msg), wx.reportMonitor("8", 1);
                 wx.showToast({
-                  title: '二维码保存成功',
-                  icon: 'none'
-                })
+                  title: "二维码保存成功",
+                  icon: "none"
+                });
               },
               fail(msg) {
-                console.log(msg), console.warn('save fail'), wx.reportMonitor('6', 1);
+                console.log(msg), console.warn("save fail"), wx.reportMonitor("6", 1);
                 wx.showToast({
-                  title: '二维码保存失败',
-                  icon: 'none'
-                })
+                  title: "二维码保存失败",
+                  icon: "none"
+                });
               }
-            })
+            });
           } else {
-            console.warn(`QRCode statusCode error:${res.statusCode}`), wx.reportMonitor('7', 1);
+            console.warn(`QRCode statusCode error:${res.statusCode}`), wx.reportMonitor("7", 1);
           }
         },
         fail() {
-          console.warn('download fail'), wx.reportMonitor('6', 1);
+          console.warn("download fail"), wx.reportMonitor("6", 1);
           wx.showToast({
-            title: '二维码下载失败',
-            icon: 'none'
+            title: "二维码下载失败",
+            icon: "none"
           });
         }
-      })
+      });
     }
   }
 }
 
 //视频组件函数
-function video(e, indicator) {
-  console.log(e.type)
-  if (e.type == 'waiting') {
+function video(e, ctx) {
+  console.log(e.type);
+  if (e.type == "waiting") {
     wx.showToast({
-      title: '缓冲中...',
-      icon: 'none'
-    })
-  } else if (e.type == 'play') {
-    wx.hideToast()
-  } else if (e.type == 'error') {
+      title: "缓冲中...",
+      icon: "none"
+    });
+  } else if (e.type == "play") {
+    wx.hideToast();
+  } else if (e.type == "error") {
     wx.showToast({
-      title: '视频加载出错',
-      icon: 'none',
+      title: "视频加载出错",
+      icon: "none",
       duration: 2000
     });
-    wx.reportMonitor('5', 1);
+    wx.reportMonitor("5", 1);
   }
 }
 
 // 导航栏动态改变
-function changeNav(e, indicator) { //参数：组件传参，页面指针
-  let n = indicator.data.page[0],
+function changeNav(e, ctx) { //参数：组件传参，页面指针
+  let n = ctx.data.page[0],
     T, B, S;
   if (e.scrollTop <= 1) {
     T = B = S = false;
@@ -535,29 +516,29 @@ function changeNav(e, indicator) { //参数：组件传参，页面指针
     T = B = S = true;
   } else {
     T = S = true, B = false;
-  };
-  if (n.titleDisplay != T) indicator.setData({
-    'page[0].titleDisplay': T
-  })
-  else if (n.borderDisplay != B) indicator.setData({
-    'page[0].borderDisplay': B
-  })
-  else if (n.shadow != S) indicator.setData({
-    'page[0].shadow': S
-  })
+  }
+  if (n.titleDisplay != T) ctx.setData({
+    "page[0].titleDisplay": T
+  });
+  else if (n.borderDisplay != B) ctx.setData({
+    "page[0].borderDisplay": B
+  });
+  else if (n.shadow != S) ctx.setData({
+    "page[0].shadow": S
+  });
 }
 
 //wx.request包装
-function request(path, Func, indicator) { //参数：网址路径，执行函数，页面指针
+function request(path, Func, ctx) { //参数：网址路径，执行函数，页面指针
   wx.request({
     url: `https://mrhope.top/${path}.json`,
     success: res => {
-      console.log(res)
-      if (res.statusCode == 200) Func(res.data, indicator)
-      else console.warn(`request ${path} fail: ${res.statusCode}`), wx.reportMonitor('3', 1);
+      console.log(res);
+      if (res.statusCode == 200) Func(res.data, ctx);
+      else console.warn(`request ${path} fail: ${res.statusCode}`), wx.reportMonitor("3", 1);
     },
     fail: res => {
-      console.log(res), wx.reportMonitor('4', 1);
+      console.log(res), wx.reportMonitor("4", 1);
     }
   });
 }
@@ -573,94 +554,94 @@ module.exports = {
   setBgcolor,
   loadFont,
   request,
-}
+};
 
 function setBgcolor(a, grey) {
-  console.log('setBgcolor')
+  console.log("setBgcolor");
   if (a.nm && grey) {
     switch (a.T) {
-      case 'Andriod':
+      case "Andriod":
         wx.setBackgroundColor({
-          backgroundColor: '#10110b',
-          backgroundColorTop: '#10110b',
-          backgroundColorBottom: '#10110b'
+          backgroundColor: "#10110b",
+          backgroundColorTop: "#10110b",
+          backgroundColorBottom: "#10110b"
         });
         break;
-      case 'iOS':
+      case "iOS":
         wx.setBackgroundColor({
-          backgroundColor: '#10110b',
-          backgroundColorTop: '#0a0a08',
-          backgroundColorBottom: '#10110b'
+          backgroundColor: "#10110b",
+          backgroundColorTop: "#0a0a08",
+          backgroundColorBottom: "#10110b"
         });
         break;
-      case 'NENU':
+      case "NENU":
         wx.setBackgroundColor({
-          backgroundColor: '#070707',
-          backgroundColorTop: '#070707',
-          backgroundColorBottom: '#070707'
+          backgroundColor: "#070707",
+          backgroundColorTop: "#070707",
+          backgroundColorBottom: "#070707"
         });
     }
   } else if (a.nm && !grey) {
     switch (a.T) {
-      case 'iOS':
+      case "iOS":
         wx.setBackgroundColor({
-          backgroundColor: '#000',
-          backgroundColorTop: '#0a0a08',
-          backgroundColorBottom: '#000'
+          backgroundColor: "#000",
+          backgroundColorTop: "#0a0a08",
+          backgroundColorBottom: "#000"
         });
         break;
-      case 'Andriod':
-      case 'NENU':
+      case "Andriod":
+      case "NENU":
         wx.setBackgroundColor({
-          backgroundColor: '#000',
-          backgroundColorTop: '#000',
-          backgroundColorBottom: '#000'
+          backgroundColor: "#000",
+          backgroundColorTop: "#000",
+          backgroundColorBottom: "#000"
         });
     }
   } else if (!a.nm && grey) {
     switch (a.T) {
-      case 'Andriod':
+      case "Andriod":
         wx.setBackgroundColor({
-          backgroundColor: '#f8f8f8',
-          backgroundColorTop: '#f8f8f8',
-          backgroundColorBottom: '#f8f8f8'
+          backgroundColor: "#f8f8f8",
+          backgroundColorTop: "#f8f8f8",
+          backgroundColorBottom: "#f8f8f8"
         });
         break;
-      case 'NENU':
+      case "NENU":
         wx.setBackgroundColor({
-          backgroundColorTop: '#f0f0f0',
-          backgroundColor: '#f0f0f0',
-          backgroundColorBottom: '#f0f0f0'
+          backgroundColorTop: "#f0f0f0",
+          backgroundColor: "#f0f0f0",
+          backgroundColorBottom: "#f0f0f0"
         });
         break;
-      case 'iOS':
+      case "iOS":
         wx.setBackgroundColor({
-          backgroundColorTop: '#f4f4f4',
-          backgroundColor: '#efeef4',
-          backgroundColorBottom: '#efeef4'
+          backgroundColorTop: "#f4f4f4",
+          backgroundColor: "#efeef4",
+          backgroundColorBottom: "#efeef4"
         });
     }
   } else {
     switch (a.T) {
-      case 'Andriod':
+      case "Andriod":
         wx.setBackgroundColor({
-          backgroundColor: '#f8f8f8',
-          backgroundColorTop: '#f8f8f8',
-          backgroundColorBottom: '#f8f8f8'
+          backgroundColor: "#f8f8f8",
+          backgroundColorTop: "#f8f8f8",
+          backgroundColorBottom: "#f8f8f8"
         });
         break;
-      case 'NENU':
+      case "NENU":
         wx.setBackgroundColor({
-          backgroundColor: '#fff',
-          backgroundColorTop: '#fff',
-          backgroundColorBottom: '#fff'
+          backgroundColor: "#fff",
+          backgroundColorTop: "#fff",
+          backgroundColorBottom: "#fff"
         });
         break;
-      case 'iOS':
+      case "iOS":
         wx.setBackgroundColor({
-          backgroundColorTop: '#f4f4f4',
-          backgroundColor: '#fff',
-          backgroundColorBottom: '#fff',
+          backgroundColorTop: "#f4f4f4",
+          backgroundColor: "#fff",
+          backgroundColorBottom: "#fff",
         });
     }
   }
@@ -668,24 +649,24 @@ function setBgcolor(a, grey) {
 
 function loadFont(theme) {
   try {
-    if (theme == 'Android') {
+    if (theme == "Android") {
       wx.loadFontFace({
-        family: 'FZKTJW',
-        source: 'url("https://mrhope.top/ttf/FZKTJW.ttf")',
+        family: "FZKTJW",
+        source: "url(\"https://mrhope.top/ttf/FZKTJW.ttf\")",
         complete(res) {
-          console.log('楷体字体' + res.status); //调试
+          console.log("楷体字体" + res.status); //调试
         }
       });
     } else if (theme == "NENU") {
       wx.loadFontFace({
-        family: 'FZSSJW',
-        source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+        family: "FZSSJW",
+        source: "url(\"https://mrhope.top/ttf/FZSSJW.ttf\")",
         complete(res) {
-          console.log('宋体字体' + res.status); //调试
+          console.log("宋体字体" + res.status); //调试
         }
       });
-    }
-  } catch (msg) {
-    console.warn(msg)
+    } else throw theme;
+  } catch (theme) {
+    console.warn(`Theme ${theme} cannot be handled.`);
   }
 }

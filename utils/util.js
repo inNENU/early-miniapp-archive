@@ -2,19 +2,19 @@ module.exports = {
   picker,
   slider,
   Switch,
-}
+};
 
 // 选择器函数
-function picker(e, indicator) {
-  let pos = e.currentTarget.dataset.id.split('-'),
-    content = indicator.data.page[pos[0]].content[pos[1]];
-  if (e.type == 'tap') {
+function picker(e, ctx) {
+  let pos = e.currentTarget.dataset.id.split("-"),
+    content = ctx.data.page[pos[0]].content[pos[1]];
+  if (e.type == "tap") {
     content.visible = !content.visible;
-    indicator.setData({
-      page: indicator.data.page
-    })
+    ctx.setData({
+      page: ctx.data.page
+    });
   }
-  if (e.type == 'change') {
+  if (e.type == "change") {
     let value = e.detail.value;
     if (content.single) {
       content.value = content.pickerValue[Number(value)];
@@ -23,132 +23,132 @@ function picker(e, indicator) {
     } else {
       for (let k = 0; k < value.length; k++) {
         content.value[k] = content.pickerValue[k][Number(value[k])];
-        content.currentValue[k] = value[k]
-      };
-      wx.setStorageSync(content.key, value.join('-'));
+        content.currentValue[k] = value[k];
+      }
+      wx.setStorageSync(content.key, value.join("-"));
     }
-    indicator.setData({
-      page: indicator.data.page
+    ctx.setData({
+      page: ctx.data.page
     });
     return value;
   }
 }
 
 // 滑块函数
-function slider(e, indicator) {
-  let pos = e.currentTarget.dataset.id.split('-'),
-    content = indicator.data.page[pos[0]].content[pos[1]],
+function slider(e, ctx) {
+  let pos = e.currentTarget.dataset.id.split("-"),
+    content = ctx.data.page[pos[0]].content[pos[1]],
     value = e.detail.value;
   switch (e.type) {
-    case 'tap':
+    case "tap":
       content.visible = !content.visible;
       break;
-    case 'changing':
+    case "changing":
       content.value = value;
       break;
-    case 'change':
+    case "change":
       content.value = value;
       wx.setStorageSync(content.sliKey, value);
       break;
   }
-  indicator.setData({
-    page: indicator.data.page
+  ctx.setData({
+    page: ctx.data.page
   });
   return value;
 }
 
 // 开关函数
-function Switch(e, indicator) {
-  let pos = e.target.dataset.id.split('-'),
-    page = indicator.data.page,
+function Switch(e, ctx) {
+  let pos = e.target.dataset.id.split("-"),
+    page = ctx.data.page,
     content = page[pos[0]].content[pos[1]];
   content.status = e.detail.value;
-  indicator.setData({
+  ctx.setData({
     page: page
   });
   wx.setStorageSync(content.swiKey, e.detail.value);
   return page;
 }
 
-// 输出特定元素在数组中的index
-function arrayKeynumber(array, key) {
-  for (let i in array) {
-    if (array[i] == key) {
-      return i
-    }
-  }
-}
-
-// 跳转制定界面
-function go(url) {
-  wx.navigateTo({
-    url: url
-  })
-}
-
 //-----测试中-----
 
-//尚未投入使用
+// // 输出特定元素在数组中的index
+// function arrayKeynumber(array, key) {
+//     for (let i in array) {
+//         if (array[i] == key) {
+//             return i;
+//         }
+//     }
+// }
 
-function getRad(d) {
-  return d * Math.PI / 180.0;
-}
+// // 跳转制定界面
+// function go(url) {
+//     wx.navigateTo({
+//         url: url
+//     });
+// }
 
-function getDistance(lat1, lng1, lat2, lng2) {
-  let f = getRad((lat1 + lat2) / 2);
-  let g = getRad((lat1 - lat2) / 2);
-  let l = getRad((lng1 - lng2) / 2);
+// //尚未投入使用
 
-  let sg = Math.sin(g);
-  let sl = Math.sin(l);
-  let sf = Math.sin(f);
+// function getRad(d) {
+//     return d * Math.PI / 180.0;
+// }
 
-  let s, c, w, r, d, h1, h2;
-  let a = 6378137.0;
-  let fl = 1 / 298.257;
+// function getDistance(lat1, lng1, lat2, lng2) {
+//     let f = getRad((lat1 + lat2) / 2);
+//     let g = getRad((lat1 - lat2) / 2);
+//     let l = getRad((lng1 - lng2) / 2);
 
-  sg = sg * sg;
-  sl = sl * sl;
-  sf = sf * sf;
+//     let sg = Math.sin(g);
+//     let sl = Math.sin(l);
+//     let sf = Math.sin(f);
 
-  s = sg * (1 - sl) + (1 - sf) * sl;
-  c = (1 - sg) * (1 - sl) + sf * sl;
+//     let s, c, w, r, d, h1, h2;
+//     let a = 6378137.0;
+//     let fl = 1 / 298.257;
 
-  w = Math.atan(Math.sqrt(s / c));
-  r = Math.sqrt(s * c) / w;
-  d = 2 * w * a;
-  h1 = (3 * r - 1) / 2 / c;
-  h2 = (3 * r + 1) / 2 / s;
+//     sg = sg * sg;
+//     sl = sl * sl;
+//     sf = sf * sf;
 
-  return d * (1 + fl * (h1 * sf * (1 - sg) - h2 * (1 - sf) * sg));
-}
+//     s = sg * (1 - sl) + (1 - sf) * sl;
+//     c = (1 - sg) * (1 - sl) + sf * sl;
 
-function setPersonInfo(page) {
-  let nickName, imgPath;
-  if (wx.getStorageSync('login')) {
-    nickName = wx.getStorageSync('nickName'), imgPath = wx.getStorageSync('imgPath');
-  } else {
+//     w = Math.atan(Math.sqrt(s / c));
+//     r = Math.sqrt(s * c) / w;
+//     d = 2 * w * a;
+//     h1 = (3 * r - 1) / 2 / c;
+//     h2 = (3 * r + 1) / 2 / s;
 
-  };
-}
+//     return d * (1 + fl * (h1 * sf * (1 - sg) - h2 * (1 - sf) * sg));
+// }
 
-function forceLogin() {
-  if (!wx.getStorageSync('login')) {
-    wx.showModal({
-      title: '您还未登陆',
-      content: '点击确定跳转至登录页',
-      confirmText: '是',
-      showCancel: 'false',
-      success(choice) {
-        if (choice.confirm) {
-          wx.redirectTo({
-            url: '/pages/me/me',
-          })
-        }
-      }
-    })
-  }
-}
+// function setPersonInfo(page) {
+//     let nickName, imgPath;
+//     if (wx.getStorageSync("login")) {
+//         nickName = wx.getStorageSync("nickName"), imgPath = wx.getStorageSync("imgPath");
+//     } else {
+
+//     }
+// }
+
+// function forceLogin() {
+//     if (!wx.getStorageSync("login")) {
+//         wx.showModal({
+//             title: "您还未登陆",
+//             content: "点击确定跳转至登录页",
+//             confirmText: "是",
+//             showCancel: "false",
+//             success(choice) {
+//                 if (choice.confirm) {
+//                     wx.redirectTo({
+//                         url: "/pages/me/me",
+//                     });
+//                 }
+//             }
+//         });
+//     }
+// }
 
 // function formatNumber(n) {
 //   n = n.toString()

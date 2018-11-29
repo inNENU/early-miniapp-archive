@@ -107,7 +107,7 @@
 		"downloadFile": 25000
 	},
 	"workers": "workers",
-	"debug": true,
+	"debug": false,
 	"resizable": true,
 	"plugins": {
 		"wxparserPlugin": {

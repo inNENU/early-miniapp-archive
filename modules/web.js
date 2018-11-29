@@ -1,11 +1,11 @@
-var P = require('../utils/wxpage');
+var P = require("../utils/wxpage");
 
-P('web', {
+P("web", {
   onLoad(res) {
     let title = res.title;
     wx.setNavigationBarTitle({
       title: title
-    })
+    });
     this.setData({
       url: res.url,
       title
@@ -15,6 +15,6 @@ P('web', {
     return {
       title: this.data.title,
       path: `/pages/modules/web?url=${this.data.url}`
-    }
+    };
   },
-})
+});

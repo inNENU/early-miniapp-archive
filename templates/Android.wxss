@@ -265,3 +265,38 @@
   border: none !important;
   color: #000 !important;
 }
+
+@keyframes listRotate {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes listRotate2 {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+.AndroidListRotate {
+  transform: rotate(180deg);
+  -webkit-animation: listRotate 0.3s linear 0s none 1 normal;
+  animation: listRotate 0.3s linear 0s none 1 normal;
+}
+
+.AndroidListRotateNone {
+  -webkit-animation: listRotate2 0.3s linear 0s none 1 reverse;
+  animation: listRotate2 0.3s linear 0s none 1 reverse;
+}

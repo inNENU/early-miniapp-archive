@@ -1,133 +1,132 @@
-var P = require('../../utils/wxpage'),
-  S = require('../../utils/setPage'),
-  u = require('../../utils/util'),
+var P = require("../../utils/wxpage"),
+  S = require("../../utils/setPage"),
   a = getApp().globalData;
 
-P('about', {
+P("about", {
   clickNumber: 0,
   data: {
     T: a.T,
     nm: a.nm,
     page: [{
-      tag: 'head',
-      title: '关于',
+      tag: "head",
+      title: "关于",
       aimStep: 1,
       grey: true,
       feedback: true,
       contact: true
     }, {
-      tag: 'list',
-      head: '版本号',
+      tag: "list",
+      head: "版本号",
       content: [{
         text: a.Version,
-        button: 'debugMode'
+        button: "debugMode"
       }, {
-        text: '开发日志',
-        aim: 'log0'
+        text: "开发日志",
+        aim: "log0"
         // }, {
         //   text: '调试开关',
         //   swiKey: 'debugMode',
         //   Switch: 'debugSwitch'
       }, {
-        text: '初始化小程序',
-        button: 'initApp',
+        text: "初始化小程序",
+        button: "initApp",
       }, {
-        text: '退出小程序',
+        text: "退出小程序",
         navigate: true,
-        openType: 'exit',
-        target: 'miniProgram'
+        openType: "exit",
+        target: "miniProgram"
       }, {
-        text: '退出开发者模式',
-        button: 'debugMode',
+        text: "退出开发者模式",
+        button: "debugMode",
       }, ]
     }, {
-      tag: 'list',
-      head: '正式版开发日志',
+      tag: "list",
+      head: "正式版开发日志",
       content: [{
         text: `${a.Version}\nbug修复与显示优化；\n新增分享悬浮窗；\n新增腾讯视频播放；\n新增公众号文章跳转；\n新增强制更新功能；\n移除东青文创；`
       }, {
-        text: '查看详细日志',
-        url: '/pages/settings/1.1'
+        text: "查看详细日志",
+        url: "/pages/settings/1.1"
       }]
     }, {
-      tag: 'list',
-      head: '工作室与开发者介绍',
+      tag: "list",
+      head: "工作室与开发者介绍",
       content: [{
         text: "   小程序全部内容均由Hope Studio独立开发。"
       }, {
-        text: 'Hope Studio介绍',
-        aim: 'MrHope0'
+        text: "Hope Studio介绍",
+        aim: "MrHope0"
       }, {
-        text: 'Mr.Hope个人介绍',
-        aim: 'MrHope1'
+        text: "Mr.Hope个人介绍",
+        aim: "MrHope1"
       }, {
-        text: '   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月在界面编写、排版与订正上给予的无私帮助。'
+        text: "   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月在界面编写、排版与订正上给予的无私帮助。"
       }, {
-        text: '问题反馈：请联系QQ1178522294或点击右下角并选择提交页面错误。'
+        text: "问题反馈：请联系QQ1178522294或点击右下角并选择提交页面错误。"
         // }, {
         //   button: "donate",
         //   text: "支持Mr.Hope"
       }]
     }, {
-      tag: 'list',
+      tag: "list",
       content: [{
-        text: '小程序功能太少?',
+        text: "小程序功能太少?",
         aim: "MrHope2"
       }]
     }, {
-      tag: 'foot',
-      desc: '当前版本：' + a.Version
+      tag: "foot",
+      desc: "当前版本：" + a.Version
     }]
   },
   onPreload(res) {
     let p = this.data.page,
-      value = wx.getStorageSync('developMode'),
-      developMode = (value || value == false) ? value : (wx.setStorageSync('developMode', false));
+      value = wx.getStorageSync("developMode"),
+      developMode = (value || value == false) ? value : (wx.setStorageSync("developMode", false));
     this.developMode = developMode;
     if (developMode) {
       p[1].content.forEach(x => {
         x.display = true;
-      })
+      });
     } else {
       p[1].content.forEach((x, y) => {
         x.display = y == 0 ? true : false;
-      })
+      });
     }
     console.log(p);
-    console.log(res.query)
+    console.log(res.query);
     if (!S.preSet(p, a, res.query, this, false)) {
       this.set = true;
-    };
+    }
   },
   onLoad(res) {
     if (!this.set) {
       S.Set(this.data.page, a, res, this, false);
-    };
-    S.Notice('about');
+    }
+    S.Notice("about");
   },
   onReady() {
     if (this.set) {
       S.preLoad(this, a);
     }
-    // S.request('main/about', function(data, indicator) {
-    //   S.Set(indicator.data.page.slice(0, 2).concat(data, indicator.data.page.slice(-1)), a, null, indicator);
-    //   S.preLoad(indicator, a);
+    // S.request('main/about', function(data, ctx) {
+    //   S.Set(ctx.data.page.slice(0, 2).concat(data, ctx.data.page.slice(-1)), a, null, ctx);
+    //   S.preLoad(ctx, a);
     // }, this)
   },
   onPageScroll(e) {
     S.nav(e, this);
   },
   cA(e) {
-    S.component(e, this)
+    S.component(e, this);
   },
-  debugMode(e) {
+  debugMode() {
     let clickNumber = this.clickNumber;
     if (this.developMode) {
-      wx.setStorageSync('developMode', false);
+      wx.setStorageSync("developMode", false);
       let p = this.data.page;
       p[1].content.forEach((x, y) => {
         x.display = y == 0 ? true : false;
-      })
+      });
       this.setData({
         page: p
       });
@@ -138,14 +137,14 @@ P('about', {
       } else if (clickNumber < 10) {
         let remainNumber = 10 - clickNumber;
         wx.showToast({
-          title: '再点击' + remainNumber + '次即可启用开发者模式',
-          icon: 'none'
+          title: "再点击" + remainNumber + "次即可启用开发者模式",
+          icon: "none"
         });
         this.clickNumber += 1;
       } else {
         wx.showToast({
-          title: '已启用开发者模式',
-          icon: 'none'
+          title: "已启用开发者模式",
+          icon: "none"
         });
         let p = this.data.page;
         p[1].content.forEach(x => {
@@ -154,9 +153,9 @@ P('about', {
         this.setData({
           page: p
         });
-        wx.setStorageSync('developMode', true);
+        wx.setStorageSync("developMode", true);
         this.developMode = true;
-      };
+      }
     }
   },
   // debugSwitch(e) {
@@ -172,14 +171,12 @@ P('about', {
   //   }
   // },
   initApp() {
-    let that = this,
-      p = this.data.page;
     wx.clearStorageSync();
     wx.showModal({
-      title: '小程序初始化完成',
-      content: '请单击退出小程序按钮退出小程序',
+      title: "小程序初始化完成",
+      content: "请单击退出小程序按钮退出小程序",
       showCancel: false
-    })
+    });
   },
   // donate() {
   //   wx.getClipboardData({
@@ -203,4 +200,4 @@ P('about', {
   //     }
   //   })
   // }
-})
+});

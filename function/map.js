@@ -19,13 +19,13 @@ var includePoint1 = {
     }]
   };
 
-var P = require('../utils/wxpage'),
-  S = require('../utils/setPage'),
-  t = require('../utils/tab'),
+var P = require("../utils/wxpage"),
+  S = require("../utils/setPage"),
+  t = require("../utils/tab"),
   a = getApp().globalData;
 // var trigger = true
 
-P('map', {
+P("map", {
   data: {
     map: {
       latitude: 43.862007982140646,
@@ -36,39 +36,39 @@ P('map', {
     pointDisplay: false,
     closeTop: -31,
     selectBottom: 0,
-    selectItem: 'all',
+    selectItem: "all",
     category: [
-      ['全部', 'all'],
-      ['校门', 'gate'],
-      ['学院', 'school'],
-      ['建筑', 'buildings'],
-      ['寝室', 'dormitory'],
-      ['设施', 'facility'],
-      ['运动场', 'sportsField'],
-      ['风景', 'scenery'],
+      ["全部", "all"],
+      ["校门", "gate"],
+      ["学院", "school"],
+      ["建筑", "buildings"],
+      ["寝室", "dormitory"],
+      ["设施", "facility"],
+      ["运动场", "sportsField"],
+      ["风景", "scenery"],
     ]
   },
-  onNavigate(res) {
-    console.log("将要跳转Map")
+  onNavigate() {
+    console.log("将要跳转Map");
     t.markerSet();
-    let value = wx.getStorageSync('mapSwitch'),
-      mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true);
-    this.data.mapSwitch = mapSwitch, this.data.markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all'), this.data.info = a.info;
+    let value = wx.getStorageSync("mapSwitch"),
+      mapSwitch = (value || value === false) ? value : (wx.setStorageSync("mapSwitch", true), true);
+    this.data.mapSwitch = mapSwitch, this.data.markers = wx.getStorageSync(mapSwitch ? "benbu-all" : "jingyue-all"), this.data.info = a.info;
     this.set = true;
-    console.log('Map navigate finish');
+    console.log("Map navigate finish");
   },
-  onLoad: function(e) {
+  onLoad() {
     let that = this;
     wx.showLoading({
-      title: '加载中...'
+      title: "加载中..."
     });
     if (this.set) {
-      this.mapCtx = wx.createMapContext('schoolMap'), this.mapCtx.includePoints(this.data.mapSwitch ? includePoint1 : includePoint2);
-      setTimeout(function() {
+      this.mapCtx = wx.createMapContext("schoolMap"), this.mapCtx.includePoints(this.data.mapSwitch ? includePoint1 : includePoint2);
+      setTimeout(() => {
         that.mapCtx.getScale({
-          success(r1) {
+          success: r1 => {
             that.mapCtx.getCenterLocation({
-              success(r2) {
+              success: r2 => {
                 that.setData({
                   map: {
                     scale: r1.scale,
@@ -80,24 +80,24 @@ P('map', {
             });
           }
         });
-      }, 500)
+      }, 500);
       wx.hideLoading();
     } else {
       t.markerSet();
-      let value = wx.getStorageSync('mapSwitch'),
-        mapSwitch = (value || value === false) ? value : (wx.setStorageSync('mapSwitch', true), true);
+      let value = wx.getStorageSync("mapSwitch"),
+        mapSwitch = (value || value === false) ? value : (wx.setStorageSync("mapSwitch", true), true);
       this.setData({
         mapSwitch: mapSwitch,
-        markers: wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all'),
+        markers: wx.getStorageSync(mapSwitch ? "benbu-all" : "jingyue-all"),
         info: a.info
       });
-      this.mapCtx = wx.createMapContext('schoolMap');
+      this.mapCtx = wx.createMapContext("schoolMap");
       this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
-      setTimeout(function() {
+      setTimeout(() => {
         that.mapCtx.getScale({
-          success(r1) {
+          success: r1 => {
             that.mapCtx.getCenterLocation({
-              success(r2) {
+              success: r2 => {
                 that.setData({
                   map: {
                     scale: r1.scale,
@@ -111,32 +111,32 @@ P('map', {
         });
         wx.hideLoading();
       }, 500);
-    };
-    S.Notice('map');
+    }
+    S.Notice("map");
   },
-  onReady: function(e) {
+  onReady() {
     let that = this;
-    wx.createSelectorQuery().select('#mapTab').boundingClientRect(function(rect) {
+    wx.createSelectorQuery().select("#mapTab").boundingClientRect(rect => {
       that.setData({
         tabHeight: rect.height
-      })
+      });
     }).exec();
   },
   Switch() {
     let that = this,
       temp = !this.data.mapSwitch,
-      markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
+      markers = wx.getStorageSync(temp ? "benbu-all" : "jingyue-all");
     this.setData({
       mapSwitch: temp,
       markers: markers
     });
-    this.mapCtx = wx.createMapContext('schoolMap');
+    this.mapCtx = wx.createMapContext("schoolMap");
     this.mapCtx.includePoints(temp ? includePoint1 : includePoint2);
-    setTimeout(function() {
+    setTimeout(() => {
       that.mapCtx.getScale({
-        success(r1) {
+        success: r1 => {
           that.mapCtx.getCenterLocation({
-            success(r2) {
+            success: r2 => {
               that.setData({
                 map: {
                   scale: r1.scale,
@@ -154,10 +154,10 @@ P('map', {
   scale(e) {
     let that = this;
     this.mapCtx.getCenterLocation({
-      success(r2) {
+      success: r2 => {
         that.setData({
           map: {
-            scale: that.data.map.scale + (e.currentTarget.dataset.action == 'enlarge' ? 1 : -1),
+            scale: that.data.map.scale + (e.currentTarget.dataset.action == "enlarge" ? 1 : -1),
             latitude: r2.latitude,
             longitude: r2.longitude
           }
@@ -189,11 +189,11 @@ P('map', {
       this.setData({
         pointDisplay: !this.data.pointDisplay,
       });
-      setTimeout(function() {
+      setTimeout(() => {
         that.setData({
           selectBottom: a.info.screenHeight / a.info.screenWidth * 750
-        })
-      }, 500)
+        });
+      }, 500);
     } else {
       this.setData({
         pointDisplay: !this.data.pointDisplay,
@@ -202,9 +202,9 @@ P('map', {
     }
   },
   select(e) {
-    let name = this.data.mapSwitch ? 'benbu' : 'jingyue',
+    let name = this.data.mapSwitch ? "benbu" : "jingyue",
       current = e.target.dataset.category,
-      markers = wx.getStorageSync(name + '-' + current);
+      markers = wx.getStorageSync(name + "-" + current);
     this.setData({
       markers: markers,
       selectItem: current
@@ -216,11 +216,11 @@ P('map', {
   },
   markers(e) {
     let mapSwitch = this.data.mapSwitch,
-      xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
-    if (e.type == 'markertap') {
-      this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu+e.markerId}`)
-    } else if (e.type == 'callouttap') {
-      this.$route(`/function/situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu + e.markerId}`)
+      xiaoqu = mapSwitch ? "benbu" : "jingyue";
+    if (e.type == "markertap") {
+      this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu+e.markerId}`);
+    } else if (e.type == "callouttap") {
+      this.$route(`/function/situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu + e.markerId}`);
       // wx.navigateTo({
       //   url: 'situs?id=' + e.markerId + '&xiaoqu=' + xiaoqu,
       // })
@@ -235,8 +235,8 @@ P('map', {
       setTimeout(function() {
         that.setData({
           closeTop: -31
-        })
-      }, 500)
+        });
+      }, 500);
     } else {
       this.setData({
         list: !this.data.list,
@@ -245,7 +245,7 @@ P('map', {
     }
   },
   back() {
-    wx.navigateBack({})
+    wx.navigateBack({});
   },
   // update() {
   //   console.log('update')
@@ -314,6 +314,6 @@ P('map', {
   //     }
   //   })
   // },
-  regionChange(e) {},
-  update(e) {},
-})
+  regionChange() {},
+  update() {},
+});

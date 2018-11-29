@@ -1,44 +1,44 @@
-var P = require('../utils/wxpage'),
-  S = require('../utils/setPage'),
+var P = require("../utils/wxpage"),
+  S = require("../utils/setPage"),
   a = getApp().globalData,
   manager;
 
-P('music', {
+P("music", {
   data: {
     canplay: false,
     currentTime: 0,
     songLength: 1,
   },
-  onNavigate(res) {
+  onNavigate() {
     let currentSong, index = a.music.index,
-      songList = wx.getStorageSync('funcResList0'),
-      mode = wx.getStorageSync('playMode');
-    this.data.i = index, this.data.info = a.info, this.data.nm = a.nm, this.data.play = a.music.play, this.data.mode = mode ? mode : (wx.setStorageSync('playMode', 0), 0);
+      songList = wx.getStorageSync("funcResList0"),
+      mode = wx.getStorageSync("playMode");
+    this.data.i = index, this.data.info = a.info, this.data.nm = a.nm, this.data.play = a.music.play, this.data.mode = mode ? mode : (wx.setStorageSync("playMode", 0), 0);
     if (songList) {
       currentSong = songList[index];
       this.data.songList = songList, this.data.title = currentSong.title, this.data.singer = currentSong.singer, this.data.cover = currentSong.cover, this.set = true;
     } else {
-      S.request('funcResList/funcResList0', function(data, indicator) {
+      S.request("funcResList/funcResList0", function(data, ctx) {
         currentSong = data[index];
-        indicator.data.songList = data, indicator.data.title = currentSong.title, indicator.data.singer = currentSong.singer, indicator.data.cover = currentSong.cover, indicator.set = true;
-        wx.setStorageSync('funcResList0', data);
-      }, this)
+        ctx.data.songList = data, ctx.data.title = currentSong.title, ctx.data.singer = currentSong.singer, ctx.data.cover = currentSong.cover, ctx.set = true;
+        wx.setStorageSync("funcResList0", data);
+      }, this);
     }
   },
   onLoad(e) {
     wx.loadFontFace({
-      family: 'FZSSJW',
-      source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
-      complete(res) {
-        console.log('宋体字体' + res.status); //调试
+      family: "FZSSJW",
+      source: "url(\"https://mrhope.top/ttf/FZSSJW.ttf\")",
+      complete: res => {
+        console.log("宋体字体" + res.status); //调试
       }
     });
     manager = wx.getBackgroundAudioManager();
     let currentSong, that = this;
     if (!this.set) {
       let index,
-        songList = wx.getStorageSync('funcResList0'),
-        mode = wx.getStorageSync('playMode');
+        songList = wx.getStorageSync("funcResList0"),
+        mode = wx.getStorageSync("playMode");
       index = e.index ? (a.music.index = e.index, e.index) : a.music.index;
       this.setData({
         share: e.share ? e.share : false,
@@ -46,8 +46,8 @@ P('music', {
         info: a.info,
         nm: a.nm,
         play: a.music.play,
-        mode: mode ? mode : (wx.setStorageSync('playMode', 0), 0),
-      })
+        mode: mode ? mode : (wx.setStorageSync("playMode", 0), 0),
+      });
       if (songList) {
         currentSong = songList[index];
         this.setData({
@@ -61,12 +61,12 @@ P('music', {
             canplay: true
           });
         } else {
-          manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = 'NenuYouth', manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
-        };
+          manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = "NenuYouth", manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
+        }
       } else {
-        S.request('funcResList/funcResList0', function(data, indicator) {
+        S.request("funcResList/funcResList0", function(data, ctx) {
           currentSong = data[index];
-          indicator.setData({
+          ctx.setData({
             songList: data,
             title: currentSong.title,
             singer: currentSong.singer,
@@ -77,14 +77,14 @@ P('music', {
               canplay: true
             });
           } else {
-            manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = 'NenuYouth', manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
-          };
-          wx.setStorageSync('funcResList0', data)
-        }, this)
+            manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = "NenuYouth", manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
+          }
+          wx.setStorageSync("funcResList0", data);
+        }, this);
       }
     }
-    manager.onCanplay(setTimeout(function() {
-      console.log('Canplay') //调试
+    manager.onCanplay(setTimeout(() => {
+      console.log("Canplay"); //调试
       that.setData({
         canplay: true
       });
@@ -95,54 +95,54 @@ P('music', {
       });
       a.music.play = true;
     });
-    manager.onPause(function(e) {
+    manager.onPause(() => {
       that.setData({
         play: false
       });
       a.music.play = false;
     });
-    manager.onTimeUpdate(function(e) {
-      console.log(`TimeUpdate,currentTime是${manager.currentTime},bufferedTime是${manager.buffered},duration是${manager.duration}`) //调试
+    manager.onTimeUpdate(() => {
+      console.log(`TimeUpdate,currentTime是${manager.currentTime},bufferedTime是${manager.buffered},duration是${manager.duration}`); //调试
       let presentSecond = (parseInt(manager.currentTime % 60)).toString(),
         totalSecond = (parseInt(manager.duration % 60)).toString();
       that.setData({
         songLength: parseInt(manager.duration * 100) / 100,
-        total: [parseInt(manager.duration / 60).toString(), totalSecond.length == 1 ? '0' + totalSecond : totalSecond],
+        total: [parseInt(manager.duration / 60).toString(), totalSecond.length == 1 ? "0" + totalSecond : totalSecond],
         currentTime: parseInt(manager.currentTime * 100) / 100,
-        present: [parseInt(manager.currentTime / 60).toString(), presentSecond.length == 1 ? '0' + presentSecond : presentSecond],
+        present: [parseInt(manager.currentTime / 60).toString(), presentSecond.length == 1 ? "0" + presentSecond : presentSecond],
         bufferedTime: manager.buffered,
         canplay: true,
       });
       a.music.played = true;
     });
-    manager.onWaiting(function() {
-      console.warn('waiting');
+    manager.onWaiting(() => {
+      console.warn("waiting");
       that.setData({
         canplay: false
-      })
-    });
-    manager.onEnded(function() {
-      that.next();
-    });
-    manager.onPrev(function() {
-      that.previous()
-    });
-    manager.onNext(function() {
-      that.next()
-    });
-    manager.onError(function() {
-      wx.showToast({
-        title: '获取音乐出错，请稍后重试',
-        icon: 'none'
       });
     });
-    S.Notice('music');
+    manager.onEnded(() => {
+      that.next();
+    });
+    manager.onPrev(() => {
+      that.previous();
+    });
+    manager.onNext(() => {
+      that.next();
+    });
+    manager.onError(() => {
+      wx.showToast({
+        title: "获取音乐出错，请稍后重试",
+        icon: "none"
+      });
+    });
+    S.Notice("music");
   },
   loadCover(e) {
-    if (e.type == 'load') {
+    if (e.type == "load") {
       this.setData({
         coverLoad: true
-      })
+      });
     }
   },
   play() {
@@ -150,7 +150,7 @@ P('music', {
   },
   drag(e) {
     manager.seek(e.detail.value / 100);
-    if (e.type == 'change') {
+    if (e.type == "change") {
       console.log(e.detail.value); //调试
       this.setData({
         currentTime: e.detail.value / 100,
@@ -159,35 +159,35 @@ P('music', {
   },
   next() {
     let i = this.data.i,
-      total = this.data.songList.length;
+      total = this.data.songList.length,
+      j;
     switch (this.data.mode) {
       case 3:
-        let j;
         do {
-          j = Math.round(Math.random() * total - 0.5)
+          j = Math.round(Math.random() * total - 0.5);
         } while (i == j);
         i = j;
         break;
       default:
         i = i + 1 == total ? 0 : i + 1;
-    };
+    }
     this.Switch(i);
   },
   previous() {
     let i = this.data.i,
+      j,
       total = this.data.songList.length;
     switch (this.data.mode) {
       case 3:
-        let j;
         do {
-          j = Math.round(Math.random() * total - 0.5)
+          j = Math.round(Math.random() * total - 0.5);
         } while (i == j);
         i = j;
         break;
       default:
         i = i == 0 ? total - 1 : i - 1;
-    };
-    console.log(i)
+    }
+    console.log(i);
     this.Switch(i);
   },
   Switch(i) {
@@ -204,7 +204,7 @@ P('music', {
     a.music.index = i;
   },
   cA(e) {
-    S.component(e, this)
+    S.component(e, this);
   },
   modeSwitch() {
     let modeName, mode = this.data.mode == 3 ? 0 : this.data.mode + 1;
@@ -213,39 +213,39 @@ P('music', {
     });
     switch (mode) {
       case 0:
-        modeName = '列表循环';
+        modeName = "列表循环";
         break;
       case 1:
-        modeName = '单曲循环';
+        modeName = "单曲循环";
         break;
       case 2:
-        modeName = '顺序播放';
+        modeName = "顺序播放";
         break;
       case 3:
-        modeName = '随机播放';
+        modeName = "随机播放";
         break;
     }
-    wx.setStorageSync('playMode', mode);
+    wx.setStorageSync("playMode", mode);
     wx.showToast({
-      title: modeName + '模式',
-      icon: 'none'
-    })
+      title: modeName + "模式",
+      icon: "none"
+    });
   },
   list() {
     wx.showToast({
-      title: '开发中',
-      'icon': 'none'
-    })
+      title: "开发中",
+      "icon": "none"
+    });
   },
   onShareAppMessage() {
     return {
       title: this.data.title,
       path: `/function/player?index=${this.data.i}&share=true`
-    }
+    };
   },
   redirect() {
     wx.switchTab({
-      url: '/pages/main',
-    })
+      url: "/pages/main",
+    });
   }
-})
+});
