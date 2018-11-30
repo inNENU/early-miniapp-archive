@@ -10,7 +10,7 @@ P("about", {
     page: [{
       tag: "head",
       title: "关于",
-      aimStep: 1,
+      aimDepth: 1,
       grey: true,
       feedback: true,
       contact: true
@@ -18,7 +18,7 @@ P("about", {
       tag: "list",
       head: "版本号",
       content: [{
-        text: a.Version,
+        text: a.version,
         button: "debugMode"
       }, {
         text: "开发日志",
@@ -43,7 +43,7 @@ P("about", {
       tag: "list",
       head: "正式版开发日志",
       content: [{
-        text: `${a.Version}\nbug修复与显示优化；\n新增分享悬浮窗；\n新增腾讯视频播放；\n新增公众号文章跳转；\n新增强制更新功能；\n移除东青文创；`
+        text: `${a.version}\nbug修复与显示优化；\n新增分享悬浮窗；\n新增腾讯视频播放；\n新增公众号文章跳转；\n新增强制更新功能；\n移除东青文创；`
       }, {
         text: "查看详细日志",
         url: "/pages/settings/1.1"
@@ -75,7 +75,7 @@ P("about", {
       }]
     }, {
       tag: "foot",
-      desc: "当前版本：" + a.Version
+      desc: "当前版本：" + a.version
     }]
   },
   onPreload(res) {

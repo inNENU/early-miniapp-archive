@@ -1,9 +1,9 @@
-var wxpage = require("utils/wxpage"),
+var $App = require("utils/wxpage"),
   app = require("utils/app");
 
 // var worker = wx.createWorker('workers/worker.js') //test
 
-wxpage.A({
+$App.A({
   data: {
     theme: "auto",
     startTime: "0-0",
@@ -13,6 +13,14 @@ wxpage.A({
     route: ["/pages/$page", "/modules/$page", "/function/$page"],
     resolvePath(name) {
       return "/modules/" + name;
+    }
+  },
+  globalData: {
+    version: "V 1.1.3",
+    music: {
+      play: false,
+      played: false,
+      index: 0
     }
   },
   onLaunch: function(opts) {
@@ -29,27 +37,25 @@ wxpage.A({
     //   console.log('Receive message:', msg)
     // })
   },
-  onAwake: function(time) {
+  onAwake: time => {
     console.log("onAwake, after", time, "ms");
     app.noticeCheck();
     app.checkUpdate();
   },
   onShow: function() {},
-  onError: function(msg) {
+  onError: msg => {
     console.warn("error msg is"), console.warn(msg); //调试
   },
-  onPageNotFound(msg) {
+  onPageNotFound: msg => {
     console.warn("Page not found!"), console.warn(msg); //调试
     wx.switchTab({
       url: "pages/main"
     });
   },
-  globalData: {
-    Version: "V 1.1.2",
-    music: {
-      play: false,
-      played: false,
-      index: 0
-    }
-  },
 });
+// "plugins": {
+// 	"wxparserPlugin": {
+// 		"version": "0.2.1",
+// 			"provider": "wx9d4d4ffa781ff3ac"
+// 	}
+// }

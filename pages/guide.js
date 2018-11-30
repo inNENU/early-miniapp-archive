@@ -107,25 +107,25 @@ P("guide", {
   },
   onReady() {
     if (!this.set) {
-      // wx.startPullDownRefresh();
-      // S.request('mpRes/main/guide', (data, ctx) => {
-      //   S.Set(data, a, {
-      //     aim: 'guide'
-      //   }, ctx);
-      //   wx.stopPullDownRefresh();
-      //   wx.setStorageSync('guide', data);
-      // }, this)
+      wx.startPullDownRefresh();
+      S.request('mpRes/main/guide', (data, ctx) => {
+        S.Set(data, a, {
+          aim: 'guide'
+        }, ctx);
+        wx.stopPullDownRefresh();
+        wx.setStorageSync('guide', data);
+      }, this)
     }
     S.preLoad(this, a);
   },
   onPullDownRefresh() {
-		// S.request('mpRes/main/guide', (data, ctx) => {
-    //   S.Set(data, a, {
-    //     aim: 'guide'
-    //   }, ctx);
-    //   wx.stopPullDownRefresh();
-    //   wx.setStorageSync('guide', data);
-    // }, this);
+    S.request('mpRes/main/guide', (data, ctx) => {
+      S.Set(data, a, {
+        aim: 'guide'
+      }, ctx);
+      wx.stopPullDownRefresh();
+      wx.setStorageSync('guide', data);
+    }, this);
     tab.checkUpdate("resNotify", "localList", "guideRes", "10K");
   },
   onPageScroll(e) {

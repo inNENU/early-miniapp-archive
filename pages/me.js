@@ -20,11 +20,11 @@ P("me", {
         text: "关于",
         icon: "/icon/about.svg",
         url: "settings/about",
-        desc: a.Version
+        desc: a.version
       }, ]
     }, {
       tag: "foot",
-      desc: "当前版本：" + a.Version
+      desc: "当前版本：" + a.version
     }, ],
   },
   onPreload() {

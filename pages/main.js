@@ -9,7 +9,7 @@ P("main", {
       tag: "head",
       title: "首页",
       action: true,
-      aimStep: 1,
+      aimDepth: 1,
       grey: true,
       shareable: true,
       aim: "main"
@@ -63,13 +63,13 @@ P("main", {
         nm: data
       });
     });
-    // ['guide', 'function'].forEach(x => {
-    //   S.request(`mpRes/main/${x}`, (data, ctx) => {
-    //     ctx.$put(x, data);
-    //     ctx.$preload(`${x}?name=${x}`);
-    //     wx.setStorageSync(x, data);
-    //   }, this)
-    // });
+    ['guide', 'function'].forEach(x => {
+      S.request(`mpRes/main/${x}`, (data, ctx) => {
+        ctx.$put(x, data);
+        ctx.$preload(`${x}?name=${x}`);
+        wx.setStorageSync(x, data);
+      }, this)
+    });
     this.$preload("me");
     //调试
     // wx.openUrl({

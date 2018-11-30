@@ -44,11 +44,11 @@ P("function", {
       content: [{
         text: "成绩查询",
         icon: "/icon/function/exam.svg",
-        url: "/modules/building?month=10"
+        url: "/modules/building?month=3"
       }, {
         text: "课表查询",
         icon: "/icon/function/schedule.svg",
-        url: "/modules/building?month=10"
+        url: "/modules/building?month=3"
       }, {
         text: "考场查询",
         icon: "/icon/function/score.svg",
@@ -56,19 +56,19 @@ P("function", {
       }, {
         text: "绩点计算",
         icon: "/icon/function/scoreCal.svg",
-        url: "/modules/building?month=10"
+        url: "/modules/building?month=3"
       }, {
         text: "故障报修",
         icon: "/icon/function/repair.svg",
-        url: "/modules/building?month=11"
+        url: "/modules/building?month=4"
       }, {
         text: "东师掠影",
         icon: "/icon/function/scenery.svg",
-        url: "/modules/building?month=11"
+        url: "/modules/building?month=1"
       }, {
         text: "校历",
         icon: "/icon/function/calendar.svg",
-        url: "/modules/building?month=11"
+        url: "/modules/building?month=1"
       }]
     }],
   },
@@ -106,18 +106,18 @@ P("function", {
   },
   onReady() {
     if (!this.set) {
-      // wx.startPullDownRefresh();
-      // S.request('main/function', (data, ctx) => {
-      //   S.Set(data, a, null, ctx);
-      //   wx.stopPullDownRefresh();
-      //   wx.setStorageSync('function', data);
-      // }, this)
-    }else{
-    tab.markerSet();
+      wx.startPullDownRefresh();
+			S.request('mpRes/main/function', (data, ctx) => {
+        S.Set(data, a, null, ctx);
+        wx.stopPullDownRefresh();
+        wx.setStorageSync('function', data);
+      }, this)
+    } else {
+      tab.markerSet();
     }
   },
   onPullDownRefresh() {
-    S.request("main/function", (data, ctx) => {
+    S.request("mpRes/main/function", (data, ctx) => {
       S.Set(data, a, null, ctx);
       wx.stopPullDownRefresh();
       wx.setStorageSync("function", data);

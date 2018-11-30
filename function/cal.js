@@ -18,7 +18,7 @@ Page({
     editText: "编辑",
     display: false,
   },
-  addNew: () => {
+  addNew() {
     var length = this.data.grade.length;
     // 获取grade内包含的个数，以便生成新的id
     var gradeNew = this.data.grade.concat({
@@ -36,7 +36,7 @@ Page({
     });
     // 对data赋值
   },
-  input: e => {
+  input(e) {
     console.log(e);
     let grade = this.data.grade;
     // 获取grade

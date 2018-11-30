@@ -1,14 +1,5 @@
-module.exports = {
-  init: initialize,
-  setTheme,
-  nightmode,
-  checkDebug,
-  checkUpdate,
-  noticeCheck,
-};
-
 //开启开发模式  for app.js & theme.js
-function checkDebug() {
+const checkDebug = () => {
   wx.getStorageSync("debugMode") ? wx.setEnableDebug({
     enableDebug: true
   }) : wx.setEnableDebug({
@@ -17,7 +8,7 @@ function checkDebug() {
 }
 
 //弹窗通知检查 for app.js
-function noticeCheck() {
+const noticeCheck = () => {
   wx.request({
     url: "https://mrhope.top/mpRes/notice.json",
     success: res => {
@@ -47,7 +38,7 @@ function noticeCheck() {
         }
       }
     },
-    fail() {
+    fail: () => {
       wx.showToast({
         title: "服务器似乎不堪重负",
         icon: "none",
@@ -59,13 +50,13 @@ function noticeCheck() {
 }
 
 // 初始化存储
-function initialize(key, defaultKey) {
+const initialize = (key, defaultKey) => {
   let value = wx.getStorageSync(key);
   return (value || value === false) ? value : (wx.setStorageSync(key, defaultKey), defaultKey);
 }
 
 //设置主题 for app.js & theme.js
-function setTheme(theme) {
+const setTheme = theme => {
   let value = wx.getStorageSync("theme");
   if (value) return value;
   else if (theme == "auto") {
@@ -92,7 +83,7 @@ function setTheme(theme) {
 }
 
 // 夜间模式 for app.js & theme.js
-function nightmode(date, startTime, endTime) {
+const nightmode = (date, startTime, endTime) => {
   let nm = initialize("nightmode", true),
     nmAC = initialize("nightmodeAutoChange", true),
     nB = initialize("nightBrightness", 30),
@@ -130,7 +121,7 @@ function nightmode(date, startTime, endTime) {
 }
 
 //检查小程序更新并应用
-function checkUpdate() { //参数：是否强制更新(默认是)，是否重置小程序(默认否)
+const checkUpdate = () => { //参数：是否强制更新(默认是)，是否重置小程序(默认否)
   const updateManager = wx.getUpdateManager();
   let forceUpdate = true,
     reset = false;
@@ -175,3 +166,12 @@ function checkUpdate() { //参数：是否强制更新(默认是)，是否重置
     console.warn("Update failure"), wx.reportMonitor("23", 1);
   });
 }
+
+module.exports = {
+  init: initialize,
+  setTheme,
+  nightmode,
+  checkDebug,
+  checkUpdate,
+  noticeCheck,
+};
