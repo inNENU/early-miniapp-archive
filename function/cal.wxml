@@ -8,13 +8,12 @@
     </scroll-view>
     <view class='edit' bindtap='edit'>{{editText}}</view>
   </view>
-  <view class='gradeinputer'>
+  <view class='gradeinputerF'>
     <view wx:for="{{grade}}" wx:for-item="Grade" class='courseContainer' id='{{Grade.id}}'>
       <button class="sort {{display?'':'hide'}}" id='sort{{Grade.id}}' bindtouchmove='sort'>
         <text class='sortText'>↕</text>
       </button>
-      <input class='course' type='text' confirm-type='next' value='{{Grade.course}}' placeholder="  课程{{Grade.id+1}}" maxlength="8" bindinput="input" focus='{{Grade.courseFocus}}' bindconfirm='next' data-class='course' data-id='{{Grade.id}}' data-maxlength='8'
-      />
+      <input class='course' type='text' confirm-type='next' value='{{Grade.course}}' placeholder="  课程{{Grade.id+1}}" maxlength="8" bindinput="input" focus='{{Grade.courseFocus}}' bindconfirm='next' data-class='course' data-id='{{Grade.id}}' data-maxlength='8' />
       <input class='grade' type="number" value='{{Grade.grade}}' placeholder="  成绩" maxlength="4" bindinput="input" focus='{{Grade.gradeFocus}}' data-class='grade' data-id='{{Grade.id}}' data-maxlength='4' />
       <input class='credit' type="digit" value='{{Grade.credit}}' placeholder="  学分" maxlength="3" bindinput="input" focus='{{Grade.courseFocus}}' data-class='credit' data-id='{{Grade.id}}' data-maxlength='3' />
       <button class="remove {{display?'':'hide'}}" bindtap='remove' data-action='remove' data-id='{{Grade.id}}'>

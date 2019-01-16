@@ -7,7 +7,7 @@ $App.A({
   data: {
     theme: "auto",
     startTime: "0-0",
-    endTime: "5-0",
+    endTime: "5-0"
   },
   config: {
     route: ["/pages/$page", "/modules/$page", "/function/$page"],
@@ -16,17 +16,17 @@ $App.A({
     }
   },
   globalData: {
-    version: "V 1.1.3",
+    version: "V 1.2.0",
     music: {
       play: false,
       played: false,
       index: 0
     }
   },
-  onLaunch: function(opts) {
+  onLaunch: function (opts) {
     console.log("APP is Running", opts);
-    this.globalData.d = new Date();
-    // app.checkDebug();
+    this.globalData.date = new Date();
+    // app.checkDebug();//检测开发
     this.globalData.T = app.setTheme(this.data.theme);
     this.globalData.nm = app.nightmode(new Date(), this.data.startTime, this.data.endTime);
     this.globalData.info = wx.getSystemInfoSync();
@@ -42,7 +42,7 @@ $App.A({
     app.noticeCheck();
     app.checkUpdate();
   },
-  onShow: function() {},
+  onShow: function () { },
   onError: msg => {
     console.warn("error msg is"), console.warn(msg); //调试
   },

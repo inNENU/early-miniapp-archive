@@ -1,3 +1,27 @@
+//初始化存储
+
+const appInit = data => {
+  //设置主题
+  if (data.theme == "auto") {
+    let theme, num, platform = wx.getSystemInfoSync().platform;
+    switch (platform) {
+      case "ios":
+        theme = "iOS", num = 0;
+        break;
+      case "android":
+        theme = "Android", num = 1;
+        break;
+      default:
+        theme = "iOS", num = 0;
+    }
+    wx.setStorageSync("theme", theme), wx.setStorageSync("themeNum", num);
+  } else wx.setStorageSync("theme", data.theme);
+  wx.setStorageSync("nightmode", true), wx.setStorageSync("nightmodeAutoChange", true);
+  wx.setStorageSync("nightBrightness", 30), wx.setStorageSync("dayBrightness", 70);
+  wx.setStorageSync("nightBrightnessChange", false), wx.setStorageSync("dayBrightnessChange", false);
+  wx.setStorageSync("nmStart", data.startTime), wx.setStorageSync("nmEnd", data.endTime);
+}
+
 //开启开发模式  for app.js & theme.js
 const checkDebug = () => {
   wx.getStorageSync("debugMode") ? wx.setEnableDebug({
@@ -96,7 +120,7 @@ const nightmode = (date, startTime, endTime) => {
   let temp, value, start = Number(s[0]) * 100 + Number(s[1]),
     end = Number(e[0]) * 100 + Number(e[1]);
   if (nmAC) {
-    (start <= end) ? temp = ((time >= start && time <= end) ? true : false): temp = ((time <= start && time >= end) ? false : true);
+    (start <= end) ? temp = ((time >= start && time <= end) ? true : false) : temp = ((time <= start && time >= end) ? false : true);
     if (temp && nBC)
       wx.setScreenBrightness({
         value: nB / 100
@@ -168,6 +192,7 @@ const checkUpdate = () => { //参数：是否强制更新(默认是)，是否重
 }
 
 module.exports = {
+  appInit,
   init: initialize,
   setTheme,
   nightmode,

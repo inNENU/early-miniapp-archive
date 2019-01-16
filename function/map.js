@@ -183,13 +183,12 @@ P("map", {
     this.mapCtx.moveToLocation();
   },
   point() {
-    let that = this;
     if (this.data.pointDisplay) {
       this.setData({
         pointDisplay: !this.data.pointDisplay,
       });
       setTimeout(() => {
-        that.setData({
+        this.setData({
           selectBottom: a.info.screenHeight / a.info.screenWidth * 750
         });
       }, 500);
@@ -220,19 +219,15 @@ P("map", {
       this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu+e.markerId}`);
     } else if (e.type == "callouttap") {
       this.$route(`/function/situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu + e.markerId}`);
-      // wx.navigateTo({
-      //   url: 'situs?id=' + e.markerId + '&xiaoqu=' + xiaoqu,
-      // })
     }
   },
   showList(e) {
-    let that = this;
     if (this.data.list) {
       this.setData({
         list: !this.data.list,
       });
-      setTimeout(function() {
-        that.setData({
+      setTimeout(() => {
+        this.setData({
           closeTop: -31
         });
       }, 500);

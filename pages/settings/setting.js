@@ -156,7 +156,8 @@ P("setting", {
   switchnm(e) {
     let p = u.Switch(e, this),
       list = p[3].content,
-      value = e.detail.value;
+      value = e.detail.value,
+      frontColor, backgroundColor;
     if (value && list[5].status) {
       wx.setScreenBrightness({
         value: list[6].value / 100
@@ -174,10 +175,16 @@ P("setting", {
     });
     a.nm = value;
     this.$emit("nightmode", value);
+    [frontColor, backgroundColor] = value ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
+    wx.setNavigationBarColor({
+      frontColor,
+      backgroundColor
+    })
   },
   switchnmAC(e) {
     let p = u.Switch(e, this),
-      list = p[3].content;
+      list = p[3].content,
+      frontColor, backgroundColor;
     let nm = app.nightmode(new Date());
     p[2].content[0].status = nm;
     wx.setStorageSync("nightmode", nm);
@@ -219,6 +226,11 @@ P("setting", {
     });
     a.nm = nm;
     this.$emit("nightmode", nm);
+    [frontColor, backgroundColor] = nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
+    wx.setNavigationBarColor({
+      frontColor,
+      backgroundColor
+    })
   },
   swithDay(e) {
     let p = u.Switch(e, this),
@@ -260,5 +272,5 @@ P("setting", {
     S.Set(this.data.page, a, null, this);
     this.$emit("theme", theme);
     console.log("theme切换为" + theme); //调试
-  },
+  }
 });
