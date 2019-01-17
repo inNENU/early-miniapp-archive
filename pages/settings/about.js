@@ -29,7 +29,7 @@ P("about", {
         //   Switch: 'debugSwitch'
       }, {
         text: "初始化小程序",
-        button: "initApp",
+        button: "resetApp",
       }, {
         text: "退出小程序",
         navigate: true,
@@ -170,7 +170,7 @@ P("about", {
   //     })
   //   }
   // },
-  initApp() {
+  resetApp() {
     wx.clearStorageSync();
     wx.showModal({
       title: "小程序初始化完成",

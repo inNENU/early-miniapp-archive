@@ -36,7 +36,7 @@ P("main", {
     }],
   },
   onPageLaunch() {
-    console.log("主页面启动：", new Date() - a.d, "ms");
+    console.log("主页面启动：", new Date() - a.date, "ms");
     let page = wx.getStorageSync("main");
     S.preSet(page ? page : this.data.page, a, null, this, false);
     tab.tabBarChanger(a.nm);

@@ -1,18 +1,18 @@
-//初始化存储
+//初始化日志管理器
+const logger = wx.getLogManager({ level: 1 });
 
+//初始化小程序
 const appInit = data => {
+  console.log("初次启动");
   //设置主题
   if (data.theme == "auto") {
     let theme, num, platform = wx.getSystemInfoSync().platform;
     switch (platform) {
-      case "ios":
-        theme = "iOS", num = 0;
+      case "ios": theme = "iOS", num = 0;
         break;
-      case "android":
-        theme = "Android", num = 1;
+      case "android": theme = "Android", num = 1;
         break;
-      default:
-        theme = "iOS", num = 0;
+      default: theme = "iOS", num = 0;
     }
     wx.setStorageSync("theme", theme), wx.setStorageSync("themeNum", num);
   } else wx.setStorageSync("theme", data.theme);
@@ -20,15 +20,23 @@ const appInit = data => {
   wx.setStorageSync("nightBrightness", 30), wx.setStorageSync("dayBrightness", 70);
   wx.setStorageSync("nightBrightnessChange", false), wx.setStorageSync("dayBrightnessChange", false);
   wx.setStorageSync("nmStart", data.startTime), wx.setStorageSync("nmEnd", data.endTime);
+  wx.setStorageSync('funcNotify', true), wx.setStorageSync('localFunc', undefined);
+  wx.setStorageSync('resNotify', true), wx.setStorageSync('localRes', undefined);
+  wx.setStorageSync("localFuncTime", Math.round(new Date() / 1000)), wx.setStorageSync("localResTime", Math.round(new Date() / 1000));
+  wx.request({
+    url: `https://mrhope.top/mpRes/guideRes.json`,
+    success: Request => { resDownload(Request.data, null, "localGuide"); }
+  });
+  wx.request({
+    url: `https://mrhope.top/mpRes/funcRes.json`,
+    success: Request => { resDownload(Request.data, null, "localFunc"); }
+  });
+  wx.setStorageSync("launched", true);
 }
 
 //开启开发模式  for app.js & theme.js
 const checkDebug = () => {
-  wx.getStorageSync("debugMode") ? wx.setEnableDebug({
-    enableDebug: true
-  }) : wx.setEnableDebug({
-    enableDebug: false
-  });
+  wx.getStorageSync("debugMode") ? wx.setEnableDebug({ enableDebug: true }) : wx.setEnableDebug({ enableDebug: false });
 }
 
 //弹窗通知检查 for app.js
@@ -38,117 +46,54 @@ const noticeCheck = () => {
     success: res => {
       console.log(res); //调试
       if (res.statusCode == 200) {
-        let data = res.data,
-          category = Object.keys(data);
+        let data = res.data, category = Object.keys(data);
         category.forEach(x => {
           if (data[x][3]) {
-            wx.setStorageSync(`${x}notice`, [data[x][0], data[x][1]]);
-            wx.setStorageSync(`${x}Notify`, true);
+            wx.setStorageSync(`${x}notice`, [data[x][0], data[x][1]]), wx.setStorageSync(`${x}Notify`, true);
           } else if (data[x][2] != wx.getStorageSync(x + "noticeVersion")) {
             wx.setStorageSync(`${x}notice`, [data[x][0], data[x][1]]);
             wx.setStorageSync(`${x}noticeVersion`, data[x][2]);
             wx.setStorageSync(`${x}Notify`, true);
           }
         });
-        if (wx.getStorageSync("appNotify")) {
+        if (wx.getStorageSync("appNotify"))
           wx.showModal({
-            title: data.app[0],
-            content: data.app[1],
-            showCancel: false,
-            success: () => {
-              wx.removeStorageSync("appNotify");
-            }
+            title: data.app[0], content: data.app[1], showCancel: false,
+            success: () => { wx.removeStorageSync("appNotify"); }
           });
-        }
       }
     },
     fail: () => {
-      wx.showToast({
-        title: "服务器似乎不堪重负",
-        icon: "none",
-        duration: 2000
-      });
-      console.error("noticeList error"), wx.reportMonitor("24", 1);
+      wx.showToast({ title: "服务器似乎不堪重负", icon: "none", duration: 2000 });
+      console.error("noticeList error"), wx.reportMonitor("24", 1), logger.warn("noticeList error", "Net Error");
     }
   });
 }
 
-// 初始化存储
-const initialize = (key, defaultKey) => {
-  let value = wx.getStorageSync(key);
-  return (value || value === false) ? value : (wx.setStorageSync(key, defaultKey), defaultKey);
-}
-
-//设置主题 for app.js & theme.js
-const setTheme = theme => {
-  let value = wx.getStorageSync("theme");
-  if (value) return value;
-  else if (theme == "auto") {
-    let t, num, p = wx.getSystemInfoSync().platform;
-    switch (p) {
-      case "ios":
-        t = "iOS",
-          num = 0;
-        break;
-      case "android":
-        t = "Android",
-          num = 1;
-        break;
-      default:
-        t = "iOS",
-          num = 0;
-    }
-    wx.setStorageSync("theme", t), wx.setStorageSync("themeNum", num);
-    return t;
-  } else {
-    return theme;
-  }
-
-}
-
 // 夜间模式 for app.js & theme.js
-const nightmode = (date, startTime, endTime) => {
-  let nm = initialize("nightmode", true),
-    nmAC = initialize("nightmodeAutoChange", true),
-    nB = initialize("nightBrightness", 30),
-    dB = initialize("dayBrightness", 70),
-    nBC = initialize("nightBrightnessChange", false),
-    dBC = initialize("dayBrightnessChange", false),
-    s = initialize("nmStart", startTime).split("-"),
-    e = initialize("nmEnd", endTime).split("-"),
-    time = date.getHours() * 100 + date.getMinutes();
-  let temp, value, start = Number(s[0]) * 100 + Number(s[1]),
-    end = Number(e[0]) * 100 + Number(e[1]);
+const nightmode = () => {
+  let date = new Date(), time = date.getHours() * 100 + date.getMinutes(),
+    nm = wx.getStorageSync("nightmode"), nmAC = wx.getStorageSync("nightmodeAutoChange"),
+    nB = wx.getStorageSync("nightBrightness"), dB = wx.getStorageSync("dayBrightness"),
+    nBC = wx.getStorageSync("nightBrightnessChange"), dBC = wx.getStorageSync("dayBrightnessChange"),
+    s = wx.getStorageSync("nmStart").split("-"), e = wx.getStorageSync("nmEnd").split("-");
+  let temp, start = Number(s[0]) * 100 + Number(s[1]), end = Number(e[0]) * 100 + Number(e[1]);
   if (nmAC) {
-    (start <= end) ? temp = ((time >= start && time <= end) ? true : false) : temp = ((time <= start && time >= end) ? false : true);
-    if (temp && nBC)
-      wx.setScreenBrightness({
-        value: nB / 100
-      });
-    else if (!temp && dBC)
-      wx.setScreenBrightness({
-        value: dB / 100
-      });
+    start <= end ? temp = time >= start && time <= end ? true : false : temp = time <= start && time >= end ? false : true;
+    if (temp && nBC) wx.setScreenBrightness({ value: nB / 100 });
+    else if (!temp && dBC) wx.setScreenBrightness({ value: dB / 100 });
     wx.setStorageSync("nightmode", temp);
     return temp;
   } else {
-    if (nm && nBC)
-      wx.setScreenBrightness({
-        value: nB / 100
-      });
-    else if (!nm && dBC)
-      wx.setScreenBrightness({
-        value: dB / 100
-      });
+    if (nm && nBC) wx.setScreenBrightness({ value: nB / 100 });
+    else if (!nm && dBC) wx.setScreenBrightness({ value: dB / 100 });
     return nm;
   }
 }
 
 //检查小程序更新并应用
-const checkUpdate = () => { //参数：是否强制更新(默认是)，是否重置小程序(默认否)
+const appUpdate = (forceUpdate, reset) => { //参数：是否强制更新，是否重置小程序
   const updateManager = wx.getUpdateManager();
-  let forceUpdate = true,
-    reset = false;
   updateManager.onCheckForUpdate(res => {
     console.log(`HasUpdate status ${res.hasUpdate}`);
     if (res.hasUpdate) {
@@ -156,30 +101,19 @@ const checkUpdate = () => { //参数：是否强制更新(默认是)，是否重
         url: "https://mrhope.top/mpRes/config.json",
         success: res => {
           console.log(res); //调试
-          if (res.statusCode == 200) {
-            ({
-              forceUpdate,
-              reset,
-              version
-            } = res.data);
-          }
+          if (res.statusCode == 200) ({ forceUpdate, reset, version } = res.data);
         }
       });
-      wx.showToast({
-        title: "检测到更新，下载中...",
-        icon: "none"
-      });
-
+      wx.showToast({ title: "检测到更新，下载中...", icon: "none" });
     }
   });
   updateManager.onUpdateReady(() => {
     if (forceUpdate) {
       wx.showModal({
-        title: "找到更新",
-        content: `版本${version}已下载，请重启应用。${(reset ? "该版本会初始化小程序。" : "")}`,
+        title: "已找到新版本",
+        content: `版本${version}已下载，请重启应用更新。${(reset ? "该版本会初始化小程序。" : "")}`,
         showCancel: reset ? false : true,
-        confirmText: "应用",
-        cancelText: "取消",
+        confirmText: "应用", cancelText: "取消",
         success: res => {
           if (res.confirm) updateManager.applyUpdate();
         }
@@ -187,16 +121,9 @@ const checkUpdate = () => { //参数：是否强制更新(默认是)，是否重
     }
   });
   updateManager.onUpdateFailed(() => {
-    console.warn("Update failure"), wx.reportMonitor("23", 1);
+    wx.showToast({ title: "小程序更新下载失败，请检查您的网络！", icon: "none" });
+    console.warn("Update failure"), wx.reportMonitor("23", 1), logger.warn("Upate App error", "Net Error");
   });
 }
 
-module.exports = {
-  appInit,
-  init: initialize,
-  setTheme,
-  nightmode,
-  checkDebug,
-  checkUpdate,
-  noticeCheck,
-};
+module.exports = { appInit, appUpdate, checkDebug, nightmode, noticeCheck };

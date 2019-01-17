@@ -4,19 +4,12 @@ var a = getApp().globalData,
   u = require("../../utils/util"),
   app = require("../../utils/app"),
   tab = require("../../utils/tab");
-var time = [
-  [],
-  []
-];
+var time = new Array(new Array(), new Array());
 for (let i = 0; i <= 23; i++) {
   time[0].push(i + "时");
 }
 for (let i = 0; i <= 59; i++) {
-  if (i < 10) {
-    time[1].push("0" + i + "分");
-  } else {
-    time[1].push(i + "分");
-  }
+  i < 10 ? time[1].push("0" + i + "分") : time[1].push(i + "分");
 }
 
 P("setting", {
@@ -35,7 +28,7 @@ P("setting", {
         single: true,
         pickerValue: ["iOS", "Android", "NENU"],
         picker: "setTheme"
-      }, ]
+      }]
     }, {
       tag: "list",
       head: "夜间模式",
@@ -44,7 +37,7 @@ P("setting", {
         text: "夜间模式",
         Switch: "switchnm",
         swiKey: "nightmode"
-      }, ]
+      }]
     }, {
       tag: "list",
       foot: "亮度数据为百分比",
@@ -82,24 +75,16 @@ P("setting", {
         min: 0,
         max: 100,
         sliKey: "nightBrightness"
-      }, ]
+      }]
     }, {
       tag: "list",
       head: "资源更新",
       foot: "如果页面显示出现问题请强制更新资源",
-      content: [{
-        text: "功能资源更新提示",
-        swiKey: "funcNotify"
-      }, {
-        text: "现在更新功能资源",
-        button: "refreshFunc"
-      }, {
-        text: "指南资源更新提示",
-        swiKey: "resNotify"
-      }, {
-        text: "现在更新指南资源",
-        button: "refreshRes"
-      }, ]
+      content: [
+        { text: "功能资源更新提示", swiKey: "funcNotify" },
+        { text: "现在更新功能资源", button: "refreshFunc" },
+        { text: "指南资源更新提示", swiKey: "guideNotify" },
+        { text: "现在更新指南资源", button: "refreshGuide" }]
     }, {
       tag: "foot",
     }],
@@ -137,7 +122,7 @@ P("setting", {
   onPageScroll(e) {
     S.nav(e, this);
   },
-  refreshRes() {
+  refreshGuide() {
     tab.request("guideRes", data => {
       tab.resDownload(data, null);
     }, null);
@@ -205,21 +190,9 @@ P("setting", {
     if (!list[0].status) {
       list[4].display = false;
     } else {
-      if (!list[3].status) {
-        list[4].display = false;
-      } else {
-        list[4].display = true;
-      }
+      !list[3].status ? list[4].display = false : list[4].display = true;
     }
-    if (!list[0].status) {
-      list[6].display = false;
-    } else {
-      if (!list[5].status) {
-        list[6].display = false;
-      } else {
-        list[6].display = true;
-      }
-    }
+    !list[0].status ? list[6].display = false : !list[5].status ? list[6].display = false : list[6].display = true;
     this.setData({
       nm: nm,
       page: p

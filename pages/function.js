@@ -1,6 +1,7 @@
 var P = require("../utils/wxpage"),
   S = require("../utils/setPage"),
   a = getApp().globalData,
+  app = require("../utils/app"),
   tab = require("../utils/tab");
 
 P("function", {
@@ -37,7 +38,7 @@ P("function", {
         text: "体测计算器",
         icon: "/icon/function/PECal.svg",
         url: "/function/PEcal"
-      }, ]
+      },]
     }, {
       tag: "grid",
       head: "即将推出",
@@ -77,7 +78,7 @@ P("function", {
       aim: "function"
     }, this, false);
     this.set = true;
-    console.log("Function preload finished time:", new Date() - a.d, "ms");
+    console.log("Function preload finished time:", new Date() - a.date, "ms");
   },
   onLoad() {
     this.setData({
@@ -107,7 +108,7 @@ P("function", {
   onReady() {
     if (!this.set) {
       wx.startPullDownRefresh();
-			S.request('mpRes/main/function', (data, ctx) => {
+      S.request('mpRes/main/function', (data, ctx) => {
         S.Set(data, a, null, ctx);
         wx.stopPullDownRefresh();
         wx.setStorageSync('function', data);

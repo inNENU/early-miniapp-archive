@@ -31,7 +31,7 @@ P("me", {
     if (!S.preSet(this.data.page, a, null, this, false)) {
       this.set = true;
     }
-    console.log("Me preload finished time:", new Date() - a.d, "ms");
+    console.log("Me preload finished time:", new Date() - a.date, "ms");
   },
   onLoad() {
     let that = this;
