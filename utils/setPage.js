@@ -244,7 +244,7 @@ const Switch = (e, ctx) => {
 // 打开文档
 const documentHandler = e => {
     let { doctype, url } = e.currentTarget.dataset; //解构赋值
-    if (["doc", "ppt", "xls", "pdf"].indexOf(doctype) > -1) { //检测到文档
+    if (["doc", "ppt", "xls", "pdf"].includes(doctype) > -1) { //检测到文档
         wx.showLoading({ title: "下载中...0%", mask: true });//显示下载提示
         let docTask = wx.downloadFile({ //开始下载文件
             url,
@@ -260,7 +260,7 @@ const documentHandler = e => {
         docTask.onProgressUpdate(res => {//监听下载进度，并更新弹窗显示
             wx.showLoading({ title: `下载中...${res.progress}%`, mask: true });
         })
-    } else if (["jpg", "png", "gif"].indexOf(doctype) > -1) wx.previewImage({ urls: [url] });//检测到图片，开始图片浏览
+    } else if (["jpg", "png", "gif"].includes(doctype) > -1) wx.previewImage({ urls: [url] });//检测到图片，开始图片浏览
 }
 
 // 电话组件函数
@@ -304,19 +304,27 @@ const share = (e, ctx) => {
             wx.downloadFile({
                 url: `https://mrhope.top/mpImage/share/${ctx.data.page[0].aim}.jpg`,
                 success: res => {
-                    if (res.statusCode == 200) {
-                        wx.saveImageToPhotosAlbum({
-                            filePath: res.tempFilePath,
-                            success: msg => {
-                                wx.showToast({ title: "二维码保存成功", icon: "none" });
-                                console.log(msg), wx.reportMonitor("8", 1);
-                            },
-                            fail: msg => {
-                                console.log(msg), console.warn("save fail"), wx.reportMonitor("6", 1);
-                                wx.showToast({ title: "二维码保存失败", icon: "none" });
-                            }
-                        });
-                    } else console.warn(`QRCode statusCode error:${res.statusCode}`), wx.reportMonitor("7", 1);//二维码获取状态码异常
+                    if (res.statusCode == 200) wx.getSetting({
+                        success: res => {
+                            if (!res.authSetting['scope.writePhotosAlbum']) wx.authorize({
+                                scope: 'scope.writePhotosAlbum',
+                                success: () => {
+                                    wx.saveImageToPhotosAlbum({
+                                        filePath: res.tempFilePath,
+                                        success: msg => {
+                                            wx.showToast({ title: "二维码保存成功", icon: "none" });
+                                            console.log(msg), wx.reportMonitor("8", 1);
+                                        },
+                                        fail: msg => {
+                                            console.log(msg), console.warn("save fail"), wx.reportMonitor("6", 1);
+                                            wx.showToast({ title: "二维码保存失败", icon: "none" });
+                                        }
+                                    });
+                                }
+                            })
+                        }
+                    })
+                    else console.warn(`QRCode statusCode error:${res.statusCode}`), wx.reportMonitor("7", 1);//二维码获取状态码异常
                 },
                 fail: () => {
                     console.warn("download fail"), wx.reportMonitor("6", 1);//二维码下载失败
