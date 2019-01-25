@@ -17,7 +17,7 @@ const getOnlinePage = (opt, globalData, ctx) => { //参数：页面传参，全�
         let length = opt.aim.length;
         while (!isNaN(opt.aim.charAt(length))) length--; //获取字母长度以便确定文件夹名称
         wx.request({
-            url: `https://mrhope.top/mpRes/${opt.aim.substring(0, length + 1)}/${opt.aim}.json`, //服务器json路径
+            url: `https://nenuyouth.com/mpRes/${opt.aim.substring(0, length + 1)}/${opt.aim}.json`, //服务器json路径
             success: res => {
                 console.log(res); //控制台输出下载内容
                 if (res.statusCode == 200) { //资源获取正常
@@ -111,7 +111,7 @@ const setOnlinePage = (globalData, opt, ctx, preload = true) => { //参数：全
         let length = opt.aim.length;
         while (!isNaN(opt.aim.charAt(length))) length--; //找到英文字符长度
         wx.request({
-            url: `https://mrhope.top/mpRes/${opt.aim.substring(0, length + 1)}/${opt.aim}.json`, //服务器路径
+            url: `https://nenuyouth.com/mpRes/${opt.aim.substring(0, length + 1)}/${opt.aim}.json`, //服务器路径
             success: res => {
                 console.log(res);
                 if (res.statusCode == 200) { //如果返回值正常
@@ -302,7 +302,7 @@ const share = (e, ctx) => {
         if (e.target.dataset.object == "download") {
             console.log("Start QRCode download.");
             wx.downloadFile({
-                url: `https://mrhope.top/mpImage/share/${ctx.data.page[0].aim}.jpg`,
+                url: `https://nenuyouth.com/mpImage/share/${ctx.data.page[0].aim}.jpg`,
                 success: res => {
                     if (res.statusCode == 200) wx.getSetting({
                         success: res => {
@@ -358,7 +358,7 @@ const changeNav = (e, ctx) => { //参数：组件传参，页面指针
 //wx.request包装
 const request = (path, Function, ctx) => { //参数：网址路径，执行函数，页面指针
     wx.request({
-        url: `https://mrhope.top/${path}.json`,
+        url: `https://nenuyouth.com/${path}.json`,
         success: res => {
             console.log(res);
             if (res.statusCode == 200) Function(res.data, ctx);//成功返回数据，执行函数
@@ -412,12 +412,12 @@ const loadFont = (theme) => { //参数：主题
     try {
         if (theme == "Android") {
             wx.loadFontFace({
-                family: "FZKTJW", source: "url(\"https://mrhope.top/ttf/FZKTJW.ttf\")",
+                family: "FZKTJW", source: "url(\"https://nenuyouth.com/ttf/FZKTJW.ttf\")",
                 complete: res => { console.log("楷体字体" + res.status); }//调试    
             });
         } else if (theme == "NENU") {
             wx.loadFontFace({
-                family: "FZSSJW", source: "url(\"https://mrhope.top/ttf/FZSSJW.ttf\")",
+                family: "FZSSJW", source: "url(\"https://nenuyouth.com/ttf/FZSSJW.ttf\")",
                 complete: res => { console.log("宋体字体" + res.status); }//调试
             });
         } else throw theme;

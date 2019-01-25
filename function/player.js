@@ -28,7 +28,7 @@ P("music", {
   onLoad(e) {
     wx.loadFontFace({
       family: "FZSSJW",
-      source: "url(\"https://mrhope.top/ttf/FZSSJW.ttf\")",
+      source: "url(\"https://nenuyouth.com/ttf/FZSSJW.ttf\")",
       complete: res => {
         console.log("宋体字体" + res.status); //调试
       }

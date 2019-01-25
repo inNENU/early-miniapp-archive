@@ -1,9 +1,9 @@
-var $App = require("utils/wxpage"),
-  app = require("utils/app");
+var $App = require("./utils/wxpage").A,
+  app = require("./utils/app");
 
-// var worker = wx.createWorker('workers/worker.js') //test
+// var worker = wx.createWorker("workers/worker.js") //test
 
-$App.A({
+$App({
   data: {
     theme: "auto",
     startTime: "0-0",
@@ -17,11 +17,9 @@ $App.A({
   },
   globalData: {
     version: "V 1.2.0",
-    music: {
-      play: false,
-      played: false,
-      index: 0
-    }
+    music: { play: false, played: false, index: 0 },
+    $page=require("./utils/setPage")
+    //T, nm, date, info ,logger
   },
   onLaunch: function (opts) {
     console.log("APP is Running", opts);
@@ -35,13 +33,17 @@ $App.A({
     this.globalData.info = wx.getSystemInfoSync();
     this.globalData.logger = wx.getLogManager({ level: 1 });
     app.noticeCheck(), app.appUpdate(true, false);
-    console.log(this.globalData.info); //调试
-    // wxpage.on('some_message', function(msg) {
-    //   console.log('Receive message:', msg)
+    console.log(this.globalData.info);     //调试
+    wx.onMemoryWarning(function () {
+      console.log("onMemoryWarningReceive");
+      wx.showToast({ title: "内存不足", icon: "none", duration: 1500 });
+    })
+    // wxpage.on("some_message", function(msg) {
+    //   console.log("Receive message:", msg)
     // })
   },
   onAwake: time => {
-    console.log("onAwake, after", time, "ms");
+    console.log("onAwake, after", time, "ms"), this.logger.debug(`"onAwake after ${time}ms`);
     this.globalData.nm = app.nightmode();
     [frontColor, backgroundColor] = this.globalData.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
     wx.setNavigationBarColor({ frontColor, backgroundColor });
@@ -49,15 +51,15 @@ $App.A({
   },
   // onShow: function () { },
   onError: msg => {
-    console.warn("error msg is"), console.warn(msg); //调试
+    console.warn("error msg is"), console.warn(msg), this.logger.warn("Error ocurred", msg);; //调试
   },
   onPageNotFound: msg => {
-    console.warn("Page not found!"), console.warn(msg); //调试
-    wx.
-      wx.switchTab({
-        url: "pages/main"
-      });
+    wx.switchTab({
+      url: "pages/main"
+    });
+    console.warn("Page not found!"), console.warn(msg), this.logger.warn("Page not found!", msg); //调试
   },
+  $page: require("./utils/setPage")
 });
 // "plugins": {
 // 	"wxparserPlugin": {

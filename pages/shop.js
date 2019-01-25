@@ -14,10 +14,10 @@ P("shop", {
       tag: "swiper",
       Class: "shopSwiper",
       url: [
-        "http://mrhope.top/mp/wenchuang/wenchuang1.jpg",
-        "http://mrhope.top/mp/wenchuang/wenchuang8.jpg",
-        "http://mrhope.top/mp/wenchuang/wenchuang10.jpg",
-        "http://mrhope.top/mp/wenchuang/wenchuang11.jpg"
+        "http://nenuyouth.com/mp/wenchuang/wenchuang1.jpg",
+        "http://nenuyouth.com/mp/wenchuang/wenchuang8.jpg",
+        "http://nenuyouth.com/mp/wenchuang/wenchuang10.jpg",
+        "http://nenuyouth.com/mp/wenchuang/wenchuang11.jpg"
       ]
     }],
     goods: [{

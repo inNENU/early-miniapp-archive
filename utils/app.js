@@ -1,5 +1,67 @@
 //初始化日志管理器
 const logger = wx.getLogManager({ level: 1 });
+const fileManager = wx.getFileSystemManager()
+
+const resDownload = (path, fileUrl) => {
+  fileManager.mkdir({
+    dirPath: path,
+    success: () => {
+      wx.downloadFile({
+        url: `https://nenuyouth.com/Res/${fileUrl}.zip`,
+        success: res => {
+          if (res.statusCode === 200) {
+            fileManager.saveFile({
+              tempFilePath: res.tempFilePath,
+              filePath: '',
+              success: () => {
+                fileManager.unzip({
+                  zipFilePath: `${path}.zip`,
+                  targetPath: path,
+                  success: () => {
+                    console.log('unzip sucess');
+                    fileManager.unlink({
+                      filePath: `path.zip`,
+                      success: () => {
+                        console.log('delete sucess');
+                      },
+                      fail: msg4 => {
+                        console.error('delete failure:', msg);
+                      }
+                    })
+                  },
+                  fail: msg3 => {
+                    console.error('unzip fail:', msg3);
+                  }
+                })
+              },
+              fail: msg2 => {
+                console.error('save file fail:', msg2);
+              }
+            })
+          }
+        },
+        fail: msg1 => {
+          console.error('download file fail:', msg1);
+        }
+      })
+    },
+    fail: msg => {
+      console.log(msg);
+      if (msg == `fail file already exists ${this.dirPath}`) {
+        fileManager.access({
+          path: `${path}/${pathVersion}.json`,
+          success: (result) => {
+
+          },
+          fail: () => {
+            console.error('空目录');
+          },
+          complete: () => { }
+        });
+      }
+    }
+  })
+}
 
 //初始化小程序
 const appInit = data => {
@@ -24,11 +86,11 @@ const appInit = data => {
   wx.setStorageSync('resNotify', true), wx.setStorageSync('localRes', undefined);
   wx.setStorageSync("localFuncTime", Math.round(new Date() / 1000)), wx.setStorageSync("localResTime", Math.round(new Date() / 1000));
   wx.request({
-    url: `https://mrhope.top/mpRes/guideRes.json`,
+    url: `https://nenuyouth.com/mpRes/guideRes.json`,
     success: Request => { resDownload(Request.data, null, "localGuide"); }
   });
   wx.request({
-    url: `https://mrhope.top/mpRes/funcRes.json`,
+    url: `https://nenuyouth.com/mpRes/funcRes.json`,
     success: Request => { resDownload(Request.data, null, "localFunc"); }
   });
   wx.setStorageSync("launched", true);
@@ -42,7 +104,7 @@ const checkDebug = () => {
 //弹窗通知检查 for app.js
 const noticeCheck = () => {
   wx.request({
-    url: "https://mrhope.top/mpRes/notice.json",
+    url: "https://nenuyouth.com/mpRes/notice.json",
     success: res => {
       console.log(res); //调试
       if (res.statusCode == 200) {
@@ -98,7 +160,7 @@ const appUpdate = (forceUpdate, reset) => { //参数：是否强制更新，是�
     console.log(`HasUpdate status ${res.hasUpdate}`);
     if (res.hasUpdate) {
       wx.request({
-        url: "https://mrhope.top/mpRes/config.json",
+        url: "https://nenuyouth.com/mpRes/config.json",
         success: res => {
           console.log(res); //调试
           if (res.statusCode == 200) ({ forceUpdate, reset, version } = res.data);

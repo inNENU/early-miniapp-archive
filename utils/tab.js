@@ -9,7 +9,7 @@ const checkUpdate = (notifyKey, storageKey, onlineFileName, dataUsage) => {
   console.log(`localTime is ${localTime}`), console.log(`currentTime is ${currentTime}`); //调试
   if (notify || currentTime > localTime + 200000) {
     wx.request({
-      url: `https://mrhope.top/mpRes/${onlineFileName}.json`,
+      url: `https://nenuyouth.com/Res/${onlineFileName}.json`,
       success: Request => {
         console.log(Request); //调试
         let onlineData = Request.data;
@@ -78,7 +78,7 @@ const resSnyc = (refreshList) => {
   }, 10000);
   refreshList.forEach(x => {
     wx.request({
-      url: `https://mrhope.top/mpRes/${x}/${x}.json`,
+      url: `https://nenuyouth.com/mpRes/${x}/${x}.json`,
       success: res => {
         if (res.statusCode == '200') {
           console.log(x), console.log(res); //调试
@@ -172,7 +172,7 @@ const markerSet = () => {
 //wx.request包装
 function request(path, Func, ctx) {
   wx.request({
-    url: `https://mrhope.top/mpRes/${path}.json`,
+    url: `https://nenuyouth.com/mpRes/${path}.json`,
     success: res => {
       console.log(res);
       if (res.statusCode == 200) Func(res.data, ctx)

@@ -1,7 +1,4 @@
-var P = require("../utils/wxpage"),
-  S = require("../utils/setPage"),
-  a = getApp().globalData,
-  tab = require("../utils/tab");
+var P = require("../utils/wxpage"), S = require("../utils/setPage"), a = getApp().globalData, tab = require("../utils/tab");
 
 P("main", {
   data: {
@@ -17,21 +14,15 @@ P("main", {
       tag: "list",
       head: "了解学业",
       content: [{
-        text: "我要上哪些课？",
-        desc: "课程计划",
-        aim: "study9"
+        text: "我要上哪些课？", desc: "课程计划", aim: "study9"
       }, {
-        text: "通识教育课程",
-        aim: "study5"
+        text: "通识教育课程", aim: "study5"
       }, {
-        text: "专业教育课程",
-        aim: "study6"
+        text: "专业教育课程", aim: "study6"
       }, {
-        text: "发展方向课程",
-        aim: "study7"
+        text: "发展方向课程", aim: "study7"
       }, {
-        text: "了解更多",
-        aim: "study5"
+        text: "了解更多", aim: "study5"
       }]
     }],
   },
@@ -42,7 +33,7 @@ P("main", {
     tab.tabBarChanger(a.nm);
   },
   onLoad() {
-    tab.tabBarChanger(a.nm);
+    // tab.tabBarChanger(a.nm);
     wx.startPullDownRefresh();
     S.request("mpRes/main/main", (data, ctx) => {
       S.Set(data, a, null, ctx);
@@ -54,9 +45,7 @@ P("main", {
   onReady() {
     let that = this;
     this.$on("theme", data => {
-      that.setData({
-        T: data
-      });
+      that.setData({ T: data });
     });
     this.$on("nightmode", data => {
       that.setData({
@@ -73,7 +62,7 @@ P("main", {
     this.$preload("me");
     //调试
     // wx.openUrl({
-    //   url: 'http://mrhope.top',
+    //   url: 'http://nenuyouth.com',
     //   fail: (msg) => {
     //     console.log('fail:', msg)
     //   },
@@ -83,7 +72,7 @@ P("main", {
     // })
   },
   onPullDownRefresh() {
-    S.request("mpRes/main/main", (data, ctx) => {
+    S.request("Res/main/main", (data, ctx) => {
       S.Set(data, a, null, ctx);
       wx.stopPullDownRefresh();
     }, this);
