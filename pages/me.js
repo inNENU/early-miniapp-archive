@@ -1,7 +1,4 @@
-var P = require("../utils/wxpage"),
-  S = require("../utils/setPage"),
-  a = getApp().globalData,
-  tab = require("../utils/tab");
+var P = getApp().lib.$page, S = getApp().lib.$set, a = getApp().globalData, tab = require("../utils/tab");
 
 P("me", {
   data: {
@@ -21,11 +18,11 @@ P("me", {
         icon: "/icon/about.svg",
         url: "settings/about",
         desc: a.version
-      }, ]
+      }]
     }, {
       tag: "foot",
       desc: "当前版本：" + a.version
-    }, ],
+    }]
   },
   onPreload() {
     if (!S.preSet(this.data.page, a, null, this, false)) {
@@ -34,31 +31,21 @@ P("me", {
     console.log("Me preload finished time:", new Date() - a.date, "ms");
   },
   onLoad() {
-    let that = this;
-    if (!this.set) {
-      S.Set(this.data.page, a, null, this, false);
-    }
+    if (!this.set) S.Set(this.data.page, a, null, this, false);
     S.Notice("me");
     this.$on("theme", data => {
-      that.setData({
-        T: data
-      });
+      this.setData({ T: data });
     });
     this.$on("nightmode", data => {
-      that.setData({
-        nm: data
-      });
+      this.setData({ nm: data });
     });
   },
   onShow() {
     tab.tabBarChanger(a.nm);
-    this.$preload("setting?From=我的东师");
-    this.$preload("about?From=我的东师");
+    this.$preload("setting?From=我的东师"), this.$preload("about?From=我的东师");
   },
   onReady() {
-    if (!this.set) {
-      S.Set(this.data.page, a, null, this);
-    }
+    if (!this.set) S.Set(this.data.page, a, null, this);
   },
   onPageScroll(e) {
     S.nav(e, this);

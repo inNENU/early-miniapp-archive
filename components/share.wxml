@@ -1,0 +1,21 @@
+<view class="shareIconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="shareHover" hover-stay-time="200" catchtouchstart="_share" catchtouchmove="_share" catchtouchend="_share">
+  <image class="shareIcon" src="/icon/share.svg" />
+</view>
+<view wx:if="{{menuDisplay}}" class="shareMask {{menuDisplay?'fadeIn':'fadeOut'}}" style="top:{{menuDisplay?'0':'100%'}};"></view>
+<view class="shareLayer {{menuDisplay?'moveUpIn':'moveUpOut'}}" catchtap="_share">
+  <view class="shareBtnCtn">
+    <button wx:if="{{shareable}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="share">
+      分享到微信
+    </button>
+    <button wx:if="{{shareable}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" data-action="download">
+      保存页面二维码
+    </button>
+    <button wx:if="{{contact}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="contact">
+      联系开发者
+    </button>
+    <button wx:if="{{feedback}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="feedback">
+      意见反馈
+    </button>
+    <button class="cancelBtn" hover-class="shareBtnHover">取消</button>
+  </view>
+</view>

@@ -1,6 +1,7 @@
-var P = require("../utils/wxpage"), S = require("../utils/setPage"), a = getApp().globalData, tab = require("../utils/tab");
+var a = getApp().globalData, { $page, $set } = getApp().lib, tab = require("../utils/tab");
+// var P = require("../utils/wxpage"), S = require("../utils/setPage"), a = getApp().globalData, tab = require("../utils/tab");
 
-P("main", {
+$page("main", {
   data: {
     page: [{
       tag: "head",
@@ -29,64 +30,45 @@ P("main", {
   onPageLaunch() {
     console.log("主页面启动：", new Date() - a.date, "ms");
     let page = wx.getStorageSync("main");
-    S.preSet(page ? page : this.data.page, a, null, this, false);
+    $set.preSet(page ? page : this.data.page, a, null, this, false);
     tab.tabBarChanger(a.nm);
   },
   onLoad() {
     // tab.tabBarChanger(a.nm);
     wx.startPullDownRefresh();
-    S.request("mpRes/main/main", (data, ctx) => {
-      S.Set(data, a, null, ctx);
+    $set.request("Res/others/main", (data, ctx) => {
+      $set.Set(data, a, null, ctx);
       wx.stopPullDownRefresh();
       wx.setStorageSync("main", data);
     }, this);
-    S.Notice("main");
+    $set.Notice("main");
   },
   onReady() {
-    let that = this;
-    this.$on("theme", data => {
-      that.setData({ T: data });
-    });
-    this.$on("nightmode", data => {
-      that.setData({
-        nm: data
-      });
-    });
+    this.$on("theme", data => { this.setData({ T: data }) });
+    this.$on("nightmode", data => { this.setData({ nm: data }) });
     ['guide', 'function'].forEach(x => {
-      S.request(`mpRes/main/${x}`, (data, ctx) => {
+      $set.request(`Res/others/${x}`, (data, ctx) => {
         ctx.$put(x, data);
         ctx.$preload(`${x}?name=${x}`);
         wx.setStorageSync(x, data);
       }, this)
     });
     this.$preload("me");
-    //调试
-    // wx.openUrl({
-    //   url: 'http://nenuyouth.com',
-    //   fail: (msg) => {
-    //     console.log('fail:', msg)
-    //   },
-    //   success: (msg) => {
-    //     console.log('success:', msg)
-    //   }
-    // })
   },
   onPullDownRefresh() {
-    S.request("Res/main/main", (data, ctx) => {
-      S.Set(data, a, null, ctx);
+    $set.request("Res/others/main", (data, ctx) => {
+      $set.Set(data, a, null, ctx);
       wx.stopPullDownRefresh();
     }, this);
   },
   onPageScroll(e) {
-    S.nav(e, this);
+    $set.nav(e, this);
   },
   cA(e) {
-    S.component(e, this);
+    $set.component(e, this);
   },
-  onShareAppMessage() {
-    return {
-      title: "NenuYouth",
-      path: "/pages/main"
-    };
-  },
+  onShareAppMessage: () => ({ title: "myNENU", path: "/pages/main" })
+  // onShareAppMessage() {
+  //   return { title: "myNENU", path: "/pages/main" };
+  // },
 });

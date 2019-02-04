@@ -1,8 +1,10 @@
-var P = require("../utils/wxpage"),
-  S = require("../utils/setPage"),
-  a = getApp().globalData,
-  app = require("../utils/app"),
-  tab = require("../utils/tab");
+var P = getApp().lib.$page, S = getApp().lib.$set, a = getApp().globalData, tab = require("../utils/tab");
+
+// var P = require("../utils/wxpage"),
+//   S = require("../utils/setPage"),
+//   a = getApp().globalData,
+//   app = require("../utils/app"),
+//   tab = require("../utils/tab");
 
 P("guide", {
   data: {
@@ -93,7 +95,7 @@ P("guide", {
       }, this, false);
     }
     S.Notice("guide");
-    tab.checkUpdate("guideNotify", "localGuide", "guideRes", "10K");
+    tab.checkUpdate("guideNotify", "localGuide", "guideVersion", "10K");
     let that = this;
     this.$on("theme", T => {
       that.setData({
@@ -109,7 +111,7 @@ P("guide", {
   onReady() {
     if (!this.set) {
       wx.startPullDownRefresh();
-      S.request('mpRes/main/guide', (data, ctx) => {
+      S.request('Res/json/main/guide', (data, ctx) => {
         S.Set(data, a, {
           aim: 'guide'
         }, ctx);
@@ -120,7 +122,7 @@ P("guide", {
     S.preLoad(this, a);
   },
   onPullDownRefresh() {
-    S.request('mpRes/main/guide', (data, ctx) => {
+    S.request('Res/json/main/guide', (data, ctx) => {
       S.Set(data, a, {
         aim: 'guide'
       }, ctx);

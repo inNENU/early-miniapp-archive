@@ -1,4 +1,4 @@
-var $App = require("./utils/wxpage").A,
+var $App = require("./lib/wxpage").A,
   app = require("./utils/app");
 
 // var worker = wx.createWorker("workers/worker.js") //test
@@ -11,15 +11,17 @@ $App({
   },
   config: {
     route: ["/pages/$page", "/modules/$page", "/function/$page"],
-    resolvePath(name) {
-      return "/modules/" + name;
-    }
+    resolvePath: name => "/modules/" + name
   },
   globalData: {
     version: "V 1.2.0",
     music: { play: false, played: false, index: 0 },
-    $page=require("./utils/setPage")
-    //T, nm, date, info ,logger
+    //T, nm, date, info ,logger也在globalData中
+  },
+  lib: {
+    //在APP中封装两个js库对象
+    $page: require("./lib/wxpage"),
+    $set: require("./lib/setpage"),
   },
   onLaunch: function (opts) {
     console.log("APP is Running", opts);
@@ -34,7 +36,7 @@ $App({
     this.globalData.logger = wx.getLogManager({ level: 1 });
     app.noticeCheck(), app.appUpdate(true, false);
     console.log(this.globalData.info);     //调试
-    wx.onMemoryWarning(function () {
+    wx.onMemoryWarning(() => {
       console.log("onMemoryWarningReceive");
       wx.showToast({ title: "内存不足", icon: "none", duration: 1500 });
     })
@@ -50,16 +52,16 @@ $App({
     app.noticeCheck(), app.checkUpdate(true, false);
   },
   // onShow: function () { },
-  onError: msg => {
-    console.warn("error msg is"), console.warn(msg), this.logger.warn("Error ocurred", msg);; //调试
+  onError(msg) {
+    console.error("error msg is", msg), this.logger.warn("Error ocurred", msg);; //调试
   },
-  onPageNotFound: msg => {
+  onPageNotFound(msg) {
     wx.switchTab({
       url: "pages/main"
     });
     console.warn("Page not found!"), console.warn(msg), this.logger.warn("Page not found!", msg); //调试
   },
-  $page: require("./utils/setPage")
+  logger: wx.getLogManager(),//在APP中封装日志管理器对象
 });
 // "plugins": {
 // 	"wxparserPlugin": {
@@ -67,3 +69,18 @@ $App({
 // 			"provider": "wx9d4d4ffa781ff3ac"
 // 	}
 // }
+// ,
+// 	"usingComponents": {
+// 		"my-component": "./components/tab"
+// 	}
+
+    //调试
+    // wx.openUrl({
+    //   url: 'http://nenuyouth.com',
+    //   fail: (msg) => {
+    //     console.log('fail:', msg)
+    //   },
+    //   success: (msg) => {
+    //     console.log('success:', msg)
+    //   }
+    // })

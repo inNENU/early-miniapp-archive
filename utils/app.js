@@ -1,62 +1,49 @@
 //初始化日志管理器
-const logger = wx.getLogManager({ level: 1 });
-const fileManager = wx.getFileSystemManager()
+const logger = wx.getLogManager({ level: 1 }), fileManager = wx.getFileSystemManager()
 
 const resDownload = (path, fileUrl) => {
+  console.log(wx.env.USER_DATA_PATH);
+  console.log("开始下载");
   fileManager.mkdir({
-    dirPath: path,
+    dirPath: `${wx.env.USER_DATA_PATH}/${path}`,
     success: () => {
+      console.log("创建文件夹成功");
       wx.downloadFile({
         url: `https://nenuyouth.com/Res/${fileUrl}.zip`,
         success: res => {
-          if (res.statusCode === 200) {
-            fileManager.saveFile({
-              tempFilePath: res.tempFilePath,
-              filePath: '',
-              success: () => {
-                fileManager.unzip({
-                  zipFilePath: `${path}.zip`,
-                  targetPath: path,
-                  success: () => {
-                    console.log('unzip sucess');
-                    fileManager.unlink({
-                      filePath: `path.zip`,
-                      success: () => {
-                        console.log('delete sucess');
-                      },
-                      fail: msg4 => {
-                        console.error('delete failure:', msg);
-                      }
-                    })
-                  },
-                  fail: msg3 => {
-                    console.error('unzip fail:', msg3);
-                  }
-                })
-              },
-              fail: msg2 => {
-                console.error('save file fail:', msg2);
-              }
-            })
-          }
+          console.log(res);
+          if (res.statusCode === 200) fileManager.saveFile({
+            tempFilePath: res.tempFilePath, filePath: `${wx.env.USER_DATA_PATH}`,
+            success: () => {
+              console.log("保存文件成功");
+              fileManager.unzip({
+                zipFilePath: `${wx.env.USER_DATA_PATH}/${path}.zip`, targetPath: wx.env.USER_DATA_PATH,
+                success: () => {
+                  console.log('unzip sucess');
+                  fileManager.unlink({
+                    filePath: `path.zip`,
+                    success: () => { console.log('delete sucess'); },
+                    fail: msg4 => { console.error('delete failure:', msg); }
+                  })
+                },
+                fail: msg3 => { console.error('unzip fail:', msg3); }
+              })
+            },
+            fail: msg2 => { console.error('save file fail:', msg2); }
+          })
         },
-        fail: msg1 => {
-          console.error('download file fail:', msg1);
-        }
+        fail: msg1 => { console.error('download file fail:', msg1); }
       })
     },
     fail: msg => {
       console.log(msg);
       if (msg == `fail file already exists ${this.dirPath}`) {
         fileManager.access({
-          path: `${path}/${pathVersion}.json`,
-          success: (result) => {
-
+          path: `${wx.env.USER_DATA_PATH}/${path}/${pathVersion}.json`,
+          success: result => {
+            console.log("存在版本文件")
           },
-          fail: () => {
-            console.error('空目录');
-          },
-          complete: () => { }
+          fail: () => { console.error('空目录'); }
         });
       }
     }
@@ -85,15 +72,8 @@ const appInit = data => {
   wx.setStorageSync('funcNotify', true), wx.setStorageSync('localFunc', undefined);
   wx.setStorageSync('resNotify', true), wx.setStorageSync('localRes', undefined);
   wx.setStorageSync("localFuncTime", Math.round(new Date() / 1000)), wx.setStorageSync("localResTime", Math.round(new Date() / 1000));
-  wx.request({
-    url: `https://nenuyouth.com/mpRes/guideRes.json`,
-    success: Request => { resDownload(Request.data, null, "localGuide"); }
-  });
-  wx.request({
-    url: `https://nenuyouth.com/mpRes/funcRes.json`,
-    success: Request => { resDownload(Request.data, null, "localFunc"); }
-  });
-  wx.setStorageSync("launched", true);
+  resDownload("guide", "guide"),// resDownload("function", "function");
+    wx.setStorageSync("launched", true);
 }
 
 //开启开发模式  for app.js & theme.js
