@@ -21,7 +21,8 @@
 
 /* iOS Head */
 
-.iOS-navigationBar, .iOS-navPlaceHolder {
+.iOS-navigationBar,
+.iOS-navPlaceHolder {
   width: 100%;
   background-color: #f5f5f7;
   text-align: center;
@@ -45,7 +46,8 @@
   color: #acacb0;
 }
 
-.nm .iOS-navigationBar, .nm .iOS-navPlaceHolder {
+.nm .iOS-navigationBar,
+.nm .iOS-navPlaceHolder {
   background-color: #0a0a08;
 }
 
@@ -100,7 +102,7 @@
   z-index: 100;
 }
 
-.iOS-head{
+.iOS-head {
   position: relative;
 }
 
@@ -120,8 +122,8 @@
   transform: scaleY(0.4);
 }
 
-.nm .iOSnavDl,
-.nm .iOS-head {
+.nm .iOSnavDl:after,
+.nm .iOS-head:after {
   border-bottom: 1px #53354f solid;
   color: #53354f;
 }
@@ -140,7 +142,8 @@
 
 /* iOS content */
 
-.iOSH3, .iOShead {
+.iOSH3,
+.iOShead {
   text-align: left;
   font-weight: 500;
   padding: 12px 5% 4px 5%;
@@ -171,12 +174,10 @@
     min-height: 26px;
     font-size: 24px;
   }
-
   .iOShead {
     min-height: 22px;
     font-size: 21px;
   }
-
   .grey .iOShead {
     font-size: 14px;
     min-height: 10px;
@@ -187,7 +188,8 @@
   color: #999;
 }
 
-.iOSH3 +.iOShead, .iOSH3 +.iOSH3 {
+.iOSH3+.iOShead,
+.iOSH3+.iOSH3 {
   padding-top: 2px;
 }
 
@@ -262,7 +264,8 @@
   color: #ddd;
 }
 
-.nm.iOS, .nm .iOSP {
+.nm.iOS,
+.nm .iOSP {
   background-color: #000;
   color: #fff;
 }
@@ -280,14 +283,16 @@
   padding: 5px 15px 0 15px;
 }
 
-.commonfoot, .grey .commonhead {
+.commonfoot,
+.grey .commonhead {
   font-size: 13px;
   color: #666;
   max-width: 487px;
   margin: 0 auto;
 }
 
-.nm .commonfoot, .grey.nm .commonhead {
+.nm .commonfoot,
+.grey.nm .commonhead {
   color: #999;
 }
 
@@ -295,7 +300,9 @@
   color: #fff;
 }
 
-.LinkText, .commonhead, .commonfoot {
+.LinkText,
+.commonhead,
+.commonfoot {
   text-align: left;
 }
 
@@ -348,7 +355,9 @@
   align-items: center;
 }
 
-.list-Container, .LinkText, .pick-view-column:first-child,
+.list-Container,
+.LinkText,
+.pick-view-column:first-child,
 .pick-view-column:last-child {
   -webkit-flex: 1;
   flex: 1;
@@ -436,7 +445,9 @@
   text-align: center;
 }
 
-.nm .Lctn, .nm .pickerViewCtn, .nm .pick-view-column {
+.nm .Lctn,
+.nm .pickerViewCtn,
+.nm .pick-view-column {
   background-color: #000;
   color: #fff;
 }
@@ -445,7 +456,8 @@
   padding: 5px 15px;
 }
 
-.nm .LinkText, .nm .pickerViewCtn {
+.nm .LinkText,
+.nm .pickerViewCtn {
   color: #fff;
 }
 

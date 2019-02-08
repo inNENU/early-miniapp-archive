@@ -47,7 +47,7 @@ P("about", {
         text: `${a.version}\nbug修复与显示优化；\n新增分享悬浮窗；\n新增腾讯视频播放；\n新增公众号文章跳转；\n新增强制更新功能；\n移除东青文创；`
       }, {
         text: "查看详细日志",
-        url: "/pages/settings/1.1"
+        url: "/page/settings/1.1"
       }]
     }, {
       tag: "list",

@@ -1,4 +1,4 @@
-/*global getApp*/
+/*global getApp wx*/
 var P = getApp().lib.$page, S = getApp().lib.$set, a = getApp().globalData, tab = require("../utils/tab");
 
 P("me", {
@@ -34,19 +34,16 @@ P("me", {
   onLoad() {
     if (!this.set) S.Set(this.data.page, a, null, this, false);
     S.Notice("me");
-    this.$on("theme", data => {
-      this.setData({ T: data });
-    });
-    this.$on("nightmode", data => {
-      this.setData({ nm: data });
-    });
   },
   onShow() {
+    let [frontColor, backgroundColor] = this.data.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
     tab.tabBarChanger(a.nm);
     this.$preload("setting?From=我的东师"), this.$preload("about?From=我的东师");
   },
   onReady() {
     if (!this.set) S.Set(this.data.page, a, null, this);
+    this.$on("theme", T => { this.setData({ T }) }), this.$on("nightmode", nm => { this.setData({ nm }) });
   },
   onPageScroll(e) {
     S.nav(e, this);

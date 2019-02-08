@@ -85,29 +85,17 @@ P("guide", {
     console.log("Guide preload finished time:", new Date() - a.date, "ms");
   },
   onLoad() {
-    this.setData({
-      T: a.T,
-      nm: a.nm
-    });
+    this.$set({ T: a.T, nm: a.nm });
     if (!this.set) {
       let page = wx.getStorageSync("guide");
-      S.Set(page ? page : this.data.page, a, {
-        aim: "guide"
-      }, this, false);
+      S.Set(page ? page : this.data.page, a, { aim: "guide" }, this, false);
     }
     S.Notice("guide");
     tab.checkUpdate("guideNotify", "localGuide", "guideVersion", "10K");
-    let that = this;
-    this.$on("theme", T => {
-      that.setData({
-        T
-      });
-    });
-    this.$on("nightmode", nm => {
-      that.setData({
-        nm
-      });
-    });
+  },
+  onShow() {
+    let [frontColor, backgroundColor] = this.data.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
     if (!this.set) {
@@ -120,6 +108,7 @@ P("guide", {
         wx.setStorageSync('guide', data);
       }, this)
     }
+    this.$on("theme", T => { this.$set({ T }) }), this.$on("nightmode", nm => { this.$set({ nm }) });
     S.preLoad(this, a);
   },
   onPullDownRefresh() {

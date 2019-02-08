@@ -35,7 +35,6 @@ $page("main", {
     tab.tabBarChanger(a.nm);
   },
   onLoad() {
-    // tab.tabBarChanger(a.nm);
     wx.startPullDownRefresh();
     $set.request("Res/others/main", (data, ctx) => {
       $set.Set(data, a, null, ctx);
@@ -44,9 +43,13 @@ $page("main", {
     }, this);
     $set.Notice("main");
   },
+  onShow() {
+    let [frontColor, backgroundColor] = this.data.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
+  },
   onReady() {
-    this.$on("theme", data => { this.setData({ T: data }) });
-    this.$on("nightmode", data => { this.setData({ nm: data }) });
+    this.$on("theme", T => { this.$set({ T }) });
+    this.$on("nightmode", nm => { this.$set({ nm }) });
     ['guide', 'function'].forEach(x => {
       $set.request(`Res/others/${x}`, (data, ctx) => {
         ctx.$put(x, data);

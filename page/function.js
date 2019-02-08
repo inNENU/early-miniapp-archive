@@ -53,15 +53,17 @@ $page("function", {
     console.log("Function preload finished time:", new Date() - a.date, "ms");
   },
   onLoad() {
-    this.setData({ T: a.T, nm: a.nm });
+    this.$set({ T: a.T, nm: a.nm });
     if (!this.set) {
       let page = wx.getStorageSync("function");
       $set.Set(page ? page : this.data.page, a, { aim: "function" }, this, false);
     }
     $set.Notice("function");
     tab.checkUpdate("funcNotify", "localFunc", "functionRes", "20K");
-    this.$on("theme", data => { this.setData({ T: data }) });
-    this.$on("nightmode", data => { this.setData({ nm: data }) });
+  },
+  onShow() {
+    let [frontColor, backgroundColor] = this.data.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
     if (!this.set) {
@@ -72,6 +74,7 @@ $page("function", {
         wx.setStorageSync("function", data);
       }, this)
     }
+    this.$on("theme", T => { this.$set({ T }) }), this.$on("nightmode", nm => { this.$set({ nm }) });
     tab.markerSet();//此处还需要再优化
   },
   onPullDownRefresh() {

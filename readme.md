@@ -232,7 +232,6 @@
 |src|是|String|封面图片在线地址||
 |title|是|String|图文标题||
 |desc|是|String|图文描述||
-|old|否|Boolean|设置true启用旧版样式|默认为新版样式|
 |icon|否|String|公众号的头像在线地址||
 |gzhName|否|String|公众号名称||
 
