@@ -2,19 +2,13 @@
 @import "templates/Android.wxss";
 @import "templates/NENU.wxss";
 @import "templates/iOS.wxss";
+@import "lib/animation.wxss";
 
 page {
   height: 100%;
   font-size: 32rpx;
   line-height: 1.4;
-  font-family: -apple-system-font,
-                 "PingFang SC",
-                 "Helvetica Neue",
-                 Helvetica,
-                 STHeiti,
-                 Tahoma,
-                 Simsun,
-                 sans-serif;
+  font-family: -apple-system-font, "PingFang SC", "Helvetica Neue", Helvetica, STHeiti, Tahoma, Simsun, sans-serif;
   text-align: center;
 }
 
@@ -77,40 +71,11 @@ page {
   display: none;
 }
 
-/* animation */
-
-.fadeIn, .fadeOut {
-  -webkit-transition: opacity 0.8s !important;
-  transition: opacity 0.8s !important;
-}
-
-.fadeIn {
-  opacity: 1 !important;
-}
-
-.fadeOut {
-  opacity: 0 !important;
-}
-
-.moveDownIn, .moveDownOut, .moveUpIn, .moveUpOut {
-  -webkit-transition: all 0.8s !important;
-  transition: all 0.8s !important;
-}
-
-.moveUpIn {
-  transform: translateY(-100%);
-}
-
-.moveDownIn {
-  transform: translateY(100%);
-}
-
 @keyframes rotate {
   from {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);

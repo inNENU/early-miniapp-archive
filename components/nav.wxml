@@ -1,3 +1,0 @@
-  <block wx:if="{{display!==false}}">
-    <template is="{{T}}Head" data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight}}" />
-  </block>

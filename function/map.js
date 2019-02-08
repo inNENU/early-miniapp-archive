@@ -1,13 +1,13 @@
 var includePoint1 = {
-    padding: [30, 20, 30, 20],
-    points: [{
-      latitude: 43.8578480844,
-      longitude: 125.3252720833,
-    }, {
-      latitude: 43.8633404949,
-      longitude: 125.3379964828,
-    }]
-  },
+  padding: [30, 20, 30, 20],
+  points: [{
+    latitude: 43.8578480844,
+    longitude: 125.3252720833,
+  }, {
+    latitude: 43.8633404949,
+    longitude: 125.3379964828,
+  }]
+},
   includePoint2 = {
     padding: [30, 20, 30, 20],
     points: [{
@@ -216,12 +216,12 @@ P("map", {
     let mapSwitch = this.data.mapSwitch,
       xiaoqu = mapSwitch ? "benbu" : "jingyue";
     if (e.type == "markertap") {
-      this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu+e.markerId}`);
+      this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu + e.markerId}`);
     } else if (e.type == "callouttap") {
       this.$route(`/function/situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu + e.markerId}`);
     }
   },
-  showList(e) {
+  showList() {
     if (this.data.list) {
       this.setData({
         list: !this.data.list,
@@ -308,6 +308,6 @@ P("map", {
   //     }
   //   })
   // },
-  regionChange() {},
-  update() {},
+  regionChange() { },
+  update() { },
 });

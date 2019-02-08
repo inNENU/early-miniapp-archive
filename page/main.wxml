@@ -1,0 +1,19 @@
+<import src="/templates/template" />
+<!-- <view style="height:{{page[0].statusBarHeight}}px;background-color:#fff;"></view>
+<view class="mainHead">
+  <view class='mainText'>
+    <image class='text1' src='/image/mainText.png' />
+    <view class='mainCtn'>
+      <view class='weatherCtn'>
+        <image class='weatherIcon' src='{{weather}}' />
+        <view class='weatherText'></view>
+      </view>
+      <image class='text2' src='/image/mainText2.png' mode='widthFix' />
+    </view>
+  </view>
+  <image class='mainNotice' src='/icon/function/notice.svg' />
+</view> -->
+<template is="all" data="{{page,T,nm}}" />
+<navigator class="" target="" url="/page/test" hover-class="navigator-hover" open-type="navigate">
+  跳转
+</navigator>

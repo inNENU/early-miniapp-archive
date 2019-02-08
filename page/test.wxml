@@ -1,0 +1,7 @@
+<import src="/templates/template" />
+<nav res="{{page[0]}}" />
+<!-- <template is="all" data="{{page,T,nm}}" /> -->
+<view style="height:125%;"></view>
+<view class='a' style="width:100%;background-color:white;position:fixed;bottom:10px;height:50px;"></view>
+<view class="b" style="width:100%;background-color:white;height:50px;"></view>
+<share theme="{{T}}" res="{{page[0]}}" />

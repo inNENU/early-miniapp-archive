@@ -1,12 +1,13 @@
 {
 	"pages": [
-		"pages/main",
-		"pages/function",
-		"pages/guide",
-		"pages/me",
-		"pages/settings/1.1",
-		"pages/settings/setting",
-		"pages/settings/about"
+		"page/main",
+		"page/function",
+		"page/guide",
+		"page/me",
+		"page/settings/1.1",
+		"page/settings/setting",
+		"page/settings/about",
+		"page/test"
 	],
 	"subPackages": [
 		{
@@ -23,7 +24,7 @@
 			]
 		},
 		{
-			"root": "modules",
+			"root": "module",
 			"pages": [
 				"module1",
 				"module2",
@@ -39,18 +40,18 @@
 		}
 	],
 	"preloadRule": {
-		"pages/main": {
+		"page/main": {
 			"network": "all",
 			"packages": [
-				"modules"
+				"module"
 			]
 		},
-		"pages/function": {
+		"page/function": {
 			"packages": [
 				"function"
 			]
 		},
-		"modules/sharePage": {
+		"module/sharePage": {
 			"packages": [
 				"__APP__"
 			]
@@ -76,25 +77,25 @@
 		"position": "bottom",
 		"list": [
 			{
-				"pagePath": "pages/main",
+				"pagePath": "page/main",
 				"text": "首页",
 				"iconPath": "icon/tab/home.png",
 				"selectedIconPath": "icon/tab/@Home.png"
 			},
 			{
-				"pagePath": "pages/function",
+				"pagePath": "page/function",
 				"text": "功能",
 				"iconPath": "icon/tab/function.png",
 				"selectedIconPath": "icon/tab/@Function.png"
 			},
 			{
-				"pagePath": "pages/guide",
+				"pagePath": "page/guide",
 				"text": "东师指南",
 				"iconPath": "icon/tab/guide.png",
 				"selectedIconPath": "icon/tab/@Guide.png"
 			},
 			{
-				"pagePath": "pages/me",
+				"pagePath": "page/me",
 				"text": "我的东师",
 				"iconPath": "icon/tab/me.png",
 				"selectedIconPath": "icon/tab/@Me.png"
@@ -117,5 +118,9 @@
 	},
 	"requiredBackgroundModes": [
 		"audio"
-	]
+	],
+	"usingComponents": {
+		"share": "component/share",
+		"nav": "component/nav"
+	}
 }
