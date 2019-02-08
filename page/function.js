@@ -68,21 +68,21 @@ $page("function", {
   onReady() {
     if (!this.set) {
       wx.startPullDownRefresh();
-      $set.request("functionVersion", (data, ctx) => {
-        $set.Set(data, a, null, ctx);
+      $set.request("functionVersion", data => {
+        $set.Set(data, a, null, this);
         wx.stopPullDownRefresh();
         wx.setStorageSync("function", data);
-      }, this)
+      })
     }
     this.$on("theme", T => { this.$set({ T }) }), this.$on("nightmode", nm => { this.$set({ nm }) });
     tab.markerSet();//此处还需要再优化
   },
   onPullDownRefresh() {
-    $set.request("functionVersion", (data, ctx) => {
-      $set.Set(data, a, null, ctx);
+    $set.request("functionVersion", data => {
+      $set.Set(data, a, null, this);
       wx.stopPullDownRefresh();
       wx.setStorageSync("function", data);
-    }, this);
+    });
     tab.checkUpdate("funcNotify", "localFunc", "functionVersion", "20K");
   },
   onPageScroll(e) {

@@ -34,6 +34,12 @@ $App({
     // wxpage.on("some_message", function(msg) {
     //   console.log("Receive message:", msg)
     // })
+
+
+    let fileManager = wx.getFileSystemManager();
+    
+
+
   },
   onAwake(time) {
     console.log("onAwake, after", time, "ms"), this.logger.debug(`"onAwake after ${time}ms`);

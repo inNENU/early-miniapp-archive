@@ -18,9 +18,7 @@ Page({
     animation.rotate(180).step();
     animation.rotate(-180).step();
     console.log(this.animation);
-    this.setData({
-      loginAnimation: animation.export()
-    });
+    this.setData({ loginAnimation: animation.export() });
     // // for (let i = 0; i < 30; i++) {
     // setTimeout(function () {
     //   animation.rotate(180).step()

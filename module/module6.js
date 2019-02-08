@@ -1,30 +1,15 @@
-var P = require("../utils/wxpage"),
-	S = require("../utils/setPage");
-var a = getApp().globalData;
+/*global getApp*/
+var { globalData: a, lib: { $page, $set } } = getApp();
 
-P("module6", {
-	onNavigate(res) {
-		S.preSet(this.$session.get(res.query.aim + "Temp"), a, res, this);
-	},
-	onLoad(res) {
-		S.Online(a, res, this);
-	},
-	navigate(res) {
-		this.$route(res.currentTarget.dataset.url);
-	},
-	onPageScroll(e) {
-		S.nav(e, this);
-	},
-	cA(e) {
-		S.component(e, this);
-	},
-	onShareAppMessage() {
-		return {
-			title: this.data.page[0].title,
-      path: `/modules/sharePage?From=主页&depth=1&share=true&aim=${this.aim}`
-		};
-	},
-	onUnload() {
-		delete this.data.page;
-	}
+$page("module6", {
+  onNavigate(res) { $set.preSet(this.$session.get(res.query.aim + "Temp"), a, res, this); },
+  onLoad(res) { $set.Online(a, res, this); },
+  onPageScroll(res) { $set.nav(res, this); },
+  cA(res) { $set.component(res, this); },
+  onShareAppMessage() {
+    return {
+      title: this.data.page[0].title, path: `/modules/sharePage?From=主页&depth=1&share=true&aim=${this.aim}`
+    }
+  },
+  onUnload() { delete this.data.page; }
 });

@@ -1,43 +1,31 @@
-var P = require("../utils/wxpage"),
-  S = require("../utils/setPage"),
-  a = getApp().globalData;
+/*global wx getApp*/
+var { globalData: a, lib: { $page, $set } } = getApp();
 
-P("notice", {
+$page("notice", {
   data: {
     page: [{
       tag: "head",
       title: "内网公告",
       leftText: "功能大厅"
     }],
-    page2: [{
-      tag: "foot"
-    }],
+    page2: [{ tag: "foot" }],
     notice: []
   },
   onLoad() {
-    S.Set(this.data.page, a, null, this, false);
-    S.request("mpServer/notice/notice", (data, ctx) => {
-      ctx.setData({
-        notice: data
-      });
-    }, this);
+    $set.Set(this.data.page, a, null, this, false);
+    $set.request("mpServer/notice/notice", notice => { this.$set({ notice }); });
   },
   onPullDownRefresh() {
-    S.request("mpServer/notice/notice", (data, ctx) => {
-      ctx.setData({
-        notice: data
-      });
+    $set.request("mpServer/notice/notice", notice => {
+      this.$set({ notice });
       wx.stopPullDownRefresh();
-    }, this);
+    });
   },
   onPageScroll(e) {
-    S.nav(e, this);
+    $set.nav(e, this);
   },
-  cA(e) {
-    S.component(e, this);
-  },
+  cA(e) { $set.component(e, this); },
   notice(res) {
-    let id = res.currentTarget.dataset.id;
-    this.$route(`/function/noticeDetail?id=${id}`);
+    let id = res.currentTarget.dataset.id; this.$route(`/function/noticeDetail?id=${id}`);
   }
 });

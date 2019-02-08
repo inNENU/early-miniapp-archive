@@ -1,7 +1,7 @@
-@import "templates/common.wxss";
-@import "templates/Android.wxss";
-@import "templates/NENU.wxss";
-@import "templates/iOS.wxss";
+@import "lib/common.wxss";
+@import "lib/Android.wxss";
+@import "lib/NENU.wxss";
+@import "lib/iOS.wxss";
 @import "lib/animation.wxss";
 
 page {

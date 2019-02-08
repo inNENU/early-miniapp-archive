@@ -1,8 +1,6 @@
-var P = require("../utils/wxpage"),
-  S = require("../utils/setPage"),
-  a = getApp().globalData;
-
-P("noticeDetail", {
+/*global wx getApp*/
+var { globalData: a, lib: { $page, $set } } = getApp();
+$page("noticeDetail", {
   data: {
     page: [{
       tag: "head",
@@ -22,8 +20,8 @@ P("noticeDetail", {
     }]
   },
   onLoad(res) {
-    S.Set(this.data.page, a, null, this, false);
-    S.request(`mpServer/notice/${res.id}`, (data, ctx) => {
+    $set.Set(this.data.page, a, null, this, false);
+    $set.request(`mpServer/notice/${res.id}`, data => {
       let attachment = data.attachment;
       if (attachment) {
         delete data.attachment;
@@ -32,34 +30,19 @@ P("noticeDetail", {
           x.docName = x.docName.split(".")[0];
           x.docType = temp == "docx" || temp == "doc" ? "doc" : temp == "pptx" || temp == "ppt" ? "ppt" : temp == "xlsx" || temp == "xls" ? "xls" : temp == "jpg" || temp == "jpeg" ? "jpg" : temp == "pdf" || temp == "png" || temp == "gif" ? temp : temp == "mp4" || temp == "mov" || temp == "avi" || temp == "rmvb" ? "video" : "document";
         });
-        ctx.setData({
-          "page[1].text": data.title,
-          "page[2].text": data.content,
-          "page[3].text": data.footer,
-          attachment
+        this.$set({
+          "page[1].text": data.title, "page[2].text": data.content, "page[3].text": data.footer, attachment
         });
-      } else {
-        ctx.setData({
-          "page[1].text": data.title,
-          "page[2].text": data.content,
-          "page[3].text": data.footer,
-        });
-      }
-    }, this);
+      } else this.$set({ "page[1].text": data.title, "page[2].text": data.content, "page[3].text": data.footer });
+    });
     this.id = res.id;
   },
   onPullDownRefresh() {
-    S.request(`mpServer/notice/${this.id}`, (data, ctx) => {
-      ctx.setData({
-        notice: data
-      });
+    $set.request(`mpServer/notice/${this.id}`, notice => {
+      this.$set({ notice });
       wx.stopPullDownRefresh();
-    }, this);
+    });
   },
-  onPageScroll(e) {
-    S.nav(e, this);
-  },
-  cA(e) {
-    S.component(e, this);
-  }
+  onPageScroll(e) { $set.nav(e, this); },
+  cA(e) { $set.component(e, this); }
 });

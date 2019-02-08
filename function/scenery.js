@@ -8,23 +8,21 @@ Page({
     }],
     currentSrc: "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg",
     imgs: [{
-        id: 1,
-        url: "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg"
-      }, {
-        id: 2,
-        url: "http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg"
-      },
-      {
-        id: 3,
-        url: "http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg"
-      }
+      id: 1,
+      url: "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg"
+    }, {
+      id: 2,
+      url: "http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg"
+    },
+    {
+      id: 3,
+      url: "http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg"
+    }
     ],
   },
   onLoad(e) {
     c.setPage(this.data.page, this, a, e);
-    this.setData({
-      info: a.info
-    });
+    this.setData({ info: a.info });
   },
   // onReady() {
   // 	c.preloadPage(this.data.page, a);

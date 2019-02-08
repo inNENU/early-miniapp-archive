@@ -36,11 +36,11 @@ $page("main", {
   },
   onLoad() {
     wx.startPullDownRefresh();
-    $set.request("Res/others/main", (data, ctx) => {
-      $set.Set(data, a, null, ctx);
+    $set.request("Res/others/main", data => {
+      $set.Set(data, a, null, this);
       wx.stopPullDownRefresh();
       wx.setStorageSync("main", data);
-    }, this);
+    });
     $set.Notice("main");
   },
   onShow() {
@@ -51,19 +51,19 @@ $page("main", {
     this.$on("theme", T => { this.$set({ T }) });
     this.$on("nightmode", nm => { this.$set({ nm }) });
     ['guide', 'function'].forEach(x => {
-      $set.request(`Res/others/${x}`, (data, ctx) => {
-        ctx.$put(x, data);
-        ctx.$preload(`${x}?name=${x}`);
+      $set.request(`Res/others/${x}`, data => {
+        this.$put(x, data);
+        this.$preload(`${x}?name=${x}`);
         wx.setStorageSync(x, data);
-      }, this)
+      })
     });
     this.$preload("me");
   },
   onPullDownRefresh() {
-    $set.request("Res/others/main", (data, ctx) => {
-      $set.Set(data, a, null, ctx);
+    $set.request("Res/others/main", data => {
+      $set.Set(data, a, null, this);
       wx.stopPullDownRefresh();
-    }, this);
+    });
   },
   onPageScroll(e) {
     $set.nav(e, this);
@@ -72,7 +72,4 @@ $page("main", {
     $set.component(e, this);
   },
   onShareAppMessage: () => ({ title: "myNENU", path: "/page/main" })
-  // onShareAppMessage() {
-  //   return { title: "myNENU", path: "/page/main" };
-  // },
 });

@@ -1,9 +1,7 @@
-/*global wx getApp*/
-var P = require("../../utils/wxpage"),
-  S = require("../../utils/setPage"),
-  a = getApp().globalData;
+/*global getApp wx*/
+var { globalData: a, lib: { $page, $set } } = getApp();
 
-P("about", {
+$page("about", {
   clickNumber: 0,
   data: {
     T: a.T,
@@ -39,7 +37,7 @@ P("about", {
       }, {
         text: "退出开发者模式",
         button: "debugMode",
-      }, ]
+      },]
     }, {
       tag: "list",
       head: "正式版开发日志",
@@ -84,76 +82,43 @@ P("about", {
       value = wx.getStorageSync("developMode"),
       developMode = (value || value == false) ? value : (wx.setStorageSync("developMode", false));
     this.developMode = developMode;
-    if (developMode) {
-      p[1].content.forEach(x => {
-        x.display = true;
-      });
-    } else {
-      p[1].content.forEach((x, y) => {
-        x.display = y == 0 ? true : false;
-      });
-    }
-    console.log(p);
-    console.log(res.query);
-    if (!S.preSet(p, a, res.query, this, false)) {
-      this.set = true;
-    }
+    if (developMode) p[1].content.forEach(x => { x.display = true; });
+    else p[1].content.forEach((x, y) => { x.display = y == 0 ? true : false; });
+    console.log(p, res.query);
+    if (!$set.preSet(p, a, res.query, this, false)) { this.set = true; }
   },
   onLoad(res) {
-    if (!this.set) {
-      S.Set(this.data.page, a, res, this, false);
-    }
-    S.Notice("about");
+    if (!this.set) $set.Set(this.data.page, a, res, this, false);
+    $set.Notice("about");
   },
   onReady() {
-    if (this.set) {
-      S.preLoad(this, a);
-    }
-    // S.request('main/about', function(data, ctx) {
-    //   S.Set(ctx.data.page.slice(0, 2).concat(data, ctx.data.page.slice(-1)), a, null, ctx);
-    //   S.preLoad(ctx, a);
-    // }, this)
+    if (this.set) $set.preLoad(this, a);
+    // $set.request('main/about', data => {
+    //   $set.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, this);
+    //   $set.preLoad(this, a);
+    // })
   },
-  onPageScroll(e) {
-    S.nav(e, this);
-  },
-  cA(e) {
-    S.component(e, this);
-  },
+  onPageScroll(res) { $set.nav(res, this); },
+  cA(res) { $set.component(res, this); },
   debugMode() {
     let clickNumber = this.clickNumber;
     if (this.developMode) {
       wx.setStorageSync("developMode", false);
       let p = this.data.page;
-      p[1].content.forEach((x, y) => {
-        x.display = y == 0 ? true : false;
-      });
-      this.setData({
-        page: p
-      });
+      p[1].content.forEach((x, y) => { x.display = y == 0 ? true : false; });
+      this.setData({ page: p });
       this.clickNumber = 0, this.developMode = false;
     } else {
-      if (clickNumber < 5) {
-        this.clickNumber += 1;
-      } else if (clickNumber < 10) {
+      if (clickNumber < 5) this.clickNumber += 1;
+      else if (clickNumber < 10) {
         let remainNumber = 10 - clickNumber;
-        wx.showToast({
-          title: "再点击" + remainNumber + "次即可启用开发者模式",
-          icon: "none"
-        });
+        wx.showToast({ title: "再点击" + remainNumber + "次即可启用开发者模式", icon: "none" });
         this.clickNumber += 1;
       } else {
-        wx.showToast({
-          title: "已启用开发者模式",
-          icon: "none"
-        });
+        wx.showToast({ title: "已启用开发者模式", icon: "none" });
         let p = this.data.page;
-        p[1].content.forEach(x => {
-          x.display = true;
-        });
-        this.setData({
-          page: p
-        });
+        p[1].content.forEach(x => { x.display = true; });
+        this.setData({ page: p });
         wx.setStorageSync("developMode", true);
         this.developMode = true;
       }
@@ -173,11 +138,7 @@ P("about", {
   // },
   resetApp() {
     wx.clearStorageSync();
-    wx.showModal({
-      title: "小程序初始化完成",
-      content: "请单击退出小程序按钮退出小程序",
-      showCancel: false
-    });
+    wx.showModal({ title: "小程序初始化完成", content: "请单击退出小程序按钮退出小程序", showCancel: false });
   },
   // donate() {
   //   wx.getClipboardData({

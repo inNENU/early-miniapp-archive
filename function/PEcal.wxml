@@ -1,4 +1,4 @@
-<import src="/templates/template" />
+<import src="/component/template" />
 <!-- <template is="all" data="{{page,T,nm}}" /> -->
 <view class="{{nm?'nm':''}}">
   <template is='head' data="{{...page[0],T}}" />

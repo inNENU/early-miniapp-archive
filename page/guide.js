@@ -100,25 +100,23 @@ P("guide", {
   onReady() {
     if (!this.set) {
       wx.startPullDownRefresh();
-      S.request('Res/json/main/guide', (data, ctx) => {
-        S.Set(data, a, {
-          aim: 'guide'
-        }, ctx);
+      S.request('Res/json/main/guide', data => {
+        S.Set(data, a, { aim: 'guide' }, this);
         wx.stopPullDownRefresh();
         wx.setStorageSync('guide', data);
-      }, this)
+      })
     }
     this.$on("theme", T => { this.$set({ T }) }), this.$on("nightmode", nm => { this.$set({ nm }) });
     S.preLoad(this, a);
   },
   onPullDownRefresh() {
-    S.request('Res/json/main/guide', (data, ctx) => {
+    S.request('Res/json/main/guide', data => {
       S.Set(data, a, {
         aim: 'guide'
-      }, ctx);
+      }, this);
       wx.stopPullDownRefresh();
       wx.setStorageSync('guide', data);
-    }, this);
+    });
     tab.checkUpdate("resNotify", "localList", "guideRes", "10K");
   },
   onPageScroll(e) {
@@ -127,10 +125,5 @@ P("guide", {
   cA(e) {
     S.component(e, this);
   },
-  onShareAppMessage() {
-    return {
-      title: "东师指南",
-      path: "/pages/guide"
-    };
-  },
-});
+  onShareAppMessage: () => ({ title: "东师指南", path: "/page/guide" })
+})

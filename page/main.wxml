@@ -1,4 +1,4 @@
-<import src="/templates/template" />
+<import src="/component/template" />
 <!-- <view style="height:{{page[0].statusBarHeight}}px;background-color:#fff;"></view>
 <view class="mainHead">
   <view class='mainText'>
@@ -17,4 +17,4 @@
 <navigator class="" target="" url="/page/test" hover-class="navigator-hover" open-type="navigate">
   跳转
 </navigator>
-<view style="width:100%;height:400px;"></view>
+<view style="width:100%;height:200px;"></view>

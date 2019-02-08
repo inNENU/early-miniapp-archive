@@ -34,15 +34,6 @@ $page("test", {
   //   tab.tabBarChanger(a.nm);
   // },
   onLoad() {
-    $set.Set(this.data.page, a, { aim: "function" }, this, false);
-    this._observer3 = wx.createIntersectionObserver(this);
-    this._observer3.relativeTo(".iOS-navigationBar").observe(".iOS-head", (res) => {
-      console.log(res);
-    });
-    this._observer4 = wx.createIntersectionObserver(this);
-    this._observer4.relativeTo(".a").observe(".b", (res) => {
-      console.log(res);
-    });
     // tab.tabBarChanger(a.nm);
     // wx.startPullDownRefresh();
     // $set.request("Res/others/main", (data, ctx) => {

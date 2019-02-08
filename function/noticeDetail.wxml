@@ -1,4 +1,4 @@
-<import src="/templates/template" />
+<import src="/component/template" />
 <view class="{{T}} {{nm?'nm':''}}">
   <template is="all2" data="{{page,T}}" />
   <block wx:if="{{attachment}}">
