@@ -1,3 +1,4 @@
+/*global getApp*/
 var P = require("../../utils/wxpage"),
   S = require("../../utils/setPage"),
   a = getApp().globalData;

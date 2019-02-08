@@ -70,9 +70,9 @@ $page("test", {
   //     wx.stopPullDownRefresh();
   //   }, this);
   // },
-  // onPageScroll(e) {
-  //   $set.nav(e, this);
-  // },
+  onPageScroll(e) {
+    $set.nav(e, this);
+  },
   // cA(e) {
   //   $set.component(e, this);
   // },

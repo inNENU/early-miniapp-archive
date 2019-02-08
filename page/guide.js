@@ -1,3 +1,4 @@
+/*global wx getApp*/
 var P = getApp().lib.$page, S = getApp().lib.$set, a = getApp().globalData, tab = require("../utils/tab");
 
 // var P = require("../utils/wxpage"),

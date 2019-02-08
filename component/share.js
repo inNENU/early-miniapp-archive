@@ -1,8 +1,10 @@
-/*global Component wx*/
+/*global Component wx getApp*/
+const logger = getApp().logger;//获得日志管理器
+
 Component({
   properties: { res: { type: Object, value: { aim: '' } } },
   methods: {
-    _share(e) {
+    _share(e) {//分享按钮
       let touch = e.touches[0];
       switch (e.type) {
         case "touchstart"://计算点击点与按钮左上角的距离
@@ -29,11 +31,11 @@ Component({
                       filePath: res1.tempFilePath,
                       success: msg => {
                         wx.showToast({ title: "二维码保存成功", icon: "none" });
-                        console.log(msg), wx.reportMonitor("8", 1);
+                        console.log(msg), wx.reportMonitor("8", 1), logger.debug("二维码保存成功");
                       },
                       fail: msg => {
                         wx.showToast({ title: "二维码保存失败", icon: "none" });
-                        console.log(msg), console.warn("save fail"), wx.reportMonitor("6", 1);
+                        console.log(msg), console.warn("save fail"), wx.reportMonitor("6", 1), logger.warn("二维码保存失败");
                       }
                     })
                     else wx.authorize({//没有授权——>提示用户授权

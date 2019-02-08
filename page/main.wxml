@@ -17,3 +17,4 @@
 <navigator class="" target="" url="/page/test" hover-class="navigator-hover" open-type="navigate">
   跳转
 </navigator>
+<view style="width:100%;height:400px;"></view>

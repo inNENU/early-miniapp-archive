@@ -1,9 +1,10 @@
+/*global wx getApp*/
 var a = getApp().globalData,
   // P = require("../../utils/wxpage"),
   P = getApp().lib.$page,
-  S = require("../../utils/setPage"),
+  S = require("../../lib/setpage"),
   u = require("../../utils/util"),
-  app = require("../../utils/app"),
+  app = require("../../lib/app"),
   tab = require("../../utils/tab");
 var time = new Array(new Array(), new Array());
 for (let i = 0; i <= 23; i++) {

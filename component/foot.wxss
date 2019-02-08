@@ -1,0 +1,47 @@
+
+.foot {
+  margin-top: 27px;
+  padding: 8px 5%;
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+}
+
+.ctn {
+  font-size: 10px;
+  letter-spacing: 1px;
+  line-height: 1.6;
+  font-weight: 300;
+  text-align: center;
+  color: #888;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nm .ctn {
+  color: #777;
+}
+
+.logo {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+  -webkit-animation: 9.5s linear 0s normal none infinite rotate;
+  animation: 9.5s linear 0s normal none infinite rotate;
+}

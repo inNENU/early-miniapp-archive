@@ -100,12 +100,30 @@
   z-index: 100;
 }
 
-.iOSnavDl, .iOS-head {
-  border-bottom: 1rpx #acacb0 solid;
+.iOS-head{
+  position: relative;
 }
 
-.nm .iOSnavDl, .nm .iOS-head {
-  border-bottom: 1rpx #53534f solid;
+.iOSnavDl:after,
+.iOS-head:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1px solid #acacb0;
+  color: #acacb0;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.nm .iOSnavDl,
+.nm .iOS-head {
+  border-bottom: 1px #53354f solid;
+  color: #53354f;
 }
 
 .iOS-head {

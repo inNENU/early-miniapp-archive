@@ -1,5 +1,6 @@
-var P = require("../utils/wxpage"),
-  S = require("../utils/setPage"),
+/*global getApp*/
+var P = require("../lib/wxpage"),
+  S = require("../lib/setpage"),
   a = getApp().globalData;
 
 P("shop", {

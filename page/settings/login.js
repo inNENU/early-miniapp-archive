@@ -1,3 +1,4 @@
+/*global wx Page*/
 Page({
 
   data: {

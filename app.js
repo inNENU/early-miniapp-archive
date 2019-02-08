@@ -1,6 +1,6 @@
 /*global wx*/
 var $App = require("./lib/wxpage").A,
-  app = require("./utils/app");
+  app = require("./lib/app");
 
 // var worker = wx.createWorker("workers/worker.js") //worker test
 

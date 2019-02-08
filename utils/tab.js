@@ -1,3 +1,4 @@
+/*global wx*/
 //初始化日志管理器
 const logger = wx.getLogManager({ level: 1 });
 
@@ -25,7 +26,7 @@ const checkUpdate = (notifyKey, storageKey, onlineFileName, dataUsage) => {
                     title: '更新提示已关闭',
                     content: '您可以在设置中重新打开提示。请注意：小程序会定期对界面文件进行强制更新。下面开始首次下载。',
                     showCancel: false,
-                    success: res => { wx.setStorageSync(notifyKey, false), resDownload(onlineData, null, storageKey); }
+                    success: () => { wx.setStorageSync(notifyKey, false), resDownload(onlineData, null, storageKey); }
                   })
                 }
               }
@@ -57,7 +58,7 @@ const resDownload = (onlineList, localList, storageKey) => {
       if (localList[x] !== onlineList[x]) {
         console.log(x + 'don\'t match'); //调试
         refreshList.push(x);
-      };
+      }
     })
     resSnyc(refreshList);
   } else resSnyc(category);
@@ -88,7 +89,7 @@ const resSnyc = (refreshList) => {
           if (successNumber == fileNum) {
             wx.hideLoading(), clearTimeout(timeoutFunc);
             console.log('hide'); //调试
-          };
+          }
         } else console.warn(`${x} statueCode ${res.statusCode}`), wx.reportMonitor('22', 1);
       },
       fail: res => {
@@ -101,21 +102,16 @@ const resSnyc = (refreshList) => {
 // 动态根据夜间模式改变导航栏 from main.js & me.js
 const tabBarChanger = nm => {
   let color = nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
-  wx.setTabBarStyle({
-    backgroundColor: color[0],
-    borderStyle: color[1]
-  })
+  wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] })
 }
 
 //初始化marker，被setMarker调用
 const initMarker = markers => {
   markers.forEach(x => {
     let temp = {
-      iconPath: "/function/icon/marker.png",
-      width: 25, height: 25, alpha: 0.8,
+      iconPath: "/function/icon/marker.png", width: 25, height: 25, alpha: 0.8,
       label: {
-        content: x.name, color: "#1A9D5E", fontSize: "10",
-        anchorX: -4 - 5 * x.name.length, anchorY: 0,
+        content: x.name, color: "#1A9D5E", fontSize: "10", anchorX: -4 - 5 * x.name.length, anchorY: 0,
         bgColor: '#ffffff', borderWidth: 1, borderColor: '#efeef4', borderRadius: 2, padding: "3",
       },
       callout: {
@@ -134,13 +130,11 @@ const setMarker = (data, name) => {
     category = data.category;
   wx.setStorageSync(name + '-all', marker);
   Object.keys(category).forEach(x => {
-    let markerDetail = new Array;
-    for (let j = category[x][0]; j <= category[x][1]; j++) {
-      markerDetail.push(marker[j])
-    };
-    wx.setStorageSync(name + '-' + x, markerDetail)
+    let markerDetail = [];
+    for (let j = category[x][0]; j <= category[x][1]; j++) markerDetail.push(marker[j])
+    wx.setStorageSync(`${name}-${x}`, markerDetail)
   })
-  return 'success';
+  return true;
 }
 
 const markerSet = () => {
@@ -150,37 +144,28 @@ const markerSet = () => {
     currentVersion = wx.getStorageSync('markerVersion');
   temp ? localList = JSON.parse(temp) : "";
   if (!markerData) {
-    request('marker/marker', function (data, ctx) {
+    request('marker/marker', function (data) {
       wx.setStorageSync('marker', data);
       if (setMarker(data[0], 'benbu') && setMarker(data[1], 'jingyue') && markerVersion) {
         wx.setStorageSync('markerVersion', markerVersion)
-      } else {
-        console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
-      };
+      } else console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
     }, null);
-  } else {
-    if (markerVersion != currentVersion) {
-      if (setMarker(markerData[0], 'benbu') && setMarker(markerData[1], 'jingyue')) {
-        wx.setStorageSync('markerVersion', markerVersion)
-      } else {
-        console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
-      };
-    }
+  } else if (markerVersion != currentVersion) {
+    if (setMarker(markerData[0], 'benbu') && setMarker(markerData[1], 'jingyue')) wx.setStorageSync('markerVersion', markerVersion)
+    else console.warn('Marker set failure.'), wx.reportMonitor('25', 1);
   }
 }
 
 //wx.request包装
-function request(path, Func, ctx) {
+function request(path, Func) {
   wx.request({
     url: `https://nenuyouth.com/mpRes/${path}.json`,
     success: res => {
-      console.log(res);
-      if (res.statusCode == 200) Func(res.data, ctx)
+      console.log("Request success:", res);//调试
+      if (res.statusCode == 200) Func(res.data)
       else console.warn(`request ${path} fail: ${res.statusCode}`), wx.reportMonitor('3', 1);
     },
-    fail: res => {
-      console.log(res), wx.reportMonitor('4', 1);
-    }
+    fail: res => { console.log(res), wx.reportMonitor('4', 1); }
   });
 }
 
