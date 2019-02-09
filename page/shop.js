@@ -1,9 +1,7 @@
-/*global getApp*/
-var P = require("../lib/wxpage"),
-  S = require("../lib/setpage"),
-  a = getApp().globalData;
+/* global getApp*/
+let a = getApp().globalData, { $page, $set } = getApp().lib;
 
-P("shop", {
+$page("shop", {
   data: {
     T: a.T,
     nm: a.nm,
@@ -43,72 +41,47 @@ P("shop", {
       desc: "青春活力范，各种尺码均有",
       url: "/shop/good?from=东青文创",
       tag: ["青春", "前卫"]
-    }],
+    }]
   },
   onPreload(res) {
-    if (!S.preSet(this.$take(res.query.name), a, null, this, false)) {
-      this.set = true;
-    }
+    if (!$set.preSet(this.$take(res.query.name), a, null, this, false)) this.set = true;
     console.log("Shop preload finished time:", new Date() - a.d, "ms");
   },
   onLoad() {
-    this.setData({
-      T: a.T,
-      nm: a.nm
-    });
-    if (!this.set) {
-      S.Set(this.data.page, a, null, this, false);
-    }
-    S.Notice("shop");
-    let that = this;
+    this.setData({ T: a.T, nm: a.nm });
+    if (!this.set) $set.Set(this.data.page, a, null, this, false);
+    $set.Notice("shop");
     this.$on("theme", data => {
-      that.setData({
-        T: data
-      });
+      this.setData({ T: data });
     });
     this.$on("nightmode", data => {
-      that.setData({
-        nm: data
-      });
+      this.setData({ nm: data });
     });
   },
   onReady() {
-    if (!this.set) {
-      S.request("main/shop", (data, indicator) => {
-        S.Set(data, a, null, indicator);
-      }, this);
-    }
-    S.request("main/goods", (data, indicator) => {
-      indicator.setData({
-        goods: data
-      });
-    }, this);
+    if (!this.set) $set.request("main/shop", data => {
+      $set.Set(data, a, null, this);
+    });
+    $set.request("main/goods", data => {
+      this.setData({ goods: data });
+    });
   },
   onPageScroll(e) {
-    S.nav(e, this);
+    $set.nav(e, this);
   },
   cA(e) {
-    S.component(e, this);
+    $set.component(e, this);
   },
   showInput() {
-    this.setData({
-      inputShowed: true
-    });
+    this.setData({ inputShowed: true });
   },
   hideInput() {
-    this.setData({
-      inputVal: "",
-      inputShowed: false
-    });
+    this.setData({ inputVal: "", inputShowed: false });
   },
   clearInput() {
-    this.setData({
-      inputVal: ""
-    });
+    this.setData({ inputVal: "" });
   },
   inputTyping(e) {
-    this.setData({
-      inputVal: e.detail.value
-    });
+    this.setData({ inputVal: e.detail.value });
   }
 });

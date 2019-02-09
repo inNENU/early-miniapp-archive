@@ -13,11 +13,11 @@ $page("notice", {
   },
   onLoad() {
     $set.Set(this.data.page, a, null, this, false);
-    $set.request("mpServer/notice/notice", notice => { this.$set({ notice }); });
+    $set.request("mpServer/notice/notice", notice => { this.setData({ notice }); });
   },
   onPullDownRefresh() {
     $set.request("mpServer/notice/notice", notice => {
-      this.$set({ notice });
+      this.setData({ notice });
       wx.stopPullDownRefresh();
     });
   },

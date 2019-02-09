@@ -35,7 +35,7 @@ $page("music", {
     if (!this.set) {
       let index, songList = wx.getStorageSync("funcResList0"), mode = wx.getStorageSync("playMode");
       index = e.index ? (a.music.index = e.index, e.index) : a.music.index;
-      this.$set({
+      this.setData({
         share: e.share ? e.share : false,
         i: index,
         info: a.info,
@@ -45,21 +45,21 @@ $page("music", {
       });
       if (songList) {
         currentSong = songList[index];
-        this.$set({
+        this.setData({
           songList: songList,
           title: currentSong.title,
           singer: currentSong.singer,
           cover: currentSong.cover,
         });
-        if (a.music.played) this.$set({ canplay: true });
+        if (a.music.played) this.setData({ canplay: true });
         else manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = "NenuYouth", manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
       } else {
         $set.request("funcResList/funcResList0", data => {
           currentSong = data[index];
-          this.$set({
+          this.setData({
             songList: data, title: currentSong.title, singer: currentSong.singer, cover: currentSong.cover,
           });
-          if (a.music.played) this.$set({ canplay: true });
+          if (a.music.played) this.setData({ canplay: true });
           else manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = "NenuYouth", manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
           wx.setStorageSync("funcResList0", data);
         }, this);
@@ -67,21 +67,21 @@ $page("music", {
     }
     manager.onCanplay(setTimeout(() => {
       console.log("Canplay"); //调试
-      this.$set({ canplay: true });
+      this.setData({ canplay: true });
     }), 100);
     manager.onPlay(function () {
-      this.$set({ play: true });
+      this.setData({ play: true });
       a.music.play = true;
     });
     manager.onPause(() => {
-      this.$set({ play: false });
+      this.setData({ play: false });
       a.music.play = false;
     });
     manager.onTimeUpdate(() => {
       console.log(`TimeUpdate,currentTime是${manager.currentTime},bufferedTime是${manager.buffered},duration是${manager.duration}`); //调试
       let presentSecond = (parseInt(manager.currentTime % 60)).toString(),
         totalSecond = (parseInt(manager.duration % 60)).toString();
-      this.$set({
+      this.setData({
         songLength: parseInt(manager.duration * 100) / 100,
         total: [parseInt(manager.duration / 60).toString(), totalSecond.length == 1 ? "0" + totalSecond : totalSecond],
         currentTime: parseInt(manager.currentTime * 100) / 100,
@@ -93,7 +93,7 @@ $page("music", {
     });
     manager.onWaiting(() => {
       console.warn("waiting");
-      this.$set({ canplay: false });
+      this.setData({ canplay: false });
     });
     manager.onEnded(() => { this.next(); });
     manager.onPrev(() => { this.previous(); });
@@ -104,7 +104,7 @@ $page("music", {
     $set.Notice("music");
   },
   loadCover(e) {
-    if (e.type == "load") this.$set({ coverLoad: true });
+    if (e.type == "load") this.setData({ coverLoad: true });
   },
   play() {
     this.data.play ? manager.pause() : manager.play();
@@ -112,7 +112,7 @@ $page("music", {
   drag(e) {
     manager.seek(e.detail.value / 100);
     if (e.type == "change") {
-      this.$set({ currentTime: e.detail.value / 100, });
+      this.setData({ currentTime: e.detail.value / 100, });
       console.log(e.detail.value); //调试
     }
   },
@@ -141,7 +141,7 @@ $page("music", {
   },
   Switch(i) {
     let currentSong = this.data.songList[i];
-    this.$set({
+    this.setData({
       i: i,
       title: currentSong.title,
       singer: currentSong.singer,
@@ -157,7 +157,7 @@ $page("music", {
   },
   modeSwitch() {
     let modeName, mode = this.data.mode == 3 ? 0 : this.data.mode + 1;
-    this.$set({ mode });
+    this.setData({ mode });
     switch (mode) {
       case 0: modeName = "列表循环";
         break;

@@ -1,11 +1,6 @@
-/*global wx getApp*/
-var a = getApp().globalData, { $page, $set } = getApp().lib, tab = require("../utils/tab");
-
-// var P = require("../utils/wxpage"),
-//   S = require("../utils/setPage"),
-//   a = getApp().globalData,
-//   app = require("../utils/app"),
-//   tab = require("../utils/tab");
+/* global wx getApp*/
+let a = getApp().globalData, { $page, $set } = getApp().lib;
+const tab = require("../utils/tab");
 
 $page("function", {
   data: {
@@ -18,15 +13,18 @@ $page("function", {
         text: "校园地图", icon: "/icon/function/map.svg", url: "/function/map"
       }, {
         text: "音律东师", icon: "/icon/function/music.svg", url: "/function/player"
-        // }, {
-        //   text: "影约东师", icon: "/icon/function/movie.svg", url: "/function/video"
+
+        /*
+         * }, {
+         *   text: "影约东师", icon: "/icon/function/movie.svg", url: "/function/video"
+         */
       }, {
         text: "校园公众号", icon: "/icon/function/gzh.svg", aim: "gzh0"
       }, {
         text: "内网公告", icon: "/icon/function/notice.svg", url: "/function/notice"
       }, {
         text: "体测计算器", icon: "/icon/function/PECal.svg", url: "/function/PEcal"
-      },]
+      }]
     }, {
       tag: "grid",
       head: "即将推出",
@@ -45,15 +43,15 @@ $page("function", {
       }, {
         text: "校历", icon: "/icon/function/calendar.svg", url: "/modules/building?month=1"
       }]
-    }],
+    }]
   },
-  onPreload(res) {
+  onPreload (res) {
     $set.preSet(this.$take(res.query.name), a, { aim: "function" }, this, false);
     this.set = true;
     console.log("Function preload finished time:", new Date() - a.date, "ms");
   },
-  onLoad() {
-    this.$set({ T: a.T, nm: a.nm });
+  onLoad () {
+    this.setData({ T: a.T, nm: a.nm });
     if (!this.set) {
       let page = wx.getStorageSync("function");
       $set.Set(page ? page : this.data.page, a, { aim: "function" }, this, false);
@@ -61,23 +59,27 @@ $page("function", {
     $set.Notice("function");
     tab.checkUpdate("funcNotify", "localFunc", "functionRes", "20K");
   },
-  onShow() {
+  onShow () {
     let [frontColor, backgroundColor] = this.data.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
-  onReady() {
+  onReady () {
     if (!this.set) {
       wx.startPullDownRefresh();
       $set.request("functionVersion", data => {
         $set.Set(data, a, null, this);
         wx.stopPullDownRefresh();
         wx.setStorageSync("function", data);
-      })
+      });
     }
-    this.$on("theme", T => { this.$set({ T }) }), this.$on("nightmode", nm => { this.$set({ nm }) });
-    tab.markerSet();//此处还需要再优化
+    this.$on("theme", T => {
+      this.setData({ T });
+    }), this.$on("nightmode", nm => {
+      this.setData({ nm });
+    });
+    tab.markerSet();// 此处还需要再优化
   },
-  onPullDownRefresh() {
+  onPullDownRefresh () {
     $set.request("functionVersion", data => {
       $set.Set(data, a, null, this);
       wx.stopPullDownRefresh();
@@ -85,10 +87,10 @@ $page("function", {
     });
     tab.checkUpdate("funcNotify", "localFunc", "functionVersion", "20K");
   },
-  onPageScroll(e) {
+  onPageScroll (e) {
     $set.nav(e, this);
   },
-  cA(e) {
+  cA (e) {
     $set.component(e, this);
   }
 });

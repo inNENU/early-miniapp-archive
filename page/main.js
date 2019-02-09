@@ -1,6 +1,5 @@
-/*global wx getApp*/
-var { globalData: a, lib: { $page, $set } } = getApp(), tab = require("../utils/tab");
-// var P = require("../utils/wxpage"), S = require("../utils/setPage"), a = getApp().globalData, tab = require("../utils/tab");
+/* global wx getApp*/
+let { globalData: a, lib: { $page, $set } } = getApp();
 
 $page("main", {
   data: {
@@ -26,13 +25,13 @@ $page("main", {
       }, {
         text: "了解更多", aim: "study5"
       }]
-    }],
+    }]
   },
   onPageLaunch() {
     console.log("主页面启动：", new Date() - a.date, "ms");
-    let page = wx.getStorageSync("main");
+    let page = wx.getStorageSync("main"), color = a.nm ? ["#000000", "white"] : ["#ffffff", "black"];
     $set.preSet(page ? page : this.data.page, a, null, this, false);
-    tab.tabBarChanger(a.nm);
+    wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
   },
   onLoad() {
     wx.startPullDownRefresh();
@@ -48,14 +47,18 @@ $page("main", {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
-    this.$on("theme", T => { this.$set({ T }) });
-    this.$on("nightmode", nm => { this.$set({ nm }) });
-    ['guide', 'function'].forEach(x => {
+    this.$on("theme", T => {
+      this.setData({ T });
+    });
+    this.$on("nightmode", nm => {
+      this.setData({ nm });
+    });
+    ["guide", "function"].forEach(x => {
       $set.request(`Res/others/${x}`, data => {
         this.$put(x, data);
         this.$preload(`${x}?name=${x}`);
         wx.setStorageSync(x, data);
-      })
+      });
     });
     this.$preload("me");
   },

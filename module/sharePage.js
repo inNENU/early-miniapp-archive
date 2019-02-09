@@ -12,9 +12,15 @@ $page("sharePage", {
     }
     wx.reportMonitor("2", 1);
   },
-  onPageScroll(res) { $set.nav(res, this); },
-  cA(res) { $set.component(res, this); },
-  redirect() { this.$launch("/pages/main"); },
+  onPageScroll(res) {
+    $set.nav(res, this);
+  },
+  cA(res) {
+    $set.component(res, this);
+  },
+  redirect() {
+    this.$launch("/pages/main");
+  },
   onShareAppMessage() {
     return {
       title: this.data.page[0].title,

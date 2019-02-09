@@ -22,12 +22,16 @@ $page("1.1", {
       text: "大量外观优化；\n大量函数重构；"
     }, {
       tag: "foot", author: "Mr.Hope"
-    }],
+    }]
   },
   onLoad(res) {
     $set.Set(this.data.page, a, res, this, false);
     $set.Notice(this.aim);
   },
-  onPageScroll(e) { $set.nav(e, this); },
-  cA(e) { $set.component(e, this); }
+  onPageScroll(e) {
+    $set.nav(e, this);
+  },
+  cA(e) {
+    $set.component(e, this);
+  }
 });

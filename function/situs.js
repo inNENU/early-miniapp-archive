@@ -20,14 +20,17 @@ $page("situs", {
   onReady() {
     this.marker = wx.getStorageSync(this.xiaoqu + "-all")[this.id];
   },
-  // detail() {
-  //   let markers = this.marker;
-  //   wx.openLocation({
-  //     latitude: marker.latitude,
-  //     longitude: markers.longitude,
-  //     name: markers.title,
-  //   });
-  // },
+
+  /*
+   * detail() {
+   *   let markers = this.marker;
+   *   wx.openLocation({
+   *     latitude: marker.latitude,
+   *     longitude: markers.longitude,
+   *     name: markers.title,
+   *   });
+   * },
+   */
   onPageScroll(e) {
     $set.nav(e, this);
   },
@@ -40,5 +43,7 @@ $page("situs", {
       path: `/function/situs?From=主页&depth=1&share=true&xiaoqu=${this.xiaoqu}&id=${this.id}&aim=${this.aim}`
     };
   },
-  redirect() { this.$switch("/pages/main"); },
+  redirect() {
+    this.$switch("/pages/main");
+  }
 });

@@ -1,5 +1,4 @@
-var c = getApp().common,
-  a = getApp().globalData;
+var a = getApp().globalData;
 Page({
   data: {
     page: [{

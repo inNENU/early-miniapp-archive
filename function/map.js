@@ -19,8 +19,8 @@ var includePoint1 = {
     }]
   };
 
-var P = require("../utils/wxpage"),
-  S = require("../utils/setPage"),
+var P = require("../lib/wxpage"),
+  S = require("../lib/setpage"),
   t = require("../utils/tab"),
   a = getApp().globalData;
 

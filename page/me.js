@@ -1,13 +1,13 @@
-/*global getApp wx*/
-var P = getApp().lib.$page, S = getApp().lib.$set, a = getApp().globalData, tab = require("../utils/tab");
+/* global wx getApp*/
+let a = getApp().globalData, { $page, $set } = getApp().lib;
 
-P("me", {
+$page("me", {
   data: {
     page: [{
       tag: "head",
       title: "我的东师",
       action: true,
-      grey: true,
+      grey: true
     }, {
       tag: "list",
       content: [{
@@ -22,33 +22,39 @@ P("me", {
       }]
     }, {
       tag: "foot",
-      desc: "当前版本：" + a.version
+      desc: `当前版本：${a.version}`
     }]
   },
   onPreload() {
-    if (!S.preSet(this.data.page, a, null, this, false)) {
+    if (!$set.preSet(this.data.page, a, null, this, false))
       this.set = true;
-    }
+
     console.log("Me preload finished time:", new Date() - a.date, "ms");
   },
   onLoad() {
-    if (!this.set) S.Set(this.data.page, a, null, this, false);
-    S.Notice("me");
+    if (!this.set) $set.Set(this.data.page, a, null, this, false);
+    $set.Notice("me");
   },
   onShow() {
-    let [frontColor, backgroundColor] = this.data.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
+    let [frontColor, backgroundColor, color] = this.data.nm ?
+      ["#ffffff", "#000000", ["#000000", "white"]] :
+      ["#000000", "#ffffff", ["#ffffff", "black"]];
     wx.setNavigationBarColor({ frontColor, backgroundColor });
-    tab.tabBarChanger(a.nm);
+    wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
     this.$preload("setting?From=我的东师"), this.$preload("about?From=我的东师");
   },
   onReady() {
-    if (!this.set) S.Set(this.data.page, a, null, this);
-    this.$on("theme", T => { this.setData({ T }) }), this.$on("nightmode", nm => { this.setData({ nm }) });
+    if (!this.set) $set.Set(this.data.page, a, null, this);
+    this.$on("theme", T => {
+      this.setData({ T });
+    }), this.$on("nightmode", nm => {
+      this.setData({ nm });
+    });
   },
   onPageScroll(e) {
-    S.nav(e, this);
+    $set.nav(e, this);
   },
   cA(e) {
-    S.component(e, this);
-  },
+    $set.component(e, this);
+  }
 });

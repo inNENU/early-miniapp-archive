@@ -1,20 +1,15 @@
-var P = require("../utils/wxpage");
+/*global getApp wx*/
+var { lib: { $page } } = getApp();
 
-P("web", {
+$page("web", {
   onLoad(res) {
     let title = res.title;
-    wx.setNavigationBarTitle({
-      title: title
-    });
-    this.setData({
-      url: res.url,
-      title
-    });
+    wx.setNavigationBarTitle({ title });
+    this.setData({ url: res.url, title });
   },
   onShareAppMessage() {
     return {
-      title: this.data.title,
-      path: `/pages/modules/web?url=${this.data.url}`
+      title: this.data.title, path: `/pages/modules/web?url=${this.data.url}`
     };
-  },
+  }
 });

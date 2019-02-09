@@ -28,21 +28,37 @@ $page("noticeDetail", {
         attachment.forEach(x => {
           let temp = x.docName.split(".")[1];
           x.docName = x.docName.split(".")[0];
-          x.docType = temp == "docx" || temp == "doc" ? "doc" : temp == "pptx" || temp == "ppt" ? "ppt" : temp == "xlsx" || temp == "xls" ? "xls" : temp == "jpg" || temp == "jpeg" ? "jpg" : temp == "pdf" || temp == "png" || temp == "gif" ? temp : temp == "mp4" || temp == "mov" || temp == "avi" || temp == "rmvb" ? "video" : "document";
+          x.docType = temp == "docx" || temp == "doc" ?
+            "doc" :
+            temp == "pptx" || temp == "ppt" ?
+              "ppt" :
+              temp == "xlsx" || temp == "xls" ?
+                "xls" :
+                temp == "jpg" || temp == "jpeg" ?
+                  "jpg" :
+                  temp == "mp4" || temp == "mov" || temp == "avi" || temp == "rmvb" ?
+                    "video" :
+                    temp == "pdf" || temp == "png" || temp == "gif" ?
+                      temp :
+                      "document";
         });
-        this.$set({
+        this.setData({
           "page[1].text": data.title, "page[2].text": data.content, "page[3].text": data.footer, attachment
         });
-      } else this.$set({ "page[1].text": data.title, "page[2].text": data.content, "page[3].text": data.footer });
+      } else this.setData({ "page[1].text": data.title, "page[2].text": data.content, "page[3].text": data.footer });
     });
     this.id = res.id;
   },
   onPullDownRefresh() {
     $set.request(`mpServer/notice/${this.id}`, notice => {
-      this.$set({ notice });
+      this.setData({ notice });
       wx.stopPullDownRefresh();
     });
   },
-  onPageScroll(e) { $set.nav(e, this); },
-  cA(e) { $set.component(e, this); }
+  onPageScroll(e) {
+    $set.nav(e, this);
+  },
+  cA(e) {
+    $set.component(e, this);
+  }
 });

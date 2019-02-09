@@ -1,13 +1,9 @@
-/*global wx getApp*/
-var P = getApp().lib.$page, S = getApp().lib.$set, a = getApp().globalData, tab = require("../utils/tab");
+/* global wx getApp*/
+let a = getApp().globalData, { $page, $set } = getApp().lib;
+let tab = require("../utils/tab");
 
-// var P = require("../utils/wxpage"),
-//   S = require("../utils/setPage"),
-//   a = getApp().globalData,
-//   app = require("../utils/app"),
-//   tab = require("../utils/tab");
 
-P("guide", {
+$page("guide", {
   data: {
     T: a.T,
     nm: a.nm,
@@ -73,24 +69,23 @@ P("guide", {
         text: "SIM卡",
         icon: "/icon/guide/sim.svg",
         aim: "sim0"
-      },]
-    },
-    ],
+      }]
+    }]
   },
   onPreload(res) {
-    S.preSet(this.$take(res.query.name), a, {
+    $set.preSet(this.$take(res.query.name), a, {
       aim: "guide"
     }, this, false);
     this.set = true;
     console.log("Guide preload finished time:", new Date() - a.date, "ms");
   },
   onLoad() {
-    this.$set({ T: a.T, nm: a.nm });
+    this.setData({ T: a.T, nm: a.nm });
     if (!this.set) {
       let page = wx.getStorageSync("guide");
-      S.Set(page ? page : this.data.page, a, { aim: "guide" }, this, false);
+      $set.Set(page ? page : this.data.page, a, { aim: "guide" }, this, false);
     }
-    S.Notice("guide");
+    $set.Notice("guide");
     tab.checkUpdate("guideNotify", "localGuide", "guideVersion", "10K");
   },
   onShow() {
@@ -100,30 +95,34 @@ P("guide", {
   onReady() {
     if (!this.set) {
       wx.startPullDownRefresh();
-      S.request('Res/json/main/guide', data => {
-        S.Set(data, a, { aim: 'guide' }, this);
+      $set.request("Res/json/main/guide", data => {
+        $set.Set(data, a, { aim: "guide" }, this);
         wx.stopPullDownRefresh();
-        wx.setStorageSync('guide', data);
-      })
+        wx.setStorageSync("guide", data);
+      });
     }
-    this.$on("theme", T => { this.$set({ T }) }), this.$on("nightmode", nm => { this.$set({ nm }) });
-    S.preLoad(this, a);
+    this.$on("theme", T => {
+      this.setData({ T });
+    }), this.$on("nightmode", nm => {
+      this.setData({ nm });
+    });
+    $set.preLoad(this, a);
   },
   onPullDownRefresh() {
-    S.request('Res/json/main/guide', data => {
-      S.Set(data, a, {
-        aim: 'guide'
+    $set.request("Res/json/main/guide", data => {
+      $set.Set(data, a, {
+        aim: "guide"
       }, this);
       wx.stopPullDownRefresh();
-      wx.setStorageSync('guide', data);
+      wx.setStorageSync("guide", data);
     });
     tab.checkUpdate("resNotify", "localList", "guideRes", "10K");
   },
   onPageScroll(e) {
-    S.nav(e, this);
+    $set.nav(e, this);
   },
   cA(e) {
-    S.component(e, this);
+    $set.component(e, this);
   },
   onShareAppMessage: () => ({ title: "东师指南", path: "/page/guide" })
-})
+});
