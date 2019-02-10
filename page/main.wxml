@@ -14,7 +14,7 @@
   <image class='mainNotice' src='/icon/function/notice.svg' />
 </view> -->
 <template is="all" data="{{page,T,nm}}" />
-<navigator class="" target="" url="/page/test" hover-class="navigator-hover" open-type="navigate">
+<!-- <navigator class="" target="" url="/page/test" hover-class="navigator-hover" open-type="navigate">
   跳转
 </navigator>
-<view style="width:100%;height:200px;"></view>
+<view style="width:100%;height:200px;"></view> -->

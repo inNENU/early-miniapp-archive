@@ -1,5 +1,6 @@
-/*global getApp*/
-var { globalData: a, lib: { $page, $set } } = getApp();
+/* global getApp*/
+
+let { globalData: a, lib: { $page, $set } } = getApp();
 
 $page("1.1", {
   data: {
@@ -20,6 +21,24 @@ $page("1.1", {
     }, {
       tag: "p", head: "V1.1.3 2018.11.30",
       text: "大量外观优化；\n大量函数重构；"
+    }, {
+      tag: "p", head: "V1.1.4 2018.12.15",
+      text: "优化了tab栏的显示；"
+    }, {
+      tag: "p", head: "V1.1.5 2018.01.01",
+      text: "设计了新的安卓list外观；"
+    }, {
+      tag: "p", head: "V1.1.6 2018.01.15",
+      text: "重新整理了小程序源代码；"
+    }, {
+      tag: "p", head: "V1.1.7 2018.01.25",
+      text: "引入自定义组件；"
+    }, {
+      tag: "p", head: "V1.1.8 2018.02.01",
+      text: "加入fileManager文件管理系统；"
+    }, {
+      tag: "p", head: "V1.1.9 2018.02.10",
+      text: "优化更新提示与版本设置；"
     }, {
       tag: "foot", author: "Mr.Hope"
     }]

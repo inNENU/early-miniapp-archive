@@ -64,13 +64,9 @@ $page("function", {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
-    if (!this.set) {
-      wx.startPullDownRefresh();
-      $set.request("Res/others/function", data => {
-        wx.stopPullDownRefresh();
-        wx.setStorageSync("function", data);
-      });
-    }
+    if (!this.set) $set.request("Res/others/function", data => {
+      wx.setStorageSync("function", data);
+    });
     this.$on("theme", T => {
       this.setData({ T });
     }), this.$on("nightmode", nm => {

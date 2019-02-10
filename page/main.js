@@ -34,11 +34,8 @@ $page("main", {
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
   },
   onLoad() {
-    wx.startPullDownRefresh();
     $set.request("Res/others/main", data => {
       $set.Set(data, a, null, this);
-      wx.stopPullDownRefresh();
-      wx.setStorageSync("main", data);
     });
     $set.Notice("main");
   },
