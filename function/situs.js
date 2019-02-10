@@ -1,5 +1,5 @@
-/*global wx getApp*/
-var { globalData: a, lib: { $page, $set } } = getApp();
+/* global wx getApp*/
+let { globalData: a, lib: { $page, $set } } = getApp();
 
 $page("situs", {
   data: {},
@@ -18,7 +18,7 @@ $page("situs", {
     $set.Notice(this.aim);
   },
   onReady() {
-    this.marker = wx.getStorageSync(this.xiaoqu + "-all")[this.id];
+    this.marker = wx.getStorageSync(`${this.xiaoqu}-all`)[this.id];
   },
 
   /*

@@ -1,4 +1,4 @@
-<import src="/component/template" />
+<import src="/components/template" />
 <view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template is="all2" data="{{page,T}}" />
   <view class='gradeHeader'>

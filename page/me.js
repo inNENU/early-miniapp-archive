@@ -13,11 +13,11 @@ $page("me", {
       content: [{
         text: "设置",
         icon: "/icon/setting.svg",
-        url: "settings/setting"
+        url: "/settings/setting"
       }, {
         text: "关于",
         icon: "/icon/about.svg",
-        url: "settings/about",
+        url: "/settings/about",
         desc: a.version
       }]
     }, {

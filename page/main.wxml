@@ -1,4 +1,4 @@
-<import src="/component/template" />
+<import src="/components/template" />
 <!-- <view style="height:{{page[0].statusBarHeight}}px;background-color:#fff;"></view>
 <view class="mainHead">
   <view class='mainText'>

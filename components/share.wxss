@@ -1,6 +1,6 @@
 /* share 组件*/
 
-@import "../lib/animation.wxss";
+@import "../css/animation.wxss";
 
 .iconCtn {
   width: 40px;

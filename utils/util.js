@@ -1,19 +1,9 @@
-module.exports = {
-  picker,
-  slider,
-  Switch
-};
+/* global wx */
 
 // 选择器函数
-function picker(e, ctx) {
+const picker = (e, ctx) => {
   let pos = e.currentTarget.dataset.id.split("-"),
     content = ctx.data.page[pos[0]].content[pos[1]];
-  if (e.type == "tap") {
-    content.visible = !content.visible;
-    ctx.setData({
-      page: ctx.data.page
-    });
-  }
   if (e.type == "change") {
     let value = e.detail.value;
     if (content.single) {
@@ -27,16 +17,17 @@ function picker(e, ctx) {
       }
       wx.setStorageSync(content.key, value.join("-"));
     }
-    ctx.setData({
-      page: ctx.data.page
-    });
-
-    return value;
+    ctx.setData({ page: ctx.data.page });
+  } else if (e.type == "tap") {
+    content.visible = !content.visible;
+    ctx.setData({ page: ctx.data.page });
   }
-}
+
+  return e.detail.value || content.visible;
+};
 
 // 滑块函数
-function slider(e, ctx) {
+const slider = (e, ctx) => {
   let pos = e.currentTarget.dataset.id.split("-"),
     content = ctx.data.page[pos[0]].content[pos[1]],
     value = e.detail.value;
@@ -57,23 +48,27 @@ function slider(e, ctx) {
   });
 
   return value;
-}
+};
 
 // 开关函数
-function Switch(e, ctx) {
+const Switch = (e, ctx) => {
   let pos = e.target.dataset.id.split("-"),
     page = ctx.data.page,
     content = page[pos[0]].content[pos[1]];
   content.status = e.detail.value;
-  ctx.setData({
-    page: page
-  });
+  ctx.setData({ page });
   wx.setStorageSync(content.swiKey, e.detail.value);
 
   return page;
-}
+};
 
-//-----测试中-----
+module.exports = {
+  picker,
+  slider,
+  Switch
+};
+
+// -----测试中-----
 
 /*
  * // 输出特定元素在数组中的index
@@ -199,18 +194,18 @@ function Switch(e, ctx) {
 /*
  * iOS导航栏弹性滚动特效
  * function scrollNav(e) {
- * 	let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
- * 	console.log(pos)
- * 	if (pos < 27) {
- * 		wx.pageScrollTo({
- * 			scrollTop: 0,
- * 			duration: 500
- * 		})
- * 	} else if (pos < 53) {
- * 		wx.pageScrollTo({
- * 			scrollTop: 53,
- * 			duration: 500
- * 		})
- * 	}
+ *  let pos = e.changedTouches[0].pageY - e.changedTouches[0].clientY
+ *  console.log(pos)
+ *  if (pos < 27) {
+ *    wx.pageScrollTo({
+ *      scrollTop: 0,
+ *      duration: 500
+ *    })
+ *  } else if (pos < 53) {
+ *    wx.pageScrollTo({
+ *      scrollTop: 53,
+ *      duration: 500
+ *    })
+ *  }
  * }
  */

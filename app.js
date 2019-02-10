@@ -75,7 +75,7 @@ $App({
     let [frontColor, backgroundColor] = this.globalData.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
     wx.setNavigationBarColor({ frontColor, backgroundColor });
     app.noticeCheck();
-    app.checkUpdate(true, false);
+    app.appUpdate(true, false);
     this.logger.debug(`"onAwake after ${time}ms`);// 调试
   },
   // onShow: function () { },

@@ -1,5 +1,5 @@
-/*global wx getApp*/
-var { globalData: a, lib: { $page, $set } } = getApp();
+/* global wx getApp*/
+let { globalData: a, lib: { $page, $set } } = getApp();
 $page("noticeDetail", {
   data: {
     page: [{

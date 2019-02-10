@@ -1,9 +1,8 @@
-@import "lib/common.wxss";
-@import "lib/Android.wxss";
-@import "lib/NENU.wxss";
-@import "lib/iOS.wxss";
-@import "lib/animation.wxss";
-
+@import "css/common.wxss";
+@import "css/Android.wxss";
+@import "css/NENU.wxss";
+@import "css/iOS.wxss";
+@import "css/animation.wxss";
 page {
   height: 100%;
   font-size: 32rpx;

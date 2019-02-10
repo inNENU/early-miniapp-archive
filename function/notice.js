@@ -1,5 +1,5 @@
-/*global wx getApp*/
-var { globalData: a, lib: { $page, $set } } = getApp();
+/* global wx getApp*/
+let { globalData: a, lib: { $page, $set } } = getApp();
 
 $page("notice", {
   data: {
@@ -13,7 +13,9 @@ $page("notice", {
   },
   onLoad() {
     $set.Set(this.data.page, a, null, this, false);
-    $set.request("mpServer/notice/notice", notice => { this.setData({ notice }); });
+    $set.request("mpServer/notice/notice", notice => {
+      this.setData({ notice });
+    });
   },
   onPullDownRefresh() {
     $set.request("mpServer/notice/notice", notice => {
@@ -24,8 +26,11 @@ $page("notice", {
   onPageScroll(e) {
     $set.nav(e, this);
   },
-  cA(e) { $set.component(e, this); },
+  cA(e) {
+    $set.component(e, this);
+  },
   notice(res) {
-    let id = res.currentTarget.dataset.id; this.$route(`/function/noticeDetail?id=${id}`);
+    let id = res.currentTarget.dataset.id;
+    this.$route(`/function/noticeDetail?id=${id}`);
   }
 });

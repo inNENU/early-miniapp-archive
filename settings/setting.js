@@ -1,6 +1,6 @@
 /* global wx getApp*/
 let { globalData: a, lib: { $page, $set } } = getApp();
-const app = require("../../lib/app"), util = require("../../utils/util"), tab = require("../../utils/tab");
+const app = require("../lib/app"), util = require("../utils/util"), tab = require("../utils/tab");
 
 let time = [[], []];
 for (let i = 0; i <= 23; i++) time[0].push(`${i}时`);
