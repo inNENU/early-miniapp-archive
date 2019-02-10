@@ -84,7 +84,7 @@ module.exports = {
     "max-depth": "error",
     "max-len": ["error", { "code": 120, "tabWidth": 2 }],
     "max-lines": "off",
-    "max-lines-per-function": ["error", { "max": 60, "skipBlankLines": true, "skipComments": true }],
+    "max-lines-per-function": ["error", { "max": 80, "skipBlankLines": true, "skipComments": true }],
     "max-nested-callbacks": "error",
     "max-params": ["error", { "max": 5 }],
     "max-statements": ["error", { "max": 15 }],

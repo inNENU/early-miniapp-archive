@@ -134,8 +134,8 @@ $page("about", {
     } else this.setData({ debug: true, focus: true });
   },
   password(e) {
-    if (e.detail.value.length == 8) {
-      if (e.detail.value == "01311031") {
+    if (e.detail.value.length == 7) {
+      if (e.detail.value == "5201314") {
         wx.showToast({ title: "已启用开发者模式", icon: "none" });
         this.data.page[1].content.forEach(x => {
           x.hidden = false;
@@ -144,7 +144,7 @@ $page("about", {
         wx.setStorageSync("developMode", true);
         this.developMode = true;
       } else {
-        wx.showToast({ title: "密码错误", duration: 1000 });
+        wx.showToast({ title: "密码错误", icon: "none", duration: 1000, image: "/icon/close.png" });
         this.setData({ debug: false, dotNumber: [] });
       }
       e.detail.value = "";

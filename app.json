@@ -119,7 +119,7 @@
     "downloadFile": 25000
   },
   "workers": "worker",
-  "debug": true,
+  "debug": false,
   "resizable": true,
   "permission": {
     "scope.userLocation": {

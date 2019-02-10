@@ -5,32 +5,43 @@ const $App = require("./lib/wxpage").A,
 // var worker = wx.createWorker("worker/worker.js") //worker test
 
 $App({
-  data: { theme: "auto", startTime: "0-0", endTime: "5-0" },
-  config: { route: ["/page/$page", "/module/$page", "/function/$page"], resolvePath: name => `/module/${name}` },
+
+  // 小程序全局数据
   globalData: {
     version: "V 1.2.0",
     music: { play: false, played: false, index: 0 }
     // T, nm, date, info也在globalData中
   },
+
+  // 在APP中封装两个js库对象
   lib: {
-    $page: require("./lib/wxpage"), $set: require("./lib/setpage")// 在APP中封装两个js库对象
+    $page: require("./lib/wxpage"), $set: require("./lib/setpage")
   },
+
+  // 路径解析配置
+  config: { route: ["/page/$page", "/module/$page", "/function/$page"], resolvePath: name => `/module/${name}` },
+
   onLaunch(opts) {
-    console.info("APP 启动，参数为", opts);// 调试用
-    this.globalData.date = new Date();// 记录启动时间
-    // app.checkDebug();//检测开发
-    if (!wx.getStorageSync("launched")) app.appInit(this.data);// 如果初次启动执行初始化
+    console.info("APP 启动，参数为", opts); // 调试
+
+    // 保存启动时间
+    this.globalData.date = new Date();
+
+    // 如果初次启动执行初始化
+    if (!wx.getStorageSync("inited")) app.appInit(this.data);
+
+    // 获取主题、夜间模式、设备信息、日志管理器对象
     this.globalData.T = wx.getStorageSync("theme");
-    this.globalData.nm = app.nightmode();// 设置主题,夜间模式
-    /*
-     * let [frontColor, backgroundColor] = this.globalData.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
-     * wx.setNavigationBarColor({ frontColor, backgroundColor });
-     */
+    this.globalData.nm = app.nightmode();
     this.globalData.info = wx.getSystemInfoSync();
     this.logger = wx.getLogManager({ level: 1 });
-    app.noticeCheck();
-    app.appUpdate(true, false);
-    console.info("设备信息为", this.globalData.info);     // 调试
+
+    // 检查通知更新与小程序更新
+    app.noticeCheck(), app.appUpdate();
+
+    console.info("设备信息为", this.globalData.info); // 调试
+
+    // 设置内存不足警告
     wx.onMemoryWarning(() => {
       wx.showToast({ title: "内存不足", icon: "none", duration: 1500 });
       console.warn("onMemoryWarningReceive");
@@ -41,53 +52,29 @@ $App({
      *   console.log("Receive message:", msg)
      * })
      */
-
-    /*
-     * let fileManager = wx.getFileSystemManager();
-     * fileManager.readdir({
-     *   dirPath: `${wx.env.USER_DATA_PATH}`,
-     *   success: res0 => {
-     *     console.log(res0)
-     *     fileManager.access({
-     *       path: `${wx.env.USER_DATA_PATH}/guideVersion.json`,
-     *       complete: res => {
-     *         console.log(res)
-     *         fileManager.readFile({
-     *           filePath: `${wx.env.USER_DATA_PATH}/guideVersion.json`,
-     *           encoding: 'utf-8',
-     *           complete: res => {
-     *             console.log(res)
-     *             console.log(JSON.parse(res.data))
-     *           }
-     *         })
-     *       }
-     *     })
-     *   }
-     * })
-     * JSON.parse(fileManager.readFileSync(`${wx.env.USER_DATA_PATH}/guide/study/study.json`, 'utf-8'))
-     */
-
-
   },
   onAwake(time) {
-    console.log("小程序在", time, "ms之后被唤醒");// 调试
+    console.log("小程序在", time, "ms之后被唤醒"), this.logger.debug(`"onAwake after ${time}ms`);// 调试
+
+    // 重新应用夜间模式、检查通知与小程序更新
     this.globalData.nm = app.nightmode();
-    let [frontColor, backgroundColor] = this.globalData.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
     app.noticeCheck();
     app.appUpdate(true, false);
-    this.logger.debug(`"onAwake after ${time}ms`);// 调试
   },
+
   // onShow: function () { },
+
   onError(msg) {
-    console.error("error msg is", msg);
-    this.logger.warn("Error ocurred", msg); // 调试
+    console.error("出错信息为：", msg), this.logger.warn("Error ocurred", msg); // 调试
   },
   onPageNotFound(msg) {
+
+    // 重定向到主界面
     wx.switchTab({ url: "pages/main" });
-    console.warn("Page not found:", msg);
-    this.logger.warn("Page not found!", msg); // 调试
+
+    console.warn("未找到界面:", msg), this.logger.warn("Page not found!", msg); // 调试
   }
+
   // logger对象也在APP中
 });
 
@@ -98,21 +85,4 @@ $App({
  *      "provider": "wx9d4d4ffa781ff3ac"
  *  }
  * }
- * ,
- *  "usingComponents": {
- *    "my-component": "./components/tab"
- *  }
- */
-
-/*
- *调试
- * wx.openUrl({
- *   url: 'http://nenuyouth.com',
- *   fail: (msg) => {
- *     console.log('fail:', msg)
- *   },
- *   success: (msg) => {
- *     console.log('success:', msg)
- *   }
- * })
  */
