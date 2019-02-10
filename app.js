@@ -2,7 +2,7 @@
 const $App = require("./lib/wxpage").A,
   app = require("./lib/app");
 
-// var worker = wx.createWorker("workers/worker.js") //worker test
+// var worker = wx.createWorker("worker/worker.js") //worker test
 
 $App({
   data: { theme: "auto", startTime: "0-0", endTime: "5-0" },
@@ -33,7 +33,7 @@ $App({
     console.info("设备信息为", this.globalData.info);     // 调试
     wx.onMemoryWarning(() => {
       wx.showToast({ title: "内存不足", icon: "none", duration: 1500 });
-      console.log("onMemoryWarningReceive");
+      console.warn("onMemoryWarningReceive");
     });
 
     /*

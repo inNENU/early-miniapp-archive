@@ -45,29 +45,28 @@ $page("function", {
       }]
     }]
   },
-  onPreload (res) {
+  onPreload(res) {
     $set.preSet(this.$take(res.query.name), a, { aim: "function" }, this, false);
     this.set = true;
     console.log("Function preload finished time:", new Date() - a.date, "ms");
   },
-  onLoad () {
+  onLoad() {
     this.setData({ T: a.T, nm: a.nm });
     if (!this.set) {
       let page = wx.getStorageSync("function");
       $set.Set(page ? page : this.data.page, a, { aim: "function" }, this, false);
     }
     $set.Notice("function");
-    tab.checkUpdate("funcNotify", "localFunc", "functionRes", "20K");
+    tab.update("function", "70K");
   },
-  onShow () {
+  onShow() {
     let [frontColor, backgroundColor] = this.data.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
-  onReady () {
+  onReady() {
     if (!this.set) {
       wx.startPullDownRefresh();
-      $set.request("functionVersion", data => {
-        $set.Set(data, a, null, this);
+      $set.request("Res/others/function", data => {
         wx.stopPullDownRefresh();
         wx.setStorageSync("function", data);
       });
@@ -77,20 +76,16 @@ $page("function", {
     }), this.$on("nightmode", nm => {
       this.setData({ nm });
     });
-    tab.markerSet();// 此处还需要再优化
+    // tab.markerSet();// 此处还需要再优化
   },
-  onPullDownRefresh () {
-    $set.request("functionVersion", data => {
-      $set.Set(data, a, null, this);
-      wx.stopPullDownRefresh();
-      wx.setStorageSync("function", data);
-    });
-    tab.checkUpdate("funcNotify", "localFunc", "functionVersion", "20K");
+  onPullDownRefresh() {
+    tab.update("function", "70K");
+    wx.stopPullDownRefresh();
   },
-  onPageScroll (e) {
+  onPageScroll(e) {
     $set.nav(e, this);
   },
-  cA (e) {
+  cA(e) {
     $set.component(e, this);
   }
 });

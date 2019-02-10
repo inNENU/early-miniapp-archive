@@ -86,21 +86,16 @@ $page("guide", {
       $set.Set(page ? page : this.data.page, a, { aim: "guide" }, this, false);
     }
     $set.Notice("guide");
-    tab.checkUpdate("guideNotify", "localGuide", "guideVersion", "10K");
+    tab.update("page", "145K");
   },
   onShow() {
     let [frontColor, backgroundColor] = this.data.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
-    if (!this.set) {
-      wx.startPullDownRefresh();
-      $set.request("Res/json/main/guide", data => {
-        $set.Set(data, a, { aim: "guide" }, this);
-        wx.stopPullDownRefresh();
-        wx.setStorageSync("guide", data);
-      });
-    }
+    if (!this.set) $set.request("Res/others/guide", data => {
+      wx.setStorageSync("guide", data);
+    });
     this.$on("theme", T => {
       this.setData({ T });
     }), this.$on("nightmode", nm => {
@@ -109,14 +104,8 @@ $page("guide", {
     $set.preLoad(this, a);
   },
   onPullDownRefresh() {
-    $set.request("Res/json/main/guide", data => {
-      $set.Set(data, a, {
-        aim: "guide"
-      }, this);
-      wx.stopPullDownRefresh();
-      wx.setStorageSync("guide", data);
-    });
-    tab.checkUpdate("resNotify", "localList", "guideRes", "10K");
+    tab.update("page", "145K");
+    wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
     $set.nav(e, this);
