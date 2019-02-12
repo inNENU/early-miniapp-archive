@@ -1,6 +1,6 @@
 /* global wx getApp*/
 let { globalData: a, lib: { $page, $set } } = getApp();
-const app = require("../lib/app"), util = require("../utils/util"), tab = require("../utils/tab");
+const app = require("../lib/app"), tab = require("../utils/tab");
 
 let time = [[], []];
 for (let i = 0; i <= 23; i++) time[0].push(`${i}时`);
@@ -68,7 +68,7 @@ $page("setting", {
     if (!dayBrightnessChange || a.nm) list[4].hidden = true;
     if (!nightBrightnessChange || !a.nm) list[6].hidden = true;
     if (!$set.preSet(this.data.page, a, res.query, this, false))
-      this.set = true, console.log("Settings preload finished");
+      this.set = true, console.log("Settings preload finished, with", this.data.page);
   },
   onLoad(res) {
     if (!this.set) {
@@ -108,7 +108,8 @@ $page("setting", {
     a.nm = app.nightmode(new Date());
   },
   switchnm(e) {
-    let p = util.Switch(e, this), list = p[3].content, value = e.detail.value;
+    // let p = util.Switch(e, this), list = p[3].content, value = e.detail.value;
+    let p = $set.Switch(e, this), list = p[3].content, value = e.detail.value;
     list[0].status = false;
     list[1].hidden = list[2].hidden = true, list[1].visible = list[2].visible = false;
     if (value) {
@@ -128,7 +129,8 @@ $page("setting", {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   switchnmAC(e) {
-    let p = util.Switch(e, this), list = p[3].content;
+    let p = $set.Switch(e, this), list = p[3].content;
+    // let p = util.Switch(e, this), list = p[3].content;
     let nm = app.nightmode(new Date());
     p[2].content[0].status = nm;
     wx.setStorageSync("nightmode", nm);
@@ -149,12 +151,14 @@ $page("setting", {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   swithDay(e) {
-    let p = util.Switch(e, this), list = p[3].content;
+    let p = $set.Switch(e, this), list = p[3].content;
+    // let p = util.Switch(e, this), list = p[3].content;
     list[4].visible = e.detail.value, list[4].hidden = !e.detail.value;
     this.setData({ page: p });
   },
   swithNight(e) {
-    let p = util.Switch(e, this), list = p[3].content;
+    let p = $set.Switch(e, this), list = p[3].content;
+    // let p = util.Switch(e, this), list = p[3].content;
     list[6].visible = e.detail.value, list[6].hidden = !e.detail.value;
     this.setData({ page: p });
   },

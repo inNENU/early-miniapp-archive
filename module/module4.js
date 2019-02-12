@@ -1,9 +1,9 @@
-/*global getApp*/
-var { globalData: a, lib: { $page, $set } } = getApp();
+/* global getApp*/
+let { globalData: a, lib: { $page, $set } } = getApp();
 
 $page("module4", {
   onNavigate(res) {
-    $set.preSet(this.$session.get(res.query.aim + "Temp"), a, res, this);
+    $set.preSet(this.$session.get(`${res.query.aim}Temp`), a, res, this);
   },
   onLoad(res) {
     $set.Online(a, res, this);

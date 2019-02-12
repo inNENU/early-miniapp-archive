@@ -1,9 +1,9 @@
-/*global getApp wx*/
-var { globalData: a, lib: { $page, $set } } = getApp();
+/* global getApp wx*/
+let { globalData: a, lib: { $page, $set } } = getApp();
 
 $page("sharePage", {
   onNavigate(res) {
-    $set.preSet(this.$session.get(res.query.aim + "Temp"), a, res, this);
+    $set.preSet(this.$session.get(`${res.query.aim}Temp`), a, res, this);
   },
   onLoad(res) {
     if (!this.aim) {

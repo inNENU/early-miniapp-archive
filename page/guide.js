@@ -77,7 +77,7 @@ $page("guide", {
       aim: "guide"
     }, this, false);
     this.set = true;
-    console.log("Guide preload finished time:", new Date() - a.date, "ms");
+    console.log(`${this.aim}预加载用时${new Date() - a.date}ms`);
   },
   onLoad() {
     this.setData({ T: a.T, nm: a.nm });

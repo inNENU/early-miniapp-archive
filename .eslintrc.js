@@ -63,7 +63,7 @@ module.exports = {
     "guard-for-in": "off",
     "handle-callback-err": "error",
     "id-blacklist": "error",
-    "id-length": ["error", { "exceptions": ['a', 'e', 'i', 'j', 'k', 'l', 'p', 'x', 'y', 'T'] }],
+    "id-length": "off",
     "id-match": "error",
     "implicit-arrow-linebreak": [
       "error",

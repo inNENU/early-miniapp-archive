@@ -30,7 +30,7 @@ $page("main", {
   onPageLaunch() {
     console.log("主页面启动：", new Date() - a.date, "ms");
     let page = wx.getStorageSync("main"), color = a.nm ? ["#000000", "white"] : ["#ffffff", "black"];
-    $set.preSet(page ? page : this.data.page, a, null, this, false);
+    $set.preSet(page ? page : this.data.page, a, { aim: "main" }, this, false);
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
   },
   onLoad() {
@@ -53,7 +53,7 @@ $page("main", {
     ["guide", "function"].forEach(x => {
       $set.request(`Res/others/${x}`, data => {
         this.$put(x, data);
-        this.$preload(`${x}?name=${x}`);
+        this.$preload(`${x}?name=${x}&aim=${x}`);
         wx.setStorageSync(x, data);
       });
     });

@@ -30,11 +30,10 @@ $App({
     // 如果初次启动执行初始化
     if (!wx.getStorageSync("inited")) app.appInit(this.data);
 
-    // 获取主题、夜间模式、设备信息、日志管理器对象
+    // 获取主题、夜间模式、设备信息
     this.globalData.T = wx.getStorageSync("theme");
     this.globalData.nm = app.nightmode();
     this.globalData.info = wx.getSystemInfoSync();
-    this.logger = wx.getLogManager({ level: 1 });
 
     // 检查通知更新与小程序更新
     app.noticeCheck(), app.appUpdate();
@@ -73,9 +72,10 @@ $App({
     wx.switchTab({ url: "pages/main" });
 
     console.warn("未找到界面:", msg), this.logger.warn("Page not found!", msg); // 调试
-  }
+  },
 
-  // logger对象也在APP中
+  // 日志管理器对象
+  logger: wx.getLogManager({ level: 1 })
 });
 
 /*

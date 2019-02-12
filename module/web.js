@@ -1,5 +1,5 @@
-/*global getApp wx*/
-var { lib: { $page } } = getApp();
+/* global getApp wx*/
+let { lib: { $page } } = getApp();
 
 $page("web", {
   onLoad(res) {

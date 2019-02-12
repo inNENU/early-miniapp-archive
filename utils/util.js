@@ -1,54 +1,62 @@
 /* global wx */
 
-// 选择器函数
-const picker = (e, ctx) => {
-  let pos = e.currentTarget.dataset.id.split("-"),
-    content = ctx.data.page[pos[0]].content[pos[1]];
-  if (e.type == "change") {
-    let value = e.detail.value;
-    if (content.single) {
-      content.value = content.pickerValue[Number(value)];
-      content.currentValue = value;
-      wx.setStorageSync(content.key, Number(value));
-    } else {
-      for (let k = 0; k < value.length; k++) {
-        content.value[k] = content.pickerValue[k][Number(value[k])];
-        content.currentValue[k] = value[k];
-      }
-      wx.setStorageSync(content.key, value.join("-"));
-    }
-    ctx.setData({ page: ctx.data.page });
-  } else if (e.type == "tap") {
-    content.visible = !content.visible;
-    ctx.setData({ page: ctx.data.page });
-  }
+/*
+ * // 选择器函数
+ * const picker = (e, ctx) => {
+ *   let pos = e.currentTarget.dataset.id.split("-"),
+ *     content = ctx.data.page[pos[0]].content[pos[1]];
+ *   if (e.type == "change") {
+ *     let value = e.detail.value;
+ *     if (content.single) {
+ *       content.value = content.pickerValue[Number(value)];
+ *       content.currentValue = value;
+ *       wx.setStorageSync(content.key, Number(value));
+ *     } else {
+ *       for (let k = 0; k < value.length; k++) {
+ *         content.value[k] = content.pickerValue[k][Number(value[k])];
+ *         content.currentValue[k] = value[k];
+ *       }
+ *       wx.setStorageSync(content.key, value.join("-"));
+ *     }
+ *     ctx.setData({ page: ctx.data.page });
+ *   } else if (e.type == "tap") {
+ *     content.visible = !content.visible;
+ *     ctx.setData({ page: ctx.data.page });
+ *   }
+ */
 
-  return e.detail.value || content.visible;
-};
+/*
+ *   return e.detail.value || content.visible;
+ * };
+ */
 
-// 滑块函数
-const slider = (e, ctx) => {
-  let pos = e.currentTarget.dataset.id.split("-"),
-    content = ctx.data.page[pos[0]].content[pos[1]],
-    value = e.detail.value;
-  switch (e.type) {
-    case "tap":
-      content.visible = !content.visible;
-      break;
-    case "changing":
-      content.value = value;
-      break;
-    case "change":
-      content.value = value;
-      wx.setStorageSync(content.sliKey, value);
-      break;
-  }
-  ctx.setData({
-    page: ctx.data.page
-  });
+/*
+ * // 滑块函数
+ * const slider = (e, ctx) => {
+ *   let pos = e.currentTarget.dataset.id.split("-"),
+ *     content = ctx.data.page[pos[0]].content[pos[1]],
+ *     value = e.detail.value;
+ *   switch (e.type) {
+ *     case "tap":
+ *       content.visible = !content.visible;
+ *       break;
+ *     case "changing":
+ *       content.value = value;
+ *       break;
+ *     case "change":
+ *       content.value = value;
+ *       wx.setStorageSync(content.sliKey, value);
+ *       break;
+ *   }
+ *   ctx.setData({
+ *     page: ctx.data.page
+ *   });
+ */
 
-  return value;
-};
+/*
+ *   return value;
+ * };
+ */
 
 // 开关函数
 const Switch = (e, ctx) => {
@@ -63,8 +71,9 @@ const Switch = (e, ctx) => {
 };
 
 module.exports = {
-  picker,
-  slider,
+  // picker,
+
+  // slider,
   Switch
 };
 
@@ -78,15 +87,6 @@ module.exports = {
  *             return i;
  *         }
  *     }
- * }
- */
-
-/*
- * // 跳转制定界面
- * function go(url) {
- *     wx.navigateTo({
- *         url: url
- *     });
  * }
  */
 

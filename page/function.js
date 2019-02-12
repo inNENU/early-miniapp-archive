@@ -48,7 +48,7 @@ $page("function", {
   onPreload(res) {
     $set.preSet(this.$take(res.query.name), a, { aim: "function" }, this, false);
     this.set = true;
-    console.log("Function preload finished time:", new Date() - a.date, "ms");
+    console.log(`${this.aim}预加载用时${new Date() - a.date}ms`);
   },
   onLoad() {
     this.setData({ T: a.T, nm: a.nm });
@@ -72,7 +72,7 @@ $page("function", {
     }), this.$on("nightmode", nm => {
       this.setData({ nm });
     });
-    // tab.markerSet();// 此处还需要再优化
+    tab.markerSet();// 此处还需要再优化
   },
   onPullDownRefresh() {
     tab.update("function", "70K");

@@ -26,10 +26,10 @@ $page("me", {
     }]
   },
   onPreload() {
-    if (!$set.preSet(this.data.page, a, null, this, false))
+    if (!$set.preSet(this.data.page, a, { aim: "me" }, this, false))
       this.set = true;
 
-    console.log("Me preload finished time:", new Date() - a.date, "ms");
+    console.log(`${this.aim}预加载用时${new Date() - a.date}ms`);
   },
   onLoad() {
     if (!this.set) $set.Set(this.data.page, a, null, this, false);
@@ -41,7 +41,7 @@ $page("me", {
       ["#000000", "#ffffff", ["#ffffff", "black"]];
     wx.setNavigationBarColor({ frontColor, backgroundColor });
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
-    this.$preload("setting?From=我的东师"), this.$preload("about?From=我的东师");
+    this.$preload("setting?From=我的东师&aim=setting"), this.$preload("about?From=我的东师&aim=about");
   },
   onReady() {
     if (!this.set) $set.Set(this.data.page, a, null, this);

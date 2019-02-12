@@ -1,11 +1,11 @@
-/* global wx*/
+/* global wx */
 
-// 初始化文件管理器
+// 初始化文件管理器、日志管理器
 const fileManager = wx.getFileSystemManager(), userPath = wx.env.USER_DATA_PATH;
+const logger = wx.getLogManager({ level: 1 });
+const $file = require("../lib/file");
 
-// const logger = wx.getLogManager({ level: 1 });
-
-// wx.request包装
+// wx.request包装 || 参数：请求路径(Res文件夹下) 回调函数
 const request = (path, Func) => {
   wx.request({
     url: `https://nenuyouth.com/Res/${path}.json`,
@@ -20,7 +20,7 @@ const request = (path, Func) => {
   });
 };
 
-// 资源下载 from fuction.js & guide.js 被checkResUpdate调用
+// 资源下载 from fuction.js & guide.js 被checkResUpdate调用 || 参数：下载资源名称
 const resDownload = name => {
   wx.setStorageSync(`${name}Download`, false);
   wx.downloadFile({
@@ -45,10 +45,10 @@ const resDownload = name => {
   });
 };
 
-// 检查资源更新
+// 检查资源更新 || 参数：检查资源的名称、消耗的数据流量
 const checkResUpdate = (name, dataUsage) => {
   let notify = wx.getStorageSync(`${name}ResNotify`), // 资源提醒
-    local = fileManager.readFileSync(`${userPath}/${name}Version.json`, "utf-8"), // 读取本地Version文件
+    local = $file.readFile(`${name}Version.json`), // 读取本地Version文件
     localTime = wx.getStorageSync(`${name}UpdateTime`), currentTime = Math.round(new Date() / 1000);// 读取当前和上次更新时间
 
   // 调试
@@ -57,18 +57,30 @@ const checkResUpdate = (name, dataUsage) => {
 
   if (notify || currentTime > localTime + 1000000)// 如果需要更新
     request(`${name}Version`, data => {
-      if (Number(local) == Number(data)) console.log("match");// 资源为最新
-      else { // 需要更新
+
+      // 资源为最新
+      if (Number(local) == Number(data)) console.log("match");// 调试
+
+      // 需要更新
+      else {
         console.log("not match"); // 调试
-        if (notify) wx.showModal({// 如果需要提醒，则弹窗
+
+        // 如果需要提醒，则弹窗
+        if (notify) wx.showModal({
           title: "发现资源更新", content: `是否立即更新资源？\n(会消耗${dataUsage}流量)`,
           cancelText: "否", cancelColor: "#ff0000", confirmText: "是",
           success: choice => {
+
+            // 用户确认，下载更新
             if (choice.confirm) resDownload(name);
-            else if (choice.cancal) wx.showModal({// 询问是否关闭更新提示
+
+            // 用户取消，询问是否关闭更新提示
+            else if (choice.cancal) wx.showModal({
               title: "开启资源更新提示？", content: "在资源有更新时会提示您更新资源文件。",
               cancelText: "残忍关闭", cancelColor: "#ff0000", confirmText: "保持开启",
               success: choice2 => {
+
+                // 用户选择关闭
                 if (choice2.cancel) wx.showModal({
                   title: "更新提示已关闭", showCancel: false,
                   content: "您可以在设置中重新打开提示。请注意：小程序会每半个月对界面文件进行强制更新。",
@@ -80,18 +92,20 @@ const checkResUpdate = (name, dataUsage) => {
             });
           }
         });
-        else resDownload(name);// 已经半个月了，强制更新
+
+        // 距上次更新已经半个月了，强制更新
+        else resDownload(name);
       }
     });
 };
 
-// 动态根据夜间模式改变导航栏 from main.js & me.js
+// 动态根据夜间模式改变导航栏 from main.js & me.js || 参数：夜间模式
 const tabBarChanger = nm => {
   let color = nm ? ["#000000", "white"] : ["#ffffff", "black"];
   wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
 };
 
-// 初始化marker，被setMarker调用
+// 初始化marker，被setMarker调用 || 参数：待处理的Marker数组
 const initMarker = markers => {
   markers.forEach(x => {
     let temp = {
@@ -113,36 +127,50 @@ const initMarker = markers => {
   return markers;
 };
 
+// 设置Marker
 const setMarker = (data, name) => {
   let marker = initMarker(data.points),
     category = data.category;
   wx.setStorageSync(`${name}-all`, marker);
-  Object.keys(category).forEach(x => {
+  Object.keys(category).forEach(i => {
     let markerDetail = [];
-    for (let j = category[x][0]; j <= category[x][1]; j++) markerDetail.push(marker[j]);
-    wx.setStorageSync(`${name}-${x}`, markerDetail);
+    for (let j = category[i][0]; j <= category[i][1]; j++) markerDetail.push(marker[j]);
+    wx.setStorageSync(`${name}-${i}`, markerDetail);
   });
 
   return true;
 };
 
 const markerSet = () => {
-  let localList, markerData = wx.getStorageSync("marker"),
-    temp = wx.getStorageSync("localFunc"),
-    markerVersion = localList ? localList.marker[1] : null,
-    currentVersion = wx.getStorageSync("markerVersion");
-  if (temp) localList = JSON.parse(temp);
-  if (!markerData)
-    request("guide/marker/marker", data => {
-      wx.setStorageSync("marker", data);
-      if (setMarker(data[0], "benbu") && setMarker(data[1], "jingyue") && markerVersion)
+  let markerVersion = wx.getStorageSync("markerVersion"),
+    functionVersion = $file.readFile("functionVersion.json");
+  if (markerVersion == functionVersion)// Marker已经设置完毕
+    console.log("Marker 已设置就绪");
+
+  // 需要设置Marker
+  else {
+    let markerData = $file.readFile("function/marker.json");
+
+    // 找到MarkerData，直接设置Marker
+    if (markerData)
+      if (setMarker(markerData[0], "benbu") && setMarker(markerData[1], "jingyue"))
         wx.setStorageSync("markerVersion", markerVersion);
       else console.warn("Marker set failure."), wx.reportMonitor("25", 1);
-    });
-  else if (markerVersion != currentVersion)
-    if (setMarker(markerData[0], "benbu") && setMarker(markerData[1], "jingyue"))
-      wx.setStorageSync("markerVersion", markerVersion);
-    else console.warn("Marker set failure."), wx.reportMonitor("25", 1);
+
+    // 没有找到MarkerData，可能又初始化中断造成
+    else {
+      console.log("get Marker error"), logger.warn("get Marker error"); // 调试
+      request("function/marker", data => {
+        // 将Marker数据保存文件
+        $file.writeFile("function/marker.json", data);
+
+        // 设置Marker
+        if (setMarker(data[0], "benbu") && setMarker(data[1], "jingyue") && markerVersion)
+          wx.setStorageSync("markerVersion", markerVersion);
+        else console.warn("Marker set failure."), wx.reportMonitor("25", 1);
+      });
+    }
+  }
 };
 
 module.exports = { update: checkResUpdate, tabBarChanger, markerSet, resDownload };
