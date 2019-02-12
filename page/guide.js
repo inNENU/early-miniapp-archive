@@ -1,6 +1,6 @@
 /* global wx getApp*/
 let a = getApp().globalData, { $page, $set } = getApp().lib;
-let tab = require("../utils/tab");
+let tab = require("../lib/tab");
 
 
 $page("guide", {

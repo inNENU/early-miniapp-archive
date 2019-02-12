@@ -3,6 +3,8 @@ let a = getApp().globalData, { $page, $set } = getApp().lib;
 
 $page("me", {
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
       tag: "head",
       title: "我的东师",

@@ -4,6 +4,8 @@ let { globalData: a, lib: { $page, $set } } = getApp();
 
 $page("1.1", {
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
       tag: "head",
       title: "更新日志",

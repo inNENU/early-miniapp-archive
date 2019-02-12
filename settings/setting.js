@@ -1,6 +1,6 @@
 /* global wx getApp*/
 let { globalData: a, lib: { $page, $set } } = getApp();
-const app = require("../lib/app"), tab = require("../utils/tab");
+const app = require("../lib/app"), tab = require("../lib/tab");
 
 let time = [[], []];
 for (let i = 0; i <= 23; i++) time[0].push(`${i}时`);
@@ -8,6 +8,8 @@ for (let i = 0; i <= 59; i++) i < 10 ? time[1].push(`0${i}分`) : time[1].push(`
 
 $page("setting", {
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
       tag: "head", title: "设置", grey: true
     }, {

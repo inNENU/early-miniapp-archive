@@ -1,9 +1,11 @@
 /* global wx getApp*/
 let a = getApp().globalData, { $page, $set } = getApp().lib;
-const tab = require("../utils/tab");
+const tab = require("../lib/tab");
 
 $page("function", {
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
       tag: "head", title: "功能大厅", action: true, grey: true
     }, {

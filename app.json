@@ -4,7 +4,9 @@
     "page/function",
     "page/guide",
     "page/me",
-    "page/test"
+    "settings/1.1",
+    "settings/setting",
+    "settings/about"
   ],
   "subPackages": [
     {
@@ -34,14 +36,6 @@
         "web",
         "building"
       ]
-    },
-    {
-      "root": "settings",
-      "pages": [
-        "1.1",
-        "setting",
-        "about"
-      ]
     }
   ],
   "preloadRule": {
@@ -54,11 +48,6 @@
     "page/function": {
       "packages": [
         "function"
-      ]
-    },
-    "page/me": {
-      "packages": [
-        "settings"
       ]
     },
     "module/sharePage": {
@@ -119,7 +108,7 @@
     "downloadFile": 25000
   },
   "workers": "worker",
-  "debug": false,
+  "debug": true,
   "resizable": true,
   "permission": {
     "scope.userLocation": {

@@ -3,6 +3,8 @@ let { globalData: a, lib: { $page, $set } } = getApp();
 
 $page("main", {
   data: {
+    T: a.T,
+    nm: a.nm,
     page: [{
       tag: "head",
       title: "首页",
