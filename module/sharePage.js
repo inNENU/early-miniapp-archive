@@ -19,12 +19,12 @@ $page("sharePage", {
     $set.component(res, this);
   },
   redirect() {
-    this.$launch("/pages/main");
+    this.$launch("/page/main");
   },
   onShareAppMessage() {
     return {
       title: this.data.page[0].title,
-      path: `/modules/sharePage?From=主页&depth=1&share=true&aim=${this.aim}`
+      path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.aim}`
     };
   },
   onUnload() {

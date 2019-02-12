@@ -44,6 +44,6 @@ $page("situs", {
     };
   },
   redirect() {
-    this.$switch("/pages/main");
+    this.$switch("/page/main");
   }
 });

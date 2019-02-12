@@ -1,6 +1,6 @@
-var P = require("../utils/wxpage"),
-  S = require("../utils/setPage"),
-  t = require("../utils/tab"),
+var P = require("../lib/wxpage"),
+  S = require("../lib/setpage"),
+  t = require("../lib/tab"),
   a = getApp().globalData;
 
 P("PEcal", {

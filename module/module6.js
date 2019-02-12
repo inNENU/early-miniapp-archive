@@ -16,7 +16,7 @@ $page("module6", {
   },
   onShareAppMessage() {
     return {
-      title: this.data.page[0].title, path: `/modules/sharePage?From=主页&depth=1&share=true&aim=${this.aim}`
+      title: this.data.page[0].title, path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.aim}`
     };
   },
   onUnload() {

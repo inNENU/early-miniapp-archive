@@ -9,7 +9,7 @@ $page("web", {
   },
   onShareAppMessage() {
     return {
-      title: this.data.title, path: `/pages/modules/web?url=${this.data.url}`
+      title: this.data.title, path: `/module/web?url=${this.data.url}`
     };
   }
 });

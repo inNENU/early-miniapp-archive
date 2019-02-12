@@ -2,6 +2,8 @@
 const $App = require("./lib/wxpage").A,
   app = require("./lib/app");
 
+const $file = require("./lib/file");
+
 // var worker = wx.createWorker("worker/worker.js") //worker test
 
 $App({
@@ -46,11 +48,44 @@ $App({
       console.warn("onMemoryWarningReceive");
     });
 
+    // console.log($file.readFile("page/card/card0.json"));
+    // const fileManager = wx.getFileSystemManager(), userPath = wx.env.USER_DATA_PATH;
+
     /*
-     * wxpage.on("some_message", function(msg) {
-     *   console.log("Receive message:", msg)
-     * })
+     * console.log(fileManager.readdirSync(`${userPath}/page/card`));
+     * console.log(fileManager.statSync(`${userPath}/page/card/`, true));
+     * console.log(fileManager.statSync(`${userPath}/page/card/`, true).isDirectory());
+     * console.log(fileManager.statSync(`${userPath}/page/card/`, true).isFile());
+     * console.log(fileManager.statSync(`${userPath}/page/card/card0.json`, true));
+     * console.log(fileManager.statSync(`${userPath}/page/card/card0.json`, true).isDirectory());
+     * console.log(fileManager.statSync(`${userPath}/page/card/card0.json`, true).isFile());
      */
+    /*
+     * $file.saveOnlineFile("Res/page/card/card0.json", "test", () => {
+     *   console.log($file.readFile("test.txt"));
+     * });
+     */
+    // console.log(fileManager.readFileSync(`${userPath}/page/card/card0.json`, "utf8"))
+    // let downTask = wx.downloadFile({
+    //   url: "https://nenuyouth.com/Res/page/card/card0.json",
+    //   success: res => {
+    //     console.log(res.tempFilePath);
+    //     try {
+    //       fileManager.mkdirSync(`${userPath}/test`, true);
+    //     } catch (e) {
+    //       console.log("创建目录失败");
+    //     }
+    //     console.log("保存状态", fileManager.saveFileSync(res.tempFilePath, `${userPath}/test/test.json`));
+    //     console.log("保存完成");
+    //     console.log(fileManager.readFileSync(`${userPath}/test/test.json`, "utf8"))
+    //   },
+    //   fail: () => { },
+    //   complete: () => {
+    //     console.log("complete");
+    //   }
+    // });
+
+
   },
   onAwake(time) {
     console.log("小程序在", time, "ms之后被唤醒"), this.logger.debug(`"onAwake after ${time}ms`);// 调试

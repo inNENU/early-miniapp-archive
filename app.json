@@ -46,11 +46,13 @@
       ]
     },
     "page/function": {
+      "network": "all",
       "packages": [
         "function"
       ]
     },
     "module/sharePage": {
+      "network": "all",
       "packages": [
         "__APP__"
       ]

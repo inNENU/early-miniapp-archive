@@ -1,6 +1,6 @@
 /* global wx getApp */
 let { globalData: a, lib: { $page, $set } } = getApp();
-let $tab = require("../utils/tab");
+let $tab = require("../lib/tab");
 
 let includePoint1 = {
   padding: [30, 20, 30, 20],
@@ -53,6 +53,8 @@ $page("map", {
       mapSwitch = value || value === false ? value : (wx.setStorageSync("mapSwitch", true), true);
     this.data.mapSwitch = mapSwitch, this.data.info = a.info,
       this.data.markers = wx.getStorageSync(mapSwitch ? "benbu-all" : "jingyue-all"),
+      this.data.mapStyle = a.nm ? "46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA" : "PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF",
+      this.data.nm = a.nm,
       this.set = true;
     console.log("Map navigate finish");
   },
@@ -85,7 +87,9 @@ $page("map", {
       this.setData({
         mapSwitch,
         markers: wx.getStorageSync(mapSwitch ? "benbu-all" : "jingyue-all"),
-        info: a.info
+        info: a.info,
+        mapStyle: a.nm ? "46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA" : "PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF",
+        nm: a.nm
       });
       this.mapCtx = wx.createMapContext("schoolMap");
       this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);

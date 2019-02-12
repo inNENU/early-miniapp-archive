@@ -1,36 +1,40 @@
-/*global wx getApp*/
-var { globalData: a, lib: { $page, $set } } = getApp(), manager;
+/* eslint-disable  */
+/* global wx getApp*/
+let { globalData: a, lib: { $page, $set } } = getApp();
+const manager = wx.getBackgroundAudioManager();
 
 $page("music", {
   data: {
     canplay: false,
     currentTime: 0,
-    songLength: 1,
+    songLength: 1
   },
   onNavigate() {
     let currentSong, index = a.music.index,
       songList = wx.getStorageSync("funcResList0"),
       mode = wx.getStorageSync("playMode");
-    this.data.i = index, this.data.info = a.info, this.data.nm = a.nm, this.data.play = a.music.play, this.data.mode = mode ? mode : (wx.setStorageSync("playMode", 0), 0);
+    this.data.i = index, this.data.info = a.info, this.data.nm = a.nm,
+      this.data.play = a.music.play, this.data.mode = mode ? mode : (wx.setStorageSync("playMode", 0), 0);
     if (songList) {
       currentSong = songList[index];
-      this.data.songList = songList, this.data.title = currentSong.title, this.data.singer = currentSong.singer, this.data.cover = currentSong.cover, this.set = true;
-    } else {
+      this.data.songList = songList, this.data.title = currentSong.title,
+        this.data.singer = currentSong.singer, this.data.cover = currentSong.cover, this.set = true;
+    } else
       $set.request("funcResList/funcResList0", data => {
         currentSong = data[index];
-        this.data.songList = data, this.data.title = currentSong.title, this.data.singer = currentSong.singer, this.data.cover = currentSong.cover, this.set = true;
+        this.data.songList = data, this.data.title = currentSong.title,
+          this.data.singer = currentSong.singer, this.data.cover = currentSong.cover, this.set = true;
         wx.setStorageSync("funcResList0", data);
       });
-    }
+
   },
   onLoad(e) {
     wx.loadFontFace({
       family: "FZSSJW", source: "url(\"https://nenuyouth.com/ttf/FZSSJW.ttf\")",
       complete: res => {
-        console.log("宋体字体" + res.status); //调试
+        console.log(`宋体字体${res.status}`); // 调试
       }
     });
-    manager = wx.getBackgroundAudioManager();
     let currentSong;
     if (!this.set) {
       let index, songList = wx.getStorageSync("funcResList0"), mode = wx.getStorageSync("playMode");
@@ -41,35 +45,35 @@ $page("music", {
         info: a.info,
         nm: a.nm,
         play: a.music.play,
-        mode: mode ? mode : (wx.setStorageSync("playMode", 0), 0),
+        mode: mode ? mode : (wx.setStorageSync("playMode", 0), 0)
       });
       if (songList) {
         currentSong = songList[index];
         this.setData({
-          songList: songList,
+          songList,
           title: currentSong.title,
           singer: currentSong.singer,
-          cover: currentSong.cover,
+          cover: currentSong.cover
         });
         if (a.music.played) this.setData({ canplay: true });
         else manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = "NenuYouth", manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
-      } else {
+      } else
         $set.request("funcResList/funcResList0", data => {
           currentSong = data[index];
           this.setData({
-            songList: data, title: currentSong.title, singer: currentSong.singer, cover: currentSong.cover,
+            songList: data, title: currentSong.title, singer: currentSong.singer, cover: currentSong.cover
           });
           if (a.music.played) this.setData({ canplay: true });
           else manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = "NenuYouth", manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
           wx.setStorageSync("funcResList0", data);
         }, this);
-      }
+
     }
     manager.onCanplay(setTimeout(() => {
-      console.log("Canplay"); //调试
+      console.log("Canplay"); // 调试
       this.setData({ canplay: true });
     }), 100);
-    manager.onPlay(function () {
+    manager.onPlay(() => {
       this.setData({ play: true });
       a.music.play = true;
     });
@@ -78,16 +82,16 @@ $page("music", {
       a.music.play = false;
     });
     manager.onTimeUpdate(() => {
-      console.log(`TimeUpdate,currentTime是${manager.currentTime},bufferedTime是${manager.buffered},duration是${manager.duration}`); //调试
-      let presentSecond = (parseInt(manager.currentTime % 60)).toString(),
-        totalSecond = (parseInt(manager.duration % 60)).toString();
+      console.log(`TimeUpdate,currentTime是${manager.currentTime},bufferedTime是${manager.buffered},duration是${manager.duration}`); // 调试
+      let presentSecond = parseInt(manager.currentTime % 60).toString(),
+        totalSecond = parseInt(manager.duration % 60).toString();
       this.setData({
         songLength: parseInt(manager.duration * 100) / 100,
-        total: [parseInt(manager.duration / 60).toString(), totalSecond.length == 1 ? "0" + totalSecond : totalSecond],
+        total: [parseInt(manager.duration / 60).toString(), totalSecond.length == 1 ? `0${totalSecond}` : totalSecond],
         currentTime: parseInt(manager.currentTime * 100) / 100,
-        present: [parseInt(manager.currentTime / 60).toString(), presentSecond.length == 1 ? "0" + presentSecond : presentSecond],
+        present: [parseInt(manager.currentTime / 60).toString(), presentSecond.length == 1 ? `0${presentSecond}` : presentSecond],
         bufferedTime: manager.buffered,
-        canplay: true,
+        canplay: true
       });
       a.music.played = true;
     });
@@ -95,9 +99,15 @@ $page("music", {
       console.warn("waiting");
       this.setData({ canplay: false });
     });
-    manager.onEnded(() => { this.next(); });
-    manager.onPrev(() => { this.previous(); });
-    manager.onNext(() => { this.next(); });
+    manager.onEnded(() => {
+      this.next();
+    });
+    manager.onPrev(() => {
+      this.previous();
+    });
+    manager.onNext(() => {
+      this.next();
+    });
     manager.onError(() => {
       wx.showToast({ title: "获取音乐出错，请稍后重试", icon: "none" });
     });
@@ -112,8 +122,8 @@ $page("music", {
   drag(e) {
     manager.seek(e.detail.value / 100);
     if (e.type == "change") {
-      this.setData({ currentTime: e.detail.value / 100, });
-      console.log(e.detail.value); //调试
+      this.setData({ currentTime: e.detail.value / 100 });
+      console.log(e.detail.value); // 调试
     }
   },
   next() {
@@ -142,7 +152,7 @@ $page("music", {
   Switch(i) {
     let currentSong = this.data.songList[i];
     this.setData({
-      i: i,
+      i,
       title: currentSong.title,
       singer: currentSong.singer,
       cover: currentSong.cover,
@@ -169,10 +179,10 @@ $page("music", {
         break;
     }
     wx.setStorageSync("playMode", mode);
-    wx.showToast({ title: modeName + "模式", icon: "none" });
+    wx.showToast({ title: `${modeName}模式`, icon: "none" });
   },
   list() {
-    wx.showToast({ title: "开发中", "icon": "none" });//待完善
+    wx.showToast({ title: "开发中", "icon": "none" });// 待完善
   },
   onShareAppMessage() {
     return {
@@ -181,6 +191,6 @@ $page("music", {
     };
   },
   redirect() {
-    wx.switchTab({ url: "/pages/main" });
+    wx.switchTab({ url: "/page/main" });
   }
 });

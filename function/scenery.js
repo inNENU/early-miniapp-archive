@@ -47,7 +47,7 @@ Page({
    * redirect() {
    * 	console.log(getCurrentPages())
    * 	wx.switchTab({
-   * 		url: '/pages/guide'
+   * 		url: '/page/guide'
    * 	})
    * },
    */
