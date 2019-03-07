@@ -1,4 +1,4 @@
-var a = getApp().globalData;
+let a = getApp().globalData;
 Page({
   data: {
     page: [{
@@ -16,9 +16,9 @@ Page({
     display: false,
   },
   addNew() {
-    var length = this.data.grade.length;
+    let length = this.data.grade.length;
     // 获取grade内包含的个数，以便生成新的id
-    var gradeNew = this.data.grade.concat({
+    let gradeNew = this.data.grade.concat({
       id: length,
       course: null,
       courseFocus: false,
@@ -41,24 +41,23 @@ Page({
     let id = e.currentTarget.dataset.id,
       target = e.currentTarget.dataset.class;
     // 获取正在输入的输入框id  获取正在输入对象
-    grade[id][target + "Focus"] = true;
+    grade[id][`${target}Focus`] = true;
     console.log(e.detail.value.length);
-    // if (e.detail.value.length < e.currentTarget.dataset.maxLength) {
-    //   grade[id][target + 'Focus'] = true;
-    // } else {
-    //   grade[id][target + 'Focus'] = false;
-    // }
-    if (Number(e.detail.value)) {
-      grade[id][target] = Number(e.detail.value);
-    }
+
+    /*
+     * if (e.detail.value.length < e.currentTarget.dataset.maxLength) {
+     *   grade[id][target + 'Focus'] = true;
+     * } else {
+     *   grade[id][target + 'Focus'] = false;
+     * }
+     */
+    if (Number(e.detail.value)) grade[id][target] = Number(e.detail.value);
     // 如果value可以转换为number，得到对应课程的grade数组并对其中的相应对象赋值数字
-    else {
-      grade[id][target] = e.detail.value;
-    }
+    else grade[id][target] = e.detail.value;
     // 如果value无法转换为number，得到对应课程的grade数组并对其中的相应对象赋值字符
     console.log(grade);
     this.setData({
-      grade: grade
+      grade
     });
     // 将新值写回data中
   },
@@ -67,14 +66,14 @@ Page({
       id = e.currentTarget.dataset.id;
     grade[id].gradeFocus = true;
     this.setData({
-      grade: grade
+      grade
     });
   },
   edit() {
     let editText = this.data.display ? "编辑" : "完成";
     this.setData({
       display: !this.data.display,
-      editText: editText
+      editText
     });
   },
   sort(e) {
@@ -84,23 +83,23 @@ Page({
     console.log(e);
     let currentID = e.target.id[e.target.id.length - 1],
       grade = this.data.grade;
-    console.log("currentID是" + currentID + ";grade是" + grade);
+    console.log(`currentID是${currentID};grade是${grade}`);
     grade.splice(currentID, 1);
-    console.log("新grade是" + grade);
+    console.log(`新grade是${grade}`);
     for (let i = 0; i < grade.length; i++) {
       grade[i].id = i;
     }
     // 重新设定id
     this.setData({
-      grade: grade
+      grade
     });
   },
   calculate() {
-    var that = this,
+    let that = this,
       courseNumber = this.data.grade.length;
     // 明确指针避免setData报错// 获得课程数
-    console.log("课程数是" + courseNumber);
-    var totalCredit = 0,
+    console.log(`课程数是${courseNumber}`);
+    let totalCredit = 0,
       totalGradeCal = 0,
       flunkingCredit = 0,
       flunkingGradeCal = 0;
@@ -122,16 +121,16 @@ Page({
         }
       }
     }
-    console.log("总学分是" + totalCredit);
-    console.log("总计算是" + totalGradeCal);
-    console.log("挂科学分是" + flunkingCredit);
-    console.log("总挂科计算是" + flunkingGradeCal);
+    console.log(`总学分是${totalCredit}`);
+    console.log(`总计算是${totalGradeCal}`);
+    console.log(`挂科学分是${flunkingCredit}`);
+    console.log(`总挂科计算是${flunkingGradeCal}`);
     switch (Number(flunkingCredit)) {
       case 0:
         console.log("都及格了");
         // 如果都及格什么也不做
         that.setData({
-          totalCredit: totalCredit,
+          totalCredit,
           gradePointAverage: totalGradeCal / totalCredit
         });
         console.log(totalCredit);
@@ -153,8 +152,8 @@ Page({
               totalGradeCal = totalGradeCal + flunkingGradeCal;
               // 写入不及格学分与成绩计算
               console.log("不及格学分成绩被计入");
-              console.log("新总学分是" + totalCredit);
-              console.log("新总计算是" + totalGradeCal);
+              console.log(`新总学分是${totalCredit}`);
+              console.log(`新总计算是${totalGradeCal}`);
             } else if (res.confirm) {
               console.log("都及格了");
               // 不包含不及格成绩，什么都不做
@@ -162,7 +161,7 @@ Page({
               // console.log(totalGradeCal / totalCredit)
             }
             that.setData({
-              totalCredit: totalCredit,
+              totalCredit,
               gradePointAverage: totalGradeCal / totalCredit
             });
             // 向data赋值计算结果

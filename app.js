@@ -2,7 +2,7 @@
 const $App = require("./lib/wxpage").A,
   app = require("./lib/app");
 
-const $file = require("./lib/file");
+// const $file = require("./lib/file");
 
 // var worker = wx.createWorker("worker/worker.js") //worker test
 
@@ -21,7 +21,17 @@ $App({
   },
 
   // 路径解析配置
-  config: { route: ["/page/$page", "/module/$page", "/function/$page"], resolvePath: name => `/module/${name}` },
+  config: {
+    route: ["/page/$page", "/module/$page", "/function/$page"],
+    resolvePath: name => {
+      let path;
+      if (["main", "function", "guide", "me"].includes(name) > -1) path = `/page/${name}`;
+      else if (["setting", "1.1", "about"].includes(name) > -1) path = `setting/${name}`;
+      else path = `/module/${name}`;
+
+      return path;
+    }
+  },
 
   onLaunch(opts) {
     console.info("APP 启动，参数为", opts); // 调试

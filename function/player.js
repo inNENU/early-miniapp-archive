@@ -29,12 +29,15 @@ $page("music", {
 
   },
   onLoad(e) {
+
+    // 加载字体
     wx.loadFontFace({
-      family: "FZSSJW", source: "url(\"https://nenuyouth.com/ttf/FZSSJW.ttf\")",
+      family: "FZSSJW", source: "url(\"https://nenuyouth.com/fonts/FZSSJW.ttf\")",
       complete: res => {
         console.log(`宋体字体${res.status}`); // 调试
       }
     });
+    
     let currentSong;
     if (!this.set) {
       let index, songList = wx.getStorageSync("funcResList0"), mode = wx.getStorageSync("playMode");
@@ -58,14 +61,14 @@ $page("music", {
         if (a.music.played) this.setData({ canplay: true });
         else manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = "NenuYouth", manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
       } else
-        $set.request("funcResList/funcResList0", data => {
+        $set.request("function/songList", data => {
           currentSong = data[index];
           this.setData({
             songList: data, title: currentSong.title, singer: currentSong.singer, cover: currentSong.cover
           });
           if (a.music.played) this.setData({ canplay: true });
           else manager.src = currentSong.src, manager.title = currentSong.title, manager.epname = "NenuYouth", manager.singer = currentSong.singer, manager.coverImgUrl = currentSong.cover;
-          wx.setStorageSync("funcResList0", data);
+          // wx.setStorageSync("funcResList0", data);
         }, this);
 
     }
