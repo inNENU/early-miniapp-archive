@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: eslint配置文件
  * @Date: 2019-02-26 23:43:23
- * @LastEditTime: 2019-04-08 11:29:28
+ * @LastEditTime: 2019-04-08 11:48:18
  */
 module.exports = {
   // 阻止eslint读取父目录或总配置文件的规则
@@ -247,6 +247,7 @@ module.exports = {
     'space-infix-ops': 'error',
     'space-unary-ops': 'error',
     'spaced-comment': 'error',
+    // 小程序全局使用严格模式
     strict: 'off',
     'switch-colon-spacing': [
       'error',

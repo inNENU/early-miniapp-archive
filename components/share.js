@@ -29,7 +29,7 @@ Component({
       if (e.target.dataset.action === 'download') { // 点击了“保存二维码”，开始下载二维码
         console.log('Start QRCode download.');// 调试
         wx.downloadFile({
-          url: `https://nenuyouth.com/mpImage/share/${this.properties.aim}.jpg`,
+          url: `https://mp.nenuyouth.com/img/share/${this.properties.aim}.jpg`,
           success: res1 => {
             console.log(res1);
             if (res1.statusCode === 200) wx.getSetting({// 获取用户设置

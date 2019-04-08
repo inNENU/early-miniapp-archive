@@ -42,7 +42,7 @@ $page('music', {
 
     // 加载字体
     wx.loadFontFace({
-      family: 'FZSSJW', source: 'url("https://nenuyouth.com/fonts/FZSSJW.ttf")',
+      family: 'FZSSJW', source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
       complete: res => {
         console.log(`宋体字体${res.status}`); // 调试
       }
