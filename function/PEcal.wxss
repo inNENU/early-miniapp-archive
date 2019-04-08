@@ -4,7 +4,8 @@
   display: flex;
 }
 
-.BMICtn, scoreCtn {
+.BMICtn,
+scoreCtn {
   width: 50%;
   height: 100%;
 }

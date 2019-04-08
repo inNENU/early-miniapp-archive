@@ -1,8 +1,9 @@
 /* global wx*/
 const $App = require('./lib/wxpage').A;
-const app = require('./lib/app');
-
-// Const $file = require("./lib/file");
+const app = require('./lib/app'),
+  $file = require('./lib/file');
+const fileManager = wx.getFileSystemManager(),
+  userPath = wx.env.USER_DATA_PATH;
 
 // Var worker = wx.createWorker("worker/worker.js") //worker test
 
@@ -21,15 +22,10 @@ $App({
   // 路径解析配置
   config: {
     route: ['/page/$page', '/module/$page', '/function/$page'],
-    resolvePath: name => {
-      let path;
-
-      if (['main', 'function', 'guide', 'me'].includes(name) > -1) path = `/page/${name}`;
-      else if (['setting', '1.1', 'about'].includes(name) > -1) path = `setting/${name}`;
-      else path = `/module/${name}`;
-
-      return path;
-    }
+    // eslint-disable-next-line no-confusing-arrow
+    resolvePath: name => ['main', 'function', 'guide', 'me'].includes(name)
+      ? `/page/${name}`
+      : ['setting', '1.1', 'about'].includes(name) ? `setting/${name}` : `/module/${name}`
   },
 
   onLaunch(opts) {
@@ -63,15 +59,17 @@ $App({
      * const fileManager = wx.getFileSystemManager(), userPath = wx.env.USER_DATA_PATH;
      */
 
+
     /*
      * Console.log(fileManager.readdirSync(`${userPath}/page/card`));
      * console.log(fileManager.statSync(`${userPath}/page/card/`, true));
-     * console.log(fileManager.statSync(`${userPath}/page/card/`, true).isDirectory());
-     * console.log(fileManager.statSync(`${userPath}/page/card/`, true).isFile());
-     * console.log(fileManager.statSync(`${userPath}/page/card/card0.json`, true));
-     * console.log(fileManager.statSync(`${userPath}/page/card/card0.json`, true).isDirectory());
-     * console.log(fileManager.statSync(`${userPath}/page/card/card0.json`, true).isFile());
+     * console.log('card是目录？', fileManager.statSync(`${userPath}/page/card/`, false).isDirectory());
+     * console.log('card是文件？', fileManager.statSync(`${userPath}/page/card/`, false).isFile());
+     * console.log(fileManager.statSync(`${userPath}/page/card/card0.json`));
+     * console.log('card0.json是目录？', fileManager.statSync(`${userPath}/page/card/card0.json`, false).isDirectory());
+     * console.log('card0.json是文件？', fileManager.statSync(`${userPath}/page/card/card0.json`, false).isFile());
      */
+
     /*
      * $file.saveOnlineFile("Res/page/card/card0.json", "test", () => {
      *   console.log($file.readFile("test.txt"));
@@ -80,7 +78,7 @@ $App({
     /*
      * Console.log(fileManager.readFileSync(`${userPath}/page/card/card0.json`, "utf8"))
      * let downTask = wx.downloadFile({
-     *   url: "https://nenuyouth.com/Res/page/card/card0.json",
+     *   url: "https://mp.nenuyouth.com/Res/page/card/card0.json",
      *   success: res => {
      *     console.log(res.tempFilePath);
      *     try {

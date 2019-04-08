@@ -4,17 +4,18 @@
   padding: 0 5%;
 }
 
-.songName, .songAuthor {
+.songName,
+.songAuthor {
   color: #888;
   font-family: FZSSJW,
-                 -apple-system-font,
-                 "PingFang SC",
-                 "Helvetica Neue",
-                 Helvetica,
-                 STHeiti,
-                 Tahoma,
-                 Simsun,
-                 sans-serif !important;
+    -apple-system-font,
+    "PingFang SC",
+    "Helvetica Neue",
+    Helvetica,
+    STHeiti,
+    Tahoma,
+    Simsun,
+    sans-serif !important;
 }
 
 .songName {
@@ -101,7 +102,11 @@ slider {
   max-height: 56px;
 }
 
-.playBtn, .cycleBtn, .previousBtn, .nextBtn, .listBtn {
+.playBtn,
+.cycleBtn,
+.previousBtn,
+.nextBtn,
+.listBtn {
   width: 100%;
   height: 100%;
   -webkit-filter: drop-shadow(-1px 3px 3px rgba(191, 190, 195, 0.95));

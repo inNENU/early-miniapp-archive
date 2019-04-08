@@ -4,7 +4,4 @@
 <view wx:if="{{debug}}" id="passwordBox">
   <view class="passwordHint">请输入密码：</view>
   <input id="passwordInput" password="{{true}}" value="{{value}}" type="number" bindinput="password" focus="{{focus}}" />
-  <view id="passwordDots">
-    <view class="passwordDot" wx:for="{{dotNumber}}" wx:key="*this"></view>
-  </view>
 </view>

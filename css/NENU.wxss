@@ -6,15 +6,15 @@
   color: #000;
   background-color: #fff;
   font-family: "Helvetica Neue",
-                 FZSSJW,
-                 -apple-system-font,
-                 "PingFang SC",
-                 "Helvetica Neue",
-                 Helvetica,
-                 STHeiti,
-                 Tahoma,
-                 Simsun,
-                 sans-serif !important;
+    FZSSJW,
+    -apple-system-font,
+    "PingFang SC",
+    "Helvetica Neue",
+    Helvetica,
+    STHeiti,
+    Tahoma,
+    Simsun,
+    sans-serif !important;
 }
 
 .NENU.grey {
@@ -32,7 +32,8 @@
 
 /* NENU nav */
 
-.NENUnav, .NENUnav2 {
+.NENUnav,
+.NENUnav2 {
   width: 100%;
   position: fixed;
   display: -webkit-flex;
@@ -77,7 +78,9 @@
 
 /* paragraph */
 
-.NENUH3, .NENUhead, .NENUP {
+.NENUH3,
+.NENUhead,
+.NENUP {
   text-align: left;
 }
 
@@ -88,7 +91,7 @@
   padding: 9px 5% 3px 5%;
 }
 
-.NENUH3 +.NENUH3 {
+.NENUH3+.NENUH3 {
   padding-top: 2px;
 }
 

@@ -140,7 +140,12 @@ $page('about', {
     else if (this.clickNumber < 10) {
       wx.showToast({ title: `再点击${10 - this.clickNumber}次即可启用开发者模式`, icon: 'none' });
       this.clickNumber += 1;
-    } else this.setData({ debug: true, focus: true });
+    } else {
+      this.setData({ debug: true });
+      wx.nextTick(() => {
+        this.setData({ focus: true });
+      });
+    }
   },
   password(e) {
     if (e.detail.value.length === 7) {
@@ -149,25 +154,20 @@ $page('about', {
         this.data.page[1].content.forEach(x => {
           x.hidden = false;
         });
-        this.setData({ page: this.data.page, debug: false, dotNumber: [] });
+        this.setData({ page: this.data.page, debug: false });
         wx.setStorageSync('developMode', true);
         this.developMode = true;
       } else {
         wx.showToast({ title: '密码错误', icon: 'none', duration: 1000, image: '/icon/close.png' });
-        this.setData({ debug: false, dotNumber: [] });
+        this.setData({ debug: false });
       }
       e.detail.value = '';
-    } else {
-      const dotNumber = [];
-
-      for (let i = 0; i < e.detail.value.length; i++) dotNumber.push(i);
-      this.setData({ dotNumber });
     }
 
     return e.detail.value;
   },
   cancelInput() {
-    this.setData({ debug: false, dotNumber: [] });
+    this.setData({ debug: false });
   },
   debugSwitch(e) {
     const pos = e.target.dataset.id.split('-');
@@ -179,6 +179,20 @@ $page('about', {
     else wx.setEnableDebug({ enableDebug: false });
   },
   resetApp() {
+    // 清除文件系统文件
+    const userPath = wx.env.USER_DATA_PATH,
+      fileManager = wx.getFileSystemManager(),
+      fileList = fileManager.readdirSync(userPath);
+
+    console.log(fileList);
+    fileList.forEach(filePath => {
+      try {
+        fileManager.unlinkSync(`${userPath}/${filePath}`);
+      } catch (e) {
+        fileManager.rmdirSync(`${userPath}/${filePath}`, true);
+      }
+    });
+
     wx.clearStorageSync();
     wx.showModal({ title: '小程序初始化完成', content: '请单击退出小程序按钮退出小程序', showCancel: false });
   }

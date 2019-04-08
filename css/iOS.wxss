@@ -1,6 +1,6 @@
 /* 
 ---iOS theme made by Mr.Hope--- 
- Version: V1.0.2
+  Version: V1.0.2
  */
 
 .iOS {
@@ -174,10 +174,12 @@
     min-height: 26px;
     font-size: 24px;
   }
+
   .iOShead {
     min-height: 22px;
     font-size: 21px;
   }
+
   .grey .iOShead {
     font-size: 14px;
     min-height: 10px;
