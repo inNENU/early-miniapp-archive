@@ -2,6 +2,7 @@
 let { globalData: a, lib: { $page, $set } } = getApp();
 const app = require("../lib/app"), tab = require("../lib/tab");
 
+// 生成时间
 let time = [[], []];
 for (let i = 0; i <= 23; i++) time[0].push(`${i}时`);
 for (let i = 0; i <= 59; i++) i < 10 ? time[1].push(`0${i}分`) : time[1].push(`${i}分`);
@@ -29,17 +30,17 @@ $page("setting", {
       content: [{
         text: "设定时间", Switch: "switchnmAC", swiKey: "nightmodeAutoChange"
       }, {
-        text: "开始时间", inlay: true, key: "nmStart", pickerValue: time
+          text: "开始时间", inlay: true, key: "nightmodeStartTime", pickerValue: time
       }, {
-        text: "结束时间", inlay: true, key: "nmEnd", pickerValue: time
+          text: "结束时间", inlay: true, key: "nightmodeEndTime", pickerValue: time
       }, {
-        text: "日间亮度调整开关", Switch: "swithDay", swiKey: "dayBrightnessChange"
+        text: "日间亮度调整开关", Switch: "dayBrightnessSwitchHandler", swiKey: "dayBrightnessChange"
       }, {
-        text: "日间模式亮度", slider: "dB", min: 0, max: 100, sliKey: "dayBrightness"
+        text: "日间模式亮度", slider: "dayBrightnessHandler", min: 0, max: 100, sliKey: "dayBrightness"
       }, {
-        text: "夜间亮度调整开关", Switch: "swithNight", swiKey: "nightBrightnessChange"
+        text: "夜间亮度调整开关", Switch: "nightBrightnessSwitchHandler", swiKey: "nightBrightnessChange"
       }, {
-        text: "夜间模式亮度", slider: "nB", min: 0, max: 100, sliKey: "nightBrightness"
+        text: "夜间模式亮度", slider: "nightBrightnessHandler", min: 0, max: 100, sliKey: "nightBrightness"
       }]
     }, {
       tag: "list", head: "资源更新",
@@ -60,6 +61,7 @@ $page("setting", {
     }]
   },
   onPreload(res) {
+    // 读取状态数据并执行预加载
     let list = this.data.page[3].content,
       nightmodeAutoChange = wx.getStorageSync("nightmodeAutoChange"),
       dayBrightnessChange = wx.getStorageSync("dayBrightnessChange"),
@@ -152,23 +154,23 @@ $page("setting", {
     let [frontColor, backgroundColor] = nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
-  swithDay(e) {
+  dayBrightnessSwitchHandler(e) {
     let p = $set.Switch(e, this), list = p[3].content;
     // let p = util.Switch(e, this), list = p[3].content;
     list[4].visible = e.detail.value, list[4].hidden = !e.detail.value;
     this.setData({ page: p });
   },
-  swithNight(e) {
+  nightBrightnessSwitchHandler(e) {
     let p = $set.Switch(e, this), list = p[3].content;
     // let p = util.Switch(e, this), list = p[3].content;
     list[6].visible = e.detail.value, list[6].hidden = !e.detail.value;
     this.setData({ page: p });
   },
-  dB(e) {
+  dayBrightnessHandler(e) {
     $set.component(e, this);
     if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: e.detail.value / 100 });
   },
-  nB(e) {
+  nightBrightnessHandler(e) {
     $set.component(e, this);
     if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: e.detail.value / 100 });
   },

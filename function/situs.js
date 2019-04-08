@@ -1,18 +1,19 @@
 /* global wx getApp*/
-let { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $page, $set } } = getApp();
 
-$page("situs", {
+$page('situs', {
   data: {},
   onPreload(res) {
-    this.xiaoqu = res.query.xiaoqu, this.id = res.query.id;
+    this.xiaoqu = res.query.xiaoqu;
+    this.id = res.query.id;
     this.aim = $set.preSet(wx.getStorageSync(res.query.aim), a, res, this, false);
-    console.log("Situs preload");
+    console.log('Situs preload');
   },
   onLoad(res) {
     console.log(res);
-    if (res.aim != this.aim) {
+    if (res.aim !== this.aim) {
       this.aim = $set.Online(a, res, this);
-      console.log("onLoad 成功");
+      console.log('onLoad 成功');
     }
     console.log(this.data.page);
     $set.Notice(this.aim);
@@ -22,7 +23,7 @@ $page("situs", {
   },
 
   /*
-   * detail() {
+   * Detail() {
    *   let markers = this.marker;
    *   wx.openLocation({
    *     latitude: marker.latitude,
@@ -43,7 +44,9 @@ $page("situs", {
       path: `/function/situs?From=主页&depth=1&share=true&xiaoqu=${this.xiaoqu}&id=${this.id}&aim=${this.aim}`
     };
   },
+
+  // 覆写重定向到主页
   redirect() {
-    this.$switch("/page/main");
+    this.$switch('/page/main');
   }
 });

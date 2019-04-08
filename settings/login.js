@@ -1,16 +1,16 @@
 /* global wx Page*/
 Page({
 
-  data: {
-  },
+  data: {},
   input(e) {
     console.log(e);
   },
   onShow() {
-    let animation = wx.createAnimation({
+    const animation = wx.createAnimation({
       duration: 2000,
-      timingFunction: "ease"
+      timingFunction: 'ease'
     });
+
     this.animation = animation;
     console.log(this);
     console.log(this.animation);

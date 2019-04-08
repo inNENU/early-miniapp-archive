@@ -1,24 +1,26 @@
 /* global wx getApp*/
-let { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $page, $set } } = getApp();
 
-$page("notice", {
+$page('notice', {
   data: {
-    page: [{
-      tag: "head",
-      title: "内网公告",
-      leftText: "功能大厅"
-    }],
-    page2: [{ tag: "foot" }],
+    page: [
+      {
+        tag: 'head',
+        title: '内网公告',
+        leftText: '功能大厅'
+      }
+    ],
+    page2: [{ tag: 'foot' }],
     notice: []
   },
   onLoad() {
     $set.Set(this.data.page, a, null, this, false);
-    $set.request("mpServer/notice/notice", notice => {
+    $set.request('mpServer/notice/notice', notice => {
       this.setData({ notice });
     });
   },
   onPullDownRefresh() {
-    $set.request("mpServer/notice/notice", notice => {
+    $set.request('mpServer/notice/notice', notice => {
       this.setData({ notice });
       wx.stopPullDownRefresh();
     });
@@ -30,7 +32,8 @@ $page("notice", {
     $set.component(e, this);
   },
   notice(res) {
-    let id = res.currentTarget.dataset.id;
+    const { id } = res.currentTarget.dataset;
+
     this.$route(`/function/noticeDetail?id=${id}`);
   }
 });

@@ -42,7 +42,8 @@
 
 /* scale 组件 */
 
-.scaleLargeBtn, .scaleSmallBtn {
+.scaleLargeBtn,
+.scaleSmallBtn {
   position: fixed;
   right: 20px;
   width: 40px;

@@ -1,8 +1,10 @@
+/* css引入 */
 @import "css/common.wxss";
 @import "css/Android.wxss";
 @import "css/NENU.wxss";
 @import "css/iOS.wxss";
 @import "css/animation.wxss";
+
 page {
   height: 100%;
   font-size: 32rpx;
@@ -75,6 +77,7 @@ page {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);

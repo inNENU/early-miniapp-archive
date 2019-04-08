@@ -1,2 +1,2 @@
-/*global Component*/
-Component({})
+/* global Component*/
+Component({});

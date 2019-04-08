@@ -1,16 +1,21 @@
 /* global getApp wx*/
-let { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $page, $set } } = getApp();
 
-$page("sharePage", {
+$page('sharePage', {
   onNavigate(res) {
     $set.preSet(this.$session.get(`${res.query.aim}Temp`), a, res, this);
   },
   onLoad(res) {
     if (!this.aim) {
-      if ("scene" in res) res.From = "主页", res.aim = decodeURIComponent(res.scene), res.share = true, res.depth = 1;
+      if ('scene' in res) {
+        res.From = '主页';
+        res.aim = decodeURIComponent(res.scene);
+        res.share = true;
+        res.depth = 1;
+      }
       $set.Online(a, res, this);
     }
-    wx.reportMonitor("2", 1);
+    wx.reportMonitor('2', 1);
   },
   onPageScroll(res) {
     $set.nav(res, this);
@@ -19,7 +24,7 @@ $page("sharePage", {
     $set.component(res, this);
   },
   redirect() {
-    this.$launch("/page/main");
+    this.$launch('/page/main');
   },
   onShareAppMessage() {
     return {

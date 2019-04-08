@@ -1,2 +1,2 @@
-/*global Component*/
-Component({ properties: { res: Object } })
+/* global Component*/
+Component({ properties: { res: Object } });

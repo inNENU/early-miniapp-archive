@@ -215,8 +215,6 @@
   line-height: 1.6;
   text-align: left;
   background-color: #fefefe;
-  /* border-top: 1rpx #cac9ce solid;
-  border-bottom: 1rpx #cac9ce solid; */
   max-width: 487px;
   margin: 0 auto;
   position: relative;
@@ -301,8 +299,6 @@
 
 /* list */
 
-/* list */
-
 .grey .commonhead {
   min-height: 9px;
   padding: 23px 15px 5px 15px;
@@ -337,8 +333,6 @@
 
 .Lctn {
   background-color: #fefefe;
-  /* border-top: 1rpx #cac9ce solid;
-  border-bottom: 1rpx #cac9ce solid; */
   margin: 0 auto;
   max-width: 517px;
   position: relative;

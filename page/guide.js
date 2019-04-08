@@ -1,110 +1,115 @@
 /* global wx getApp*/
-let a = getApp().globalData, { $page, $set } = getApp().lib;
-let tab = require("../lib/tab");
+const { globalData: a, lib: { $page, $set } } = getApp();
+const tab = require('../lib/tab');
 
 
-$page("guide", {
+$page('guide', {
   data: {
     T: a.T,
     nm: a.nm,
-    page: [{
-      tag: "head",
-      title: "东师指南",
-      action: true,
-      aimDepth: 1,
-      grey: true
-    },
-    {
-      tag: "grid",
-      head: "",
-      content: [{
-        text: "新生报到",
-        icon: "/icon/guide/check.svg",
-        aim: "check0"
-      }, {
-        text: "学习",
-        icon: "/icon/guide/study.svg",
-        aim: "study0"
-      }, {
-        text: "食堂",
-        icon: "/icon/guide/dining.svg",
-        aim: "dining0"
-      }, {
-        text: "生活",
-        icon: "/icon/guide/life.svg",
-        aim: "life0"
-      }, {
-        text: "寝室",
-        icon: "/icon/guide/dorm.svg",
-        aim: "dorm0"
-      }, {
-        text: "校园网",
-        icon: "/icon/guide/network.svg",
-        aim: "network0"
-      }, {
-        text: "校园卡",
-        icon: "/icon/guide/card.svg",
-        aim: "card0"
-      }, {
-        text: "吃喝玩乐",
-        icon: "/icon/guide/nearby.svg",
-        aim: "nearby0"
-      }, {
-        text: "交通",
-        icon: "/icon/guide/traffic.svg",
-        aim: "traffic0"
-      }, {
-        text: "学生组织",
-        icon: "/icon/guide/studentOrg.svg",
-        aim: "studentOrg0"
-      }, {
-        text: "社团",
-        icon: "/icon/guide/corporation.svg",
-        aim: "corporation0"
-      }, {
-        text: "资助",
-        icon: "/icon/guide/subsidize.svg",
-        aim: "subsidize0"
-      }, {
-        text: "SIM卡",
-        icon: "/icon/guide/sim.svg",
-        aim: "sim0"
-      }]
-    }]
+    page: [
+      {
+        tag: 'head',
+        title: '东师指南',
+        action: true,
+        aimDepth: 1,
+        grey: true
+      },
+      {
+        tag: 'grid',
+        head: '',
+        content: [
+          {
+            text: '新生报到',
+            icon: '/icon/guide/check.svg',
+            aim: 'check0'
+          }, {
+            text: '学习',
+            icon: '/icon/guide/study.svg',
+            aim: 'study0'
+          }, {
+            text: '食堂',
+            icon: '/icon/guide/dining.svg',
+            aim: 'dining0'
+          }, {
+            text: '生活',
+            icon: '/icon/guide/life.svg',
+            aim: 'life0'
+          }, {
+            text: '寝室',
+            icon: '/icon/guide/dorm.svg',
+            aim: 'dorm0'
+          }, {
+            text: '校园网',
+            icon: '/icon/guide/network.svg',
+            aim: 'network0'
+          }, {
+            text: '校园卡',
+            icon: '/icon/guide/card.svg',
+            aim: 'card0'
+          }, {
+            text: '吃喝玩乐',
+            icon: '/icon/guide/nearby.svg',
+            aim: 'nearby0'
+          }, {
+            text: '交通',
+            icon: '/icon/guide/traffic.svg',
+            aim: 'traffic0'
+          }, {
+            text: '学生组织',
+            icon: '/icon/guide/studentOrg.svg',
+            aim: 'studentOrg0'
+          }, {
+            text: '社团',
+            icon: '/icon/guide/corporation.svg',
+            aim: 'corporation0'
+          }, {
+            text: '资助',
+            icon: '/icon/guide/subsidize.svg',
+            aim: 'subsidize0'
+          }, {
+            text: 'SIM卡',
+            icon: '/icon/guide/sim.svg',
+            aim: 'sim0'
+          }
+        ]
+      }
+    ]
   },
   onPreload(res) {
-    $set.preSet(this.$take(res.query.name), a, {
-      aim: "guide"
-    }, this, false);
+    $set.preSet(this.$take(res.query.name), a, { aim: 'guide' }, this, false);
     this.set = true;
     console.log(`${this.aim}预加载用时${new Date() - a.date}ms`);
   },
   onLoad() {
     this.setData({ T: a.T, nm: a.nm });
     if (!this.set) {
-      let page = wx.getStorageSync("guide");
-      $set.Set(page ? page : this.data.page, a, { aim: "guide" }, this, false);
+      const page = wx.getStorageSync('guide');
+
+      $set.Set(page ? page : this.data.page, a, { aim: 'guide' }, this, false);
     }
-    $set.Notice("guide");
-    tab.update("page", "145K");
+    $set.Notice('guide');
+    tab.update('page', '145K');
   },
   onShow() {
-    let [frontColor, backgroundColor] = this.data.nm ? ["#ffffff", "#000000"] : ["#000000", "#ffffff"];
+    const [frontColor, backgroundColor] = this.data.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
-    if (!this.set) $set.request("Res/others/guide", data => {
-      wx.setStorageSync("guide", data);
+    if (!this.set) $set.request('Res/others/guide', data => {
+      wx.setStorageSync('guide', data);
     });
-    this.$on("theme", T => {
+    this.$on('theme', T => {
       this.setData({ T });
-    }), this.$on("nightmode", nm => {
+    });
+    this.$on('nightmode', nm => {
       this.setData({ nm });
     });
     $set.preLoad(this, a);
   },
   onPullDownRefresh() {
-    tab.update("page", "145K");
+    tab.update('page', '145K');
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
@@ -113,5 +118,5 @@ $page("guide", {
   cA(e) {
     $set.component(e, this);
   },
-  onShareAppMessage: () => ({ title: "东师指南", path: "/page/guide" })
+  onShareAppMessage: () => ({ title: '东师指南', path: '/page/guide' })
 });

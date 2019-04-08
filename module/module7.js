@@ -1,7 +1,7 @@
 /* global getApp*/
-let { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $page, $set } } = getApp();
 
-$page("module7", {
+$page('module7', {
   onNavigate(res) {
     $set.preSet(this.$session.get(`${res.query.aim}Temp`), a, res, this);
   },
@@ -15,9 +15,7 @@ $page("module7", {
     $set.component(res, this);
   },
   onShareAppMessage() {
-    return {
-      title: this.data.page[0].title, path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.aim}`
-    };
+    return { title: this.data.page[0].title, path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.aim}` };
   },
   onUnload() {
     delete this.data.page;
