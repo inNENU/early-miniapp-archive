@@ -6,29 +6,15 @@ $page('me', {
     T: a.T,
     nm: a.nm,
     page: [
+      { tag: 'head', title: '我的东师', action: true, grey: true },
       {
-        tag: 'head',
-        title: '我的东师',
-        action: true,
-        grey: true
-      }, {
         tag: 'list',
         content: [
-          {
-            text: '设置',
-            icon: '/icon/setting.svg',
-            url: '/settings/setting'
-          }, {
-            text: '关于',
-            icon: '/icon/about.svg',
-            url: '/settings/about',
-            desc: a.version
-          }
+          { text: '设置', icon: '/icon/setting.svg', url: '/settings/setting' },
+          { text: '关于', icon: '/icon/about.svg', url: '/settings/about', desc: a.version }
         ]
-      }, {
-        tag: 'foot',
-        desc: `当前版本：${a.version}`
-      }
+      },
+      { tag: 'foot', desc: `当前版本：${a.version}` }
     ]
   },
   onPreload() {

@@ -1,9 +1,6 @@
 /* global wx*/
 const $App = require('./lib/wxpage').A;
-const app = require('./lib/app'),
-  $file = require('./lib/file');
-const fileManager = wx.getFileSystemManager(),
-  userPath = wx.env.USER_DATA_PATH;
+const app = require('./lib/app');
 
 // Var worker = wx.createWorker("worker/worker.js") //worker test
 
@@ -11,7 +8,7 @@ $App({
 
   // 小程序全局数据
   globalData: {
-    version: 'V 1.2.0',
+    version: 'V 1.2.2',
     music: { play: false, played: false, index: 0 }
     // T, nm, date, info也在globalData中
   },

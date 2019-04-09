@@ -7,60 +7,36 @@ $page('about', {
     T: a.T,
     nm: a.nm,
     page: [
+      { tag: 'head', title: '关于', aimDepth: 1, grey: true, feedback: true, contact: true },
       {
-        tag: 'head',
-        title: '关于',
-        aimDepth: 1,
-        grey: true,
-        feedback: true,
-        contact: true
-      }, {
         tag: 'list',
         head: '版本号',
         content: [
-          {
-            text: a.version,
-            button: 'debugMode'
-          }, {
-            text: '开发日志',
-            aim: 'log0'
-          }, {
-            text: '调试开关',
-            swiKey: 'debugMode',
-            Switch: 'debugSwitch'
-          }, {
-            text: '初始化小程序',
-            button: 'resetApp'
-          }, {
-            text: '退出小程序',
-            navigate: true,
-            openType: 'exit',
-            target: 'miniProgram'
-          }, {
-            text: '退出开发者模式',
-            button: 'debugMode'
-          }
+          { text: a.version, button: 'debugMode' },
+          { text: '开发日志', aim: 'log0' },
+          { text: '调试开关', swiKey: 'debugMode', Switch: 'debugSwitch' },
+          { text: '初始化小程序', button: 'resetApp' },
+          { text: '退出小程序', navigate: true, openType: 'exit', target: 'miniProgram' },
+          { text: '退出开发者模式', button: 'debugMode' }
         ]
-      }, {
+      },
+      {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\nbug修复与显示优化；\n新增分享悬浮窗；\n新增腾讯视频播放；\n新增公众号文章跳转；\n新增强制更新功能；\n移除东青文创；` }, {
-            text: '查看详细日志',
-            url: '/settings/1.1'
-          }
+          { text: `${a.version}\nbug修复与显示优化；\n新增分享悬浮窗；\n新增腾讯视频播放；\n新增公众号文章跳转；\n新增强制更新功能；\n移除东青文创；` },
+          { text: '查看详细日志', url: '/settings/1.1' }
         ]
-      }, {
+      },
+      {
         tag: 'list',
         head: '工作室与开发者介绍',
         content: [
-          { text: '   小程序全部内容均由Hope Studio独立开发。' }, {
-            text: 'Hope Studio介绍',
-            aim: 'MrHope0'
-          }, {
-            text: 'Mr.Hope个人介绍',
-            aim: 'MrHope1'
-          }, { text: '   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月在界面编写、排版与订正上给予的无私帮助。' }, {
+          { text: '   小程序全部内容均由Hope Studio独立开发。' },
+          { text: 'Hope Studio介绍', aim: 'MrHope0' },
+          { text: 'Mr.Hope个人介绍', aim: 'MrHope1' },
+          { text: '   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月在界面编写、排版与订正上给予的无私帮助。' },
+          {
             text: '问题反馈：请联系 QQ 1178522294 或点击右下角并选择提交页面错误。'
 
             /*
@@ -70,18 +46,9 @@ $page('about', {
              */
           }
         ]
-      }, {
-        tag: 'list',
-        content: [
-          {
-            text: '小程序功能太少?',
-            aim: 'MrHope2'
-          }
-        ]
-      }, {
-        tag: 'foot',
-        desc: `当前版本：${a.version}`
-      }
+      },
+      { tag: 'list', content: [{ text: '小程序功能太少?', aim: 'MrHope2' }] },
+      { tag: 'foot', desc: `当前版本：${a.version}` }
     ]
   },
   onPreload(res) {
@@ -149,7 +116,7 @@ $page('about', {
   },
   password(e) {
     if (e.detail.value.length === 7) {
-      if (e.detail.value === '5201314') {
+      if (e.detail.value === '5201314') { // 密码正确
         wx.showToast({ title: '已启用开发者模式', icon: 'none' });
         this.data.page[1].content.forEach(x => {
           x.hidden = false;
@@ -157,7 +124,8 @@ $page('about', {
         this.setData({ page: this.data.page, debug: false });
         wx.setStorageSync('developMode', true);
         this.developMode = true;
-      } else {
+
+      } else { // 密码错误
         wx.showToast({ title: '密码错误', icon: 'none', duration: 1000, image: '/icon/close.png' });
         this.setData({ debug: false });
       }
@@ -180,20 +148,18 @@ $page('about', {
   },
   resetApp() {
     // 清除文件系统文件
-    const userPath = wx.env.USER_DATA_PATH,
-      fileManager = wx.getFileSystemManager(),
-      fileList = fileManager.readdirSync(userPath);
+    const $file = require('../lib/file');
+    const fileList = $file.listFile('');
 
-    console.log(fileList);
+    console.log(fileList);// 调试
     fileList.forEach(filePath => {
-      try {
-        fileManager.unlinkSync(`${userPath}/${filePath}`);
-      } catch (e) {
-        fileManager.rmdirSync(`${userPath}/${filePath}`, true);
-      }
+      $file.Delete(filePath);
     });
 
+    // 清理数据存储
     wx.clearStorageSync();
+
+    // 提示用户重启
     wx.showModal({ title: '小程序初始化完成', content: '请单击退出小程序按钮退出小程序', showCancel: false });
   }
 

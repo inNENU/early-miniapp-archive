@@ -26,6 +26,10 @@
 				"value": ".eslintrc.js"
 			},
 			{
+				"type": "file",
+				"value": "jsdoc.js"
+			},
+			{
 				"type": "suffix",
 				"value": "md"
 			}
