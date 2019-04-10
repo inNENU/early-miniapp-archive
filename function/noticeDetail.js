@@ -10,7 +10,7 @@ $page('noticeDetail', {
         leftText: '通知列表',
         grey: true
       }, {
-        tag: 'h3',
+        tag: 'title',
         text: '加载中...'
       }, {
         tag: 'p',

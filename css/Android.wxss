@@ -140,7 +140,7 @@
   color: #777;
 }
 
-.AndroidH3 {
+.AndroidTitle {
   font-weight: 500;
   font-size: 18px;
   line-height: 1.6;

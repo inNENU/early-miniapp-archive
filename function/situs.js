@@ -1,4 +1,6 @@
 /* global wx getApp*/
+const $file = require('../lib/file');
+
 const { globalData: a, lib: { $page, $set } } = getApp();
 
 $page('situs', {
@@ -6,21 +8,16 @@ $page('situs', {
   onPreload(res) {
     this.xiaoqu = res.query.xiaoqu;
     this.id = res.query.id;
-    this.aim = $set.preSet(wx.getStorageSync(res.query.aim), a, res, this, false);
-    console.log('Situs preload');
+    $set.preSet($file.readJson(`function/${this.xiaoqu}/${res.query.aim}`), a, res, this, false);
   },
   onLoad(res) {
-    console.log(res);
-    if (res.aim !== this.aim) {
-      this.aim = $set.Online(a, res, this);
-      console.log('onLoad 成功');
-    }
-    console.log(this.data.page);
-    $set.Notice(this.aim);
+    $set.Online(a, res, this);
   },
-  onReady() {
-    this.marker = wx.getStorageSync(`${this.xiaoqu}-all`)[this.id];
-  },
+  /*
+   * OnReady() {
+   *   This.marker = wx.getStorageSync(`${this.xiaoqu}-all`)[this.id];
+   * },
+   */
 
   /*
    * Detail() {

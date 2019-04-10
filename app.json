@@ -6,6 +6,7 @@
     "page/me",
     "settings/1.2",
     "settings/setting",
+    "settings/donate",
     "settings/about"
   ],
   "subPackages": [
@@ -123,5 +124,6 @@
   "usingComponents": {
     "share": "components/share",
     "nav": "components/nav"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.6.5",
-	"appid": "wx33acb831ee1831a5",
+	"appid": "wx9ce37d9662499df3",
 	"projectname": "miniprogram",
 	"isGameTourist": false,
 	"packOptions": {
@@ -22,8 +22,16 @@
 				"value": "origin"
 			},
 			{
-				"type": "regexp",
-				"value": "shop"
+				"type": "file",
+				"value": "shop.js"
+			},
+			{
+				"type": "file",
+				"value": "shop.wxml"
+			},
+			{
+				"type": "file",
+				"value": "shop.wxss"
 			},
 			{
 				"type": "file",
@@ -39,6 +47,8 @@
 			}
 		]
 	},
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

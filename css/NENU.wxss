@@ -78,24 +78,24 @@
 
 /* paragraph */
 
-.NENUH3,
+.NENUTitle,
 .NENUhead,
 .NENUP {
   text-align: left;
 }
 
-.NENUH3 {
+.NENUTitle {
   font-size: 18px;
   min-height: 24px;
   font-weight: 500;
   padding: 9px 5% 3px 5%;
 }
 
-.NENUH3+.NENUH3 {
+.NENUTitle+.NENUTitle {
   padding-top: 2px;
 }
 
-.NENUH3+.NENUhead {
+.NENUTitle+.NENUhead {
   padding-top: 5px;
 }
 

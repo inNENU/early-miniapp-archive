@@ -8,7 +8,7 @@ Page({
         tag: 'head',
         title: '绩点计算(beta)'
       }, {
-        tag: 'h3',
+        tag: 'title',
         text: '绩点计算器'
       }
     ],

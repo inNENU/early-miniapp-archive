@@ -142,14 +142,14 @@
 
 /* iOS content */
 
-.iOSH3,
+.iOSTitle,
 .iOShead {
   text-align: left;
   font-weight: 500;
   padding: 12px 5% 4px 5%;
 }
 
-.iOSH3 {
+.iOSTitle {
   min-height: 24px;
   font-size: 22px;
 }
@@ -170,7 +170,7 @@
 }
 
 @media (min-width:768px) {
-  .iOSH3 {
+  .iOSTitle {
     min-height: 26px;
     font-size: 24px;
   }
@@ -190,8 +190,8 @@
   color: #999;
 }
 
-.iOSH3+.iOShead,
-.iOSH3+.iOSH3 {
+.iOSTitle+.iOShead,
+.iOSTitle+.iOSTitle {
   padding-top: 2px;
 }
 

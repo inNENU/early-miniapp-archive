@@ -35,19 +35,18 @@ $page('about', {
           { text: '   小程序全部内容均由Hope Studio独立开发。' },
           { text: 'Hope Studio介绍', aim: 'MrHope0' },
           { text: 'Mr.Hope个人介绍', aim: 'MrHope1' },
-          { text: '   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月在界面编写、排版与订正上给予的无私帮助。' },
-          {
-            text: '问题反馈：请联系 QQ 1178522294 或点击右下角并选择提交页面错误。'
-
-            /*
-             * }, {
-             *   button: "donate",
-             *   text: "支持Mr.Hope"
-             */
-          }
+          { text: '   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月在界面编写、排版与订正上给予的无私帮助。' }
         ]
       },
-      { tag: 'list', content: [{ text: '小程序功能太少?', aim: 'MrHope2' }] },
+      {
+        tag: 'list',
+        head: '遇到问题？',
+        content: [
+          { text: '联系开发者？\n请添加QQ 1178522294 或点击右下角选择意见反馈来提交你的意见或遇到的错误。' },
+          { text: '小程序功能太少?', aim: 'MrHope2' },
+          { text: '小程序响应慢？', desc: '欢迎捐赠', url: '/settings/donate' }
+        ]
+      },
       { tag: 'foot', desc: `当前版本：${a.version}` }
     ]
   },
