@@ -1,9 +1,9 @@
 <view class="{{nm?'nm':''}} commonBg">
+  <view wx:if="{{!share}}" class='backBtn' style="top:{{info.statusBarHeight+5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'cA'}}" data-action='back'>
+    <image class="backIcon" src="/icon/back{{nm?'':'Black'}}.png" />
+  </view>
   <view style='height:10%;'></view>
   <view class='headerCtn'>
-    <view wx:if="{{!share}}" class='backBtn' style="top:{{info.statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'cA'}}" data-action='back'>
-      <image class='backIcon' src='/icon/back.svg' />
-    </view>
     <view class='songName'>{{title}}</view>
     <view class='songAuthor'>—— {{singer}} ——</view>
   </view>

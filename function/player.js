@@ -1,4 +1,6 @@
 /* global wx getApp*/
+const $file = require('../lib/file');
+
 const { globalData: a, lib: { $page, $set } } = getApp(),
   manager = wx.getBackgroundAudioManager();
 
@@ -11,10 +13,10 @@ $page('music', {
   onNavigate() {
     let currentSong;
     const { index } = a.music,
-      songList = wx.getStorageSync('funcResList0'),
+      songList = $file.readJson('function/song'),
       mode = wx.getStorageSync('playMode');
 
-    this.data.i = index;
+    this.data.index = index;
     this.data.info = a.info;
     this.data.nm = a.nm;
     this.data.play = a.music.play;
@@ -27,14 +29,14 @@ $page('music', {
       this.data.cover = currentSong.cover;
       this.set = true;
     } else
-      $set.request('funcResList/funcResList0', data => {
+      $set.request('function/song', data => {
         currentSong = data[index];
         this.data.songList = data;
         this.data.title = currentSong.title;
         this.data.singer = currentSong.singer;
         this.data.cover = currentSong.cover;
         this.set = true;
-        wx.setStorageSync('funcResList0', data);
+        $file.writeJson('function', 'song', data);
       });
 
   },
@@ -52,12 +54,12 @@ $page('music', {
 
     if (!this.set) {
       const index = e.index ? (a.music.index = e.index, e.index) : a.music.index,
-        songList = wx.getStorageSync('funcResList0'),
+        songList = $file.readJson('function/song'),
         mode = wx.getStorageSync('playMode');
 
       this.setData({
         share: e.share ? e.share : false,
-        i: index,
+        index,
         info: a.info,
         nm: a.nm,
         play: a.music.play,
@@ -80,7 +82,7 @@ $page('music', {
           manager.coverImgUrl = currentSong.cover;
         }
       } else
-        $set.request('function/songList', data => {
+        $set.request('function/song', data => {
           currentSong = data[index];
           this.setData({
             songList: data, title: currentSong.title,
@@ -95,31 +97,41 @@ $page('music', {
             manager.singer = currentSong.singer;
             manager.coverImgUrl = currentSong.cover;
           }
-          // Wx.setStorageSync("funcResList0", data);
+          $file.writeJson('function', 'song', data);
         }, this);
 
     }
+
     manager.onCanplay(setTimeout(() => {
       console.log('Canplay'); // 调试
       this.setData({ canplay: true });
     }), 100);
+
     manager.onPlay(() => {
       this.setData({ play: true });
       a.music.play = true;
     });
+
     manager.onPause(() => {
       this.setData({ play: false });
       a.music.play = false;
     });
+
     manager.onTimeUpdate(() => {
+
+      // 调试
       console.log(`TimeUpdate,currentTime是${manager.currentTime},
-      bufferedTime是${manager.buffered},duration是${manager.duration}`); // 调试
+      bufferedTime是${manager.buffered},duration是${manager.duration}`);
+
       const presentSecond = parseInt(manager.currentTime % 60).toString(),
         totalSecond = parseInt(manager.duration % 60).toString();
 
       this.setData({
         songLength: parseInt(manager.duration * 100) / 100,
-        total: [parseInt(manager.duration / 60).toString(), totalSecond.length === 1 ? `0${totalSecond}` : totalSecond],
+        total: [
+          parseInt(manager.duration / 60).toString(),
+          totalSecond.length === 1 ? `0${totalSecond}` : totalSecond
+        ],
         currentTime: parseInt(manager.currentTime * 100) / 100,
         present: [
           parseInt(manager.currentTime / 60).toString(),
@@ -128,25 +140,42 @@ $page('music', {
         bufferedTime: manager.buffered,
         canplay: true
       });
+
       a.music.played = true;
     });
     manager.onWaiting(() => {
       console.warn('waiting');
       this.setData({ canplay: false });
     });
+
     manager.onEnded(() => {
       this.next();
     });
+
     manager.onPrev(() => {
       this.previous();
     });
+
     manager.onNext(() => {
       this.next();
     });
+
     manager.onError(() => {
       wx.showToast({ title: '获取音乐出错，请稍后重试', icon: 'none' });
     });
+
+    // 设置胶囊颜色
+    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
+
     $set.Notice('music');
+  },
+  onShow() {
+    // 设置胶囊颜色
+    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   loadCover(e) {
     if (e.type === 'load') this.setData({ coverLoad: true });
@@ -163,39 +192,39 @@ $page('music', {
     }
   },
   next() {
-    let { i } = this.data,
+    let { index } = this.data,
       j;
     const { length: total } = this.data.songList;
 
     switch (this.data.mode) {
       case 3:
         do j = Math.round(Math.random() * total - 0.5); while (i === j);
-        i = j;
+        index = j;
         break;
-      default: i = i + 1 === total ? 0 : i + 1;
+      default: index = index + 1 === total ? 0 : index + 1;
     }
-    this.Switch(i);
+    this.Switch(index);
   },
   previous() {
-    let { i } = this.data,
+    let { index } = this.data,
       j;
     const { length: total } = this.data.songList;
 
     switch (this.data.mode) {
       case 3:
         do j = Math.round(Math.random() * total - 0.5); while (i === j);
-        i = j;
+        index = j;
         break;
-      default: i = i === 0 ? total - 1 : i - 1;
+      default: index = index === 0 ? total - 1 : index - 1;
     }
-    console.log(i);
-    this.Switch(i);
+    console.log(index);
+    this.Switch(index);
   },
-  Switch(i) {
-    const currentSong = this.data.songList[i];
+  Switch(index) {
+    const currentSong = this.data.songList[index];
 
     this.setData({
-      i,
+      index,
       title: currentSong.title,
       singer: currentSong.singer,
       cover: currentSong.cover,
@@ -206,7 +235,7 @@ $page('music', {
     manager.title = currentSong.title;
     manager.singer = currentSong.singer;
     manager.coverImgUrl = currentSong.cover;
-    a.music.index = i;
+    a.music.index = index;
   },
   cA(e) {
     $set.component(e, this);
@@ -236,7 +265,7 @@ $page('music', {
   onShareAppMessage() {
     return {
       title: this.data.title,
-      path: `/function/player?index=${this.data.i}&share=true`
+      path: `/function/player?index=${this.data.index}&share=true`
     };
   },
   redirect() {

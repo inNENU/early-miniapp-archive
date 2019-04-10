@@ -13,23 +13,25 @@ $page('function', {
         content: [
           { text: '校园地图', icon: '/icon/function/map.svg', url: '/function/map' },
           { text: '音律东师', icon: '/icon/function/music.svg', url: '/function/player' },
-          // { text: "影约东师", icon: "/icon/function/movie.svg", url: "/function/video" },
           { text: '校园公众号', icon: '/icon/function/gzh.svg', aim: 'gzh0' },
           { text: '内网公告', icon: '/icon/function/notice.svg', url: '/function/notice' },
           { text: '体测计算器', icon: '/icon/function/PECal.svg', url: '/function/PEcal' }
         ]
-      }, {
-        tag: 'grid',
-        head: '即将推出',
-        content: [
-          { text: '成绩查询', icon: '/icon/function/exam.svg', url: '/module/building?month=3' },
-          { text: '课表查询', icon: '/icon/function/schedule.svg', url: '/module/building?month=3' },
-          { text: '考场查询', icon: '/icon/function/score.svg', url: '/module/building?month=5' },
-          { text: '绩点计算', icon: '/icon/function/scoreCal.svg', url: '/module/building?month=3' },
-          { text: '故障报修', icon: '/icon/function/repair.svg', url: '/module/building?month=4' },
-          { text: '东师掠影', icon: '/icon/function/scenery.svg', url: '/module/building?month=1' },
-          { text: '校历', icon: '/icon/function/calendar.svg', url: '/module/building?month=1' }
-        ]
+        /*
+         * }, {
+         *   tag: 'grid',
+         *   head: '即将推出',
+         *   content: [
+         *     { text: '成绩查询', icon: '/icon/function/exam.svg', url: '/module/building?month=3' },
+         *     { text: "影约东师", icon: "/icon/function/movie.svg", url: "/function/video" },
+         *     { text: '课表查询', icon: '/icon/function/schedule.svg', url: '/module/building?month=3' },
+         *     { text: '考场查询', icon: '/icon/function/score.svg', url: '/module/building?month=5' },
+         *     { text: '绩点计算', icon: '/icon/function/scoreCal.svg', url: '/module/building?month=3' },
+         *     { text: '故障报修', icon: '/icon/function/repair.svg', url: '/module/building?month=4' },
+         *     { text: '东师掠影', icon: '/icon/function/scenery.svg', url: '/module/building?month=1' },
+         *     { text: '校历', icon: '/icon/function/calendar.svg', url: '/module/building?month=1' }
+         *   ]
+         */
       }
     ]
   },

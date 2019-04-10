@@ -196,12 +196,31 @@
   height: 31px;
   border-radius: 18px;
   background-color: rgba(255, 255, 255, 0.5);
-  border: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+.backBtn::before {
+  content: " ";
+  position: absolute;
+  z-index: 98;
+  border: 1px solid rgba(127, 127, 127, 0.2);
+  border-radius: 36px;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
 }
 
 .nm .backBtn {
   background-color: rgba(0, 0, 0, 0.15);
-  border: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+
+.nm .backBtn::before {
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .backIcon {

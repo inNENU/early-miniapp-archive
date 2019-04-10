@@ -1,19 +1,20 @@
 /* global wx getApp */
-const { globalData: a, lib: { $page, $set } } = getApp();
 const $tab = require('../lib/tab');
 
-const includePoint1 = {
-  padding: [30, 20, 30, 20],
-  points: [
-    {
-      latitude: 43.8578480844,
-      longitude: 125.3252720833
-    }, {
-      latitude: 43.8633404949,
-      longitude: 125.3379964828
-    }
-  ]
-},
+const { globalData: a, lib: { $page, $set } } = getApp(),
+
+  includePoint1 = {
+    padding: [30, 20, 30, 20],
+    points: [
+      {
+        latitude: 43.8578480844,
+        longitude: 125.3252720833
+      }, {
+        latitude: 43.8633404949,
+        longitude: 125.3379964828
+      }
+    ]
+  },
   includePoint2 = {
     padding: [30, 20, 30, 20],
     points: [
@@ -65,7 +66,6 @@ $page('map', {
     console.log('Map navigate finish');
   },
   onLoad() {
-    // Let that = this;
     wx.showLoading({ title: '加载中...' });
     if (this.set) {
       this.mapCtx = wx.createMapContext('schoolMap');
@@ -109,15 +109,26 @@ $page('map', {
         wx.hideLoading();
       }, 500);
     }
+    // 设置胶囊颜色
+    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
+
+    // 弹出通知
     $set.Notice('map');
   },
   onReady() {
-    // Let that = this;
+    // 设置tab
     wx.createSelectorQuery().select('#mapTab')
       .boundingClientRect(rect => {
         this.setData({ tabHeight: rect.height });
       })
       .exec();
+
+    // 设置胶囊颜色
+    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   Switch() {
     const temp = !this.data.mapSwitch,

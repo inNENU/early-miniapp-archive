@@ -1,71 +1,71 @@
 {
-  "description": "项目配置文件。",
-  "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": true,
-    "newFeature": true,
-    "nodeModules": false,
-    "autoAudits": false,
-    "uglifyFileName": true
-  },
-  "compileType": "miniprogram",
-  "libVersion": "2.6.5",
-  "appid": "wx9ce37d9662499df3",
-  "projectname": "miniprogram",
-  "isGameTourist": false,
-  "packOptions": {
-    "ignore": [
-      {
-        "type": "regexp",
-        "value": "origin"
-      },
-      {
-        "type": "regexp",
-        "value": "shop"
-      },
-      {
-        "type": "file",
-        "value": ".eslintrc.js"
-      },
-      {
-        "type": "file",
-        "value": "jsdoc.js"
-      },
-      {
-        "type": "suffix",
-        "value": "md"
-      }
-    ]
-  },
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "plugin": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "currentL": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": 0,
-      "list": [
-        {
-          "id": 0,
-          "name": "师大师大",
-          "pathName": "function/player",
-          "query": "index=5"
-        }
-      ]
-    }
-  }
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": true,
+		"newFeature": true,
+		"nodeModules": false,
+		"autoAudits": false,
+		"uglifyFileName": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.6.5",
+	"appid": "wx33acb831ee1831a5",
+	"projectname": "miniprogram",
+	"isGameTourist": false,
+	"packOptions": {
+		"ignore": [
+			{
+				"type": "regexp",
+				"value": "origin"
+			},
+			{
+				"type": "regexp",
+				"value": "shop"
+			},
+			{
+				"type": "file",
+				"value": ".eslintrc.js"
+			},
+			{
+				"type": "file",
+				"value": "jsdoc.js"
+			},
+			{
+				"type": "suffix",
+				"value": "md"
+			}
+		]
+	},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "师大师大",
+					"pathName": "function/player",
+					"query": "index=5"
+				}
+			]
+		}
+	}
 }
