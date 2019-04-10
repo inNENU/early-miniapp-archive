@@ -1,15 +1,15 @@
 <view class="{{nm?'nm':''}} commonBg">
-  <view wx:if="{{!share}}" class='backBtn' style="top:{{info.statusBarHeight+5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'cA'}}" data-action='back'>
+  <view class='backBtn' style="top:{{info.statusBarHeight+5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'cA'}}" data-action='back'>
     <image class="backIcon" src="/icon/back{{nm?'':'Black'}}.png" />
   </view>
-  <view style='height:10%;'></view>
+  <view style='height:10%;' />
   <view class='headerCtn'>
-    <view class='songName'>{{title}}</view>
-    <view class='songAuthor'>—— {{singer}} ——</view>
+    <view class='songName'>{{currentSong.title}}</view>
+    <view class='songAuthor'>—— {{currentSong.singer}} ——</view>
   </view>
   <view class="coverCtn">
     <image wx:if="{{!coverLoad}}" class="cover {{play?'rotate':''}}" src='/function/icon/cd.svg' />
-    <image class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{cover}}" bindload='loadCover' />
+    <image class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{currentSong.cover}}" bindload='loadCover' />
   </view>
   <view class='progressBarCtn'>
     <view class='timeDisplay'>{{present?present[0]+":"+present[1]:"--:--"}}</view>
@@ -40,15 +40,17 @@
     </view>
   </view>
   <view style='height:10%;'></view>
-  <!-- <view class='songList'>
-    <view style='height:6%;'></view>
-    <view wx:for="{{songList}}" class='video-ListCtn'>
-      <view class="videoListCtn {{item.current?'active':''}}" id='{{index}}' hover-class='buttonHover' catchtap='play'>
-        <view class='videoListName'>{{item.name}}</view>
-        <view class='videoListAuthor'>{{item.author}}</view>
-      </view>
-      <view class='divLine'></view>
+  <scroll-view wx:if="{{songListDisplay}}" scroll-y class="songListCtn">
+    <!-- <scroll-view wx:if="{{songListDisplay}}" scroll-y class="songListCtn  {{hide?'fadeOut':'fadeIn'}}"> -->
+    <view class="closeBtn" hover-class="pressHover" catchtap="list">
+      <image class="closeIcon" src="/icon/close.png" />
     </view>
-    <view style='height:6%;'></view>
-  </view> -->
+    <view wx:for="{{songList}}" wx:key="{{item.title}}" class="songCtn" hover-class="buttonHover" catchtap="change" data-index="{{index}}">
+      <image class="songListIcon" src="{{item.cover}}" />
+      <view class="songList">
+        <view class="songListName">{{item.title}}</view>
+        <view class="songListDesc">{{item.singer}}</view>
+      </view>
+    </view>
+  </scroll-view>
 </view>

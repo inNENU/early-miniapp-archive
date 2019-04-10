@@ -113,6 +113,15 @@ slider {
   filter: drop-shadow(-1px 3px 3px rgba(191, 190, 195, 0.95));
 }
 
+.nm .playBtn,
+.nm .cycleBtn,
+.nm .previousBtn,
+.nm .nextBtn,
+.nm .listBtn {
+  -webkit-filter: drop-shadow(-1px 3px 3px rgba(64, 65, 60, 0.95));
+  filter: drop-shadow(-1px 3px 3px rgba(64, 65, 60, 0.95));
+}
+
 .cycleBtn2 {
   width: 80%;
   max-width: 32px;
@@ -123,7 +132,84 @@ slider {
   filter: drop-shadow(-1px 3px 3px rgba(191, 190, 195, 0.95));
 }
 
+.nm .cycleBtn2 {
+  -webkit-filter: drop-shadow(-1px 3px 3px rgba(64, 65, 60, 0.95));
+  filter: drop-shadow(-1px 3px 3px rgba(64, 65, 60, 0.95));
+}
+
 .active {
   -webkit-filter: grayscale(50%);
   filter: grayscale(50%);
+}
+
+.songListCtn {
+  position: fixed;
+  z-index: 2;
+  width: 84%;
+  top: 100px;
+  left: 8%;
+  bottom: 100px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 48px 0 12px 0;
+  font-family: FZSSJW,
+    -apple-system-font,
+    "PingFang SC",
+    "Helvetica Neue",
+    Helvetica,
+    STHeiti,
+    Tahoma,
+    Simsun,
+    sans-serif !important;
+  box-shadow: 1px 1px 4px 1.5px rgba(208, 208, 208, 80);
+}
+
+.nm .songListCtn {
+  box-shadow: 1px 1px 4px 1.5px rgba(47, 47, 47, 80);
+  background-color: #000;
+}
+
+.closeBtn {
+  position: fixed;
+  z-index: 3;
+  top: 112px;
+  left: calc(92% - 43px);
+}
+
+.songCtn {
+  width: 100%;
+  padding: 0 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.songListIcon {
+  width: 36px;
+  height: 36px;
+}
+
+.songList {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+  padding: 6px 0 6px 12px;
+}
+
+.songListName {
+  font-size: 16px;
+}
+
+.nm .songListName {
+  color: #fff;
+}
+
+.songListDesc {
+  font-size: 14px;
+  color: #333;
+}
+
+.nm.songListDesc {
+  color: #ccc;
 }
