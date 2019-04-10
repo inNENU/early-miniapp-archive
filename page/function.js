@@ -54,7 +54,7 @@ $page('function', {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
-    if (!this.set) $set.request('/page/function', data => {
+    if (!this.set) $set.request('main/function', data => {
       wx.setStorageSync('function', data);
     });
     this.$on('theme', T => {

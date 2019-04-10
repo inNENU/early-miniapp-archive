@@ -57,7 +57,7 @@ $page('guide', {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
-    if (!this.set) $set.request('page/guide', data => {
+    if (!this.set) $set.request('main/guide', data => {
       wx.setStorageSync('guide', data);
     });
     this.$on('theme', T => {

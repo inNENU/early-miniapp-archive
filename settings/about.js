@@ -24,8 +24,8 @@ $page('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\nbug修复与显示优化；\n新增分享悬浮窗；\n新增腾讯视频播放；\n新增公众号文章跳转；\n新增强制更新功能；\n移除东青文创；` },
-          { text: '查看详细日志', url: '/settings/1.1' }
+          { text: `${a.version}\n优化启动速度` },
+          { text: '查看详细日志', url: '/settings/1.2' }
         ]
       },
       {
@@ -151,7 +151,6 @@ $page('about', {
     const $file = require('../lib/file');
     const fileList = $file.listFile('');
 
-    console.log(fileList);// 调试
     fileList.forEach(filePath => {
       $file.Delete(filePath);
     });

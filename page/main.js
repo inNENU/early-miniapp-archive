@@ -36,7 +36,7 @@ $page('main', {
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
   },
   onLoad() {
-    $set.request('page/main', data => {
+    $set.request('main/main', data => {
       $set.Set(data, a, null, this);
     });
     $set.Notice('main');
@@ -54,7 +54,7 @@ $page('main', {
       this.setData({ nm });
     });
     ['guide', 'function'].forEach(x => {
-      $set.request(`page/${x}`, data => {
+      $set.request(`main/${x}`, data => {
         this.$put(x, data);
         this.$preload(`${x}?name=${x}&aim=${x}`);
         wx.setStorageSync(x, data);
@@ -63,7 +63,7 @@ $page('main', {
     this.$preload('me');
   },
   onPullDownRefresh() {
-    $set.request('page/main', data => {
+    $set.request('main/main', data => {
       $set.Set(data, a, null, this);
       wx.stopPullDownRefresh();
     });

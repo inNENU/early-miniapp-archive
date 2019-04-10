@@ -107,21 +107,21 @@ $page('setting', {
   onPageScroll(e) {
     $set.nav(e, this);
   },
-  refreshGuide() {
-    $set.request('guideRes', data => {
-      tab.resDownload(data, null);
-    });
-  },
-  refreshFunc() {
-    $set.request('functionRes', data => {
-      tab.resDownload(data, null);
-    });
-  },
   cA(e) {
     $set.component(e, this);
   },
   onUnload() {
     a.nm = app.nightmode(new Date());
+  },
+  setTheme(e) {
+    $set.component(e, this);
+    const theme = this.data.page[1].content[0].pickerValue[e.detail.value];
+
+    a.T = theme;
+    wx.setStorageSync('theme', theme);
+    $set.Set(this.data.page, a, null, this);
+    this.$emit('theme', theme);
+    console.log(`theme切换为${theme}`); // 调试
   },
   switchnm(e) {
     // Let p = util.Switch(e, this), list = p[3].content, value = e.detail.value;
@@ -218,14 +218,10 @@ $page('setting', {
     $set.component(e, this);
     if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: e.detail.value / 100 });
   },
-  setTheme(e) {
-    $set.component(e, this);
-    const theme = this.data.page[1].content[0].pickerValue[e.detail.value];
-
-    a.T = theme;
-    wx.setStorageSync('theme', theme);
-    $set.Set(this.data.page, a, null, this);
-    this.$emit('theme', theme);
-    console.log(`theme切换为${theme}`); // 调试
+  refreshGuide() {
+    tab.resDownload('page');
+  },
+  refreshFunc() {
+    tab.resDownload('function');
   }
 });
