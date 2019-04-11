@@ -56,19 +56,39 @@ $page('function', {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
-    if (!this.set) $set.request('main/function', data => {
+    const test = wx.getStorageSync('test');
+
+    // 开启测试
+    if (test) $set.request('main/functionTest', data => {
       wx.setStorageSync('function', data);
+      $set.Set(data, a, { aim: 'function' }, this, false);
     });
+    // 正常加载逻辑
+    else if (!this.set) $set.request('main/function', data => {
+      wx.setStorageSync('function', data);
+      $set.Set(data, a, { aim: 'function' }, this, false);
+    });
+
     this.$on('theme', T => {
       this.setData({ T });
     });
     this.$on('nightmode', nm => {
       this.setData({ nm });
     });
-    tab.markerSet();// 此处还需要再优化
+
+    // 此处还需要再优化
+    tab.markerSet();
   },
   onPullDownRefresh() {
-    tab.update('function', '70K');
+    const test = wx.getStorageSync('test');
+
+    // 开启测试时刷新页面
+    if (test) $set.request('main/functionTest', data => {
+      wx.setStorageSync('function', data);
+      $set.Set(data, a, { aim: 'function' }, this, false);
+    });
+
+    tab.update('function', '80K');
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {

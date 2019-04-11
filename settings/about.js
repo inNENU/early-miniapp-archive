@@ -1,5 +1,5 @@
 /* global getApp wx*/
-const { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $file, $page, $set } } = getApp();
 
 $page('about', {
   clickNumber: 0,
@@ -13,8 +13,9 @@ $page('about', {
         head: '版本号',
         content: [
           { text: a.version, button: 'debugMode' },
-          { text: '开发日志', aim: 'log0' },
+          { text: '启用测试功能', swiKey: 'test', Switch: 'testSwitch' },
           { text: '调试开关', swiKey: 'debugMode', Switch: 'debugSwitch' },
+          { text: '开发日志', aim: 'log0' },
           { text: '初始化小程序', button: 'resetApp' },
           { text: '退出小程序', navigate: true, openType: 'exit', target: 'miniProgram' },
           { text: '退出开发者模式', button: 'debugMode' }
@@ -24,7 +25,7 @@ $page('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\n底层优化` },
+          { text: `${a.version}\n底层优化，页面显示优化` },
           { text: '查看详细日志', url: '/settings/1.2' }
         ]
       },
@@ -80,12 +81,11 @@ $page('about', {
   onReady() {
     if (this.set) $set.preLoad(this, a);
 
-    /*
-     * $set.request('main/about', data => {
-     *   $set.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, this);
-     *   $set.preLoad(this, a);
-     * })
-     */
+    $set.request('main/about', data => {
+      $set.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, this);
+      $set.preLoad(this, a);
+    });
+
   },
   onPageScroll(res) {
     $set.nav(res, this);
@@ -145,44 +145,23 @@ $page('about', {
     if (e.detail.value) wx.setEnableDebug({ enableDebug: true });
     else wx.setEnableDebug({ enableDebug: false });
   },
+  testSwitch(e) {
+    $set.component(e, this);
+    wx.showToast({ title: `已${e.detail.value ? '启用' : '关闭'}测试功能`, icon: 'none' });
+  },
   resetApp() {
-    // 清除文件系统文件
-    const $file = require('../lib/file');
-    const fileList = $file.listFile('');
+    // 显示提示
+    wx.showLoading({ title: '初始化中', mask: true });
 
-    fileList.forEach(filePath => {
+    // 清除文件系统文件与数据存储
+    $file.listFile('').forEach(filePath => {
       $file.Delete(filePath);
     });
-
-    // 清理数据存储
     wx.clearStorageSync();
 
+    // 隐藏提示
+    wx.hideLoading();
     // 提示用户重启
-    wx.showModal({ title: '小程序初始化完成', content: '请单击退出小程序按钮退出小程序', showCancel: false });
+    wx.showModal({ title: '小程序初始化完成', content: '请单击 “退出小程序按钮” 退出小程序', showCancel: false });
   }
-
-  /*
-   * Donate() {
-   *   wx.getClipboardData({
-   *     data: 'Sl6dhW316U',
-   *     success: function(res) {
-   *       wx.showToast({
-   *         title: '口令已复制',
-   *         duration: 1000,
-   *       });
-   *       setTimeout(function() {
-   *         wx.showToast({
-   *           title: '请打开支付宝领取红包支持Mr.Hope',
-   *           icon: 'none',
-   *           duration: 2000,
-   *         })
-   *       }, 1000)
-   *       // 感谢您选择捐赠以支持Mr.Hope，您的每一次捐赠都会让小程序变得更好！
-   *       // 请点击下方的捐赠按钮并手动跳转到支付宝来注您捐赠的用途：
-   *       // 升级服务器配置；
-   *       // 支持Mr.Hope
-   *     }
-   *   })
-   * }
-   */
 });

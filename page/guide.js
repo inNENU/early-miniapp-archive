@@ -57,9 +57,19 @@ $page('guide', {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   onReady() {
-    if (!this.set) $set.request('main/guide', data => {
+    const test = wx.getStorageSync('test');
+
+    // 开启测试
+    if (test) $set.request('main/guideTest', data => {
       wx.setStorageSync('guide', data);
+      $set.Set(data, a, { aim: 'guide' }, this, false);
     });
+    // 正常加载逻辑
+    else if (!this.set) $set.request('main/guide', data => {
+      wx.setStorageSync('guide', data);
+      $set.Set(data, a, { aim: 'guide' }, this, false);
+    });
+
     this.$on('theme', T => {
       this.setData({ T });
     });
@@ -69,6 +79,14 @@ $page('guide', {
     $set.preLoad(this, a);
   },
   onPullDownRefresh() {
+    const test = wx.getStorageSync('test');
+
+    // 开启测试时刷新页面
+    if (test) $set.request('main/guideTest', data => {
+      wx.setStorageSync('guide', data);
+      $set.Set(data, a, { aim: 'guide' }, this, false);
+    });
+
     tab.update('page', '145K');
     wx.stopPullDownRefresh();
   },

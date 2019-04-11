@@ -1,7 +1,5 @@
 /* global wx getApp*/
-const $file = require('../lib/file');
-
-const { globalData: a, lib: { $page, $set } } = getApp(),
+const { globalData: a, lib: { $file, $page, $set } } = getApp(),
   manager = wx.getBackgroundAudioManager();
 
 $page('music', {

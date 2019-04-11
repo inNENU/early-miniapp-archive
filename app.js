@@ -8,13 +8,17 @@ $App({
 
   // 小程序全局数据
   globalData: {
-    version: 'V 1.2.7',
+    version: 'V 1.2.8',
     music: { play: false, played: false, index: 0 }
     // T, nm, date, info也在globalData中
   },
 
-  // 在APP中封装两个js库对象
-  lib: { $page: require('./lib/wxpage'), $set: require('./lib/setpage') },
+  // 在APP中封装js库对象
+  lib: {
+    $file: require('./lib/file'),
+    $page: require('./lib/wxpage'),
+    $set: require('./lib/setpage')
+  },
 
   // 路径解析配置
   config: {
@@ -26,7 +30,7 @@ $App({
   },
 
   onLaunch(opts) {
-    console.info('APP 启动，参数为', opts); // 调试
+    console.info('小程序启动，参数为', opts); // 调试
 
     // 保存启动时间
     this.globalData.date = new Date();
@@ -39,26 +43,34 @@ $App({
     this.globalData.nm = app.nightmode();
     this.globalData.info = wx.getSystemInfoSync();
 
-    // 检查通知更新与小程序更新
-    app.noticeCheck();
-    app.appUpdate();
-
     console.info('设备信息为', this.globalData.info); // 调试
 
-    // 设置内存不足警告
-    wx.onMemoryWarning(() => {
-      wx.showToast({ title: '内存不足', icon: 'none', duration: 1500 });
-      console.warn('onMemoryWarningReceive');
-    });
+    app.startup();
   },
   onAwake(time) {
     console.log('小程序在', time, 'ms之后被唤醒');
     this.logger.debug(`"onAwake after ${time}ms`);// 调试
 
-    // 重新应用夜间模式、检查通知与小程序更新
+    // 重新应用夜间模式、
     this.globalData.nm = app.nightmode();
-    app.noticeCheck();
-    app.appUpdate(true, false);
+
+    // 重新获取网络信息、检查通知与小程序更新
+    wx.getNetworkType({
+      success: res => {
+        wx.setStorageSync('networkType', res.networkType);
+
+        // 显示提示
+        if (res.isConnected) {
+          app.noticeCheck();
+          app.appUpdate();
+
+        } else {
+          wx.showModal({ title: '无网络连接', content: '网络连接中断,部分小程序功能暂不可用', showCancel: false });
+          wx.setStorageSync('networkError', true);
+        }
+      }
+    });
+
   },
 
   // OnShow: function () { },
