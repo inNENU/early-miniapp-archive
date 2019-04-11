@@ -1,5 +1,5 @@
 
-const { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $act, $page, $set } } = getApp();
 
 $page('donate', {
   data: {
@@ -21,7 +21,7 @@ $page('donate', {
   },
   onLoad() {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
-    $set.request('main/donateList', donateList => {
+    $act.request('main/donateList', donateList => {
       this.setData({ donateList });
     });
   },
@@ -42,8 +42,8 @@ $page('donate', {
                 // 如果已经授权相册直接写入图片
                 wx.saveImageToPhotosAlbum({
                   filePath: res1.tempFilePath,
-                  success: msg => {
-                    wx.showToast({ title: '保存成功', icon: 'success' });
+                  success: () => {
+                    $act.tip('保存成功');
                   }
                 });
               else wx.authorize({// 没有授权——>提示用户授权
@@ -51,8 +51,8 @@ $page('donate', {
                 success: () => {
                   wx.saveImageToPhotosAlbum({
                     filePath: res1.tempFilePath,
-                    success: msg => {
-                      wx.showToast({ title: '保存成功', icon: 'success' });
+                    success: () => {
+                      $act.tip('保存成功');
                     }
                   });
                 },
@@ -61,7 +61,7 @@ $page('donate', {
                     title: '权限被拒', content: '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
                     showCancel: false, confirmText: '确定', confirmColor: '#3CC51F',
                     complete: () => {
-                      wx.showToast({ title: '二维码保存失败', icon: 'none', duration: 1500, mask: false });
+                      $act.tip('二维码保存失败');
                     }
                   });
                 }
@@ -70,7 +70,7 @@ $page('donate', {
           });
       },
       fail: () => {
-        wx.showToast({ title: '二维码下载失败', icon: 'none' });
+        $act.tip('二维码下载失败');
       }
     });
   },

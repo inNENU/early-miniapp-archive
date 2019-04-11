@@ -1,5 +1,5 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $act, $page, $set } } = getApp();
 
 $page('newsDetail', {
   data: {
@@ -24,7 +24,7 @@ $page('newsDetail', {
   },
   onLoad(res) {
     $set.Set(this.data.page, a, null, this, false);
-    $set.request(`news/${res.id}`, data => {
+    $act.request(`news/${res.id}`, data => {
       const { attachment } = data;
 
       if (attachment) {
@@ -55,7 +55,7 @@ $page('newsDetail', {
     this.id = res.id;
   },
   onPullDownRefresh() {
-    $set.request(`news/${this.id}`, notice => {
+    $act.request(`news/${this.id}`, notice => {
       this.setData({ notice });
       wx.stopPullDownRefresh();
     });

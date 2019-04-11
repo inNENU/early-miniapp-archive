@@ -1,5 +1,5 @@
 /* global getApp*/
-const { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $act, $page, $set } } = getApp();
 
 
 $page('shop', {
@@ -64,10 +64,10 @@ $page('shop', {
     });
   },
   onReady() {
-    if (!this.set) $set.request('main/shop', data => {
+    if (!this.set) $act.request('main/shop', data => {
       $set.Set(data, a, null, this);
     });
-    $set.request('main/goods', data => {
+    $act.request('main/goods', data => {
       this.setData({ goods: data });
     });
   },

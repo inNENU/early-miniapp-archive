@@ -1,5 +1,5 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $act, $page, $set } } = getApp();
 
 $page('notice', {
   data: {
@@ -15,12 +15,12 @@ $page('notice', {
   },
   onLoad() {
     $set.Set(this.data.page, a, null, this, false);
-    $set.request('news/news', news => {
+    $act.request('news/news', news => {
       this.setData({ news });
     });
   },
   onPullDownRefresh() {
-    $set.request('news/news', news => {
+    $act.request('news/news', news => {
       this.setData({ news });
       wx.stopPullDownRefresh();
     });

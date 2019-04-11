@@ -1,5 +1,5 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $file, $page, $set } } = getApp(),
+const { globalData: a, lib: { $act, $file, $page, $set } } = getApp(),
   manager = wx.getBackgroundAudioManager();
 
 $page('music', {
@@ -33,7 +33,7 @@ $page('music', {
 
       this.set = true;
     } else
-      $set.request('function/song', data => {
+      $act.request('function/song', data => {
 
         // 写入歌曲列表与当前歌曲信息
         currentSong = data[index];
@@ -95,7 +95,7 @@ $page('music', {
         }
 
         // 在线获取歌曲列表
-      } else $set.request('function/song', data => {
+      } else $act.request('function/song', data => {
         currentSong = data[index];
         this.setData({ songList: data, currentSong });
 
@@ -185,7 +185,7 @@ $page('music', {
     });
 
     manager.onError(() => {
-      wx.showToast({ title: '获取音乐出错，请稍后重试', icon: 'none' });
+      $act.tip('获取音乐出错，请稍后重试');
     });
 
     // 设置胶囊颜色
@@ -228,7 +228,7 @@ $page('music', {
         break;
       case 2:
         index = index + 1 === total ? 'stop' : index + 1;
-        wx.showToast({ title: '播放完毕', icon: 'none' });
+        $act.tip('播放完毕');
       case 1:
         break;
       case 0:
@@ -250,7 +250,7 @@ $page('music', {
       case 2:
         if (index + 1 === total) {
           index = 'nothing';
-          wx.showToast({ title: '已是最后一曲', icon: 'none' });
+          $act.tip('已是最后一曲');
         } else index += 1;
         break;
       case 1:
@@ -273,7 +273,7 @@ $page('music', {
       case 2:
         if (index === 0) {
           index = 'nothing';
-          wx.showToast({ title: '已是第一曲', icon: 'none' });
+          $act.tip('已是第一曲');
         } else index -= 1;
         break;
       case 1:
@@ -330,7 +330,7 @@ $page('music', {
         modeName = '列表循环';
     }
     wx.setStorageSync('playMode', mode);
-    wx.showToast({ title: `${modeName}模式`, icon: 'none' });
+    $act.tip(`${modeName}模式`);
   },
   list() {
     this.setData({ songListDisplay: !this.data.songListDisplay });

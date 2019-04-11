@@ -1,5 +1,5 @@
 /* global getApp wx*/
-const { globalData: a, lib: { $file, $page, $set } } = getApp();
+const { globalData: a, lib: { $act, $file, $page, $set } } = getApp();
 
 $page('about', {
   clickNumber: 0,
@@ -83,7 +83,7 @@ $page('about', {
   onReady() {
     if (this.set) $set.preLoad(this, a);
 
-    $set.request('main/about', data => {
+    $act.request('main/about', data => {
       $set.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, this);
       $set.preLoad(this, a);
     });
@@ -106,7 +106,7 @@ $page('about', {
       this.developMode = false;
     } else if (this.clickNumber < 5) this.clickNumber += 1;
     else if (this.clickNumber < 10) {
-      wx.showToast({ title: `再点击${10 - this.clickNumber}次即可启用开发者模式`, icon: 'none' });
+      $act.tip(`再点击${10 - this.clickNumber}次即可启用开发者模式`);
       this.clickNumber += 1;
     } else {
       this.setData({ debug: true });
@@ -118,7 +118,7 @@ $page('about', {
   password(e) {
     if (e.detail.value.length === 7) {
       if (e.detail.value === '5201314') { // 密码正确
-        wx.showToast({ title: '已启用开发者模式', icon: 'none' });
+        $act.tip('已启用开发者模式');
         this.data.page[1].content.forEach(x => {
           x.hidden = false;
         });
@@ -149,7 +149,7 @@ $page('about', {
   },
   testSwitch(e) {
     $set.component(e, this);
-    wx.showToast({ title: `已${e.detail.value ? '启用' : '关闭'}测试功能`, icon: 'none' });
+    $act.tip(`已${e.detail.value ? '启用' : '关闭'}测试功能`);
   },
   deleteData() {
     wx.clearStorageSync();

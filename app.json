@@ -123,9 +123,5 @@
   "requiredBackgroundModes": [
     "audio"
   ],
-  "usingComponents": {
-    "share": "components/share",
-    "nav": "components/nav"
-  },
   "sitemapLocation": "sitemap.json"
 }
