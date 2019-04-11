@@ -8,6 +8,9 @@ $page('module3', {
   onLoad(res) {
     $set.Online(a, res, this);
   },
+  onShow() {
+    $set.setColor(a, this.data.page[0].grey);
+  },
   onPageScroll(res) {
     $set.nav(res, this);
   },

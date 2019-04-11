@@ -17,6 +17,9 @@ $page('sharePage', {
     }
     wx.reportMonitor('2', 1);
   },
+  onShow() {
+    $set.setColor(a, this.data.page[0].grey);
+  },
   onPageScroll(res) {
     $set.nav(res, this);
   },

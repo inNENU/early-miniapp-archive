@@ -13,7 +13,23 @@
     </view>
   </view>
   <view class='list'>
-    <input type="text" value="" placeholder="单位：秒" confirm-type="next" confirm-hold="true" bindinput="input" data-project="shortrun" />
+    <radio-group bindchange="genderChange">
+      <label class="checkbox" wx:for="{{gender}}" wx:key="item.text">
+        <radio value="{{item.value}}" checked="{{item.checked}}" color="#3cc51f" />
+        {{item.text}}
+      </label>
+    </radio-group>
+    <radio-group bindchange="gradeChange">
+      <label class="checkbox" wx:for="{{grade}}" wx:key="item.text">
+        <radio value="{{item.value}}" checked="{{item.checked}}" color="#3cc51f" />
+        {{item.text}}
+      </label>
+    </radio-group>
+    <view class="listItem" wx:for="{{list}}">
+      <view class="listText">{{item.text}}</view>
+      <input type="{{item.type}}" value="" placeholder="{{item.desc}}" confirm-type="next" confirm-hold="true" bindinput="input" data-project="{{item.id}}" />
+      <view class="listUnit">{{item.unit}}</view>
+    </view>
   </view>
   <view class='calBtn'>计算</view>
 </view>

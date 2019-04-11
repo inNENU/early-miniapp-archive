@@ -8,6 +8,9 @@ $page('web', {
     wx.setNavigationBarTitle({ title });
     this.setData({ url: res.url, title });
   },
+  onShow() {
+    $set.setColor(a, this.data.page[0].grey);
+  },
   onShareAppMessage() {
     return { title: this.data.title, path: `/module/web?url=${this.data.url}` };
   }

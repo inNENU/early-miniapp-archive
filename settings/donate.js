@@ -25,53 +25,52 @@ $page('donate', {
       this.setData({ donateList });
     });
   },
+  onShow() {
+    const [frontColor, backgroundColor] = this.data.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
+  },
   onReady() {
     $set.Notice('donate');
   },
   save(res) {
     console.log('Start QRCode download.');// 调试
-    wx.downloadFile({
-      url: `https://mp.nenuyouth.com/img/donate/${res.currentTarget.dataset.name}.png`,
-      success: res1 => {
-        console.log(res1);
-        if (res1.statusCode === 200)
-          // 获取用户设置
-          wx.getSetting({
-            success: res2 => {
-              if (res2.authSetting['scope.writePhotosAlbum'])
-                // 如果已经授权相册直接写入图片
-                wx.saveImageToPhotosAlbum({
-                  filePath: res1.tempFilePath,
-                  success: () => {
-                    $act.tip('保存成功');
-                  }
-                });
-              else wx.authorize({// 没有授权——>提示用户授权
-                scope: 'scope.writePhotosAlbum',
+    $act.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, path => {
+      // 获取用户设置
+      wx.getSetting({
+        success: res2 => {
+          if (res2.authSetting['scope.writePhotosAlbum'])
+            // 如果已经授权相册直接写入图片
+            wx.saveImageToPhotosAlbum({
+              filePath: path,
+              success: () => {
+                $act.tip('保存成功');
+              }
+            });
+          else wx.authorize({// 没有授权——>提示用户授权
+            scope: 'scope.writePhotosAlbum',
+            success: () => {
+              wx.saveImageToPhotosAlbum({
+                filePath: path,
                 success: () => {
-                  wx.saveImageToPhotosAlbum({
-                    filePath: res1.tempFilePath,
-                    success: () => {
-                      $act.tip('保存成功');
-                    }
-                  });
-                },
-                fail: () => { // 用户拒绝权限，提示用户开启权限
-                  wx.showModal({
-                    title: '权限被拒', content: '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
-                    showCancel: false, confirmText: '确定', confirmColor: '#3CC51F',
-                    complete: () => {
-                      $act.tip('二维码保存失败');
-                    }
-                  });
+                  $act.tip('保存成功');
+                }
+              });
+            },
+            fail: () => { // 用户拒绝权限，提示用户开启权限
+              wx.showModal({
+                title: '权限被拒', content: '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
+                showCancel: false, confirmText: '确定', confirmColor: '#3CC51F',
+                complete: () => {
+                  $act.tip('二维码保存失败');
                 }
               });
             }
           });
-      },
-      fail: () => {
-        $act.tip('二维码下载失败');
-      }
+        }
+      });
+    }, () => {
+      $act.tip('二维码下载失败');
     });
   },
   onPageScroll(e) {

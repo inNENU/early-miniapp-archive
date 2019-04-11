@@ -19,7 +19,7 @@ $page('guide', {
         tag: 'grid',
         head: '',
         content: [
-          { text: '新生报到', icon: '/icon/guide/check.svg', aim: 'check0' },
+          // { text: '新生报到', icon: '/icon/guide/check.svg', aim: 'check0' },
           { text: '学习', icon: '/icon/guide/study.svg', aim: 'study0' },
           { text: '食堂', icon: '/icon/guide/dining.svg', aim: 'dining0' },
           { text: '生活', icon: '/icon/guide/life.svg', aim: 'life0' },
@@ -30,8 +30,8 @@ $page('guide', {
           { text: '交通', icon: '/icon/guide/traffic.svg', aim: 'traffic0' },
           { text: '学生组织', icon: '/icon/guide/studentOrg.svg', aim: 'studentOrg0' },
           { text: '社团', icon: '/icon/guide/corporation.svg', aim: 'corporation0' },
-          { text: '资助', icon: '/icon/guide/subsidize.svg', aim: 'subsidize0' },
-          { text: 'SIM卡', icon: '/icon/guide/sim.svg', aim: 'sim0' }
+          { text: '资助', icon: '/icon/guide/subsidize.svg', aim: 'subsidize0' }
+          // { text: 'SIM卡', icon: '/icon/guide/sim.svg', aim: 'sim0' }
         ]
       }
     ]
