@@ -153,12 +153,16 @@ $page('about', {
   },
   deleteData() {
     wx.clearStorageSync();
-
+    $act.tip('数据清除完成');
   },
   deleteFile() {
+    wx.showLoading({ title: '删除中', mask: true });
+
     $file.listFile('').forEach(filePath => {
       $file.Delete(filePath);
     });
+
+    wx.hideLoading();
   },
   resetApp() {
     // 显示提示

@@ -112,7 +112,6 @@
     "uploadFile": 8000,
     "downloadFile": 25000
   },
-  "workers": "worker",
   "debug": true,
   "resizable": true,
   "permission": {

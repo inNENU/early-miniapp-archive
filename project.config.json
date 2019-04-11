@@ -19,20 +19,8 @@
 	"packOptions": {
 		"ignore": [
 			{
-				"type": "regexp",
-				"value": "origin"
-			},
-			{
-				"type": "file",
-				"value": "shop.js"
-			},
-			{
-				"type": "file",
-				"value": "shop.wxml"
-			},
-			{
-				"type": "file",
-				"value": "shop.wxss"
+				"type": "folder",
+				"value": "bak"
 			},
 			{
 				"type": "file",
