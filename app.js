@@ -15,6 +15,7 @@ $App({
 
   // 在APP中封装js库对象
   lib: {
+    $act: require('./lib/interface'),
     $file: require('./lib/file'),
     $page: require('./lib/wxpage'),
     $set: require('./lib/setpage')

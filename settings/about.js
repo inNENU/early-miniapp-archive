@@ -16,6 +16,8 @@ $page('about', {
           { text: '启用测试功能', swiKey: 'test', Switch: 'testSwitch' },
           { text: '调试开关', swiKey: 'debugMode', Switch: 'debugSwitch' },
           { text: '开发日志', aim: 'log0' },
+          { text: '清除小程序数据', button: 'deleteData' },
+          { text: '清除小程序文件', button: 'deleteFile' },
           { text: '初始化小程序', button: 'resetApp' },
           { text: '退出小程序', navigate: true, openType: 'exit', target: 'miniProgram' },
           { text: '退出开发者模式', button: 'debugMode' }
@@ -148,6 +150,15 @@ $page('about', {
   testSwitch(e) {
     $set.component(e, this);
     wx.showToast({ title: `已${e.detail.value ? '启用' : '关闭'}测试功能`, icon: 'none' });
+  },
+  deleteData() {
+    wx.clearStorageSync();
+
+  },
+  deleteFile() {
+    $file.listFile('').forEach(filePath => {
+      $file.Delete(filePath);
+    });
   },
   resetApp() {
     // 显示提示
