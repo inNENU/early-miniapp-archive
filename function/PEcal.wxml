@@ -12,6 +12,8 @@
       <view class='scoreDisplay'>{{score}}{{state}}</view>
     </view>
   </view>
-  <view class='list'></view>
+  <view class='list'>
+    <input type="text" value="" placeholder="单位：秒" confirm-type="next" confirm-hold="true" bindinput="input" data-set="一千米" />
+  </view>
   <view class='calBtn'>计算</view>
 </view>

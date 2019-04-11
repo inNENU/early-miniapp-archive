@@ -1,16 +1,11 @@
-/* global wx getApp Page*/
-const a = getApp().globalData;
+/* global wx getApp*/
+const { globalData: a, lib: { $page, $set } } = getApp();
 
-Page({
+$page('cal', {
   data: {
     page: [
-      {
-        tag: 'head',
-        title: '绩点计算(beta)'
-      }, {
-        tag: 'title',
-        text: '绩点计算器'
-      }
+      { tag: 'head', title: '绩点计算(beta)', leftText: '功能大厅' },
+      { tag: 'title', text: '绩点计算器' }
     ],
     grade: [],
     // 在这里必须定义一个grade的空数组
@@ -173,12 +168,12 @@ Page({
 
   },
   onLoad(e) {
-    c.setPage(this.data.page, this, a, e);
+    $set.Set(this.data.page, a, null, this, false);
   },
   onPageScroll(e) {
-    c.nav(e, this);
+    $set.nav(e, this);
   },
   cA(e) {
-    c.componentAction(e, this);
+    $set.component(e, this);
   }
 });

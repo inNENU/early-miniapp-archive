@@ -1,0 +1,14 @@
+<import src="/components/template" />
+<template name="notice">
+  <view wx:if="{{news}}" wx:for="{{news}}" wx:key="id" class='noticeCtn' hover-class='buttonHover' hover-start-time='0' hover-stay-time='150' catchtap='notice' data-id='{{item.id}}'>
+    <block>
+      <view class='title'>{{item.title}}</view>
+      <view class='time'>{{item.time}}</view>
+    </block>
+  </view>
+</template>
+<view class="{{T}} grey {{nm?'nm':''}}">
+  <template is="all2" data="{{page,T}}" />
+  <template is="notice" data="{{news}}" />
+  <template is="all2" data="{{page:page2,T}}" />
+</view>

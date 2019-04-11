@@ -6,22 +6,22 @@ $page('notice', {
     page: [
       {
         tag: 'head',
-        title: '内网公告',
+        title: '东师新闻',
         leftText: '功能大厅'
       }
     ],
     page2: [{ tag: 'foot' }],
-    notice: []
+    news: []
   },
   onLoad() {
     $set.Set(this.data.page, a, null, this, false);
-    $set.request('notice/notice', notice => {
-      this.setData({ notice });
+    $set.request('news/news', news => {
+      this.setData({ news });
     });
   },
   onPullDownRefresh() {
-    $set.request('notice/notice', notice => {
-      this.setData({ notice });
+    $set.request('news/news', news => {
+      this.setData({ news });
       wx.stopPullDownRefresh();
     });
   },
@@ -34,6 +34,6 @@ $page('notice', {
   notice(res) {
     const { id } = res.currentTarget.dataset;
 
-    this.$route(`/function/noticeDetail?id=${id}`);
+    this.$route(`/function/newsDetail?id=${id}`);
   }
 });

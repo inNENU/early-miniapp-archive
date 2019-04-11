@@ -24,7 +24,7 @@ $page('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\n优化启动速度` },
+          { text: `${a.version}\n底层优化` },
           { text: '查看详细日志', url: '/settings/1.2' }
         ]
       },

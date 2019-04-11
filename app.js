@@ -8,7 +8,7 @@ $App({
 
   // 小程序全局数据
   globalData: {
-    version: 'V 1.2.5',
+    version: 'V 1.2.7',
     music: { play: false, played: false, index: 0 }
     // T, nm, date, info也在globalData中
   },
@@ -18,11 +18,11 @@ $App({
 
   // 路径解析配置
   config: {
-    route: ['/page/$page', '/module/$page', '/function/$page'],
+    route: ['/page/$page', '/module/$page', '/function/$page', '/settings/$page'],
     // eslint-disable-next-line no-confusing-arrow
     resolvePath: name => ['main', 'function', 'guide', 'me'].includes(name)
       ? `/page/${name}`
-      : ['setting', '1.1', 'about'].includes(name) ? `setting/${name}` : `/module/${name}`
+      : ['setting', '1.2', 'about'].includes(name) ? `/settings/${name}` : `/module/${name}`
   },
 
   onLaunch(opts) {

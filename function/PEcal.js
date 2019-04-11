@@ -1,6 +1,12 @@
-const P = require('../lib/wxpage'),
-  S = require('../lib/setpage'),
-  t = require('../lib/tab');
-const a = getApp().globalData;
+/* global wx getApp*/
+const { globalData: a, lib: { $page, $set } } = getApp();
 
-P('PEcal', { data: {} });
+$page('PEcal', {
+  data: {},
+  onLoad() {
+
+  },
+  onReady() {
+    $set.Notice('PEcal');
+  }
+});

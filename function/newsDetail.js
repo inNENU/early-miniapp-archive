@@ -1,25 +1,36 @@
 /* global wx getApp*/
 const { globalData: a, lib: { $page, $set } } = getApp();
 
-$page('noticeDetail', {
+$page('newsDetail', {
   data: {
     page: [
-      { tag: 'head', title: '通知详情', leftText: '通知列表', grey: true },
-      { tag: 'title', text: '加载中...' },
-      { tag: 'p', text: '\n\n\n\nloading......\n\n\n\n' },
-      { tag: 'p', align: 'right', text: '机构：  \n时间：  ' }
+      {
+        tag: 'head',
+        title: '通知详情',
+        leftText: '通知列表',
+        grey: true
+      }, {
+        tag: 'title',
+        text: '加载中...'
+      }, {
+        tag: 'p',
+        text: '\n\n\n\nloading......\n\n\n\n'
+      }, {
+        tag: 'p',
+        align: 'right',
+        text: '机构：  \n时间：  '
+      }
     ]
   },
   onLoad(res) {
     $set.Set(this.data.page, a, null, this, false);
-    $set.request(`notice/${res.id}`, notice => {
-      const { attachment } = notice;
+    $set.request(`news/${res.id}`, data => {
+      const { attachment } = data;
 
-      if (attachment && attachment.length !== 0) {
-        console.log(attachment);
-        delete notice.attachment;
+      if (attachment) {
+        delete data.attachment;
         attachment.forEach(x => {
-          const temp = x.docName.split('.')[1];
+          const { 1: temp } = x.docName.split('.');
 
           x.docName = x.docName.split('.')[0];
           x.docType = temp === 'docx' || temp === 'doc'
@@ -38,13 +49,13 @@ $page('noticeDetail', {
                         ? temp
                         : 'document';
         });
-        this.setData({ 'page[1].text': notice.title, 'page[2].text': notice.content, 'page[3].text': notice.footer, attachment });
-      } else this.setData({ 'page[1].text': notice.title, 'page[2].text': notice.content, 'page[3].text': notice.footer });
+        this.setData({ 'page[1].text': data.title, 'page[2].text': data.content, 'page[3].text': data.footer, attachment });
+      } else this.setData({ 'page[1].text': data.title, 'page[2].text': data.content, 'page[3].text': data.footer });
     });
     this.id = res.id;
   },
   onPullDownRefresh() {
-    $set.request(`notice/${this.id}`, notice => {
+    $set.request(`news/${this.id}`, notice => {
       this.setData({ notice });
       wx.stopPullDownRefresh();
     });
