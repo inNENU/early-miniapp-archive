@@ -15,14 +15,14 @@ $page('PEcal', {
     T: a.T,
     nm: a.nm,
     page: [{ tag: 'head', title: '体测计算器', grey: true, leftText: '功能大厅' }],
-    gender: [
-      { text: '男', value: 'male' },
-      { text: '女', value: 'female' }
-    ],
-    grade: [
-      { text: '大一 大二', value: 'Low' },
-      { text: '大三 大四', value: 'High' }
-    ],
+    gender: {
+      picker: ['男', '女'],
+      value: ['male', 'female']
+    },
+    grade: {
+      picker: ['大一', '大二', '大三', '大四'],
+      value: ['Low', 'Low', 'High', 'High']
+    },
     list: [
       { text: '身高', unit: '厘米', type: 'number', id: 'height' },
       { text: '体重', unit: '千克', type: 'digit', id: 'weight' },
@@ -37,21 +37,21 @@ $page('PEcal', {
   },
   onLoad() {
     $set.Set(this.data.page, a, null, this, false);
-    const gender = wx.getStorageSync('gender'),
-      grade = wx.getStorageSync('grade');
+    const genderIndex = wx.getStorageSync('gender'),
+      gradeIndex = wx.getStorageSync('grade');
 
     // 将用户上次选择的性别和年级载入
-    if (gender) { // 改变特别项目和长跑的名称
+    if (genderIndex) { // 改变特别项目和长跑的名称
       this.setData({
-        [`gender[${gender === 'male' ? 0 : 1}].checked`]: true,
-        'longRun.text': gender === 'male' ? longRunText[0] : longRunText[1],
-        special: gender === 'male' ? special[0] : special[1]
+        'gender.index': genderIndex,
+        'longRun.text': genderIndex === 0 ? longRunText[0] : longRunText[1],
+        special: genderIndex === 0 ? special[0] : special[1]
       });
-      result.gender = gender;
+      result.gender = this.data.gender.value[genderIndex];
     }
-    if (grade) {
-      this.setData({ [`grade[${grade === 'Low' ? 0 : 1}].checked`]: true });
-      result.grade = grade;
+    if (gradeIndex) {
+      this.setData({ 'grade.index': gradeIndex });
+      result.grade = this.data.grade.value[gradeIndex];
     }
 
     // 设置长跑选择器数据
@@ -62,12 +62,6 @@ $page('PEcal', {
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
-  },
-  onReady() {
-    // 设置胶囊颜色
-    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
-
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
 
     $set.Notice('PEcal');
   },
@@ -78,37 +72,38 @@ $page('PEcal', {
     $set.component(e, this);
   },
   genderChange(event) {
-    const { value } = event.detail;
+    const index = event.detail.value;
 
-    result.gender = value;
-    wx.setStorageSync('gender', value);
+    result.gender = this.data.gender.value[index];
+    wx.setStorageSync('gender', index);
 
     // 改变特别项目和长跑的名称
     this.setData({
-      special: value === 'male' ? special[0] : special[1],
-      'longRun.text': value === 'male' ? longRunText[0] : longRunText[1]
+      'gender.index': index,
+      special: result.gender === 'male' ? special[0] : special[1],
+      'longRun.text': result.gender === 'male' ? longRunText[0] : longRunText[1]
     });
   },
   gradeChange(event) {
-    const { value } = event.detail;
+    const index = event.detail.value;
 
-    result.grade = value;
-    wx.setStorageSync('grade', value);
+    // 设置年级
+    result.grade = this.data.grade.value[index];
+    this.setData({ 'grade.index': index });
+    wx.setStorageSync('grade', index);
   },
   input(event) {
     const { project } = event.currentTarget.dataset;
 
     result[project] = event.detail.value;
   },
-  longRunHandler(e) {
-    console.log(e);
-    const { value } = e.detail;
+  longRunHandler(event) {
+    const { value } = event.detail;
 
     // 设置显示数据
     this.setData({ 'longRun.value': `${longRunPicker[0][value[0]]} ${longRunPicker[1][value[1]]}` });
 
     result.longRun = (value[0] + 2) * 60 + value[1];
-    console.log(result.longRun);
   },
   calculate() {
 
@@ -177,11 +172,12 @@ $page('PEcal', {
         const specialScore = result.gender === 'male' ? 'chinning' : 'situp';
 
         for (let i = 0; i < config[specialScore].length; i++)
-          if (config[specialScore][i] !== '' && result[specialScore] && result[specialScore] < config[specialScore][i]) {
-            PEscore.specialScore = hash[i];
-            break;
-          } else if (i = config[specialScore].length - 1)
-            PEscore.special = hash[i];
+          if (result[specialScore])
+            if (config[specialScore][i] !== '' && result[specialScore] && result[specialScore] < config[specialScore][i]) {
+              PEscore.specialScore = hash[i];
+              break;
+            } else if (i = config[specialScore].length - 1)
+              PEscore.special = hash[i];
 
         const finalScore = PEscore.vitalCapacity * 0.15 + PEscore.shortRun * 0.2 + PEscore.sitAndReach * 0.1 +
           PEscore.standingLongJump * 0.1 + PEscore.special * 0.1 + PEscore.longRun * 0.2;
