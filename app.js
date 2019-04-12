@@ -8,7 +8,7 @@ $App({
 
   // 小程序全局数据
   globalData: {
-    version: 'V 1.3.0',
+    version: 'V 1.3.2',
     music: { play: false, played: false, index: 0 }
     // T, nm, date, info也在globalData中
   },
@@ -27,7 +27,7 @@ $App({
     // eslint-disable-next-line no-confusing-arrow
     resolvePath: name => ['main', 'function', 'guide', 'me'].includes(name)
       ? `/page/${name}`
-      : ['setting', '1.2', 'about'].includes(name) ? `/settings/${name}` : `/module/${name}`
+      : ['setting', '1.3', 'about'].includes(name) ? `/settings/${name}` : `/module/${name}`
   },
 
   onLaunch(opts) {
@@ -46,7 +46,7 @@ $App({
 
     console.info('设备信息为', this.globalData.info); // 调试
 
-    app.startup();
+    app.startup(this.globalData.version);
   },
   onAwake(time) {
     console.log('小程序在', time, 'ms之后被唤醒');
@@ -55,31 +55,8 @@ $App({
     // 重新应用夜间模式、
     this.globalData.nm = app.nightmode();
 
-    app.noticeCheck();
+    app.noticeCheck(this.globalData.version);
     app.appUpdate();
-
-    /*
-     * // 重新获取网络信息、检查通知与小程序更新
-     * Wx.getNetworkType({
-     *   Success: res => {
-     *     Wx.setStorageSync('networkType', res.networkType);
-     */
-
-    /*
-     *     // 显示提示
-     *     If (res.isConnected) {
-     */
-
-
-    /*
-     *     } else {
-     *       Wx.showModal({ title: '无网络连接', content: '网络连接中断,部分小程序功能暂不可用', showCancel: false });
-     *       Wx.setStorageSync('networkError', true);
-     *     }
-     *   }
-     * });
-     */
-
   },
 
   // OnShow: function () { },
@@ -94,7 +71,7 @@ $App({
     wx.switchTab({ url: 'pages/main' });
 
     console.warn('未找到界面:', msg);
-    this.logger.warn('Page not found!', msg); // 调试
+    this.logger.warn('未找到界面', msg); // 调试
   },
 
   // 日志管理器对象

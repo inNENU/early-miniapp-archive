@@ -1,11 +1,10 @@
 /* global wx getApp*/
 const { globalData: a, lib: { $act, $file, $page, $set } } = getApp(),
   special = [
-    { text: '引体向上', unit: '个', id: 'chinning' },
-    { text: '仰卧起坐', unit: '个', id: 'situp' }
+    { text: '引体向上', unit: '个', type: 'number', id: 'chinning' },
+    { text: '仰卧起坐', unit: '个', type: 'number', id: 'situp' }
   ],
   longRunText = ['1000米跑', '800米跑'],
-  result = {},
   longRunPicker = [['2分', '3分', '4分', '5分', '6分', '7分'], []];
 
 for (let i = 0; i < 60; i++) longRunPicker[1].push(`${i}秒`);
@@ -33,7 +32,15 @@ $page('PEcal', {
     ],
     longRun: { text: '800米跑' },
     special: { text: '仰卧起坐', unit: '个', id: 'situp' },
-    PEscore: {}
+    PEscore: {},
+    result: {},
+    scoreList: [
+      { text: 'BMI', id: 'BMI' },
+      { text: '坐位体前屈', id: 'sitAndReach' },
+      { text: '肺活量', id: 'vitalCapacity' },
+      { text: '立定跳远', id: 'standingLongJump' },
+      { text: '50米跑', id: 'shortRun' }
+    ]
   },
   onLoad() {
     $set.Set(this.data.page, a, null, this, false);
@@ -41,18 +48,19 @@ $page('PEcal', {
       gradeIndex = wx.getStorageSync('grade');
 
     // 将用户上次选择的性别和年级载入
-    if (genderIndex) { // 改变特别项目和长跑的名称
+    if (genderIndex)  // 改变特别项目和长跑的名称
       this.setData({
         'gender.index': genderIndex,
         'longRun.text': genderIndex === 0 ? longRunText[0] : longRunText[1],
-        special: genderIndex === 0 ? special[0] : special[1]
+        special: genderIndex === 0 ? special[0] : special[1],
+        'result.gender': this.data.gender.value[genderIndex]
       });
-      result.gender = this.data.gender.value[genderIndex];
-    }
-    if (gradeIndex) {
-      this.setData({ 'grade.index': gradeIndex });
-      result.grade = this.data.grade.value[gradeIndex];
-    }
+
+    if (gradeIndex)
+      this.setData({
+        'grade.index': gradeIndex,
+        'result.grade': this.data.grade.value[gradeIndex]
+      });
 
     // 设置长跑选择器数据
     this.setData({ 'longRun.picker': longRunPicker });
@@ -72,40 +80,47 @@ $page('PEcal', {
     $set.component(e, this);
   },
   genderChange(event) {
-    const index = event.detail.value;
+    const index = event.detail.value,
+      gender = this.data.gender.value[index];
 
-    result.gender = this.data.gender.value[index];
     wx.setStorageSync('gender', index);
 
     // 改变特别项目和长跑的名称
     this.setData({
+      'result.gender': gender,
       'gender.index': index,
-      special: result.gender === 'male' ? special[0] : special[1],
-      'longRun.text': result.gender === 'male' ? longRunText[0] : longRunText[1]
+      special: gender === 'male' ? special[0] : special[1],
+      'longRun.text': gender === 'male' ? longRunText[0] : longRunText[1]
     });
   },
   gradeChange(event) {
     const index = event.detail.value;
 
     // 设置年级
-    result.grade = this.data.grade.value[index];
-    this.setData({ 'grade.index': index });
+    this.setData({
+      'grade.index': index,
+      'result.grade': this.data.grade.value[index]
+    });
     wx.setStorageSync('grade', index);
   },
   input(event) {
     const { project } = event.currentTarget.dataset;
 
-    result[project] = event.detail.value;
+    this.setData({ [`result[${project}]`]: event.detail.value });
   },
   longRunHandler(event) {
     const { value } = event.detail;
 
     // 设置显示数据
-    this.setData({ 'longRun.value': `${longRunPicker[0][value[0]]} ${longRunPicker[1][value[1]]}` });
+    this.setData({
+      'longRun.value': `${longRunPicker[0][value[0]]} ${longRunPicker[1][value[1]]}`,
+      'result.longRun': (value[0] + 2) * 60 + value[1]
+    });
 
-    result.longRun = (value[0] + 2) * 60 + value[1];
+
   },
   calculate() {
+    const { result } = this.data;
 
     wx.showLoading({ title: '计算中...', mask: true });
     console.info('输入结果为：', result);
@@ -122,19 +137,19 @@ $page('PEcal', {
         };
 
       if (result.height && result.weight) {
-        const score = Math.round(result.weight * 100000 / result.height / result.height) / 10,
+        const BMIscore = Math.round(result.weight * 100000 / result.height / result.height) / 10,
           state = result.gender === 'male'
-            ? score <= 17.8 ? '低体重' : score >= 28.0 ? '肥胖' : score >= 24.0 ? '超重' : '正常'
-            : score <= 17.1 ? '低体重' : score >= 28.0 ? '肥胖' : score >= 24.0 ? '超重' : '正常';
+            ? BMIscore <= 17.8 ? '低体重' : BMIscore >= 28.0 ? '肥胖' : BMIscore >= 24.0 ? '超重' : '正常'
+            : BMIscore <= 17.1 ? '低体重' : BMIscore >= 28.0 ? '肥胖' : BMIscore >= 24.0 ? '超重' : '正常';
 
         PEscore.BMIscore = result.gender === 'male'
-          ? score <= 17.8 ? 80 : score >= 28.0 ? 60 : score >= 24.0 ? 80 : 100
-          : score <= 17.1 ? 80 : score >= 28.0 ? 60 : score >= 24.0 ? 80 : 100;
+          ? BMIscore <= 17.8 ? 80 : BMIscore >= 28.0 ? 60 : BMIscore >= 24.0 ? 80 : 100
+          : BMIscore <= 17.1 ? 80 : BMIscore >= 28.0 ? 60 : BMIscore >= 24.0 ? 80 : 100;
 
 
-        PEscore.passScore = score <= 28 ? 60 : Math.ceil(score - 28);
+        PEscore.passScore = BMIscore <= 28 ? 60 : Math.ceil(BMIscore - 28);
 
-        this.setData({ BMI: { score, state } });
+        this.setData({ BMI: { score: BMIscore, state } });
       }
 
       $file.getJson(`function/PEcal/${result.gender}${result.grade}`, config => {
@@ -196,5 +211,9 @@ $page('PEcal', {
       wx.hideLoading();
       wx.showToast({ title: '请选择年龄与性别', icon: 'none', duration: 2500, image: '/icon/close.png' });
     }
-  }
+  },
+  navigate() {
+    this.$route('/module/module1?From=体测计算器&aim=study0&depth=1');
+  },
+  onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal' })
 });

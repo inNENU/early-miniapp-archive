@@ -62,12 +62,12 @@ $page('guide', {
     const test = wx.getStorageSync('test');
 
     // 开启测试
-    if (test) $act.request('main/guideTest', data => {
+    if (test) $act.request('config/guideTest', data => {
       wx.setStorageSync('guide', data);
       $set.Set(data, a, { aim: 'guide' }, this, false);
     });
     // 正常加载逻辑
-    else if (!this.set) $act.request('main/guide', data => {
+    else if (!this.set) $act.request(`config/${a.version}/guide`, data => {
       wx.setStorageSync('guide', data);
       $set.Set(data, a, { aim: 'guide' }, this, false);
     });
@@ -84,7 +84,7 @@ $page('guide', {
     const test = wx.getStorageSync('test');
 
     // 开启测试时刷新页面
-    if (test) $act.request('main/guideTest', data => {
+    if (test) $act.request('config/guideTest', data => {
       wx.setStorageSync('guide', data);
       $set.Set(data, a, { aim: 'guide' }, this, false);
     });

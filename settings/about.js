@@ -27,8 +27,8 @@ $page('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\n底层优化，页面显示优化` },
-          { text: '查看详细日志', url: '/settings/1.2' }
+          { text: `${a.version}\n修复体测计算器成绩优于满分会计算为0的bug` },
+          { text: '查看详细日志', url: '/settings/1.3' }
         ]
       },
       {
@@ -88,7 +88,7 @@ $page('about', {
   onReady() {
     if (this.set) $set.preLoad(this, a);
 
-    $act.request('main/about', data => {
+    $act.request(`config/${a.version}/about`, data => {
       $set.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, this);
       $set.preLoad(this, a);
     });

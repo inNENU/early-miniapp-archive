@@ -36,7 +36,14 @@ $page('main', {
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
   },
   onLoad() {
-    $act.request('main/main', data => {
+    const test = wx.getStorageSync('test');
+
+    // 开启测试
+    if (test) $act.request('config/mainTest', data => {
+      wx.setStorageSync('main', data);
+      $set.Set(data, a, { aim: 'main' }, this, false);
+    });
+    else $act.request(`config/${a.version}/main`, data => {
       $set.Set(data, a, null, this);
     });
     $set.Notice('main');
@@ -49,14 +56,17 @@ $page('main', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
+    // 注册事件监听器
     this.$on('theme', T => {
       this.setData({ T });
     });
     this.$on('nightmode', nm => {
       this.setData({ nm });
     });
+
+    // 执行tab页预加载
     ['guide', 'function'].forEach(x => {
-      $act.request(`main/${x}`, data => {
+      $act.request(`config/${a.version}/${x}`, data => {
         this.$put(x, data);
         this.$preload(`${x}?name=${x}&aim=${x}`);
         wx.setStorageSync(x, data);
@@ -65,9 +75,17 @@ $page('main', {
     this.$preload('me');
   },
   onPullDownRefresh() {
-    $act.request('main/main', data => {
+    const test = wx.getStorageSync('test');
+
+    // 开启测试
+    if (test) $act.request('config/mainTest', data => {
+      wx.setStorageSync('main', data);
+      $set.Set(data, a, { aim: 'main' }, this, false);
+    });
+    else $act.request(`config/${a.version}/main`, data => {
       $set.Set(data, a, null, this);
       wx.stopPullDownRefresh();
+      wx.setStorageSync('main', data);
     });
   },
   onPageScroll(e) {

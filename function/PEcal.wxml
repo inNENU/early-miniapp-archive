@@ -1,6 +1,12 @@
 <import src="/components/template" />
 <view class="iOS grey {{nm?'nm':''}}">
   <template is='head' data="{{...page[0],T}}" />
+  <view class="descCtn">
+    <view class="descBtn" hover-class="buttonHover" catchtap="navigate">
+      <image src="/icon/about.svg" class="descIcon" />
+      <view class="descText">体测说明</view>
+    </view>
+  </view>
   <view class='scoreBox'>
     <view class='BMICtn'>
       <view class='scoreTitle'>BMI：</view>
@@ -14,13 +20,13 @@
   <view class="list">
     <view class="listItem">
       <view class="listText">性别</view>
-      <picker class="longRunpicker" bindchange="genderChange" range="{{gender.picker}}" mode="selector">
+      <picker class="listPicker" bindchange="genderChange" range="{{gender.picker}}" mode="selector">
         {{gender.index?gender.picker[gender.index]:'请选择'}}
       </picker>
     </view>
     <view class="listItem">
       <view class="listText">年级</view>
-      <picker class="longRunpicker" bindchange="gradeChange" range="{{grade.picker}}" mode="selector">
+      <picker class="listPicker" bindchange="gradeChange" range="{{grade.picker}}" mode="selector">
         {{grade.index?grade.picker[grade.index]:'请选择'}}
       </picker>
     </view>
@@ -33,7 +39,7 @@
     </block>
     <view class="listItem">
       <view class="listText">{{longRun.text}}</view>
-      <picker class="longRunpicker" bindchange="longRunHandler" range="{{longRun.picker}}" mode="multiSelector">
+      <picker class="listPicker" bindchange="longRunHandler" range="{{longRun.picker}}" mode="multiSelector">
         {{longRun.value?longRun.value:'秒'}}
       </picker>
     </view>
@@ -44,4 +50,24 @@
     </view>
   </view>
   <button type="primary" class='calBtn' bindtap="calculate">计算</button>
+  <view class="scoreListCtn">
+    <view class="scoreListTitle">体 测 成 绩</view>
+    <view class="scoreItemCtn" wx:for="{{scoreList}}">
+      <view class="listText">{{item.text}}</view>
+      <view class="listScore">{{PEscore[item]}}分</view>
+    </view>
+    <view class="scoreItemCtn">
+      <view class="listText">{{result.gender==='male'?1000:800}}米跑</view>
+      <view class="listScore">{{PEscore.longRun}}分</view>
+    </view>
+    <view class="scoreItemCtn">
+      <view class="listText">{{result.gender==='male'?'引体向上':'仰卧起坐'}}</view>
+      <view class="listScore">{{PEscore.special}}分</view>
+    </view>
+    <view class="scoreItemCtn">
+      <view class="listText">总分</view>
+      <view class="listScore">{{PE.score}}分</view>
+    </view>
+  </view>
+  <template is="foot" />
 </view>

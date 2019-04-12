@@ -3,13 +3,7 @@ const { globalData: a, lib: { $act, $page, $set } } = getApp();
 
 $page('notice', {
   data: {
-    page: [
-      {
-        tag: 'head',
-        title: '东师新闻',
-        leftText: '功能大厅'
-      }
-    ],
+    page: [{ tag: 'head', title: '东师新闻', leftText: '功能大厅' }],
     news: []
   },
   onLoad() {

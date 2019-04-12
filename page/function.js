@@ -61,12 +61,12 @@ $page('function', {
     const test = wx.getStorageSync('test');
 
     // 开启测试
-    if (test) $act.request('main/functionTest', data => {
+    if (test) $act.request('config/functionTest', data => {
       wx.setStorageSync('function', data);
       $set.Set(data, a, { aim: 'function' }, this, false);
     });
     // 正常加载逻辑
-    else if (!this.set) $act.request('main/function', data => {
+    else if (!this.set) $act.request(`config/${a.version}/function`, data => {
       wx.setStorageSync('function', data);
       $set.Set(data, a, { aim: 'function' }, this, false);
     });
@@ -85,7 +85,7 @@ $page('function', {
     const test = wx.getStorageSync('test');
 
     // 开启测试时刷新页面
-    if (test) $act.request('main/functionTest', data => {
+    if (test) $act.request('config/functionTest', data => {
       wx.setStorageSync('function', data);
       $set.Set(data, a, { aim: 'function' }, this, false);
     });

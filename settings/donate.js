@@ -21,7 +21,7 @@ $page('donate', {
   },
   onLoad() {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
-    $act.request('main/donateList', donateList => {
+    $act.request('config/donateList', donateList => {
       this.setData({ donateList });
     });
   },
