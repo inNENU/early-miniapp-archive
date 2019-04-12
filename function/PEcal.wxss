@@ -20,3 +20,30 @@ scoreCtn {
   font-size: 20px;
   font-weight: 500;
 }
+
+.listItem {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 5%;
+  line-height: 1.75;
+  font-size: 17px;
+  text-align: right;
+}
+
+.listText {
+  width: 120px;
+  padding-right: 12px;
+  text-align: left;
+}
+
+.listInput {
+  flex-grow: auto;
+}
+
+.listUnit {
+  width: 48px;
+  padding-left: 12px;
+  color: #444;
+}

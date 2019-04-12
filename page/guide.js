@@ -49,7 +49,7 @@ $page('guide', {
       $set.Set(page ? page : this.data.page, a, { aim: 'guide' }, this, false);
     }
     $set.Notice('guide');
-    tab.update('page', '300K');
+    tab.update('page', '150K');
   },
   onShow() {
     const [frontColor, backgroundColor] = this.data.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
