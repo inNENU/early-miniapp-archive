@@ -8,7 +8,7 @@ $App({
 
   // 小程序全局数据
   globalData: {
-    version: 'V 1.2.9',
+    version: 'V 1.3.0',
     music: { play: false, played: false, index: 0 }
     // T, nm, date, info也在globalData中
   },
@@ -55,22 +55,30 @@ $App({
     // 重新应用夜间模式、
     this.globalData.nm = app.nightmode();
 
-    // 重新获取网络信息、检查通知与小程序更新
-    wx.getNetworkType({
-      success: res => {
-        wx.setStorageSync('networkType', res.networkType);
+    app.noticeCheck();
+    app.appUpdate();
 
-        // 显示提示
-        if (res.isConnected) {
-          app.noticeCheck();
-          app.appUpdate();
+    /*
+     * // 重新获取网络信息、检查通知与小程序更新
+     * Wx.getNetworkType({
+     *   Success: res => {
+     *     Wx.setStorageSync('networkType', res.networkType);
+     */
 
-        } else {
-          wx.showModal({ title: '无网络连接', content: '网络连接中断,部分小程序功能暂不可用', showCancel: false });
-          wx.setStorageSync('networkError', true);
-        }
-      }
-    });
+    /*
+     *     // 显示提示
+     *     If (res.isConnected) {
+     */
+
+
+    /*
+     *     } else {
+     *       Wx.showModal({ title: '无网络连接', content: '网络连接中断,部分小程序功能暂不可用', showCancel: false });
+     *       Wx.setStorageSync('networkError', true);
+     *     }
+     *   }
+     * });
+     */
 
   },
 

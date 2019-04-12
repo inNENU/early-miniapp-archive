@@ -27,7 +27,7 @@
 
 .pointCtn {
   position: fixed;
-  bottom: 60px;
+  bottom: calc(env(safe-area-inset-bottom) / 2 + 60px);
   left: 17px;
   padding: 6px;
   background-color: #fff;
@@ -61,11 +61,11 @@
 }
 
 .scaleLargeBtn {
-  bottom: 120px;
+  bottom: 140px;
 }
 
 .scaleSmallBtn {
-  bottom: 70px;
+  bottom: 90px;
 }
 
 /* switch组件 */

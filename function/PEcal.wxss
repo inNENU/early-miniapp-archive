@@ -5,7 +5,7 @@
 }
 
 .BMICtn,
-scoreCtn {
+.scoreCtn {
   width: 50%;
   height: 100%;
 }
@@ -21,29 +21,80 @@ scoreCtn {
   font-weight: 500;
 }
 
-.listItem {
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 5%;
+.list {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
   line-height: 1.75;
   font-size: 17px;
   text-align: right;
+  padding: 6px 0 6px 5%;
+}
+
+.list:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid #acacb0;
+  color: #acacb0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.listItem {
+  position: relative;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  padding: 6px 5% 6px 0;
+}
+
+.listItem:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1px solid #acacb0;
+  color: #acacb0;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
 }
 
 .listText {
   width: 120px;
   padding-right: 12px;
   text-align: left;
+  flex: none;
 }
 
 .listInput {
-  flex-grow: auto;
+  flex: auto;
+}
+
+.listUnit {
+  flex: none;
+}
+
+.longRunpicker {
+  flex: auto;
 }
 
 .listUnit {
   width: 48px;
   padding-left: 12px;
   color: #444;
+}
+
+.calBtn {
+  width: 92%;
+  margin: 8px 4%;
 }

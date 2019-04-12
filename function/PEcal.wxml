@@ -1,39 +1,53 @@
 <import src="/components/template" />
-<!-- <template is="all" data="{{page,T,nm}}" /> -->
-<view class="{{nm?'nm':''}}">
+<view class="iOS grey {{nm?'nm':''}}">
   <template is='head' data="{{...page[0],T}}" />
   <view class='scoreBox'>
     <view class='BMICtn'>
       <view class='scoreTitle'>BMI：</view>
-      <view class='scoreDisplay'>{{score}}{{state}}</view>
+      <view class='scoreDisplay'>{{BMI.score}} {{BMI.state}}</view>
     </view>
     <view class='scoreCtn'>
       <view class='scoreTitle'>体测成绩：</view>
-      <view class='scoreDisplay'>{{score}}{{state}}</view>
+      <view class='scoreDisplay'>{{PE.score}} {{PE.state}}</view>
     </view>
   </view>
-  <view class="listItem">
-    <view class="listText" style="width:48px;">性别</view>
-    <radio-group bindchange="genderChange">
-      <label class="checkbox" wx:for="{{gender}}" wx:key="item.text">
-        <radio value="{{item.value}}" checked="{{item.checked}}" color="#3cc51f" />
-        {{item.text}}
-      </label>
-    </radio-group>
-  </view>
-  <view class="listItem">
-    <view class="listText" style="width:48px;">年级</view>
-    <radio-group bindchange="gradeChange">
-      <label class="checkbox" wx:for="{{grade}}" wx:key="item.text">
-        <radio value="{{item.value}}" checked="{{item.checked}}" color="#3cc51f" />
-        {{item.text}}
-      </label>
-    </radio-group>
-  </view>
-  <view class="listItem" wx:for="{{list}}" wx:key="item.id">
-    <view class="listText">{{item.text}}</view>
-    <input class="listInput" type="{{item.type}}" value="" placeholder="{{item.desc}}" confirm-type="next" confirm-hold="true" bindinput="input" data-project="{{item.id}}" />
-    <view class="listUnit">{{item.unit}}</view>
+  <view class="list">
+    <view class="listItem">
+      <view class="listText" style="width:48px;">性别</view>
+      <radio-group class="listInput" bindchange="genderChange">
+        <label class="checkbox" wx:for="{{gender}}" wx:key="item.text">
+          <radio value="{{item.value}}" checked="{{item.checked}}" color="#3cc51f" />
+          {{item.text}}
+        </label>
+      </radio-group>
+    </view>
+    <view class="listItem">
+      <view class="listText" style="width:48px;">年级</view>
+      <radio-group class="listInput" bindchange="gradeChange">
+        <label class="checkbox" wx:for="{{grade}}" wx:key="item.text">
+          <radio value="{{item.value}}" checked="{{item.checked}}" color="#3cc51f" />
+          {{item.text}}
+        </label>
+      </radio-group>
+    </view>
+    <block wx:for="{{list}}" wx:key="item.id">
+      <view class="listItem">
+        <view class="listText">{{item.text}}</view>
+        <input class="listInput" type="{{item.type}}" value="" placeholder="{{item.desc}}" confirm-type="next" confirm-hold="true" bindinput="input" data-project="{{item.id}}" />
+        <view class="listUnit">{{item.unit}}</view>
+      </view>
+    </block>
+    <view class="listItem">
+      <view class="listText">{{longRun.text}}</view>
+      <picker class="longRunpicker" bindchange="longRunHandler" value="{{index}}" range="{{longRun.picker}}" mode="multiSelector">
+        {{longRun.value?longRun.value:'秒'}}
+      </picker>
+    </view>
+    <view class="listItem">
+      <view class="listText">{{special.text}}</view>
+      <input class="listInput" type="{{special.type}}" value="" placeholder="{{special.desc}}" confirm-type="next" confirm-hold="true" bindinput="input" data-project="{{special.id}}" />
+      <view class="listUnit">{{special.unit}}</view>
+    </view>
   </view>
   <button type="primary" class='calBtn' bindtap="calculate">计算</button>
 </view>
