@@ -9,6 +9,6 @@
 </template>
 <view class="{{T}} grey {{nm?'nm':''}}">
   <template is="all2" data="{{page,T}}" />
-  <template is="notice" data="{{notice}}" />
-  <template is="all2" data="{{page:page2,T}}" />
+  <template is="notice" data="{{news}}" />
+  <template is="foot" />
 </view>

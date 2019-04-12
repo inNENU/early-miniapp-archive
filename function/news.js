@@ -10,7 +10,6 @@ $page('notice', {
         leftText: '功能大厅'
       }
     ],
-    page2: [{ tag: 'foot' }],
     news: []
   },
   onLoad() {
@@ -18,6 +17,12 @@ $page('notice', {
     $act.request('news/news', news => {
       this.setData({ news });
     });
+
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, true);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   onPullDownRefresh() {
     $act.request('news/news', news => {

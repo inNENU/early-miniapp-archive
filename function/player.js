@@ -188,34 +188,29 @@ $page('music', {
       $act.tip('获取音乐出错，请稍后重试');
     });
 
-    // 设置胶囊颜色
-    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, false);
 
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
 
     $set.Notice('music');
   },
-  onShow() {
-    // 设置胶囊颜色
-    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
-
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
+  loadCover(event) { // 加载封面
+    if (event.type === 'load') this.setData({ coverLoad: true });
   },
-  loadCover(e) {
-    if (e.type === 'load') this.setData({ coverLoad: true });
-  },
-  play() {
+  play() { // 播放
     if (this.data.play) manager.pause();
     else manager.play();
   },
-  drag(e) {
-    manager.seek(e.detail.value / 100);
-    if (e.type === 'change') {
-      this.setData({ currentTime: e.detail.value / 100 });
-      console.log(e.detail.value); // 调试
+  drag(event) { // 拖拽进度
+    manager.seek(event.detail.value / 100);
+    if (event.type === 'change') {
+      this.setData({ currentTime: event.detail.value / 100 });
+      console.log(event.detail.value); // 调试
     }
   },
-  end() {
+  end() { // 结束动作
     let { index } = this.data;
     const total = this.data.songList.length;
 
@@ -236,7 +231,7 @@ $page('music', {
     }
     this.Switch(index);
   },
-  next() {
+  next() { // 下一曲动作
     let { index } = this.data;
     const total = this.data.songList.length;
 
@@ -259,7 +254,7 @@ $page('music', {
     }
     this.Switch(index);
   },
-  previous() {
+  previous() { // 上一曲动作
     let { index } = this.data;
     const { length: total } = this.data.songList;
 
@@ -282,7 +277,7 @@ $page('music', {
     }
     this.Switch(index);
   },
-  Switch(index) {
+  Switch(index) { // 切换歌曲
     if (index === 'stop') {
 
       this.setData({
@@ -310,10 +305,7 @@ $page('music', {
       a.music.index = index;
     }
   },
-  cA(e) {
-    $set.component(e, this);
-  },
-  modeSwitch() {
+  modeSwitch() { // 切换播放模式
     let modeName;
     const mode = this.data.mode === 3 ? 0 : this.data.mode + 1;
 
@@ -332,22 +324,10 @@ $page('music', {
     wx.setStorageSync('playMode', mode);
     $act.tip(`${modeName}模式`);
   },
-  list() {
+  list() { // 切换列表显隐
     this.setData({ songListDisplay: !this.data.songListDisplay });
-    /*
-     * Comment
-     * if (this.data.songListDisplay) {
-     *   this.setData({ hide: true });
-     *   setTimeout(() => {
-     *     this.setData({ songListDisplay: false });
-     *   }, 500);
-     * } else this.setData({
-     *   songListDisplay: true,
-     *   hide: false
-     * });
-     */
   },
-  change(res) {
+  change(res) { // 点击列表具体歌曲项时触发
     this.list();
     this.Switch(res.currentTarget.dataset.index);
   },
@@ -356,6 +336,9 @@ $page('music', {
       title: this.data.title,
       path: `/function/player?index=${this.data.index}&share=true`
     };
+  },
+  cA(e) {
+    $set.component(e, this);
   },
   redirect() {
     wx.switchTab({ url: '/page/main' });

@@ -79,6 +79,11 @@ $page('about', {
       this.set = true;
     }
     $set.Notice('about');
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, this.data.page[0].grey);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   onReady() {
     if (this.set) $set.preLoad(this, a);

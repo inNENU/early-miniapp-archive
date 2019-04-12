@@ -28,22 +28,34 @@
   line-height: 1.75;
   font-size: 17px;
   text-align: right;
-  padding: 6px 0 6px 5%;
+  padding-left: 5%;
 }
 
-.list:before {
+.list:before,
+.list:after {
   content: " ";
   position: absolute;
   left: 0;
-  top: 0;
   right: 0;
   height: 1px;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.list:before {
+  top: 0;
   border-top: 1px solid #acacb0;
   color: #acacb0;
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  -webkit-transform: scaleY(0.4);
-  transform: scaleY(0.4);
+}
+
+.list:after {
+  bottom: 0;
+  border-bottom: 1px solid #acacb0;
+  color: #acacb0;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
 }
 
 .listItem {
@@ -67,6 +79,10 @@
   transform-origin: 0 100%;
   -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
+}
+
+.listItem:after :last-child {
+  display: none;
 }
 
 .listText {

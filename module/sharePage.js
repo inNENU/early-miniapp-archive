@@ -18,7 +18,11 @@ $page('sharePage', {
     wx.reportMonitor('2', 1);
   },
   onShow() {
-    $set.setColor(a, this.data.page[0].grey);
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, this.data.page[0].grey);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   onPageScroll(res) {
     $set.nav(res, this);

@@ -42,6 +42,12 @@ $page('noticeDetail', {
       } else this.setData({ 'page[1].text': notice.title, 'page[2].text': notice.content, 'page[3].text': notice.footer });
     });
     this.id = res.id;
+
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, true);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   onPullDownRefresh() {
     $act.request(`notice/${this.id}`, notice => {

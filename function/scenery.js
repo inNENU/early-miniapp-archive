@@ -1,14 +1,9 @@
-const c = getApp().common,
-  a = getApp().globalData;
+/* global wx getApp*/
+const { globalData: a, lib: { $act, $file, $page, $set } } = getApp();
 
-Page({
+$page('scenery', {
   data: {
-    page: [
-      {
-        tag: 'head',
-        title: '校园风景'
-      }
-    ],
+    page: [{ tag: 'head', title: '校园风景' }],
     currentSrc: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
     imgs: [
       {
@@ -24,36 +19,5 @@ Page({
         url: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
       }
     ]
-  },
-  onLoad(e) {
-    c.setPage(this.data.page, this, a, e);
-    this.setData({ info: a.info });
-  },
-
-  /*
-   * OnReady() {
-   * c.preloadPage(this.data.page, a);
-   * },
-   */
-  onPageScroll(e) {
-    c.nav(e, this);
-  },
-  cA(e) {
-    c.componentAction(e, this);
   }
-
-  /*
-   * OnShareAppMessage() {
-   * return {
-   *  title: this.data.page[0].title,
-   *  path: '/templates/module1?From=主页&depth=1&share=true&aim=' + this.name
-   *  }
-   * },
-   * redirect() {
-   *  console.log(getCurrentPages())
-   *  wx.switchTab({
-   *     url: '/page/guide'
-   *  })
-   * },
-   */
 });

@@ -13,15 +13,15 @@ $page('function', {
         content: [
           { text: '校园地图', icon: '/icon/function/map.svg', url: '/function/map' },
           { text: '音律东师', icon: '/icon/function/music.svg', url: '/function/player' },
-          { text: '校园公众号', icon: '/icon/function/gzh.svg', aim: 'gzh0' },
-          { text: '内网公告', icon: '/icon/function/notice.svg', url: '/function/notice' },
-          { text: '体测计算器', icon: '/icon/function/PECal.svg', url: '/function/PEcal' }
+          { text: '体测计算器', icon: '/icon/function/PECal.svg', url: '/function/PEcal' },
+          { text: '内网公告', icon: '/icon/function/notice.svg', url: '/function/notice' }
         ]
         /*
          * }, {
          *   tag: 'grid',
          *   head: '即将推出',
          *   content: [
+         *     { text: '校园公众号', icon: '/icon/function/gzh.svg', aim: 'gzh0' },
          *     { text: '成绩查询', icon: '/icon/function/exam.svg', url: '/module/building?month=3' },
          *     { text: "影约东师", icon: "/icon/function/movie.svg", url: "/function/video" },
          *     { text: '课表查询', icon: '/icon/function/schedule.svg', url: '/module/building?month=3' },
@@ -51,9 +51,11 @@ $page('function', {
     tab.update('function', '70K');
   },
   onShow() {
-    const [frontColor, backgroundColor] = this.data.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, this.data.page[0].grey);
 
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   onReady() {
     const test = wx.getStorageSync('test');

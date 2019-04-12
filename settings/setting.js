@@ -190,9 +190,12 @@ $page('setting', {
     this.setData({ nm, page: p });
     a.nm = nm;
     this.$emit('nightmode', nm);
-    const [frontColor, backgroundColor] = nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
 
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, this.data.page[0].grey);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   dayBrightnessSwitchHandler(e) {
     const p = $set.Switch(e, this),

@@ -9,7 +9,11 @@ $page('module7', {
     $set.Online(a, res, this);
   },
   onShow() {
-    $set.setColor(a, this.data.page[0].grey);
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, this.data.page[0].grey);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   onPageScroll(res) {
     $set.nav(res, this);

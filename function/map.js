@@ -109,10 +109,12 @@ $page('map', {
         wx.hideLoading();
       }, 500);
     }
-    // 设置胶囊颜色
-    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
 
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, false);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
 
     // 弹出通知
     $set.Notice('map');

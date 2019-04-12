@@ -56,8 +56,19 @@ $page('PEcal', {
 
     // 设置长跑选择器数据
     this.setData({ 'longRun.picker': longRunPicker });
+
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, true);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   onReady() {
+    // 设置胶囊颜色
+    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+
+    wx.setNavigationBarColor({ frontColor, backgroundColor });
+
     $set.Notice('PEcal');
   },
   onPageScroll(e) {
@@ -84,7 +95,6 @@ $page('PEcal', {
     result.grade = value;
     wx.setStorageSync('grade', value);
   },
-
   input(event) {
     const { project } = event.currentTarget.dataset;
 
@@ -143,34 +153,35 @@ $page('PEcal', {
 
         // 以下三项越高越好，进行计算
         ['vitalCapacity', 'sitAndReach', 'standingLongJump'].forEach(x => {
-          for (let i = 0; i < config[x].length; i++)
-            if (result[x] < config[x][i]) {
-              PEscore[x] = hash[i];
-              break;
-            }
+          if (result[x])
+            for (let i = 0; i < config[x].length; i++)
+              if (result[x] < config[x][i]) {
+                PEscore[x] = hash[i];
+                break;
+              } else if (i = config[x].length - 1)
+                PEscore[x] = hash[i];
         });
 
         // 以下两项越低越好
         ['shortRun', 'longRun'].forEach(x => {
-          for (let i = 0; i < config[x].length; i++)
-            if (result[x] > config[x][i]) {
-              PEscore[x] = hash[i];
-              break;
-            }
+          if (result[x])
+            for (let i = 0; i < config[x].length; i++)
+              if (result[x] > config[x][i]) {
+                PEscore[x] = hash[i];
+                break;
+              } else if (i = config[x].length - 1)
+                PEscore[x] = hash[i];
         });
 
         // 计算特别类项目分数
-        if (result.gender === 'male') {
-          for (let i = 0; i < config.chinning.length; i++)
-            if (config.chinning[i] !== '' && result.chinning < config.chinning[i]) {
-              PEscore.special = hash[i];
-              break;
-            };
-        } else for (let i = 0; i < config.situp.length; i++)
-          if (result.situp < config.situp[i]) {
-            PEscore.special = hash[i];
+        const specialScore = result.gender === 'male' ? 'chinning' : 'situp';
+
+        for (let i = 0; i < config[specialScore].length; i++)
+          if (config[specialScore][i] !== '' && result[specialScore] && result[specialScore] < config[specialScore][i]) {
+            PEscore.specialScore = hash[i];
             break;
-          };
+          } else if (i = config[specialScore].length - 1)
+            PEscore.special = hash[i];
 
         const finalScore = PEscore.vitalCapacity * 0.15 + PEscore.shortRun * 0.2 + PEscore.sitAndReach * 0.1 +
           PEscore.standingLongJump * 0.1 + PEscore.special * 0.1 + PEscore.longRun * 0.2;

@@ -14,6 +14,15 @@ $page('cal', {
     editText: '编辑',
     display: false
   },
+  onLoad() {
+    $set.Set(this.data.page, a, null, this, false);
+
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a.nm, false);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
+  },
   addNew() {
     const { length } = this.data.grade,
       // 获取grade内包含的个数，以便生成新的id
@@ -166,9 +175,6 @@ $page('cal', {
       }
     });
 
-  },
-  onLoad(e) {
-    $set.Set(this.data.page, a, null, this, false);
   },
   onPageScroll(e) {
     $set.nav(e, this);

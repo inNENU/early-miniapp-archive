@@ -56,13 +56,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
 					"name": "师大师大",
 					"pathName": "function/player",
 					"query": "index=5"
+				},
+				{
+					"id": -1,
+					"name": "更新",
+					"pathName": "page/main",
+					"scene": null
 				}
 			]
 		}

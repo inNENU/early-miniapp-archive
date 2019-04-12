@@ -28,11 +28,12 @@ $page('me', {
     $set.Notice('me');
   },
   onShow() {
-    const [frontColor, backgroundColor, color] = this.data.nm
-      ? ['#ffffff', '#000000', ['#000000', 'white']]
-      : ['#000000', '#ffffff', ['#ffffff', 'black']];
+    const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'],
+      [nc, bc] = $set.color(a.nm, this.data.page[0].grey);
 
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
+    // 设置胶囊、背景颜色以及tab栏颜色
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
     this.$preload('setting?From=我的东师&aim=setting');
     this.$preload('about?From=我的东师&aim=about');
