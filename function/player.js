@@ -189,7 +189,7 @@ $page('music', {
     });
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a.nm, false);
+    const [nc, bc] = $set.color(a, false);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

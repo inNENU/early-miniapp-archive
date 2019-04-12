@@ -29,7 +29,7 @@ $page('me', {
   },
   onShow() {
     const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'],
-      [nc, bc] = $set.color(a.nm, this.data.page[0].grey);
+      [nc, bc] = $set.color(a, this.data.page[0].grey);
 
     // 设置胶囊、背景颜色以及tab栏颜色
     wx.setNavigationBarColor(nc);

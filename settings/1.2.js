@@ -25,7 +25,7 @@ $page('1.1', {
     $set.Set(this.data.page, a, res, this, false);
     $set.Notice(this.aim);
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a.nm, this.data.page[0].grey);
+    const [nc, bc] = $set.color(a, this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

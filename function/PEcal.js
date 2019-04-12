@@ -58,7 +58,7 @@ $page('PEcal', {
     this.setData({ 'longRun.picker': longRunPicker });
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a.nm, true);
+    const [nc, bc] = $set.color(a, true);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
