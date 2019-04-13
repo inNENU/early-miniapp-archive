@@ -21,13 +21,13 @@
     <view class="listItem">
       <view class="listText">性别</view>
       <picker class="listPicker" bindchange="genderChange" range="{{gender.picker}}" mode="selector">
-        {{gender.index?gender.picker[gender.index]:'请选择'}}
+        {{gender.index===undefined?'请选择':gender.picker[gender.index]}}
       </picker>
     </view>
     <view class="listItem">
       <view class="listText">年级</view>
       <picker class="listPicker" bindchange="gradeChange" range="{{grade.picker}}" mode="selector">
-        {{grade.index?grade.picker[grade.index]:'请选择'}}
+        {{grade.index===undefined?'请选择':grade.picker[grade.index]}}
       </picker>
     </view>
     <block wx:for="{{list}}" wx:key="item.id">
@@ -50,11 +50,11 @@
     </view>
   </view>
   <button type="primary" class='calBtn' bindtap="calculate">计算</button>
-  <view class="scoreListCtn">
+  <view wx:if="{{reportShow}}" class="scoreListCtn">
     <view class="scoreListTitle">体 测 成 绩</view>
     <view class="scoreItemCtn" wx:for="{{scoreList}}">
       <view class="listText">{{item.text}}</view>
-      <view class="listScore">{{PEscore[item]}}分</view>
+      <view class="listScore">{{PEscore[item.id]}}分</view>
     </view>
     <view class="scoreItemCtn">
       <view class="listText">{{result.gender==='male'?1000:800}}米跑</view>

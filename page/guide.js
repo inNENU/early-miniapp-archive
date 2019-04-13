@@ -8,13 +8,7 @@ $page('guide', {
     T: a.T,
     nm: a.nm,
     page: [
-      {
-        tag: 'head',
-        title: '东师指南',
-        action: true,
-        aimDepth: 1,
-        grey: true
-      },
+      { tag: 'head', title: '东师指南', action: true, aimDepth: 1, grey: true },
       {
         tag: 'grid',
         head: '',

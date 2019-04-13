@@ -40,15 +40,16 @@ $page('PEcal', {
       { text: '肺活量', id: 'vitalCapacity' },
       { text: '立定跳远', id: 'standingLongJump' },
       { text: '50米跑', id: 'shortRun' }
-    ]
+    ],
+    reportShow: false
   },
-  onLoad() {
-    $set.Set(this.data.page, a, null, this, false);
+  onLoad(e) {
+    $set.Set(this.data.page, a, e, this, false);
     const genderIndex = wx.getStorageSync('gender'),
       gradeIndex = wx.getStorageSync('grade');
 
     // 将用户上次选择的性别和年级载入
-    if (genderIndex)  // 改变特别项目和长跑的名称
+    if (genderIndex || genderIndex === 0)  // 改变特别项目和长跑的名称
       this.setData({
         'gender.index': genderIndex,
         'longRun.text': genderIndex === 0 ? longRunText[0] : longRunText[1],
@@ -56,7 +57,7 @@ $page('PEcal', {
         'result.gender': this.data.gender.value[genderIndex]
       });
 
-    if (gradeIndex)
+    if (gradeIndex || gradeIndex === 0) // 写入年级
       this.setData({
         'grade.index': gradeIndex,
         'result.grade': this.data.grade.value[gradeIndex]
@@ -71,6 +72,7 @@ $page('PEcal', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
 
+    // 设置通知
     $set.Notice('PEcal');
   },
   onPageScroll(e) {
@@ -80,7 +82,7 @@ $page('PEcal', {
     $set.component(e, this);
   },
   genderChange(event) {
-    const index = event.detail.value,
+    const index = Number(event.detail.value),
       gender = this.data.gender.value[index];
 
     wx.setStorageSync('gender', index);
@@ -94,7 +96,7 @@ $page('PEcal', {
     });
   },
   gradeChange(event) {
-    const index = event.detail.value;
+    const index = Number(event.detail.value);
 
     // 设置年级
     this.setData({
@@ -106,7 +108,7 @@ $page('PEcal', {
   input(event) {
     const { project } = event.currentTarget.dataset;
 
-    this.setData({ [`result[${project}]`]: event.detail.value });
+    this.setData({ [`result.${project}`]: event.detail.value });
   },
   longRunHandler(event) {
     const { value } = event.detail;
@@ -127,7 +129,9 @@ $page('PEcal', {
 
     if (result.gender && result.grade) {
       const hash = [10, 20, 30, 40, 50, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 85, 90, 95, 100],
+        { length } = hash,
         PEscore = {
+          BMI: 0,
           vitalCapacity: 0,
           sitAndReach: 0,
           standingLongJump: 0,
@@ -136,66 +140,72 @@ $page('PEcal', {
           special: 0
         };
 
-      if (result.height && result.weight) {
-        const BMIscore = Math.round(result.weight * 100000 / result.height / result.height) / 10,
-          state = result.gender === 'male'
-            ? BMIscore <= 17.8 ? '低体重' : BMIscore >= 28.0 ? '肥胖' : BMIscore >= 24.0 ? '超重' : '正常'
-            : BMIscore <= 17.1 ? '低体重' : BMIscore >= 28.0 ? '肥胖' : BMIscore >= 24.0 ? '超重' : '正常';
+      if (result.height && result.weight) { // 可以计算BMI
+        let state;
+        const score = Math.round(result.weight * 100000 / result.height / result.height) / 10;
 
-        PEscore.BMIscore = result.gender === 'male'
-          ? BMIscore <= 17.8 ? 80 : BMIscore >= 28.0 ? 60 : BMIscore >= 24.0 ? 80 : 100
-          : BMIscore <= 17.1 ? 80 : BMIscore >= 28.0 ? 60 : BMIscore >= 24.0 ? 80 : 100;
+        // 计算BMI状态与分值
+        [state, PEscore.BMI] = result.gender === 'male'
+          ? score <= 17.8 ? ['低体重', 80] : score >= 28.0 ? ['肥胖', 60] : score >= 24.0 ? ['超重', 80] : ['正常', 100]
+          : score <= 17.1 ? ['低体重', 80] : score >= 28.0 ? ['肥胖', 60] : score >= 24.0 ? ['超重', 80] : ['正常', 100];
 
+        // 计算及格分数
+        PEscore.passScore = result.grade === 'Low'
+          ? score <= 28 ? 60 : 60 - Math.ceil(score - 28) * 2
+          : score <= 28 ? 50 : 50 - Math.ceil(score - 28) * 2;
 
-        PEscore.passScore = BMIscore <= 28 ? 60 : Math.ceil(BMIscore - 28);
-
-        this.setData({ BMI: { score: BMIscore, state } });
+        this.setData({ BMI: { score, state } });
       }
 
-      $file.getJson(`function/PEcal/${result.gender}${result.grade}`, config => {
+      $file.getJson(`function/PEcal/${result.gender}${result.grade}`, config => { // 读取相应配置文件
 
-        // 计软长跑时间
-        config.longRun.forEach((element, index) => {
+        // 转换长跑时间
+        config.longRun = config.longRun.map(element => {
           const time = element.split('-');
 
-          config.longRun[index] = Number(time[0]) * 60 + Number(time[1]);
+          return Number(time[0]) * 60 + Number(time[1]);
         });
+
+        // 转换立定跳远单位
+        config.standingLongJump = config.standingLongJump.map(element => element / 100);
+
+        console.log(config);
 
         // 以下三项越高越好，进行计算
         ['vitalCapacity', 'sitAndReach', 'standingLongJump'].forEach(x => {
           if (result[x])
-            for (let i = 0; i < config[x].length; i++)
-              if (result[x] < config[x][i]) {
+            for (let i = 0; i < length; i++)
+              if (result[x] <= config[x][i]) {
                 PEscore[x] = hash[i];
                 break;
-              } else if (i = config[x].length - 1)
+              } else if (i = length - 1)
                 PEscore[x] = hash[i];
         });
 
         // 以下两项越低越好
         ['shortRun', 'longRun'].forEach(x => {
           if (result[x])
-            for (let i = 0; i < config[x].length; i++)
-              if (result[x] > config[x][i]) {
+            for (let i = 0; i < length; i++)
+              if (result[x] >= config[x][i]) {
                 PEscore[x] = hash[i];
                 break;
-              } else if (i = config[x].length - 1)
+              } else if (i === length - 1)
                 PEscore[x] = hash[i];
         });
 
         // 计算特别类项目分数
         const specialScore = result.gender === 'male' ? 'chinning' : 'situp';
 
-        for (let i = 0; i < config[specialScore].length; i++)
+        for (let i = 0; i < length; i++)
           if (result[specialScore])
-            if (config[specialScore][i] !== '' && result[specialScore] && result[specialScore] < config[specialScore][i]) {
+            if (config[specialScore][i] !== '' && result[specialScore] && result[specialScore] <= config[specialScore][i]) {
               PEscore.specialScore = hash[i];
               break;
-            } else if (i = config[specialScore].length - 1)
+            } else if (i === length - 1)
               PEscore.special = hash[i];
 
         const finalScore = PEscore.vitalCapacity * 0.15 + PEscore.shortRun * 0.2 + PEscore.sitAndReach * 0.1 +
-          PEscore.standingLongJump * 0.1 + PEscore.special * 0.1 + PEscore.longRun * 0.2;
+          PEscore.standingLongJump * 0.1 + PEscore.special * 0.1 + PEscore.longRun * 0.2 + PEscore.BMI * 0.15;
 
         console.log(PEscore);
         this.setData({
@@ -203,7 +213,8 @@ $page('PEcal', {
           PE: {
             score: finalScore,
             state: finalScore >= PEscore.passScore ? '及格' : '不及格'
-          }
+          },
+          reportShow: true
         });
       });
       wx.hideLoading();
@@ -215,5 +226,9 @@ $page('PEcal', {
   navigate() {
     this.$route('/module/module1?From=体测计算器&aim=study0&depth=1');
   },
-  onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal' })
+
+  redirect() {
+    this.$launch('/page/main');
+  },
+  onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal?share=true' })
 });

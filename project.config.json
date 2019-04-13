@@ -56,7 +56,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -68,6 +68,14 @@
 					"id": -1,
 					"name": "更新",
 					"pathName": "page/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "计算器分享",
+					"pathName": "function/PEcal",
+					"query": "share=true",
 					"scene": null
 				}
 			]

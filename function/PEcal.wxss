@@ -173,6 +173,11 @@
   font-size: 17px;
 }
 
+.nm .scoreListCtn {
+  background-color: #000;
+  color: #fff;
+}
+
 .scoreListCtn:after {
   content: " ";
   width: 200%;
@@ -180,13 +185,17 @@
   position: absolute;
   top: 0;
   left: 0;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #acacb0;
   -webkit-transform: scale(0.5);
   transform: scale(0.5);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   box-sizing: border-box;
   border-radius: 10px;
+}
+
+.nm .scoreListCtn:after {
+  border-color: #0B0B09;
 }
 
 .scoreListTitle {
@@ -217,6 +226,10 @@
   transform-origin: 0 0;
   -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
+}
+
+.nm .scoreItemCtn:before {
+  border-color: #0B0B09;
 }
 
 .listScore {
