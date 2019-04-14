@@ -127,7 +127,7 @@ $page('PEcal', {
     wx.showLoading({ title: '计算中...', mask: true });
     console.info('输入结果为：', result);
 
-    if (result.gender && result.grade) {
+    if (result.gender && result.grade) { // 可以计算
       const hash = [10, 20, 30, 40, 50, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 85, 90, 95, 100],
         { length } = hash,
         PEscore = {
@@ -152,7 +152,7 @@ $page('PEcal', {
         // 计算及格分数
         PEscore.passScore = result.grade === 'Low'
           ? score <= 28 ? 60 : 60 - Math.ceil(score - 28) * 2
-          : score <= 28 ? 50 : 50 - Math.ceil(score - 28) * 2;
+          : 50;
 
         this.setData({ BMI: { score, state } });
       }
@@ -204,10 +204,15 @@ $page('PEcal', {
             } else if (i === length - 1)
               PEscore.special = hash[i];
 
+        // 计算加分
+
+        // if (result[specialScore]>20)
+
+        // 计算最终成绩
         const finalScore = PEscore.vitalCapacity * 0.15 + PEscore.shortRun * 0.2 + PEscore.sitAndReach * 0.1 +
           PEscore.standingLongJump * 0.1 + PEscore.special * 0.1 + PEscore.longRun * 0.2 + PEscore.BMI * 0.15;
 
-        console.log(PEscore);
+        console.info(`成绩为${PEscore}`);
         this.setData({
           PEscore,
           PE: {
