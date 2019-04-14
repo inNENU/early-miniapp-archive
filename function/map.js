@@ -156,7 +156,6 @@ $page('map', {
     wx.setStorageSync('mapSwitch', temp);
   },
   scale(e) {
-    // Let that = this;
     this.mapCtx.getCenterLocation({
       success: r2 => {
         this.setData({
@@ -235,6 +234,9 @@ $page('map', {
   },
   back() {
     wx.navigateBack({});
+  },
+  regionChange(e) {
+    console.log('regionChange', e);
   }
 
   /*

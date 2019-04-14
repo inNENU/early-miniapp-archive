@@ -8,7 +8,7 @@ $App({
 
   // 小程序全局数据
   globalData: {
-    version: 'V 1.3.3',
+    version: 'V 1.3.4',
     music: { play: false, played: false, index: 0 }
     // T, nm, date, info也在globalData中
   },

@@ -48,8 +48,8 @@ $page('setting', {
       {
         tag: 'list', head: '资源更新',
         content: [
-          { text: '功能资源更新提示', swiKey: 'funcNotify' },
-          { text: '指南资源更新提示', swiKey: 'guideNotify' }
+          { text: '功能资源更新提示', swiKey: 'functionResNotify' },
+          { text: '指南资源更新提示', swiKey: 'pageResNotify' }
         ]
       },
       {

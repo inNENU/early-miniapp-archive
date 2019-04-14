@@ -1,6 +1,0 @@
-<view class='loginCtn'>
-  <image class='loginIcon' animation="{{loginAnimation}}" src='/image/logo.png' />
-  <input class='inputBox' placeholder='您的NENU账户名' confirm-type='next' bindinput="input" data-key='userName' />
-  <input class='inputBox' placeholder='您的密码' password='true' confirm-type='done' bindconfirm='confirm' bindinput="input" data-key='userPassword' />
-  <button class='loginButton'>登录</button>
-</view>

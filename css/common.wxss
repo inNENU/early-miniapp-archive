@@ -1,3 +1,7 @@
+/*****************
+    常规背景
+*****************/
+
 .commonBg {
   width: 100%;
   height: 100%;
@@ -8,7 +12,9 @@
   background-color: #000;
 }
 
-/* loading */
+/*****************
+    加载中图标
+*****************/
 
 .commonLoading {
   width: 100%;
@@ -140,53 +146,17 @@
   animation: shadow 2s ease 0s none infinite alternate-reverse;
 }
 
-/* Nav */
+/*****************
+      Nav栏
+*****************/
 
 .navBackHover {
   opacity: 0.2;
 }
 
-.headCtn {
-  height: 56px;
-  background-color: #d9d9d9;
-}
-
-/* tab */
-
-.tab {
-  position: fixed;
-  bottom: 0;
-  z-index: 99;
-  width: 94%;
-  min-height: 40px;
-  max-height: 52px;
-  display: -webkit-flex !important;
-  display: flex !important;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 3% calc(env(safe-area-inset-bottom) / 2 + 5px) 3%;
-  background-color: #fff;
-  box-shadow: 0 -2px 5px rgba(219, 218, 223, 0.95);
-
-}
-
-.tabIconCtn {
-  display: inline-flex;
-  flex-direction: column;
-}
-
-.tabIcon {
-  width: 70rpx;
-  height: 70rpx;
-}
-
-.tabName {
-  text-align: center;
-  font-size: 10px;
-  color: #aaa;
-}
-
-/* back */
+/*****************
+    返回按钮
+*****************/
 
 .backBtn {
   position: fixed;
@@ -199,7 +169,7 @@
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-.backBtn::before {
+.backBtn:before {
   content: " ";
   position: absolute;
   z-index: 98;
@@ -219,8 +189,7 @@
   background-color: rgba(0, 0, 0, 0.15);
 }
 
-
-.nm .backBtn::before {
+.nm .backBtn:before {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -230,7 +199,9 @@
   margin: 4px auto;
 }
 
-/* close */
+/*****************
+    关闭按钮
+*****************/
 
 .closeBtn {
   position: fixed;
@@ -255,7 +226,9 @@
   margin: 4px auto;
 }
 
-/* image */
+/*****************
+      图片
+*****************/
 
 .loadingImg {
   width: 60px;
@@ -272,7 +245,9 @@
   padding: 8px 5%;
 }
 
-/* intro */
+/*****************
+      介绍组件
+*****************/
 
 .introBox {
   width: 100%;
@@ -327,7 +302,9 @@
   max-width: 80%;
 }
 
-/* doc */
+/*****************
+      文档组件
+*****************/
 
 .docCtn {
   position: relative;
@@ -385,12 +362,13 @@
 .docIcon {
   width: 32px;
   height: 32px;
-  margin: 0 32px;
+  margin: 0 5%;
+  flex: none;
 }
 
 .docname {
   font-size: 18px;
-  flex: 1 1 auto;
+  flex: auto;
   text-align: left;
 }
 
@@ -670,7 +648,9 @@
   margin: 0;
 }
 
-/* share */
+/*****************
+——分享按钮相关样式——
+*****************/
 
 .shareIconCtn {
   width: 40px;
@@ -716,33 +696,47 @@
 
 .shareBtnCtn {
   width: 100%;
-  padding-bottom: calc(env(safe-area-inset-bottom) / 2) solid #fff;
+  font-size: 16px !important;
 }
 
-.shareBtn {
+.shareBtn,
+.cancelBtn {
+  position: relative;
   width: 100%;
-  height: 48px;
   background-color: #fff !important;
   line-height: 2.4;
   border: none !important;
   border-radius: 0 !important;
-  border-top: 1rpx #cac9ce solid !important;
 }
 
-.cancelBtn {
-  width: 100%;
-  height: 60px;
-  border: none !important;
-  background-color: #fff;
-  border-radius: 0 !important;
-  border-top: 8px #d9d9d9 solid !important;
+.shareBtn:before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+  color: #cac9ce;
+  border-top: 1px solid #cac9ce;
 }
 
 .shareBtnHover {
   background-color: #eee !important;
 }
 
-/* 公众号组件 */
+.cancelBtn {
+  line-height: 3;
+  border-top: 8px #d9d9d9 solid !important;
+  margin-bottom: calc(env(safe-area-inset-bottom) / 2);
+}
+
+/*****************
+——公众号组件相关样式——
+*****************/
 
 .gzhCtn {
   width: 90%;

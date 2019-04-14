@@ -15,7 +15,6 @@ $page('about', {
           { text: a.version, button: 'debugMode' },
           { text: '启用测试功能', swiKey: 'test', Switch: 'testSwitch' },
           { text: '调试开关', swiKey: 'debugMode', Switch: 'debugSwitch' },
-          { text: '开发日志', aim: 'log0' },
           { text: '清除小程序数据', button: 'deleteData' },
           { text: '清除小程序文件', button: 'deleteFile' },
           { text: '初始化小程序', button: 'resetApp' },
@@ -27,7 +26,7 @@ $page('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\n修复体测计算器成绩优于满分会计算为0的bug` },
+          { text: `${a.version}\n修复体测计算器成绩的bug` },
           { text: '查看详细日志', url: '/settings/1.3' }
         ]
       },
@@ -45,7 +44,7 @@ $page('about', {
         tag: 'list',
         head: '遇到问题？',
         content: [
-          { text: '联系开发者？\n请添加QQ 1178522294 或点击右下角选择意见反馈来提交你的意见或遇到的错误。' },
+          { text: '对小程序有任何意见、建议或是想汇报bug？\n请添加QQ 1178522294 或点击右下角来联系开发者。' },
           { text: '小程序功能太少?', aim: 'MrHope2' },
           { text: '小程序响应慢？', desc: '欢迎捐赠', url: '/settings/donate' }
         ]

@@ -40,8 +40,7 @@ $page('PEcal', {
       { text: '肺活量', id: 'vitalCapacity' },
       { text: '立定跳远', id: 'standingLongJump' },
       { text: '50米跑', id: 'shortRun' }
-    ],
-    reportShow: false
+    ]
   },
   onLoad(e) {
     $set.Set(this.data.page, a, e, this, false);
@@ -105,8 +104,32 @@ $page('PEcal', {
     });
     wx.setStorageSync('grade', index);
   },
+  focus(event) {
+    console.log('focus', event);
+    const { id } = event.currentTarget,
+      query = wx.createSelectorQuery();
+
+    query.select(`#${id}`)
+      .boundingClientRect();
+    query.selectViewport().fields({ size: true, scrollOffset: true });
+    query.exec(res => {
+      console.log(res);
+      console.log('bottom是', res[0].bottom);
+      console.log('scrollTop是', res[1].scrollTop);
+      console.log('键盘高度是', event.detail.height);
+      console.log('屏幕高度为', res[1].height);
+      console.log(res[0].bottom + event.detail.height > res[1].height);
+      if (res[0].bottom + event.detail.height > res[1].height) {
+        console.log('scroll');
+        console.log('计划向上滚动', res[0].bottom + event.detail.height - res[1].height + 10);
+        console.log('新的应为', res[1].scrollTop + res[0].bottom + event.detail.height - res[1].height + 10);
+        wx.pageScrollTo({ scrollTop: res[1].scrollTop + res[0].bottom + event.detail.height - res[1].height + 10 });
+      }
+    });
+  },
   input(event) {
-    const { project } = event.currentTarget.dataset;
+    console.log(event);
+    const project = event.currentTarget.id;
 
     this.setData({ [`result.${project}`]: event.detail.value });
   },
@@ -173,58 +196,62 @@ $page('PEcal', {
 
         // 以下三项越高越好，进行计算
         ['vitalCapacity', 'sitAndReach', 'standingLongJump'].forEach(x => {
-          if (result[x])
+          if (result[x]) {
             for (let i = 0; i < length; i++)
               if (result[x] <= config[x][i]) {
                 PEscore[x] = hash[i];
                 break;
-              } else if (i = length - 1)
+              } else if (i === length - 1)
                 PEscore[x] = hash[i];
+          } else PEscore[x] = 0;
         });
 
         // 以下两项越低越好
         ['shortRun', 'longRun'].forEach(x => {
-          if (result[x])
+          if (result[x]) {
             for (let i = 0; i < length; i++)
               if (result[x] >= config[x][i]) {
                 PEscore[x] = hash[i];
                 break;
               } else if (i === length - 1)
                 PEscore[x] = hash[i];
+          } else PEscore[x] = 0;
         });
 
         // 计算特别类项目分数
         const specialScore = result.gender === 'male' ? 'chinning' : 'situp';
 
         for (let i = 0; i < length; i++)
-          if (result[specialScore])
+          if (result[specialScore]) {
             if (config[specialScore][i] !== '' && result[specialScore] && result[specialScore] <= config[specialScore][i]) {
-              PEscore.specialScore = hash[i];
+              PEscore.special = hash[i];
               break;
             } else if (i === length - 1)
               PEscore.special = hash[i];
+          } else PEscore.special = 0;
 
-        // 计算加分
+        // TODO:计算加分
 
 
         // 计算最终成绩
-        const finalScore = PEscore.vitalCapacity * 0.15 + PEscore.shortRun * 0.2 + PEscore.sitAndReach * 0.1 +
-          PEscore.standingLongJump * 0.1 + PEscore.special * 0.1 + PEscore.longRun * 0.2 + PEscore.BMI * 0.15;
+        const finalScore = (PEscore.vitalCapacity * 0.15 + PEscore.shortRun * 0.2 + PEscore.sitAndReach * 0.1 +
+          PEscore.standingLongJump * 0.1 + PEscore.special * 0.1 + PEscore.longRun * 0.2 +
+          PEscore.BMI * 0.15).toFixed(2);
 
-        console.info(`成绩为${PEscore}`);
+        console.info('成绩为', PEscore);
         this.setData({
+          // showScore: true,
           PEscore,
           PE: {
             score: finalScore,
             state: finalScore >= PEscore.passScore ? '及格' : '不及格'
-          },
-          reportShow: true
+          }
         });
       });
       wx.hideLoading();
     } else {
       wx.hideLoading();
-      wx.showToast({ title: '请选择年龄与性别', icon: 'none', duration: 2500, image: '/icon/close.png' });
+      wx.showToast({ title: '请选择性别与年级', icon: 'none', duration: 2500, image: '/icon/close.png' });
     }
   },
   navigate() {

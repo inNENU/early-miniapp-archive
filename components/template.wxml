@@ -7,7 +7,7 @@
       </view>
       <view class="loadingIconCtn">
         <image class="loadingIcon loading" src="/image/logo.png" />
-        <view class="loadingShadow"></view>
+        <view class="loadingShadow" />
         <view class="loadingText">加载中...</view>
       </view>
     </view>
@@ -36,7 +36,7 @@ Author: Mr.Hope
   <view wx:if="{{head!==false}}" class="commonhead">{{head}}</view>
   <view class="Lctn">
     <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
-      <block wx:if="{{!hidden}}">
+      <block wx:if="{{!List.hidden}}">
         <!-- 导航链接 -->
         <view wx:if="{{List.url}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}">
           <view class="list-Container">
@@ -114,7 +114,7 @@ Author: Mr.Hope
             </block>
           </picker-view>
         </block>
-        <view class="{{List.icon?'listIcon ':''}}link-divline"></view>
+        <view class="{{List.icon?'listIcon ':''}}link-divline" />
       </block>
     </block>
   </view>
@@ -263,21 +263,31 @@ Author: Mr.Hope
 <template name="error">
   <template is="{{T}}error" data="{{action,statusBarHeight}}" />
 </template>
-<!-- iOS theme -->
+<!-- ******************************************
+Below are  different themes template.
+********************************************* -->
+<!-- ******************************************
+iOS theme
+
+Version: V1.2
+Author: Mr.Hope
+********************************************* -->
+<!-- iOS导航栏 -->
 <template name="iOSHead">
   <view class="iOS-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view wx:if="{{titleDisplay}}" class="iOS-titletext">{{title}}</view>
     <button wx:if="{{action!==true}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="{{action==undefined?'cA':action}}" data-action="back">
-      <view wx:if="{{action==undefined||action=='redirect'}}" class="iOS-backArrow"></view>
+      <view wx:if="{{action==undefined||action=='redirect'}}" class="iOS-backArrow" />
       <text class="iOS-nav-text">{{leftText}}</text>
     </button>
   </view>
-  <view wx:if="{{borderDisplay}}" class="iOSnavDl" style="top:{{statusBarHeight+44}}px;"></view>
+  <view wx:if="{{borderDisplay}}" class="iOSnavDl" style="top:{{statusBarHeight+44}}px;" />
   <view class="iOS-navPlaceHolder" style="height:{{statusBarHeight+44}}px;">
     到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮
   </view>
   <view class="iOS-head">{{title}}</view>
 </template>
+<!-- iOS图片 -->
 <template name="iOSimg">
   <view wx:if="{{error}}" class="iOSImgError">
     <icon type="warn" size="32" style="margin-bottom:5px;" />
@@ -290,20 +300,21 @@ Author: Mr.Hope
   <image id="{{id}}" class="iOS-img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="iOSN">▲{{desc}}</view>
 </template>
+<!-- iOS错误 -->
 <template name="iOSerror">
   <view class="iOS-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view class="iOS-titletext">页面出错</view>
     <button wx:if="{{!action}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="cA" data-action="back">
-      <view class="iOS-backArrow"></view>
+      <view class="iOS-backArrow" />
       <text class="iOS-nav-text">返回</text>
     </button>
   </view>
-  <view class="iOSnavDl" style="top:{{statusBarHeight+44}}px;"></view>
+  <view class="iOSnavDl" style="top:{{statusBarHeight+44}}px;" />
   <view class="iOS-navPlaceHolder" style="height:{{statusBarHeight+44}}px;">
     到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮
   </view>
   <view class="errorCtn">
-    <icon type="warn" size="80"></icon>
+    <icon type="warn" size="80" />
     <view class="errorText">很抱歉，界面遇到了问题!</view>
     <view class="errorDesc">
       <text>
@@ -315,12 +326,18 @@ Author: Mr.Hope
     <navigator class="donateButton" url="/settings/donate">捐赠</navigator>
   </view>
 </template>
-<!-- Android theme -->
+<!-- ******************************************
+Android theme
+
+Version: V1.0
+Author: Mr.Hope
+********************************************* -->
+<!-- Android导航栏 -->
 <template name="AndroidHead">
   <view class="Android-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">{{title}}</view>
     <button wx:if="{{!action}}" class="Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="{{action==undefined?'cA':action}}" data-action="back">
-      <view wx:if="{{!action}}" class="Android-backArrow"></view>
+      <view wx:if="{{!action}}" class="Android-backArrow" />
       <view class="Android-leftText">{{leftText}}</view>
     </button>
   </view>
@@ -332,6 +349,7 @@ Author: Mr.Hope
     <view wx:if="{{desc}}" class="Android-desc">{{desc}}</view>
   </view>
 </template>
+<!-- Android图片 -->
 <template name="Androidimg">
   <view wx:if="{{error}}" class="imgError">
     <icon type="warn" style="margin-right:5px;" />
@@ -344,30 +362,36 @@ Author: Mr.Hope
   <image id="{{id}}" class="Android-img" style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="AndroidN">▲{{desc}}</view>
 </template>
+<!-- Android错误页面 -->
 <template name="Androiderror">
   <view class="Android-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">页面出错</view>
     <button wx:if="{{!top}}" class="Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="cA" data-action="back">
-      <view class="Android-backArrow"></view>
+      <view class="Android-backArrow" />
     </button>
   </view>
   <view class="Android-navPlaceHolder" style="height:{{statusBarHeight+44}}px;">
     <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
   </view>
   <view class="errorCtn">
-    <icon type="warn" size="80"></icon>
+    <icon type="warn" size="80" />
     <view class="errorText">很抱歉，界面遇到了问题!</view>
     <view class="errorDesc">
       <text>
-        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1. 东青文创资助的服务器炸了；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器由东青文创资助，选用阿里云598元/年的服务器，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
+        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1. 服务器负载过重；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
       </text>
     </view>
   </view>
   <view class="donateCtn">
-    <button class="donateButton" open-type="contact">捐赠</button>
+    <navigator class="donateButton" url="/settings/donate">捐赠</navigator>
   </view>
 </template>
-<!-- NENU theme -->
+<!-- ******************************************
+NENU theme
+
+Version: V1.0
+Author: Mr.Hope
+********************************************* -->
 <template name='NENUHead'>
   <block wx:if="{{action==undefined}}">
     <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catchtap="cA" data-action='back'>
@@ -375,7 +399,7 @@ Author: Mr.Hope
     </view>
     <view class="NENUnav {{titleDisplay?'fadeOut':'fadeIn'}}" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
       <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catchtap="cA" data-action='back'>
-        <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
+        <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;' />
         <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
       </button>
       <view class='NENU-navText'>{{title}}</view>
@@ -408,23 +432,21 @@ Author: Mr.Hope
   <view class='NENUnav' style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
     <view class='NENU-navText'>页面出错</view>
   </view>
-  <view style='width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;'></view>
+  <view style='width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;' />
   <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' hover-stay-time='100' catchtap='cA' data-action='back'>
     <image class='backIcon' src='/icon/back.svg' />
   </view>
-  <view class='errorCtn'>
-    <icon type='warn' size='80'></icon>
-    <view class='errorText'>很抱歉，界面遇到了问题!</view>
-    <view class='errorDesc'>
+  <view class="errorCtn">
+    <icon type="warn" size="80" />
+    <view class="errorText">很抱歉，界面遇到了问题!</view>
+    <view class="errorDesc">
       <text>
-        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1. 东青文创资助的服务器炸了；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器由东青文创资助，选用阿里云598元/年的服务器，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
+        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1. 服务器负载过重；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
       </text>
     </view>
   </view>
-  <view class='donateCtn'>
-    <navigator url='/page/settings/donate'>
-      <button class='donateButton' hover-class='buttonHover' hover-stay-time='100'>捐赠</button>
-    </navigator>
+  <view class="donateCtn">
+    <navigator class="donateButton" url="/settings/donate">捐赠</navigator>
   </view>
 </template>
 <template name='NENUinfo'>

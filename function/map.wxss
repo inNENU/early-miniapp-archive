@@ -68,6 +68,26 @@
   bottom: 90px;
 }
 
+/*****************
+      tab栏
+*****************/
+
+.tab {
+  position: fixed;
+  bottom: 0;
+  z-index: 99;
+  width: 94%;
+  min-height: 40px;
+  max-height: 52px;
+  display: -webkit-flex !important;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 3% calc(env(safe-area-inset-bottom) / 2 + 5px) 3%;
+  background-color: #fff;
+  box-shadow: 0 -2px 5px rgba(219, 218, 223, 0.95);
+}
+
 /* switch组件 */
 
 .switch {

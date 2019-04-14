@@ -1,3 +1,4 @@
+/* 右上角解释文字 */
 .descCtn {
   display: flex;
   justify-content: flex-end;
@@ -22,6 +23,8 @@
   font-size: 15px;
   color: #888
 }
+
+/* 分数部分 */
 
 .scoreBox {
   width: 100%;
@@ -49,6 +52,8 @@
   font-size: 20px;
   font-weight: 500;
 }
+
+/* 输入列表 */
 
 .list {
   position: relative;
@@ -142,6 +147,7 @@
 .listUnit {
   flex: none;
   padding-right: 5%;
+  color: #444;
 }
 
 .listPicker {
@@ -149,26 +155,25 @@
   padding-right: 5%;
 }
 
-.listUnit {
-  width: 48px;
-  padding-left: 12px;
-  color: #444;
-}
-
 .nm .listUnit {
   color: #bbb;
 }
+
+/* 计算按钮 */
 
 .calBtn {
   width: 92%;
   margin: 12px 4%;
 }
 
+/* 成绩列表 */
+
 .scoreListCtn {
   position: relative;
   width: 90%;
   margin: 0 5%;
   background-color: #fff;
+  border-radius: 5px;
   line-height: 1.75;
   font-size: 17px;
 }

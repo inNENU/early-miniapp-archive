@@ -33,7 +33,7 @@
     <block wx:for="{{list}}" wx:key="item.id">
       <view class="listItem">
         <view class="listText">{{item.text}}</view>
-        <input class="listInput" type="{{item.type}}" value="" placeholder="{{item.desc}}" confirm-type="next" confirm-hold="true" bindinput="input" data-project="{{item.id}}" />
+        <input id="{{item.id}}" class="listInput" type="{{item.type}}" adjust-position="{{false}}" placeholder="{{item.desc}}" bindfocus="focus" bindinput="input" />
         <view class="listUnit">{{item.unit}}</view>
       </view>
     </block>
@@ -45,14 +45,15 @@
     </view>
     <view class="listItem">
       <view class="listText">{{special.text}}</view>
-      <input class="listInput" type="{{special.type}}" value="" placeholder="{{special.desc}}" confirm-type="next" confirm-hold="true" bindinput="input" data-project="{{special.id}}" />
+      <input id="{{special.id}}" class="listInput" type="{{special.type}}" adjust-position="{{false}}" placeholder="{{special.desc}}" bindfocus="focus" bindinput="input" />
       <view class="listUnit">{{special.unit}}</view>
     </view>
   </view>
   <button type="primary" class='calBtn' bindtap="calculate">计算</button>
-  <view wx:if="{{reportShow}}" class="scoreListCtn">
+  <view class="scoreListCtn">
+    <!-- <view wx:if="{{showScore}}" class="scoreListCtn"> -->
     <view class="scoreListTitle">体 测 成 绩</view>
-    <view class="scoreItemCtn" wx:for="{{scoreList}}">
+    <view class="scoreItemCtn" wx:for="{{scoreList}}" wx:key="text">
       <view class="listText">{{item.text}}</view>
       <view class="listScore">{{PEscore[item.id]}}分</view>
     </view>
