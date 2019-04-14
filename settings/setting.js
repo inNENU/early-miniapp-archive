@@ -18,7 +18,7 @@ $page('setting', {
     page: [
       { tag: 'head', title: '设置', grey: true },
       {
-        tag: 'list', head: '主题设置', foot: 'NENU主题处于内测阶段',
+        tag: 'list', head: '主题设置', foot: '目前iOS主题可以完美显示',
         content: [
           {
             text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'Android'], picker: 'setTheme'
@@ -124,7 +124,6 @@ $page('setting', {
     console.log(`theme切换为${theme}`); // 调试
   },
   switchnm(e) {
-    // Let p = util.Switch(e, this), list = p[3].content, value = e.detail.value;
     const p = $set.Switch(e, this),
       list = p[3].content,
       { value } = e.detail;
@@ -164,7 +163,6 @@ $page('setting', {
   switchnmAC(e) {
     const p = $set.Switch(e, this),
       list = p[3].content,
-      // Let p = util.Switch(e, this), list = p[3].content;
       nm = app.nightmode(new Date());
 
     p[2].content[0].status = nm;

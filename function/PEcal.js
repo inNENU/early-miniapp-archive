@@ -206,7 +206,6 @@ $page('PEcal', {
 
         // 计算加分
 
-        // if (result[specialScore]>20)
 
         // 计算最终成绩
         const finalScore = PEscore.vitalCapacity * 0.15 + PEscore.shortRun * 0.2 + PEscore.sitAndReach * 0.1 +
@@ -229,7 +228,7 @@ $page('PEcal', {
     }
   },
   navigate() {
-    this.$route('/module/module1?From=体测计算器&aim=study0&depth=1');
+    this.$route('/module/module1?From=体测计算器&aim=test0&depth=1');
   },
 
   redirect() {
