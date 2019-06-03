@@ -6,30 +6,21 @@ const { globalData: a, lib: { $page, $set } } = getApp(),
   includePoint1 = {
     padding: [30, 20, 30, 20],
     points: [
-      {
-        latitude: 43.8578480844,
-        longitude: 125.3252720833
-      }, {
-        latitude: 43.8633404949,
-        longitude: 125.3379964828
-      }
+      { latitude: 43.8578480844, longitude: 125.3252720833 },
+      { latitude: 43.8633404949, longitude: 125.3379964828 }
     ]
   },
   includePoint2 = {
     padding: [30, 20, 30, 20],
     points: [
-      {
-        latitude: 43.8256570334,
-        longitude: 125.4175829887
-      }, {
-        latitude: 43.8247281876,
-        longitude: 125.4359936714
-      }
+      { latitude: 43.8256570334, longitude: 125.4175829887 },
+      { latitude: 43.8247281876, longitude: 125.4359936714 }
     ]
   };
 
 $page('map', {
   data: {
+    nm: a.nm,
     map: {
       latitude: 43.862007982140646,
       longitude: 125.33405307523934,
@@ -58,10 +49,9 @@ $page('map', {
       mapSwitch = value || value === false ? value : (wx.setStorageSync('mapSwitch', true), true);
 
     this.data.mapSwitch = mapSwitch;
+    this.data.nm = a.nm;
     this.data.info = a.info;
     this.data.markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
-    this.data.mapStyle = a.nm ? '46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA' : 'PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF';
-    this.data.nm = a.nm;
     this.set = true;
     console.log('Map navigate finish');
   },

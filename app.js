@@ -8,7 +8,7 @@ $App({
 
   // 小程序全局数据
   globalData: {
-    version: 'V 1.3.4',
+    version: 'V 1.3.5',
     music: { play: false, played: false, index: 0 }
     // T, nm, date, info也在globalData中
   },
@@ -32,6 +32,10 @@ $App({
 
   onLaunch(opts) {
     console.info('小程序启动，参数为', opts); // 调试
+
+    // Const capsule = wx.getMenuButtonBoundingClientRect();
+
+    // Console.log(capsule);
 
     // 保存启动时间
     this.globalData.date = new Date();

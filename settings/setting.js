@@ -101,6 +101,13 @@ $page('setting', {
     }
     $set.Notice('theme');
   },
+  onShow() {
+    // 设置胶囊和背景颜色
+    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
+  },
   onReady() {
     $set.preLoad(this, a);
   },

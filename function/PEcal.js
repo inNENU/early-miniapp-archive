@@ -109,6 +109,8 @@ $page('PEcal', {
     const { id } = event.currentTarget,
       query = wx.createSelectorQuery();
 
+    this.setData({ input: { status: true, height: event.detail.height } });
+
     query.select(`#${id}`)
       .boundingClientRect();
     query.selectViewport().fields({ size: true, scrollOffset: true });
@@ -132,6 +134,9 @@ $page('PEcal', {
     const project = event.currentTarget.id;
 
     this.setData({ [`result.${project}`]: event.detail.value });
+  },
+  blur() {
+    this.setData({ 'input.status': false });
   },
   longRunHandler(event) {
     const { value } = event.detail;
@@ -240,7 +245,7 @@ $page('PEcal', {
 
         console.info('成绩为', PEscore);
         this.setData({
-          // showScore: true,
+          showScore: true,
           PEscore,
           PE: {
             score: finalScore,

@@ -1,5 +1,5 @@
 <import src="/components/template" />
-<view class="iOS grey {{nm?'nm':''}}">
+<view class="iOS grey {{nm?'nm':''}}" style="{{input.status?'padding-bottom:'+input.height+'px;':''}}">
   <template is='head' data="{{...page[0],T}}" />
   <view class="descCtn">
     <view class="descBtn" hover-class="buttonHover" catchtap="navigate">
@@ -33,7 +33,7 @@
     <block wx:for="{{list}}" wx:key="item.id">
       <view class="listItem">
         <view class="listText">{{item.text}}</view>
-        <input id="{{item.id}}" class="listInput" type="{{item.type}}" adjust-position="{{false}}" placeholder="{{item.desc}}" bindfocus="focus" bindinput="input" />
+        <input id="{{item.id}}" class="listInput" type="{{item.type}}" adjust-position="{{false}}" placeholder="{{item.desc}}" bindfocus="focus" bindinput="input" bindblur="blur" />
         <view class="listUnit">{{item.unit}}</view>
       </view>
     </block>
@@ -45,13 +45,13 @@
     </view>
     <view class="listItem">
       <view class="listText">{{special.text}}</view>
-      <input id="{{special.id}}" class="listInput" type="{{special.type}}" adjust-position="{{false}}" placeholder="{{special.desc}}" bindfocus="focus" bindinput="input" />
+      <input id="{{special.id}}" class="listInput" type="{{special.type}}" adjust-position="{{false}}" placeholder="{{special.desc}}" bindfocus="focus" bindinput="input" bindblur="blur" />
       <view class="listUnit">{{special.unit}}</view>
     </view>
   </view>
   <button type="primary" class='calBtn' bindtap="calculate">计算</button>
-  <view class="scoreListCtn">
-    <!-- <view wx:if="{{showScore}}" class="scoreListCtn"> -->
+  <!-- <view class="scoreListCtn"> -->
+  <view wx:if="{{showScore}}" class="scoreListCtn">
     <view class="scoreListTitle">体 测 成 绩</view>
     <view class="scoreItemCtn" wx:for="{{scoreList}}" wx:key="text">
       <view class="listText">{{item.text}}</view>

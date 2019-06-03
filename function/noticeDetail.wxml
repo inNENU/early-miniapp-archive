@@ -1,9 +1,0 @@
-<import src="/components/template" />
-<view class="{{T}} {{nm?'nm':''}}">
-  <template is="all2" data="{{page,T}}" />
-  <block wx:if="{{attachment}}">
-    <view class='{{T}}P'>附件：</view>
-    <template wx:if="{{attachment}}" is="all2" data="{{page:attachment,T}}" />
-  </block>
-  <template is="foot" />
-</view>

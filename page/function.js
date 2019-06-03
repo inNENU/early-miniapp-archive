@@ -13,8 +13,7 @@ $page('function', {
         content: [
           { text: '校园地图', icon: '/icon/function/map.svg', url: '/function/map' },
           { text: '音律东师', icon: '/icon/function/music.svg', url: '/function/player' },
-          { text: '体测计算器', icon: '/icon/function/PECal.svg', url: '/function/PEcal' },
-          { text: '内网公告', icon: '/icon/function/notice.svg', url: '/function/notice' }
+          { text: '体测计算器', icon: '/icon/function/PECal.svg', url: '/function/PEcal' }
         ]
         /*
          * }, {
