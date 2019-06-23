@@ -1,7 +1,7 @@
 /* global getApp wx*/
-const { lib: { $page } } = getApp();
+const { lib: { $register } } = getApp();
 
-$page('web', {
+$register('web', {
   onLoad(res) {
     const { title } = res;
 

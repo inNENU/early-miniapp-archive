@@ -1,7 +1,7 @@
 /* global wx getApp */
 const $tab = require('../lib/tab');
 
-const { globalData: a, lib: { $page, $set } } = getApp(),
+const { globalData: a, lib: { $register, $set } } = getApp(),
 
   includePoint1 = {
     padding: [30, 20, 30, 20],
@@ -18,7 +18,7 @@ const { globalData: a, lib: { $page, $set } } = getApp(),
     ]
   };
 
-$page('map', {
+$register('map', {
   data: {
     nm: a.nm,
     map: {

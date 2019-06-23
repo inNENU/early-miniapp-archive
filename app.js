@@ -9,16 +9,21 @@ $App({
   // 小程序全局数据
   globalData: {
     version: 'V 1.3.5',
-    music: { play: false, played: false, index: 0 }
+    music: { play: false, played: false, index: 0 },
+    page: {
+      data: [],
+      aim: ''
+    }
     // T, nm, date, info也在globalData中
   },
 
   // 在APP中封装js库对象
   lib: {
-    $act: require('./lib/interface'),
+    $component: require('./lib/component'),
     $file: require('./lib/file'),
-    $page: require('./lib/wxpage'),
-    $set: require('./lib/setpage')
+    $page: require('./lib/setpage'),
+    $register: require('./lib/wxpage'),
+    $wx: require('./lib/lib')
   },
 
   // 路径解析配置

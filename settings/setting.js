@@ -1,7 +1,8 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $page, $set } } = getApp();
-const app = require('../lib/app'),
-  tab = require('../lib/tab');
+const { globalData: a, lib: { $component, $file, $page, $register } } = getApp();
+
+const app = require('../lib/app');
+const tab = require('../lib/tab');
 
 // 生成时间
 const time = [[], []];
@@ -11,7 +12,7 @@ for (let i = 0; i <= 59; i++)
   if (i < 10) time[1].push(`0${i}分`);
   else time[1].push(`${i}分`);
 
-$page('setting', {
+$register('setting', {
   data: {
     T: a.T,
     nm: a.nm,
@@ -64,10 +65,10 @@ $page('setting', {
   },
   onPreload(res) {
     // 读取状态数据并执行预加载
-    const list = this.data.page[3].content,
-      nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange'),
-      dayBrightnessChange = wx.getStorageSync('dayBrightnessChange'),
-      nightBrightnessChange = wx.getStorageSync('nightBrightnessChange');
+    const list = this.data.page[3].content;
+    const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
+    const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
+    const nightBrightnessChange = wx.getStorageSync('nightBrightnessChange');
 
     if (!nightmodeAutoChange) {
       list[1].hidden = true;
@@ -77,17 +78,17 @@ $page('setting', {
     else list[5].hidden = true;
     if (!dayBrightnessChange || a.nm) list[4].hidden = true;
     if (!nightBrightnessChange || !a.nm) list[6].hidden = true;
-    if (!$set.preSet(this.data.page, a, res.query, this, false)) {
+    if (!$page.preSet(this.data.page, a, res.query, this, false)) {
       this.set = true;
       console.log('Settings preload finished, with', this.data.page);
     }
   },
   onLoad(res) {
     if (!this.set) {
-      const list = this.data.page[3].content,
-        nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange'),
-        dayBrightnessChange = wx.getStorageSync('dayBrightnessChange'),
-        nightBrightnessChange = wx.getStorageSync('nightBrightnessChange');
+      const list = this.data.page[3].content;
+      const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
+      const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
+      const nightBrightnessChange = wx.getStorageSync('nightBrightnessChange');
 
       if (!nightmodeAutoChange) {
         list[1].hidden = true;
@@ -97,43 +98,43 @@ $page('setting', {
       else list[5].hidden = true;
       if (!dayBrightnessChange || a.nm) list[4].hidden = true;
       if (!nightBrightnessChange || !a.nm) list[6].hidden = true;
-      $set.Set(this.data.page, a, res, this, false);
+      $page.Set(this.data.page, a, res, this, false);
     }
-    $set.Notice('theme');
+    $page.Notice('theme');
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(a, this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    $set.preLoad(this, a);
+    $page.preGetPage(this.data.page);
   },
   onPageScroll(e) {
-    $set.nav(e, this);
+    $page.nav(e, this);
   },
   cA(e) {
-    $set.component(e, this);
+    $component.trigger(e, this);
   },
   onUnload() {
     a.nm = app.nightmode(new Date());
   },
   setTheme(e) {
-    $set.component(e, this);
+    $page.component(e, this);
     const theme = this.data.page[1].content[0].pickerValue[e.detail.value];
 
     a.T = theme;
     wx.setStorageSync('theme', theme);
-    $set.Set(this.data.page, a, null, this);
+    $page.Set(this.data.page, a, null, this);
     this.$emit('theme', theme);
     console.log(`theme切换为${theme}`); // 调试
   },
   switchnm(e) {
-    const p = $set.Switch(e, this),
-      list = p[3].content,
-      { value } = e.detail;
+    const p = $page.Switch(e, this);
+    const list = p[3].content;
+    const { value } = e.detail;
 
     list[0].status = false;
     list[1].hidden = list[2].hidden = true;
@@ -168,9 +169,9 @@ $page('setting', {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   switchnmAC(e) {
-    const p = $set.Switch(e, this),
-      list = p[3].content,
-      nm = app.nightmode(new Date());
+    const p = $page.Switch(e, this);
+    const list = p[3].content;
+    const nm = app.nightmode(new Date());
 
     p[2].content[0].status = nm;
     wx.setStorageSync('nightmode', nm);
@@ -197,33 +198,33 @@ $page('setting', {
     this.$emit('nightmode', nm);
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(a, this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   dayBrightnessSwitchHandler(e) {
-    const p = $set.Switch(e, this),
-      list = p[3].content;
+    const p = $page.Switch(e, this);
+    const list = p[3].content;
 
     list[4].visible = e.detail.value;
     list[4].hidden = !e.detail.value;
     this.setData({ page: p });
   },
   nightBrightnessSwitchHandler(e) {
-    const p = $set.Switch(e, this),
-      list = p[3].content;
+    const p = $page.Switch(e, this);
+    const list = p[3].content;
 
     list[6].visible = e.detail.value;
     list[6].hidden = !e.detail.value;
     this.setData({ page: p });
   },
   dayBrightnessHandler(e) {
-    $set.component(e, this);
+    $page.component(e, this);
     if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: e.detail.value / 100 });
   },
   nightBrightnessHandler(e) {
-    $set.component(e, this);
+    $page.component(e, this);
     if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: e.detail.value / 100 });
   },
   refreshGuide() {

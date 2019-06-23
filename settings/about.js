@@ -1,7 +1,7 @@
 /* global getApp wx*/
-const { globalData: a, lib: { $act, $file, $page, $set } } = getApp();
+const { globalData: a, lib: { $act, $file, $register, $set } } = getApp();
 
-$page('about', {
+$register('about', {
   clickNumber: 0,
   data: {
     T: a.T,
@@ -85,11 +85,11 @@ $page('about', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    if (this.set) $set.preLoad(this, a);
+    if (this.set) $page.preGetPage(this.data.page);
 
     $act.request(`config/${a.version}/about`, data => {
       $set.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, this);
-      $set.preLoad(this, a);
+      $page.preGetPage(this.data.page);
     });
 
   },

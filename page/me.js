@@ -1,7 +1,7 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $component, $page, $register } } = getApp();
 
-$page('me', {
+$register('me', {
   data: {
     T: a.T,
     nm: a.nm,
@@ -18,18 +18,19 @@ $page('me', {
     ]
   },
   onPreload() {
-    if (!$set.preSet(this.data.page, a, { aim: 'me' }, this, false))
-      this.set = true;
+    $page.preSet(a, { aim: 'me' }, this.data.page);
+
+    this.set = true;
 
     console.log(`${this.aim}预加载用时${new Date() - a.date}ms`);
   },
   onLoad() {
-    if (!this.set) $set.Set(this.data.page, a, null, this, false);
-    $set.Notice('me');
+    if (!this.set) $page.Set(this.data.page, a, null, this, false);
+    $page.Notice('me');
   },
   onShow() {
-    const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'],
-      [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
+    const [nc, bc] = $page.color(a, this.data.page[0].grey);
 
     // 设置胶囊、背景颜色以及tab栏颜色
     wx.setNavigationBarColor(nc);
@@ -39,7 +40,7 @@ $page('me', {
     this.$preload('about?From=我的东师&aim=about');
   },
   onReady() {
-    if (!this.set) $set.Set(this.data.page, a, null, this);
+    if (!this.set) $page.Set(this.data.page, a, null, this);
     this.$on('theme', T => {
       this.setData({ T });
     });
@@ -48,9 +49,9 @@ $page('me', {
     });
   },
   onPageScroll(e) {
-    $set.nav(e, this);
+    $component.nav(e, this);
   },
   cA(e) {
-    $set.component(e, this);
+    $component.trigger(e, this);
   }
 });

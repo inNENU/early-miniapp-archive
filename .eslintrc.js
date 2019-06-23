@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: eslint配置文件
  * @Date: 2019-02-26 23:43:23
- * @LastEditTime: 2019-04-08 23:01:19
+ * @LastEditTime: 2019-06-23 19:24:09
  */
 module.exports = {
   // 阻止eslint读取父目录或总配置文件的规则
@@ -36,7 +36,7 @@ module.exports = {
     'brace-style': ['error', '1tbs', { allowSingleLine: true }],
     'callback-return': 'error',
     camelcase: 'error',
-    'capitalized-comments': 'error',
+    'capitalized-comments': 'off',
 
     // 因为vue的原因此项需要设置off
     'class-methods-use-this': 'warn',
@@ -203,7 +203,7 @@ module.exports = {
     'object-curly-spacing': 'off',
     'object-property-newline': 'off',
     'object-shorthand': 'error',
-    'one-var': ['error', 'consecutive'],
+    'one-var': ['error', 'never'],
     'one-var-declaration-per-line': ['error', 'initializations'],
     'operator-assignment': 'error',
     'operator-linebreak': ['error', 'after', { overrides: { '?': 'before', ':': 'before' } }],

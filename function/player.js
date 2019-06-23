@@ -1,8 +1,8 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $act, $file, $page, $set } } = getApp(),
+const { globalData: a, lib: { $act, $file, $register, $set } } = getApp(),
   manager = wx.getBackgroundAudioManager();
 
-$page('music', {
+$register('music', {
   data: {
     canplay: false,
     currentTime: 0,
@@ -338,7 +338,7 @@ $page('music', {
     };
   },
   cA(e) {
-    $set.component(e, this);
+    $component.trigger(e, this);
   },
   redirect() {
     wx.switchTab({ url: '/page/main' });

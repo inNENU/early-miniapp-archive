@@ -1,7 +1,8 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $component, $file, $register, $set } } = getApp();
 
-$page('cal', {
+
+$register('cal', {
   data: {
     page: [
       { tag: 'head', title: '绩点计算(beta)', leftText: '功能大厅' },
@@ -24,9 +25,9 @@ $page('cal', {
     wx.setBackgroundColor(bc);
   },
   addNew() {
-    const { length } = this.data.grade,
+    const { length } = this.data.grade;
       // 获取grade内包含的个数，以便生成新的id
-      gradeNew = this.data.grade.concat({
+      const gradeNew = this.data.grade.concat({
         id: length,
         course: null,
         courseFocus: false,
@@ -42,14 +43,14 @@ $page('cal', {
   },
   input(e) {
     console.log(e);
-    const { grade } = this.data,
+    const { grade } = this.data;
 
       /*
        * 获取grade
        * console.log(Number(e.detail.value));
        */
-      { id } = e.currentTarget.dataset,
-      target = e.currentTarget.dataset.class;
+      const { id } = e.currentTarget.dataset;
+      const target = e.currentTarget.dataset.class;
 
     // 获取正在输入的输入框id  获取正在输入对象
     grade[id][`${target}Focus`] = true;
@@ -71,8 +72,8 @@ $page('cal', {
     // 将新值写回data中
   },
   next(e) {
-    const { grade } = this.data,
-      { id } = e.currentTarget.dataset;
+    const { grade } = this.data;
+      const { id } = e.currentTarget.dataset;
 
     grade[id].gradeFocus = true;
     this.setData({ grade });
@@ -90,8 +91,8 @@ $page('cal', {
   },
   remove(e) {
     console.log(e);
-    const currentID = e.target.id[e.target.id.length - 1],
-      { grade } = this.data;
+    const currentID = e.target.id[e.target.id.length - 1];
+      const { grade } = this.data;
 
     console.log(`currentID是${currentID};grade是${grade}`);
     grade.splice(currentID, 1);
@@ -108,14 +109,14 @@ $page('cal', {
     // 获得课程数
     console.log(`课程数是${courseNumber}`);
 
-    let totalCredit = 0,
-      totalGradeCal = 0,
-      flunkingCredit = 0,
-      flunkingGradeCal = 0;
+    let totalCredit = 0;
+      let totalGradeCal = 0;
+      let flunkingCredit = 0;
+      let flunkingGradeCal = 0;
 
     for (let i = 0; i < courseNumber; i++) {
-      const { grade } = this.data.grade[i],
-        { credit } = this.data.grade[i];
+      const { grade } = this.data.grade[i];
+        const { credit } = this.data.grade[i];
 
       if (grade !== 0 && grade && credit && credit !== 0)
         // 判断grade和credit是否均有值
@@ -180,6 +181,6 @@ $page('cal', {
     $set.nav(e, this);
   },
   cA(e) {
-    $set.component(e, this);
+    $component.trigger(e, this);
   }
 });

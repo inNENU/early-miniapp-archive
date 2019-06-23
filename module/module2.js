@@ -1,25 +1,25 @@
 /* global getApp*/
-const { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $component, $page, $register } } = getApp();
 
-$page('module2', {
+$register('module2', {
   onNavigate(res) {
-    $set.preSet(this.$session.get(`${res.query.aim}Temp`), a, res, this);
+    $page.preSet(a, res, this);
   },
   onLoad(res) {
-    $set.Online(a, res, this);
+    $page.Online(a, res, this);
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(a, this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   onPageScroll(res) {
-    $set.nav(res, this);
+    $component.nav(res, this);
   },
   cA(res) {
-    $set.component(res, this);
+    $component.trigger(res, this);
   },
   onShareAppMessage() {
     return { title: this.data.page[0].title, path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.aim}` };

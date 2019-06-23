@@ -1,7 +1,7 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $file, $page, $set } } = getApp();
+const { globalData: a, lib: { $file, $register, $set } } = getApp();
 
-$page('situs', {
+$register('situs', {
   data: {},
   onPreload(res) {
     this.xiaoqu = res.query.xiaoqu;
@@ -11,7 +11,7 @@ $page('situs', {
   onLoad(option) {
     if (this.aim === option.aim) {
       console.log(`${this.aim}已加载`);
-      $set.preLoad(this, a);
+      $page.preGetPage(this.data.page);
       console.info(`preload ${this.aim} finish`);
 
       // 需要重新载入界面
@@ -23,8 +23,8 @@ $page('situs', {
       let { length } = option.aim;
 
       while (!isNaN(option.aim.charAt(length))) length--;
-      const aimName = option.aim.substring(0, length + 1),
-        page = $file.readJson(`function/${aimName}/${option.aim}`);
+      const aimName = option.aim.substring(0, length + 1);
+      const page = $file.readJson(`function/${aimName}/${option.aim}`);
 
       // 如果本地存储中含有page直接处理
       if (page) {
@@ -34,7 +34,7 @@ $page('situs', {
         wx.reportMonitor('0', 1);
 
         // 执行预加载
-        $set.preLoad(this, a);
+        $page.preGetPage(this.data.page);
         console.log(`${option.aim}界面预加载完成`);
       } else
 
@@ -55,7 +55,7 @@ $page('situs', {
               }
 
               // 执行预加载
-              $set.preLoad(this, a);
+              $page.preGetPage(this.data.page);
               console.log(`${option.aim}界面预加载完成`);
 
             } else {
@@ -108,7 +108,7 @@ $page('situs', {
     $set.nav(e, this);
   },
   cA(e) {
-    $set.component(e, this);
+    $component.trigger(e, this);
   },
   onShareAppMessage() {
     return {

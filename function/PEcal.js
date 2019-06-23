@@ -1,15 +1,15 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $act, $file, $page, $set } } = getApp(),
-  special = [
-    { text: '引体向上', unit: '个', type: 'number', id: 'chinning' },
-    { text: '仰卧起坐', unit: '个', type: 'number', id: 'situp' }
-  ],
-  longRunText = ['1000米跑', '800米跑'],
-  longRunPicker = [['2分', '3分', '4分', '5分', '6分', '7分'], []];
+const { globalData: a, lib: { $component, $file, $register, $set } } = getApp();
+const special = [
+  { text: '引体向上', unit: '个', type: 'number', id: 'chinning' },
+  { text: '仰卧起坐', unit: '个', type: 'number', id: 'situp' }
+];
+const longRunText = ['1000米跑', '800米跑'];
+const longRunPicker = [['2分', '3分', '4分', '5分', '6分', '7分'], []];
 
 for (let i = 0; i < 60; i++) longRunPicker[1].push(`${i}秒`);
 
-$page('PEcal', {
+$register('PEcal', {
   data: {
     T: a.T,
     nm: a.nm,
@@ -44,8 +44,8 @@ $page('PEcal', {
   },
   onLoad(e) {
     $set.Set(this.data.page, a, e, this, false);
-    const genderIndex = wx.getStorageSync('gender'),
-      gradeIndex = wx.getStorageSync('grade');
+    const genderIndex = wx.getStorageSync('gender');
+    const gradeIndex = wx.getStorageSync('grade');
 
     // 将用户上次选择的性别和年级载入
     if (genderIndex || genderIndex === 0)  // 改变特别项目和长跑的名称
@@ -78,11 +78,11 @@ $page('PEcal', {
     $set.nav(e, this);
   },
   cA(e) {
-    $set.component(e, this);
+    $component.trigger(e, this);
   },
   genderChange(event) {
-    const index = Number(event.detail.value),
-      gender = this.data.gender.value[index];
+    const index = Number(event.detail.value);
+    const gender = this.data.gender.value[index];
 
     wx.setStorageSync('gender', index);
 
@@ -106,8 +106,8 @@ $page('PEcal', {
   },
   focus(event) {
     console.log('focus', event);
-    const { id } = event.currentTarget,
-      query = wx.createSelectorQuery();
+    const { id } = event.currentTarget;
+    const query = wx.createSelectorQuery();
 
     this.setData({ input: { status: true, height: event.detail.height } });
 
@@ -156,17 +156,17 @@ $page('PEcal', {
     console.info('输入结果为：', result);
 
     if (result.gender && result.grade) { // 可以计算
-      const hash = [10, 20, 30, 40, 50, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 85, 90, 95, 100],
-        { length } = hash,
-        PEscore = {
-          BMI: 0,
-          vitalCapacity: 0,
-          sitAndReach: 0,
-          standingLongJump: 0,
-          shortRun: 0,
-          longRun: 0,
-          special: 0
-        };
+      const hash = [10, 20, 30, 40, 50, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 85, 90, 95, 100];
+      const { length } = hash;
+      const PEscore = {
+        BMI: 0,
+        vitalCapacity: 0,
+        sitAndReach: 0,
+        standingLongJump: 0,
+        shortRun: 0,
+        longRun: 0,
+        special: 0
+      };
 
       if (result.height && result.weight) { // 可以计算BMI
         let state;

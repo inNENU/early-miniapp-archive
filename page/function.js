@@ -1,8 +1,8 @@
 /* global wx getApp*/
+const { globalData: a, lib: { $component, $page, $register, $wx } } = getApp();
 const tab = require('../lib/tab');
-const { globalData: a, lib: { $act, $page, $set } } = getApp();
 
-$page('function', {
+$register('function', {
   data: {
     T: a.T,
     nm: a.nm,
@@ -11,9 +11,9 @@ $page('function', {
         tag: 'grid',
         head: '',
         content: [
-          { text: '校园地图', icon: '/icon/function/map.svg', url: '/function/map' },
-          { text: '音律东师', icon: '/icon/function/music.svg', url: '/function/player' },
-          { text: '体测计算器', icon: '/icon/function/PECal.svg', url: '/function/PEcal' }
+          { text: '校园地图', icon: '/icon/tabPage/map.svg', url: '/function/map' },
+          { text: '音律东师', icon: '/icon/tabPage/music.svg', url: '/function/player' },
+          { text: '体测计算器', icon: '/icon/tabPage/PECal.svg', url: '/function/PEcal' }
         ]
         /*
          * }, {
@@ -35,7 +35,8 @@ $page('function', {
     ]
   },
   onPreload(res) {
-    $set.preSet(this.$take(res.query.name), a, { aim: 'function' }, this, false);
+    $page.preSet(a, { aim: 'function' }, this.$take(res.query.name));
+
     this.set = true;
     console.log(`${this.aim}预加载用时${new Date() - a.date}ms`);
   },
@@ -44,14 +45,14 @@ $page('function', {
     if (!this.set) {
       const page = wx.getStorageSync('function');
 
-      $set.Set(page ? page : this.data.page, a, { aim: 'function' }, this, false);
+      $page.Set(page ? page : this.data.page, a, { aim: 'function' }, this, false);
     }
-    $set.Notice('function');
+    $page.Notice('function');
     tab.update('function', '70K');
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(a, this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -60,14 +61,14 @@ $page('function', {
     const test = wx.getStorageSync('test');
 
     // 开启测试
-    if (test) $act.request('config/functionTest', data => {
+    if (test) $wx.request('config/functionTest', data => {
       wx.setStorageSync('function', data);
-      $set.Set(data, a, { aim: 'function' }, this, false);
+      $page.Set(data, a, { aim: 'function' }, this, false);
     });
     // 正常加载逻辑
-    else if (!this.set) $act.request(`config/${a.version}/function`, data => {
+    else if (!this.set) $wx.request(`config/${a.version}/function`, data => {
       wx.setStorageSync('function', data);
-      $set.Set(data, a, { aim: 'function' }, this, false);
+      $page.Set(data, a, { aim: 'function' }, this, false);
     });
 
     this.$on('theme', T => {
@@ -84,18 +85,18 @@ $page('function', {
     const test = wx.getStorageSync('test');
 
     // 开启测试时刷新页面
-    if (test) $act.request('config/functionTest', data => {
+    if (test) $wx.request('config/functionTest', data => {
       wx.setStorageSync('function', data);
-      $set.Set(data, a, { aim: 'function' }, this, false);
+      $page.Set(data, a, { aim: 'function' }, this, false);
     });
 
     tab.update('function', '80K');
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
-    $set.nav(e, this);
+    $component.nav(e, this);
   },
   cA(e) {
-    $set.component(e, this);
+    $component.trigger(e, this);
   }
 });

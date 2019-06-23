@@ -1,7 +1,7 @@
 
-const { globalData: a, lib: { $act, $page, $set } } = getApp();
+const { globalData: a, lib: { $act, $register, $set } } = getApp();
 
-$page('donate', {
+$register('donate', {
   data: {
     T: a.T,
     nm: a.nm,

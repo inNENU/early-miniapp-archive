@@ -1,7 +1,7 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $act, $file, $page, $set } } = getApp();
+const { globalData: a, lib: { $act, $file, $register, $set } } = getApp();
 
-$page('scenery', {
+$register('scenery', {
   data: {
     page: [{ tag: 'head', title: '校园风景' }],
     currentSrc: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',

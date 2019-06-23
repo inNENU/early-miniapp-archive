@@ -1,9 +1,9 @@
 /* global getApp wx*/
-const { globalData: a, lib: { $page, $set } } = getApp();
+const { globalData: a, lib: { $component, $page, $register } } = getApp();
 
-$page('sharePage', {
+$register('sharePage', {
   onNavigate(res) {
-    $set.preSet(this.$session.get(`${res.query.aim}Temp`), a, res, this);
+    $page.preSet(a, res, this);
   },
   onLoad(res) {
     if (!this.aim) {
@@ -13,22 +13,22 @@ $page('sharePage', {
         res.share = true;
         res.depth = 1;
       }
-      $set.Online(a, res, this);
+      $page.Online(a, res, this);
     }
     wx.reportMonitor('2', 1);
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(a, this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   onPageScroll(res) {
-    $set.nav(res, this);
+    $component.nav(res, this);
   },
   cA(res) {
-    $set.component(res, this);
+    $component.trigger(res, this);
   },
   redirect() {
     this.$launch('/page/main');

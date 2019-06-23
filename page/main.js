@@ -1,20 +1,13 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $act, $page, $set } } = getApp();
+const { globalData: a, lib: { $component, $page, $register, $wx } } = getApp();
 
-$page('main', {
+$register('main', {
   data: {
     T: a.T,
     nm: a.nm,
     page: [
+      { tag: 'head', title: '首页', aim: 'main', action: true, aimDepth: 1, grey: true, shareable: true },
       {
-        tag: 'head',
-        title: '首页',
-        action: true,
-        aimDepth: 1,
-        grey: true,
-        shareable: true,
-        aim: 'main'
-      }, {
         tag: 'list',
         head: '了解学业',
         content: [
@@ -29,28 +22,30 @@ $page('main', {
   },
   onPageLaunch() {
     console.log('主页面启动：', new Date() - a.date, 'ms');
-    const page = wx.getStorageSync('main'),
-      color = a.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
+    const page = wx.getStorageSync('main');
+    const color = a.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
-    $set.preSet(page ? page : this.data.page, a, { aim: 'main' }, this, false);
+    $page.preSet(a, { aim: 'main' }, page ? page : this.data.page);
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
   },
   onLoad() {
+    $page.Set(a.page.data, a, { aim: 'main' }, this);
+
     const test = wx.getStorageSync('test');
 
     // 开启测试
-    if (test) $act.request('config/mainTest', data => {
+    if (test) $wx.request('config/mainTest', data => {
       wx.setStorageSync('main', data);
-      $set.Set(data, a, { aim: 'main' }, this, false);
+      $page.Set(data, a, { aim: 'main' }, this, false);
     });
-    else $act.request(`config/${a.version}/main`, data => {
-      $set.Set(data, a, null, this);
+    else $wx.request(`config/${a.version}/main`, data => {
+      $page.Set(data, a, null, this);
     });
-    $set.Notice('main');
+    $page.Notice('main');
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(a, this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -66,7 +61,7 @@ $page('main', {
 
     // 执行tab页预加载
     ['guide', 'function'].forEach(x => {
-      $act.request(`config/${a.version}/${x}`, data => {
+      $wx.request(`config/${a.version}/${x}`, data => {
         this.$put(x, data);
         this.$preload(`${x}?name=${x}&aim=${x}`);
         wx.setStorageSync(x, data);
@@ -78,21 +73,21 @@ $page('main', {
     const test = wx.getStorageSync('test');
 
     // 开启测试
-    if (test) $act.request('config/mainTest', data => {
+    if (test) $wx.request('config/mainTest', data => {
       wx.setStorageSync('main', data);
-      $set.Set(data, a, { aim: 'main' }, this, false);
+      $page.Set(data, a, { aim: 'main' }, this, false);
     });
-    else $act.request(`config/${a.version}/main`, data => {
-      $set.Set(data, a, null, this);
+    else $wx.request(`config/${a.version}/main`, data => {
+      $page.Set(data, a, null, this);
       wx.stopPullDownRefresh();
       wx.setStorageSync('main', data);
     });
   },
   onPageScroll(e) {
-    $set.nav(e, this);
+    $component.nav(e, this);
   },
   cA(e) {
-    $set.component(e, this);
+    $component.trigger(e, this);
   },
   onShareAppMessage: () => ({ title: 'myNENU', path: '/page/main' })
 });
