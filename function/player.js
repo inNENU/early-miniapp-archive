@@ -1,6 +1,6 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $act, $file, $register, $set } } = getApp(),
-  manager = wx.getBackgroundAudioManager();
+const { globalData: a, lib: { $component, $file, $page, $register, $wx } } = getApp();
+const manager = wx.getBackgroundAudioManager();
 
 $register('music', {
   data: {
@@ -11,10 +11,10 @@ $register('music', {
     songListDisplay: false
   },
   onNavigate() {
+    const { index } = a.music;
+    const songList = $file.readJson('function/song');
+    const mode = wx.getStorageSync('playMode');
     let currentSong;
-    const { index } = a.music,
-      songList = $file.readJson('function/song'),
-      mode = wx.getStorageSync('playMode');
 
     // 写入基本信息
     this.data.index = index;
@@ -33,7 +33,7 @@ $register('music', {
 
       this.set = true;
     } else
-      $act.request('function/song', data => {
+      $wx.request('function/song', data => {
 
         // 写入歌曲列表与当前歌曲信息
         currentSong = data[index];
@@ -62,9 +62,9 @@ $register('music', {
     if (!this.set) {
       if (option.index) a.music.index = option.index;
 
-      const { index } = a.music,
-        songList = $file.readJson('function/song'),
-        mode = wx.getStorageSync('playMode');
+      const { index } = a.music;
+      const songList = $file.readJson('function/song');
+      const mode = wx.getStorageSync('playMode');
 
       // 写入基本信息
       this.setData({
@@ -95,7 +95,7 @@ $register('music', {
         }
 
         // 在线获取歌曲列表
-      } else $act.request('function/song', data => {
+      } else $wx.request('function/song', data => {
         currentSong = data[index];
         this.setData({ songList: data, currentSong });
 
@@ -142,8 +142,8 @@ $register('music', {
        * console.log(`bufferedTime是${manager.buffered},duration是${manager.duration}`);
        */
 
-      const presentSecond = parseInt(manager.currentTime % 60).toString(),
-        totalSecond = parseInt(manager.duration % 60).toString();
+      const presentSecond = parseInt(manager.currentTime % 60).toString();
+      const totalSecond = parseInt(manager.duration % 60).toString();
 
       // 更新歌曲信息
       this.setData({
@@ -185,16 +185,16 @@ $register('music', {
     });
 
     manager.onError(() => {
-      $act.tip('获取音乐出错，请稍后重试');
+      $wx.tip('获取音乐出错，请稍后重试');
     });
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, false);
+    const [nc, bc] = $page.color(false);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
 
-    $set.Notice('music');
+    $page.Notice('music');
   },
   loadCover(event) { // 加载封面
     if (event.type === 'load') this.setData({ coverLoad: true });
@@ -223,7 +223,7 @@ $register('music', {
         break;
       case 2:
         index = index + 1 === total ? 'stop' : index + 1;
-        $act.tip('播放完毕');
+        $wx.tip('播放完毕');
       case 1:
         break;
       case 0:
@@ -245,7 +245,7 @@ $register('music', {
       case 2:
         if (index + 1 === total) {
           index = 'nothing';
-          $act.tip('已是最后一曲');
+          $wx.tip('已是最后一曲');
         } else index += 1;
         break;
       case 1:
@@ -268,7 +268,7 @@ $register('music', {
       case 2:
         if (index === 0) {
           index = 'nothing';
-          $act.tip('已是第一曲');
+          $wx.tip('已是第一曲');
         } else index -= 1;
         break;
       case 1:
@@ -322,7 +322,7 @@ $register('music', {
         modeName = '列表循环';
     }
     wx.setStorageSync('playMode', mode);
-    $act.tip(`${modeName}模式`);
+    $wx.tip(`${modeName}模式`);
   },
   list() { // 切换列表显隐
     this.setData({ songListDisplay: !this.data.songListDisplay });

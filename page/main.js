@@ -1,5 +1,6 @@
 /* global wx getApp*/
 const { globalData: a, lib: { $component, $page, $register, $wx } } = getApp();
+const $tab = require('../lib/tab');
 
 $register('main', {
   data: {
@@ -25,28 +26,17 @@ $register('main', {
     const page = wx.getStorageSync('main');
     const color = a.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
-    $page.resolve(a, { aim: 'main' }, page ? page : this.data.page);
+    $page.resolve({ query: { aim: 'main' } }, page ? page : this.data.page);
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
   },
   onLoad() {
-    $page.Set({ a, res: { aim: 'main' }, ctx: this });
-
-    const test = wx.getStorageSync('test');
-
-    // 开启测试后展示测试界面
-    if (test) $wx.request('config/mainTest', data => {
-      wx.setStorageSync('main', data);
-      $page.Set({ a, res: { aim: 'main' }, ctx: this }, data);
-    });
-    // 普通界面加载
-    else $wx.request(`config/${a.version}/main`, data => {
-      $page.Set({ a, res: { aim: 'main' }, ctx: this }, data);
-    });
+    $page.Set({ option: { aim: 'main' }, ctx: this });
+    $tab.refresh('main', this, a);
     $page.Notice('main');
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -64,25 +54,15 @@ $register('main', {
     ['guide', 'function'].forEach(x => {
       $wx.request(`config/${a.version}/${x}`, data => {
         this.$put(x, data);
-        console.log(`${x}预加载用时${new Date() - a.date}ms`);
+        this.$preload(`${x}?aim=${x}`);
         wx.setStorageSync(x, data);
       });
     });
-    this.$preload('me');
+    this.$preload('me?aim=me');
   },
   onPullDownRefresh() {
-    const test = wx.getStorageSync('test');
-
-    // 开启测试
-    if (test) $wx.request('config/mainTest', data => {
-      wx.setStorageSync('main', data);
-      $page.Set({ a, res: { aim: 'main' }, ctx: this }, data);
-    });
-    else $wx.request(`config/${a.version}/main`, data => {
-      $page.Set({ a, res: { aim: 'main' }, ctx: this }, data);
-      wx.stopPullDownRefresh();
-      wx.setStorageSync('main', data);
-    });
+    $tab.refresh('main', this, a);
+    wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
     $component.nav(e, this);

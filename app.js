@@ -8,7 +8,7 @@ $App({
 
   // 小程序全局数据
   globalData: {
-    version: 'V 1.3.5',
+    version: 'V 2.0.0',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -32,7 +32,7 @@ $App({
     // eslint-disable-next-line no-confusing-arrow
     resolvePath: name => ['main', 'function', 'guide', 'me'].includes(name)
       ? `/page/${name}`
-      : ['setting', '1.3', 'about'].includes(name) ? `/settings/${name}` : `/module/${name}`
+      : ['setting', '2.0', 'about'].includes(name) ? `/settings/${name}` : `/module/${name}`
   },
 
   onLaunch(opts) {

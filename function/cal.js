@@ -1,5 +1,5 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $component, $file, $register, $set } } = getApp();
+const { globalData: a, lib: { $component, $file, $register, $page } } = getApp();
 
 
 $register('cal', {
@@ -16,26 +16,26 @@ $register('cal', {
     display: false
   },
   onLoad() {
-    $set.Set(this.data.page, a, null, this, false);
+    $page.Set({ ctx: this }, this.data.page);
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, false);
+    const [nc, bc] = $page.color(false);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   addNew() {
     const { length } = this.data.grade;
-      // 获取grade内包含的个数，以便生成新的id
-      const gradeNew = this.data.grade.concat({
-        id: length,
-        course: null,
-        courseFocus: false,
-        grade: null,
-        gradeFocus: false,
-        credit: null,
-        creditFocus: false
-      });
+    // 获取grade内包含的个数，以便生成新的id
+    const gradeNew = this.data.grade.concat({
+      id: length,
+      course: null,
+      courseFocus: false,
+      grade: null,
+      gradeFocus: false,
+      credit: null,
+      creditFocus: false
+    });
 
     // 向grade最后插入一个新元素
     this.setData({ grade: gradeNew });
@@ -45,12 +45,12 @@ $register('cal', {
     console.log(e);
     const { grade } = this.data;
 
-      /*
-       * 获取grade
-       * console.log(Number(e.detail.value));
-       */
-      const { id } = e.currentTarget.dataset;
-      const target = e.currentTarget.dataset.class;
+    /*
+     * 获取grade
+     * console.log(Number(e.detail.value));
+     */
+    const { id } = e.currentTarget.dataset;
+    const target = e.currentTarget.dataset.class;
 
     // 获取正在输入的输入框id  获取正在输入对象
     grade[id][`${target}Focus`] = true;
@@ -73,7 +73,7 @@ $register('cal', {
   },
   next(e) {
     const { grade } = this.data;
-      const { id } = e.currentTarget.dataset;
+    const { id } = e.currentTarget.dataset;
 
     grade[id].gradeFocus = true;
     this.setData({ grade });
@@ -92,7 +92,7 @@ $register('cal', {
   remove(e) {
     console.log(e);
     const currentID = e.target.id[e.target.id.length - 1];
-      const { grade } = this.data;
+    const { grade } = this.data;
 
     console.log(`currentID是${currentID};grade是${grade}`);
     grade.splice(currentID, 1);
@@ -110,13 +110,13 @@ $register('cal', {
     console.log(`课程数是${courseNumber}`);
 
     let totalCredit = 0;
-      let totalGradeCal = 0;
-      let flunkingCredit = 0;
-      let flunkingGradeCal = 0;
+    let totalGradeCal = 0;
+    let flunkingCredit = 0;
+    let flunkingGradeCal = 0;
 
     for (let i = 0; i < courseNumber; i++) {
       const { grade } = this.data.grade[i];
-        const { credit } = this.data.grade[i];
+      const { credit } = this.data.grade[i];
 
       if (grade !== 0 && grade && credit && credit !== 0)
         // 判断grade和credit是否均有值
@@ -178,7 +178,7 @@ $register('cal', {
 
   },
   onPageScroll(e) {
-    $set.nav(e, this);
+    $component.nav(e, this);
   },
   cA(e) {
     $component.trigger(e, this);

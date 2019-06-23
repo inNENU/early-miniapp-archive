@@ -3,17 +3,15 @@ const { globalData: a, lib: { $component, $page, $register } } = getApp();
 
 $register('sharePage', {
   onNavigate(res) {
-    $page.resolve(a, res, this);
+    $page.resolve(res);
   },
   onLoad(res) {
-    if (!this.aim) {
-      if ('scene' in res) {
-        res.From = '主页';
-        res.aim = decodeURIComponent(res.scene);
-        res.share = true;
-        res.depth = 1;
-      }
-      $page.Online(a, res, this);
+    if ('scene' in res) {
+      res.From = '主页';
+      res.aim = decodeURIComponent(res.scene);
+      res.share = true;
+      res.depth = 1;
+      $page.Online(res, this);
     }
     wx.reportMonitor('2', 1);
   },
@@ -36,7 +34,7 @@ $register('sharePage', {
   onShareAppMessage() {
     return {
       title: this.data.page[0].title,
-      path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.aim}`
+      path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.data.page[0].aim}`
     };
   },
   onUnload() {

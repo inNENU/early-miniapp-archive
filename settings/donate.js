@@ -1,5 +1,5 @@
 
-const { globalData: a, lib: { $act, $register, $set } } = getApp();
+const { globalData: a, lib: { $component, $page, $register, $wx } } = getApp();
 
 $register('donate', {
   data: {
@@ -21,23 +21,23 @@ $register('donate', {
   },
   onLoad() {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
-    $act.request('config/donateList', donateList => {
+    $wx.request('config/donateList', donateList => {
       this.setData({ donateList });
     });
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    $set.Notice('donate');
+    $page.Notice('donate');
   },
   save(res) {
     console.log('Start QRCode download.');// 调试
-    $act.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, path => {
+    $wx.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, path => {
       // 获取用户设置
       wx.getSetting({
         success: res2 => {
@@ -46,7 +46,7 @@ $register('donate', {
             wx.saveImageToPhotosAlbum({
               filePath: path,
               success: () => {
-                $act.tip('保存成功');
+                $wx.tip('保存成功');
               }
             });
           else wx.authorize({// 没有授权——>提示用户授权
@@ -55,7 +55,7 @@ $register('donate', {
               wx.saveImageToPhotosAlbum({
                 filePath: path,
                 success: () => {
-                  $act.tip('保存成功');
+                  $wx.tip('保存成功');
                 }
               });
             },
@@ -64,7 +64,7 @@ $register('donate', {
                 title: '权限被拒', content: '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
                 showCancel: false, confirmText: '确定', confirmColor: '#3CC51F',
                 complete: () => {
-                  $act.tip('二维码保存失败');
+                  $wx.tip('二维码保存失败');
                 }
               });
             }
@@ -72,14 +72,14 @@ $register('donate', {
         }
       });
     }, () => {
-      $act.tip('二维码下载失败');
+      $wx.tip('二维码下载失败');
     });
   },
   onPageScroll(e) {
-    $set.nav(e, this);
+    $component.nav(e, this);
   },
   cA(res) {
-    $set.component(res, this);
+    $component.trigger(res, this);
   },
   onShareAppMessage: () => ({ title: '捐赠Mr.Hope', path: '/settings/donate' })
 });

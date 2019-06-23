@@ -49,36 +49,24 @@ $register('guide', {
     ]
   },
   onPreload(res) {
-    const pageData = this.$take(res.query.aim);
+    const pageData = this.$take('guide');
 
-    $page.resolve(a, { aim: res.query.aim }, pageData ? pageData : wx.getStorageSync('guide'));
+    $page.resolve(res, pageData ? pageData : wx.getStorageSync('guide'));
+    console.log(`东师指南预加载用时${new Date() - a.date}ms`);
   },
   onLoad() {
-    $page.Set({ a, res: { aim: 'main' }, ctx: this });
+    $page.Set({ option: { aim: 'guide' }, ctx: this });
     $page.Notice('guide');
     $tab.update('page', '150K');
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    const test = wx.getStorageSync('test');
-
-    // 开启测试
-    if (test) $wx.request('config/guideTest', data => {
-      wx.setStorageSync('guide', data);
-      $page.Set({ a, res: { aim: 'guide' }, ctx: this }, data);
-    });
-    // 正常加载逻辑
-    else if (!this.set) $wx.request(`config/${a.version}/guide`, data => {
-      wx.setStorageSync('guide', data);
-      $page.Set({ a, res: { aim: 'guide' }, ctx: this }, data);
-    });
-
     this.$on('theme', T => {
       this.setData({ T });
     });
@@ -89,21 +77,6 @@ $register('guide', {
   },
   onPullDownRefresh() {
     $tab.refresh('guide', this, a);
-    // Const test = wx.getStorageSync('test');
-
-    /*
-     * // 开启测试时刷新页面
-     * if (test) $wx.request('config/guideTest', data => {
-     *   wx.setStorageSync('guide', data);
-     *   $page.Set({ a, res: { aim: 'guide' }, ctx: this }, data);
-     * });
-     * // 正常加载逻辑
-     * else if (!this.set) $wx.request(`config/${a.version}/guide`, data => {
-     *   wx.setStorageSync('guide', data);
-     *   $page.Set({ a, res: { aim: 'guide' }, ctx: this }, data);
-     * });
-     */
-
     $tab.update('page', '145K');
     wx.stopPullDownRefresh();
   },

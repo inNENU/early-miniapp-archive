@@ -1,5 +1,5 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $component, $file, $register, $set } } = getApp();
+const { globalData: a, lib: { $component, $file, $register, $page } } = getApp();
 const special = [
   { text: '引体向上', unit: '个', type: 'number', id: 'chinning' },
   { text: '仰卧起坐', unit: '个', type: 'number', id: 'situp' }
@@ -42,8 +42,8 @@ $register('PEcal', {
       { text: '50米跑', id: 'shortRun' }
     ]
   },
-  onLoad(e) {
-    $set.Set(this.data.page, a, e, this, false);
+  onLoad(option) {
+    $page.Set({ option, ctx: this }, this.data.page);
     const genderIndex = wx.getStorageSync('gender');
     const gradeIndex = wx.getStorageSync('grade');
 
@@ -66,16 +66,16 @@ $register('PEcal', {
     this.setData({ 'longRun.picker': longRunPicker });
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, true);
+    const [nc, bc] = $page.color(true);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
 
     // 设置通知
-    $set.Notice('PEcal');
+    $page.Notice('PEcal');
   },
   onPageScroll(e) {
-    $set.nav(e, this);
+    $component.nav(e, this);
   },
   cA(e) {
     $component.trigger(e, this);
@@ -256,7 +256,7 @@ $register('PEcal', {
       wx.hideLoading();
     } else {
       wx.hideLoading();
-      wx.showToast({ title: '请选择性别与年级', icon: 'none', duration: 2500, image: '/icon/close.png' });
+      wx.showToast({ title: '请选择性别年级', icon: 'none', duration: 2500, image: '/icon/close.png' });
     }
   },
   navigate() {

@@ -1,5 +1,5 @@
 /* global getApp wx*/
-const { globalData: a, lib: { $act, $file, $register, $set } } = getApp();
+const { globalData: a, lib: { $component, $file, $page, $register, $wx } } = getApp();
 
 $register('about', {
   clickNumber: 0,
@@ -26,8 +26,8 @@ $register('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\n修复体测计算器成绩的bug` },
-          { text: '查看详细日志', url: '/settings/1.3' }
+          { text: `${a.version}\n重构小程序\n更新编译基础库为2.7.2\n小程序现在拥有更好的性能` },
+          { text: '查看详细日志', url: '/settings/2.0' }
         ]
       },
       {
@@ -53,51 +53,68 @@ $register('about', {
     ]
   },
   onPreload(res) {
-    const p = this.data.page,
-      value = wx.getStorageSync('developMode');
+    /*
+     * const p = this.data.page;
+     * const value = wx.getStorageSync('developMode');
+     */
+
+    /*
+     * this.developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
+     * if (wx.getStorageSync('debugMode')) p[1].content[2].status = true;
+     * if (!this.developMode) p[1].content.forEach((x, y) => {
+     *   x.hidden = !(y === 0);
+     * });
+     * console.log(p, res.query);
+     * if (!$set.resolve(p, a, res.query, this, false)) this.set = true;
+     */
+  },
+  onNavigate(res) {
+    const p = this.data.page;
+    const value = wx.getStorageSync('developMode');
 
     this.developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
     if (wx.getStorageSync('debugMode')) p[1].content[2].status = true;
     if (!this.developMode) p[1].content.forEach((x, y) => {
       x.hidden = !(y === 0);
     });
-    console.log(p, res.query);
-    if (!$set.resolve(p, a, res.query, this, false)) this.set = true;
+    $page.resolve(res, p);
   },
-  onLoad(res) {
-    if (!this.set) {
-      const p = this.data.page,
-        value = wx.getStorageSync('developMode');
+  onLoad(option) {
+    if (a.page.aim === option.aim) $page.Set({ option: { aim: 'about' }, ctx: this });
+    else {
+      const p = this.data.page;
+      const value = wx.getStorageSync('developMode');
 
       this.developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
       if (!this.developMode) p[1].content.forEach((x, y) => {
         x.hidden = !(y === 0);
       });
-      $set.Set(p, a, res, this, false);
-      console.log(p, res.query);
-      this.set = true;
+      $page.Set({ option: { aim: 'about' }, ctx: this }, p);
     }
-    $set.Notice('about');
+
+    $page.Notice('about');
+  },
+  onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    if (this.set) $page.preGet(this.data.page);
-
-    $act.request(`config/${a.version}/about`, data => {
-      $set.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, this);
-      $page.preGet(this.data.page);
+    $wx.request(`config/${a.version}/about`, data => {
+      $page.Set(
+        { option: { aim: 'about' }, ctx: this },
+        this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1))
+      );
     });
 
   },
   onPageScroll(res) {
-    $set.nav(res, this);
+    $component.nav(res, this);
   },
   cA(res) {
-    $set.component(res, this);
+    $component.trigger(res, this);
   },
   debugMode() {
     if (this.developMode) {
@@ -110,7 +127,7 @@ $register('about', {
       this.developMode = false;
     } else if (this.clickNumber < 5) this.clickNumber += 1;
     else if (this.clickNumber < 10) {
-      $act.tip(`再点击${10 - this.clickNumber}次即可启用开发者模式`);
+      $wx.tip(`再点击${10 - this.clickNumber}次即可启用开发者模式`);
       this.clickNumber += 1;
     } else {
       this.setData({ debug: true });
@@ -122,7 +139,7 @@ $register('about', {
   password(e) {
     if (e.detail.value.length === 7) {
       if (e.detail.value === '5201314') { // 密码正确
-        $act.tip('已启用开发者模式');
+        $wx.tip('已启用开发者模式');
         this.data.page[1].content.forEach(x => {
           x.hidden = false;
         });
@@ -151,13 +168,13 @@ $register('about', {
     if (e.detail.value) wx.setEnableDebug({ enableDebug: true });
     else wx.setEnableDebug({ enableDebug: false });
   },
-  testSwitch(e) {
-    $set.component(e, this);
-    $act.tip(`已${e.detail.value ? '启用' : '关闭'}测试功能`);
+  testSwitch(res) {
+    $component.trigger(res, this);
+    $wx.tip(`已${res.detail.value ? '启用' : '关闭'}测试功能`);
   },
   deleteData() {
     wx.clearStorageSync();
-    $act.tip('数据清除完成');
+    $wx.tip('数据清除完成');
   },
   deleteFile() {
     wx.showLoading({ title: '删除中', mask: true });

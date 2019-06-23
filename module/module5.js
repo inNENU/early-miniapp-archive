@@ -3,14 +3,14 @@ const { globalData: a, lib: { $component, $page, $register } } = getApp();
 
 $register('module5', {
   onNavigate(res) {
-    $page.resolve(a, res, this);
+    $page.resolve(res);
   },
   onLoad(res) {
-    $page.Online(a, res, this);
+    $page.Online(res, this);
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -22,7 +22,10 @@ $register('module5', {
     $component.trigger(res, this);
   },
   onShareAppMessage() {
-    return { title: this.data.page[0].title, path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.aim}` };
+    return {
+      title: this.data.page[0].title,
+      path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.data.page[0].aim}`
+    };
   },
   onUnload() {
     delete this.data.page;

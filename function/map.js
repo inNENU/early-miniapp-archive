@@ -1,22 +1,21 @@
 /* global wx getApp */
+const { globalData: a, lib: { $register, $page } } = getApp();
 const $tab = require('../lib/tab');
 
-const { globalData: a, lib: { $register, $set } } = getApp(),
-
-  includePoint1 = {
-    padding: [30, 20, 30, 20],
-    points: [
-      { latitude: 43.8578480844, longitude: 125.3252720833 },
-      { latitude: 43.8633404949, longitude: 125.3379964828 }
-    ]
-  },
-  includePoint2 = {
-    padding: [30, 20, 30, 20],
-    points: [
-      { latitude: 43.8256570334, longitude: 125.4175829887 },
-      { latitude: 43.8247281876, longitude: 125.4359936714 }
-    ]
-  };
+const includePoint1 = {
+  padding: [30, 20, 30, 20],
+  points: [
+    { latitude: 43.8578480844, longitude: 125.3252720833 },
+    { latitude: 43.8633404949, longitude: 125.3379964828 }
+  ]
+};
+const includePoint2 = {
+  padding: [30, 20, 30, 20],
+  points: [
+    { latitude: 43.8256570334, longitude: 125.4175829887 },
+    { latitude: 43.8247281876, longitude: 125.4359936714 }
+  ]
+};
 
 $register('map', {
   data: {
@@ -45,8 +44,8 @@ $register('map', {
   onNavigate() {
     console.log('将要跳转Map');
     $tab.markerSet();
-    const value = wx.getStorageSync('mapSwitch'),
-      mapSwitch = value || value === false ? value : (wx.setStorageSync('mapSwitch', true), true);
+    const value = wx.getStorageSync('mapSwitch');
+    const mapSwitch = value || value === false ? value : (wx.setStorageSync('mapSwitch', true), true);
 
     this.data.mapSwitch = mapSwitch;
     this.data.nm = a.nm;
@@ -74,8 +73,8 @@ $register('map', {
       wx.hideLoading();
     } else {
       $tab.markerSet();
-      const value = wx.getStorageSync('mapSwitch'),
-        mapSwitch = value || value === false ? value : (wx.setStorageSync('mapSwitch', true), true);
+      const value = wx.getStorageSync('mapSwitch');
+      const mapSwitch = value || value === false ? value : (wx.setStorageSync('mapSwitch', true), true);
 
       this.setData({
         mapSwitch,
@@ -101,13 +100,13 @@ $register('map', {
     }
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, false);
+    const [nc, bc] = $page.color(false);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
 
     // 弹出通知
-    $set.Notice('map');
+    $page.Notice('map');
   },
   onReady() {
     // 设置tab
@@ -116,15 +115,10 @@ $register('map', {
         this.setData({ tabHeight: rect.height });
       })
       .exec();
-
-    // 设置胶囊颜色
-    const [frontColor, backgroundColor] = a.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
-
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   Switch() {
-    const temp = !this.data.mapSwitch,
-      markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
+    const temp = !this.data.mapSwitch;
+    const markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
 
     this.setData({
       mapSwitch: temp,
@@ -192,16 +186,16 @@ $register('map', {
 
   },
   select(e) {
-    const name = this.data.mapSwitch ? 'benbu' : 'jingyue',
-      current = e.target.dataset.category,
-      markers = wx.getStorageSync(`${name}-${current}`);
+    const name = this.data.mapSwitch ? 'benbu' : 'jingyue';
+    const current = e.target.dataset.category;
+    const markers = wx.getStorageSync(`${name}-${current}`);
 
     this.setData({ markers, selectItem: current });
     this.mapCtx.includePoints({ padding: [30, 20, 30, 20], points: markers });
   },
   markers(e) {
-    const { mapSwitch } = this.data,
-      xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
+    const { mapSwitch } = this.data;
+    const xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
 
     if (e.type === 'markertap')
       this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu + e.markerId}`);
