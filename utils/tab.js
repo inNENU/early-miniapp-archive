@@ -7,9 +7,9 @@
  */
 /* global wx */
 
-const $wx = require('./lib');
 const $file = require('./file');
 const $page = require('./setpage');
+const $wx = require('./wx');
 
 // 初始化文件管理器、日志管理器
 const logger = wx.getLogManager({ level: 1 });

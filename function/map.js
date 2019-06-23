@@ -1,6 +1,6 @@
 /* global wx getApp */
 const { globalData: a, lib: { $register, $page } } = getApp();
-const $tab = require('../lib/tab');
+const $tab = require('../utils/tab');
 
 const includePoint1 = {
   padding: [30, 20, 30, 20],

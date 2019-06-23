@@ -2,7 +2,7 @@
 
 // 初始化文件管理器、日志管理器
 const $file = require('./file');
-const $wx = require('./lib');
+const $wx = require('./wx');
 
 const logger = wx.getLogManager({ level: 1 });
 

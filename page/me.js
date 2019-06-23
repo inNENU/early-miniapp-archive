@@ -14,7 +14,7 @@ $register('me', {
           { text: '关于', icon: '/icon/about.svg', url: '/settings/about?From=我的东师&aim=about', desc: a.version }
         ]
       },
-      { tag: 'foot', desc: `当前版本：${a.version}` }
+      { tag: 'foot', desc: `当前版本：${a.version}\n小程序由Mr.Hope个人制作，如有错误还请见谅` }
     ]
   },
   onPreload(res) {

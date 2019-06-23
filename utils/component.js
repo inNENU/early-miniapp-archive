@@ -4,12 +4,13 @@
  *
  * @param {*} res 组件参数
  * @param {*} ctx 页面指针
+ * @param {Function} callback 函数回调
  * @returns {void}
  */
-const list = (res, ctx) => {
+const list = (res, ctx, callback) => {
   const { id } = res.currentTarget;
 
-  ctx.setData({ [`page[${id}].display`]: !ctx.data.page[id].display });
+  ctx.setData({ [`page[${id}].display`]: !ctx.data.page[id].display }, () => callback());
 };
 
 /**
@@ -44,24 +45,26 @@ const image = (res, ctx) => {
  *
  * @param {*} res 组件参数
  * @param {*} ctx 页面指针
+ * @param {Function} callback 函数回调
  * @returns {void}
  */
-const picker = (res, ctx) => {
+const picker = (res, ctx, callback) => {
   const position = res.currentTarget.dataset.id.split('-');
   const content = ctx.data.page[position[0]].content[position[1]];// 获得选择器位置与内容
 
   // 切换嵌入选择器显隐
-  if (res.type === 'tap') ctx.setData({ [`page[${position[0]}].content[${position[1]}].visible`]: !content.visible });
-
-  if (res.type === 'change') {
+  if (res.type === 'tap') ctx.setData(
+    { [`page[${position[0]}].content[${position[1]}].visible`]: !content.visible },
+    () => callback(res.type)
+  );
+  else if (res.type === 'change') {
     const { value } = res.detail;
 
     if (content.single) {
       // 判断为单列选择器，更新页面数据并存储选择器值
       content.value = content.pickerValue[Number(value)];
-      content.currentValue = value;
+      content.currentValue = Number(value);
       wx.setStorageSync(content.key, Number(value));
-
     } else {
       // 判断为多列选择器，遍历每一列更新页面数据、并存储选择器值
       value.forEach((x, y) => {
@@ -72,7 +75,7 @@ const picker = (res, ctx) => {
     }
 
     // 将选择器的变更响应到页面上
-    ctx.setData({ [`page[${position[0]}].content[${position[1]}]`]: content });
+    ctx.setData({ [`page[${position[0]}].content[${position[1]}]`]: content }, () => callback(res.type));
   }
 };
 
@@ -81,9 +84,10 @@ const picker = (res, ctx) => {
  *
  * @param {*} res 组件参数
  * @param {*} ctx 页面指针
+ * @param {Function} callback 函数回调
  * @returns {void}
  */
-const slider = (res, ctx) => {
+const slider = (res, ctx, callback) => {
   const pos = res.currentTarget.dataset.id.split('-');
   const content = ctx.data.page[pos[0]].content[pos[1]];
   const { value } = res.detail;
@@ -106,7 +110,7 @@ const slider = (res, ctx) => {
   }
 
   // 写入页面数据
-  ctx.setData({ [`page[${pos[0]}].content[${pos[1]}]`]: content });
+  ctx.setData({ [`page[${pos[0]}].content[${pos[1]}]`]: content }, () => callback(res.type));
 };
 
 /**
@@ -114,15 +118,14 @@ const slider = (res, ctx) => {
  *
  * @param {*} res 组件参数
  * @param {*} ctx 页面指针
+ * @param {Function} callback 函数回调
  * @returns {void}
  */
-const Switch = (res, ctx) => {
+const Switch = (res, ctx, callback) => {
   const pos = res.target.dataset.id.split('-');
 
-  ctx.setData({ [`page[${pos[0]}].content[${pos[1]}].status`]: res.detail.value });// 更新页面数据
+  ctx.setData({ [`page[${pos[0]}].content[${pos[1]}].status`]: res.detail.value }, () => callback());// 更新页面数据
   wx.setStorageSync(ctx.data.page[pos[0]].content[pos[1]].swiKey, res.detail.value); // 将开关值写入存储的swiKey变量中
-
-  return ctx.data.page; // 返回修改后的page数组
 };
 
 /**
@@ -341,9 +344,10 @@ const video = res => {
  *
  * @param {*} res 组件参数
  * @param {*} ctx 页面指针
+ * @param {Function} [callback] 回调函数
  * @returns {void}
  */
-const componentAction = (res, ctx) => {
+const componentAction = (res, ctx, callback) => {
   switch (res.currentTarget.dataset.action) { // 判断action类型并调用各组件函数
     case 'img': image(res, ctx);
       break;
@@ -352,21 +356,21 @@ const componentAction = (res, ctx) => {
       break;
     case 'back': ctx.$back();
       break;
-    case 'list': list(res, ctx);
+    case 'share': share(res, ctx);
       break;
     case 'doc': documentHandler(res);
       break;
     case 'phone': phone(res, ctx);
       break;
-    case 'picker': picker(res, ctx);
+    case 'picker': picker(res, ctx, callback);
       break;
-    case 'switch': Switch(res, ctx);
+    case 'switch': Switch(res, ctx, callback);
       break;
-    case 'slider': slider(res, ctx);
-      break;
-    case 'share': share(res, ctx);
+    case 'slider': slider(res, ctx, callback);
       break;
     case 'video': video(res);
+      break;
+    case 'list': list(res, ctx);
       break;
 
     // 找不到对应函数，错误报警
@@ -409,6 +413,5 @@ const changeNav = (option, ctx) => {
 
 module.exports = {
   nav: changeNav,
-  trigger: componentAction,
-  Switch
+  trigger: componentAction
 };

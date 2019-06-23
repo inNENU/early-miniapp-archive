@@ -1,6 +1,6 @@
 /* global wx getApp*/
 const { globalData: a, lib: { $component, $page, $register, $wx } } = getApp();
-const $tab = require('../lib/tab');
+const $tab = require('../utils/tab');
 
 $register('function', {
   data: {

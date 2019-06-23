@@ -1,8 +1,8 @@
 /* global wx getApp*/
 const { globalData: a, lib: { $component, $file, $page, $register } } = getApp();
 
-const { nightmode } = require('../lib/app');
-const $tab = require('../lib/tab');
+const { nightmode } = require('../utils/app');
+const $tab = require('../utils/tab');
 
 // 生成时间
 const time = [[], []];
@@ -119,102 +119,113 @@ $register('setting', {
     a.nm = nightmode(new Date());
   },
   setTheme(e) {
-    $component.trigger(e, this);
-    const theme = this.data.page[1].content[0].pickerValue[e.detail.value];
+    $component.trigger(e, this, type => {
+      if (type === 'change') {
+        const theme = this.data.page[1].content[0].pickerValue[e.detail.value];
 
-    a.T = theme;
-    wx.setStorageSync('theme', theme);
-    $page.Set({ option: { aim: 'settings' }, ctx: this });
-    this.$emit('theme', theme);
-    console.log(`theme切换为${theme}`); // 调试
+        a.T = theme;
+        wx.setStorageSync('theme', theme);
+        $page.Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
+        this.$emit('theme', theme);
+        console.log(`theme切换为${theme}`); // 调试
+      }
+    });
   },
   switchnm(e) {
-    const page = $component.Switch(e, this);
-    const list = page[3].content;
-    const { value } = e.detail;
+    $component.trigger(e, this, () => {
+      const { page } = this.data;
+      const list = page[3].content;
+      const { value } = e.detail;
 
-    list[0].status = false;
-    list[1].hidden = list[2].hidden = true;
-    list[1].visible = list[2].visible = false;
-    if (value) {
-      list[3].hidden = list[4].hidden = true;
-      list[4].visible = list[5].hidden = false;
-      if (list[5].status) {
-        list[6].hidden = false;
-        wx.setScreenBrightness({ value: list[6].value / 100 });
-      } else {
-        list[6].hidden = true;
-        list[6].visible = false;
-      }
-    } else {
-      list[5].hidden = list[6].hidden = true;
-      list[6].visible = list[3].hidden = false;
-      if (list[3].status) {
-        list[4].hidden = false;
-        wx.setScreenBrightness({ value: list[4].value / 100 });
-      } else {
-        list[4].hidden = true;
-        list[4].visible = false;
-      }
-    }
-    wx.setStorageSync('nightmodeAutoChange', false);
-    this.setData({ nm: value, page });
-    a.nm = value;
-    this.$emit('nightmode', value);
-    const [frontColor, backgroundColor] = value ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
-
-    wx.setNavigationBarColor({ frontColor, backgroundColor });
-  },
-  switchnmAC(e) {
-    const page = $component.Switch(e, this);
-    const list = page[3].content;
-    const nm = nightmode(new Date());
-
-    page[2].content[0].status = nm;
-    wx.setStorageSync('nightmode', nm);
-    if (nm && list[5].status) wx.setScreenBrightness({ value: list[6].value / 100 });
-    else if (!nm && list[3].status) wx.setScreenBrightness({ value: list[4].value / 100 });
-    if (e.detail.value) {
-      list[1].hidden = false;
-      list[2].hidden = false;
-    } else {
+      list[0].status = false;
       list[1].hidden = list[2].hidden = true;
       list[1].visible = list[2].visible = false;
-    }
-    if (nm) {
-      list[3].hidden = list[4].hidden = true;
-      list[4].visible = list[5].hidden = false;
-      list[6].hidden = !list[5].status;
-    } else {
-      list[3].hidden = list[6].visible = false;
-      list[5].hidden = list[6].hidden = true;
-      list[4].hidden = !list[3].status;
-    }
-    this.setData({ nm, page });
-    a.nm = nm;
-    this.$emit('nightmode', nm);
+      if (value) {
+        list[3].hidden = list[4].hidden = true;
+        list[4].visible = list[5].hidden = false;
+        if (list[5].status) {
+          list[6].hidden = false;
+          wx.setScreenBrightness({ value: list[6].value / 100 });
+        } else {
+          list[6].hidden = true;
+          list[6].visible = false;
+        }
+      } else {
+        list[5].hidden = list[6].hidden = true;
+        list[6].visible = list[3].hidden = false;
+        if (list[3].status) {
+          list[4].hidden = false;
+          wx.setScreenBrightness({ value: list[4].value / 100 });
+        } else {
+          list[4].hidden = true;
+          list[4].visible = false;
+        }
+      }
+      wx.setStorageSync('nightmodeAutoChange', false);
+      this.setData({ nm: value, page });
+      a.nm = value;
+      this.$emit('nightmode', value);
+      const [frontColor, backgroundColor] = value ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
 
-    // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(this.data.page[0].grey);
+      wx.setNavigationBarColor({ frontColor, backgroundColor });
+    });
+  },
+  switchnmAC(e) {
+    $component.trigger(e, this, () => {
+      const { page } = this.data;
+      const list = page[3].content;
+      const nm = nightmode(new Date());
 
-    wx.setNavigationBarColor(nc);
-    wx.setBackgroundColor(bc);
+      page[2].content[0].status = nm;
+      wx.setStorageSync('nightmode', nm);
+      if (nm && list[5].status) wx.setScreenBrightness({ value: list[6].value / 100 });
+      else if (!nm && list[3].status) wx.setScreenBrightness({ value: list[4].value / 100 });
+      if (e.detail.value) {
+        list[1].hidden = false;
+        list[2].hidden = false;
+      } else {
+        list[1].hidden = list[2].hidden = true;
+        list[1].visible = list[2].visible = false;
+      }
+      if (nm) {
+        list[3].hidden = list[4].hidden = true;
+        list[4].visible = list[5].hidden = false;
+        list[6].hidden = !list[5].status;
+      } else {
+        list[3].hidden = list[6].visible = false;
+        list[5].hidden = list[6].hidden = true;
+        list[4].hidden = !list[3].status;
+      }
+      this.setData({ nm, page });
+      a.nm = nm;
+      this.$emit('nightmode', nm);
+
+      // 设置胶囊和背景颜色
+      const [nc, bc] = $page.color(this.data.page[0].grey);
+
+      wx.setNavigationBarColor(nc);
+      wx.setBackgroundColor(bc);
+    });
   },
   dayBrightnessSwitchHandler(e) {
-    const page = $component.Switch(e, this);
-    const list = page[3].content;
+    $component.trigger(e, this, () => {
+      const { page } = this.data;
+      const list = page[3].content;
 
-    list[4].visible = e.detail.value;
-    list[4].hidden = !e.detail.value;
-    this.setData({ page });
+      list[4].visible = e.detail.value;
+      list[4].hidden = !e.detail.value;
+      this.setData({ page });
+    });
   },
   nightBrightnessSwitchHandler(e) {
-    const page = $component.Switch(e, this);
-    const list = page[3].content;
+    $component.trigger(e, this, () => {
+      const { page } = this.data;
+      const list = page[3].content;
 
-    list[6].visible = e.detail.value;
-    list[6].hidden = !e.detail.value;
-    this.setData({ page });
+      list[6].visible = e.detail.value;
+      list[6].hidden = !e.detail.value;
+      this.setData({ page });
+    });
   },
   dayBrightnessHandler(e) {
     $component.trigger(e, this);

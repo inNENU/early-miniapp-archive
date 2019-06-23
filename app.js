@@ -1,6 +1,6 @@
 /* global wx*/
-const $App = require('./lib/wxpage').A;
-const app = require('./lib/app');
+const $App = require('./utils/wxpage').A;
+const app = require('./utils/app');
 
 // Var worker = wx.createWorker("worker/worker.js") //worker test
 
@@ -19,11 +19,11 @@ $App({
 
   // 在APP中封装js库对象
   lib: {
-    $component: require('./lib/component'),
-    $file: require('./lib/file'),
-    $page: require('./lib/setpage'),
-    $register: require('./lib/wxpage'),
-    $wx: require('./lib/lib')
+    $component: require('./utils/component'),
+    $file: require('./utils/file'),
+    $page: require('./utils/setpage'),
+    $register: require('./utils/wxpage'),
+    $wx: require('./utils/wx')
   },
 
   // 路径解析配置

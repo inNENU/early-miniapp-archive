@@ -2,7 +2,7 @@
 
 // 引入文件管理
 const $file = require('./file');
-const $wx = require('./lib');
+const $wx = require('./wx');
 
 // 声明日志管理器
 const logger = wx.getLogManager({ level: 1 });
