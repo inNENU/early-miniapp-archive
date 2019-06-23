@@ -44,69 +44,48 @@ $register('map', {
   onNavigate() {
     console.log('将要跳转Map');
     $tab.markerSet();
-    const value = wx.getStorageSync('mapSwitch');
-    const mapSwitch = value || value === false ? value : (wx.setStorageSync('mapSwitch', true), true);
-
-    this.data.mapSwitch = mapSwitch;
-    this.data.nm = a.nm;
-    this.data.info = a.info;
-    this.data.markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
-    this.set = true;
-    console.log('Map navigate finish');
+    a.marker = this.getMarker();
   },
   onLoad() {
     wx.showLoading({ title: '加载中...' });
-    if (this.set) {
-      this.mapCtx = wx.createMapContext('schoolMap');
-      this.mapCtx.includePoints(this.data.mapSwitch ? includePoint1 : includePoint2);
-      setTimeout(() => {
-        this.mapCtx.getScale({
-          success: r1 => {
-            this.mapCtx.getCenterLocation({
-              success: r2 => {
-                this.setData({ map: { scale: r1.scale, latitude: r2.latitude, longitude: r2.longitude } });
-              }
-            });
-          }
-        });
-      }, 500);
-      wx.hideLoading();
-    } else {
-      $tab.markerSet();
-      const value = wx.getStorageSync('mapSwitch');
-      const mapSwitch = value || value === false ? value : (wx.setStorageSync('mapSwitch', true), true);
 
-      this.setData({
-        mapSwitch,
-        markers: wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all'),
-        info: a.info,
-        mapStyle: a.nm ? '46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA' : 'PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF',
-        nm: a.nm
+    $tab.markerSet();
+
+    const { mapSwitch, markers } = a.marker ? a.marker : this.getMarker();
+
+    delete a.marker;
+
+    this.setData({
+      mapSwitch,
+      markers,
+      info: a.info,
+      mapStyle: a.nm ? '46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA' : 'PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF',
+      nm: a.nm
+    });
+    this.mapCtx = wx.createMapContext('schoolMap');
+    this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
+    setTimeout(() => {
+      this.mapCtx.getScale({
+        success: r1 => {
+          this.mapCtx.getCenterLocation({
+            success: r2 => {
+              this.setData({ map: { scale: r1.scale, latitude: r2.latitude, longitude: r2.longitude } });
+            }
+          });
+        }
       });
-      this.mapCtx = wx.createMapContext('schoolMap');
-      this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
-      setTimeout(() => {
-        this.mapCtx.getScale({
-          success: r1 => {
-            this.mapCtx.getCenterLocation({
-              success: r2 => {
-                this.setData({ map: { scale: r1.scale, latitude: r2.latitude, longitude: r2.longitude } });
-              }
-            });
-          }
-        });
-        wx.hideLoading();
-      }, 500);
-    }
+      wx.hideLoading();
+    }, 500);
 
+    // 弹出通知
+    $page.Notice('map');
+  },
+  onShow() {
     // 设置胶囊和背景颜色
     const [nc, bc] = $page.color(false);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
-
-    // 弹出通知
-    $page.Notice('map');
   },
   onReady() {
     // 设置tab
@@ -115,6 +94,13 @@ $register('map', {
         this.setData({ tabHeight: rect.height });
       })
       .exec();
+  },
+  getMarker() {
+    const value = wx.getStorageSync('mapSwitch');
+    const mapSwitch = value || value === false ? value : (wx.setStorageSync('mapSwitch', true), true);
+    const markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
+
+    return { mapSwitch, markers };
   },
   Switch() {
     const temp = !this.data.mapSwitch;
@@ -198,10 +184,9 @@ $register('map', {
     const xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
 
     if (e.type === 'markertap')
-      this.$preload(`situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu + e.markerId}`);
+      this.$preload(`situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + e.markerId}`);
     else if (e.type === 'callouttap')
-      this.$route(`/function/situs?xiaoqu=${xiaoqu}&id=${e.markerId}&aim=${xiaoqu + e.markerId}`);
-
+      this.$route(`/function/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + e.markerId}`);
   },
   showList() {
     if (this.data.list) {
@@ -221,6 +206,9 @@ $register('map', {
   },
   regionChange(e) {
     console.log('regionChange', e);
+  },
+  update(e) {
+    console.log('update', e);
   }
 
   /*

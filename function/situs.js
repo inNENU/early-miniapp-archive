@@ -1,89 +1,36 @@
 /* global wx getApp*/
-const { globalData: a, lib: { $file, $register, $set } } = getApp();
+const { globalData: a, lib: { $component, $file, $page, $register } } = getApp();
 
 $register('situs', {
   data: {},
   onPreload(res) {
-    this.xiaoqu = res.query.xiaoqu;
-    this.id = res.query.id;
-    $set.resolve($file.readJson(`function/${this.xiaoqu}/${res.query.aim}`), a, res, this, false);
+    $page.resolve(res, $file.readJson(`function/${res.query.xiaoqu}/${res.query.aim}`));
   },
   onLoad(option) {
-    if (this.aim === option.aim) {
-      console.log(`${this.aim}已加载`);
-      $page.preGet(this.data.page);
-      console.info(`preload ${this.aim} finish`);
+    if (a.page.aim === option.aim) $page.Set({ option, ctx: this });
+    else {
+      const pageData = $file.readJson(`function/${option.xiaoqu}/${option.aim}`);
 
-      // 需要重新载入界面
-    } else {
-      console.info(`${option.aim}onLoad开始，参数为：`, option);
-      this.aim = option.aim;
+      if (pageData) $page.Set({ option, ctx: this }, pageData);
+      else // 向服务器请求json
+        $wx.request(`function/${option.xiaoqu}/${option.aim}`, data => {
+          $page.Set({ option, ctx: this }, data);
 
-      // 获取文件夹名称
-      let { length } = option.aim;
-
-      while (!isNaN(option.aim.charAt(length))) length--;
-      const aimName = option.aim.substring(0, length + 1);
-      const page = $file.readJson(`function/${aimName}/${option.aim}`);
-
-      // 如果本地存储中含有page直接处理
-      if (page) {
-        $set.Set(page, a, option, this);
-        $set.Notice(option.aim);
-        console.info(`${option.aim}onLoad成功：`, this.data);
-        wx.reportMonitor('0', 1);
-
-        // 执行预加载
-        $page.preGet(this.data.page);
-        console.log(`${option.aim}界面预加载完成`);
-      } else
-
-        // 向服务器请求json
-        wx.request({
-          url: `https://mp.nenuyouth.com/function/${aimName}/${option.aim}.json`,
-          success: res => {
-            console.log(res);
-            if (res.statusCode === 200) {
-
-              // 设置界面
-              $set.Set(res.data, a, option, this);
-
-              // 非分享界面下将页面数据写入存储
-              if (!option.share) {
-                $file.makeDir(`function/${aimName}`);
-                $file.writeJson(`function/${aimName}`, `${option.aim}`, res.data);
-              }
-
-              // 执行预加载
-              $page.preGet(this.data.page);
-              console.log(`${option.aim}界面预加载完成`);
-
-            } else {
-
-              // 设置error界面
-              $set.Set([{ tag: 'error', statusBarHeight: a.info.statusBarHeight }], a, option, this);
-              console.warn(`${option.aim}资源错误`);
-              wx.reportMonitor('12', 1);// 调试
-            }
-            console.info(`${option.aim}onLoad成功`);
-            wx.reportMonitor('0', 1);// 调试
-          },
-          fail: res => {
-            // 设置error页面
-            $set.Set([{ tag: 'error', statusBarHeight: a.info.statusBarHeight }], a, option, this);
-            console.warn(`${option.aim}onLoad失败，错误为`, res);
-            wx.reportMonitor('13', 1);// 调试
-          },
-
-          // 加载完成时弹出通知
-          complete: () => {
-            $set.Notice(option.aim);
+          // 非分享界面下将页面数据写入存储
+          if (!option.share) {
+            $file.makeDir(`function/${option.xiaoqu}`);
+            $file.writeJson(`function/${option.xiaoqu}`, option.aim, data);
           }
+        }, () => {
+          $page.Set({ option, ctx: this }, [{ tag: 'error', statusBarHeight: a.info.statusBarHeight }]);
+        }, () => {
+          $page.Set({ option, ctx: this }, [{ tag: 'error', statusBarHeight: a.info.statusBarHeight }]);
         });
     }
-
+  },
+  onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $set.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -105,7 +52,7 @@ $register('situs', {
    * },
    */
   onPageScroll(e) {
-    $set.nav(e, this);
+    $component.nav(e, this);
   },
   cA(e) {
     $component.trigger(e, this);

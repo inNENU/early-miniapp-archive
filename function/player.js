@@ -11,44 +11,14 @@ $register('music', {
     songListDisplay: false
   },
   onNavigate() {
-    const { index } = a.music;
     const songList = $file.readJson('function/song');
-    const mode = wx.getStorageSync('playMode');
-    let currentSong;
 
-    // 写入基本信息
-    this.data.index = index;
-    this.data.info = a.info;
-    this.data.nm = a.nm;
-    this.data.play = a.music.play;
-    this.data.mode = mode ? mode : (wx.setStorageSync('playMode', 0), 0);
-    this.share = false;
-
-    if (songList) {
-
-      // 写入歌曲列表与当前歌曲信息
-      currentSong = songList[index];
-      this.data.songList = songList;
-      this.data.currentSong = currentSong;
-
-      this.set = true;
-    } else
-      $wx.request('function/song', data => {
-
-        // 写入歌曲列表与当前歌曲信息
-        currentSong = data[index];
-        this.data.songList = data;
-        this.data.currentSong = currentSong;
-
-        this.set = true;
-
-        // 写入JSON文件
-        $file.writeJson('function', 'song', data);
-      });
-
+    if (!songList) $wx.request('function/song', data => {
+      // 写入JSON文件
+      $file.writeJson('function', 'song', data);
+    });
   },
   onLoad(option) {
-
     // 加载字体
     wx.loadFontFace({
       family: 'FZSSJW', source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
@@ -59,63 +29,60 @@ $register('music', {
 
     let currentSong;
 
-    if (!this.set) {
-      if (option.index) a.music.index = option.index;
+    if (option.index) a.music.index = option.index;
 
-      const { index } = a.music;
-      const songList = $file.readJson('function/song');
-      const mode = wx.getStorageSync('playMode');
+    const { index } = a.music;
+    const songList = $file.readJson('function/song');
+    const mode = wx.getStorageSync('playMode');
 
-      // 写入基本信息
-      this.setData({
-        share: option.share ? option.share : false,
-        index,
-        info: a.info,
-        nm: a.nm,
-        play: a.music.play,
-        mode: mode ? mode : (wx.setStorageSync('playMode', 0), 0)
-      });
+    // 写入基本信息
+    this.setData({
+      share: option.share ? option.share : false,
+      index,
+      info: a.info,
+      nm: a.nm,
+      play: a.music.play,
+      mode: mode ? mode : (wx.setStorageSync('playMode', 0), 0)
+    });
 
 
-      if (songList) {
-        // 写入歌曲列表与当前歌曲信息
-        currentSong = songList[index];
-        this.setData({ songList, currentSong });
+    if (songList) {
+      // 写入歌曲列表与当前歌曲信息
+      currentSong = songList[index];
+      this.setData({ songList, currentSong });
 
-        // 如果正在播放，设置能够播放
-        if (a.music.played) this.setData({ canplay: true });
+      // 如果正在播放，设置能够播放
+      if (a.music.played) this.setData({ canplay: true });
 
-        // 对音频管理器进行设置
-        else {
-          manager.epname = 'NenuYouth';
-          manager.src = currentSong.src;
-          manager.title = currentSong.title;
-          manager.singer = currentSong.singer;
-          manager.coverImgUrl = currentSong.cover;
-        }
+      // 对音频管理器进行设置
+      else {
+        manager.epname = 'NenuYouth';
+        manager.src = currentSong.src;
+        manager.title = currentSong.title;
+        manager.singer = currentSong.singer;
+        manager.coverImgUrl = currentSong.cover;
+      }
 
-        // 在线获取歌曲列表
-      } else $wx.request('function/song', data => {
-        currentSong = data[index];
-        this.setData({ songList: data, currentSong });
+      // 在线获取歌曲列表
+    } else $wx.request('function/song', data => {
+      currentSong = data[index];
+      this.setData({ songList: data, currentSong });
 
-        // 如果正在播放，设置能够播放
-        if (a.music.played) this.setData({ canplay: true });
+      // 如果正在播放，设置能够播放
+      if (a.music.played) this.setData({ canplay: true });
 
-        // 对音频管理器进行设置
-        else {
-          manager.epname = 'NenuYouth';
-          manager.src = currentSong.src;
-          manager.title = currentSong.title;
-          manager.singer = currentSong.singer;
-          manager.coverImgUrl = currentSong.cover;
-        }
+      // 对音频管理器进行设置
+      else {
+        manager.epname = 'NenuYouth';
+        manager.src = currentSong.src;
+        manager.title = currentSong.title;
+        manager.singer = currentSong.singer;
+        manager.coverImgUrl = currentSong.cover;
+      }
 
-        // 写入JSON文件
-        $file.writeJson('function', 'song', data);
-      });
-
-    }
+      // 写入JSON文件
+      $file.writeJson('function', 'song', data);
+    });
 
     //　能够播放100ms后设置可以播放
     manager.onCanplay(setTimeout(() => {

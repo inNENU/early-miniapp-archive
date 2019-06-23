@@ -10,7 +10,7 @@ $register('me', {
       {
         tag: 'list',
         content: [
-          { text: '设置', icon: '/icon/setting.svg', url: '/settings/setting?From=我的东师&aim=setting' },
+          { text: '设置', icon: '/icon/setting.svg', url: '/settings/setting?From=我的东师&aim=settings' },
           { text: '关于', icon: '/icon/about.svg', url: '/settings/about?From=我的东师&aim=about', desc: a.version }
         ]
       },

@@ -1,16 +1,11 @@
 /* global wx getApp*/
 const { globalData: a, lib: { $component, $file, $page, $register } } = getApp();
 
-const app = require('../lib/app');
-const tab = require('../lib/tab');
+const { nightmode } = require('../lib/app');
+const $tab = require('../lib/tab');
 
 // 生成时间
 const time = [[], []];
-
-for (let i = 0; i <= 23; i++) time[0].push(`${i}时`);
-for (let i = 0; i <= 59; i++)
-  if (i < 10) time[1].push(`0${i}分`);
-  else time[1].push(`${i}分`);
 
 $register('setting', {
   data: {
@@ -63,7 +58,13 @@ $register('setting', {
       { tag: 'foot' }
     ]
   },
-  onPreload(res) {
+  onNavigate(res) {
+    // 生成时间
+    for (let i = 0; i <= 23; i++) time[0].push(`${i}时`);
+    for (let i = 0; i <= 59; i++)
+      if (i < 10) time[1].push(`0${i}分`);
+      else time[1].push(`${i}分`);
+
     // 读取状态数据并执行预加载
     const list = this.data.page[3].content;
     const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
@@ -78,13 +79,12 @@ $register('setting', {
     else list[5].hidden = true;
     if (!dayBrightnessChange || a.nm) list[4].hidden = true;
     if (!nightBrightnessChange || !a.nm) list[6].hidden = true;
-    if (!$page.resolve(this.data.page, a, res.query, this, false)) {
-      this.set = true;
-      console.log('Settings preload finished, with', this.data.page);
-    }
+
+    $page.resolve(res, this.data.page);
   },
-  onLoad(res) {
-    if (!this.set) {
+  onLoad(option) {
+    if (a.page.aim === option.aim) $page.Set({ option, ctx: this });
+    else {
       const list = this.data.page[3].content;
       const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
       const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
@@ -98,42 +98,39 @@ $register('setting', {
       else list[5].hidden = true;
       if (!dayBrightnessChange || a.nm) list[4].hidden = true;
       if (!nightBrightnessChange || !a.nm) list[6].hidden = true;
-      $page.Set(this.data.page, a, res, this, false);
+      $page.Set({ option, ctx: this }, this.data.page);
     }
     $page.Notice('theme');
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
-  onReady() {
-    $page.preGet(this.data.page);
-  },
   onPageScroll(e) {
-    $page.nav(e, this);
+    $component.nav(e, this);
   },
   cA(e) {
     $component.trigger(e, this);
   },
   onUnload() {
-    a.nm = app.nightmode(new Date());
+    a.nm = nightmode(new Date());
   },
   setTheme(e) {
-    $page.component(e, this);
+    $component.trigger(e, this);
     const theme = this.data.page[1].content[0].pickerValue[e.detail.value];
 
     a.T = theme;
     wx.setStorageSync('theme', theme);
-    $page.Set(this.data.page, a, null, this);
+    $page.Set({ option: { aim: 'settings' }, ctx: this });
     this.$emit('theme', theme);
     console.log(`theme切换为${theme}`); // 调试
   },
   switchnm(e) {
-    const p = $page.Switch(e, this);
-    const list = p[3].content;
+    const page = $component.Switch(e, this);
+    const list = page[3].content;
     const { value } = e.detail;
 
     list[0].status = false;
@@ -161,7 +158,7 @@ $register('setting', {
       }
     }
     wx.setStorageSync('nightmodeAutoChange', false);
-    this.setData({ nm: value, page: p });
+    this.setData({ nm: value, page });
     a.nm = value;
     this.$emit('nightmode', value);
     const [frontColor, backgroundColor] = value ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
@@ -169,11 +166,11 @@ $register('setting', {
     wx.setNavigationBarColor({ frontColor, backgroundColor });
   },
   switchnmAC(e) {
-    const p = $page.Switch(e, this);
-    const list = p[3].content;
-    const nm = app.nightmode(new Date());
+    const page = $component.Switch(e, this);
+    const list = page[3].content;
+    const nm = nightmode(new Date());
 
-    p[2].content[0].status = nm;
+    page[2].content[0].status = nm;
     wx.setStorageSync('nightmode', nm);
     if (nm && list[5].status) wx.setScreenBrightness({ value: list[6].value / 100 });
     else if (!nm && list[3].status) wx.setScreenBrightness({ value: list[4].value / 100 });
@@ -193,44 +190,44 @@ $register('setting', {
       list[5].hidden = list[6].hidden = true;
       list[4].hidden = !list[3].status;
     }
-    this.setData({ nm, page: p });
+    this.setData({ nm, page });
     a.nm = nm;
     this.$emit('nightmode', nm);
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(a, this.data.page[0].grey);
+    const [nc, bc] = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   dayBrightnessSwitchHandler(e) {
-    const p = $page.Switch(e, this);
-    const list = p[3].content;
+    const page = $component.Switch(e, this);
+    const list = page[3].content;
 
     list[4].visible = e.detail.value;
     list[4].hidden = !e.detail.value;
-    this.setData({ page: p });
+    this.setData({ page });
   },
   nightBrightnessSwitchHandler(e) {
-    const p = $page.Switch(e, this);
-    const list = p[3].content;
+    const page = $component.Switch(e, this);
+    const list = page[3].content;
 
     list[6].visible = e.detail.value;
     list[6].hidden = !e.detail.value;
-    this.setData({ page: p });
+    this.setData({ page });
   },
   dayBrightnessHandler(e) {
-    $page.component(e, this);
+    $component.trigger(e, this);
     if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: e.detail.value / 100 });
   },
   nightBrightnessHandler(e) {
-    $page.component(e, this);
+    $component.trigger(e, this);
     if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: e.detail.value / 100 });
   },
   refreshGuide() {
-    tab.resDownload('page');
+    $tab.resDownload('page');
   },
   refreshFunc() {
-    tab.resDownload('function');
+    $tab.resDownload('function');
   }
 });

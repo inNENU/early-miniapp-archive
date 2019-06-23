@@ -52,22 +52,6 @@ $register('about', {
       { tag: 'foot', desc: `当前版本：${a.version}` }
     ]
   },
-  onPreload(res) {
-    /*
-     * const p = this.data.page;
-     * const value = wx.getStorageSync('developMode');
-     */
-
-    /*
-     * this.developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
-     * if (wx.getStorageSync('debugMode')) p[1].content[2].status = true;
-     * if (!this.developMode) p[1].content.forEach((x, y) => {
-     *   x.hidden = !(y === 0);
-     * });
-     * console.log(p, res.query);
-     * if (!$set.resolve(p, a, res.query, this, false)) this.set = true;
-     */
-  },
   onNavigate(res) {
     const p = this.data.page;
     const value = wx.getStorageSync('developMode');

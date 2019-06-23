@@ -7,17 +7,31 @@ $register('main', {
     T: a.T,
     nm: a.nm,
     page: [
-      { tag: 'head', title: '首页', aim: 'main', action: true, aimDepth: 1, grey: true, shareable: true },
+      {
+        tag: 'head', title: '首页', aim: 'main',
+        action: true, aimStep: 1, aimDepth: 1, grey: true
+      },
+      {
+        tag: 'grid',
+        head: '新生你好',
+        content: [
+          { text: '报到流程', icon: 'https://mp.nenuyouth.com/icon/module/list.svg', aim: 'check9' },
+          { text: '需带物品', icon: 'https://mp.nenuyouth.com/icon/module/good.svg', aim: 'check7' },
+          { text: '缴费相关', icon: 'https://mp.nenuyouth.com/icon/module/pay.svg', aim: 'check10' },
+          { text: '防盗防骗', icon: 'https://mp.nenuyouth.com/icon/module/safe.svg', aim: 'check14' }
+        ]
+      },
       {
         tag: 'list',
-        head: '了解学业',
+        head: '报到流程',
         content: [
-          { text: '我要上哪些课？', desc: '课程计划', aim: 'study9' },
-          { text: '通识教育课程', aim: 'study5' },
-          { text: '专业教育课程', aim: 'study6' },
-          { text: '发展方向课程', aim: 'study7' },
-          { text: '了解更多', aim: 'study5' }
-        ]
+          {
+            text: '查看更多',
+            icon: '/icon/tabPage/check.svg',
+            aim: 'check0'
+          }
+        ],
+        foot: ' '
       }
     ]
   },
