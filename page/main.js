@@ -25,21 +25,22 @@ $register('main', {
     const page = wx.getStorageSync('main');
     const color = a.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
-    $page.preSet(a, { aim: 'main' }, page ? page : this.data.page);
+    $page.resolve(a, { aim: 'main' }, page ? page : this.data.page);
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
   },
   onLoad() {
-    $page.Set(a.page.data, a, { aim: 'main' }, this);
+    $page.Set({ a, res: { aim: 'main' }, ctx: this });
 
     const test = wx.getStorageSync('test');
 
-    // 开启测试
+    // 开启测试后展示测试界面
     if (test) $wx.request('config/mainTest', data => {
       wx.setStorageSync('main', data);
-      $page.Set(data, a, { aim: 'main' }, this, false);
+      $page.Set({ a, res: { aim: 'main' }, ctx: this }, data);
     });
+    // 普通界面加载
     else $wx.request(`config/${a.version}/main`, data => {
-      $page.Set(data, a, null, this);
+      $page.Set({ a, res: { aim: 'main' }, ctx: this }, data);
     });
     $page.Notice('main');
   },
@@ -63,7 +64,7 @@ $register('main', {
     ['guide', 'function'].forEach(x => {
       $wx.request(`config/${a.version}/${x}`, data => {
         this.$put(x, data);
-        this.$preload(`${x}?name=${x}&aim=${x}`);
+        console.log(`${x}预加载用时${new Date() - a.date}ms`);
         wx.setStorageSync(x, data);
       });
     });
@@ -75,10 +76,10 @@ $register('main', {
     // 开启测试
     if (test) $wx.request('config/mainTest', data => {
       wx.setStorageSync('main', data);
-      $page.Set(data, a, { aim: 'main' }, this, false);
+      $page.Set({ a, res: { aim: 'main' }, ctx: this }, data);
     });
     else $wx.request(`config/${a.version}/main`, data => {
-      $page.Set(data, a, null, this);
+      $page.Set({ a, res: { aim: 'main' }, ctx: this }, data);
       wx.stopPullDownRefresh();
       wx.setStorageSync('main', data);
     });

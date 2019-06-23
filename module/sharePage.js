@@ -3,7 +3,7 @@ const { globalData: a, lib: { $component, $page, $register } } = getApp();
 
 $register('sharePage', {
   onNavigate(res) {
-    $page.preSet(a, res, this);
+    $page.resolve(a, res, this);
   },
   onLoad(res) {
     if (!this.aim) {

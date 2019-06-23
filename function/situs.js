@@ -6,12 +6,12 @@ $register('situs', {
   onPreload(res) {
     this.xiaoqu = res.query.xiaoqu;
     this.id = res.query.id;
-    $set.preSet($file.readJson(`function/${this.xiaoqu}/${res.query.aim}`), a, res, this, false);
+    $set.resolve($file.readJson(`function/${this.xiaoqu}/${res.query.aim}`), a, res, this, false);
   },
   onLoad(option) {
     if (this.aim === option.aim) {
       console.log(`${this.aim}已加载`);
-      $page.preGetPage(this.data.page);
+      $page.preGet(this.data.page);
       console.info(`preload ${this.aim} finish`);
 
       // 需要重新载入界面
@@ -34,7 +34,7 @@ $register('situs', {
         wx.reportMonitor('0', 1);
 
         // 执行预加载
-        $page.preGetPage(this.data.page);
+        $page.preGet(this.data.page);
         console.log(`${option.aim}界面预加载完成`);
       } else
 
@@ -55,7 +55,7 @@ $register('situs', {
               }
 
               // 执行预加载
-              $page.preGetPage(this.data.page);
+              $page.preGet(this.data.page);
               console.log(`${option.aim}界面预加载完成`);
 
             } else {

@@ -78,7 +78,7 @@ $register('setting', {
     else list[5].hidden = true;
     if (!dayBrightnessChange || a.nm) list[4].hidden = true;
     if (!nightBrightnessChange || !a.nm) list[6].hidden = true;
-    if (!$page.preSet(this.data.page, a, res.query, this, false)) {
+    if (!$page.resolve(this.data.page, a, res.query, this, false)) {
       this.set = true;
       console.log('Settings preload finished, with', this.data.page);
     }
@@ -110,7 +110,7 @@ $register('setting', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    $page.preGetPage(this.data.page);
+    $page.preGet(this.data.page);
   },
   onPageScroll(e) {
     $page.nav(e, this);

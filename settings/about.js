@@ -62,7 +62,7 @@ $register('about', {
       x.hidden = !(y === 0);
     });
     console.log(p, res.query);
-    if (!$set.preSet(p, a, res.query, this, false)) this.set = true;
+    if (!$set.resolve(p, a, res.query, this, false)) this.set = true;
   },
   onLoad(res) {
     if (!this.set) {
@@ -85,11 +85,11 @@ $register('about', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    if (this.set) $page.preGetPage(this.data.page);
+    if (this.set) $page.preGet(this.data.page);
 
     $act.request(`config/${a.version}/about`, data => {
       $set.Set(this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1)), a, null, this);
-      $page.preGetPage(this.data.page);
+      $page.preGet(this.data.page);
     });
 
   },

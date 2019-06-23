@@ -35,7 +35,7 @@ $register('function', {
     ]
   },
   onPreload(res) {
-    $page.preSet(a, { aim: 'function' }, this.$take(res.query.name));
+    $page.resolve(a, { aim: 'function' }, this.$take(res.query.name));
 
     this.set = true;
     console.log(`${this.aim}预加载用时${new Date() - a.date}ms`);

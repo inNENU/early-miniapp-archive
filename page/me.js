@@ -18,7 +18,7 @@ $register('me', {
     ]
   },
   onPreload() {
-    $page.preSet(a, { aim: 'me' }, this.data.page);
+    $page.resolve(a, { aim: 'me' }, this.data.page);
 
     this.set = true;
 

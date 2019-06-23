@@ -3,7 +3,7 @@ const { globalData: a, lib: { $component, $page, $register } } = getApp();
 
 $register('module1', {
   onNavigate(res) {
-    $page.preSet(a, res, this);
+    $page.resolve(a, res, this);
   },
   onLoad(res) {
     $page.Online(a, res, this);

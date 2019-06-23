@@ -45,6 +45,9 @@ $App({
     // 保存启动时间
     this.globalData.date = new Date();
 
+    // 初始化库
+    this.lib.$page.init(this.globalData);
+
     // 如果初次启动执行初始化
     if (!wx.getStorageSync('inited')) app.appInit();
 
