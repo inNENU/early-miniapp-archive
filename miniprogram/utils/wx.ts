@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-06-24 20:55:44
+ * @LastEditTime: 2019-06-25 00:00:30
  */
 
 // 初始化日志管理器
@@ -16,7 +16,7 @@ const logger = wx.getLogManager({ level: 1 });
  * @param [duration=1500] 提示持续时间
  * @param [icon='none'] 提示图标
  */
-const tip = (text: string, duration?: number, icon?: 'success' | 'loading' | 'none') => {
+const tip = (text: string, duration?: number, icon: 'success' | 'loading' | 'none' = 'none') => {
   wx.showToast({ title: text, icon, duration: duration ? duration : 1500 });
 };
 

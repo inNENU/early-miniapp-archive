@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 23:45:45
+ * @LastEditTime: 2019-06-24 23:57:51
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -204,6 +204,7 @@ $register('music', {
       case 2:
         index = index + 1 === total ? 'stop' : index + 1;
         $my.tip('播放完毕');
+        break;
       case 1:
         break;
       case 0:

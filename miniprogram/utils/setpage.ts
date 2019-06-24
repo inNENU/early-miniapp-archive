@@ -350,18 +350,6 @@ const setOnlinePage = (option: any, ctx: any, preload = true) => {
   }
 };
 
-interface ColorResult {
-  0: {
-    frontColor: string;
-    backgroundColor: string;
-  };
-  1: {
-    backgroundColorTop: string;
-    backgroundColor: string;
-    backgroundColorBottom: string;
-  }
-}
-
 /**
  * 设置胶囊与背景颜色
  *

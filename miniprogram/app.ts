@@ -1,5 +1,6 @@
 /* global wx*/
 import $register from 'wxpage';
+import $page from './utils/setpage';
 import app from './utils/app';
 
 const $App = $register.A;
@@ -39,7 +40,7 @@ $App({
     this.globalData.date = new Date();
 
     // 初始化库
-    this.lib.$page.init(this.globalData);
+    $page.init(this.globalData);
 
     // 如果初次启动执行初始化
     if (!wx.getStorageSync('inited')) app.appInit();
