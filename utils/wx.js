@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-06-22 20:54:16
+ * @LastEditTime: 2019-06-24 09:59:36
  */
 
 // 初始化日志管理器
@@ -55,7 +55,7 @@ const netWorkReport = () => {
     fail: () => {
       tip('网络连接出现问题，请稍后重试');
 
-      logger.error('Request fail and cannot get networkType');
+      logger.warn('Request fail and cannot get networkType');
     }
   });
 };

@@ -1,5 +1,6 @@
 /* global wx*/
-const $App = require('./utils/wxpage').A;
+const $App = require('wxpage').A;
+// const $App = require('./utils/wxpage').A;
 const app = require('./utils/app');
 
 // Var worker = wx.createWorker("worker/worker.js") //worker test
@@ -22,7 +23,8 @@ $App({
     $component: require('./utils/component'),
     $file: require('./utils/file'),
     $page: require('./utils/setpage'),
-    $register: require('./utils/wxpage'),
+    $register: require('wxpage'),
+    // $register: require('./utils/wxpage'),
     $wx: require('./utils/wx')
   },
 
