@@ -2,15 +2,15 @@
 
 const jsdoc2md = require('jsdoc-to-markdown');
 
-jsdoc2md.render({ files: 'lib/*.js' }).then(console.log);
+jsdoc2md.render({ files: 'miniprogram/utils/*.ts' }).then(console.log);
 
 module.exports = {
   plugins: ['plugins/markdown'],
   'recurseDepth': 10,
   'source': {
-    'include': ['./lib'],
+    'include': ['./miniprogram/utils'],
     'exclude': [],
-    'includePattern': '.+\\.js(doc|x)?$',
+    'includePattern': '.+\\.ts(doc|x)?$',
     'excludePattern': '(^|\\/|\\\\)_'
   },
   'sourceType': 'module',
