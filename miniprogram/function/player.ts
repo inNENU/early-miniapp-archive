@@ -1,4 +1,16 @@
-const { globalData: a, lib: { $component, $file, $page, $register, $wx } } = getApp();
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-06-24 21:20:57
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-06-24 23:45:45
+ * @Description: 音乐播放器
+ */
+import $register from 'wxpage';
+import $component from '../utils/component';
+import $file from '../utils/file';
+import $page from '../utils/setpage';
+import $my from '../utils/wx';
+const { globalData: a } = getApp();
 const manager = wx.getBackgroundAudioManager();
 
 $register('music', {
@@ -12,7 +24,7 @@ $register('music', {
   onNavigate() {
     const songList = $file.readJson('function/song');
 
-    if (!songList) $wx.request('function/song', (data: any) => {
+    if (!songList) $my.request('function/song', (data: any) => {
       // 写入JSON文件
       $file.writeJson('function', 'song', data);
     });
@@ -35,7 +47,7 @@ $register('music', {
     const mode = wx.getStorageSync('playMode');
 
     // 写入基本信息
-    this.setData({
+    this.setData!({
       share: option.share ? option.share : false,
       index,
       info: a.info,
@@ -48,10 +60,10 @@ $register('music', {
     if (songList) {
       // 写入歌曲列表与当前歌曲信息
       currentSong = songList[index];
-      this.setData({ songList, currentSong });
+      this.setData!({ songList, currentSong });
 
       // 如果正在播放，设置能够播放
-      if (a.music.played) this.setData({ canplay: true });
+      if (a.music.played) this.setData!({ canplay: true });
 
       // 对音频管理器进行设置
       else {
@@ -63,12 +75,12 @@ $register('music', {
       }
 
       // 在线获取歌曲列表
-    } else $wx.request('function/song', (data: any) => {
+    } else $my.request('function/song', (data: any) => {
       currentSong = data[index];
-      this.setData({ songList: data, currentSong });
+      this.setData!({ songList: data, currentSong });
 
       // 如果正在播放，设置能够播放
-      if (a.music.played) this.setData({ canplay: true });
+      if (a.music.played) this.setData!({ canplay: true });
 
       // 对音频管理器进行设置
       else {
@@ -87,18 +99,18 @@ $register('music', {
     manager.onCanplay(() => {
       setTimeout(() => {
         console.log('Canplay'); // 调试
-        this.setData({ canplay: true });
+        this.setData!({ canplay: true });
       }, 100)
     });
 
     // 在相应动作时改变状态
     manager.onPlay(() => {
-      this.setData({ play: true });
+      this.setData!({ play: true });
       a.music.play = true;
     });
 
     manager.onPause(() => {
-      this.setData({ play: false });
+      this.setData!({ play: false });
       a.music.play = false;
     });
 
@@ -114,7 +126,7 @@ $register('music', {
       const totalSecond = Math.round(manager.duration % 60).toString();
 
       // 更新歌曲信息
-      this.setData({
+      this.setData!({
         songLength: Math.round(manager.duration * 100) / 100,
         total: [
           Math.round(manager.duration / 60).toString(),
@@ -136,7 +148,7 @@ $register('music', {
     // 缓冲中
     manager.onWaiting(() => {
       console.warn('waiting');
-      this.setData({ canplay: false });
+      this.setData!({ canplay: false });
     });
 
     manager.onPrev(() => {
@@ -153,11 +165,11 @@ $register('music', {
     });
 
     manager.onError(() => {
-      $wx.tip('获取音乐出错，请稍后重试');
+      $my.tip('获取音乐出错，请稍后重试');
     });
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(false);
+    const { nc, bc } = $page.color(false);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -165,7 +177,7 @@ $register('music', {
     $page.Notice('music');
   },
   loadCover(event: any) { // 加载封面
-    if (event.type === 'load') this.setData({ coverLoad: true });
+    if (event.type === 'load') this.setData!({ coverLoad: true });
   },
   play() { // 播放
     if (this.data.play) manager.pause();
@@ -174,7 +186,7 @@ $register('music', {
   drag(event: any) { // 拖拽进度
     manager.seek(event.detail.value / 100);
     if (event.type === 'change') {
-      this.setData({ currentTime: event.detail.value / 100 });
+      this.setData!({ currentTime: event.detail.value / 100 });
       console.log(event.detail.value); // 调试
     }
   },
@@ -191,7 +203,7 @@ $register('music', {
         break;
       case 2:
         index = index + 1 === total ? 'stop' : index + 1;
-        $wx.tip('播放完毕');
+        $my.tip('播放完毕');
       case 1:
         break;
       case 0:
@@ -213,7 +225,7 @@ $register('music', {
       case 2:
         if (index + 1 === total) {
           index = 'nothing';
-          $wx.tip('已是最后一曲');
+          $my.tip('已是最后一曲');
         } else index += 1;
         break;
       case 1:
@@ -236,7 +248,7 @@ $register('music', {
       case 2:
         if (index === 0) {
           index = 'nothing';
-          $wx.tip('已是第一曲');
+          $my.tip('已是第一曲');
         } else index -= 1;
         break;
       case 1:
@@ -248,7 +260,7 @@ $register('music', {
   Switch(index: any) { // 切换歌曲
     if (index === 'stop') {
 
-      this.setData({
+      this.setData!({
         play: false,
         canPlay: false
       });
@@ -259,7 +271,7 @@ $register('music', {
 
       const currentSong = this.data.songList[index];
 
-      this.setData({
+      this.setData!({
         index,
         currentSong,
         play: false,
@@ -277,7 +289,7 @@ $register('music', {
     let modeName;
     const mode = this.data.mode === 3 ? 0 : this.data.mode + 1;
 
-    this.setData({ mode });
+    this.setData!({ mode });
     switch (mode) {
       case 1: modeName = '单曲循环';
         break;
@@ -290,10 +302,10 @@ $register('music', {
         modeName = '列表循环';
     }
     wx.setStorageSync('playMode', mode);
-    $wx.tip(`${modeName}模式`);
+    $my.tip(`${modeName}模式`);
   },
   list() { // 切换列表显隐
-    this.setData({ songListDisplay: !this.data.songListDisplay });
+    this.setData!({ songListDisplay: !this.data.songListDisplay });
   },
   change(res: any) { // 点击列表具体歌曲项时触发
     this.list();

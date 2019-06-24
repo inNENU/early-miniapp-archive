@@ -1,10 +1,6 @@
 /* global wx*/
-import app from './utils/app';
-import $component from './utils/component';
-import $file from './utils/file';
-import $page from './utils/setpage';
 import $register from 'wxpage';
-import $wx from './utils/wx';
+import app from './utils/app';
 
 const $App = $register.A;
 
@@ -22,9 +18,6 @@ $App({
     }
     // T, nm, date, info也在globalData中
   },
-
-  // 在APP中封装js库对象
-  lib: { $component, $file, $page, $register, $wx },
 
   // 路径解析配置
   config: {

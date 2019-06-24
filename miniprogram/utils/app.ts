@@ -1,6 +1,6 @@
 // 初始化文件管理器、日志管理器
 import $file from './file';
-import $wx from './wx';
+import $my from './wx';
 const logger = wx.getLogManager({ level: 1 });
 
 interface AppOption {
@@ -62,7 +62,7 @@ const resDownload = (list: string[]) => {
 
       // 下载失败
       fail: failMsg => {
-        $wx.netReport();
+        $my.netReport();
         console.error(`download ${name} fail:`, failMsg);
         logger.warn(`初始化小程序时下载${name}失败`);
       }
@@ -134,7 +134,7 @@ interface NoticeList {
  */
 const noticeCheck = (version: string) => {
 
-  $wx.request(`config/${version}/notice`, data => {
+  $my.request(`config/${version}/notice`, data => {
     const noticeList = data as NoticeList
     const category = Object.keys(noticeList);
 
@@ -229,13 +229,13 @@ const appUpdate = () => {
   updateManager.onCheckForUpdate(status => {
 
     // 找到更新，提示用户获取到更新
-    if (status.hasUpdate) $wx.tip('发现小程序更新，下载中...');
+    if (status.hasUpdate) $my.tip('发现小程序更新，下载中...');
   });
 
   updateManager.onUpdateReady(() => {
 
     // 请求配置文件
-    $wx.request('config/config', data => {
+    $my.request('config/config', data => {
       ({ forceUpdate, reset, version } = data as VersionInfo);
 
       // 更新下载就绪，提示用户重新启动
@@ -275,7 +275,7 @@ const appUpdate = () => {
   updateManager.onUpdateFailed(() => {
 
     // 提示用户网络出现问题
-    $wx.tip('小程序更新下载失败，请检查您的网络！');
+    $my.tip('小程序更新下载失败，请检查您的网络！');
 
     // 调试
     console.warn('Update failure');
@@ -294,7 +294,7 @@ const startup = (version: string) => {
 
   // 设置内存不足警告
   wx.onMemoryWarning(() => {
-    $wx.tip('内存不足');
+    $my.tip('内存不足');
     console.warn('onMemoryWarningReceive');
   });
 
@@ -303,7 +303,7 @@ const startup = (version: string) => {
     success: res => {
       const { networkType } = res;
 
-      if (networkType === 'none' || networkType === 'unknown') $wx.tip('您的网络状态不佳');
+      if (networkType === 'none' || networkType === 'unknown') $my.tip('您的网络状态不佳');
     }
   });
 
@@ -312,17 +312,17 @@ const startup = (version: string) => {
 
     // 显示提示
     if (!res.isConnected) {
-      $wx.tip('网络连接中断,部分小程序功能暂不可用');
+      $my.tip('网络连接中断,部分小程序功能暂不可用');
       wx.setStorageSync('networkError', true);
     } else if (wx.getStorageSync('network')) {
       wx.setStorageSync('networkError', false);
-      $wx.tip('网络链接恢复');
+      $my.tip('网络链接恢复');
     }
   });
 
   // 监听用户截屏
   wx.onUserCaptureScreen(() => {
-    $wx.tip('您可以点击右上角——转发或点击页面右下角——保存二维码分享小程序');
+    $my.tip('您可以点击右上角——转发或点击页面右下角——保存二维码分享小程序');
   });
 
   // 检查通知更新与小程序更新

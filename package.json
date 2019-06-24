@@ -6,7 +6,6 @@
     "tsc": "node ./node_modules/typescript/lib/tsc.js"
   },
   "devDependencies": {
-    "@types/node": "^12.0.10",
     "typescript": "^3.5.2"
   }
 }

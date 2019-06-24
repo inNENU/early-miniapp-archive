@@ -1,4 +1,4 @@
-import $wx from './wx';
+import $my from './wx';
 
 const logger = wx.getLogManager({ level: 1 });
 
@@ -159,7 +159,7 @@ const documentHandler = (res: any) => {
       // 下载失败，隐藏下载提示告知用户下载失败并上报
       fail: () => {
         wx.hideLoading();
-        $wx.tip('文档下载失败');
+        $my.tip('文档下载失败');
         wx.reportMonitor('9', 1);
       }
     });
@@ -236,7 +236,7 @@ const share = (res: any, ctx: any) => {
     // 下载二维码
     if (res.target.dataset.object === 'download') {
       console.log('Start QRCode download.');// 调试
-      $wx.downLoad(`img/share/${ctx.data.page[0].aim}.jpg`, path => {
+      $my.downLoad(`img/share/${ctx.data.page[0].aim}.jpg`, path => {
         wx.getSetting({// 获取用户设置
           success: res2 => {
 
@@ -245,14 +245,14 @@ const share = (res: any, ctx: any) => {
               wx.saveImageToPhotosAlbum({
                 filePath: path,
                 success: () => {
-                  $wx.tip('二维码保存成功');
+                  $my.tip('二维码保存成功');
 
                   // 调试
                   logger.debug('二维码保存成功');
                   wx.reportMonitor('8', 1);
                 },
                 fail: msg => {
-                  $wx.tip('二维码保存失败');
+                  $my.tip('二维码保存失败');
 
                   // 调试
                   console.warn('二维码保存失败:', msg);
@@ -270,13 +270,13 @@ const share = (res: any, ctx: any) => {
                 wx.saveImageToPhotosAlbum({
                   filePath: path,
                   success: () => {
-                    $wx.tip('二维码保存成功');
+                    $my.tip('二维码保存成功');
 
                     // 调试
                     wx.reportMonitor('8', 1);
                   },
                   fail: msg => {
-                    $wx.tip('二维码保存失败');
+                    $my.tip('二维码保存失败');
 
                     // 调试
                     console.warn('二维码保存失败:', msg);
@@ -292,7 +292,7 @@ const share = (res: any, ctx: any) => {
                   title: '权限被拒', content: '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
                   showCancel: false, confirmText: '确定', confirmColor: '#3CC51F',
                   complete: () => {
-                    $wx.tip('二维码保存失败');
+                    $my.tip('二维码保存失败');
 
                     // 调试
                     logger.warn('用户拒绝相册授权');
@@ -303,14 +303,14 @@ const share = (res: any, ctx: any) => {
           }
         });
       }, () => {
-        $wx.tip('二维码下载失败');
+        $my.tip('二维码下载失败');
 
         // 调试
         console.warn(`下载二维码失败${ctx.data.page[0].aim}`);
         logger.warn(`下载二维码失败${ctx.data.page[0].aim}`);
         wx.reportMonitor('6', 1);
       }, statusCode => {
-        $wx.tip('二维码下载失败，服务器出错');
+        $my.tip('二维码下载失败，服务器出错');
 
         // 调试
         console.warn(`二维码状态码异常:${statusCode}`);
@@ -328,11 +328,11 @@ const share = (res: any, ctx: any) => {
  */
 const video = (res: any) => {
   console.info(`视频状态为${res.type}`); // 输出视频组件状态
-  if (res.type === 'waiting') $wx.tip('缓冲中..');// 视频缓冲时提示用户等待
+  if (res.type === 'waiting') $my.tip('缓冲中..');// 视频缓冲时提示用户等待
   else if (res.type === 'play') wx.hideToast(); // 正常播放时隐藏提示
   // 提示用户播放错误
   else if (res.type === 'error') {
-    $wx.tip('视频加载出错');
+    $my.tip('视频加载出错');
 
     // 调试
     wx.reportMonitor('5', 1);

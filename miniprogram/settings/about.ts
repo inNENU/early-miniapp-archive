@@ -2,11 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 21:02:29
+ * @LastEditTime: 2019-06-24 23:52:32
  * @Description: 关于
  */
-import { WXPage } from 'wxpage';
-const { globalData: a, lib: { $component, $file, $page, $register, $wx } } = getApp();
+import $register, { WXPage } from 'wxpage';
+import $component from '../utils/component';
+import $file from '../utils/file';
+import $page from '../utils/setpage';
+import $my from '../utils/wx';
+const { globalData: a } = getApp();
 
 $register('about', {
   clickNumber: 0,
@@ -87,13 +91,13 @@ $register('about', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    $wx.request(`config/${a.version}/about`, (data: object) => {
+    $my.request(`config/${a.version}/about`, (data: object) => {
       $page.Set(
         { option: { aim: 'about' }, ctx: this },
         this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1))
@@ -113,34 +117,34 @@ $register('about', {
       this.data.page[1].content.forEach((x: any, y: number) => {
         x.hidden = !(y === 0);
       });
-      this.setData({ page: this.data.page });
+      this.setData!({ page: this.data.page });
       this.clickNumber = 0;
       this.developMode = false;
     } else if (this.clickNumber < 5) this.clickNumber += 1;
     else if (this.clickNumber < 10) {
-      $wx.tip(`再点击${10 - this.clickNumber}次即可启用开发者模式`);
+      $my.tip(`再点击${10 - this.clickNumber}次即可启用开发者模式`);
       this.clickNumber += 1;
     } else {
-      this.setData({ debug: true });
+      this.setData!({ debug: true });
       wx.nextTick(() => {
-        this.setData({ focus: true });
+        this.setData!({ focus: true });
       });
     }
   },
   password(e: any) {
     if (e.detail.value.length === 7) {
       if (e.detail.value === '5201314') { // 密码正确
-        $wx.tip('已启用开发者模式');
+        $my.tip('已启用开发者模式');
         this.data.page[1].content.forEach((x: any) => {
           x.hidden = false;
         });
-        this.setData({ page: this.data.page, debug: false });
+        this.setData!({ page: this.data.page, debug: false });
         wx.setStorageSync('developMode', true);
         this.developMode = true;
 
       } else { // 密码错误
         wx.showToast({ title: '密码错误', icon: 'none', duration: 1000, image: '/icon/close.png' });
-        this.setData({ debug: false });
+        this.setData!({ debug: false });
       }
       e.detail.value = '';
     }
@@ -148,24 +152,24 @@ $register('about', {
     return e.detail.value;
   },
   cancelInput() {
-    this.setData({ debug: false });
+    this.setData!({ debug: false });
   },
   debugSwitch(e: any) {
     const pos = e.target.dataset.id.split('-');
 
     this.data.page[pos[0]].content[pos[1]].status = e.detail.value;
-    this.setData({ page: this.data.page });
+    this.setData!({ page: this.data.page });
     wx.setStorageSync('debugMode', e.detail.value);
     if (e.detail.value) wx.setEnableDebug({ enableDebug: true });
     else wx.setEnableDebug({ enableDebug: false });
   },
   testSwitch(res: any) {
     $component.trigger(res, this);
-    $wx.tip(`已${res.detail.value ? '启用' : '关闭'}测试功能`);
+    $my.tip(`已${res.detail.value ? '启用' : '关闭'}测试功能`);
   },
   deleteData() {
     wx.clearStorageSync();
-    $wx.tip('数据清除完成');
+    $my.tip('数据清除完成');
   },
   deleteFile() {
     wx.showLoading({ title: '删除中', mask: true });

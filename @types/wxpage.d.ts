@@ -26,9 +26,10 @@ declare module 'wxpage' {
     interface PageOption extends Page.PageInstance {
       onNavigate?(arg: PageArg): void;
       onPreload?(arg: PageArg): void;
-      $state: State;
-      $emitter: Emitter;
+      $state?: State;
+      $emitter?: Emitter;
       [props: string]: any;
+      // setData?(data: object, callback?: () => void): void;
     }
     /** APP选项 */
     interface AppOption extends App.AppInstance {

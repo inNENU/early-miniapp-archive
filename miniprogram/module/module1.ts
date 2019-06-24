@@ -1,5 +1,6 @@
-import { WXPage } from 'wxpage';
-const { lib: { $component, $page, $register } } = getApp();
+import $register, { WXPage } from 'wxpage';
+import $component from '../utils/component';
+import $page from '../utils/setpage';
 
 $register('module1', {
   onNavigate(res: WXPage.PageArg) {
@@ -10,7 +11,7 @@ $register('module1', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

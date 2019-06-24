@@ -8,7 +8,7 @@
 /* global wx */
 import $file from './file';
 import $page from './setpage';
-import $wx from './wx';
+import $my from './wx';
 
 // 初始化文件管理器、日志管理器
 const logger = wx.getLogManager({ level: 1 });
@@ -74,7 +74,7 @@ const checkResUpdate = (name: string, dataUsage: string) => {
   console.log(`${name}更新于${localTime}, 现在时间是${currentTime}`);
 
   if (notify || currentTime > localTime + 1000000)// 如果需要更新
-    $wx.request(`${name}Version`, data => {
+    $my.request(`${name}Version`, data => {
 
       // 资源为最新
       if (Number(localVersion) === Number(data)) console.info(`${name}Version match`);// 调试
@@ -140,12 +140,12 @@ const refreshPage = (name: string, ctx: any, globalData: any) => {
   const test = wx.getStorageSync('test');
 
   // 开启测试后展示测试界面
-  if (test) $wx.request(`config/${name}Test`, data => {
+  if (test) $my.request(`config/${name}Test`, data => {
     wx.setStorageSync(name, data);
     $page.Set({ option: { aim: name }, ctx }, data);
   });
   // 普通界面加载
-  else $wx.request(`config/${globalData.version}/${name}`, data => {
+  else $my.request(`config/${globalData.version}/${name}`, data => {
     $page.Set({ option: { aim: name }, ctx }, data);
   });
 };
@@ -228,7 +228,7 @@ const markerSet = () => {
       console.log('get Marker error');
       logger.warn('get Marker error');
 
-      $wx.request('function/marker', data => {
+      $my.request('function/marker', data => {
         // 将Marker数据保存文件
         $file.writeJson('function', 'marker', data);
 

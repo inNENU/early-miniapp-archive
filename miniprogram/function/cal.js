@@ -1,186 +1,141 @@
-/* global wx getApp*/
-const { globalData: a, lib: { $component, $file, $register, $page } } = getApp();
-
-
-$register('cal', {
-  data: {
-    page: [
-      { tag: 'head', title: '绩点计算(beta)', leftText: '功能大厅' },
-      { tag: 'title', text: '绩点计算器' }
-    ],
-    grade: [],
-    // 在这里必须定义一个grade的空数组
-    totalCredit: null,
-    gradePointAverage: null,
-    editText: '编辑',
-    display: false
-  },
-  onLoad() {
-    $page.Set({ ctx: this }, this.data.page);
-
-    // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(false);
-
-    wx.setNavigationBarColor(nc);
-    wx.setBackgroundColor(bc);
-  },
-  addNew() {
-    const { length } = this.data.grade;
-    // 获取grade内包含的个数，以便生成新的id
-    const gradeNew = this.data.grade.concat({
-      id: length,
-      course: null,
-      courseFocus: false,
-      grade: null,
-      gradeFocus: false,
-      credit: null,
-      creditFocus: false
-    });
-
-    // 向grade最后插入一个新元素
-    this.setData({ grade: gradeNew });
-    // 对data赋值
-  },
-  input(e) {
-    console.log(e);
-    const { grade } = this.data;
-
-    /*
-     * 获取grade
-     * console.log(Number(e.detail.value));
-     */
-    const { id } = e.currentTarget.dataset;
-    const target = e.currentTarget.dataset.class;
-
-    // 获取正在输入的输入框id  获取正在输入对象
-    grade[id][`${target}Focus`] = true;
-    console.log(e.detail.value.length);
-
-    /*
-     * If (e.detail.value.length < e.currentTarget.dataset.maxLength) {
-     *   grade[id][target + 'Focus'] = true;
-     * } else {
-     *   grade[id][target + 'Focus'] = false;
-     * }
-     */
-    if (Number(e.detail.value)) grade[id][target] = Number(e.detail.value);
-    // 如果value可以转换为number，得到对应课程的grade数组并对其中的相应对象赋值数字
-    else grade[id][target] = e.detail.value;
-    // 如果value无法转换为number，得到对应课程的grade数组并对其中的相应对象赋值字符
-    console.log(grade);
-    this.setData({ grade });
-    // 将新值写回data中
-  },
-  next(e) {
-    const { grade } = this.data;
-    const { id } = e.currentTarget.dataset;
-
-    grade[id].gradeFocus = true;
-    this.setData({ grade });
-  },
-  edit() {
-    const editText = this.data.display ? '编辑' : '完成';
-
-    this.setData({
-      display: !this.data.display,
-      editText
-    });
-  },
-  sort(e) {
-    console.log(e);
-  },
-  remove(e) {
-    console.log(e);
-    const currentID = e.target.id[e.target.id.length - 1];
-    const { grade } = this.data;
-
-    console.log(`currentID是${currentID};grade是${grade}`);
-    grade.splice(currentID, 1);
-    console.log(`新grade是${grade}`);
-    for (let i = 0; i < grade.length; i++)
-      grade[i].id = i;
-
-    // 重新设定id
-    this.setData({ grade });
-  },
-  calculate() {
-    const courseNumber = this.data.grade.length;
-
-    // 获得课程数
-    console.log(`课程数是${courseNumber}`);
-
-    let totalCredit = 0;
-    let totalGradeCal = 0;
-    let flunkingCredit = 0;
-    let flunkingGradeCal = 0;
-
-    for (let i = 0; i < courseNumber; i++) {
-      const { grade } = this.data.grade[i];
-      const { credit } = this.data.grade[i];
-
-      if (grade !== 0 && grade && credit && credit !== 0)
-        // 判断grade和credit是否均有值
-        if (grade < 60) {
-          // 单独列出不及格的学分和成绩,且只有大于50分绩点为正值才计算。
-          flunkingCredit = credit + flunkingCredit;
-          if (grade > 50)
-            flunkingGradeCal = (grade - 50) / 10 * credit + flunkingGradeCal;
-
-        } else {
-          // 及格的学分和成绩
-          totalCredit = credit + totalCredit;
-          totalGradeCal = (grade - 50) / 10 * credit + totalGradeCal;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var wxpage_1 = require("wxpage");
+var component_1 = require("../utils/component");
+var setpage_1 = require("../utils/setpage");
+wxpage_1.default('cal', {
+    data: {
+        page: [
+            { tag: 'head', title: '绩点计算(beta)', leftText: '功能大厅' },
+            { tag: 'title', text: '绩点计算器' }
+        ],
+        grade: [],
+        totalCredit: null,
+        gradePointAverage: null,
+        editText: '编辑',
+        display: false
+    },
+    onLoad: function (option) {
+        setpage_1.default.Set({ option: option, ctx: this });
+        var _a = setpage_1.default.color(false), nc = _a.nc, bc = _a.bc;
+        wx.setNavigationBarColor(nc);
+        wx.setBackgroundColor(bc);
+    },
+    addNew: function () {
+        var length = this.data.grade.length;
+        var gradeNew = this.data.grade.concat({
+            id: length,
+            course: null,
+            courseFocus: false,
+            grade: null,
+            gradeFocus: false,
+            credit: null,
+            creditFocus: false
+        });
+        this.setData({ grade: gradeNew });
+    },
+    input: function (e) {
+        console.log(e);
+        var grade = this.data.grade;
+        var id = e.currentTarget.dataset.id;
+        var target = e.currentTarget.dataset.class;
+        grade[id][target + "Focus"] = true;
+        console.log(e.detail.value.length);
+        if (Number(e.detail.value))
+            grade[id][target] = Number(e.detail.value);
+        else
+            grade[id][target] = e.detail.value;
+        console.log(grade);
+        this.setData({ grade: grade });
+    },
+    next: function (e) {
+        var grade = this.data.grade;
+        var id = e.currentTarget.dataset.id;
+        grade[id].gradeFocus = true;
+        this.setData({ grade: grade });
+    },
+    edit: function () {
+        var editText = this.data.display ? '编辑' : '完成';
+        this.setData({
+            display: !this.data.display,
+            editText: editText
+        });
+    },
+    sort: function (e) {
+        console.log(e);
+    },
+    remove: function (e) {
+        console.log(e);
+        var currentID = e.target.id[e.target.id.length - 1];
+        var grade = this.data.grade;
+        console.log("currentID\u662F" + currentID + ";grade\u662F" + grade);
+        grade.splice(currentID, 1);
+        console.log("\u65B0grade\u662F" + grade);
+        for (var i = 0; i < grade.length; i++)
+            grade[i].id = i;
+        this.setData({ grade: grade });
+    },
+    calculate: function () {
+        var _this = this;
+        var courseNumber = this.data.grade.length;
+        console.log("\u8BFE\u7A0B\u6570\u662F" + courseNumber);
+        var totalCredit = 0;
+        var totalGradeCal = 0;
+        var flunkingCredit = 0;
+        var flunkingGradeCal = 0;
+        for (var i = 0; i < courseNumber; i++) {
+            var grade = this.data.grade[i].grade;
+            var credit = this.data.grade[i].credit;
+            if (grade !== 0 && grade && credit && credit !== 0)
+                if (grade < 60) {
+                    flunkingCredit = credit + flunkingCredit;
+                    if (grade > 50)
+                        flunkingGradeCal = (grade - 50) / 10 * credit + flunkingGradeCal;
+                }
+                else {
+                    totalCredit = credit + totalCredit;
+                    totalGradeCal = (grade - 50) / 10 * credit + totalGradeCal;
+                }
         }
-
+        console.log("\u603B\u5B66\u5206\u662F" + totalCredit);
+        console.log("\u603B\u8BA1\u7B97\u662F" + totalGradeCal);
+        console.log("\u6302\u79D1\u5B66\u5206\u662F" + flunkingCredit);
+        console.log("\u603B\u6302\u79D1\u8BA1\u7B97\u662F" + flunkingGradeCal);
+        if (Number(flunkingCredit) === 0) {
+            console.log('都及格了');
+            this.setData({
+                totalCredit: totalCredit,
+                gradePointAverage: totalGradeCal / totalCredit
+            });
+            console.log(totalCredit);
+            console.log(totalGradeCal / totalCredit);
+        }
+        else
+            wx.showModal({
+                title: '请选择计算方式',
+                content: '平均绩点是否包含未达到60的成绩？\n★为建议项',
+                cancelText: '包含',
+                cancelColor: '#ff0000',
+                confirmText: '排除★',
+                success: function (res) {
+                    if (res.cancel) {
+                        totalCredit += flunkingCredit;
+                        totalGradeCal += flunkingGradeCal;
+                        console.log('不及格学分成绩被计入');
+                        console.log("\u65B0\u603B\u5B66\u5206\u662F" + totalCredit);
+                        console.log("\u65B0\u603B\u8BA1\u7B97\u662F" + totalGradeCal);
+                    }
+                    else if (res.confirm)
+                        console.log('都及格了');
+                    _this.setData({ totalCredit: totalCredit, gradePointAverage: totalGradeCal / totalCredit });
+                }
+            });
+    },
+    onPageScroll: function (e) {
+        component_1.default.nav(e, this);
+    },
+    cA: function (e) {
+        component_1.default.trigger(e, this);
     }
-    console.log(`总学分是${totalCredit}`);
-    console.log(`总计算是${totalGradeCal}`);
-    console.log(`挂科学分是${flunkingCredit}`);
-    console.log(`总挂科计算是${flunkingGradeCal}`);
-    if (Number(flunkingCredit) === 0) {
-      console.log('都及格了');
-      // 如果都及格什么也不做
-      this.setData({
-        totalCredit,
-        gradePointAverage: totalGradeCal / totalCredit
-      });
-      console.log(totalCredit);
-      console.log(totalGradeCal / totalCredit);
-      // 向data赋值计算结果
-    } else wx.showModal({
-      // 弹窗让用户选择
-      title: '请选择计算方式',
-      content: '平均绩点是否包含未达到60的成绩？\n★为建议项',
-      cancelText: '包含',
-      cancelColor: '#ff0000',
-      confirmText: '排除★',
-      success: res => {
-        if (res.cancel) {
-          // 包含不及格成绩
-          totalCredit += flunkingCredit;
-          totalGradeCal += flunkingGradeCal;
-          // 写入不及格学分与成绩计算
-          console.log('不及格学分成绩被计入');
-          console.log(`新总学分是${totalCredit}`);
-          console.log(`新总计算是${totalGradeCal}`);
-        } else if (res.confirm)
-          console.log('都及格了');
-
-        /*
-         * 不包含不及格成绩，什么都不做
-         * console.log(totalCredit)
-         * console.log(totalGradeCal / totalCredit)
-         */
-        // 向data赋值计算结果
-        this.setData({ totalCredit, gradePointAverage: totalGradeCal / totalCredit });
-      }
-    });
-
-  },
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(e) {
-    $component.trigger(e, this);
-  }
 });
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2FsLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiY2FsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBT0EsaUNBQStCO0FBQy9CLGdEQUE0QztBQUM1Qyw0Q0FBcUM7QUFFckMsZ0JBQVMsQ0FBQyxLQUFLLEVBQUU7SUFDZixJQUFJLEVBQUU7UUFDSixJQUFJLEVBQUU7WUFDSixFQUFFLEdBQUcsRUFBRSxNQUFNLEVBQUUsS0FBSyxFQUFFLFlBQVksRUFBRSxRQUFRLEVBQUUsTUFBTSxFQUFFO1lBQ3RELEVBQUUsR0FBRyxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsT0FBTyxFQUFFO1NBQ2hDO1FBQ0QsS0FBSyxFQUFFLEVBQUU7UUFFVCxXQUFXLEVBQUUsSUFBSTtRQUNqQixpQkFBaUIsRUFBRSxJQUFJO1FBQ3ZCLFFBQVEsRUFBRSxJQUFJO1FBQ2QsT0FBTyxFQUFFLEtBQUs7S0FDZjtJQUNELE1BQU0sRUFBTixVQUFPLE1BQVc7UUFDaEIsaUJBQUssQ0FBQyxHQUFHLENBQUMsRUFBRSxNQUFNLFFBQUEsRUFBRSxHQUFHLEVBQUUsSUFBSSxFQUFFLENBQUMsQ0FBQztRQUczQixJQUFBLG1DQUErQixFQUE3QixVQUFFLEVBQUUsVUFBeUIsQ0FBQztRQUV0QyxFQUFFLENBQUMscUJBQXFCLENBQUMsRUFBRSxDQUFDLENBQUM7UUFDN0IsRUFBRSxDQUFDLGtCQUFrQixDQUFDLEVBQUUsQ0FBQyxDQUFDO0lBQzVCLENBQUM7SUFDRCxNQUFNLEVBQU47UUFDVSxJQUFBLCtCQUFNLENBQXFCO1FBRW5DLElBQU0sUUFBUSxHQUFHLElBQUksQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLE1BQU0sQ0FBQztZQUN0QyxFQUFFLEVBQUUsTUFBTTtZQUNWLE1BQU0sRUFBRSxJQUFJO1lBQ1osV0FBVyxFQUFFLEtBQUs7WUFDbEIsS0FBSyxFQUFFLElBQUk7WUFDWCxVQUFVLEVBQUUsS0FBSztZQUNqQixNQUFNLEVBQUUsSUFBSTtZQUNaLFdBQVcsRUFB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QUcsQ0FBQyxDQUFDLEVBQUUsSUFBSSxDQUFDLENBQUM7SUFDMUIsQ0FBQztJQUNELEVBQUUsRUFBRixVQUFHLENBQU07UUFDUCxtQkFBVSxDQUFDLE9BQU8sQ0FBQyxDQUFDLEVBQUUsSUFBSSxDQUFDLENBQUM7SUFDOUIsQ0FBQztDQUNGLENBQUMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKiBAQXV0aG9yOiBNci5Ib3BlXG4gKiBARGF0ZTogMjAxOS0wNi0yNCAyMzo0NzoyMVxuICogQExhc3RFZGl0b3JzOiBNci5Ib3BlXG4gKiBATGFzdEVkaXRUaW1lOiAyMDE5LTA2LTI0IDIzOjU0OjUwXG4gKiBARGVzY3JpcHRpb246IOe7qeeCueiuoeeul1xuICovXG5pbXBvcnQgJHJlZ2lzdGVyIGZyb20gJ3d4cGFnZSc7XG5pbXBvcnQgJGNvbXBvbmVudCBmcm9tICcuLi91dGlscy9jb21wb25lbnQnO1xuaW1wb3J0ICRwYWdlIGZyb20gJy4uL3V0aWxzL3NldHBhZ2UnO1xuXG4kcmVnaXN0ZXIoJ2NhbCcsIHtcbiAgZGF0YToge1xuICAgIHBhZ2U6IFtcbiAgICAgIHsgdGFnOiAnaGVhZCcsIHRpdGxlOiAn57up54K56K6h566XKGJldGEpJywgbGVmdFRleHQ6ICflip/og73lpKfljoUnIH0sXG4gICAgICB7IHRhZzogJ3RpdGxlJywgdGV4dDogJ+e7qeeCueiuoeeul+WZqCcgfVxuICAgIF0sXG4gICAgZ3JhZGU6IFtdLFxuICAgIC8vIOWcqOi/memHjOW/hemhu+WumuS5ieS4gOS4qmdyYWRl55qE56m65pWw57uEXG4gICAgdG90YWxDcmVkaXQ6IG51bGwsXG4gICAgZ3JhZGVQb2ludEF2ZXJhZ2U6IG51bGwsXG4gICAgZWRpdFRleHQ6ICfnvJbovpEnLFxuICAgIGRpc3BsYXk6IGZhbHNlXG4gIH0sXG4gIG9uTG9hZChvcHRpb246IGFueSkge1xuICAgICRwYWdlLlNldCh7IG9wdGlvbiwgY3R4OiB0aGlzIH0pO1xuXG4gICAgLy8g6K6+572u6IO25ZuK5ZKM6IOM5pmv6aKc6ImyXG4gICAgY29uc3QgeyBuYywgYmMgfSA9ICRwYWdlLmNvbG9yKGZhbHNlKTtcblxuICAgIHd4LnNldE5hdmlnYXRpb25CYXJDb2xvcihuYyk7XG4gICAgd3guc2V0QmFja2dyb3VuZENvbG9yKGJjKTtcbiAgfSxcbiAgYWRkTmV3KCkge1xuICAgIGNvbnN0IHsgbGVuZ3RoIH0gPSB0aGlzLmRhdGEuZ3JhZGU7XG4gICAgLy8g6I635Y+WZ3JhZGXlhoXljIXlkKvnmoTkuKrmlbDvvIzku6Xkvr/nlJ/miJDmlrDnmoRpZFxuICAgIGNvbnN0IGdyYWRlTmV3ID0gdGhpcy5kYXRhLmdyYWRlLmNvbmNhdCh7XG4gICAgICBpZDogbGVuZ3RoLFxuICAgICAgY291cnNlOiBudWxsLFxuICAgICAgY291cnNlRm9jdXM6IGZhbHNlLFxuICAgICAgZ3JhZGU6IG51bGwsXG4gICAgICBncmFkZUZvY3VzOiBmYWxzZSxcbiAgICAgIGNyZWRpdDogbnVsbCxcbiAgICAgIGNyZWRpdEZvY3VzOiBmYWxzZVxuICAgIH0pO1xuXG4gICAgLy8g5ZCRZ3JhZGXmnIDlkI7mj5LlhaXkuIDkuKrmlrDlhYPntKBcbiAgICB0aGlzLnNldERhdGEhKHsgZ3JhZGU6IGdyYWRlTmV3IH0pO1xuICAgIC8vIOWvuWRhdGHotYvlgLxcbiAgfSxcbiAgaW5wdXQoZTogYW55KSB7XG4gICAgY29uc29sZS5sb2coZSk7XG4gICAgY29uc3QgeyBncmFkZSB9ID0gdGhpcy5kYXRhO1xuXG4gICAgLypcbiAgICAgKiDojrflj5ZncmFkZVxuICAgICAqIGNvbnNvbGUubG9nKE51bWJlcihlLmRldGFpbC52YWx1ZSkpO1xuICAgICAqL1xuICAgIGNvbnN0IHsgaWQgfSA9IGUuY3VycmVudFRhcmdldC5kYXRhc2V0O1xuICAgIGNvbnN0IHRhcmdldCA9IGUuY3VycmVudFRhcmdldC5kYXRhc2V0LmNsYXNzO1xuXG4gICAgLy8g6I635Y+W5q2j5Zyo6L6T5YWl55qE6L6T5YWl5qGGaWQgIOiOt+WPluato+WcqOi+k+WFpeWvueixoVxuICAgIGdyYWRlW2lkXVtgJHt0YXJnZXR9Rm9jdXNgXSA9IHRydWU7XG4gICAgY29uc29sZS5sb2coZS5kZXRhaWwudmFsdWUubGVuZ3RoKTtcblxuICAgIC8qXG4gICAgICogSWYgKGUuZGV0YWlsLnZhbHVlLmxlbmd0aCA8IGUuY3VycmVudFRhcmdldC5kYXRhc2V0Lm1heExlbmd0aCkge1xuICAgICAqICAgZ3JhZGVbaWRdW3RhcmdldCArICdGb2N1cyddID0gdHJ1ZTtcbiAgICAgKiB9IGVsc2Uge1xuICAgICAqICAgZ3JhZGVbaWRdW3RhcmdldCArICdGb2N1cyddID0gZmFsc2U7XG4gICAgICogfVxuICAgICAqL1xuICAgIGlmIChOdW1iZXIoZS5kZXRhaWwudmFsdWUpKSBncmFkZVtpZF1bdGFyZ2V0XSA9IE51bWJlcihlLmRldGFpbC52YWx1ZSk7XG4gICAgLy8g5aaC5p6cdmFsdWXlj6/ku6XovazmjaLkuLpudW1iZXLvvIzlvpfliLDlr7nlupTor77nqIvnmoRncmFkZeaVsOe7hOW5tuWvueWFtuS4reeahOebuOW6lOWvueixoei1i+WAvOaVsOWtl1xuICAgIGVsc2UgZ3JhZGVbaWRdW3RhcmdldF0gPSBlLmRldGFpbC52YWx1ZTtcbiAgICAvLyDlpoLmnpx2YWx1ZeaXoOazlei9rOaNouS4um51bWJlcu+8jOW+l+WIsOWvueW6lOivvueoi+eahGdyYWRl5pWw57uE5bm25a+55YW25Lit55qE55u45bqU5a+56LGh6LWL5YC85a2X56ymXG4gICAgY29uc29sZS5sb2coZ3JhZGUpO1xuICAgIHRoaXMuc2V0RGF0YSEoeyBncmFkZSB9KTtcbiAgICAvLyDlsIbmlrDlgLzlhpnlm55kYXRh5LitXG4gIH0sXG4gIG5leHQoZTogYW55KSB7XG4gICAgY29uc3QgeyBncmFkZSB9ID0gdGhpcy5kYXRhO1xuICAgIGNvbnN0IHsgaWQgfSA9IGUuY3VycmVudFRhcmdldC5kYXRhc2V0O1xuXG4gICAgZ3JhZGVbaWRdLmdyYWRlRm9jdXMgPSB0cnVlO1xuICAgIHRoaXMuc2V0RGF0YSEoeyBncmFkZSB9KTtcbiAgfSxcbiAgZWRpdCgpIHtcbiAgICBjb25zdCBlZGl0VGV4dCA9IHRoaXMuZGF0YS5kaXNwbGF5ID8gJ+e8lui+kScgOiAn5a6M5oiQJztcblxuICAgIHRoaXMuc2V0RGF0YSEoe1xuICAgICAgZGlzcGxheTogIXRoaXMuZGF0YS5kaXNwbGF5LFxuICAgICAgZWRpdFRleHRcbiAgICB9KTtcbiAgfSxcbiAgc29ydChlOiBhbnkpIHtcbiAgICBjb25zb2xlLmxvZyhlKTtcbiAgfSxcbiAgcmVtb3ZlKGU6IGFueSkge1xuICAgIGNvbnNvbGUubG9nKGUpO1xuICAgIGNvbnN0IGN1cnJlbnRJRCA9IGUudGFyZ2V0LmlkW2UudGFyZ2V0LmlkLmxlbmd0aCAtIDFdO1xuICAgIGNvbnN0IHsgZ3JhZGUgfSA9IHRoaXMuZGF0YTtcblxuICAgIGNvbnNvbGUubG9nKGBjdXJyZW50SUTmmK8ke2N1cnJlbnRJRH07Z3JhZGXmmK8ke2dyYWRlfWApO1xuICAgIGdyYWRlLnNwbGljZShjdXJyZW50SUQsIDEpO1xuICAgIGNvbnNvbGUubG9nKGDmlrBncmFkZeaYryR7Z3JhZGV9YCk7XG4gICAgZm9yIChsZXQgaSA9IDA7IGkgPCBncmFkZS5sZW5ndGg7IGkrKylcbiAgICAgIGdyYWRlW2ldLmlkID0gaTtcblxuICAgIC8vIOmHjeaWsOiuvuWummlkXG4gICAgdGhpcy5zZXREYXRhISh7IGdyYWRlIH0pO1xuICB9LFxuICBjYWxjdWxhdGUoKSB7XG4gICAgY29uc3QgY291cnNlTnVtYmVyID0gdGhpcy5kYXRhLmdyYWRlLmxlbmd0aDtcblxuICAgIC8vIOiOt+W+l+ivvueoi+aVsFxuICAgIGNvbnNvbGUubG9nKGDor77nqIvmlbDmmK8ke2NvdXJzZU51bWJlcn1gKTtcblxuICAgIGxldCB0b3RhbENyZWRpdCA9IDA7XG4gICAgbGV0IHRvdGFsR3JhZGVDYWwgPSAwO1xuICAgIGxldCBmbHVua2luZ0NyZWRpdCA9IDA7XG4gICAgbGV0IGZsdW5raW5nR3JhZGVDYWwgPSAwO1xuXG4gICAgZm9yIChsZXQgaSA9IDA7IGkgPCBjb3Vyc2VOdW1iZXI7IGkrKykge1xuICAgICAgY29uc3QgeyBncmFkZSB9ID0gdGhpcy5kYXRhLmdyYWRlW2ldO1xuICAgICAgY29uc3QgeyBjcmVkaXQgfSA9IHRoaXMuZGF0YS5ncmFkZVtpXTtcblxuICAgICAgaWYgKGdyYWRlICE9PSAwICYmIGdyYWRlICYmIGNyZWRpdCAmJiBjcmVkaXQgIT09IDApXG4gICAgICAgIC8vIOWIpOaWrWdyYWRl5ZKMY3JlZGl05piv5ZCm5Z2H5pyJ5YC8XG4gICAgICAgIGlmIChncmFkZSA8IDYwKSB7XG4gICAgICAgICAgLy8g5Y2V54us5YiX5Ye65LiN5Y+K5qC855qE5a2m5YiG5ZKM5oiQ57upLOS4lOWPquacieWkp+S6jjUw5YiG57up54K55Li65q2j5YC85omN6K6h566X44CCXG4gICAgICAgICAgZmx1bmtpbmdDcmVkaXQgPSBjcmVkaXQgKyBmbHVua2luZ0NyZWRpdDtcbiAgICAgICAgICBpZiAoZ3JhZGUgPiA1MClcbiAgICAgICAgICAgIGZsdW5raW5nR3JhZGVDYWwgPSAoZ3JhZGUgLSA1MCkgLyAxMCAqIGNyZWRpdCArIGZsdW5raW5nR3JhZGVDYWw7XG5cbiAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAvLyDlj4rmoLznmoTlrabliIblkozmiJDnu6lcbiAgICAgICAgICB0b3RhbENyZWRpdCA9IGNyZWRpdCArIHRvdGFsQ3JlZGl0O1xuICAgICAgICAgIHRvdGFsR3JhZGVDYWwgPSAoZ3JhZGUgLSA1MCkgLyAxMCAqIGNyZWRpdCArIHRvdGFsR3JhZGVDYWw7XG4gICAgICAgIH1cblxuICAgIH1cbiAgICBjb25zb2xlLmxvZyhg5oC75a2m5YiG5pivJHt0b3RhbENyZWRpdH1gKTtcbiAgICBjb25zb2xlLmxvZyhg5oC76K6h566X5pivJHt0b3RhbEdyYWRlQ2FsfWApO1xuICAgIGNvbnNvbGUubG9nKGDmjILnp5HlrabliIbmmK8ke2ZsdW5raW5nQ3JlZGl0fWApO1xuICAgIGNvbnNvbGUubG9nKGDmgLvmjILnp5HorqHnrpfmmK8ke2ZsdW5raW5nR3JhZGVDYWx9YCk7XG4gICAgaWYgKE51bWJlcihmbHVua2luZ0NyZWRpdCkgPT09IDApIHtcbiAgICAgIGNvbnNvbGUubG9nKCfpg73lj4rmoLzkuoYnKTtcbiAgICAgIC8vIOWmguaenOmDveWPiuagvOS7gOS5iOS5n+S4jeWBmlxuICAgICAgdGhpcy5zZXREYXRhISh7XG4gICAgICAgIHRvdGFsQ3JlZGl0LFxuICAgICAgICBncmFkZVBvaW50QXZlcmFnZTogdG90YWxHcmFkZUNhbCAvIHRvdGFsQ3JlZGl0XG4gICAgICB9KTtcbiAgICAgIGNvbnNvbGUubG9nKHRvdGFsQ3JlZGl0KTtcbiAgICAgIGNvbnNvbGUubG9nKHRvdGFsR3JhZGVDYWwgLyB0b3RhbENyZWRpdCk7XG4gICAgICAvLyDlkJFkYXRh6LWL5YC86K6h566X57uT5p6cXG4gICAgfSBlbHNlIHd4LnNob3dNb2RhbCh7XG4gICAgICAvLyDlvLnnqpforqnnlKjmiLfpgInmi6lcbiAgICAgIHRpdGxlOiAn6K+36YCJ5oup6K6h566X5pa55byPJyxcbiAgICAgIGNvbnRlbnQ6ICflubPlnYfnu6nngrnmmK/lkKbljIXlkKvmnKrovr7liLA2MOeahOaIkOe7qe+8n1xcbuKYheS4uuW7uuiurumhuScsXG4gICAgICBjYW5jZWxUZXh0OiAn5YyF5ZCrJyxcbiAgICAgIGNhbmNlbENvbG9yOiAnI2ZmMDAwMCcsXG4gICAgICBjb25maXJtVGV4dDogJ+aOkumZpOKYhScsXG4gICAgICBzdWNjZXNzOiByZXMgPT4ge1xuICAgICAgICBpZiAocmVzLmNhbmNlbCkge1xuICAgICAgICAgIC8vIOWMheWQq+S4jeWPiuagvOaIkOe7qVxuICAgICAgICAgIHRvdGFsQ3JlZGl0ICs9IGZsdW5raW5nQ3JlZGl0O1xuICAgICAgICAgIHRvdGFsR3JhZGVDYWwgKz0gZmx1bmtpbmdHcmFkZUNhbDtcbiAgICAgICAgICAvLyDlhpnlhaXkuI3lj4rmoLzlrabliIbkuI7miJDnu6norqHnrpdcbiAgICAgICAgICBjb25zb2xlLmxvZygn5LiN5Y+K5qC85a2m5YiG5oiQ57up6KKr6K6h5YWlJyk7XG4gICAgICAgICAgY29uc29sZS5sb2coYOaWsOaAu+WtpuWIhuaYryR7dG90YWxDcmVkaXR9YCk7XG4gICAgICAgICAgY29uc29sZS5sb2coYOaWsOaAu+iuoeeul+aYryR7dG90YWxHcmFkZUNhbH1gKTtcbiAgICAgICAgfSBlbHNlIGlmIChyZXMuY29uZmlybSlcbiAgICAgICAgICBjb25zb2xlLmxvZygn6YO95Y+K5qC85LqGJyk7XG5cbiAgICAgICAgLypcbiAgICAgICAgICog5LiN5YyF5ZCr5LiN5Y+K5qC85oiQ57up77yM5LuA5LmI6YO95LiN5YGaXG4gICAgICAgICAqIGNvbnNvbGUubG9nKHRvdGFsQ3JlZGl0KVxuICAgICAgICAgKiBjb25zb2xlLmxvZyh0b3RhbEdyYWRlQ2FsIC8gdG90YWxDcmVkaXQpXG4gICAgICAgICAqL1xuICAgICAgICAvLyDlkJFkYXRh6LWL5YC86K6h566X57uT5p6cXG4gICAgICAgIHRoaXMuc2V0RGF0YSEoeyB0b3RhbENyZWRpdCwgZ3JhZGVQb2ludEF2ZXJhZ2U6IHRvdGFsR3JhZGVDYWwgLyB0b3RhbENyZWRpdCB9KTtcbiAgICAgIH1cbiAgICB9KTtcblxuICB9LFxuICBvblBhZ2VTY3JvbGwoZTogYW55KSB7XG4gICAgJGNvbXBvbmVudC5uYXYoZSwgdGhpcyk7XG4gIH0sXG4gIGNBKGU6IGFueSkge1xuICAgICRjb21wb25lbnQudHJpZ2dlcihlLCB0aGlzKTtcbiAgfVxufSk7XG4iXX0=

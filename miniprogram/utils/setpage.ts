@@ -2,7 +2,7 @@
 
 // 引入文件管理
 import $file from './file';
-import $wx from './wx';
+import $my from './wx';
 
 // 声明日志管理器
 const logger = wx.getLogManager({ level: 1 });
@@ -309,7 +309,7 @@ const setOnlinePage = (option: any, ctx: any, preload = true) => {
       }
     } else
       // 请求页面Json
-      $wx.request(`page/${path}`, data => {
+      $my.request(`page/${path}`, data => {
         // 设置界面
         setPage({ option, ctx }, data);
 
@@ -349,6 +349,18 @@ const setOnlinePage = (option: any, ctx: any, preload = true) => {
       });
   }
 };
+
+interface ColorResult {
+  0: {
+    frontColor: string;
+    backgroundColor: string;
+  };
+  1: {
+    backgroundColorTop: string;
+    backgroundColor: string;
+    backgroundColorBottom: string;
+  }
+}
 
 /**
  * 设置胶囊与背景颜色
@@ -398,10 +410,10 @@ const color = (grey: boolean) => {
         temp = ['#f4f4f4', 'ffffff', 'ffffff'];
     }
 
-  return [
-    { frontColor, backgroundColor },
-    { backgroundColorTop: temp[0], backgroundColor: temp[1], backgroundColorBottom: temp[2] }
-  ];
+  return {
+    nc: { frontColor, backgroundColor },
+    bc: { backgroundColorTop: temp[0], backgroundColor: temp[1], backgroundColorBottom: temp[2] }
+  };
 };
 
 /**

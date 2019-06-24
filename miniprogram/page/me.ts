@@ -1,5 +1,14 @@
-import { WXPage } from 'wxpage';
-const { globalData: a, lib: { $component, $page, $register } } = getApp();
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-06-24 20:49:51
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-06-24 23:51:26
+ * @Description: 我的东师
+ */
+import $register, { WXPage } from 'wxpage';
+import $component from '../utils/component';
+import $page from '../utils/setpage';
+const { globalData: a } = getApp();
 
 $register('me', {
   data: {
@@ -27,7 +36,7 @@ $register('me', {
   },
   onShow() {
     const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
-    const [nc, bc] = $page.color(this.data.page[0].grey);
+    const {nc, bc} = $page.color(this.data.page[0].grey);
 
     // 设置胶囊、背景颜色以及tab栏颜色
     wx.setNavigationBarColor(nc);
@@ -41,10 +50,10 @@ $register('me', {
   onReady() {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
-      this.setData({ T });
+      this.setData!({ T });
     });
     this.$on('nightmode', (nm: boolean) => {
-      this.setData({ nm });
+      this.setData!({ nm });
     });
   },
   onPageScroll(e: any) {

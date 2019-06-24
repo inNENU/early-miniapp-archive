@@ -2,10 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 21:04:19
+ * @LastEditTime: 2019-06-24 23:53:03
  * @Description: 捐赠
  */
-const { globalData: a, lib: { $component, $page, $register, $wx } } = getApp();
+import $register from 'wxpage';
+import $component from '../utils/component';
+import $page from '../utils/setpage';
+import $my from '../utils/wx';
+const { globalData: a } = getApp();
 
 $register('donate', {
   data: {
@@ -26,14 +30,14 @@ $register('donate', {
     ]
   },
   onLoad() {
-    this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
-    $wx.request('config/donateList', (donateList: any[]) => {
-      this.setData({ donateList });
+    this.setData!({ 'page[0].statusBarHeight': a.info.statusBarHeight });
+    $my.request('config/donateList', donateList => {
+      this.setData!({ donateList });
     });
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -43,7 +47,7 @@ $register('donate', {
   },
   save(res: any) {
     console.log('Start QRCode download.');// 调试
-    $wx.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, (path: string) => {
+    $my.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, (path: string) => {
       // 获取用户设置
       wx.getSetting({
         success: res2 => {
@@ -52,7 +56,7 @@ $register('donate', {
             wx.saveImageToPhotosAlbum({
               filePath: path,
               success: () => {
-                $wx.tip('保存成功');
+                $my.tip('保存成功');
               }
             });
           else wx.authorize({// 没有授权——>提示用户授权
@@ -61,7 +65,7 @@ $register('donate', {
               wx.saveImageToPhotosAlbum({
                 filePath: path,
                 success: () => {
-                  $wx.tip('保存成功');
+                  $my.tip('保存成功');
                 }
               });
             },
@@ -70,7 +74,7 @@ $register('donate', {
                 title: '权限被拒', content: '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
                 showCancel: false, confirmText: '确定', confirmColor: '#3CC51F',
                 complete: () => {
-                  $wx.tip('二维码保存失败');
+                  $my.tip('二维码保存失败');
                 }
               });
             }
@@ -78,7 +82,7 @@ $register('donate', {
         }
       });
     }, () => {
-      $wx.tip('二维码下载失败');
+      $my.tip('二维码下载失败');
     });
   },
   onPageScroll(e: any) {

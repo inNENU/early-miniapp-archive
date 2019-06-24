@@ -2,12 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 20:48:02
+ * @LastEditTime: 2019-06-24 23:50:29
  * @Description: 功能大厅
  */
-import { WXPage } from 'wxpage';
+import $register, { WXPage } from 'wxpage';
+import $component from '../utils/component';
+import $page from '../utils/setpage';
 import $tab from '../utils/tab';
-const { globalData: a, lib: { $component, $page, $register } } = getApp();
+const { globalData: a } = getApp();
 
 $register('function', {
   data: {
@@ -54,7 +56,7 @@ $register('function', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -62,10 +64,10 @@ $register('function', {
   onReady() {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
-      this.setData({ T });
+      this.setData!({ T });
     });
     this.$on('nightmode', (nm: boolean) => {
-      this.setData({ nm });
+      this.setData!({ nm });
     });
 
     // 此处还需要再优化

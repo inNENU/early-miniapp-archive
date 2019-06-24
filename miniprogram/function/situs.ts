@@ -2,11 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 21:31:38
+ * @LastEditTime: 2019-06-24 23:46:40
  * @Description: 地点详情
  */
-import { WXPage } from 'wxpage';
-const { globalData: a, lib: { $component, $file, $page, $register } } = getApp();
+import $register, { WXPage } from 'wxpage';
+import $component from '../utils/component';
+import $file from '../utils/file';
+import $page from '../utils/setpage';
+import $my from '../utils/wx';
+const { globalData: a } = getApp();
 
 $register('situs', {
   data: {},
@@ -20,7 +24,7 @@ $register('situs', {
 
       if (pageData) $page.Set({ option, ctx: this }, pageData);
       else // 向服务器请求json
-        $wx.request(`function/${option.xiaoqu}/${option.aim}`, (data: object) => {
+        $my.request(`function/${option.xiaoqu}/${option.aim}`, (data: object) => {
           $page.Set({ option, ctx: this }, data);
 
           // 非分享界面下将页面数据写入存储
@@ -37,7 +41,7 @@ $register('situs', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

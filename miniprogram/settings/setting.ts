@@ -1,8 +1,10 @@
 /* global wx getApp*/
-import { WXPage } from 'wxpage';
-import { nightmode } from '../utils/app';
+import $register, { WXPage } from 'wxpage';
+import $component from '../utils/component';
+import $page from '../utils/setpage';
 import $tab from '../utils/tab';
-const { globalData: a, lib: { $component, $page, $register } } = getApp();
+import { nightmode } from '../utils/app';
+const { globalData: a } = getApp();
 
 // 生成时间
 const time: string[][] = [[], []];
@@ -104,7 +106,7 @@ $register('setting', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -119,7 +121,7 @@ $register('setting', {
     a.nm = nightmode();
   },
   setTheme(e: any) {
-    $component.trigger(e, this, (type: string) => {
+    $component.trigger(e, this, type => {
       if (type === 'change') {
         const theme = this.data.page[1].content[0].pickerValue[e.detail.value];
 
@@ -162,7 +164,7 @@ $register('setting', {
         }
       }
       wx.setStorageSync('nightmodeAutoChange', false);
-      this.setData({ nm: value, page });
+      this.setData!({ nm: value, page });
       a.nm = value;
       this.$emit('nightmode', value);
       const [frontColor, backgroundColor] = value ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
@@ -196,12 +198,12 @@ $register('setting', {
         list[5].hidden = list[6].hidden = true;
         list[4].hidden = !list[3].status;
       }
-      this.setData({ nm, page });
+      this.setData!({ nm, page });
       a.nm = nm;
       this.$emit('nightmode', nm);
 
       // 设置胶囊和背景颜色
-      const [nc, bc] = $page.color(this.data.page[0].grey);
+      const { nc, bc } = $page.color(this.data.page[0].grey);
 
       wx.setNavigationBarColor(nc);
       wx.setBackgroundColor(bc);
@@ -214,7 +216,7 @@ $register('setting', {
 
       list[4].visible = e.detail.value;
       list[4].hidden = !e.detail.value;
-      this.setData({ page });
+      this.setData!({ page });
     });
   },
   nightBrightnessSwitchHandler(e: any) {
@@ -224,7 +226,7 @@ $register('setting', {
 
       list[6].visible = e.detail.value;
       list[6].hidden = !e.detail.value;
-      this.setData({ page });
+      this.setData!({ page });
     });
   },
   dayBrightnessHandler(e: any) {

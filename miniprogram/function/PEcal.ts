@@ -2,11 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 21:19:43
+ * @LastEditTime: 2019-06-24 23:45:05
  * @Description: 体测计算器
  */
-
-const { globalData: a, lib: { $register, $page } } = getApp();
+import $register from 'wxpage';
+import $component from '../utils/component';
+import $file from '../utils/file';
+import $page from '../utils/setpage';
+const { globalData: a } = getApp();
 
 const special = [
   { text: '引体向上', unit: '个', type: 'number', id: 'chinning' },
@@ -57,7 +60,7 @@ $register('PEcal', {
 
     // 将用户上次选择的性别和年级载入
     if (genderIndex || genderIndex === 0)  // 改变特别项目和长跑的名称
-      this.setData({
+      this.setData!({
         'gender.index': genderIndex,
         'longRun.text': genderIndex === 0 ? longRunText[0] : longRunText[1],
         special: genderIndex === 0 ? special[0] : special[1],
@@ -65,16 +68,16 @@ $register('PEcal', {
       });
 
     if (gradeIndex || gradeIndex === 0) // 写入年级
-      this.setData({
+      this.setData!({
         'grade.index': gradeIndex,
         'result.grade': this.data.grade.value[gradeIndex]
       });
 
     // 设置长跑选择器数据
-    this.setData({ 'longRun.picker': longRunPicker });
+    this.setData!({ 'longRun.picker': longRunPicker });
 
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(true);
+    const { nc, bc } = $page.color(true);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -95,7 +98,7 @@ $register('PEcal', {
     wx.setStorageSync('gender', index);
 
     // 改变特别项目和长跑的名称
-    this.setData({
+    this.setData!({
       'result.gender': gender,
       'gender.index': index,
       special: gender === 'male' ? special[0] : special[1],
@@ -106,7 +109,7 @@ $register('PEcal', {
     const index = Number(event.detail.value);
 
     // 设置年级
-    this.setData({
+    this.setData!({
       'grade.index': index,
       'result.grade': this.data.grade.value[index]
     });
@@ -117,7 +120,7 @@ $register('PEcal', {
     const { id } = event.currentTarget;
     const query = wx.createSelectorQuery();
 
-    this.setData({ input: { status: true, height: event.detail.height } });
+    this.setData!({ input: { status: true, height: event.detail.height } });
 
     query.select(`#${id}`)
       .boundingClientRect();
@@ -141,16 +144,16 @@ $register('PEcal', {
     console.log(event);
     const project = event.currentTarget.id;
 
-    this.setData({ [`result.${project}`]: event.detail.value });
+    this.setData!({ [`result.${project}`]: event.detail.value });
   },
   blur() {
-    this.setData({ 'input.status': false });
+    this.setData!({ 'input.status': false });
   },
   longRunHandler(event: any) {
     const { value } = event.detail;
 
     // 设置显示数据
-    this.setData({
+    this.setData!({
       'longRun.value': `${longRunPicker[0][value[0]]} ${longRunPicker[1][value[1]]}`,
       'result.longRun': (value[0] + 2) * 60 + value[1]
     });
@@ -164,16 +167,30 @@ $register('PEcal', {
     console.info('输入结果为：', result);
 
     if (result.gender && result.grade) { // 可以计算
+      interface PEScore {
+        BMI: number,
+        vitalCapacity: number,
+        sitAndReach: number,
+        standingLongJump: number,
+        shortRun: number,
+        longRun: number,
+        special: number;
+        passScore: number;
+        [props: string]: number;
+      }
+
+
       const hash = [10, 20, 30, 40, 50, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 85, 90, 95, 100];
       const { length } = hash;
-      const PEscore = {
+      const PEscore: PEScore = {
         BMI: 0,
         vitalCapacity: 0,
         sitAndReach: 0,
         standingLongJump: 0,
         shortRun: 0,
         longRun: 0,
-        special: 0
+        special: 0,
+        passScore: 60
       };
 
       if (result.height && result.weight) { // 可以计算BMI
@@ -190,7 +207,7 @@ $register('PEcal', {
           ? score <= 28 ? 60 : 60 - Math.ceil(score - 28) * 2
           : 50;
 
-        this.setData({ BMI: { score, state } });
+        this.setData!({ BMI: { score, state } });
       }
 
       $file.getJson(`function/PEcal/${result.gender}${result.grade}`, (config: any) => { // 读取相应配置文件
@@ -247,12 +264,12 @@ $register('PEcal', {
 
 
         // 计算最终成绩
-        const finalScore = (PEscore.vitalCapacity * 0.15 + PEscore.shortRun * 0.2 + PEscore.sitAndReach * 0.1 +
-          PEscore.standingLongJump * 0.1 + PEscore.special * 0.1 + PEscore.longRun * 0.2 +
-          PEscore.BMI * 0.15).toFixed(2);
+        const finalScore = Math.round(PEscore.vitalCapacity * 15 + PEscore.shortRun * 20 + PEscore.sitAndReach * 10 +
+          PEscore.standingLongJump * 10 + PEscore.special * 10 + PEscore.longRun * 20 +
+          PEscore.BMI * 15) / 100;
 
         console.info('成绩为', PEscore);
-        this.setData({
+        this.setData!({
           showScore: true,
           PEscore,
           PE: {

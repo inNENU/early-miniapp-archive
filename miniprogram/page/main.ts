@@ -2,11 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 20:43:47
+ * @LastEditTime: 2019-06-24 23:53:46
  * @Description: 主页
  */
+import $register from 'wxpage';
+import $component from '../utils/component';
+import $my from '../utils/wx';
+import $page from '../utils/setpage';
 import $tab from '../utils/tab';
-const { globalData: a, lib: { $component, $page, $register, $wx } } = getApp();
+const { globalData: a } = getApp();
 
 $register('main', {
   data: {
@@ -56,7 +60,7 @@ $register('main', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const [nc, bc] = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -64,15 +68,15 @@ $register('main', {
   onReady() {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
-      this.setData({ T });
+      this.setData!({ T });
     });
     this.$on('nightmode', (nm: boolean) => {
-      this.setData({ nm });
+      this.setData!({ nm });
     });
 
     // 执行tab页预加载
     ['guide', 'function'].forEach(x => {
-      $wx.request(`config/${a.version}/${x}`, (data: object) => {
+      $my.request(`config/${a.version}/${x}`, (data: object) => {
         this.$put(x, data);
         this.$preload(`${x}?aim=${x}`);
         wx.setStorageSync(x, data);
