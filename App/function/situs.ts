@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 23:46:40
+ * @LastEditTime: 2019-06-26 00:03:20
  * @Description: 地点详情
  */
 import $register, { WXPage } from 'wxpage';
@@ -25,7 +25,7 @@ $register('situs', {
       if (pageData) $page.Set({ option, ctx: this }, pageData);
       else // 向服务器请求json
         $my.request(`function/${option.xiaoqu}/${option.aim}`, (data: object) => {
-          $page.Set({ option, ctx: this }, data);
+          $page.Set({ option, ctx: this }, data as PageData);
 
           // 非分享界面下将页面数据写入存储
           if (!option.share) {
@@ -62,7 +62,7 @@ $register('situs', {
    *   });
    * },
    */
-  onPageScroll(e: any) {
+  onPageScroll(e) {
     $component.nav(e, this);
   },
   cA(e: any) {

@@ -99,7 +99,7 @@ $register('guide', {
     $tab.update('page', '145K');
     wx.stopPullDownRefresh();
   },
-  onPageScroll(e: any) {
+  onPageScroll(e) {
     $component.nav(e, this);
   },
   cA(e: any) {

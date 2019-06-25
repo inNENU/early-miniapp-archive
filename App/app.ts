@@ -16,7 +16,7 @@ $App({
       aim: ''
     },
     date: new Date().getTime()
-    // T, nm, date, info也在globalData中
+    // T, nm, info也在globalData中
   },
   config: {
     route: ['/page/$page', '/module/$page', '/function/$page', '/settings/$page'],

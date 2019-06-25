@@ -56,7 +56,7 @@ $register('me', {
       this.setData!({ nm });
     });
   },
-  onPageScroll(e: any) {
+  onPageScroll(e) {
     $component.nav(e, this);
   },
   cA(e: any) {

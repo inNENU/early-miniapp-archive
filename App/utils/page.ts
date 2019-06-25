@@ -3,6 +3,7 @@
 // 引入文件管理
 import $file from './file';
 import $my from './wx';
+import { WXPage } from 'wxpage';
 
 // 声明日志管理器
 const logger = wx.getLogManager({ level: 1 });
@@ -26,7 +27,7 @@ const init = (data: GlobalData) => {
  * @param option 页面传参
  * @returns 处理之后的page
  */
-const disposePage = (page: any, option: any) => {
+const disposePage = (page: PageData, option: PageArg) => {
   if (page)  // 如果page参数传入
     if (page[0].tag === 'head') {
 
@@ -48,7 +49,7 @@ const disposePage = (page: any, option: any) => {
         // 添加返回文字
         if (!page[0].leftText) page[0].leftText = '返回';
       }
-      page.forEach((element: any, index: number) => {
+      page.forEach((element, index) => {
         element.id = index; // 对page每项元素添加id
 
         // 处理图片
@@ -100,16 +101,16 @@ const disposePage = (page: any, option: any) => {
           // 设置列表选择器
           if ('pickerValue' in listElement)
             if (listElement.single) { // 单列选择器
-              const pickerValue = wx.getStorageSync(listElement.key);
+              const pickerValue: string | number = wx.getStorageSync(listElement.key);
 
               listElement.value = listElement.pickerValue[pickerValue];
               listElement.currentValue = [pickerValue];
             } else { // 多列选择器
-              const pickerValues = wx.getStorageSync(listElement.key).split('-');
+              const pickerValues: string[] = wx.getStorageSync(listElement.key).split('-');
 
               listElement.currentValue = [];
               listElement.value = [];
-              pickerValues.forEach((k: string, l: number) => {
+              pickerValues.forEach((k, l) => {
                 listElement.value[l] = listElement.pickerValue[l][Number(k)];
                 listElement.currentValue[l] = Number(k);
               });
@@ -154,8 +155,8 @@ const resolveAim = (aim: string) => {
  *
  * @param page 页面数据
  */
-const preGetPage = (page: any) => {
-  if (page) page.forEach((component: any) => {
+const preGetPage = (page: PageData) => {
+  if (page) page.forEach(component => {
     if ('content' in component) // 该组件是列表，需要预加载界面，提前获取界面到存储
       component.content.forEach((element: any) => {
         if ('aim' in element) {
@@ -169,12 +170,18 @@ const preGetPage = (page: any) => {
 };
 
 /**
- * 设置界面，在onNavigate时调用，预处理page数据写入全局数据
- *
- * @param option 页面传参
+ * **简介:**
+ * 
+ * - 描述：预处理页面数据写入全局数据
+ * 
+ * - 用法：在页面onNavigate时调用，
+ * 
+ * - 性质：同步函数
+ * 
+ * @param option 页面跳转参数
  * @param page page数组
  */
-const resolvePage = (option: any, page = null) => {
+const resolvePage = (option: WXPage.PageArg, page?: PageData) => {
   console.info('将要跳转：', option); // 控制台输出参数
   const { aim } = option.query;
 
@@ -183,7 +190,7 @@ const resolvePage = (option: any, page = null) => {
     const { path } = resolveAim(aim);
 
     $file.getJson(`page/${path}`, pageData => {
-      if (pageData) globalData.page.data = disposePage(pageData, option.query);
+      if (pageData) globalData.page.data = disposePage(pageData as PageData, option.query);
       else {
         globalData.page.data = disposePage(
           [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }],
@@ -200,25 +207,34 @@ const resolvePage = (option: any, page = null) => {
 };
 
 interface SetPageOption {
-  option: any;
+  option: PageArg;
   ctx: any;
-  set?: boolean;
+  handle?: boolean;
 }
 
 /**
- * 设置本地界面数据，在界面onLoad时使用
+ *  **简介:**
  *
- * @param {*} option 页面传参
- * @param {*} [page] page数组
- * @param {boolean} [preload=true] page数组
+ * - 描述：设置本地界面数据，如果传入`page`参数，则根据`handle`的值决定是否在`setData`前处理`page`。
+ * 如果没有传入`page`，则使用`PageOption.data.page`。之后根据`preload`的值决定是否对页面链接进行预加载。
+ *
+ * - 用法：在页面onLoad时调用，
+ *
+ * - 性质：同步函数
+ * 
+ * @param option 页面传参
+ * @param ctx 页面指针
+ * @param [handle=false] 页面是否已经被处理
+ * @param [page] page数组
+ * @param [preload=true] 是否预加载
  */
-const setPage = ({ option, ctx, set }: SetPageOption, page: any = null, preload = true) => {
+const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData, preload = true) => {
   // 设置页面数据
   if (page)
     ctx.setData({
       T: globalData.T,
       nm: globalData.nm,
-      page: set ? page : disposePage(page, option)
+      page: handle ? page : disposePage(page, option)
     });
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   else if (globalData.page.aim === option.aim) {
@@ -236,7 +252,7 @@ const setPage = ({ option, ctx, set }: SetPageOption, page: any = null, preload 
     ctx.setData({
       T: globalData.T,
       nm: globalData.nm,
-      page: set ? ctx.data.page : disposePage(ctx.data.page, option)
+      page: handle ? ctx.data.page : disposePage(ctx.data.page, option)
     });
   }
 };
@@ -273,7 +289,7 @@ const popNotice = (aim: string) => {
  * @param ctx 页面指针
  * @param preload 是否需要预加载(默认需要)
  */
-const setOnlinePage = (option: any, ctx: any, preload = true) => {
+const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
 
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   if (globalData.page.aim === option.aim) {
@@ -311,7 +327,7 @@ const setOnlinePage = (option: any, ctx: any, preload = true) => {
       // 请求页面Json
       $my.request(`page/${path}`, data => {
         // 设置界面
-        setPage({ option, ctx }, data);
+        setPage({ option, ctx }, data as PageData);
 
         // 非分享界面下将页面数据写入存储
         if (!option.share) $file.writeJson(`page/${folder}`, `${option.aim}`, data);
@@ -433,7 +449,6 @@ const loadFont = (theme: string) => {
 
 export default {
   init,
-  preGet: preGetPage,
   resolve: resolvePage,
   Set: setPage,
   Online: setOnlinePage,

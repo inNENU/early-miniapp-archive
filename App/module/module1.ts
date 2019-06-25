@@ -16,7 +16,7 @@ $register('module1', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
-  onPageScroll(res: any) {
+  onPageScroll(res) {
     $component.nav(res, this);
   },
   cA(res: any) {

@@ -85,7 +85,7 @@ $register('donate', {
       $my.tip('二维码下载失败');
     });
   },
-  onPageScroll(e: any) {
+  onPageScroll(e) {
     $component.nav(e, this);
   },
   cA(res: any) {

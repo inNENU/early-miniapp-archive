@@ -85,7 +85,7 @@ $register('PEcal', {
     // 设置通知
     $page.Notice('PEcal');
   },
-  onPageScroll(e: any) {
+  onPageScroll(e) {
     $component.nav(e, this);
   },
   cA(e: any) {

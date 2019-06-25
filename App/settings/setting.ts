@@ -111,7 +111,7 @@ $register('setting', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
-  onPageScroll(e: any) {
+  onPageScroll(e) {
     $component.nav(e, this);
   },
   cA(e: any) {

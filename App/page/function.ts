@@ -78,7 +78,7 @@ $register('function', {
     $tab.update('function', '80K');
     wx.stopPullDownRefresh();
   },
-  onPageScroll(e: any) {
+  onPageScroll(e) {
     $component.nav(e, this);
   },
   cA(e: any) {

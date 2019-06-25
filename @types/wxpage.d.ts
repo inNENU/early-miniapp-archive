@@ -7,9 +7,10 @@ declare module 'wxpage' {
     /** 页面跳转参数 */
     interface PageArg {
       /** 页面跳转地址 */
-      url: string;
+      url?: string;
       /** 跳转参数 */
       query: {
+        aim: string;
         [props: string]: string;
       }
     }

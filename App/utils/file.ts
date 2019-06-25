@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-06-24 20:59:22
+ * @LastEditTime: 2019-06-25 23:37:49
  */
 
 // 初始化文件管理器、用户路径与日志管理器
@@ -196,7 +196,7 @@ const saveOnlineFile = (
  * @param data 写入文件的数据
  * @param encoding 文件编码选项
  */
-const writeFile = (path: string, fileName: string, data: any, encoding = 'utf-8') => {
+const writeFile = (path: string, fileName: string, data: object | ArrayBuffer | string, encoding = 'utf-8') => {
   const jsonString = JSON.stringify(data);
 
   makeDir(path);
@@ -210,7 +210,7 @@ const writeFile = (path: string, fileName: string, data: any, encoding = 'utf-8'
  * @param data 写入文件的数据
  * @param encoding 文件编码选项
  */
-const writeJson = (path: string, fileName: string, data: any, encoding = 'utf-8') => {
+const writeJson = (path: string, fileName: string, data: object, encoding = 'utf-8') => {
   const jsonString = JSON.stringify(data);
 
   makeDir(path);
@@ -224,7 +224,7 @@ const writeJson = (path: string, fileName: string, data: any, encoding = 'utf-8'
  * @param callback Json获取成功后的回调
  * @param failFunc Json获取失败后的回调
  */
-const getJson = (path: string, callback: (data: any) => void, failFunc?: () => void) => {
+const getJson = (path: string, callback: (data: object | string) => void, failFunc?: () => void) => {
   let data = readJson(path);
 
   if (data) return callback(data);

@@ -136,17 +136,17 @@ const tabBarChanger = (nightmode: boolean) => {
  * @param globalData 全局数据
  * @param ctx 页面指针
  */
-const refreshPage = (name: string, ctx: any, globalData: any) => {
+const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   const test = wx.getStorageSync('test');
 
   // 开启测试后展示测试界面
   if (test) $my.request(`config/${name}Test`, data => {
     wx.setStorageSync(name, data);
-    $page.Set({ option: { aim: name }, ctx }, data);
+    $page.Set({ option: { aim: name }, ctx }, data as PageData);
   });
   // 普通界面加载
   else $my.request(`config/${globalData.version}/${name}`, data => {
-    $page.Set({ option: { aim: name }, ctx }, data);
+    $page.Set({ option: { aim: name }, ctx }, data as PageData);
   });
 };
 
@@ -154,7 +154,7 @@ const refreshPage = (name: string, ctx: any, globalData: any) => {
  * 初始化marker，被setMarker调用
  *
  * @param markers 待处理的Marker数组
- * @returns {any[]} 处理后的marker
+ * @returns 处理后的marker
  */
 const initMarker = (markers: any[]) => {
   markers.forEach(marker => {

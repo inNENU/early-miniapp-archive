@@ -11,12 +11,12 @@ $register('module2', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const {nc, bc} = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
-  onPageScroll(res: any) {
+  onPageScroll(res) {
     $component.nav(res, this);
   },
   cA(res: any) {

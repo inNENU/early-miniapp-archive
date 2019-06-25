@@ -1,3 +1,5 @@
+/// <reference path="./pageData.d.ts" />
+
 declare interface GlobalData {
   /** 全局数据 */
   version: string;
@@ -12,9 +14,9 @@ declare interface GlobalData {
   /** 页面信息 */
   page: {
     /** 页面数据 */
-    data: any[],
+    data: PageData,
     /** 页面名称 */
-    aim: ''
+    aim: string
   };
   /** 正在应用的主题 */
   T?: string;

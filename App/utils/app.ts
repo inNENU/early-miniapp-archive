@@ -4,7 +4,7 @@ import $my from './wx';
 const logger = wx.getLogManager({ level: 1 });
 
 interface AppOption {
-  [props: string]: any;
+  [props: string]: string | boolean | number;
 }
 
 // 小程序配置

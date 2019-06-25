@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-25 00:09:26
+ * @LastEditTime: 2019-06-26 00:08:23
  * @Description: 关于2.0版本
  */
 import $register from 'wxpage';
@@ -35,7 +35,7 @@ $register('2.0', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
-  onPageScroll(e: any) {
+  onPageScroll(e) {
     $component.nav(e, this);
   },
   cA(e: any) {

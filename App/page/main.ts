@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-25 19:21:28
+ * @LastEditTime: 2019-06-26 00:01:44
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -88,7 +88,7 @@ $register('main', {
     $tab.refresh('main', this, a);
     wx.stopPullDownRefresh();
   },
-  onPageScroll(e: any) {
+  onPageScroll(e) {
     $component.nav(e, this);
   },
   cA(e: any) {
