@@ -218,8 +218,13 @@ interface VersionInfo {
   version: string;
 }
 
-/** 检查小程序更新并应用 */
-const appUpdate = () => {
+
+/**
+ * 检查小程序更新并应用
+ *
+ * @param localVersion 小程序的本地版本
+ */
+const appUpdate = (localVersion: string) => {
   const updateManager = wx.getUpdateManager();
   let version;
   let forceUpdate = true;
@@ -235,7 +240,7 @@ const appUpdate = () => {
   updateManager.onUpdateReady(() => {
 
     // 请求配置文件
-    $my.request('config/config', data => {
+    $my.request(`config/${localVersion}/config`, data => {
       ({ forceUpdate, reset, version } = data as VersionInfo);
 
       // 更新下载就绪，提示用户重新启动
@@ -293,9 +298,12 @@ const appUpdate = () => {
 const startup = (version: string) => {
 
   // 设置内存不足警告
-  wx.onMemoryWarning(() => {
+  wx.onMemoryWarning(res => {
     $my.tip('内存不足');
     console.warn('onMemoryWarningReceive');
+    wx.reportAnalytics('memory_warning', {
+      memory_warning: res && res.level ? res.level : 0,
+    });
   });
 
   // 获取网络信息
@@ -327,7 +335,7 @@ const startup = (version: string) => {
 
   // 检查通知更新与小程序更新
   noticeCheck(version);
-  appUpdate();
+  appUpdate(version);
 };
 
 export default { appInit, appUpdate, nightmode, noticeCheck, startup };

@@ -28,7 +28,7 @@
     ]
   },
   "include": [
-    "./miniprogram/",
+    "App",
     "@types/*"
   ],
   "exclude": [

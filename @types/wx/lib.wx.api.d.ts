@@ -2370,7 +2370,7 @@ innerAudioContext.onError((res) => {
      * - 5: TRIM_MEMORY_RUNNING_MODERATE;
      * - 10: TRIM_MEMORY_RUNNING_LOW;
      * - 15: TRIM_MEMORY_RUNNING_CRITICAL; */
-    level: 5 | 10 | 15;
+    level?: 5 | 10 | 15;
   }
   interface OnNetworkStatusChangeCallbackResult {
     /** 当前是否有网络链接 */
@@ -10385,12 +10385,11 @@ setTimeout(function () {
 wx.showModal({
   title: '提示',
   content: '这是一个模态弹窗',
-  success (res) {
-    if (res.confirm) {
+  success: res => {
+    if (res.confirm) 
       console.log('用户点击确定')
-    } else if (res.cancel) {
+    else if (res.cancel) 
       console.log('用户点击取消')
-    }
   }
 })
 ```

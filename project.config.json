@@ -20,7 +20,7 @@
 			}
 		]
 	},
-	"miniprogramRoot": "miniprogram/",
+	"miniprogramRoot": "App/",
 	"compileType": "miniprogram",
 	"libVersion": "2.7.2",
 	"projectname": "myNENU",

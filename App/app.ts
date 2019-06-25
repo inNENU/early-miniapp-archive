@@ -11,7 +11,7 @@ $App({
 
   // 小程序全局数据
   globalData: {
-    version: 'V 2.0.0',
+    version: 'V 2.0.2',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
