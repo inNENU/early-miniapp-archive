@@ -8,7 +8,7 @@
 import $register from 'wxpage';
 import $component from '../utils/component';
 import $file from '../utils/file';
-import $page from '../utils/setpage';
+import $page from '../utils/page';
 import $my from '../utils/wx';
 const { globalData: a } = getApp();
 const manager = wx.getBackgroundAudioManager();

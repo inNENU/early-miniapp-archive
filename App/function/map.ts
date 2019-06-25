@@ -6,7 +6,7 @@
  * @Description: 地图
  */
 import $register from 'wxpage';
-import $page from '../utils/setpage';
+import $page from '../utils/page';
 import $tab from '../utils/tab';
 const { globalData: a } = getApp();
 

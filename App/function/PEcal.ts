@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 23:45:05
+ * @LastEditTime: 2019-06-25 19:33:04
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
 import $component from '../utils/component';
 import $file from '../utils/file';
-import $page from '../utils/setpage';
+import $page from '../utils/page';
 const { globalData: a } = getApp();
 
 const special = [

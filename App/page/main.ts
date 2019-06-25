@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 23:53:46
+ * @LastEditTime: 2019-06-25 19:21:28
  * @Description: 主页
  */
 import $register from 'wxpage';
 import $component from '../utils/component';
 import $my from '../utils/wx';
-import $page from '../utils/setpage';
+import $page from '../utils/page';
 import $tab from '../utils/tab';
 const { globalData: a } = getApp();
 
@@ -67,10 +67,10 @@ $register('main', {
   },
   onReady() {
     // 注册事件监听器
-    this.$on('theme', (T: string) => {
+    this.$on!('theme', (T: string) => {
       this.setData!({ T });
     });
-    this.$on('nightmode', (nm: boolean) => {
+    this.$on!('nightmode', (nm: boolean) => {
       this.setData!({ nm });
     });
 

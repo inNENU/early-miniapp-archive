@@ -1,6 +1,6 @@
 /* global getApp wx*/
 import $register from 'wxpage';
-import $page from '../utils/setpage';
+import $page from '../utils/page';
 
 $register('web', {
   onLoad(res: any) {

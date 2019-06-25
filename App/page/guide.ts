@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 23:50:46
+ * @LastEditTime: 2019-06-25 19:21:19
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
 import $component from '../utils/component';
-import $page from '../utils/setpage';
+import $page from '../utils/page';
 import $tab from '../utils/tab';
 const { globalData: a } = getApp();
 
@@ -80,17 +80,17 @@ $register('guide', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const {nc, bc} = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   onReady() {
     // 注册事件监听器
-    this.$on('theme', (T: string) => {
+    this.$on!('theme', (T: string) => {
       this.setData!({ T });
     });
-    this.$on('nightmode', (nm: boolean) => {
+    this.$on!('nightmode', (nm: boolean) => {
       this.setData!({ nm });
     });
   },

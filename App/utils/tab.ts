@@ -7,7 +7,7 @@
  */
 /* global wx */
 import $file from './file';
-import $page from './setpage';
+import $page from './page';
 import $my from './wx';
 
 // 初始化文件管理器、日志管理器

@@ -7,7 +7,7 @@
  */
 import $register from 'wxpage';
 import $component from '../utils/component';
-import $page from '../utils/setpage';
+import $page from '../utils/page';
 const { globalData } = getApp();
 
 $register('2.0', {

@@ -1,7 +1,7 @@
 /* global wx getApp*/
 import $register, { WXPage } from 'wxpage';
 import $component from '../utils/component';
-import $page from '../utils/setpage';
+import $page from '../utils/page';
 import $tab from '../utils/tab';
 import { nightmode } from '../utils/app';
 const { globalData: a } = getApp();
@@ -128,7 +128,7 @@ $register('setting', {
         a.T = theme;
         wx.setStorageSync('theme', theme);
         $page.Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
-        this.$emit('theme', theme);
+        this.$emit!('theme', theme);
         console.log(`theme切换为${theme}`); // 调试
       }
     });
@@ -166,7 +166,7 @@ $register('setting', {
       wx.setStorageSync('nightmodeAutoChange', false);
       this.setData!({ nm: value, page });
       a.nm = value;
-      this.$emit('nightmode', value);
+      this.$emit!('nightmode', value);
       const [frontColor, backgroundColor] = value ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
 
       wx.setNavigationBarColor({ frontColor, backgroundColor });
@@ -200,7 +200,7 @@ $register('setting', {
       }
       this.setData!({ nm, page });
       a.nm = nm;
-      this.$emit('nightmode', nm);
+      this.$emit!('nightmode', nm);
 
       // 设置胶囊和背景颜色
       const { nc, bc } = $page.color(this.data.page[0].grey);

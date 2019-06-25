@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-06-25 00:00:30
+ * @LastEditTime: 2019-06-25 19:43:26
  */
 
 // 初始化日志管理器
@@ -58,6 +58,10 @@ const netWorkReport = () => {
   });
 };
 
+interface NormalObject {
+  [props: string]: any;
+}
+
 /**
  * 包装wx.request
  *
@@ -68,7 +72,7 @@ const netWorkReport = () => {
  */
 const request = (
   path: string,
-  callback: (data: object) => void,
+  callback: (data: NormalObject) => void,
   failFunc?: (errMsg: wx.GeneralCallbackResult) => void,
   errorFunc?: (statusCode: number) => void
 ) => {

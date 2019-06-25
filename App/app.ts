@@ -1,6 +1,6 @@
 /* global wx*/
 import $register from 'wxpage';
-import $page from './utils/setpage';
+import $page from './utils/page';
 import app from './utils/app';
 
 const $App = $register.A;
@@ -8,25 +8,25 @@ const $App = $register.A;
 // Var worker = wx.createWorker("worker/worker.js") //worker test
 
 $App({
-
-  // 小程序全局数据
   globalData: {
     version: 'V 2.0.2',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
       aim: ''
-    }
+    },
+    date: new Date().getTime()
     // T, nm, date, info也在globalData中
   },
-
-  // 路径解析配置
   config: {
     route: ['/page/$page', '/module/$page', '/function/$page', '/settings/$page'],
     // eslint-disable-next-line no-confusing-arrow
-    resolvePath: (name: string) => ['main', 'function', 'guide', 'me'].includes(name)
-      ? `/page/${name}`
-      : ['setting', '2.0', 'about'].includes(name) ? `/settings/${name}` : `/module/${name}`
+    resolvePath: (name: string) =>
+      ['main', 'function', 'guide', 'me'].includes(name)
+        ? `/page/${name}`
+        : ['setting', '2.0', 'about'].includes(name)
+          ? `/settings/${name}`
+          : `/module/${name}`
   },
 
   onLaunch(opts) {
@@ -36,10 +36,7 @@ $App({
 
     // Console.log(capsule);
 
-    // 保存启动时间
-    this.globalData.date = new Date();
-
-    // 初始化库
+    // 为setpage库传入globalData指针
     $page.init(this.globalData);
 
     // 如果初次启动执行初始化
@@ -62,7 +59,7 @@ $App({
     this.globalData.nm = app.nightmode();
 
     app.noticeCheck(this.globalData.version);
-    app.appUpdate();
+    app.appUpdate(this.globalData.version);
   },
 
   // OnShow: function () { },

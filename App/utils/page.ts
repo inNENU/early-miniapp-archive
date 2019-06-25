@@ -8,23 +8,23 @@ import $my from './wx';
 const logger = wx.getLogManager({ level: 1 });
 
 // 声明全局数据
-let globalData: any = {};
+let globalData: GlobalData;
 
 /**
  * 在脚本内初始化全局数据
  *
  * @param data 全局数据
  */
-const init = (data: any) => {
+const init = (data: GlobalData) => {
   globalData = data;
 };
 
 /**
  * 获得界面数据，生成正确的界面数据
  *
- * @param {*} page 页面数据
- * @param {*} option 页面传参
- * @returns {*} 处理之后的page
+ * @param page 页面数据
+ * @param option 页面传参
+ * @returns 处理之后的page
  */
 const disposePage = (page: any, option: any) => {
   if (page)  // 如果page参数传入

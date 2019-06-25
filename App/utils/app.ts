@@ -9,17 +9,29 @@ interface AppOption {
 
 // 小程序配置
 const appOption: AppOption = {
-  theme: 'iOS',
+  /** 主题设置 */
+  theme: 'auto',
+  /** 选择的主题序列号 */
   themeNum: 0,
+  /** 是否开启夜间模式 */
   nightmode: false,
+  /** 日间模式是否改变亮度 */
   nightmodeAutoChange: true,
+  /** 日间模式是否改变亮度 */
   dayBrightnessChange: false,
+  /** 夜间模式是否改变亮度 */
   nightBrightnessChange: false,
+  /** 日间模式亮度(百分比) */
   dayBrightness: 70,
+  /** 夜间模式亮度(百分比) */
   nightBrightness: 30,
+  /** 夜间模式开始时间 */
   nightmodeStartTime: '0-0',
+  /** 夜间模式结束时间 */
   nightmodeEndTime: '5-0',
+  /** 功能更新提示 */
   functionResNotify: true,
+  /** 页面更新提示 */
   pageResNotify: true
 };
 
@@ -72,7 +84,8 @@ const resDownload = (list: string[]) => {
 
 /** 初始化小程序 */
 const appInit = () => {
-  wx.showLoading({ title: '初始化中...', mask: true });// 提示用户正在初始化
+  // 提示用户正在初始化
+  wx.showLoading({ title: '初始化中...', mask: true });
   console.info('初次启动');
 
   // 设置主题
@@ -117,15 +130,6 @@ const appInit = () => {
   // 成功初始化
   wx.setStorageSync('inited', true);
 };
-interface NoticeList {
-  // app: Notice;
-  [props: string]: {
-    0: string;
-    1: string;
-    2: number;
-    3: boolean
-  };
-}
 
 /**
  * 弹窗通知检查
@@ -133,9 +137,17 @@ interface NoticeList {
  * @param version 小程序的版本
  */
 const noticeCheck = (version: string) => {
+  /** 通知列表格式 */
+  interface NoticeList {
+    [props: string]: {
+      0: string;
+      1: string;
+      2: number;
+      3: boolean
+    };
+  }
 
-  $my.request(`config/${version}/notice`, data => {
-    const noticeList = data as NoticeList
+  $my.request(`config/${version}/notice`, (noticeList: NoticeList) => {
     const category = Object.keys(noticeList);
 
     category.forEach(page => {
@@ -158,11 +170,11 @@ const noticeCheck = (version: string) => {
       title: noticeList.app[0], content: noticeList.app[1], showCancel: false,
       success: () => wx.removeStorageSync('appNotify')
     });
-  }, () => { // 调试
+  }, () => { // 调试信息
     console.error('Get noticeList fail');
     logger.warn('noticeList error', 'Net Error');
     wx.reportMonitor('24', 1);
-  }, () => { // 调试
+  }, () => { // 调试信息
     console.error('NoticeList address error');
     logger.warn('noticeList error', 'Address Error');
     wx.reportMonitor('24', 1);
@@ -170,9 +182,9 @@ const noticeCheck = (version: string) => {
 };
 
 /**
- * 夜间模式 for app.js & theme.js
+ * 根据用户设置，判断当前小程序是否应启用夜间模式
  *
- * @returns {boolean} 夜间模式状态
+ * @returns 夜间模式状态
  */
 export const nightmode = () => {
   const date = new Date();
@@ -220,7 +232,9 @@ interface VersionInfo {
 
 
 /**
- * 检查小程序更新并应用
+ * 检查小程序更新
+ * 
+ * 如果检测到小程序更新，获取升级状态（新版本号，是否立即更新、是否重置小程序）并做相应处理
  *
  * @param localVersion 小程序的本地版本
  */
@@ -292,10 +306,15 @@ const appUpdate = (localVersion: string) => {
 
 /**
  * 小程序启动时的运行函数
+ * 
+ * 负责检查通知与小程序更新，注册网络、内存、截屏的监听
  *
  * @param version 小程序的版本
  */
 const startup = (version: string) => {
+  // 检查通知更新与小程序更新
+  noticeCheck(version);
+  appUpdate(version);
 
   // 设置内存不足警告
   wx.onMemoryWarning(res => {
@@ -332,10 +351,6 @@ const startup = (version: string) => {
   wx.onUserCaptureScreen(() => {
     $my.tip('您可以点击右上角——转发或点击页面右下角——保存二维码分享小程序');
   });
-
-  // 检查通知更新与小程序更新
-  noticeCheck(version);
-  appUpdate(version);
 };
 
 export default { appInit, appUpdate, nightmode, noticeCheck, startup };
