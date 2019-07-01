@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS",
+    "importHelpers": true,
+    "moduleResolution": "node",
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "module": "CommonJS",
     "lib": [
       "es6",
       "dom",
       "es2017"
     ],
-    "target": "ES5",
     "allowJs": false,
     "experimentalDecorators": true,
     "noImplicitThis": true,
@@ -22,18 +24,15 @@
     "strict": true,
     "removeComments": true,
     "pretty": true,
-    "strictPropertyInitialization": true,
-    "typeRoots": [
-      "./@types"
-    ]
+    "strictPropertyInitialization": true
   },
   "include": [
     "App",
     "@types/*"
   ],
   "exclude": [
+    "APP/miniprogram_npm",
     "node_modules",
-    "miniprogram_dist",
     "**/*.spec.ts"
   ]
 }

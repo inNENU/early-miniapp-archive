@@ -1,4 +1,11 @@
-/* global wx*/
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-06-24 09:38:02
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-07-01 17:02:35
+ * @Description: 小程序主脚本
+ */
+
 import $register from 'wxpage';
 import $page from './utils/page';
 import app from './utils/app';
@@ -69,7 +76,6 @@ $App({
     this.logger.warn('Error ocurred', errorMsg); // 调试
   },
   onPageNotFound(msg) {
-
     // 重定向到主界面
     wx.switchTab({ url: 'pages/main' });
 

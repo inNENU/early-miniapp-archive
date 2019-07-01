@@ -2,7 +2,7 @@
 
 // 引入文件管理
 import $file from './file';
-import $my from './wx';
+import $wx from './wx';
 import { WXPage } from 'wxpage';
 
 // 声明日志管理器
@@ -337,7 +337,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
       }
     } else
       // 请求页面Json
-      $my.request(`page/${path}`, data => {
+      $wx.request(`page/${path}`, data => {
         // 设置界面
         setPage({ option, ctx }, data as PageData);
 

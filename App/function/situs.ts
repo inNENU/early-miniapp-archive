@@ -9,7 +9,7 @@ import $register, { WXPage } from 'wxpage';
 import $component from '../utils/component';
 import $file from '../utils/file';
 import $page from '../utils/page';
-import $my from '../utils/wx';
+import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 
 $register('situs', {
@@ -24,7 +24,7 @@ $register('situs', {
 
       if (pageData) $page.Set({ option, ctx: this }, pageData);
       else // 向服务器请求json
-        $my.request(`function/${option.xiaoqu}/${option.aim}`, (data: object) => {
+        $wx.request(`function/${option.xiaoqu}/${option.aim}`, (data: object) => {
           $page.Set({ option, ctx: this }, data as PageData);
 
           // 非分享界面下将页面数据写入存储

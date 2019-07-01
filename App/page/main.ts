@@ -7,7 +7,7 @@
  */
 import $register from 'wxpage';
 import $component from '../utils/component';
-import $my from '../utils/wx';
+import $wx from '../utils/wx';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
 const { globalData: a } = getApp();
@@ -76,7 +76,7 @@ $register('main', {
 
     // 执行tab页预加载
     ['guide', 'function'].forEach(x => {
-      $my.request(`config/${a.version}/${x}`, (data: object) => {
+      $wx.request(`config/${a.version}/${x}`, (data: object) => {
         this.$put(x, data);
         this.$preload(`${x}?aim=${x}`);
         wx.setStorageSync(x, data);

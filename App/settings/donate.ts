@@ -8,7 +8,7 @@
 import $register from 'wxpage';
 import $component from '../utils/component';
 import $page from '../utils/page';
-import $my from '../utils/wx';
+import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 
 $register('donate', {
@@ -31,7 +31,7 @@ $register('donate', {
   },
   onLoad() {
     this.setData!({ 'page[0].statusBarHeight': a.info.statusBarHeight });
-    $my.request('config/donateList', donateList => {
+    $wx.request('config/donateList', donateList => {
       this.setData!({ donateList });
     });
   },
@@ -47,7 +47,7 @@ $register('donate', {
   },
   save(res: any) {
     console.log('Start QRCode download.');// 调试
-    $my.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, (path: string) => {
+    $wx.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, (path: string) => {
       // 获取用户设置
       wx.getSetting({
         success: res2 => {
@@ -56,7 +56,7 @@ $register('donate', {
             wx.saveImageToPhotosAlbum({
               filePath: path,
               success: () => {
-                $my.tip('保存成功');
+                $wx.tip('保存成功');
               }
             });
           else wx.authorize({// 没有授权——>提示用户授权
@@ -65,7 +65,7 @@ $register('donate', {
               wx.saveImageToPhotosAlbum({
                 filePath: path,
                 success: () => {
-                  $my.tip('保存成功');
+                  $wx.tip('保存成功');
                 }
               });
             },
@@ -74,7 +74,7 @@ $register('donate', {
                 title: '权限被拒', content: '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
                 showCancel: false, confirmText: '确定', confirmColor: '#3CC51F',
                 complete: () => {
-                  $my.tip('二维码保存失败');
+                  $wx.tip('二维码保存失败');
                 }
               });
             }
@@ -82,7 +82,7 @@ $register('donate', {
         }
       });
     }, () => {
-      $my.tip('二维码下载失败');
+      $wx.tip('二维码下载失败');
     });
   },
   onPageScroll(e) {

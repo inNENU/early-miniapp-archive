@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 23:57:51
+ * @LastEditTime: 2019-07-01 17:08:56
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
 import $component from '../utils/component';
 import $file from '../utils/file';
 import $page from '../utils/page';
-import $my from '../utils/wx';
+import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 const manager = wx.getBackgroundAudioManager();
 
@@ -24,7 +24,7 @@ $register('music', {
   onNavigate() {
     const songList = $file.readJson('function/song');
 
-    if (!songList) $my.request('function/song', (data: any) => {
+    if (!songList) $wx.request('function/song', (data: any) => {
       // 写入JSON文件
       $file.writeJson('function', 'song', data);
     });
@@ -75,7 +75,7 @@ $register('music', {
       }
 
       // 在线获取歌曲列表
-    } else $my.request('function/song', (data: any) => {
+    } else $wx.request('function/song', (data: any) => {
       currentSong = data[index];
       this.setData!({ songList: data, currentSong });
 
@@ -165,7 +165,7 @@ $register('music', {
     });
 
     manager.onError(() => {
-      $my.tip('获取音乐出错，请稍后重试');
+      $wx.tip('获取音乐出错，请稍后重试');
     });
 
     // 设置胶囊和背景颜色
@@ -203,7 +203,7 @@ $register('music', {
         break;
       case 2:
         index = index + 1 === total ? 'stop' : index + 1;
-        $my.tip('播放完毕');
+        $wx.tip('播放完毕');
         break;
       case 1:
         break;
@@ -226,7 +226,7 @@ $register('music', {
       case 2:
         if (index + 1 === total) {
           index = 'nothing';
-          $my.tip('已是最后一曲');
+          $wx.tip('已是最后一曲');
         } else index += 1;
         break;
       case 1:
@@ -249,7 +249,7 @@ $register('music', {
       case 2:
         if (index === 0) {
           index = 'nothing';
-          $my.tip('已是第一曲');
+          $wx.tip('已是第一曲');
         } else index -= 1;
         break;
       case 1:
@@ -303,7 +303,7 @@ $register('music', {
         modeName = '列表循环';
     }
     wx.setStorageSync('playMode', mode);
-    $my.tip(`${modeName}模式`);
+    $wx.tip(`${modeName}模式`);
   },
   list() { // 切换列表显隐
     this.setData!({ songListDisplay: !this.data.songListDisplay });

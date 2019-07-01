@@ -9,7 +9,7 @@ import $register, { WXPage } from 'wxpage';
 import $component from '../utils/component';
 import $file from '../utils/file';
 import $page from '../utils/page';
-import $my from '../utils/wx';
+import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 
 $register('about', {
@@ -97,7 +97,7 @@ $register('about', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    $my.request(`config/${a.version}/about`, (data: object) => {
+    $wx.request(`config/${a.version}/about`, (data: object) => {
       $page.Set(
         { option: { aim: 'about' }, ctx: this },
         this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1))
@@ -122,7 +122,7 @@ $register('about', {
       this.developMode = false;
     } else if (this.clickNumber < 5) this.clickNumber += 1;
     else if (this.clickNumber < 10) {
-      $my.tip(`再点击${10 - this.clickNumber}次即可启用开发者模式`);
+      $wx.tip(`再点击${10 - this.clickNumber}次即可启用开发者模式`);
       this.clickNumber += 1;
     } else {
       this.setData!({ debug: true });
@@ -134,7 +134,7 @@ $register('about', {
   password(e: any) {
     if (e.detail.value.length === 7) {
       if (e.detail.value === '5201314') { // 密码正确
-        $my.tip('已启用开发者模式');
+        $wx.tip('已启用开发者模式');
         this.data.page[1].content.forEach((x: any) => {
           x.hidden = false;
         });
@@ -165,11 +165,11 @@ $register('about', {
   },
   testSwitch(res: any) {
     $component.trigger(res, this);
-    $my.tip(`已${res.detail.value ? '启用' : '关闭'}测试功能`);
+    $wx.tip(`已${res.detail.value ? '启用' : '关闭'}测试功能`);
   },
   deleteData() {
     wx.clearStorageSync();
-    $my.tip('数据清除完成');
+    $wx.tip('数据清除完成');
   },
   deleteFile() {
     wx.showLoading({ title: '删除中', mask: true });

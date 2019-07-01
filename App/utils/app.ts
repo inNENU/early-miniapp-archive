@@ -1,6 +1,14 @@
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-06-24 11:59:30
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-07-01 17:08:12
+ * @Description: APP函数库
+ */
+
 // 初始化文件管理器、日志管理器
 import $file from './file';
-import $my from './wx';
+import $wx from './wx';
 const logger = wx.getLogManager({ level: 1 });
 
 interface AppOption {
@@ -74,7 +82,7 @@ const resDownload = (list: string[]) => {
 
       // 下载失败
       fail: failMsg => {
-        $my.netReport();
+        $wx.netReport();
         console.error(`download ${name} fail:`, failMsg);
         logger.warn(`初始化小程序时下载${name}失败`);
       }
@@ -147,7 +155,7 @@ const noticeCheck = (version: string) => {
     };
   }
 
-  $my.request(`config/${version}/notice`, (noticeList: NoticeList) => {
+  $wx.request(`config/${version}/notice`, (noticeList: NoticeList) => {
     const category = Object.keys(noticeList);
 
     category.forEach(page => {
@@ -248,13 +256,13 @@ const appUpdate = (localVersion: string) => {
   updateManager.onCheckForUpdate(status => {
 
     // 找到更新，提示用户获取到更新
-    if (status.hasUpdate) $my.tip('发现小程序更新，下载中...');
+    if (status.hasUpdate) $wx.tip('发现小程序更新，下载中...');
   });
 
   updateManager.onUpdateReady(() => {
 
     // 请求配置文件
-    $my.request(`config/${localVersion}/config`, data => {
+    $wx.request(`config/${localVersion}/config`, data => {
       ({ forceUpdate, reset, version } = data as VersionInfo);
 
       // 更新下载就绪，提示用户重新启动
@@ -294,7 +302,7 @@ const appUpdate = (localVersion: string) => {
   updateManager.onUpdateFailed(() => {
 
     // 提示用户网络出现问题
-    $my.tip('小程序更新下载失败，请检查您的网络！');
+    $wx.tip('小程序更新下载失败，请检查您的网络！');
 
     // 调试
     console.warn('Update failure');
@@ -318,7 +326,7 @@ const startup = (version: string) => {
 
   // 设置内存不足警告
   wx.onMemoryWarning(res => {
-    $my.tip('内存不足');
+    $wx.tip('内存不足');
     console.warn('onMemoryWarningReceive');
     wx.reportAnalytics('memory_warning', {
       memory_warning: res && res.level ? res.level : 0,
@@ -330,7 +338,7 @@ const startup = (version: string) => {
     success: res => {
       const { networkType } = res;
 
-      if (networkType === 'none' || networkType === 'unknown') $my.tip('您的网络状态不佳');
+      if (networkType === 'none' || networkType === 'unknown') $wx.tip('您的网络状态不佳');
     }
   });
 
@@ -339,17 +347,17 @@ const startup = (version: string) => {
 
     // 显示提示
     if (!res.isConnected) {
-      $my.tip('网络连接中断,部分小程序功能暂不可用');
+      $wx.tip('网络连接中断,部分小程序功能暂不可用');
       wx.setStorageSync('networkError', true);
     } else if (wx.getStorageSync('network')) {
       wx.setStorageSync('networkError', false);
-      $my.tip('网络链接恢复');
+      $wx.tip('网络链接恢复');
     }
   });
 
   // 监听用户截屏
   wx.onUserCaptureScreen(() => {
-    $my.tip('您可以点击右上角——转发或点击页面右下角——保存二维码分享小程序');
+    $wx.tip('您可以点击右上角——转发或点击页面右下角——保存二维码分享小程序');
   });
 };
 
