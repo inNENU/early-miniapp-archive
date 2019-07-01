@@ -16,8 +16,7 @@ declare interface ComponentData {
   [props: string]: any;
 }
 
-// declare type PageData = ComponentData[]
-declare type PageData = any;
+declare type PageData = ComponentData[]
 
 declare interface PageArg {
   aim: string;

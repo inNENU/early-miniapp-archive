@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-26 00:08:56
+ * @LastEditTime: 2019-06-26 00:33:57
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -74,8 +74,8 @@ $register('about', {
     });
     $page.resolve(res, p);
   },
-  onLoad(option) {
-    if (option && a.page.aim === option.aim) $page.Set({ option: { aim: 'about' }, ctx: this });
+  onLoad(option: any) {
+    if (a.page.aim === option.aim) $page.Set({ option, ctx: this });
     else {
       const p = this.data.page;
       const value = wx.getStorageSync('developMode');

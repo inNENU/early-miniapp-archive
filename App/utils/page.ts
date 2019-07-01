@@ -225,8 +225,8 @@ interface SetPageOption {
  * @param option 页面传参
  * @param ctx 页面指针
  * @param [handle=false] 页面是否已经被处理
- * @param [page] page数组
- * @param [preload=true] 是否预加载
+ * @param [page] 页面数据
+ * @param [preload=true] 是否预加载子页面
  */
 const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData, preload = true) => {
   // 设置页面数据
@@ -258,7 +258,13 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
 };
 
 /**
- * 弹出通知，在onLoad时被调用
+ * **简介:**
+ * 
+ * - 描述：弹出通知
+ * 
+ * - 用法：在页面onLoad时调用，
+ * 
+ * - 性质：同步函数
  *
  * @param aim 当前界面的aim值
  */
@@ -283,7 +289,13 @@ const popNotice = (aim: string) => {
 };
 
 /**
- * 设置在线界面数据，在界面初始化之后使用
+ * **简介:**
+ * 
+ * - 描述：设置在线界面数据
+ * 
+ * - 用法：在页面onLoad时调用，
+ * 
+ * - 性质：同步函数
  *
  * @param option 页面传参
  * @param ctx 页面指针
@@ -367,7 +379,13 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
 };
 
 /**
- * 设置胶囊与背景颜色
+ * **简介:**
+ *
+ * - 描述：设置胶囊与背景颜色
+ *
+ * - 用法：在页面onShow时调用，
+ *
+ * - 性质：同步函数
  *
  * @param grey 页面是否为灰色背景
  */

@@ -60,7 +60,7 @@ $register('setting', {
       { tag: 'foot' }
     ]
   },
-  onNavigate(res: WXPage.PageOption) {
+  onNavigate(res: WXPage.PageArg) {
     // 生成时间
     for (let i = 0; i <= 23; i++) time[0].push(`${i}时`);
     for (let i = 0; i <= 59; i++)
