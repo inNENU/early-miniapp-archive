@@ -1,0 +1,56 @@
+<view class="{{nm?'nm':''}} commonBg">
+  <view class='backBtn' style="top:{{info.statusBarHeight+5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'cA'}}" data-action='back'>
+    <image class="backIcon" src="/icon/back{{nm?'':'Black'}}.png" />
+  </view>
+  <view style='height:10%;' />
+  <view class='headerCtn'>
+    <view class='songName'>{{currentSong.title}}</view>
+    <view class='songAuthor'>—— {{currentSong.singer}} ——</view>
+  </view>
+  <view class="coverCtn">
+    <image wx:if="{{!coverLoad}}" class="cover {{play?'rotate':''}}" src='/function/icon/cd.svg' />
+    <image class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{currentSong.cover}}" bindload='loadCover' />
+  </view>
+  <view class='progressBarCtn'>
+    <view class='timeDisplay'>{{present?present[0]+":"+present[1]:"--:--"}}</view>
+    <slider class='progressBar' min='0' max='{{songLength*100}}' step='1' value="{{currentTime*100}}" block-size='15' backgroundColor='e9e9e9' selected-color='#27C087' block-color="#27C087" bindchange='drag' bindchanging='drag' />
+    <view class='timeDisplay'>{{total?total[0]+":"+total[1]:"--:--"}}</view>
+  </view>
+  <view class='playerCtn'>
+    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50' bindtap='modeSwitch'>
+      <image wx:if="{{mode==0}}" class='cycleBtn2' src='/function/icon/recyclePlayAll.svg' />
+      <image wx:if="{{mode==1}}" class='cycleBtn2' src='/function/icon/recyclePlaySingle.svg' />
+      <image wx:if="{{mode==2}}" class='cycleBtn' src='/function/icon/orderPlay.svg' />
+      <image wx:if="{{mode==3}}" class='cycleBtn' src='/function/icon/randomPlay.svg' />
+    </view>
+    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
+      <image class='previousBtn' src='/function/icon/previousSong.svg' catchtap='previous' />
+    </view>
+    <view wx:if="{{canplay}}" class='buttonCtn2' hover-class='active' hover-start-time='0' hover-stay-time='50' catchtap='play'>
+      <image class='playBtn' src="{{play?'/function/icon/pause.svg':'/function/icon/play.svg'}}" />
+    </view>
+    <view wx:else class='buttonCtn2' hover-class='active'>
+      <image class='playBtn' src="/function/icon/loading.svg" />
+    </view>
+    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50'>
+      <image class='nextBtn' src='/function/icon/nextSong.svg' catchtap='next' />
+    </view>
+    <view class='buttonCtn' hover-class='active' hover-start-time='0' hover-stay-time='50' catchtap='list'>
+      <image class='listBtn' src='/function/icon/musicList.svg' />
+    </view>
+  </view>
+  <view style='height:10%;'></view>
+  <scroll-view wx:if="{{songListDisplay}}" scroll-y class="songListCtn">
+    <!-- <scroll-view wx:if="{{songListDisplay}}" scroll-y class="songListCtn  {{hide?'fadeOut':'fadeIn'}}"> -->
+    <view class="closeBtn" hover-class="pressHover" catchtap="list">
+      <image class="closeIcon" src="/icon/close.png" />
+    </view>
+    <view wx:for="{{songList}}" wx:key="{{item.title}}" class="songCtn" hover-class="buttonHover" catchtap="change" data-index="{{index}}">
+      <image class="songListIcon" src="{{item.cover}}" />
+      <view class="songList">
+        <view class="songListName">{{item.title}}</view>
+        <view class="songListDesc">{{item.singer}}</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

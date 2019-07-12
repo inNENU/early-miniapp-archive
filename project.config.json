@@ -1,0 +1,74 @@
+{
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "bak"
+      },
+      {
+        "type": "file",
+        "value": ".eslintrc.js"
+      },
+      {
+        "type": "file",
+        "value": "jsdoc.js"
+      },
+      {
+        "type": "suffix",
+        "value": "md"
+      }
+    ]
+  },
+  "miniprogramRoot": "App/",
+  "compileType": "miniprogram",
+  "libVersion": "2.7.4",
+  "appid": "wx33acb831ee1831a5",
+  "qqLibVersion": "1.4.8",
+  "qqappid": "1109559721",
+  "projectname": "myNENU",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "enhance": true,
+    "postcss": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": true,
+    "autoAudits": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true
+  },
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "miniprogram": {
+      "current": 1,
+      "list": [
+        {
+          "id": 0,
+          "name": "师大师大",
+          "pathName": "function/player",
+          "query": "index=5"
+        },
+        {
+          "id": 1,
+          "name": "更新",
+          "pathName": "page/main",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "计算器分享",
+          "pathName": "function/PEcal",
+          "query": "share=true",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

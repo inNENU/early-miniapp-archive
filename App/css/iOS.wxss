@@ -1,0 +1,547 @@
+/* 
+---iOS theme made by Mr.Hope--- 
+  Version: V1.0.2
+ */
+
+.iOS {
+  width: 100%;
+  min-height: 100%;
+  text-align: center;
+  background-color: #fff;
+}
+
+.iOS.grey {
+  background-color: #efeef4;
+}
+
+.nm.iOS.grey {
+  background-color: #10110b;
+  color: #fff;
+}
+
+/* iOS Head */
+
+.iOS-navigationBar,
+.iOS-navPlaceHolder {
+  width: 100%;
+  background-color: #F4F4F6;
+  text-align: center;
+}
+
+.iOS-navigationBar {
+  height: 44px;
+  padding-top: 20px;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}
+
+.iOS-navPlaceHolder {
+  height: 64px;
+  font-size: 10px;
+  color: #acacb0;
+}
+
+.nm .iOS-navigationBar,
+.nm .iOS-navPlaceHolder {
+  background-color: #0B0B09;
+}
+
+.nm .iOS-navPlaceHolder {
+  color: #555;
+}
+
+.iOS-navBack {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 5px !important;
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0);
+  margin: 0 3%;
+  line-height: 2.4;
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  z-index: 101;
+}
+
+.iOS-backArrow {
+  width: 12px;
+  height: 12px;
+  border-width: 0 0 3px 3px;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  border-color: #3478f7;
+}
+
+.iOS-nav-text {
+  color: #3478f7;
+  font-size: 16px;
+  z-index: 101;
+}
+
+.iOS-titletext {
+  width: 100%;
+  position: absolute;
+  font-size: 17px;
+  font-weight: 500;
+  z-index: 100;
+}
+
+.iOSnavDl {
+  width: 100%;
+  height: 0;
+  position: fixed;
+  top: 64px;
+  z-index: 100;
+}
+
+.iOS-head {
+  position: relative;
+}
+
+.iOSnavDl:after,
+.iOS-head:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1px solid #acacb0;
+  color: #acacb0;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.nm .iOSnavDl:after,
+.nm .iOS-head:after {
+  border-bottom: 1px #53354f solid;
+  color: #53354f;
+}
+
+.iOS-head {
+  padding: 3px 5%;
+  text-align: left;
+  font-size: 34px;
+  font-weight: 500;
+  background-color: #F4F4F6;
+}
+
+.nm .iOS-head {
+  background-color: #0B0B09;
+}
+
+/* iOS content */
+
+.iOSTitle,
+.iOShead {
+  text-align: left;
+  font-weight: 500;
+  padding: 12px 5% 4px 5%;
+}
+
+.iOSTitle {
+  min-height: 24px;
+  font-size: 22px;
+}
+
+.iOShead {
+  min-height: 20px;
+  font-size: 19px;
+}
+
+.grey .iOShead {
+  font-size: 13px;
+  min-height: 9px;
+  font-weight: 400;
+  color: #666;
+  padding: 23px 15px 5px 15px;
+  max-width: 487px;
+  margin: 0 auto;
+}
+
+@media (min-width:768px) {
+  .iOSTitle {
+    min-height: 26px;
+    font-size: 24px;
+  }
+
+  .iOShead {
+    min-height: 22px;
+    font-size: 21px;
+  }
+
+  .grey .iOShead {
+    font-size: 14px;
+    min-height: 10px;
+  }
+}
+
+.grey.nm .iOShead {
+  color: #999;
+}
+
+.iOSTitle+.iOShead,
+.iOSTitle+.iOSTitle {
+  padding-top: 2px;
+}
+
+.iOSP {
+  font-size: 16px;
+  padding: 0 15px;
+  line-height: 1.6;
+  text-align: justify;
+  word-wrap: break-word;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (min-width:768px) {
+  .iOSP {
+    font-size: 18px;
+  }
+}
+
+.grey .iOSP {
+  font-size: 17px;
+  padding: 10px 15px;
+  line-height: 1.6;
+  text-align: left;
+  background-color: #fefefe;
+  max-width: 487px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.grey .iOSP:after,
+.grey .iOSP:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  color: #cac9ce;
+}
+
+.grey .iOSP:after {
+  bottom: 0;
+  border-bottom: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.grey .iOSP:before {
+  top: 0;
+  border-top: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.grey.nm .iOSP:before,
+.grey.nm .iOSP:after {
+  border-color: #353631;
+}
+
+.iOS-img {
+  width: 90% !important;
+  margin: 4px auto;
+  border-radius: 16rpx;
+  max-width: 600px !important;
+}
+
+.iOSP .iOS-img {
+  width: 100% !important;
+}
+
+.iOSImgError {
+  width: 90%;
+  height: 400rpx;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4px 5%;
+  border-radius: 16rpx;
+  background-color: #cac9ce;
+  color: #888;
+}
+
+.iOSN {
+  font-size: 12px;
+  font-weight: 300;
+  margin-top: -2px;
+  margin-bottom: 4px;
+  text-align: center;
+  color: #222;
+}
+
+.nm .iOSN {
+  color: #ddd;
+}
+
+.nm.iOS,
+.nm .iOSP {
+  background-color: #000;
+  color: #fff;
+}
+
+/* list */
+
+.grey .commonhead {
+  min-height: 9px;
+  padding: 23px 15px 5px 15px;
+}
+
+.commonfoot {
+  padding: 5px 15px 0 15px;
+}
+
+.commonfoot,
+.grey .commonhead {
+  font-size: 13px;
+  color: #666;
+  max-width: 487px;
+  margin: 0 auto;
+}
+
+.nm .commonfoot,
+.grey.nm .commonhead {
+  color: #999;
+}
+
+.nm .commonhead {
+  color: #fff;
+}
+
+.LinkText,
+.commonhead,
+.commonfoot {
+  text-align: left;
+}
+
+.Lctn {
+  background-color: #fefefe;
+  margin: 0 auto;
+  max-width: 517px;
+  position: relative;
+}
+
+.Lctn:after,
+.Lctn:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  color: #cac9ce;
+}
+
+.Lctn:after {
+  bottom: 0;
+  border-bottom: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.Lctn:before {
+  top: 0;
+  border-top: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.nm .Lctn:after,
+.nm .Lctn:before {
+  border-color: #353631;
+}
+
+.listCtn {
+  padding: 0 15px;
+  font-size: 17px;
+  line-height: 1.45;
+  border-radius: 0;
+  border: none !important;
+  color: #000 !important;
+}
+
+.listCtn:empty {
+  padding: 0;
+}
+
+.nm .listCtn {
+  background-color: #000;
+  color: #fff !important;
+}
+
+.LinkText {
+  padding: 10px 0;
+  line-height: 1.5;
+}
+
+.listIcon {
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
+}
+
+.list-Container {
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.list-Container,
+.LinkText,
+.pick-view-column:first-child,
+.pick-view-column:last-child {
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.linkDesciption {
+  color: #999 !important;
+  text-align: right;
+}
+
+.access {
+  padding-right: 15px;
+  position: relative;
+}
+
+.access:after {
+  content: " ";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-width: 2px 2px 0 0;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  right: 2px;
+  border-color: #c7c7cc;
+}
+
+.nm .access:after {
+  border-color: #383833;
+}
+
+.link-divline {
+  position: relative;
+}
+
+.link-divline:after {
+  content: " ";
+  position: absolute;
+  left: 4%;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  color: #cac9ce;
+  border-bottom: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.listIcon.link-divline {
+  width: 100%;
+  height: 0;
+}
+
+.listIcon.link-divline:after {
+  left: 14%;
+}
+
+.nm .link-divline:after {
+  border-color: #353631;
+}
+
+.link-divline:last-child:after {
+  display: none;
+}
+
+.pickerViewCtn {
+  height: 160px;
+}
+
+.pick-view-column {
+  min-width: 50px;
+  flex: none;
+}
+
+.pickColumn {
+  display: -webkit-flex;
+  display: flex;
+  padding: 0 8px;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 18px;
+  flex: none;
+}
+
+.pick-view-column:first-child .pickColumn {
+  text-align: right;
+}
+
+.pick-view-column:last-child .pickColumn {
+  text-align: left;
+}
+
+.iOSpick-view-column:only-child .iOSpickColumn {
+  text-align: center;
+}
+
+.nm .Lctn,
+.nm .pickerViewCtn,
+.nm .pick-view-column {
+  background-color: #000;
+  color: #fff;
+}
+
+.sliderCtn {
+  padding: 5px 15px;
+}
+
+.nm .LinkText,
+.nm .pickerViewCtn {
+  color: #fff;
+}
+
+/* .pickerMask {
+  background-color: rgba(0, 0, 0, 0.438);
+} */
+
+/* .pickerMask {
+  height: 160px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(219, 218, 223, 0.1), rgba(255, 255, 255, 0.9));
+} */
+
+/* .pickSelected {
+  font-size: 20px;
+  height: 38px;
+}  */

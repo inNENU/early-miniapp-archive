@@ -1,0 +1,31 @@
+/* animation */
+
+.fadeIn,
+.fadeOut {
+  -webkit-transition: opacity 0.8s !important;
+  transition: opacity 0.8s !important;
+}
+
+.fadeIn {
+  opacity: 1 !important;
+}
+
+.fadeOut {
+  opacity: 0 !important;
+}
+
+.moveDownIn,
+.moveDownOut,
+.moveUpIn,
+.moveUpOut {
+  -webkit-transition: all 0.8s !important;
+  transition: all 0.8s !important;
+}
+
+.moveUpIn {
+  transform: translateY(-100%);
+}
+
+.moveDownIn {
+  transform: translateY(100%);
+}

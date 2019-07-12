@@ -1,0 +1,14 @@
+<import src="/components/template" />
+<view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <view class="backBtn {{page[0].titleDisplay?'fadeOut':'fadeIn'}}" style="top:{{page[0].statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap="{{page[0].action?'redirect':'cA'}}" data-action='back'>
+    <image class='backIcon' src='/icon/back.svg' />
+  </view>
+  <view class="NENUnav {{page[0].borderDisplay?'fadeIn':'fadeOut'}}" style="background-color:{{page[0].color}};padding-top:{{page[0].statusBarHeight}}px;">
+    <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catchtap="{{page[0].action?'redirect':'cA'}}" data-action='back'>
+      <view class='iOS-backArrow' style='border-color:#fff;'></view>
+      <text class='iOS-nav-text' style='color:#fff;'>返回</text>
+    </button>
+    <view class='NENU-navText'>{{page[0].title}}</view>
+  </view>
+  <template is="all2" data="{{page,T}}" />
+</view>

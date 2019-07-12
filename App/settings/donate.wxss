@@ -1,0 +1,31 @@
+.QRCodeCtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.QRCode1 {
+  width: 50%;
+}
+
+.QRCode2 {
+  width: 40%;
+}
+
+.donateList {
+  width: 90%;
+  padding: 0 5%;
+  text-align: left;
+}
+
+.donateTitle {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 2;
+  padding-bottom: 8px;
+}
+
+.donateListItem {
+  font-size: 15px;
+  line-height: 1.5;
+}

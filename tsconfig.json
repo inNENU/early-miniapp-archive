@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "lib": [
+      "es6",
+      "dom",
+      "es2017"
+    ],
+    "allowJs": false,
+    "experimentalDecorators": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "removeComments": true,
+    "pretty": true,
+    "strictPropertyInitialization": true
+  },
+  "include": [
+    "App",
+    "typings/*"
+  ],
+  "exclude": [
+    "APP/miniprogram_npm",
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

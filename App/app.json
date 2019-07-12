@@ -1,0 +1,122 @@
+{
+  "pages": [
+    "page/main",
+    "page/function",
+    "page/guide",
+    "page/me",
+    "settings/2.0",
+    "settings/setting",
+    "settings/donate",
+    "settings/about"
+  ],
+  "subPackages": [
+    {
+      "root": "function",
+      "pages": [
+        "cal",
+        "map",
+        "situs",
+        "player",
+        "PEcal",
+        "scenery"
+      ]
+    },
+    {
+      "root": "module",
+      "pages": [
+        "module1",
+        "module2",
+        "module3",
+        "module4",
+        "module5",
+        "module6",
+        "module7",
+        "sharePage",
+        "web",
+        "building"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "page/main": {
+      "network": "all",
+      "packages": [
+        "module"
+      ]
+    },
+    "page/function": {
+      "network": "all",
+      "packages": [
+        "function"
+      ]
+    },
+    "module/sharePage": {
+      "network": "all",
+      "packages": [
+        "__APP__"
+      ]
+    }
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "东师青年",
+    "navigationStyle": "custom",
+    "backgroundColor": "#efeef4",
+    "backgroundTextStyle": "dark",
+    "backgroundColorTop": "#f5f5f7",
+    "backgroundColorBottom": "#efeef4",
+    "pageOrientation": "portrait"
+  },
+  "tabBar": {
+    "custom": false,
+    "color": "#8a8a8a",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "page/main",
+        "text": "首页",
+        "iconPath": "icon/tab/home.png",
+        "selectedIconPath": "icon/tab/@Home.png"
+      },
+      {
+        "pagePath": "page/function",
+        "text": "功能",
+        "iconPath": "icon/tab/function.png",
+        "selectedIconPath": "icon/tab/@Function.png"
+      },
+      {
+        "pagePath": "page/guide",
+        "text": "东师指南",
+        "iconPath": "icon/tab/guide.png",
+        "selectedIconPath": "icon/tab/@Guide.png"
+      },
+      {
+        "pagePath": "page/me",
+        "text": "我的东师",
+        "iconPath": "icon/tab/me.png",
+        "selectedIconPath": "icon/tab/@Me.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 5000,
+    "connectSocket": 8000,
+    "uploadFile": 8000,
+    "downloadFile": 25000
+  },
+  "debug": true,
+  "resizable": true,
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将用于校园地图导航"
+    }
+  },
+  "requiredBackgroundModes": [
+    "audio"
+  ],
+  "sitemapLocation": "sitemap.json"
+}

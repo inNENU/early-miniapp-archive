@@ -1,0 +1,243 @@
+/* 右上角解释文字 */
+.descCtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.descBtn {
+  width: auto;
+  padding: 6px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.descIcon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+}
+
+.descText {
+  font-size: 15px;
+  color: #888
+}
+
+/* 分数部分 */
+
+.scoreBox {
+  width: 100%;
+  height: 120px;
+  display: flex;
+}
+
+.nm .scoreBox {
+  color: #fff;
+}
+
+.BMICtn,
+.scoreCtn {
+  width: 50%;
+  height: 100%;
+}
+
+.scoreTitle {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 20px;
+}
+
+.scoreDisplay {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* 输入列表 */
+
+.list {
+  position: relative;
+  width: 95%;
+  background-color: #fff;
+  line-height: 1.75;
+  font-size: 17px;
+  text-align: right;
+  padding-left: 5%;
+}
+
+.nm .list {
+  background-color: #000;
+  color: #fff;
+}
+
+.list:before,
+.list:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.list:before {
+  top: 0;
+  border-top: 1px solid #acacb0;
+  color: #acacb0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+
+.list:after {
+  bottom: 0;
+  border-bottom: 1px solid #acacb0;
+  color: #acacb0;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+}
+
+.nm .list:before,
+.nm .list:after {
+  border-color: #0B0B09;
+}
+
+.listItem {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.listItem:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1px solid #acacb0;
+  color: #acacb0;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.nm .listItem:after {
+  border-color: #0B0B09;
+}
+
+.listItem:after :last-child {
+  display: none;
+}
+
+.listText {
+  padding-right: 12px;
+  text-align: left;
+  flex: none;
+}
+
+.listInput {
+  flex: auto;
+  padding-right: 5%;
+}
+
+.listUnit {
+  flex: none;
+  padding-right: 5%;
+  color: #444;
+}
+
+.listPicker {
+  flex: auto;
+  padding-right: 5%;
+}
+
+.nm .listUnit {
+  color: #bbb;
+}
+
+/* 计算按钮 */
+
+.calBtn {
+  width: 92%;
+  margin: 12px 4%;
+}
+
+/* 成绩列表 */
+
+.scoreListCtn {
+  position: relative;
+  width: 90%;
+  margin: 0 5%;
+  background-color: #fff;
+  border-radius: 5px;
+  line-height: 1.75;
+  font-size: 17px;
+}
+
+.nm .scoreListCtn {
+  background-color: #000;
+  color: #fff;
+}
+
+.scoreListCtn:after {
+  content: " ";
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #acacb0;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.nm .scoreListCtn:after {
+  border-color: #0B0B09;
+}
+
+.scoreListTitle {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.scoreItemCtn {
+  width: calc(100% - 30px);
+  position: relative;
+  display: flex;
+  padding: 6px 15px;
+}
+
+.scoreItemCtn:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid #acacb0;
+  color: #acacb0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.nm .scoreItemCtn:before {
+  border-color: #0B0B09;
+}
+
+.listScore {
+  flex: auto;
+  text-align: right;
+}

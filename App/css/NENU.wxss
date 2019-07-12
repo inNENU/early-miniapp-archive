@@ -1,0 +1,176 @@
+/* ---NENU theme made by MrHope--- */
+
+.NENU {
+  width: 100%;
+  min-height: 100%;
+  color: #000;
+  background-color: #fff;
+  font-family: "Helvetica Neue",
+    FZSSJW,
+    -apple-system-font,
+    "PingFang SC",
+    "Helvetica Neue",
+    Helvetica,
+    STHeiti,
+    Tahoma,
+    Simsun,
+    sans-serif !important;
+}
+
+.NENU.grey {
+  background-color: #f0f0f0;
+}
+
+.nm.NENU {
+  color: #fff;
+  background-color: #000;
+}
+
+.nm.NENU.grey {
+  background-color: #0f0f0f;
+}
+
+/* NENU nav */
+
+.NENUnav,
+.NENUnav2 {
+  width: 100%;
+  position: fixed;
+  display: -webkit-flex;
+  display: flex;
+  background-color: #5ab879;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  z-index: 99;
+}
+
+.NENUnav {
+  height: 40px;
+  padding: 2px 0;
+  border-bottom: 1rpx solid #efeef4;
+  justify-content: flex-start;
+}
+
+.nm .NENUnav {
+  border-color: #10110b;
+}
+
+.NENU-navText {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.NENUTitle {
+  position: absolute;
+  max-width: 60%;
+  padding: 6.5px 9px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 17px;
+  border: 1rpx solid rgba(255, 255, 255, 0.15);
+}
+
+/* paragraph */
+
+.NENUTitle,
+.NENUhead,
+.NENUP {
+  text-align: left;
+}
+
+.NENUTitle {
+  font-size: 18px;
+  min-height: 24px;
+  font-weight: 500;
+  padding: 9px 5% 3px 5%;
+}
+
+.NENUTitle+.NENUTitle {
+  padding-top: 2px;
+}
+
+.NENUTitle+.NENUhead {
+  padding-top: 5px;
+}
+
+.NENUhead {
+  font-size: 17px;
+  font-weight: 500;
+  padding: 9px 5% 3px 5%;
+}
+
+.grey .NENUhead {
+  font-size: 13px;
+  min-height: 9px;
+  padding: 23px 5% 5px 5%;
+  color: #666;
+}
+
+.nm.grey .NENUhead {
+  color: #999;
+}
+
+.NENUP {
+  font-size: 16px;
+  padding: 0 5%;
+  word-wrap: break-word;
+}
+
+.grey .NENUP {
+  font-size: 17px;
+  padding: 10px 15px;
+  background-color: #fefefe;
+  border-top: 1rpx #cac9ce solid;
+  border-bottom: 1rpx #cac9ce solid;
+}
+
+.grey.nm .NENUP {
+  background-color: #010101;
+  border-color: #353631;
+}
+
+.NENUInfoCtn {
+  width: 100%;
+  height: 600rpx;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.NENUInfoHead {
+  position: absolute;
+  width: 100%;
+  height: 280rpx;
+}
+
+.NENUnickCtn {
+  position: absolute;
+  margin: 100rpx auto auto 100rpx;
+  display: flex;
+}
+
+.NENUnickHead {
+  width: 180rpx;
+  height: 180rpx;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+}
+
+.NENUnickname {
+  font-size: 19px;
+  color: #fff;
+}
+
+.NENULoginBtn {
+  position: relative;
+  width: 60%;
+  height: 100rpx;
+  top: 230rpx;
+  border: 1rpx solid #ccc, 1rpx solid #fff;
+  border-radius: 10px;
+}

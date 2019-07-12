@@ -1,0 +1,311 @@
+/* ---Android theme made by Mr.Hope--- */
+
+/* V 1.0.0 */
+
+/* 安卓容器 */
+.Android,
+.Androidgrey {
+  width: 100%;
+  min-height: 100%;
+  text-align: center;
+  background-color: #f8f8f8;
+  font-family: "Helvetica Neue",
+    FZKTJW,
+    -apple-system-font,
+    "PingFang SC",
+    Helvetica,
+    STHeiti,
+    Tahoma,
+    Simsun,
+    sans-serif !important;
+}
+
+.nm.Android {
+  background-color: #000;
+  color: #fff;
+}
+
+.nm.Android.grey {
+  background-color: #10110b;
+  color: #fff;
+}
+
+/* 导航 */
+
+.Android-navigationBar,
+.Android-navPlaceHolder {
+  width: 100%;
+  background-color: #f8f8f8;
+}
+
+.Android-navigationBar {
+  height: 44px;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
+  z-index: 99;
+}
+
+.AndroidNavShadow {
+  box-shadow: 0px 0px 4px 1.5px rgba(208, 208, 208, 80);
+}
+
+.nm .AndroidNavShadow {
+  box-shadow: 0px 0px 4px 1.5px rgba(47, 47, 47, 80);
+}
+
+.Android-navPlaceHolder {
+  position: relative;
+  height: 69px;
+  font-size: 16rpx;
+  color: #d9d9d9;
+}
+
+.nm .Android-navigationBar,
+.nm .Android-navPlaceHolder {
+  background-color: #000;
+}
+
+.grey.nm .Android-navigationBar,
+.grey.nm .Android-navPlaceHolder {
+  background-color: #10110b;
+}
+
+.Android-titletext {
+  width: 100%;
+  position: absolute;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+  z-index: 100;
+}
+
+.Android-navBack {
+  position: relative;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  margin: 0 3%;
+  padding: 8px 5px !important;
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+  line-height: 2.4;
+  z-index: 101;
+}
+
+.Android-backArrow {
+  width: 8px;
+  height: 8px;
+  border-width: 0 0 3px 3px;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  border-color: black;
+}
+
+.nm .Android-backArrow {
+  border-color: white;
+}
+
+.Android-leftText {
+  font-size: 14px;
+}
+
+.nm .Android-leftText {
+  color: #cacaca;
+}
+
+.Android-head {
+  padding: 25px 40px;
+}
+
+.Android-title {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.Android-desc {
+  text-align: left;
+  font-size: 14px;
+  margin-top: 5px;
+  color: #888;
+}
+
+.nm .Android-desc {
+  color: #777;
+}
+
+.AndroidTitle {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0.66em 5% 0.34em 5%;
+}
+
+.Androidhead {
+  text-align: left;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0.33em 25px 0.17em 25px;
+}
+
+.grey .Androidhead {
+  margin: 0.77em 0 0.3em 0;
+  padding: 0 15px;
+  color: #999;
+  font-size: 14px;
+  font-weight: 400;
+  min-height: 10px;
+}
+
+.grey.nm .Androidhead {
+  color: #666;
+}
+
+.AndroidP {
+  font-size: 15px;
+  padding: 4rpx 40rpx;
+  text-align: justify;
+  line-height: 1.6;
+  letter-spacing: 1rpx;
+  word-wrap: break-word;
+}
+
+.grey .AndroidP {
+  width: calc(92% - 30px);
+  margin: 12px 4%;
+  border-radius: 24px;
+  box-shadow: 1px 2px 4px 2px rgba(127, 127, 127, 0.15);
+  overflow: hidden;
+  font-size: 17px;
+  padding: 10px 15px;
+  background-color: #fefefe;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+}
+
+.grey.nm .AndroidP {
+  background-color: #000;
+}
+
+/* IMG */
+.Android-img {
+  align-self: center;
+  margin: 24rpx auto;
+  width: 610rpx;
+  font-weight: 500;
+  border: 10rpx solid #fff;
+  box-shadow: 0px 2px 5px 2px rgba(95, 95, 95, 0.5);
+}
+
+.Android-img+.Android-img {
+  margin-top: 0px;
+}
+
+.nm .Android-img {
+  border-color: #070707;
+  box-shadow: 0px 2px 5px 2px rgba(143, 143, 143, 0.5);
+}
+
+.AndroidN {
+  padding: 2px 10%;
+  font-size: 12px;
+  color: #888;
+}
+
+.nm .AndroidN {
+  color: #777;
+}
+
+.Android-img+.AndroidN {
+  margin-top: -12px;
+}
+
+/* List */
+
+.AndroidListHeadBtn {
+  position: relative;
+  text-align: left;
+  padding: 12px 6%;
+}
+
+.AndroidListHead {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 2;
+  color: #444;
+}
+
+.AndroidListArrow {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: calc(50% - 15px);
+  right: 4%;
+}
+
+.AndroidLctn {
+  background-color: #fefefe;
+  width: 92%;
+  margin: 12px 4%;
+  border-radius: 24px;
+  box-shadow: 1px 2px 4px 2px rgba(127, 127, 127, 0.15);
+  overflow: hidden;
+  /* max-width: 517px; */
+}
+
+.nm .AndroidLctn {
+  background-color: #000;
+}
+
+.AndroidListCtn {
+  padding: 0 20px;
+  font-size: 17px;
+  line-height: 1.45;
+  border-radius: 0;
+  border: none !important;
+  color: #000 !important;
+}
+
+/* 列表箭头旋转 */
+@keyframes listRotate {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes listRotate2 {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+.AndroidListRotate {
+  transform: rotate(180deg);
+  -webkit-animation: listRotate 0.3s linear 0s none 1 normal;
+  animation: listRotate 0.3s linear 0s none 1 normal;
+}
+
+.AndroidListRotateNone {
+  -webkit-animation: listRotate2 0.3s linear 0s none 1 reverse;
+  animation: listRotate2 0.3s linear 0s none 1 reverse;
+}
