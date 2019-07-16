@@ -5,7 +5,7 @@
  * @Date: 2019-02-12 16:45:44
  * @LastEditTime: 2019-04-08 11:34:39
  */
-/* global wx */
+
 import $file from './file';
 import $page from './page';
 import $wx from './wx';

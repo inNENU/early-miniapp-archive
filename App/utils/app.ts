@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-01 17:08:12
+ * @LastEditTime: 2019-07-14 22:38:34
  * @Description: APP函数库
  */
 
@@ -48,7 +48,7 @@ const appOption: AppOption = {
  *
  * @param list 需要下载的资源列表
  */
-const resDownload = (list: string[]) => {
+const resDownload = (list: string[], callBack: () => void) => {
   let listenNumber = list.length;
 
   list.forEach(name => {
@@ -73,9 +73,14 @@ const resDownload = (list: string[]) => {
 
             console.log(`delete ${name} sucess`);// 调试
 
+            // 下载资源文件并写入更新时间
+            const timeStamp = new Date().getTime();
+
+            wx.setStorageSync(`${name}UpdateTime`, Math.round(timeStamp / 1000));
+
             // 改变监听数
-            listenNumber--;
-            if (!listenNumber) wx.hideLoading();
+            listenNumber -= 1;
+            if (!listenNumber) callBack();
           });
         }
       },
@@ -128,15 +133,13 @@ const appInit = () => {
   // 写入预设数据
   for (const data in appOption) if (data !== 'theme') wx.setStorageSync(data, appOption[data]);
 
-  // 下载资源文件并写入更新时间
-  const timeStamp = new Date().getTime();
+  resDownload(['page', 'function'], () => {
+    // 成功初始化
+    wx.setStorageSync('inited', true);
 
-  resDownload(['page', 'function']);
-  wx.setStorageSync('pageUpdateTime', Math.round(timeStamp / 1000));
-  wx.setStorageSync('functionUpdateTime', Math.round(timeStamp / 1000));
+    wx.hideLoading()
+  });
 
-  // 成功初始化
-  wx.setStorageSync('inited', true);
 };
 
 /**
@@ -150,8 +153,7 @@ const noticeCheck = (version: string) => {
     [props: string]: {
       0: string;
       1: string;
-      2: number;
-      3: boolean
+      2: number | boolean;
     };
   }
 
@@ -161,7 +163,7 @@ const noticeCheck = (version: string) => {
     category.forEach(page => {
 
       // 如果读取到强制通知设置，每次都要通知，直接写入通知信息
-      if (noticeList[page][3]) {
+      if (noticeList[page][2] === true) {
         wx.setStorageSync(`${page}notice`, [noticeList[page][0], noticeList[page][1]]);
         wx.setStorageSync(`${page}Notify`, true);
 
@@ -233,8 +235,11 @@ export const nightmode = () => {
 };
 
 interface VersionInfo {
+  /** 是否进行强制更新 */
   forceUpdate: boolean;
+  /** 是否进行强制初始化 */
   reset: boolean;
+  /** 小程序的最新版本号 */
   version: string;
 }
 
@@ -248,7 +253,7 @@ interface VersionInfo {
  */
 const appUpdate = (localVersion: string) => {
   const updateManager = wx.getUpdateManager();
-  let version;
+  let version = '9.9.9';
   let forceUpdate = true;
   let reset = false;
 

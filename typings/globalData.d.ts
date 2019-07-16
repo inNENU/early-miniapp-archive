@@ -1,6 +1,8 @@
 /// <reference path="./pageData.d.ts" />
 
 declare interface GlobalData {
+  /** 小程序运行环境 */
+  env: string;
   /** 全局数据 */
   version: string;
   /** 播放器信息 */

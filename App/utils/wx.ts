@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-06-25 19:43:26
+ * @LastEditTime: 2019-07-14 22:43:29
  */
 
 // 初始化日志管理器
@@ -32,21 +32,29 @@ const netWorkReport = () => {
     success: res => {
       const { networkType } = res;
 
-      if (networkType === '2g' || networkType === '3g')
-        tip('您的网络状态不佳');
-      else if (networkType === 'none' || networkType === 'unknown')
-        tip('您的网络状态不佳');
-      else if (networkType === 'wifi')
-        wx.getConnectedWifi({
-          success: info => {
-            if (info.wifi.signalStrength < 0.5)
-              tip('Wifi信号不佳，网络链接失败');
-          },
-          fail: () => {
-            tip('无法连接网络');
-          }
-        });
-      else tip('网络连接出现问题，请稍后重试');
+      switch (networkType) {
+        case '2g':
+        case '3g':
+          tip('您的网络状态不佳');
+          break;
+        case 'none':
+        case 'unknown':
+          tip('您没有连接到网络');
+          break;
+        case 'wifi':
+          wx.getConnectedWifi({
+            success: info => {
+              if (info.wifi.signalStrength < 0.5)
+                tip('Wifi信号不佳，网络链接失败');
+            },
+            fail: () => {
+              tip('无法连接网络');
+            }
+          });
+          break;
+        default:
+          tip('网络连接出现问题，请稍后重试');
+      };
 
       logger.warn('Request fail with', networkType);
     },

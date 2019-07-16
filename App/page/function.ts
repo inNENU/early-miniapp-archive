@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-25 18:56:26
+ * @LastEditTime: 2019-07-13 17:15:46
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
@@ -74,7 +74,7 @@ $register('function', {
     $tab.markerSet();
   },
   onPullDownRefresh() {
-    $tab.refresh('guide', this, a);
+    $tab.refresh('function', this, a);
     $tab.update('function', '80K');
     wx.stopPullDownRefresh();
   },

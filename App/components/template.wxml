@@ -229,7 +229,7 @@ Author: Mr.Hope
     <view class="shareLayer {{menuDisplay?'moveUpIn':'moveUpOut'}}" catchtap="cA" data-action="share">
       <view class="shareBtnCtn">
         <button wx:if="{{shareable}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="share">
-          分享到微信
+          分享{{env==='wx'?'到微信':'给好友/分享到空间'}}
         </button>
         <button wx:if="{{shareable}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" data-object="download">
           保存页面二维码

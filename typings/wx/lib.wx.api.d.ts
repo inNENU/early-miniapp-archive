@@ -12750,3 +12750,4 @@ wx.writeBLECharacteristicValue({
   ) => void;
 }
 declare const wx: wx.Wx;
+declare const qq: undefined | wx.Wx;

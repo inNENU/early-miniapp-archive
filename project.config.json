@@ -3,14 +3,6 @@
   "packOptions": {
     "ignore": [
       {
-        "type": "folder",
-        "value": "bak"
-      },
-      {
-        "type": "file",
-        "value": ".eslintrc.js"
-      },
-      {
         "type": "file",
         "value": "jsdoc.js"
       },
@@ -22,7 +14,7 @@
   },
   "miniprogramRoot": "App/",
   "compileType": "miniprogram",
-  "libVersion": "2.7.4",
+  "libVersion": "2.7.5",
   "appid": "wx33acb831ee1831a5",
   "qqLibVersion": "1.4.8",
   "qqappid": "1109559721",

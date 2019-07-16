@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-01 17:02:35
+ * @LastEditTime: 2019-07-16 13:04:29
  * @Description: 小程序主脚本
  */
 
@@ -16,13 +16,14 @@ const $App = $register.A;
 
 $App({
   globalData: {
-    version: 'V 2.0.2',
+    version: 'V 2.0.3',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
       aim: ''
     },
-    date: new Date().getTime()
+    date: new Date().getTime(),
+    env: 'wx'
     // T, nm, info也在globalData中
   },
   config: {
@@ -37,6 +38,13 @@ $App({
   },
 
   onLaunch(opts) {
+    try {
+      qq && qq.env;
+      this.globalData.env = 'qq';
+    } catch (e) {
+      console.warn('wx');
+    }
+
     console.info('小程序启动，参数为', opts); // 调试
 
     // Const capsule = wx.getMenuButtonBoundingClientRect();

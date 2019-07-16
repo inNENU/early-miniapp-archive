@@ -1,4 +1,11 @@
-/* global wx*/
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-07-01 17:15:44
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-07-16 12:41:17
+ * @Description: Page函数库
+ */
+
 
 // 引入文件管理
 import $file from './file';
@@ -48,6 +55,9 @@ const disposePage = (page: PageData, option: PageArg) => {
 
         // 添加返回文字
         if (!page[0].leftText) page[0].leftText = '返回';
+
+        // 添加运行环境
+        page[0].env = globalData.env;
       }
       page.forEach((element, index) => {
         element.id = index; // 对page每项元素添加id

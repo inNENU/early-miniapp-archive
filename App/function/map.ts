@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 23:40:32
+ * @LastEditTime: 2019-07-16 12:48:47
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -55,6 +55,16 @@ $register('map', {
     a.marker = this.getMarker();
   },
   onLoad() {
+    // QQ小程序暂不支持地图的处理
+    if (a.env === 'qq') wx.showModal({
+      title: '无法查看',
+      content: 'QQ小程序暂不支持地图。Mr.Hope会在推出后第一时间适配，如有需求查看，请使用微信小程序“myNenu”。',
+      showCancel: false,
+      success: () => {
+        wx.navigateBack({ delta: 1 });
+      }
+    });
+
     wx.showLoading({ title: '加载中...' });
 
     $tab.markerSet();

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-26 00:01:44
+ * @LastEditTime: 2019-07-16 13:05:30
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -33,7 +33,7 @@ $register('main', {
       },
       {
         tag: 'list',
-        head: '报到流程',
+        head: false,
         content: [
           {
             text: '查看更多',
