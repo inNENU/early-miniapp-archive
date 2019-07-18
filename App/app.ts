@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-16 13:04:29
+ * @LastEditTime: 2019-07-18 10:50:32
  * @Description: 小程序主脚本
  */
 
@@ -32,7 +32,7 @@ $App({
     resolvePath: (name: string) =>
       ['main', 'function', 'guide', 'me'].includes(name)
         ? `/page/${name}`
-        : ['setting', '2.0', 'about'].includes(name)
+        : ['setting', 'version', 'about'].includes(name)
           ? `/settings/${name}`
           : `/module/${name}`
   },
