@@ -20,7 +20,7 @@
   "qqappid": "1109559721",
   "projectname": "myNENU",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "enhance": true,
     "postcss": false,
@@ -32,19 +32,31 @@
     "uglifyFileName": false,
     "checkInvalidKey": true,
     "checkSiteMap": true,
-    "uploadWithSourceMap": true
+    "uploadWithSourceMap": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
     "miniprogram": {
-      "current": 1,
+      "current": -1,
       "list": [
         {
           "id": 0,
           "name": "师大师大",
           "pathName": "function/player",
-          "query": "index=5"
+          "query": "index=5&share=true"
         },
         {
           "id": 1,

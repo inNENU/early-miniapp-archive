@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 15:24:00
+ * @LastEditTime: 2019-07-20 21:04:27
  * @Description: Page函数库
  */
 
@@ -16,16 +16,7 @@ import { WXPage } from 'wxpage';
 const logger = wx.getLogManager({ level: 1 });
 
 // 声明全局数据
-let globalData: GlobalData;
-
-/**
- * 在脚本内初始化全局数据
- *
- * @param data 全局数据
- */
-const init = (data: GlobalData) => {
-  globalData = data;
-};
+const globalData: GlobalData = getApp().globalData;
 
 /**
  * 获得界面数据，生成正确的界面数据
@@ -470,7 +461,6 @@ const loadFont = (theme: string) => {
 };
 
 export default {
-  init,
   resolve: resolvePage,
   Set: setPage,
   Online: setOnlinePage,

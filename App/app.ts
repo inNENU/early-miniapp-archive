@@ -2,17 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 11:33:46
+ * @LastEditTime: 2019-07-20 21:04:51
  * @Description: 小程序主脚本
  */
 
 import $register from 'wxpage';
-import $page from './utils/page';
 import app from './utils/app';
 
 const $App = $register.A;
-
-// Var worker = wx.createWorker("worker/worker.js") //worker test
 
 $App({
   globalData: {
@@ -48,9 +45,6 @@ $App({
     // Const capsule = wx.getMenuButtonBoundingClientRect();
 
     // Console.log(capsule);
-
-    // 为setpage库传入globalData指针
-    $page.init(this.globalData);
 
     // 如果初次启动执行初始化
     if (!wx.getStorageSync('inited')) app.appInit();
