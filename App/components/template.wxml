@@ -222,7 +222,7 @@ Author: Mr.Hope
     <template is="{{T}}Head" data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight}}" />
   </block>
   <block wx:if="{{shareable||feedback||contact}}">
-    <view class="shareIconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="shareHover" hover-stay-time="200" catchtouchstart="cA" catchtouchmove="cA" catchtouchend="cA" data-action="share" data-object="button">
+    <view class="shareIconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="shareHover" hover-stay-time="200" catchtouchstart="cA" catchtouchmove="cA" catchtouchend="cA" data-action="share" data-role="button">
       <image class="shareIcon" src="/icon/share.svg" />
     </view>
     <view wx:if="{{menuDisplay}}" class="shareMask {{menuDisplay?'fadeIn':'fadeOut'}}" style="top:{{menuDisplay?'0':'100%'}};"></view>
@@ -231,13 +231,13 @@ Author: Mr.Hope
         <button wx:if="{{shareable}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="share">
           分享{{env==='wx'?'到微信':'给好友/分享到空间'}}
         </button>
-        <button wx:if="{{shareable}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" data-object="download">
+        <button wx:if="{{shareable}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" data-role="download">
           保存页面二维码
         </button>
-        <button wx:if="{{contact}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="contact">
+        <button wx:if="{{contact}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="contact" data-role="contact">
           联系开发者
         </button>
-        <button wx:if="{{feedback}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="feedback">
+        <button wx:if="{{feedback}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="feedback" data-role="feedback">
           意见反馈
         </button>
         <button class="cancelBtn" hover-class="shareBtnHover">取消</button>

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-18 10:51:02
+ * @LastEditTime: 2019-07-20 15:18:48
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -193,6 +193,6 @@ $register('about', {
     // 隐藏提示
     wx.hideLoading();
     // 提示用户重启
-    wx.showModal({ title: '小程序初始化完成', content: '请单击 “退出小程序按钮” 退出小程序', showCancel: false });
+    $wx.modal('小程序初始化完成', '请单击 “退出小程序按钮” 退出小程序');
   }
 });

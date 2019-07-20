@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-14 22:38:34
+ * @LastEditTime: 2019-07-20 15:19:41
  * @Description: APP函数库
  */
 
@@ -176,10 +176,10 @@ const noticeCheck = (version: string) => {
     });
 
     // 如果找到APP级通知，立即提醒
-    if ('app' in category) wx.showModal({
-      title: noticeList.app[0], content: noticeList.app[1], showCancel: false,
-      success: () => wx.removeStorageSync('appNotify')
-    });
+    if ('app' in category)
+      $wx.modal(
+        noticeList.app[0], noticeList.app[1], () => wx.removeStorageSync('appNotify')
+      );
   }, () => { // 调试信息
     console.error('Get noticeList fail');
     logger.warn('noticeList error', 'Net Error');

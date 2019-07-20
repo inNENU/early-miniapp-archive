@@ -99,13 +99,12 @@ const checkResUpdate = (name: string, dataUsage: string) => {
               success: choice2 => {
 
                 // 用户选择关闭
-                if (choice2.cancel) wx.showModal({
-                  title: '更新提示已关闭', showCancel: false,
-                  content: '您可以在设置中重新打开提示。请注意：小程序会每半个月对界面文件进行强制更新。',
-                  success: () => {
-                    wx.setStorageSync(`${name}ResNotify`, false);// 关闭更新提示
+                if (choice2.cancel) $wx.modal(
+                  '更新提示已关闭', '您可以在设置中重新打开提示。请注意：小程序会每半个月对界面文件进行强制更新。',
+                  () => {
+                    wx.setStorageSync(`${name}ResNotify`, false);// 关闭更新提示       
                   }
-                });
+                );
               }
             });
           }

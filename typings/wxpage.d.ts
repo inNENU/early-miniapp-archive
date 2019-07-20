@@ -21,9 +21,9 @@ declare module 'wxpage' {
     }
     /** 事件监听器 */
     interface Emitter {
-      $on(event: string, callback: (...args: any[]) => void): void;
-      $emit(event: string, callback: (...args: any[]) => void): void;
-      $off(event: string, callback: (...args: any[]) => void): void;
+      on(event: string, callback: (...args: any[]) => void): void;
+      emit(event: string, callback: (...args: any[]) => void): void;
+      off(event: string, callback: (...args: any[]) => void): void;
     }
     /** 页面注册选项 */
     interface PageOption extends Page.PageInstance {

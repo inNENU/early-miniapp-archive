@@ -2,12 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-16 12:48:47
+ * @LastEditTime: 2019-07-20 15:16:56
  * @Description: 地图
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
+import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 
 const includePoint1 = {
@@ -56,14 +57,12 @@ $register('map', {
   },
   onLoad() {
     // QQ小程序暂不支持地图的处理
-    if (a.env === 'qq') wx.showModal({
-      title: '无法查看',
-      content: 'QQ小程序暂不支持地图。Mr.Hope会在推出后第一时间适配，如有需求查看，请使用微信小程序“myNenu”。',
-      showCancel: false,
-      success: () => {
+    if (a.env === 'qq') $wx.modal(
+      '无法查看',
+      'QQ小程序暂不支持地图。Mr.Hope会在推出后第一时间适配，如有需求查看，请使用微信小程序“myNenu”。',
+      () => {
         wx.navigateBack({ delta: 1 });
-      }
-    });
+      });
 
     wx.showLoading({ title: '加载中...' });
 

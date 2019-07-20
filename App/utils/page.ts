@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-16 12:41:17
+ * @LastEditTime: 2019-07-20 15:24:00
  * @Description: Page函数库
  */
 
@@ -284,14 +284,8 @@ const popNotice = (aim: string) => {
     // 从存储中获取通知内容并展示
     const notice = wx.getStorageSync(`${aim}notice`);
 
-    wx.showModal({
-      title: notice[0], content: notice[1], showCancel: false,
-
-      // 防止二次弹窗
-      success: () => {
-        wx.removeStorageSync(`${aim}Notify`);
-      }
-
+    $wx.modal(notice[0], notice[1], () => {
+      wx.removeStorageSync(`${aim}Notify`); // 防止二次弹窗
     });
     console.info('弹出通知');// 调试
   }

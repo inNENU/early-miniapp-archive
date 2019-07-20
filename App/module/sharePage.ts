@@ -12,8 +12,9 @@ $register('sharePage', {
       res.aim = decodeURIComponent(res.scene);
       res.share = true;
       res.depth = 1;
-      $page.Online(res, this);
     }
+    console.log(res);
+    $page.Online(res, this);
     wx.reportMonitor('2', 1);
   },
   onShow() {

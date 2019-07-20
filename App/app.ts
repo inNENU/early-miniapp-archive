@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-18 10:50:32
+ * @LastEditTime: 2019-07-20 11:33:46
  * @Description: 小程序主脚本
  */
 
@@ -16,7 +16,7 @@ const $App = $register.A;
 
 $App({
   globalData: {
-    version: 'V 2.0.3',
+    version: 'V 2.0.4',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -41,9 +41,7 @@ $App({
     try {
       qq && qq.env;
       this.globalData.env = 'qq';
-    } catch (e) {
-      console.warn('wx');
-    }
+    } catch (e) { }
 
     console.info('小程序启动，参数为', opts); // 调试
 

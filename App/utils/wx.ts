@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-07-14 22:43:29
+ * @LastEditTime: 2019-07-20 15:22:42
  */
 
 // 初始化日志管理器
@@ -18,6 +18,27 @@ const logger = wx.getLogManager({ level: 1 });
  */
 const tip = (text: string, duration?: number, icon: 'success' | 'loading' | 'none' = 'none') => {
   wx.showToast({ title: text, icon, duration: duration ? duration : 1500 });
+};
+
+/**
+ * 显示提示窗口
+ *
+ * @param title 提示文字
+ * @param content 提示文字
+ * @param [callback] 点击确定的回调
+ * @param [cancelFunc] 点击取消的回调，不填则不显示取消按钮
+ */
+const modal = (title: string, content: string, callback?: () => void, cancelFunc?: () => void) => {
+  const showCancel = cancelFunc ? true : false;
+
+  wx.showModal({
+    title, content,
+    showCancel,
+    success: res => {
+      if (res.confirm && callback) callback();
+      else if (res.cancel && cancelFunc) cancelFunc();
+    }
+  });
 };
 
 /**
@@ -153,4 +174,4 @@ const downLoad = (
   });
 };
 
-export default { downLoad, netReport: netWorkReport, request, tip };
+export default { downLoad, netReport: netWorkReport, request, tip, modal };

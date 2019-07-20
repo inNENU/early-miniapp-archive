@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 23:53:03
+ * @LastEditTime: 2019-07-20 15:23:17
  * @Description: 捐赠
  */
 import $register from 'wxpage';
@@ -70,12 +70,8 @@ $register('donate', {
               });
             },
             fail: () => { // 用户拒绝权限，提示用户开启权限
-              wx.showModal({
-                title: '权限被拒', content: '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
-                showCancel: false, confirmText: '确定', confirmColor: '#3CC51F',
-                complete: () => {
-                  $wx.tip('二维码保存失败');
-                }
+              $wx.modal('权限被拒', '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限', () => {
+                $wx.tip('二维码保存失败');
               });
             }
           });

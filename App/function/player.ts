@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-01 17:08:56
+ * @LastEditTime: 2019-07-20 14:56:16
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -48,7 +48,7 @@ $register('music', {
 
     // 写入基本信息
     this.setData!({
-      share: option.share ? option.share : false,
+      share: option.share || false,
       index,
       info: a.info,
       nm: a.nm,

@@ -136,7 +136,7 @@
       "allow-fast-null-checks",
       "allow-new"
     ],
-    "no-unused-variable": false,
+    "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-void-expression": [
@@ -179,7 +179,7 @@
     ],
     "no-mergeable-namespace": true,
     // 需要require json以及没有ts支持的模块
-    "no-require-imports": false,
+    "no-require-imports": true,
     "object-literal-sort-keys": false,
     "prefer-const": [
       true,
@@ -221,8 +221,8 @@
       "never-prefix"
     ],
     "interface-over-type-literal": true,
-    "match-default-export-name": false,
-    "newline-per-chained-call": false,
+    "match-default-export-name": true,
+    "newline-per-chained-call": true,
     "no-angle-bracket-type-assertion": true,
     "no-boolean-literal-compare": true,
     "no-parameter-properties": true,
@@ -239,7 +239,6 @@
     "one-line": [
       false
     ],
-    // 因为类型原因暂时关闭
     "one-variable-per-declaration": true,
     "ordered-imports": [
       true,
@@ -299,7 +298,6 @@
       true,
       "LF"
     ],
-    // 部分字符串过长，故关闭
     "max-line-length": [
       true,
       120
@@ -422,6 +420,5 @@
       }
     ]
   },
-  // 小程序不需要检查js
   "jsRules": false
 }
