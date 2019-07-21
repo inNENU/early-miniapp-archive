@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 15:18:48
+ * @LastEditTime: 2019-07-20 22:43:02
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -108,7 +108,7 @@ $register('about', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   },
   debugMode() {
@@ -131,9 +131,9 @@ $register('about', {
       });
     }
   },
-  password(e: any) {
-    if (e.detail.value.length === 7) {
-      if (e.detail.value === '5201314') { // 密码正确
+  password(event: MiniprogramEvent) {
+    if (event.detail.value.length === 7) {
+      if (event.detail.value === '5201314') { // 密码正确
         $wx.tip('已启用开发者模式');
         this.data.page[1].content.forEach((x: any) => {
           x.hidden = false;
@@ -146,26 +146,26 @@ $register('about', {
         wx.showToast({ title: '密码错误', icon: 'none', duration: 1000, image: '/icon/close.png' });
         this.setData!({ debug: false });
       }
-      e.detail.value = '';
+      event.detail.value = '';
     }
 
-    return e.detail.value;
+    return event.detail.value;
   },
   cancelInput() {
     this.setData!({ debug: false });
   },
-  debugSwitch(e: any) {
-    const pos = e.target.dataset.id.split('-');
+  debugSwitch(event: MiniprogramEvent) {
+    const pos = event.target.dataset.id.split('-');
 
-    this.data.page[pos[0]].content[pos[1]].status = e.detail.value;
+    this.data.page[pos[0]].content[pos[1]].status = event.detail.value;
     this.setData!({ page: this.data.page });
-    wx.setStorageSync('debugMode', e.detail.value);
-    if (e.detail.value) wx.setEnableDebug({ enableDebug: true });
+    wx.setStorageSync('debugMode', event.detail.value);
+    if (event.detail.value) wx.setEnableDebug({ enableDebug: true });
     else wx.setEnableDebug({ enableDebug: false });
   },
-  testSwitch(res: any) {
-    $component.trigger(res, this);
-    $wx.tip(`已${res.detail.value ? '启用' : '关闭'}测试功能`);
+  testSwitch(event: MiniprogramEvent) {
+    $component.trigger(event, this);
+    $wx.tip(`已${event.detail.value ? '启用' : '关闭'}测试功能`);
   },
   deleteData() {
     wx.clearStorageSync();

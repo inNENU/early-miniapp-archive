@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-25 19:21:50
+ * @LastEditTime: 2019-07-20 22:30:04
  * @Description: 我的东师
  */
 import $register, { WXPage } from 'wxpage';
@@ -59,7 +59,7 @@ $register('me', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   },
   onShareAppMessage: () => ({ title: '我的东师', path: '/page/me' })

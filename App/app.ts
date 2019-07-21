@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 21:04:51
+ * @LastEditTime: 2019-07-21 19:07:28
  * @Description: 小程序主脚本
  */
 
@@ -13,7 +13,7 @@ const $App = $register.A;
 
 $App({
   globalData: {
-    version: 'V 2.0.4',
+    version: 'V 2.0.5',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],

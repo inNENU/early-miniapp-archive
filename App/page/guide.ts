@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-25 19:21:19
+ * @LastEditTime: 2019-07-20 22:43:15
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -102,7 +102,7 @@ $register('guide', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   },
   onShareAppMessage: () => ({ title: '东师指南', path: '/page/guide' })

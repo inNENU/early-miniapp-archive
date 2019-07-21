@@ -114,16 +114,16 @@ $register('setting', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   },
   onUnload() {
     a.nm = nightmode();
   },
-  setTheme(e: any) {
-    $component.trigger(e, this, type => {
+  setTheme(event: MiniprogramEvent) {
+    $component.trigger(event, this, type => {
       if (type === 'change') {
-        const theme = this.data.page[1].content[0].pickerValue[e.detail.value];
+        const theme = this.data.page[1].content[0].pickerValue[event.detail.value];
 
         a.T = theme;
         wx.setStorageSync('theme', theme);
@@ -133,11 +133,11 @@ $register('setting', {
       }
     });
   },
-  switchnm(e: any) {
-    $component.trigger(e, this, () => {
+  switchnm(event: MiniprogramEvent) {
+    $component.trigger(event, this, () => {
       const { page } = this.data;
       const list = page[3].content;
-      const { value } = e.detail;
+      const { value } = event.detail;
 
       list[0].status = false;
       list[1].hidden = list[2].hidden = true;
@@ -172,8 +172,8 @@ $register('setting', {
       wx.setNavigationBarColor({ frontColor, backgroundColor });
     });
   },
-  switchnmAC(e: any) {
-    $component.trigger(e, this, () => {
+  switchnmAC(event: MiniprogramEvent) {
+    $component.trigger(event, this, () => {
       const { page } = this.data;
       const list = page[3].content;
       const nm = nightmode();
@@ -182,7 +182,7 @@ $register('setting', {
       wx.setStorageSync('nightmode', nm);
       if (nm && list[5].status) wx.setScreenBrightness({ value: list[6].value / 100 });
       else if (!nm && list[3].status) wx.setScreenBrightness({ value: list[4].value / 100 });
-      if (e.detail.value) {
+      if (event.detail.value) {
         list[1].hidden = false;
         list[2].hidden = false;
       } else {
@@ -209,33 +209,33 @@ $register('setting', {
       wx.setBackgroundColor(bc);
     });
   },
-  dayBrightnessSwitchHandler(e: any) {
-    $component.trigger(e, this, () => {
+  dayBrightnessSwitchHandler(event: MiniprogramEvent) {
+    $component.trigger(event, this, () => {
       const { page } = this.data;
       const list = page[3].content;
 
-      list[4].visible = e.detail.value;
-      list[4].hidden = !e.detail.value;
+      list[4].visible = event.detail.value;
+      list[4].hidden = !event.detail.value;
       this.setData!({ page });
     });
   },
-  nightBrightnessSwitchHandler(e: any) {
-    $component.trigger(e, this, () => {
+  nightBrightnessSwitchHandler(event: MiniprogramEvent) {
+    $component.trigger(event, this, () => {
       const { page } = this.data;
       const list = page[3].content;
 
-      list[6].visible = e.detail.value;
-      list[6].hidden = !e.detail.value;
+      list[6].visible = event.detail.value;
+      list[6].hidden = !event.detail.value;
       this.setData!({ page });
     });
   },
-  dayBrightnessHandler(e: any) {
-    $component.trigger(e, this);
-    if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: e.detail.value / 100 });
+  dayBrightnessHandler(event: MiniprogramEvent) {
+    $component.trigger(event, this);
+    if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: event.detail.value / 100 });
   },
-  nightBrightnessHandler(e: any) {
-    $component.trigger(e, this);
-    if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: e.detail.value / 100 });
+  nightBrightnessHandler(event: MiniprogramEvent) {
+    $component.trigger(event, this);
+    if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: event.detail.value / 100 });
   },
   refreshGuide() {
     $tab.resDownload('page');

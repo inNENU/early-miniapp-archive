@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-16 13:05:30
+ * @LastEditTime: 2019-07-20 22:43:12
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -91,7 +91,7 @@ $register('main', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   },
   onShareAppMessage: () => ({ title: 'myNENU', path: '/page/main' })

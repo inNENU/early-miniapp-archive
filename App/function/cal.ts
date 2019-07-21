@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 23:47:21
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-24 23:54:50
+ * @LastEditTime: 2019-07-20 22:51:47
  * @Description: 绩点计算
  */
 import $register from 'wxpage';
@@ -48,7 +48,7 @@ $register('cal', {
     this.setData!({ grade: gradeNew });
     // 对data赋值
   },
-  input(e: any) {
+  input(e: InputEvent) {
     console.log(e);
     const { grade } = this.data;
 
@@ -78,7 +78,7 @@ $register('cal', {
     this.setData!({ grade });
     // 将新值写回data中
   },
-  next(e: any) {
+  next(e: NormalEvent) {
     const { grade } = this.data;
     const { id } = e.currentTarget.dataset;
 
@@ -93,7 +93,7 @@ $register('cal', {
       editText
     });
   },
-  sort(e: any) {
+  sort(e: NormalEvent) {
     console.log(e);
   },
   remove(e: any) {
@@ -187,7 +187,7 @@ $register('cal', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   }
 });

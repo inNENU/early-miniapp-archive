@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-25 19:33:04
+ * @LastEditTime: 2019-07-21 15:08:19
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
@@ -88,10 +88,10 @@ $register('PEcal', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   },
-  genderChange(event: any) {
+  genderChange(event: PickerEvent) {
     const index = Number(event.detail.value);
     const gender = this.data.gender.value[index];
 
@@ -105,7 +105,7 @@ $register('PEcal', {
       'longRun.text': gender === 'male' ? longRunText[0] : longRunText[1]
     });
   },
-  gradeChange(event: any) {
+  gradeChange(event: PickerEvent) {
     const index = Number(event.detail.value);
 
     // 设置年级
@@ -140,7 +140,7 @@ $register('PEcal', {
       }
     });
   },
-  input(event: any) {
+  input(event: InputEvent) {
     console.log(event);
     const project = event.currentTarget.id;
 
@@ -149,7 +149,7 @@ $register('PEcal', {
   blur() {
     this.setData!({ 'input.status': false });
   },
-  longRunHandler(event: any) {
+  longRunHandler(event: MiniprogramEvent) {
     const { value } = event.detail;
 
     // 设置显示数据

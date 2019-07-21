@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-06-25 23:37:49
+ * @LastEditTime: 2019-07-20 22:10:01
  */
 
 // 初始化文件管理器、用户路径与日志管理器
@@ -269,13 +269,12 @@ const getJson = (path: string, callback: (data: object | string) => void, failFu
  * @param path 压缩文件路径
  * @param unzipPath 解压路径
  * @param callback 回调函数
- * @param args 回调函数的参数
  */
-const unzip = (path: string, unzipPath: string, callback?: (...args: any[]) => void, ...args: any[]) => {
+const unzip = (path: string, unzipPath: string, callback?: () => void) => {
   fileManager.unzip({
     zipFilePath: `${userPath}/${path}`, targetPath: `${userPath}/${unzipPath}`,
     success: () => {
-      if (callback) return callback(...args);
+      if (callback) return callback();
 
       return null;
     },

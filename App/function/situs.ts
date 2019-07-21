@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-06-26 00:03:20
+ * @LastEditTime: 2019-07-20 22:44:09
  * @Description: 地点详情
  */
 import $register, { WXPage } from 'wxpage';
@@ -65,7 +65,7 @@ $register('situs', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   },
   onShareAppMessage() {

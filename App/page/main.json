@@ -1,6 +1,3 @@
 {
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "weather-card": "../components/weather-card/weather-card"
-  }
+  "enablePullDownRefresh": true
 }

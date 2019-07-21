@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 15:23:17
+ * @LastEditTime: 2019-07-20 22:42:13
  * @Description: 捐赠
  */
 import $register from 'wxpage';
@@ -45,7 +45,7 @@ $register('donate', {
   onReady() {
     $page.Notice('donate');
   },
-  save(res: any) {
+  save(res: MiniprogramEvent) {
     console.log('Start QRCode download.');// 调试
     $wx.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, (path: string) => {
       // 获取用户设置
@@ -84,7 +84,7 @@ $register('donate', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(res: any) {
+  cA(res) {
     $component.trigger(res, this);
   },
   onShareAppMessage: () => ({ title: '捐赠Mr.Hope', path: '/settings/donate' })

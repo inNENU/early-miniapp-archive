@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 13:49:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 15:21:21
+ * @LastEditTime: 2019-07-20 22:56:59
  * @Description: 组件函数库
  */
 
@@ -24,7 +24,7 @@ try {
  * @param ctx 页面指针
  * @param callback 函数回调
  */
-const list = (res: any, ctx: any, callback?: () => void) => {
+const list = (res: NormalEvent, ctx: any, callback?: () => void) => {
   const { id } = res.currentTarget;
 
   ctx.setData({ [`page[${id}].display`]: !ctx.data.page[id].display }, () => callback ? callback() : '');
@@ -36,7 +36,7 @@ const list = (res: any, ctx: any, callback?: () => void) => {
  * @param res 组件参数
  * @param ctx 页面指针
  */
-const image = (res: any, ctx: any) => {
+const image = (res: NormalEvent, ctx: any) => {
   switch (res.type) {
 
     // 图片加载完成
@@ -63,7 +63,7 @@ const image = (res: any, ctx: any) => {
  * @param ctx 页面指针
  * @param callback 函数回调
  */
-const picker = (res: any, ctx: any, callback?: (type: string) => void) => {
+const picker = (res: PickerEvent, ctx: any, callback?: (type: string) => void) => {
   const position = res.currentTarget.dataset.id.split('-');
   const content = ctx.data.page[position[0]].content[position[1]];// 获得选择器位置与内容
 
@@ -75,18 +75,18 @@ const picker = (res: any, ctx: any, callback?: (type: string) => void) => {
   else if (res.type === 'change') {
     const { value } = res.detail;
 
-    if (content.single) {
-      // 判断为单列选择器，更新页面数据并存储选择器值
-      content.value = content.pickerValue[Number(value)];
-      content.currentValue = Number(value);
-      wx.setStorageSync(content.key, Number(value));
-    } else {
+    if (Array.isArray(value)) {
       // 判断为多列选择器，遍历每一列更新页面数据、并存储选择器值
       value.forEach((x: string | number, y: number) => {
         content.value[y] = content.pickerValue[y][Number(x)];
         content.currentValue[y] = x;
       });
       wx.setStorageSync(content.key, value.join('-'));
+    } else {
+      // 判断为单列选择器，更新页面数据并存储选择器值
+      content.value = content.pickerValue[Number(value)];
+      content.currentValue = Number(value);
+      wx.setStorageSync(content.key, Number(value));
     }
 
     // 将选择器的变更响应到页面上
@@ -104,7 +104,7 @@ const picker = (res: any, ctx: any, callback?: (type: string) => void) => {
  * @param ctx 页面指针
  * @param callback 函数回调
  */
-const slider = (res: any, ctx: any, callback?: (type: string) => void) => {
+const slider = (res: SliderEvent, ctx: any, callback?: (type: string) => void) => {
   const pos = res.currentTarget.dataset.id.split('-');
   const content = ctx.data.page[pos[0]].content[pos[1]];
   const { value } = res.detail;
@@ -137,7 +137,7 @@ const slider = (res: any, ctx: any, callback?: (type: string) => void) => {
  * @param ctx 页面指针
  * @param callback 函数回调
  */
-const Switch = (res: any, ctx: any, callback?: () => void) => {
+const Switch = (res: SwitchEvent, ctx: any, callback?: () => void) => {
   const pos = res.target.dataset.id.split('-');
 
   // 更新页面数据
@@ -153,7 +153,7 @@ const Switch = (res: any, ctx: any, callback?: () => void) => {
  *
  * @param res 组件参数
  */
-const documentHandler = (res: any) => {
+const documentHandler = (res: NormalEvent) => {
   const { doctype, url } = res.currentTarget.dataset; // 解构赋值
 
   if (['doc', 'ppt', 'xls', 'pdf'].includes(doctype)) {
@@ -194,7 +194,7 @@ const documentHandler = (res: any) => {
  * @param res 组件参数
  * @param ctx 页面指针
  */
-const phone = (res: any, ctx: any) => {
+const phone = (res: NormalEvent, ctx: any) => {
   const Type = res.target.dataset.type;
   const info = ctx.data.page[res.currentTarget.id];
 
@@ -227,7 +227,7 @@ const phone = (res: any, ctx: any) => {
  * @param res 组件参数
  * @param ctx 页面指针
  */
-const share = (res: any, ctx: any) => {
+const share = (res: NormalEvent, ctx: any) => {
   const touch = res.touches[0];
 
   // 记录触摸点与按钮左上角的像素偏差与点击时间
@@ -339,7 +339,7 @@ const share = (res: any, ctx: any) => {
  *
  * @param res 组件参数
  */
-const video = (res: any) => {
+const video = (res: NormalEvent) => {
   console.info(`视频状态为${res.type}`); // 输出视频组件状态
   if (res.type === 'waiting') $wx.tip('缓冲中..');// 视频缓冲时提示用户等待
   else if (res.type === 'play') wx.hideToast(); // 正常播放时隐藏提示
@@ -360,7 +360,7 @@ const video = (res: any) => {
  * @param ctx 页面指针
  * @param callback 回调函数
  */
-const componentAction = (res: any, ctx: any, callback?: (type?: string) => void) => {
+const componentAction = (res: MiniprogramEvent, ctx: any, callback?: (type?: string) => void) => {
   switch (res.currentTarget.dataset.action) { // 判断action类型并调用各组件函数
     case 'img': image(res, ctx);
       break;
@@ -400,7 +400,7 @@ const componentAction = (res: any, ctx: any, callback?: (type?: string) => void)
  * @param option 组件参数
  * @param ctx 页面指针
  */
-const changeNav = (option: any, ctx: any) => {
+const changeNav = (option: Page.IPageScrollOption, ctx: any) => {
   const { 0: pageHead } = ctx.data.page;
   let titleDisplay;
   let borderDisplay;

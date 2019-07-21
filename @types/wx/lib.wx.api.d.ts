@@ -2172,7 +2172,7 @@ innerAudioContext.onError((res) => {
   }
   interface NavigateBackOption {
     /** 返回的页面数，如果 delta 大于现有页面数，则返回到首页。 */
-    delta?: number;
+    delta: number;
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     complete?: NavigateBackCompleteCallback;
     /** 接口调用失败的回调函数 */

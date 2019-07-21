@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 21:04:27
+ * @LastEditTime: 2019-07-21 19:34:41
  * @Description: Page函数库
  */
 
@@ -182,18 +182,19 @@ const preGetPage = (page: PageData) => {
  * @param option 页面跳转参数
  * @param page page数组
  */
-const resolvePage = (option: WXPage.PageArg, page?: PageData) => {
+const resolvePage = (option: WXPage.PageArg, page?: PageData, Set = true) => {
   console.info('将要跳转：', option); // 控制台输出参数
   const { aim } = option.query;
+  let data;
 
-  if (page) globalData.page.data = disposePage(page, option.query);
+  if (page) data = disposePage(page, option.query);
   else {
     const { path } = resolveAim(aim);
 
     $file.getJson(`page/${path}`, pageData => {
-      if (pageData) globalData.page.data = disposePage(pageData as PageData, option.query);
+      if (pageData) data = disposePage(pageData as PageData, option.query);
       else {
-        globalData.page.data = disposePage(
+        data = disposePage(
           [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }],
           option.query
         );
@@ -201,10 +202,14 @@ const resolvePage = (option: WXPage.PageArg, page?: PageData) => {
       }
     });
   }
-  // 设置aim值
-  globalData.page.aim = aim;
 
-  return globalData.page.data;
+  if (Set) {
+    // 设置aim值
+    globalData.page.aim = aim;
+    globalData.page.data = data as ComponentData[];
+  }
+
+  return data;
 };
 
 interface SetPageOption {

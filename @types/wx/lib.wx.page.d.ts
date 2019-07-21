@@ -146,7 +146,7 @@ declare namespace Page {
      */
     onPageScroll?(
       /** 页面滚动参数 */
-      options?: IPageScrollOption
+      options: IPageScrollOption
     ): void
 
     /** 当前是 tab 页时，点击 tab 时触发，最低基础库： `1.9.0` */

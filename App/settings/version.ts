@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 11:36:34
+ * @LastEditTime: 2019-07-20 22:39:06
  * @Description: 关于2.0版本
  */
 import $register, { WXPage } from 'wxpage';
@@ -44,7 +44,7 @@ $register('2.0', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   }
 });

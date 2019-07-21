@@ -149,13 +149,22 @@ const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   });
 };
 
+interface Marker {
+  id: number,
+  latitude: number,
+  longitude: number;
+  title?: string;
+  name: string;
+  detail: string;
+}
+
 /**
  * 初始化marker，被setMarker调用
  *
  * @param markers 待处理的Marker数组
  * @returns 处理后的marker
  */
-const initMarker = (markers: any[]) => {
+const initMarker = (markers: Marker[]) => {
   markers.forEach(marker => {
     const markerOrigin = {
       iconPath: '/function/icon/marker.png', width: 25, height: 25, alpha: 0.8,
@@ -178,6 +187,41 @@ const initMarker = (markers: any[]) => {
   return markers;
 };
 
+interface MarkerData extends Marker {
+  iconPath: string;
+  width: number;
+  height: number;
+  alpha: number;
+  label: {
+    content: string;
+    color: string;
+    fontSize: string;
+    anchorX: number;
+    anchorY: number;
+    bgColor: string;
+    borderWidth: number;
+    borderColor: string;
+    borderRadius: number;
+    padding: string;
+  }
+  callout: {
+    content: string;
+    color: string;
+    fontSize: string;
+    bgColor: string;
+    borderRadius: number;
+    padding: string;
+    display: 'BYCLICK' | 'ALWAYS'
+  }
+}
+
+interface MarkerConfig {
+  points: MarkerData[];
+  category: {
+    [props: string]: number[];
+  }
+}
+
 /**
  * 设置Marker
  *
@@ -185,7 +229,7 @@ const initMarker = (markers: any[]) => {
  * @param name marker名称
  * @returns {boolean} 成功后返回
  */
-const setMarker = (data: any, name: string) => {
+const setMarker = (data: MarkerConfig, name: string) => {
   const marker = initMarker(data.points);
   const { category } = data;
 
@@ -232,7 +276,7 @@ const markerSet = () => {
         $file.writeJson('function', 'marker', data);
 
         // 设置Marker
-        if (setMarker(data as any[][0], 'benbu') && setMarker(data as any[][1], 'jingyue') && markerVersion)
+        if (setMarker(data as MarkerConfig[][0], 'benbu') && setMarker(data as MarkerConfig[][1], 'jingyue') && markerVersion)
           wx.setStorageSync('markerVersion', markerVersion);
         else {
           console.warn('Marker set failure.');

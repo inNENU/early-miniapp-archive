@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 15:16:56
+ * @LastEditTime: 2019-07-21 15:08:44
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -188,7 +188,7 @@ $register('map', {
       });
 
   },
-  select(e: any) {
+  select(e: NormalEvent) {
     const name = this.data.mapSwitch ? 'benbu' : 'jingyue';
     const current = e.target.dataset.category;
     const markers = wx.getStorageSync(`${name}-${current}`);
@@ -196,7 +196,7 @@ $register('map', {
     this.setData!({ markers, selectItem: current });
     this.mapCtx.includePoints({ padding: [30, 20, 30, 20], points: markers });
   },
-  markers(e: any) {
+  markers(e: MarkerEvent) {
     const { mapSwitch } = this.data;
     const xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
 
@@ -219,7 +219,7 @@ $register('map', {
 
   },
   back() {
-    wx.navigateBack({});
+    wx.navigateBack({ delta: 1 });
   },
   regionChange(e: any) {
     console.log('regionChange', e);

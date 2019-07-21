@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 14:56:16
+ * @LastEditTime: 2019-07-20 22:44:31
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -12,6 +12,14 @@ import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 const manager = wx.getBackgroundAudioManager();
+
+interface SongDetail {
+  src: string;
+  cover: string;
+  title: string;
+  singer: string;
+}
+
 
 $register('music', {
   data: {
@@ -24,12 +32,12 @@ $register('music', {
   onNavigate() {
     const songList = $file.readJson('function/song');
 
-    if (!songList) $wx.request('function/song', (data: any) => {
+    if (!songList) $wx.request('function/song', data => {
       // 写入JSON文件
-      $file.writeJson('function', 'song', data);
+      $file.writeJson('function', 'song', data as SongDetail[]);
     });
   },
-  onLoad(option: any) {
+  onLoad(option = {}) {
     // 加载字体
     wx.loadFontFace({
       family: 'FZSSJW', source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
@@ -75,7 +83,7 @@ $register('music', {
       }
 
       // 在线获取歌曲列表
-    } else $wx.request('function/song', (data: any) => {
+    } else $wx.request('function/song', data => {
       currentSong = data[index];
       this.setData!({ songList: data, currentSong });
 
@@ -176,14 +184,14 @@ $register('music', {
 
     $page.Notice('music');
   },
-  loadCover(event: any) { // 加载封面
+  loadCover(event: MiniprogramEvent) { // 加载封面
     if (event.type === 'load') this.setData!({ coverLoad: true });
   },
   play() { // 播放
     if (this.data.play) manager.pause();
     else manager.play();
   },
-  drag(event: any) { // 拖拽进度
+  drag(event: MiniprogramEvent) { // 拖拽进度
     manager.seek(event.detail.value / 100);
     if (event.type === 'change') {
       this.setData!({ currentTime: event.detail.value / 100 });
@@ -258,7 +266,7 @@ $register('music', {
     }
     this.Switch(index);
   },
-  Switch(index: any) { // 切换歌曲
+  Switch(index: string | number) { // 切换歌曲
     if (index === 'stop') {
 
       this.setData!({
@@ -308,11 +316,11 @@ $register('music', {
   list() { // 切换列表显隐
     this.setData!({ songListDisplay: !this.data.songListDisplay });
   },
-  change(res: any) { // 点击列表具体歌曲项时触发
+  change(res: MiniprogramEvent) { // 点击列表具体歌曲项时触发
     this.list();
     this.Switch(res.currentTarget.dataset.index);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   },
   onShareAppMessage() {

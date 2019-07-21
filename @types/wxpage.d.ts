@@ -63,6 +63,8 @@ declare module 'wxpage' {
       $emit?(event: string, callback: (...args: any[]) => void): void;
       /** 结束一个事件监听 */
       $off?(event: string, callback: (...args: any[]) => void): void;
+      /** 组件处理函数 */
+      cA?(event: MiniprogramEvent): void;
       [props: string]: any;
     }
     /** APP选项 */
@@ -92,11 +94,18 @@ declare module 'wxpage' {
       onAwake?(time: number): void;
       [props: string]: any;
     }
+
+    /** 组件选项 */
+    interface ComponentOption extends Component.ComponentInstance {
+      [props: string]: any;
+    }
   }
+
 
 
   interface Wxpage {
     A(options: WXPage.AppOption): void;
+    C(options: WXPage.ComponentOption): void;
     (name: string, options: WXPage.PageOption): void;
   }
 

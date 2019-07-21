@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-13 17:15:46
+ * @LastEditTime: 2019-07-21 19:33:44
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
@@ -15,10 +15,13 @@ $register('function', {
   data: {
     T: a.T,
     nm: a.nm,
+    head: [
+      { tag: 'head', title: '功能大厅', action: true, grey: true }
+    ],
     page: [
-      { tag: 'head', title: '功能大厅', action: true, grey: true }, {
+      { tag: 'head', hidden: true },
+      {
         tag: 'grid',
-        head: '',
         content: [
           { text: '校园地图', icon: '/icon/tabPage/map.svg', url: '/function/map' },
           { text: '音律东师', icon: '/icon/tabPage/music.svg', url: '/function/player' },
@@ -50,6 +53,10 @@ $register('function', {
     console.log(`功能大厅预加载用时${new Date().getTime() - a.date}ms`);
   },
   onLoad() {
+    this.setData!({
+      head: $page.resolve({ query: { aim: 'function' } }, this.data.head, false)
+    });
+
     $page.Set({ option: { aim: 'function' }, ctx: this });
     $page.Notice('function');
     $tab.update('function', '70K');
@@ -81,7 +88,7 @@ $register('function', {
   onPageScroll(e) {
     $component.nav(e, this);
   },
-  cA(e: any) {
+  cA(e) {
     $component.trigger(e, this);
   },
   onShareAppMessage: () => ({ title: '功能大厅', path: '/page/function' })

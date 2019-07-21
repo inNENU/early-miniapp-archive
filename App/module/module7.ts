@@ -19,7 +19,7 @@ $register('module7', {
   onPageScroll(res) {
     $component.nav(res, this);
   },
-  cA(res: any) {
+  cA(res) {
     $component.trigger(res, this);
   },
   onShareAppMessage() {
