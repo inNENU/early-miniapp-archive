@@ -1,0 +1,16 @@
+<view class="weatherCtn">
+  <view class="location icon-location">长春市</view>
+  <view class="temperature">{{weather.wendu}}℃</view>
+  <view class="type">{{weather.type}}</view>
+  <view class="desc">{{weather.ganmao}}</view>
+  <view class="yesterday">
+    <view class='weatherListTitle icon-titles'>{{yesterday.date}} | {{yesterday.type}} \n</view>
+    <view class='weatherListDetail'>
+      {{yesterday.high}}-{{yesterday.low}} | {{yesterday.fx}} \n
+    </view>
+  </view>
+  <block wx:for="{{weather.forecast}}" wx:for-item="day" wx:key="{{day.date}}">
+    <view class='weatherListTitle icon-titles'>{{day.date}} | {{day.type}} \n</view>
+    <view class='weatherListDetail'>{{day.high}}-{{day.low}} | {{day.fengxiang}} \n</view>
+  </block>
+</view>

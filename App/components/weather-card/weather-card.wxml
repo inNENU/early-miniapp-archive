@@ -6,10 +6,10 @@
     <view class='weatherDetail icon-location'>长春市 | {{weather.forecast[0].type}}</view>
     <view class="temperature">
       <text style="font-size:60px;">{{weather.wendu}}</text>
-      <text style="font-size:32px;">°C  \n</text>
-      <text style="font-size:24px;">
-        {{weather.forecast[0].low}} | {{weather.forecast[0].high}}
-      </text>
+      <text style="font-size:32px;">°C\n</text>
+      <view style="font-size:24px;">
+        {{weather.forecast[0].low}}-{{weather.forecast[0].high}}
+      </view>
     </view>
     <view class='weatherText icon-info'>
       {{weather.ganmao}}\n点击{{showMoreForecast?'隐藏':'查看'}}五日预报。
@@ -20,7 +20,7 @@
   <view wx:if="{{showMoreForecast}}">
     <block wx:for="{{weather.forecast}}" wx:for-item="day" wx:key="{{day.date}}">
       <view class='weatherListTitle icon-titles'>{{day.date}} | {{day.type}} \n</view>
-      <view class='weatherListDetail'>{{day.high}} | {{day.low}} | {{day.fengxiang}} \n</view>
+      <view class='weatherListDetail'>{{day.high}}-{{day.low}} | {{day.fengxiang}} \n</view>
     </block>
   </view>
 </view>

@@ -1,5 +1,29 @@
 import $register from 'wxpage';
 
+interface WeatherDetail {
+  date: string;
+  fengli: string;
+  fengxiang: string;
+  high: string;
+  low: string;
+  type: string;
+}
+interface Weather {
+  data: {
+    city: string;
+    yesterday: {
+      date: string;
+      fl: string;
+      fx: string;
+      high: string;
+      low: string;
+      type: string;
+    }
+    forecast: WeatherDetail[];
+    ganmao: string;
+  }
+}
+
 $register.C({
   data: {
     // 所在城市
@@ -34,38 +58,35 @@ $register.C({
       wx.request({
         url: 'https://mp.nenuyouth.com/server/weather.php',
         success: res => {
-          console.log(res);
-          this.setData({
-            weather: (res.data as any).data
-          }, () => {
-            /* 设置弹出框内容 */
-            for (let i = 0; i < 5; i++) {
-              const forecast = this.data.weather.forecast[i];
+          const weather = res.data as Weather;
 
-              this.setData({
-                [`actions[${i}].subname`]: forecast.date,
-                [`actions[${i}].name`]: `「${forecast.type}」${forecast.low} ${forecast.high}`
-              });
-            };
+          /* 设置弹出框内容 */
+          for (let i = 0; i < 5; i++) {
+            const forecast = weather.data.forecast[i];
 
-            const weatherType = this.data.weather.forecast[0].type;
+            forecast.low = forecast.low.substring(3);
+            forecast.high = forecast.high.substring(3);
+          };
 
-            const weatherClass =
-              weatherType.indexOf('晴') != -1
-                ? (new Date().getHours() > 6 && new Date().getHours() < 19)
-                  ? new Date().getSeconds() % 2 == 0 ? 'sunny' : 'rainbow'
-                  : 'starry'
-                : weatherType.indexOf('雷') !== -1 || weatherType.indexOf('电') !== -1 || weatherType.indexOf('暴') !== -1
-                  ? 'stormy'
-                  : weatherType.indexOf('雪') !== -1 || weatherType.indexOf('霜') !== -1 || weatherType.indexOf('冰') !== -1
-                    ? 'snowy'
-                    : weatherType.indexOf('雨') !== -1
-                      ? 'rainy'
-                      : weatherType.indexOf('阴') !== -1 || weatherType.indexOf('云') !== -1
-                        ? 'cloudy' : "";
+          const weatherType = weather.data.forecast[0].type;
 
-            this.setData({ weatherClass });
-          });
+          const weatherClass =
+            weatherType.indexOf('晴') != -1
+              ? (new Date().getHours() > 6 && new Date().getHours() < 19)
+                ? new Date().getSeconds() % 2 == 0 ? 'sunny' : 'rainbow'
+                : 'starry'
+              : weatherType.indexOf('雷') !== -1 || weatherType.indexOf('电') !== -1 || weatherType.indexOf('暴') !== -1
+                ? 'stormy'
+                : weatherType.indexOf('雪') !== -1 || weatherType.indexOf('霜') !== -1 || weatherType.indexOf('冰') !== -1
+                  ? 'snowy'
+                  : weatherType.indexOf('雨') !== -1
+                    ? 'rainy'
+                    : weatherType.indexOf('阴') !== -1 || weatherType.indexOf('云') !== -1
+                      ? 'cloudy' : "";
+
+          this.setData({ weatherClass, weather: weather.data });
+
+          wx.setStorageSync('weather', weather.data);
         }
       })
     },
