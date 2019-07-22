@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 15:19:41
+ * @LastEditTime: 2019-07-22 10:25:36
  * @Description: APP函数库
  */
 
@@ -153,7 +153,7 @@ const noticeCheck = (version: string) => {
     [props: string]: {
       0: string;
       1: string;
-      2: number | boolean;
+      2: undefined | boolean;
     };
   }
 
@@ -168,10 +168,13 @@ const noticeCheck = (version: string) => {
         wx.setStorageSync(`${page}Notify`, true);
 
         // 如果在线通知版本号更高，写入通知内容、通知提示与通知版本
-      } else if (noticeList[page][2] !== wx.getStorageSync(`${page}noticeVersion`)) {
-        wx.setStorageSync(`${page}notice`, [noticeList[page][0], noticeList[page][1]]);
-        wx.setStorageSync(`${page}noticeVersion`, noticeList[page][2]); // 写入
-        wx.setStorageSync(`${page}Notify`, true);// 写入
+      } else {
+        const oldNotice = wx.getStorageSync(`${page}notice`);
+
+        if (!oldNotice || oldNotice[0] !== page[0] || oldNotice[1] !== page[1]) {
+          wx.setStorageSync(`${page}notice`, [noticeList[page][0], noticeList[page][1]]);
+          wx.setStorageSync(`${page}Notify`, true);// 写入
+        }
       }
     });
 

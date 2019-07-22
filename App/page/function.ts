@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-21 19:33:44
+ * @LastEditTime: 2019-07-21 21:39:38
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
@@ -22,6 +22,7 @@ $register('function', {
       { tag: 'head', hidden: true },
       {
         tag: 'grid',
+        head: false,
         content: [
           { text: '校园地图', icon: '/icon/tabPage/map.svg', url: '/function/map' },
           { text: '音律东师', icon: '/icon/tabPage/music.svg', url: '/function/player' },

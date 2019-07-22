@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 22:43:15
+ * @LastEditTime: 2019-07-21 21:38:21
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -96,7 +96,7 @@ $register('guide', {
   },
   onPullDownRefresh() {
     $tab.refresh('guide', this, a);
-    $tab.update('page', '145K');
+    $tab.update('page', '155K');
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
