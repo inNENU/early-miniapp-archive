@@ -149,12 +149,19 @@ Author: Mr.Hope
 <!-- 网格组件 -->
 <template name="grid">
   <view wx:if="{{head!==false}}" class="gridHead">{{head}}</view>
-  <view class="gridCtn">
+  <view class='nav-list'>
+    <view catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}" class="nav-li bg-{{item.color}}" wx:for="{{content}}" wx:for-item="List" wx:key="text" >
+      <view class="nav-title">{{List.text}}</view>
+      <view class="nav-name">{{List.name}}</view>
+      <text class='cuIcon-{{List.icon}}'></text>
+    </view>
+  </view>
+  <!-- <view class="gridCtn">
     <view wx:for="{{content}}" wx:for-item="List" wx:key="text" class="gridBox" hover-class="buttonHover" hover-stay-time="100" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}">
       <image class="gridIcon" src="{{List.icon}}" />
       <view class="gridTitle">{{List.text}}</view>
     </view>
-  </view>
+  </view> -->
   <view wx:if="{{foot}}" class="gridFoot">{{foot}}</view>
 </template>
 <!-- 介绍组件 -->

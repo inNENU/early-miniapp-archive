@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-22 13:07:15
+ * @LastEditTime: 2019-07-22 16:41:35
  * @Description: 关于2.0版本
  */
 import $register, { WXPage } from 'wxpage';
@@ -23,6 +23,7 @@ $register('2.0', {
       { tag: 'p', head: 'V2.0.4 2019.07.20', text: '修复分享好友失效的问题' },
       { tag: 'p', head: 'V2.0.5 2019.07.21', text: '添加天气模块' },
       { tag: 'p', head: 'V2.0.6 2019.07.22', text: '完善iOS夜间模式' },
+      { tag: 'p', head: 'V2.0.７ 2019.07.22', text: '引入自定义组件' },
       { tag: 'list', content: [{ text: '历史更新', desc: '点击查看', aim: 'log0' }] },
       { tag: 'foot', author: 'Mr.Hope' }
     ]

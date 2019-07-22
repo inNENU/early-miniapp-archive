@@ -13,7 +13,7 @@ const $App = $register.A;
 
 $App({
   globalData: {
-    version: 'V 2.0.7',
+    version: 'V 2.0.8',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],

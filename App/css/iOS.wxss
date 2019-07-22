@@ -1,6 +1,7 @@
-/* 
----iOS theme made by Mr.Hope--- 
-  Version: V1.0.2
+/*
+ * @Author: Mr.Hope
+ * @Description: iOS主题
+ * @Version：2.0
  */
 
 .iOS {
@@ -124,8 +125,8 @@
 
 .nm .iOSnavDl:after,
 .nm .iOS-head:after {
-  border-bottom: 1px #53354f solid;
-  color: #53354f;
+  border-bottom: 1px #3D3D41 solid;
+  color: #3D3D41;
 }
 
 .iOS-head {
@@ -165,7 +166,6 @@
   font-weight: 400;
   color: #666;
   padding: 23px 15px 5px 15px;
-  max-width: 487px;
   margin: 0 auto;
 }
 
@@ -201,7 +201,6 @@
   line-height: 1.6;
   text-align: justify;
   word-wrap: break-word;
-  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -217,7 +216,6 @@
   line-height: 1.6;
   text-align: left;
   background-color: #fefefe;
-  max-width: 487px;
   margin: 0 auto;
   position: relative;
 }
@@ -253,6 +251,19 @@
 .grey.nm .iOSP:before,
 .grey.nm .iOSP:after {
   border-color: #3D3D41;
+}
+
+@media (min-width:768px) {
+  .grey .iOSP {
+    margin: 0 15px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .grey .iOSP:after,
+  .grey .iOSP:before {
+    border: none;
+  }
 }
 
 .grey.nm .iOSP {
@@ -318,7 +329,6 @@
 .grey .commonhead {
   font-size: 13px;
   color: #666;
-  max-width: 487px;
   margin: 0 auto;
 }
 
@@ -340,7 +350,6 @@
 .Lctn {
   background-color: #fefefe;
   margin: 0 auto;
-  max-width: 517px;
   position: relative;
 }
 
@@ -377,6 +386,26 @@
   border-color: #3D3D41;
 }
 
+@media (min-width:768px) {
+  .Lctn {
+    margin: 0 15px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .Lctn:after,
+  .Lctn:before {
+    border: none;
+  }
+
+
+  .commonfoot,
+  .grey .commonhead {
+    margin: 0 15px;
+  }
+}
+
+
 .listCtn {
   padding: 0 15px;
   font-size: 17px;
@@ -401,9 +430,9 @@
 }
 
 .listIcon {
-  width: 26px;
-  height: 26px;
-  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  margin: 10px 10px 10px 0;
 }
 
 .list-Container {
@@ -459,7 +488,7 @@
 .link-divline:after {
   content: " ";
   position: absolute;
-  left: 4%;
+  left: 15px;
   bottom: 0;
   right: 0;
   height: 1px;
@@ -474,10 +503,11 @@
 .listIcon.link-divline {
   width: 100%;
   height: 0;
+  margin: 0;
 }
 
 .listIcon.link-divline:after {
-  left: 14%;
+  left: 55px;
 }
 
 .nm .link-divline:after {
