@@ -1,6 +1,6 @@
 {
   "name": "mynenu",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "scripts": {
     "tsc": "node ./node_modules/typescript/lib/tsc.js"
   },

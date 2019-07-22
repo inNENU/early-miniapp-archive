@@ -30,6 +30,7 @@
 }
 
 .iOS-navigationBar {
+  box-sizing: content-box;
   height: 44px;
   padding-top: 20px;
   display: -webkit-flex;
@@ -42,7 +43,7 @@
 }
 
 .iOS-navPlaceHolder {
-  height: 64px;
+  height: 44px;
   font-size: 10px;
   color: #acacb0;
 }
@@ -57,7 +58,7 @@
 }
 
 .iOS-navBack {
-  min-width: 0 !important;
+  min-width: 10px !important;
   min-height: 0 !important;
   padding: 0 5px !important;
   border: none !important;
@@ -72,8 +73,8 @@
 }
 
 .iOS-backArrow {
-  width: 12px;
-  height: 12px;
+  width: 15px;
+  height: 15px;
   border-width: 0 0 3px 3px;
   border-style: solid;
   -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
@@ -156,13 +157,13 @@
 }
 
 .iOShead {
-  min-height: 20px;
+  min-height: 36px;
   font-size: 19px;
 }
 
 .grey .iOShead {
   font-size: 13px;
-  min-height: 9px;
+  min-height: 37px;
   font-weight: 400;
   color: #666;
   padding: 23px 15px 5px 15px;
@@ -176,13 +177,13 @@
   }
 
   .iOShead {
-    min-height: 22px;
+    min-height: 38px;
     font-size: 21px;
   }
 
   .grey .iOShead {
     font-size: 14px;
-    min-height: 10px;
+    min-height: 38px;
   }
 }
 
@@ -317,7 +318,7 @@
 /* list */
 
 .grey .commonhead {
-  min-height: 9px;
+  min-height: 37px;
   padding: 23px 15px 5px 15px;
 }
 
@@ -464,8 +465,8 @@
 .access:after {
   content: " ";
   display: inline-block;
-  width: 7px;
-  height: 7px;
+  width: 9px;
+  height: 9px;
   border-width: 2px 2px 0 0;
   border-style: solid;
   -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
@@ -579,3 +580,63 @@
   font-size: 20px;
   height: 38px;
 }  */
+
+/* grid */
+
+.iOSgridCtn {
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 6px;
+  width: 100%;
+}
+
+.iOSgridBox {
+  width: calc(25% - 10px);
+  margin: 5px;
+  padding: 6px 0;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.nm .iOSgridBox {
+  background-color: #000;
+}
+
+.iOSgridIcon {
+  width: 28px;
+  height: 28px;
+}
+
+.iOSgridTitle {
+  font-size: 14px;
+  color: #444;
+}
+
+.nm .iOSgridTitle {
+  color: #bbb;
+}
+
+.gridFoot {
+  font-size: 14px;
+  color: #999;
+  text-align: left;
+  padding: 3px 15px;
+  min-height: 14px;
+}
+
+.nm .gridFoot {
+  color: #666;
+}
+
+@media (min-width:480px) {
+  .gridBox {
+    width: calc(16.666% - 10px);
+  }
+}
+
+@media (min-width:1024px) {
+  .gridBox {
+    width: calc(12.5% - 10px);
+  }
+}

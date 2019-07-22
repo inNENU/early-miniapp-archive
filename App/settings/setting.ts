@@ -19,7 +19,7 @@ $register('setting', {
         tag: 'list', head: '主题设置', foot: '目前iOS主题可以完美显示',
         content: [
           {
-            text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'Android'], picker: 'setTheme'
+            text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'Android', 'NENU'], picker: 'setTheme'
             // PickerValue: ["iOS", "Android", "NENU"],
           }
         ]

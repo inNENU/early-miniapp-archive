@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-22 11:34:20
+ * @LastEditTime: 2019-07-22 21:50:36
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
@@ -24,9 +24,9 @@ $register('function', {
         tag: 'grid',
         head: false,
         content: [
-          { text: '校园地图', icon: '/icon/tabPage/map.svg', url: '/function/map' },
-          { text: '音律东师', icon: '/icon/tabPage/music.svg', url: '/function/player' },
-          { text: '体测计算器', icon: '/icon/tabPage/calculate.svg', url: '/function/PEcal' }
+          { text: '校园地图', color: 'orange', name: 'Map', icon: '/icon/tabPage/map.svg', url: '/function/map' },
+          { text: '音律东师', color: 'red', name: 'Music',icon: '/icon/tabPage/music.svg', url: '/function/player' },
+          { text: '体测计算器', color: 'blue', name: 'PE Calucator',icon: '/icon/tabPage/calculate.svg', url: '/function/PEcal' }
         ]
         /*
          * }, {
