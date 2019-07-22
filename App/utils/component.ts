@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 13:49:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-21 21:07:15
+ * @LastEditTime: 2019-07-22 23:36:13
  * @Description: 组件函数库
  */
 
@@ -329,8 +329,6 @@ const share = (res: NormalEvent, ctx: any) => {
       else $wx.tip('QQ暂不支持二维码');
     } else if (res.target.dataset.role === 'contact' && env === 'qq')
       $wx.tip('QQ小程序暂不支持联系客服');
-    else if (res.target.dataset.role === 'feedback' && env === 'qq')
-      $wx.tip('QQ小程序暂不支持反馈功能');
   }
 };
 

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-22 15:14:49
+ * @LastEditTime: 2019-07-22 23:36:27
  * @Description: 分享组件
  */
 
@@ -117,8 +117,6 @@ $register.C({
         else $wx.tip('QQ暂不支持二维码');
       } else if (event.target.dataset.role === 'contact' && env === 'qq')
         $wx.tip('QQ小程序暂不支持联系客服');
-      else if (event.target.dataset.role === 'feedback' && env === 'qq')
-        $wx.tip('QQ小程序暂不支持反馈功能');
     }
   },
   time: 0,

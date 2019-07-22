@@ -600,7 +600,7 @@
 }
 
 .nm .iOSgridBox {
-  background-color: #000;
+  background-color: #1C1C1E;
 }
 
 .iOSgridIcon {

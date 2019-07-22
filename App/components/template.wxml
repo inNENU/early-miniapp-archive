@@ -375,7 +375,7 @@ Author: Mr.Hope
 </template>
 <!-- Android网格 -->
 <template name="Androidgrid">
-  <view wx:if="{{head!==false}}" class="commonhead">{{head}}</view>
+  <view wx:if="{{head!==false}}" class="AndroidGridHead">{{head}}</view>
   <view class='AndriodGridList'>
     <view class="AndriodGridbox bg-{{List.color}}" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}" wx:for="{{content}}" wx:for-item="List" wx:key="text">
       <view class="AndriodGridText">{{List.text}}</view>

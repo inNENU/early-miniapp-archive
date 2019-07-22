@@ -312,6 +312,12 @@
 }
 
 /* grid */
+.AndroidGridHead {
+  text-align: left;
+  min-height: 37px;
+  padding: 23px 60rpx 5px 60rpx;
+}
+
 .AndriodGridList {
   display: flex;
   flex-wrap: wrap;

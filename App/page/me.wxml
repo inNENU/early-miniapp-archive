@@ -1,2 +1,13 @@
 <import src="/components/template" />
-<template is="all" data="{{page,T,nm}}" />
+<view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template is="all2" data="{{page,T}}" />
+  <view class="shareBtnGroup">
+    <button class="share" plain="true" hover-class="buttonHover" open-type="share">
+      <text class="icon-forwardfill">分享小程序</text>
+    </button>
+    <view class="divLine" />
+    <button class="share" plain="true" hover-class="buttonHover" open-type="feedback">
+      <text class="icon-community">反馈Bug</text>
+    </button>
+  </view>
+</view>

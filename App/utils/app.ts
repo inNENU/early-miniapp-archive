@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-22 10:25:36
+ * @LastEditTime: 2019-07-22 22:25:34
  * @Description: APP函数库
  */
 
@@ -109,11 +109,11 @@ const appInit = () => {
 
     // 根据平台设置主题
     switch (platform) {
-      case 'iOS':
+      case 'ios':
         theme = 'iOS';
         num = 0;
         break;
-      case 'Android':
+      case 'android':
         theme = 'Android';
         num = 1;
         break;
