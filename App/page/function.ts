@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-21 21:39:38
+ * @LastEditTime: 2019-07-22 11:34:20
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
@@ -19,7 +19,7 @@ $register('function', {
       { tag: 'head', title: '功能大厅', action: true, grey: true }
     ],
     page: [
-      { tag: 'head', hidden: true },
+      { tag: 'head', title: '功能大厅', hidden: true },
       {
         tag: 'grid',
         head: false,

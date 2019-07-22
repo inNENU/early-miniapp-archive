@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-21 21:38:21
+ * @LastEditTime: 2019-07-22 12:56:14
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -76,7 +76,7 @@ $register('guide', {
   onLoad() {
     $page.Set({ option: { aim: 'guide' }, ctx: this });
     $page.Notice('guide');
-    $tab.update('page', '150K');
+    $tab.update('page', '160K');
   },
   onShow() {
     // 设置胶囊和背景颜色

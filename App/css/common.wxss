@@ -346,13 +346,13 @@
 }
 
 .nm .docCtn {
-  background-color: #10110b !important;
+  background-color: #1C1C1E !important;
   color: #fff !important;
 }
 
 .nm .docCtn:before,
 .nm .docCtn:after {
-  border-color: #353631;
+  border-color: #3D3D41;
 }
 
 .docCtn+.docCtn {
@@ -439,7 +439,7 @@
 }
 
 .nm .phoneCtn {
-  background-color: #10110b !important;
+  background-color: #1C1C1E !important;
   color: #fff !important;
 }
 
@@ -478,11 +478,11 @@
 }
 
 .nm .gridCtn {
-  background-color: #000;
+  background-color: #1C1C1E;
 }
 
 .nm .gridCtn:before {
-  border-color: #353631
+  border-color: #3D3D41
 }
 
 .gridBox {
@@ -526,7 +526,7 @@
 
 .nm .gridBox:before,
 .nm .gridBox:after {
-  border-color: #353631 !important;
+  border-color: #3D3D41 !important;
 }
 
 .gridIcon {
@@ -770,7 +770,7 @@
 }
 
 .nm .gzhText {
-  background-color: #000;
+  background-color: #1C1C1E;
 }
 
 .gzhTitle {
