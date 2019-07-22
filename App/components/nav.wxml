@@ -1,0 +1,15 @@
+<view class="navBar" style="height:{{res.statusBarHeight}}px;backgroundcolor:{{res.color}};"></view>
+<block wx:if="{{theme=='iOS'}}">
+  <view class='iOS-navigationBar' style="padding-top:{{res.statusBarHeight}}px;">
+    <view wx:if="{{res.titleDisplay}}" class="iOS-titletext">{{res.title}}</view>
+    <button wx:if="{{res.action!==true}}" class='iOS-navBack' hover-class="navBackHover" hover-stay-time='100' plain='true' catchtap="{{res.action==undefined?'cA':res.action}}" data-action='back'>
+      <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow'></view>
+      <text class='iOS-nav-text'>{{res.leftText}}</text>
+    </button>
+  </view>
+  <view wx:if="{{res.borderDisplay}}" class='iOSnavDl' style="top:{{res.statusBarHeight+44}}px;"></view>
+  <view class='iOS-navPlaceHolder' style="height:{{res.statusBarHeight+44}}px;">
+    到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮
+  </view>
+  <view class='iOS-head'>{{res.title}}</view>
+</block>

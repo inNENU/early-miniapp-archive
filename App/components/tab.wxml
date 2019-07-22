@@ -1,0 +1,7 @@
+<cover-view id="tab">
+  <cover-view wx:for="{{tab}}" id="tabItem">
+    <cover-image id="tabImage" src="{{item.src}}">
+      <cover-view id="tabText">{{item.text}}</cover-view>
+    </cover-image>
+  </cover-view>
+</cover-view>

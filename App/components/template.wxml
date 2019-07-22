@@ -15,6 +15,12 @@
   <block wx:else>
     <view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
       <template wx:for="{{page}}" wx:key="id" is="{{item.tag}}" data="{{...item,T}}" />
+      <!-- share组件 -->
+      <!-- <share res="{{page[0]}}" />
+      <block wx:for="{{page}}" wx:key="id">
+        <footer res="{{item}}" wx:if="{{item.tag==='foot'}}" />
+        <template wx:else is="{{item.tag}}" data="{{...item,T}}" />
+      </block> -->
     </view>
   </block>
 </template>
@@ -221,6 +227,7 @@ Author: Mr.Hope
   <block wx:if="{{!hidden}}">
     <template is="{{T}}Head" data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight}}" />
   </block>
+  <!-- share组件替换 -->
   <block wx:if="{{shareable||feedback||contact}}">
     <view class="shareIconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="shareHover" hover-stay-time="200" catchtouchstart="cA" catchtouchmove="cA" catchtouchend="cA" data-action="share" data-role="button">
       <image class="shareIcon" src="/icon/share.svg" />

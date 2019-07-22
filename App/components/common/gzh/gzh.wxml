@@ -1,0 +1,13 @@
+<view class="gzhCtn" hover-class="buttonHover" catchtap="_gzh" data-action="navigate" data-url="/module/web?url={{url}}&title={{title}}">
+  <view class="{{old?'gzhImgCtn':'gzhNewImgCtn'}}">
+    <image class="gzhImg" src="{{src}}" mode="aspectFill" />
+  </view>
+  <view class="gzhText">
+    <view class="gzhIconCtn">
+      <image class="gzhIcon" src="{{icon}}" />
+      <view class="gzhIconDesc">{{gzhName}}</view>
+    </view>
+    <view class="gzhTitle">{{title}}</view>
+    <view class="gzhDesc">{{desc}}</view>
+  </view>
+</view>

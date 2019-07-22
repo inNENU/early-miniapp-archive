@@ -1,10 +1,2 @@
 <import src="/components/template" />
-<!-- <template is="all" data="{{page,T,nm}}" /> -->
-<view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template is="all2" data="{{page,T}}" />
-  <weather-card />
-</view>
-<!-- <navigator class="" target="" url="/page/test" hover-class="navigator-hover" open-type="navigate">
-  跳转
-</navigator>
-<view style="width:100%;height:200px;"></view> -->
+<template is="all" data="{{page,T,nm}}" />

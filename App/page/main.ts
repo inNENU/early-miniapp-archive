@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-22 12:59:26
+ * @LastEditTime: 2019-07-22 14:29:53
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -16,6 +16,10 @@ $register('main', {
   data: {
     T: a.T,
     nm: a.nm,
+    res: {
+      tag: 'head', title: '首页', aim: 'main',
+      action: true, aimStep: 1, aimDepth: 1, grey: true, shareable: true
+    },
     page: [
       {
         tag: 'head', title: '首页', aim: 'main',

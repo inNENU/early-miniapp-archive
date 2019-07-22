@@ -118,5 +118,9 @@
   "requiredBackgroundModes": [
     "audio"
   ],
+  "usingComponents": {
+    "share": "/components/common/share/share",
+    "footer": "/components/common/foot/foot"
+  },
   "sitemapLocation": "sitemap.json"
 }
