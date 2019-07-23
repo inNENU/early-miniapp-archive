@@ -26,6 +26,9 @@ declare interface GlobalData {
   nm?: boolean;
   /** 设备信息 */
   info?: any;
+  /** 启动时间 */
   date?: number;
+  /** 小程序appid */
+  appID?: string;
 }
 

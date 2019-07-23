@@ -1,0 +1,4 @@
+<view class="docCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="_doc">
+  <image class="docIcon" mode="widthFix" src="icon/{{config.docType}}.svg" />
+  <view class="docname docAccess">{{config.docName}}.{{config.docType}}</view>
+</view>

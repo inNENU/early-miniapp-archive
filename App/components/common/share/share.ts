@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-22 23:36:27
+ * @LastEditTime: 2019-07-23 19:35:28
  * @Description: 分享组件
  */
 
@@ -12,8 +12,10 @@ import $wx from '../../../utils/wx';
 const { logger, globalData: { env } } = getApp();// 获得日志管理器
 
 $register.C({
-  properties: { res: { type: Object, value: { aim: '' } } },
-  data: { env },
+  properties: { config: { type: Object, value: { aim: '' } } },
+  data: {
+    menuDisplay: false // 是否显示菜单
+  },
   methods: {
     _share(event: NormalEvent) { // 分享按钮
       const touch = event.touches[0];
@@ -40,7 +42,7 @@ $register.C({
       if (event.target.dataset.role === 'download') {
         console.log('Start QRCode download.');// 调试
         if (env === 'wx')
-          $wx.downLoad(`/img/QRCode/${env}/${this.properties.aim}.jpg`, path => {
+          $wx.downLoad(`/img/QRCode/${env}/${this.data.config.aim}.jpg`, path => {
             wx.getSetting({// 获取用户设置
               success: res2 => {
                 // 如果已经授权相册直接写入图片
@@ -103,8 +105,8 @@ $register.C({
             $wx.tip('二维码下载失败');
 
             // 调试
-            console.warn(`下载二维码失败${this.properties.aim}`);
-            logger.warn(`下载二维码失败${this.properties.aim}`);
+            console.warn(`下载二维码失败${this.data.config.aim}`);
+            logger.warn(`下载二维码失败${this.data.config.aim}`);
             wx.reportMonitor('6', 1);
           }, statusCode => {
             $wx.tip('二维码下载失败，服务器出错');

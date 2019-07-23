@@ -5,9 +5,9 @@
       <image style='width:100%;height:100%;' src="/image/logo.png" />
     </navigator>
   </view>
-  <text wx:if="{{res.desc}}">{{res.desc}}\n</text>
-  <text wx:if="{{res.author}}">编辑人：{{res.author}}</text>
-  <text wx:if="{{res.time}}">最后编辑于{{res.time}}</text>
-  <text wx:if="{{res.time||res.author}}">\n</text>
+  <text wx:if="{{config.desc}}">{{config.desc}}\n</text>
+  <text wx:if="{{config.author}}">编辑人：{{config.author}}</text>
+  <text wx:if="{{config.time}}">最后编辑于{{config.time}}</text>
+  <text wx:if="{{config.time||config.author}}">\n</text>
   Copyright © 2017-2019 HopeStudio
 </view>

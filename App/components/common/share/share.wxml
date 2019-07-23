@@ -1,19 +1,19 @@
-<view wx:if="{{res.shareable||res.contact||res.feedback}}" class="iconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="iconHover" hover-stay-time="200" catchtouchstart="_share" catchtouchmove="_share" catchtouchend="_share" aria-role="button" aria-label="分享按钮">
+<view wx:if="{{config.shareable||config.contact||config.feedback}}" class="iconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="iconHover" hover-stay-time="200" catchtouchstart="_share" catchtouchmove="_share" catchtouchend="_share" aria-role="button" aria-label="分享按钮">
   <image class="icon" src="/icon/share.svg" />
 </view>
 <view wx:if="{{menuDisplay}}" class="mask {{menuDisplay?'fadeIn':'fadeOut'}}" style="top:{{menuDisplay?'0':'100%'}};"></view>
 <view class="layer {{menuDisplay?'moveUpIn':'moveUpOut'}}" catchtap="_share">
   <view class="btnList">
-    <button wx:if="{{res.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="share">
+    <button wx:if="{{config.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="share">
       分享{{env==='wx'?'到微信':'给好友/分享到空间'}}
     </button>
-    <button wx:if="{{res.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" data-action="download">
+    <button wx:if="{{config.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" data-action="download">
       保存页面二维码
     </button>
-    <button wx:if="{{res.contact}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="contact">
+    <button wx:if="{{config.contact}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="contact">
       联系开发者
     </button>
-    <button wx:if="{{res.feedback}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="feedback">
+    <button wx:if="{{config.feedback}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="feedback">
       意见反馈
     </button>
     <button class="cancelBtn" hover-class="btnHover">取消</button>

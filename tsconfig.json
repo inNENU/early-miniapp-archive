@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "locale": "zh-CN",
     "target": "ES5",
     "module": "CommonJS",
     "importHelpers": true,
@@ -16,8 +17,6 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "alwaysStrict": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 22:43:02
+ * @LastEditTime: 2019-07-23 10:25:04
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -37,7 +37,7 @@ $register('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\n重构小程序\n更新编译基础库为1.4.8/2.7.4\n小程序现在拥有更好的性能` },
+          { text: `${a.version}\n优化样式` },
           { text: '查看详细日志', url: '/settings/version' }
         ]
       },

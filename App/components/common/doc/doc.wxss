@@ -1,0 +1,89 @@
+.docCtn {
+  position: relative;
+  width: 100%;
+  background-color: #fefefe;
+  padding: 16px 0;
+  line-height: 1.2;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+
+.docCtn:after,
+.docCtn:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  color: #cac9ce;
+}
+
+.docCtn:after {
+  bottom: 0;
+  border-bottom: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.docCtn:before {
+  top: 0;
+  border-top: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.nm .docCtn {
+  background-color: #1C1C1E !important;
+  color: #fff !important;
+}
+
+.nm .docCtn:before,
+.nm .docCtn:after {
+  border-color: #3D3D41;
+}
+
+.docCtn+.docCtn {
+  border-top: none;
+}
+
+.docIcon {
+  width: 32px;
+  height: 32px;
+  margin: 0 5%;
+  flex: none;
+}
+
+.docname {
+  font-size: 18px;
+  flex: auto;
+  text-align: left;
+}
+
+.docAccess {
+  margin-right: 30px;
+}
+
+.docAccess:after {
+  content: " ";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-width: 2px 2px 0 0;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  right: 17px;
+  border-color: #c7c7cc;
+}
+
+.nm .docAccess:after {
+  border-color: #383833;
+}

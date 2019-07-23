@@ -1627,15 +1627,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 接口调用成功的回调函数 */
     success?: GetStorageInfoSuccessCallback;
   }
-  interface GetStorageInfoSuccessCallbackOption {
-    /** 当前占用的空间大小, 单位 KB */
-    currentSize: number;
-    /** 当前 storage 中所有的 key */
-    keys: Array<string>;
-    /** 限制的空间大小，单位 KB */
-    limitSize: number;
-  }
-  interface GetStorageInfoSyncOption {
+  interface GetStorageInfoResult {
     /** 当前占用的空间大小, 单位 KB */
     currentSize: number;
     /** 当前 storage 中所有的 key */
@@ -1665,22 +1657,20 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     /** 接口调用成功的回调函数 */
     success?: GetSystemInfoSuccessCallback;
   }
-  interface GetSystemInfoSuccessCallbackResult {
-    /** 客户端基础库版本
-     *
-     * 最低基础库： `1.1.0` */
+  interface GetSystemInfoResult {
+    /** 小程序运行环境 */
+    AppPlatform: 'qq' | undefined;
+    /** 客户端基础库版本 */
     SDKVersion: string;
-    /** (仅Android小游戏) 性能等级，-2 或 0：该设备无法运行小游戏，-1：性能未知，>=1 设备性能值，该值越高，设备性能越好 (目前设备最高不到50)
+    /** (仅Android小游戏) 性能等级
      *
-     * 最低基础库： `1.8.0` */
+     * -2 或 0：该设备无法运行小游戏，
+     * -1：性能未知，>=1 设备性能值，该值越高，设备性能越好 (目前设备最高不到50) 
+     */
     benchmarkLevel: number;
-    /** 手机品牌
-     *
-     * 最低基础库： `1.5.0` */
+    /** 手机品牌 */
     brand: string;
-    /** 用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位 px。
-     *
-     * 最低基础库： `1.5.0` */
+    /** 用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位 px。 */
     fontSizeSetting: number;
     /** 微信设置的语言 */
     language: string;
@@ -1690,63 +1680,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     pixelRatio: number;
     /** 客户端平台 */
     platform: string;
-    /** 屏幕高度
-     *
-     * 最低基础库： `1.1.0` */
+    /** 屏幕高度 */
     screenHeight: number;
-    /** 屏幕宽度
-     *
-     * 最低基础库： `1.1.0` */
+    /** 屏幕宽度 */
     screenWidth: number;
-    /** 状态栏的高度
-     *
-     * 最低基础库： `1.9.0` */
-    statusBarHeight: number;
-    /** 操作系统版本 */
-    system: string;
-    /** 微信版本号 */
-    version: string;
-    /** 可使用窗口高度 */
-    windowHeight: number;
-    /** 可使用窗口宽度 */
-    windowWidth: number;
-  }
-  interface GetSystemInfoSyncResult {
-    /** 客户端基础库版本
-     *
-     * 最低基础库： `1.1.0` */
-    SDKVersion: string;
-    /** (仅Android小游戏) 性能等级，-2 或 0：该设备无法运行小游戏，-1：性能未知，>=1 设备性能值，该值越高，设备性能越好 (目前设备最高不到50)
-     *
-     * 最低基础库： `1.8.0` */
-    benchmarkLevel: number;
-    /** 手机品牌
-     *
-     * 最低基础库： `1.5.0` */
-    brand: string;
-    /** 用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位 px。
-     *
-     * 最低基础库： `1.5.0` */
-    fontSizeSetting: number;
-    /** 微信设置的语言 */
-    language: string;
-    /** 手机型号 */
-    model: string;
-    /** 设备像素比 */
-    pixelRatio: number;
-    /** 客户端平台 */
-    platform: string;
-    /** 屏幕高度
-     *
-     * 最低基础库： `1.1.0` */
-    screenHeight: number;
-    /** 屏幕宽度
-     *
-     * 最低基础库： `1.1.0` */
-    screenWidth: number;
-    /** 状态栏的高度
-     *
-     * 最低基础库： `1.9.0` */
+    /** 状态栏的高度 */
     statusBarHeight: number;
     /** 操作系统版本 */
     system: string;
@@ -7333,7 +7271,7 @@ try {
   // Do something when catch error
 }
 ``` */
-    getStorageInfoSync(): GetStorageInfoSyncOption;
+    getStorageInfoSync(): GetStorageInfoResult;
     /** [Object wx.getSystemInfoSync()](https://developers.weixin.qq.com/miniprogram/dev/api/system/system-info/wx.getSystemInfoSync.html)
 *
 * [wx.getSystemInfo](https://developers.weixin.qq.com/miniprogram/dev/api/system/system-info/wx.getSystemInfo.html) 的同步版本
@@ -7369,7 +7307,7 @@ try {
   // Do something when catch error
 }
 ``` */
-    getSystemInfoSync(): GetSystemInfoSyncResult;
+    getSystemInfoSync(): GetSystemInfoResult;
     /** [[Animation](https://developers.weixin.qq.com/miniprogram/dev/api/ui/animation/Animation.html) wx.createAnimation(Object object)](wx.createAnimation.md)
      *
      * 创建一个动画实例 [animation](https://developers.weixin.qq.com/miniprogram/dev/api/ui/animation/Animation.html)。调用实例的方法来描述动画。最后通过动画实例的 export 方法导出动画数据传递给组件的 animation 属性。 */
@@ -10626,11 +10564,11 @@ setTimeout(function () {
 * {% minicode('q3tCKkmJ7g2e') %}
 * ```js
 wx.startSoterAuthentication({
-   requestAuthModes: ['fingerPrint'],
-   challenge: '123456',
-   authContent: '请用指纹解锁',
-   success(res) {
-   }
+  requestAuthModes: ['fingerPrint'],
+  challenge: '123456',
+  authContent: '请用指纹解锁',
+  success(res) {
+  }
 })
 ```
 *
@@ -11485,7 +11423,7 @@ wx.writeBLECharacteristicValue({
   type GetStorageInfoFailCallback = (res: GeneralCallbackResult) => void;
   /** 接口调用成功的回调函数 */
   type GetStorageInfoSuccessCallback = (
-    option: GetStorageInfoSuccessCallbackOption,
+    option: GetStorageInfoResult,
   ) => void;
   /** 接口调用成功的回调函数 */
   type GetStorageSuccessCallback = (
@@ -11497,7 +11435,7 @@ wx.writeBLECharacteristicValue({
   type GetSystemInfoFailCallback = (res: GeneralCallbackResult) => void;
   /** 接口调用成功的回调函数 */
   type GetSystemInfoSuccessCallback = (
-    result: GetSystemInfoSuccessCallbackResult,
+    result: GetSystemInfoResult,
   ) => void;
   /** 接口调用结束的回调函数（调用成功、失败都会执行） */
   type GetUserInfoCompleteCallback = (res: GeneralCallbackResult) => void;

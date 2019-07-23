@@ -1,0 +1,10 @@
+<view class="phoneCtn">
+  <image class="phoneIcon" mode="widthFix" src="icon/phone.svg" />
+  <view class="phoneNum">{{config.num}}</view>
+  <view class="phoneCallCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="_call">
+    <image class="phoneCall" mode="widthFix" src="icon/call.svg" />
+  </view>
+  <view class="phoneAddCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="_addContact">
+    <image class="phoneAdd" mode="widthFix" src="icon/add.svg" />
+  </view>
+</view>

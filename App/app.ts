@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-22 15:36:29
+ * @LastEditTime: 2019-07-23 18:33:15
  * @Description: 小程序主脚本
  */
 
@@ -13,7 +13,7 @@ const $App = $register.A;
 
 $App({
   globalData: {
-    version: 'V 2.0.8',
+    version: 'V 2.0.9',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -35,28 +35,30 @@ $App({
   },
 
   onLaunch(opts) {
-    try {
-      qq && qq.env;
-      this.globalData.env = 'qq';
-    } catch (e) { }
-
     console.info('小程序启动，参数为', opts); // 调试
 
     // Const capsule = wx.getMenuButtonBoundingClientRect();
 
     // Console.log(capsule);
 
+    // 获取设备与运行环境信息
+    this.globalData.info = wx.getSystemInfoSync();
+
+    // 写入运行环境
+    if (this.globalData.info.AppPlatform === 'qq') this.globalData.env = 'qq';
+
     // 如果初次启动执行初始化
     if (!wx.getStorageSync('inited')) app.appInit();
 
-    // 获取主题、夜间模式、设备信息
+    // 获取主题、夜间模式
     this.globalData.T = wx.getStorageSync('theme');
     this.globalData.nm = app.nightmode();
-    this.globalData.info = wx.getSystemInfoSync();
 
-    console.info('设备信息为', this.globalData.info); // 调试
+    this.globalData.appID = wx.getAccountInfoSync().miniProgram.appId;
 
     app.startup(this.globalData.version);
+
+    console.log('全局数据为', this.globalData);
   },
   onAwake(time: number) {
     console.log('小程序在', time, 'ms之后被唤醒');
