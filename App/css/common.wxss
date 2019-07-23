@@ -232,6 +232,90 @@
   margin: 4px auto;
 }
 
+/* 
+  iOS风格段落 
+*/
+
+.P {
+  font-size: 16px;
+  padding: 0 15px;
+  line-height: 1.6;
+  text-align: justify;
+  word-wrap: break-word;
+  margin: 0 auto;
+}
+
+@media (min-width:768px) {
+  .P {
+    font-size: 18px;
+  }
+}
+
+.grey .P {
+  font-size: 17px;
+  padding: 10px 15px;
+  line-height: 1.6;
+  text-align: left;
+  background-color: #fefefe;
+  margin: 0 auto;
+  position: relative;
+}
+
+.grey .P:after,
+.grey .P:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  color: #cac9ce;
+}
+
+.grey .P:after {
+  bottom: 0;
+  border-bottom: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.grey .P:before {
+  top: 0;
+  border-top: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.grey.nm .P:before,
+.grey.nm .P:after {
+  border-color: #3D3D41;
+}
+
+@media (min-width:768px) {
+  .grey .P {
+    margin: 0 15px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .grey .P:after,
+  .grey .P:before {
+    border: none;
+  }
+}
+
+.grey.nm .P {
+  background-color: #1C1C1E;
+}
+
+.nm .P {
+  background-color: #000;
+  color: #fff;
+}
+
 /*****************
       图片
 *****************/

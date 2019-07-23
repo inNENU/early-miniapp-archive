@@ -1,17 +1,19 @@
 /* components/weather-card/weather-card.wxss */
 
 .weatherCtn {
-  width: 90%;
-  margin: 16px 5%;
-  padding: 10px 5%;
-  border-radius: 30rpx;
+  width: calc(100% - 30px);
+  margin: 16px 15px;
+  padding: 10px 15px;
+  border-radius: 15px;
   color: #fff;
   text-align: left;
   position: relative;
+  font-size: 16px;
+  max-width: 450px;
 }
 
 .weatherDetail {
-  font-size: 28rpx;
+  font-size: 14px;
   text-align: right;
 }
 
@@ -25,26 +27,26 @@
 }
 
 .weatherListTitle {
-  font-size: 36rpx;
+  font-size: 18px;
   padding: 4px 0;
 }
 
 .weatherListDetail {
-  font-size: 30rpx;
+  font-size: 15px;
 }
 
 .loading {
-  margin: 20px 225rpx;
-  width: 150rpx;
-  height: 150rpx;
+  margin: 20px calc(50% - 60px);
+  width: 60px;
+  height: 60px;
 }
 
 /* 天气 */
 
 .weather-pic {
   position: absolute !important;
-  top: 40rpx !important;
-  left: 200rpx !important;
+  top: 20px !important;
+  left: 100px !important;
   z-index: 999 !important;
 }
 

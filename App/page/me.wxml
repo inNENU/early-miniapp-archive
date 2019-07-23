@@ -3,11 +3,13 @@
   <template is="all2" data="{{page,T}}" />
   <view class="shareBtnGroup">
     <button class="share" plain="true" hover-class="buttonHover" open-type="share">
-      <text class="icon-forwardfill">分享小程序</text>
+      <text class="icon-forwardfill" style="margin-right:4px;" />
+      分享小程序
     </button>
     <view class="divLine" />
     <button class="share" plain="true" hover-class="buttonHover" open-type="feedback">
-      <text class="icon-community">反馈Bug</text>
+      <text class="icon-community" style="margin-right:4px;" />
+      反馈Bug
     </button>
   </view>
 </view>

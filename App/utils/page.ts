@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-21 19:34:41
+ * @LastEditTime: 2019-07-23 09:32:03
  * @Description: Page函数库
  */
 
@@ -397,7 +397,7 @@ const color = (grey: boolean) => {
     switch (globalData.T) {
       case 'Andriod': temp = ['#10110b', '#10110b', '#10110b'];
         break;
-      case 'iOS': temp = ['#10110b', '#0a0a08', '#10110b'];
+      case 'iOS': temp = ['#000000', '#000000', '#000000'];
         break;
       case 'NENU':
       default:
@@ -405,7 +405,7 @@ const color = (grey: boolean) => {
     }
   else if (globalData.nm && !grey)
     switch (globalData.T) {
-      case 'iOS': temp = ['#000000', '#0a0a08', '#000000'];
+      case 'iOS': temp = ['#000000', '#000000', '#000000'];
         break;
       case 'Andriod':
       case 'NENU':

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 22:30:04
+ * @LastEditTime: 2019-07-23 09:33:42
  * @Description: 我的东师
  */
 import $register, { WXPage } from 'wxpage';
@@ -42,10 +42,6 @@ $register('me', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
     wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
-    /*
-     * this.$preload('setting?From=我的东师&aim=setting');
-     * this.$preload('about?From=我的东师&aim=about');
-     */
   },
   onReady() {
     // 注册事件监听器

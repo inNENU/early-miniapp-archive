@@ -19,7 +19,7 @@ button.share {
 
 .nm button.share {
   color: #bbb !important;
-  background-color: #000 !important;
+  background-color: #1C1C1E !important;
 }
 
 .divLine {

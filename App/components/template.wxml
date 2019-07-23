@@ -35,7 +35,7 @@ Author: Mr.Hope
 ********************************************* -->
 <!-- 标题 -->
 <template name="title">
-  <view class="{{T}}Title" style="{{style}}">{{text}}</view>
+  <view class="{{T}}Title" style="{{style?style:''}}">{{text}}</view>
 </template>
 <!-- 列表 -->
 <template name="list">
@@ -244,7 +244,7 @@ Author: Mr.Hope
 <!-- 文字段落 -->
 <template name="p">
   <view wx:if="{{head}}" class="{{T}}head">{{head}}</view>
-  <view class="{{T}}P" style="text-align:{{align?align:'left'}};">
+  <view class="P {{T}}P" style="text-align:{{align?align:''}};">
     <text style="{{style}}" selectable="true" space="ensp" decode="true">{{text}}</text>
     <block wx:if="{{src}}">
       <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy,desc}}" />

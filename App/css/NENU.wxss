@@ -125,23 +125,9 @@
   color: #999;
 }
 
-.NENUP {
-  font-size: 16px;
-  padding: 0 5%;
-  word-wrap: break-word;
-}
 
-.grey .NENUP {
-  font-size: 17px;
-  padding: 10px 15px;
-  background-color: #fefefe;
-  border-top: 1rpx #cac9ce solid;
-  border-bottom: 1rpx #cac9ce solid;
-}
-
-.grey.nm .NENUP {
-  background-color: #010101;
-  border-color: #353631;
+.NENUP .iOS-img {
+  width: 100% !important;
 }
 
 .NENUInfoCtn {

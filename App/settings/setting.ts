@@ -166,9 +166,12 @@ $register('setting', {
       this.setData!({ nm: value, page });
       a.nm = value;
       this.$emit!('nightmode', value);
-      const [frontColor, backgroundColor] = value ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
 
-      wx.setNavigationBarColor({ frontColor, backgroundColor });
+      // 设置胶囊和背景颜色
+      const { nc, bc } = $page.color(this.data.page[0].grey);
+
+      wx.setNavigationBarColor(nc);
+      wx.setBackgroundColor(bc);
     });
   },
   switchnmAC(event: MiniprogramEvent) {

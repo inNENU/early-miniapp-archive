@@ -63,7 +63,7 @@
   padding: 0 5px !important;
   border: none !important;
   background-color: rgba(0, 0, 0, 0);
-  margin: 0 3%;
+  margin: 0 12px;
   line-height: 2.4;
   position: relative;
   display: -webkit-flex;
@@ -196,81 +196,6 @@
   padding-top: 2px;
 }
 
-.iOSP {
-  font-size: 16px;
-  padding: 0 15px;
-  line-height: 1.6;
-  text-align: justify;
-  word-wrap: break-word;
-  margin: 0 auto;
-}
-
-@media (min-width:768px) {
-  .iOSP {
-    font-size: 18px;
-  }
-}
-
-.grey .iOSP {
-  font-size: 17px;
-  padding: 10px 15px;
-  line-height: 1.6;
-  text-align: left;
-  background-color: #fefefe;
-  margin: 0 auto;
-  position: relative;
-}
-
-.grey .iOSP:after,
-.grey .iOSP:before {
-  content: " ";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  color: #cac9ce;
-}
-
-.grey .iOSP:after {
-  bottom: 0;
-  border-bottom: 1px solid #cac9ce;
-  -webkit-transform-origin: 0 100%;
-  transform-origin: 0 100%;
-  -webkit-transform: scaleY(0.4);
-  transform: scaleY(0.4);
-}
-
-.grey .iOSP:before {
-  top: 0;
-  border-top: 1px solid #cac9ce;
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-  -webkit-transform: scaleY(0.4);
-  transform: scaleY(0.4);
-}
-
-.grey.nm .iOSP:before,
-.grey.nm .iOSP:after {
-  border-color: #3D3D41;
-}
-
-@media (min-width:768px) {
-  .grey .iOSP {
-    margin: 0 15px;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .grey .iOSP:after,
-  .grey .iOSP:before {
-    border: none;
-  }
-}
-
-.grey.nm .iOSP {
-  background-color: #1C1C1E;
-}
-
 .iOS-img {
   width: 90% !important;
   margin: 4px auto;
@@ -309,8 +234,7 @@
   color: #ddd;
 }
 
-.nm.iOS,
-.nm .iOSP {
+.nm.iOS {
   background-color: #000;
   color: #fff;
 }
@@ -594,7 +518,7 @@
 .iOSgridBox {
   width: calc(25% - 10px);
   margin: 5px;
-  padding: 6px 0;
+  padding: 10px 0;
   background-color: #fff;
   border-radius: 6px;
 }
@@ -629,14 +553,20 @@
   color: #666;
 }
 
+@media (min-width:768px) {
+  .iOSgridCtn {
+    padding: 0 10px;
+  }
+}
+
 @media (min-width:480px) {
-  .gridBox {
+  .iOSgridBox {
     width: calc(16.666% - 10px);
   }
 }
 
 @media (min-width:1024px) {
-  .gridBox {
+  .iOSgridBox {
     width: calc(12.5% - 10px);
   }
 }

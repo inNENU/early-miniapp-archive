@@ -61,7 +61,7 @@
   line-height: 1.75;
   font-size: 17px;
   text-align: right;
-  padding-left: 5%;
+  padding-left: 15px;
 }
 
 .nm .list {
@@ -140,18 +140,18 @@
 
 .listInput {
   flex: auto;
-  padding-right: 5%;
+  padding-right: 15px;
 }
 
 .listUnit {
   flex: none;
-  padding-right: 5%;
+  padding-right: 15px;
   color: #444;
 }
 
 .listPicker {
   flex: auto;
-  padding-right: 5%;
+  padding-right: 15px;
 }
 
 .nm .listUnit {
