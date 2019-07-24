@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-22 21:39:47
+ * @LastEditTime: 2019-07-24 10:45:53
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -114,9 +114,11 @@ $register('main', {
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color(this.data.page[0].grey);
+    const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
+    wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
   },
   onReady() {
     // 注册事件监听器

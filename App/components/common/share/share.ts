@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-24 10:17:31
+ * @LastEditTime: 2019-07-24 13:11:22
  * @Description: 分享组件
  */
 
 import $register from 'wxpage';
 import $wx from '../../../utils/wx';
 
-const { logger, globalData: { env } } = getApp();// 获得日志管理器
+const { logger, globalData: { env } } = getApp();// 获得日志管理器，全局数据
 
 $register.C({
   properties: { config: { type: Object, value: { aim: '' } } },
@@ -19,6 +19,7 @@ $register.C({
   methods: {
     _move(event: NormalEvent) { // 分享按钮
       const touch = event.touches[0];
+
       switch (event.type) {
         case 'touchstart':// 计算点击点与按钮左上角的距离
           this.left = touch.pageX - event.currentTarget.offsetLeft;

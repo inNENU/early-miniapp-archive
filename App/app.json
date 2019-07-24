@@ -120,11 +120,12 @@
   ],
   "usingComponents": {
     "doc": "/components/common/doc/doc",
-    "phone": "/components/common/phone/phone",
+    "foot": "/components/common/foot/foot",
+    "grid": "/components/common/grid/grid",
     "gzh": "/components/common/gzh/gzh",
     "intro": "/components/common/intro/intro",
-    "share": "/components/common/share/share",
-    "foot": "/components/common/foot/foot"
+    "phone": "/components/common/phone/phone",
+    "share": "/components/common/share/share"
   },
   "sitemapLocation": "sitemap.json"
 }

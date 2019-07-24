@@ -18,6 +18,7 @@
       <share config="{{page[0]}}" />
       <block wx:for="{{page}}" wx:key="id">
         <foot config="{{item}}" wx:if="{{item.tag==='foot'}}" />
+        <grid config="{{item}}" theme="{{T}}" wx:elif="{{item.tag==='grid'}}" />
         <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
         <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
         <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
@@ -31,6 +32,7 @@
   <share config="{{page[0]}}" />
   <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
     <foot config="{{item}}" wx:if="{{item.tag==='foot'}}" />
+    <grid config="{{item}}" theme="{{T}}" wx:elif="{{item.tag==='grid'}}" />
     <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
     <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
     <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
@@ -179,10 +181,6 @@ Author: Mr.Hope
 <template name="img">
   <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy,desc}}" />
 </template>
-<!-- 网格 -->
-<template name="grid">
-  <template is="{{T}}grid" data="{{head,content,foot}}" />
-</template>
 <!-- 错误提示 -->
 <template name="error">
   <template is="{{T}}error" data="{{action,statusBarHeight}}" />
@@ -223,17 +221,6 @@ Author: Mr.Hope
   </view>
   <image id="{{id}}" class="iOS-img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="iOSN">▲{{desc}}</view>
-</template>
-<!-- iOS网格组件 -->
-<template name="iOSgrid">
-  <view wx:if="{{head!==false}}" class="commonhead">{{head}}</view>
-  <view class="iOSgridCtn">
-    <view wx:for="{{content}}" wx:for-item="List" wx:key="text" class="iOSgridBox" hover-class="buttonHover" hover-stay-time="100" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}">
-      <image class="iOSgridIcon" src="{{List.icon}}" />
-      <view class="iOSgridTitle">{{List.text}}</view>
-    </view>
-  </view>
-  <view wx:if="{{foot}}" class="gridFoot">{{foot}}</view>
 </template>
 <!-- iOS错误 -->
 <template name="iOSerror">
@@ -296,18 +283,6 @@ Author: Mr.Hope
   </view>
   <image id="{{id}}" class="Android-img" style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="AndroidN">▲{{desc}}</view>
-</template>
-<!-- Android网格 -->
-<template name="Androidgrid">
-  <view wx:if="{{head!==false}}" class="AndroidGridHead">{{head}}</view>
-  <view class='AndriodGridList'>
-    <view class="AndriodGridbox bg-{{List.color}}" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}" wx:for="{{content}}" wx:for-item="List" wx:key="text">
-      <view class="AndriodGridText">{{List.text}}</view>
-      <view class="AndriodGridName">{{List.name}}</view>
-      <image class="gridIcon" src="{{List.icon}}" />
-    </view>
-  </view>
-  <view wx:if="{{foot}}" class="gridFoot">{{foot}}</view>
 </template>
 <!-- Android错误页面 -->
 <template name="Androiderror">
@@ -374,17 +349,6 @@ Author: Mr.Hope
   </view>
   <image id="{{id}}" class='iOS-img' style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
   <view wx:if="{{desc}}" class='iOSN'>▲{{desc}}</view>
-</template>
-<!-- NENU网格组件 -->
-<template name="NENUgrid">
-  <view wx:if="{{head!==false}}" class="commonhead">{{head}}</view>
-  <view class="gridCtn">
-    <view wx:for="{{content}}" wx:for-item="List" wx:key="text" class="gridBox" hover-class="buttonHover" hover-stay-time="100" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}">
-      <image class="gridIcon" src="{{List.icon}}" />
-      <view class="gridTitle">{{List.text}}</view>
-    </view>
-  </view>
-  <view wx:if="{{foot}}" class="gridFoot">{{foot}}</view>
 </template>
 <!-- NENU错误页面 -->
 <template name='NENUerror'>

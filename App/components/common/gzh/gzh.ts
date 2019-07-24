@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-23 22:26:35
+ * @LastEditTime: 2019-07-24 10:35:29
  * @Description: 公众号组件
  */
 
 import $register from 'wxpage';
-import $wx from '../../../utils/wx';
+import { modal } from '../../../utils/wx';
 
 const { globalData: { appID } } = getApp();// 获得日志管理器
 
@@ -23,7 +23,7 @@ $register.C({
       else wx.setClipboardData({
         data: this.data.config.url,
         success: () => {
-          $wx.modal('无法跳转', '小程序无法跳转微信公众号文章，链接地址已复制至剪切板。请打开浏览器粘贴查看');
+          modal('无法跳转', '小程序无法跳转微信公众号文章，链接地址已复制至剪切板。请打开浏览器粘贴查看');
         }
       });
     }

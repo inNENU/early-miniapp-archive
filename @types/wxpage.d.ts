@@ -60,7 +60,7 @@ declare module 'wxpage' {
         * @param callback 当监听事件被触发时执行的回调
         */
       /** 触发一个事件 */
-      $emit?(event: string, callback: (...args: any[]) => void): void;
+      $emit?(event: string, ...args: any[]): void;
       /** 结束一个事件监听 */
       $off?(event: string, callback: (...args: any[]) => void): void;
       /** 组件处理函数 */

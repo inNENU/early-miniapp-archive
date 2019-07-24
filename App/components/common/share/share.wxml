@@ -1,5 +1,5 @@
 <view wx:if="{{config.shareable||config.contact||config.feedback}}" class="iconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="iconHover" hover-stay-time="200" catch:touchstart="_move" catch:touchmove="_move" catch:touchend="_move" aria-role="button" aria-label="分享按钮">
-  <image class="icon" src="/icon/share.svg" />
+  <image class="icon" src="share.svg" />
 </view>
 <view wx:if="{{menuDisplay}}" class="mask {{menuDisplay?'fadeIn':'fadeOut'}}" style="top:{{menuDisplay?'0':'100%'}};" />
 <view class="layer {{menuDisplay?'moveUpIn':'moveUpOut'}}">

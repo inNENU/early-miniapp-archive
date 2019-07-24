@@ -3,10 +3,10 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-07-20 21:53:13
+ * @LastEditTime: 2019-07-24 13:08:22
  */
 
-// 初始化日志管理器
+/** 日志管理器 */
 const logger = wx.getLogManager({ level: 1 });
 
 /**
@@ -16,7 +16,7 @@ const logger = wx.getLogManager({ level: 1 });
  * @param [duration=1500] 提示持续时间
  * @param [icon='none'] 提示图标
  */
-const tip = (text: string, duration?: number, icon: 'success' | 'loading' | 'none' = 'none') => {
+export const tip = (text: string, duration?: number, icon: 'success' | 'loading' | 'none' = 'none') => {
   wx.showToast({ title: text, icon, duration: duration ? duration : 1500 });
 };
 
@@ -28,7 +28,8 @@ const tip = (text: string, duration?: number, icon: 'success' | 'loading' | 'non
  * @param [callback] 点击确定的回调
  * @param [cancelFunc] 点击取消的回调，不填则不显示取消按钮
  */
-const modal = (title: string, content: string, callback?: () => void, cancelFunc?: () => void) => {
+export const modal = (title: string, content: string, callback?: () => void, cancelFunc?: () => void) => {
+  /** 显示取消按钮 */
   const showCancel = cancelFunc ? true : false;
 
   wx.showModal({
@@ -42,7 +43,7 @@ const modal = (title: string, content: string, callback?: () => void, cancelFunc
 };
 
 /**
- * @description: 网络状态汇报
+ * 网络状态汇报
  *
  * @returns {void}
  */
@@ -93,7 +94,7 @@ const netWorkReport = () => {
  * @param path 请求路径
  * @param callback 回调函数
  * @param [failFunc] 失败回调函数
- * @param [errorFunc] 获取错误回调函数
+ * @param [errorFunc] 状态码错误回调函数
  */
 const request = (
   path: string,
@@ -135,7 +136,7 @@ const request = (
  * @param path 下载路径
  * @param callback 成功回调函数
  * @param [failFunc] 失败回调函数
- * @param [errorFunc] 状态码错误为回调函数
+ * @param [errorFunc] 状态码错误回调函数
  */
 const downLoad = (
   path: string,

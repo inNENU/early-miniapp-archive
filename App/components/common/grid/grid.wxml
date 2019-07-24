@@ -1,0 +1,9 @@
+<view wx:if="{{config.head!==false}}" class="head {{theme}}">{{config.head}}</view>
+<view class="{{theme}} Ctn">
+  <view wx:for="{{config.content}}" wx:for-item="List" wx:key="text" class="Box" hover-class="buttonHover" hover-stay-time="100" catch:tap="_navigate" data-url="{{List.url}}">
+    <image class="Icon" src="{{List.icon}}" />
+    <view class="Text">{{List.text}}</view>
+    <view wx:if="{{theme === 'Android'}}" class="AndriodName">{{List.name}}</view>
+  </view>
+</view>
+<view wx:if="{{config.foot}}" class="foot">{{config.foot}}</view>

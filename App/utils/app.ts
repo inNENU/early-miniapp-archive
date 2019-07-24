@@ -2,13 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-22 22:25:34
+ * @LastEditTime: 2019-07-24 10:47:58
  * @Description: APP函数库
  */
 
-// 初始化文件管理器、日志管理器
+/** 文件管理器与API封装 */
 import $file from './file';
 import $wx from './wx';
+/** 日志管理器 */
 const logger = wx.getLogManager({ level: 1 });
 
 interface AppOption {
@@ -49,6 +50,7 @@ const appOption: AppOption = {
  * @param list 需要下载的资源列表
  */
 const resDownload = (list: string[], callBack: () => void) => {
+  /** 监听数 */
   let listenNumber = list.length;
 
   list.forEach(name => {
@@ -158,9 +160,10 @@ const noticeCheck = (version: string) => {
   }
 
   $wx.request(`config/${version}/notice`, (noticeList: NoticeList) => {
-    const category = Object.keys(noticeList);
+    /** 通知页面名称 */
+    const keys = Object.keys(noticeList);
 
-    category.forEach(page => {
+    keys.forEach(page => {
 
       // 如果读取到强制通知设置，每次都要通知，直接写入通知信息
       if (noticeList[page][2] === true) {
@@ -179,10 +182,8 @@ const noticeCheck = (version: string) => {
     });
 
     // 如果找到APP级通知，立即提醒
-    if ('app' in category)
-      $wx.modal(
-        noticeList.app[0], noticeList.app[1], () => wx.removeStorageSync('appNotify')
-      );
+    if ('app' in keys)
+      $wx.modal(noticeList.app[0], noticeList.app[1], () => wx.removeStorageSync('appNotify'));
   }, () => { // 调试信息
     console.error('Get noticeList fail');
     logger.warn('noticeList error', 'Net Error');
@@ -201,18 +202,28 @@ const noticeCheck = (version: string) => {
  */
 export const nightmode = () => {
   const date = new Date();
-  const time = date.getHours() * 100 + date.getMinutes(); // 获得当前时间
+  /** 当前时间 */
+  const time = date.getHours() * 100 + date.getMinutes();
+  /** 夜间模式开关设置 */
   const nightModeCondition = wx.getStorageSync('nightmode');
-  const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange'); // 获得夜间模式、自动开启夜间模式设置
+  /** 自动夜间模式开关设置 */
+  const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
+  /** 夜间模式亮度 */
   const nightBrightness = wx.getStorageSync('nightBrightness');
-  const dayBrightness = wx.getStorageSync('dayBrightness'); // 获得夜间模式亮度，日渐模式亮度
+  /** 日间模式亮度 */
+  const dayBrightness = wx.getStorageSync('dayBrightness');
+  /** 夜间模式亮度改变状态 */
   const nightBrightnessChange = wx.getStorageSync('nightBrightnessChange');
-  const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange'); // 获得日夜间模式亮度改变状态
-  const nmStart = wx.getStorageSync('nightmodeStartTime').split('-'); // 获得夜间模式开始时间
-  const nmEnd = wx.getStorageSync('nightmodeEndTime').split('-'); // 获得夜间模式结束时间
+  /** 日间模式亮度改变状态 */
+  const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
+  /** 夜间模式开始时间 */
+  const nmStart = wx.getStorageSync('nightmodeStartTime').split('-');
+  /** 夜间模式结束时间 */
+  const nmEnd = wx.getStorageSync('nightmodeEndTime').split('-');
   const nightmodeStartTime = Number(nmStart[0]) * 100 + Number(nmStart[1]);
   const nightmodeEndTime = Number(nmEnd[0]) * 100 + Number(nmEnd[1]);
-  let currentNightModeStatus;
+  /** 当前夜间模式状态 */
+  let currentNightModeStatus: boolean;
 
   // 如果开启了自动夜间模式，判断是否启用夜间模式及应用亮度
   if (nightmodeAutoChange) {
@@ -274,35 +285,34 @@ const appUpdate = (localVersion: string) => {
       ({ forceUpdate, reset, version } = data as VersionInfo);
 
       // 更新下载就绪，提示用户重新启动
-      if (forceUpdate)
-        wx.showModal({
-          title: '已找到新版本',
-          content: `新版本${version}已下载，请重启应用更新。${(reset ? '该版本会初始化小程序。' : '')}`,
-          showCancel: !reset, confirmText: '应用', cancelText: '取消',
-          success: res => {
-            // 用户确认，应用更新
-            if (res.confirm) {
+      wx.showModal({
+        title: '已找到新版本',
+        content: `新版本${version}已下载，请重启应用更新。${(reset ? '该版本会初始化小程序。' : '')}`,
+        showCancel: !reset && !forceUpdate, confirmText: '应用', cancelText: '取消',
+        success: res => {
+          // 用户确认，应用更新
+          if (res.confirm) {
 
-              // 需要初始化
-              if (reset) {
-                // 显示提示
-                wx.showLoading({ title: '初始化中', mask: true });
+            // 需要初始化
+            if (reset) {
+              // 显示提示
+              wx.showLoading({ title: '初始化中', mask: true });
 
-                // 清除文件系统文件与数据存储
-                $file.listFile('').forEach(filePath => {
-                  $file.Delete(filePath);
-                });
-                wx.clearStorageSync();
+              // 清除文件系统文件与数据存储
+              $file.listFile('').forEach(filePath => {
+                $file.Delete(filePath);
+              });
+              wx.clearStorageSync();
 
-                // 隐藏提示
-                wx.hideLoading();
-              }
-
-              // 应用更新
-              updateManager.applyUpdate();
+              // 隐藏提示
+              wx.hideLoading();
             }
+
+            // 应用更新
+            updateManager.applyUpdate();
           }
-        });
+        }
+      });
     });
   });
 

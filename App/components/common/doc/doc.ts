@@ -7,7 +7,7 @@
  */
 
 import $register from 'wxpage';
-import $wx from '../../../utils/wx';
+import { tip } from '../../../utils/wx';
 
 $register.C({
   properties: { config: Object },
@@ -31,7 +31,7 @@ $register.C({
           // 下载失败，隐藏下载提示告知用户下载失败并上报
           fail: () => {
             wx.hideLoading();
-            $wx.tip('文档下载失败');
+            tip('文档下载失败');
             wx.reportMonitor('9', 1);
           }
         });
