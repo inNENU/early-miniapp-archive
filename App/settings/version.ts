@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-23 10:24:54
+ * @LastEditTime: 2019-07-23 23:29:07
  * @Description: 关于2.0版本
  */
 import $register, { WXPage } from 'wxpage';
@@ -26,6 +26,7 @@ $register('2.0', {
       { tag: 'p', head: 'V2.0.7 2019.07.22', text: '引入自定义组件' },
       { tag: 'p', head: 'V2.0.8 2019.07.22', text: '恢复安卓主题' },
       { tag: 'p', head: 'V2.0.9 2019.07.23', text: '优化样式' },
+      { tag: 'p', head: 'V2.0.10 2019.07.23', text: '对QQ和微信环境进行判断，更好的进行兼容' },
       { tag: 'list', content: [{ text: '历史更新', desc: '点击查看', aim: 'log0' }] },
       { tag: 'foot', author: 'Mr.Hope' }
     ]

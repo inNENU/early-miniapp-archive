@@ -2,12 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-21 15:53:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-21 16:03:14
+ * @LastEditTime: 2019-07-24 09:43:45
  * @Description: Component声明
  */
 declare namespace Component {
 
   interface ComponentInstanceBaseProps<D extends IAnyObject = any> {
+    properties?: IAnyObject;
     /** 页面的初始数据
      * 
      * `data` 是页面第一次渲染使用的**初始数据**。

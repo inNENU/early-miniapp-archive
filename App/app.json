@@ -119,8 +119,12 @@
     "audio"
   ],
   "usingComponents": {
+    "doc": "/components/common/doc/doc",
+    "phone": "/components/common/phone/phone",
+    "gzh": "/components/common/gzh/gzh",
+    "intro": "/components/common/intro/intro",
     "share": "/components/common/share/share",
-    "footer": "/components/common/foot/foot"
+    "foot": "/components/common/foot/foot"
   },
   "sitemapLocation": "sitemap.json"
 }
