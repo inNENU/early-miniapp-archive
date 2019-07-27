@@ -3,19 +3,19 @@
 </view>
 <view wx:if="{{menuDisplay}}" class="mask {{menuDisplay?'fadeIn':'fadeOut'}}" style="top:{{menuDisplay?'0':'100%'}};" />
 <view class="layer {{menuDisplay?'moveUpIn':'moveUpOut'}}">
-  <view class="btnList">
+  <view class="btnList" catch:tap="_cancel">
     <button wx:if="{{config.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="share">
       分享{{env==='qq'?'给好友/分享到空间':'到微信'}}
     </button>
-    <button wx:if="{{config.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" catch:tap="_download">
+    <button wx:if="{{config.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" bind:tap="_download">
       保存页面二维码
     </button>
-    <button wx:if="{{config.contact}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="contact" catch:tap="_contact">
+    <button wx:if="{{config.contact}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="contact" bind:tap="_contact">
       联系开发者
     </button>
     <button wx:if="{{config.feedback}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="feedback">
       意见反馈
     </button>
-    <button class="cancelBtn" hover-class="btnHover" catch:tap="_cancel">取消</button>
+    <button class="cancelBtn" hover-class="btnHover">取消</button>
   </view>
 </view>

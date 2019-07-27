@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-27 13:17:37
+ * @LastEditTime: 2019-07-27 15:00:15
  * @Description: 公众号组件
  */
 
@@ -29,6 +29,7 @@ $register.C({
     }
   },
   options: {
+    addGlobalClass: true, // 兼容QQ
     styleIsolation: 'shared'
   }
 });

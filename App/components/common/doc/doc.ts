@@ -46,6 +46,7 @@ $register.C({
     }
   },
   options: {
+    addGlobalClass: true, // 兼容QQ
     styleIsolation: 'shared'
   }
 });
