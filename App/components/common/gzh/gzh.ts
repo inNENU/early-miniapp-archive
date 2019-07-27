@@ -2,19 +2,19 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-27 15:00:15
+ * @LastEditTime: 2019-07-27 20:23:10
  * @Description: 公众号组件
  */
 
 import $register from 'wxpage';
 import { modal } from '../../../utils/wx';
 
-const { globalData: { appID } } = getApp();// 获得日志管理器
-
 $register.C({
   properties: { config: Object },
   methods: {
     _gzh() {
+      const { globalData: { appID } } = getApp();// 获得当前小程序ID
+
       // 为企业主体微信小程序
       if (appID === 'wx9ce37d9662499df3')
         this.$route(`/module/web?url=${this.data.config.url}&title=${this.data.config.title}`);

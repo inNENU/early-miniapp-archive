@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 13:49:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-27 18:24:58
+ * @LastEditTime: 2019-07-27 20:26:21
  * @Description: 组件函数库
  */
 
@@ -189,26 +189,29 @@ const phone = (res: NormalEvent, ctx: any) => {
   const info = ctx.data.page[res.currentTarget.id];
 
   if (Type === 'call') wx.makePhoneCall({ phoneNumber: info.num.toString() });// 拨打电话
-  else if (Type === 'add') wx.addPhoneContact({// 添加联系人
-    firstName: info.fName,
-    lastName: info.lName,
-    mobilePhoneNumber: info.num,
-    organization: info.org,
-    workPhoneNumber: info.workNum,
-    remark: info.remark,
-    photoFilePath: info.head,
-    nickName: info.nickName,
-    weChatNumber: info.wechat,
-    addressState: info.province,
-    addressCity: info.city,
-    addressStreet: info.street,
-    addressPostalCode: info.postCode,
-    title: info.title,
-    hostNumber: info.hostNum,
-    email: info.email,
-    url: info.website,
-    homePhoneNumber: info.homeNum
-  });
+  else if (Type === 'add')
+    if (env === 'wx')
+      wx.addPhoneContact({// 添加联系人
+        firstName: info.fName,
+        lastName: info.lName,
+        mobilePhoneNumber: info.num,
+        organization: info.org,
+        workPhoneNumber: info.workNum,
+        remark: info.remark,
+        photoFilePath: info.head,
+        nickName: info.nickName,
+        weChatNumber: info.wechat,
+        addressState: info.province,
+        addressCity: info.city,
+        addressStreet: info.street,
+        addressPostalCode: info.postCode,
+        title: info.title,
+        hostNumber: info.hostNum,
+        email: info.email,
+        url: info.website,
+        homePhoneNumber: info.homeNum
+      });
+    else $wx.tip('QQ暂不支持添加联系人');
 };
 
 /**

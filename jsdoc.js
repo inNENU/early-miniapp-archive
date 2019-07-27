@@ -34,3 +34,6 @@ module.exports = {
 // wx9ce37d9662499df3
 
 // wx33acb831ee1831a5
+
+
+// 更改template，component.ts和app.wxss
