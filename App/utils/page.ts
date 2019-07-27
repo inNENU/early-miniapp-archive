@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-23 09:32:03
+ * @LastEditTime: 2019-07-27 14:49:01
  * @Description: Page函数库
  */
 
@@ -181,6 +181,7 @@ const preGetPage = (page: PageData) => {
  * 
  * @param option 页面跳转参数
  * @param page page数组
+ * @param Set 是否将处理后的数据写入到全局数据中
  */
 const resolvePage = (option: WXPage.PageArg, page?: PageData, Set = true) => {
   console.info('将要跳转：', option); // 控制台输出参数
@@ -190,20 +191,16 @@ const resolvePage = (option: WXPage.PageArg, page?: PageData, Set = true) => {
   if (page) data = disposePage(page, option.query);
   else {
     const { path } = resolveAim(aim);
+    const pageData = $file.readJson(`page/${path}`);
 
-    $file.getJson(`page/${path}`, pageData => {
-      if (pageData) data = disposePage(pageData as PageData, option.query);
-      else {
-        data = disposePage(
-          [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }],
-          option.query
-        );
-        console.warn(`${aim}载入失败`);
-      }
-    });
+    if (pageData) data = disposePage(pageData as PageData, option.query);
+    else {
+      data = '';
+      console.warn(`${aim}文件不存在，处理失败`);
+    }
   }
 
-  if (Set) {
+  if (data && Set) {
     // 设置aim值
     globalData.page.aim = aim;
     globalData.page.data = data as ComponentData[];

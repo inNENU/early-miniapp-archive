@@ -2,13 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 15:12:14
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-27 14:01:30
+ * @LastEditTime: 2019-07-27 14:18:43
  * @Description: 媒体组件
  */
 
+import $register from 'wxpage';
 import { tip } from '../../../utils/wx';
 
-Component({
+$register.C({
   properties: { config: Object },
   methods: {
     _video(event: NormalEvent) {

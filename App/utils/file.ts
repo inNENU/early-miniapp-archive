@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-07-20 22:10:01
+ * @LastEditTime: 2019-07-27 14:38:52
  */
 
 // 初始化文件管理器、用户路径与日志管理器
@@ -237,7 +237,7 @@ const getJson = (path: string, callback: (data: object | string) => void, failFu
 
   wx.downloadFile({
     url: `https://mp.nenuyouth.com/${path}.json`,
-    filePath: `${userPath}/${folder}/${fileName}`,
+    filePath: `${userPath}/${folder}/${fileName}.json`,
     success: res => {
       if (res.statusCode === 200) {
         console.info(`Save ${path}.json success`);
@@ -260,8 +260,6 @@ const getJson = (path: string, callback: (data: object | string) => void, failFu
       return null;
     }
   });
-
-  return null;
 };
 
 /**
