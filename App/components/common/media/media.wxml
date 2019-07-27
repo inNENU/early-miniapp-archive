@@ -1,0 +1,3 @@
+<audio wx:if="{{type==='audio'}}" class="audio" poster="{{config.poster}}" src="{{config.src}}" name="{{config.name}}" author="{{config.author}}" loop="{{config.loop}}" controls="{{config.controls==false?false:true}}" />
+
+<video wx:elif="{{type==='video'}}" class="video" src="{{config.src}}" controls="{{config.controls==false?false:true}}" loop="{{config.loop}}" autoplay="{{config.autoplay}}" initial-time="{{config.startTime}}" duration="{{config.duration}}" danmu-btn="{{config.danmuBtn}}" danmu-list="{{config.danmuList}}" enable-danmu="{{danmuList&&danmuBtn?true:false}}" poster="{{config.poster}}" bind:play="_video" bind:waiting="_video" bind:error="_video" />

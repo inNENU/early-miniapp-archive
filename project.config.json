@@ -9,6 +9,10 @@
       {
         "type": "suffix",
         "value": "md"
+      },
+      {
+        "type": "suffix",
+        "value": "bak"
       }
     ]
   },

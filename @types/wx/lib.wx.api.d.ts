@@ -1,3 +1,13 @@
+/*! *****************************************************************************
+Copyright (c) 2018 Tencent, Inc. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+***************************************************************************** */
+
 declare namespace wx {
   interface AccessFailCallbackResult {
     /** 错误信息
@@ -1660,7 +1670,9 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   interface GetSystemInfoResult {
     /** 小程序运行环境 */
     AppPlatform: 'qq' | undefined;
-    /** 客户端基础库版本 */
+    /** 客户端基础库版本
+     *
+     * 最低基础库： `1.1.0` */
     SDKVersion: string;
     /** (仅Android小游戏) 性能等级
      *
@@ -1668,9 +1680,13 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
      * -1：性能未知，>=1 设备性能值，该值越高，设备性能越好 (目前设备最高不到50) 
      */
     benchmarkLevel: number;
-    /** 手机品牌 */
+    /** 手机品牌
+     *
+     * 最低基础库： `1.5.0` */
     brand: string;
-    /** 用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位 px。 */
+    /** 用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位 px。
+     *
+     * 最低基础库： `1.5.0` */
     fontSizeSetting: number;
     /** 微信设置的语言 */
     language: string;
@@ -1680,11 +1696,17 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     pixelRatio: number;
     /** 客户端平台 */
     platform: string;
-    /** 屏幕高度 */
+    /** 屏幕高度
+     *
+     * 最低基础库： `1.1.0` */
     screenHeight: number;
-    /** 屏幕宽度 */
+    /** 屏幕宽度
+     *
+     * 最低基础库： `1.1.0` */
     screenWidth: number;
-    /** 状态栏的高度 */
+    /** 状态栏的高度
+     *
+     * 最低基础库： `1.9.0` */
     statusBarHeight: number;
     /** 操作系统版本 */
     system: string;

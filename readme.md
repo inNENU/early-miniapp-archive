@@ -1,6 +1,6 @@
 # 参数说明
 
-![作者：Mr.Hope](https://img.shields.io/badge/作者-Mr.Hope-blue.svg) ![版本：V1.0.9](https://img.shields.io/badge/版本-V1.0.9-blue.svg) ![最后编辑于2019年5月3日](https://img.shields.io/badge/最后编辑于-2019年5月21日-success.svg)
+![作者：Mr.Hope](https://img.shields.io/badge/作者-Mr.Hope-blue.svg) ![版本：V1.1](https://img.shields.io/badge/版本-V1.1-blue.svg) ![最后编辑于2019年7月26日](https://img.shields.io/badge/最后编辑于-2019年7月26日-success.svg)
 
 ## **有效的tag值：**
 
@@ -13,7 +13,7 @@
 - [phone](#phone参数)：电话(用于电话展示、快速保存联系人或拨打电话)
 - [grid](#grid参数)：九宫格(展示格子)
 - [swiper](#swiper参数)：滑块视图容器(可以制作图片轮播图)
-- [audio](#audio参数)：音频(页面音频播放)
+- [media](#media参数)媒体(页面音频视频播放)
 - [gzh](#gzh参数)：公众号跳转组件(仅支持跳转绑定公众号图文)
 - [foot](#foot参数)：界面的页脚(页脚信息展示)
 
@@ -81,7 +81,7 @@
 | aim      |  否   | String  | 对应界面的json文件名      | 当指向简单界面时填写   |
 | url      |  否   | String  | 列表指向的界面路径        | 当指向复杂界面时填写   |
 | navigate |  否   | Boolean | 设置true使用navigator组件 | 默认为false            |
-| openType |  否   | String  | 小程序提供的开放能力        | 仅navigate为true时有效 |
+| openType |  否   | String  | 小程序提供的开放能力      | 仅navigate为true时有效 |
 | target   |  否   | String  | 跳转目标                  | 仅navigate为true时有效 |
 
 #### 选项二：开关（填写Switch后不支持简单界面）
@@ -178,7 +178,7 @@
 | 参数 | 必填  | 值类型 | 内容                             |         备注         |
 | ---- | :---: | :----: | -------------------------------- | :------------------: |
 | icon |  否   | String | 九宫格的图标的在线路径或本地路径 |                      |
-| text |  否   | String | 九宫格文字                     |                      |
+| text |  否   | String | 九宫格文字                       |                      |
 | aim  |  否   | String | 对应界面的json文件名             | 当指向简单界面时填写 |
 | url  |  否   | String | 九宫格指向的界面路径             | 当指向复杂界面时填写 |
 
@@ -206,28 +206,31 @@
 
 > 注：swiper默认高度为400rpx，可以通过style属性调节
 
-## audio参数
+## media参数
 
-| 参数     | 必填  | 值类型  | 内容                         | 备注                  |
-| -------- | :---: | :-----: | ---------------------------- | --------------------- |
-| res      |  是   | String  | 音频文件的在线网址或本地路径 |                       |
-| loop     |  否   | Boolean | 是否循环播放                 | 默认为false           |
-| controls |  否   | Boolean | 设置false来取消显示默认控件  | 默认显示              |
-| name     |  否   | String  | 音频名字                     | controls为false时无效 |
-| author   |  否   | String  | 音频作者                     | controls为false时无效 |
+| 参数     | 必填  |       值类型       | 内容                         | 备注        |
+| -------- | :---: | :----------------: | ---------------------------- | ----------- |
+| type     |  是   | 'audio' \| 'video' | 媒体种类                     |             |
+| src      |  是   |       String       | 媒体文件的在线网址或本地路径 |             |
+| loop     |  否   |      Boolean       | 是否循环播放                 | 默认为false |
+| controls |  否   |      Boolean       | 设置false来取消显示默认控件  | 默认显示    |
 
-## video参数
+### audio参数
 
-| 参数       | 必填  |    值类型    | 内容                        | 备注                  |
-| ---------- | :---: | :----------: | --------------------------- | --------------------- |
-| res        |  是   |    String    | 要播放视频的资源地址        |                       |
-| loop       |  否   |   Boolean    | 是否循环播放                | 默认为false           |
-| controls   |  否   |   Boolean    | 设置false来取消显示默认控件 | 默认显示              |
-| poster     |  否   |    String    | 视频封面的图片网络资源地址  | controls为false时无效 |
-| autoplay   |  否   |   Boolean    | 是否自动播放                | 默认为false           |
-| startTime  |  否   |    Number    | 视频初始播放位置            |                       |
-| danmu-list |  否   | Object Array | 弹幕列表                    |                       |
-| danmu-btn  |  否   |   Boolean    | 是否显示弹幕按钮            | 只在初始化有效        |
+| 参数   | 必填  | 值类型 | 内容     | 备注                  |
+| ------ | :---: | :----: | -------- | --------------------- |
+| name   |  否   | String | 音频名字 | controls为false时无效 |
+| author |  否   | String | 音频作者 | controls为false时无效 |
+
+### video参数
+
+| 参数       | 必填  |    值类型    | 内容                       | 备注                  |
+| ---------- | :---: | :----------: | -------------------------- | --------------------- |
+| poster     |  否   |    String    | 视频封面的图片网络资源地址 | controls为false时无效 |
+| autoplay   |  否   |   Boolean    | 是否自动播放               | 默认为false           |
+| startTime  |  否   |    Number    | 视频初始播放位置           |                       |
+| danmu-list |  否   | Object Array | 弹幕列表                   |                       |
+| danmu-btn  |  否   |   Boolean    | 是否显示弹幕按钮           | 只在初始化有效        |
 
 ## gzh参数
 

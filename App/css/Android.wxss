@@ -289,7 +289,7 @@
 }
 
 /* grid */
-.AndroidGridHead {
+/* .AndroidGridHead {
   text-align: left;
   min-height: 37px;
   padding: 23px 25px 5px 25px;
@@ -410,4 +410,4 @@
   height: 30px;
   text-align: center;
   line-height: 30px;
-}
+} */

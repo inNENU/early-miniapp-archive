@@ -18,11 +18,12 @@
       <share config="{{page[0]}}" />
       <block wx:for="{{page}}" wx:key="id">
         <foot config="{{item}}" wx:if="{{item.tag==='foot'}}" />
-        <grid config="{{item}}" theme="{{T}}" wx:elif="{{item.tag==='grid'}}" />
+        <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
         <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
         <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
         <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
         <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
+        <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
         <template wx:else is="{{item.tag}}" data="{{...item,T}}" />
       </block>
     </view>
@@ -32,11 +33,12 @@
   <share config="{{page[0]}}" />
   <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
     <foot config="{{item}}" wx:if="{{item.tag==='foot'}}" />
-    <grid config="{{item}}" theme="{{T}}" wx:elif="{{item.tag==='grid'}}" />
+    <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
     <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
     <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
     <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
     <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
+    <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
     <template wx:else is="{{item.tag}}" data="{{...item,T}}" />
   </block>
 </template>
@@ -146,14 +148,6 @@ Author: Mr.Hope
       <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="aspectFill" />
     </swiper-item>
   </swiper>
-</template>
-<!-- 音频组件 -->
-<template name="audio">
-  <audio class="audio" id="{{id}}" poster="{{poster}}" src="{{res}}" name="{{name}}" author="{{author}}" loop="{{loop}}" controls="{{controls==false?false:true}}" />
-</template>
-<!-- 视频组件 -->
-<template name="video">
-  <video class="video" id="{{id}}" src="{{res}}" controls="{{controls==false?false:true}}" loop="{{loop}}" autoplay="{{autoplay}}" initial-time="{{startTime}}" duration="{{duration}}" danmu-btn="{{danmuBtn}}" danmu-list="{{danmuList}}" enable-danmu="{{danmuList&&danmuBtn?true:false}}" poster="{{poster}}" bindplay="cA" bindwaiting="cA" binderror="cA" data-action="video" />
 </template>
 <!-- ******************************************
 Here are  different template used by diferent theme

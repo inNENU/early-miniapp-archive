@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-23 19:33:52
+ * @LastEditTime: 2019-07-27 13:29:07
  * @Description: 电话组件
  */
 
@@ -36,5 +36,8 @@ $register.C({
         homePhoneNumber: this.data.config.homeNum
       });
     }
+  },
+  options: {
+    styleIsolation: 'shared'
   }
 });

@@ -10,11 +10,13 @@ $register('module4', {
     $page.Online(res, this);
   },
   onShow() {
-    // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    if (this.data.page) {
+      // 设置胶囊和背景颜色
+      const { nc, bc } = $page.color(this.data.page[0].grey);
 
-    wx.setNavigationBarColor(nc);
-    wx.setBackgroundColor(bc);
+      wx.setNavigationBarColor(nc);
+      wx.setBackgroundColor(bc);
+    }
   },
   onPageScroll(res) {
     $component.nav(res, this);

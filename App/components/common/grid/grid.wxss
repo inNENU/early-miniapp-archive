@@ -1,5 +1,5 @@
 /* 通用样式 */
-.head {
+.gridHead {
   text-align: left;
   font-weight: 500;
   padding: 12px 5% 4px 5%;
@@ -7,7 +7,7 @@
   font-size: 19px;
 }
 
-.grey .head {
+.grey .gridHead {
   min-height: 37px;
   padding: 23px 15px 5px 15px;
   font-size: 13px;
@@ -15,27 +15,18 @@
   margin: 0 auto;
 }
 
-.grey.nm .head {
-  color: #999;
-}
-
-.nm .head {
-  color: #fff;
-}
-
-
 @media (min-width:768px) {
-  .head {
+  .gridHead {
     min-height: 38px;
     font-size: 21px;
   }
 
-  .grey .head {
+  .grey .gridHead {
     margin: 0 15px;
   }
 }
 
-.foot {
+.gridFoot {
   font-size: 14px;
   color: #999;
   text-align: left;
@@ -43,13 +34,29 @@
   min-height: 14px;
 }
 
-.nm .foot {
-  color: #666;
+
+.grey.nm .gridHead,
+.nm .gridFoot {
+  color: #999;
+  background-color: #000;
 }
 
-/* iOS grid */
+.nm .gridHead {
+  color: #fff;
+  background-color: #000;
+}
 
-.iOS.Ctn {
+/* 针对Android的额外处理 */
+.gridName {
+  display: none;
+}
+
+
+/* --------------
+    iOS grid
+-------------- */
+
+.iOS .gridCtn {
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
@@ -57,7 +64,7 @@
   width: 100%;
 }
 
-.iOS .Box {
+.iOS .gridBox {
   width: calc(25% - 10px);
   margin: 5px;
   padding: 10px 0;
@@ -65,57 +72,65 @@
   border-radius: 6px;
 }
 
-.nm .iOSBox {
+.nm.iOS .gridBox {
   background-color: #1C1C1E;
 }
 
-.iOS .Icon {
+.iOS .gridIcon {
   width: 28px;
   height: 28px;
 }
 
-.iOS .Text {
+.iOS .gridText {
   font-size: 14px;
   color: #444;
 }
 
-.nm .iOS .Text {
+.nm.iOS .gridText {
   color: #bbb;
 }
 
 @media (min-width:768px) {
-  .iOS .Ctn {
+  .iOS .gridCtn {
     padding: 0 10px;
   }
 }
 
 @media (min-width:480px) {
-  .iOS .Box {
+  .iOS .gridBox {
     width: calc(16.666% - 10px);
   }
 }
 
 @media (min-width:1024px) {
-  .iOS .Box {
+  .iOS .gridBox {
     width: calc(12.5% - 10px);
   }
 }
 
+.nm.iOS .gridCtn {
+  background-color: #000;
+}
+
 /* Android grid */
-.head.Android {
+.Android .gridHead {
   text-align: left;
   min-height: 37px;
   padding: 23px 25px 5px 25px;
 }
 
-.Android.Ctn {
+.Android .gridCtn {
   display: flex;
   flex-wrap: wrap;
   padding: 0 15px;
   text-align: left;
 }
 
-.Android .Box {
+.Andriod .buttonHover {
+  background-color: inherit;
+}
+
+.Android .gridBox {
   padding: 15px;
   border-radius: 6px;
   width: 45%;
@@ -127,7 +142,7 @@
   z-index: 1;
 }
 
-.Android .Box::after {
+.Android .gridBox::after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -142,43 +157,44 @@
 }
 
 @media (min-width:768px) {
-  .Android .Ctn {
+  .Android .gridCtn {
     padding: 0 10px;
   }
 }
 
 @media (min-width:480px) {
-  .Android .Box {
+  .Android .gridBox {
     margin: 0 10px 20px;
     width: calc(25% - 20px);
   }
 }
 
 @media (min-width:1024px) {
-  .Andriod .Box {
+  .Andriod .gridBox {
     width: calc(16.666% - 20px);
     margin: 0 10px 20px;
   }
 }
 
-.Android .Text {
+.Android .gridText {
   font-size: 16px;
   font-weight: 300;
 }
 
-.Android .Text::first-letter {
+.Android .gridText::first-letter {
   font-size: 20px;
   margin-right: 2px;
 }
 
-.Android .Name {
+.Android .gridName {
   font-size: 15px;
   text-transform: Capitalize;
   margin-top: 10px;
   position: relative;
+  display: block;
 }
 
-.Android .Name::before {
+.Android .gridName::before {
   content: "";
   position: absolute;
   display: block;
@@ -190,7 +206,7 @@
   opacity: 0.5;
 }
 
-.Andriod .Name::after {
+.Andriod .gridName::after {
   content: "";
   position: absolute;
   display: block;
@@ -202,13 +218,13 @@
   opacity: 0.3;
 }
 
-.Android .Name::first-letter {
+.Android .gridName::first-letter {
   font-weight: bold;
   font-size: 18px;
   margin-right: 1px;
 }
 
-.Android .Icon {
+.Android .gridIcon {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -219,10 +235,14 @@
   line-height: 30px;
 }
 
+.nm.Android .gridHead,
+.nm.Android .gridCtn {
+  background-color: #000;
+}
 
 /* NENU grid */
 
-.NENU.Ctn {
+.NENU .gridCtn {
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
@@ -230,7 +250,7 @@
   position: relative;
 }
 
-.NENU .Ctn:before {
+.NENU .gridCtn:before {
   content: " ";
   position: absolute;
   left: 0;
@@ -245,15 +265,15 @@
   transform: scaleY(0.4);
 }
 
-.nm .NENU .Ctn {
+.nm.NENU .gridCtn {
   background-color: #1C1C1E;
 }
 
-.nm .NENU .Ctn:before {
+.nm.NENU .gridCtn:before {
   border-color: #3D3D41
 }
 
-.NENU .Box {
+.NENU .gridBox {
   width: 25%;
   padding: 0 !important;
   margin: 0 !important;
@@ -261,10 +281,11 @@
   border-radius: 0 !important;
   line-height: 1.6 !important;
   position: relative;
+  background-color: #fff;
 }
 
-.NENU .Box:before,
-.NENU .Box:after {
+.NENU .gridBox:before,
+.NENU .gridBox:after {
   content: " ";
   position: absolute;
   right: 0;
@@ -272,7 +293,7 @@
   color: #cac9ce;
 }
 
-.NENU .Box:before {
+.NENU .gridBox:before {
   top: 0;
   width: 1px;
   border-right: 1px solid #cac9ce !important;
@@ -282,7 +303,7 @@
   transform: scaleX(0.4);
 }
 
-.NENU .Box:after {
+.NENU .gridBox:after {
   left: 0;
   height: 1px;
   border-bottom: 1px solid #cac9ce !important;
@@ -292,35 +313,43 @@
   transform: scaleY(0.4);
 }
 
-.nm .NENU .Box:before,
-.nm .NENU .Box:after {
+.nm.NENU .gridBox {
+  background-color: #1C1C1E;
+}
+
+.nm.NENU .gridBox:before,
+.nm.NENU .gridBox:after {
   border-color: #3D3D41 !important;
 }
 
-.NENU .Icon {
+.NENU .gridIcon {
   width: 44px;
   height: 44px;
   margin-top: 16px;
 }
 
-.NENU .Text {
+.NENU .gridText {
   font-size: 16px;
   color: #444;
   margin-bottom: 6px;
 }
 
-.nm .NENU .Text {
+.nm.NENU .gridText {
   color: #bbb;
 }
 
 @media (min-width:480px) {
-  .NENU .Box {
+  .NENU .gridBox {
     width: 16.666%;
   }
 }
 
 @media (min-width:1024px) {
-  .NENU .Box {
+  .NENU .gridBox {
     width: 12.5% - 1rpx;
   }
+}
+
+.nm.NENU .gridCtn {
+  background-color: #000;
 }

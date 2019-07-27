@@ -507,7 +507,7 @@
 
 /* grid */
 
-.iOSgridCtn {
+/* .iOSgridCtn {
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
@@ -569,4 +569,4 @@
   .iOSgridBox {
     width: calc(12.5% - 10px);
   }
-}
+} */

@@ -1,14 +1,15 @@
 .gzhCtn {
   width: 90%;
-  margin: 12px auto;
-  border-radius: 16rpx;
+  margin: 12px 5%;
   text-align: left;
   overflow: hidden;
+  border-radius: 8px;
   box-shadow: 1px 1px 2px 3px rgba(191, 192, 195, 0.15);
   max-width: 517px;
 }
 
 .nm .gzhCtn {
+  background-color: #1C1C1E;
   box-shadow: 1px 1px 2px 3px rgba(64, 63, 60, 0.15);
 }
 

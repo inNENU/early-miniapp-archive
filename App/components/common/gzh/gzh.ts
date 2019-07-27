@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-24 10:35:29
+ * @LastEditTime: 2019-07-27 13:17:37
  * @Description: 公众号组件
  */
 
@@ -23,9 +23,12 @@ $register.C({
       else wx.setClipboardData({
         data: this.data.config.url,
         success: () => {
-          modal('无法跳转', '小程序无法跳转微信公众号文章，链接地址已复制至剪切板。请打开浏览器粘贴查看');
+          modal('无法跳转', '该小程序无法跳转微信公众号文章，链接地址已复制至剪切板。请打开浏览器粘贴查看');
         }
       });
     }
+  },
+  options: {
+    styleIsolation: 'shared'
   }
 });
