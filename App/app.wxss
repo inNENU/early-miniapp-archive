@@ -4,7 +4,7 @@
 @import "css/colorui/main.wxss";
 
 /* 兼容QQ  */
-@import "css/qq.wxss";
+/* @import "css/qq.wxss"; */
 
 @import "css/common.wxss";
 @import "css/normal.wxss";

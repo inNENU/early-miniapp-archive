@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-27 14:08:36
+ * @LastEditTime: 2019-07-28 16:33:27
  * @Description: 小程序主脚本
  */
 
@@ -13,7 +13,7 @@ const $App = $register.A;
 
 $App({
   globalData: {
-    version: 'V 2.1.0',
+    version: 'V 2.1.1',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -31,7 +31,9 @@ $App({
         ? `/page/${name}`
         : ['setting', 'version', 'about'].includes(name)
           ? `/settings/${name}`
-          : `/module/${name}`
+          : ['weather', 'map', 'situs', 'PEcal', 'player'].includes(name)
+            ? `/function/${name}`
+            : `/module/${name}`
   },
 
   onLaunch(opts) {

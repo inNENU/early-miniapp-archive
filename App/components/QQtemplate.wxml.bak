@@ -14,33 +14,18 @@
   </block>
   <block wx:else>
     <view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+      <template wx:for="{{page}}" wx:key="id" is="{{item.tag}}" data="{{...item,T}}" />
       <!-- share组件 -->
-      <share config="{{page[0]}}" />
+      <!-- <share res="{{page[0]}}" />
       <block wx:for="{{page}}" wx:key="id">
-        <foot config="{{item}}" wx:if="{{item.tag==='foot'}}" />
-        <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
-        <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
-        <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
-        <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
-        <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
-        <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
+        <footer res="{{item}}" wx:if="{{item.tag==='foot'}}" />
         <template wx:else is="{{item.tag}}" data="{{...item,T}}" />
-      </block>
+      </block> -->
     </view>
   </block>
 </template>
 <template name="all2">
-  <share config="{{page[0]}}" />
-  <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
-    <foot config="{{item}}" wx:if="{{item.tag==='foot'}}" />
-    <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
-    <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
-    <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
-    <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
-    <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
-    <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
-    <template wx:else is="{{item.tag}}" data="{{...item,T}}" />
-  </block>
+  <template wx:if="{{T}}" wx:for="{{page}}" wx:key="id" is="{{item.tag}}" data="{{...item,T}}" />
 </template>
 <!-- ******************************************
 Here are common template used by all theme
@@ -141,6 +126,37 @@ Author: Mr.Hope
   </view>
   <view wx:if="{{foot}}" class="commonfoot">{{foot}}</view>
 </template>
+<!-- 文档 -->
+<template name="doc">
+  <view id="{{id}}" class="docCtn" hover-class="buttonHover" hover-stay-time="100" catchtap="cA" data-url="{{url}}" data-docType="{{docType}}" data-action="doc">
+    <image class="docIcon" mode="widthFix" src="/components/common/doc/icon/{{docType}}.svg" />
+    <view class="docname docAccess">{{docName}}.{{docType}}</view>
+  </view>
+</template>
+<!-- 电话组件 -->
+<template name="phone">
+  <view class="phoneCtn" id="{{id}}" catchtap="cA" data-action="phone">
+    <image class="phoneIcon" mode="widthFix" src="/components/common/phone/phone.svg" />
+    <view class="phoneNum">{{num}}</view>
+    <view class="phoneCallCtn" hover-class="buttonHover" hover-stay-time="100">
+      <image class="phoneCall" mode="widthFix" src="/components/common/phone/call.svg" data-type="call" />
+    </view>
+    <view class="phoneAddCtn" hover-class="buttonHover" hover-stay-time="100">
+      <image class="phoneAdd" mode="widthFix" src="/components/common/phone/add.svg" data-type="add" />
+    </view>
+  </view>
+</template>
+<!-- 介绍组件 -->
+<template name="intro">
+  <view class="introBox">
+    <image class="introBg" src="{{src}}" mode="aspectFill" />
+    <view class="introCtn">
+      <image class="introIcon" src="{{src}}" />
+      <view class="introName">{{name}}</view>
+      <view class="introDesc">{{desc}}</view>
+    </view>
+  </view>
+</template>
 <!-- 轮播图组件 -->
 <template name="swiper">
   <swiper class="{{Class?Class:'swiper'}}" style="{{style}}" indicator-dots="{{indicatorDots==false?'':true}}" indicator-color="{{dotColor?dotColor:'#ffffff88'}}" indicator-active-color="{{dotActiveColor?dotActiveColor:'#fff'}}" autoplay="{{autoplay==false?false:true}}" interval="{{interval?interval:'5000'}}" duration="{{duration?duration:'500'}}" circular="{{circular==false?'':true}}" vertical="{{vertical?true:''}}" previous-margin="{{preMargin?preMargin:'0px'}}" next-margin="{{nextMargin?nextMargin:'0px'}}" bindchange="{{change?change:''}}" bindanimationfinish="{{animation?animation:''}}" data-action="swiper">
@@ -148,6 +164,46 @@ Author: Mr.Hope
       <image class="{{imgClass?imgClass:'swiperImg'}}" src="{{url}}" mode="aspectFill" />
     </swiper-item>
   </swiper>
+</template>
+<!-- 音频组件 -->
+<template name="audio">
+  <audio class="audio" id="{{id}}" poster="{{poster}}" src="{{res}}" name="{{name}}" author="{{author}}" loop="{{loop}}" controls="{{controls==false?false:true}}" />
+</template>
+<!-- 视频组件 -->
+<template name="video">
+  <video class="video" id="{{id}}" src="{{res}}" controls="{{controls==false?false:true}}" loop="{{loop}}" autoplay="{{autoplay}}" initial-time="{{startTime}}" duration="{{duration}}" danmu-btn="{{danmuBtn}}" danmu-list="{{danmuList}}" enable-danmu="{{danmuList&&danmuBtn?true:false}}" poster="{{poster}}" bindplay="cA" bindwaiting="cA" binderror="cA" data-action="video" />
+</template>
+<!-- 公众号组件 -->
+<template name="gzh">
+  <view class="gzhCtn" hover-class="buttonHover" catchtap="cA" data-action="navigate" data-url="/module/web?url={{url}}&title={{title}}">
+    <view class="gzhImgCtn">
+      <image class="gzhImg" src="{{src}}" mode="aspectFill" lazy-load="{{true}}" />
+    </view>
+    <view class="gzhText">
+      <view class="gzhIconCtn">
+        <image class="gzhIcon" src="{{icon}}" lazy-load="{{true}}" />
+        <view class="gzhIconDesc">{{gzhName}}</view>
+      </view>
+      <view class="gzhTitle">{{title}}</view>
+      <view class="gzhDesc">{{desc}}</view>
+    </view>
+  </view>
+</template>
+<!-- 页脚 -->
+<template name="foot">
+  <view class="Footer">
+    <view class="footerCtn">
+      <view>走出半生，归来仍是——东师青年\n</view>
+      <navigator class="footLogo rotate" openType="switchTab" url="/page/main" hover-class="none">
+        <image style="width:100%;height:100%;" mode="{{imagemode}}" src="/image/logo.png" />
+      </navigator>
+    </view>
+    <text wx:if="{{desc}}">{{desc}}\n</text>
+    <text wx:if="{{author}}">编辑人：{{author}}</text>
+    <text wx:if="{{time}}">最后编辑于{{time}}</text>
+    <text wx:if="{{time||author}}">\n</text>
+    Copyright © 2017-2019 HopeStudio
+  </view>
 </template>
 <!-- ******************************************
 Here are  different template used by diferent theme
@@ -159,6 +215,30 @@ Author: Mr.Hope
 <template name="head">
   <block wx:if="{{!hidden}}">
     <template is="{{T}}Head" data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight}}" />
+  </block>
+  <!-- share组件替换 -->
+  <block wx:if="{{shareable||feedback||contact}}">
+    <view class="shareIconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="shareHover" hover-stay-time="200" catchtouchstart="cA" catchtouchmove="cA" catchtouchend="cA" data-action="share" data-role="button">
+      <image class="shareIcon" src="/components/common/share/share.svg" />
+    </view>
+    <view wx:if="{{menuDisplay}}" class="shareMask {{menuDisplay?'fadeIn':'fadeOut'}}" style="top:{{menuDisplay?'0':'100%'}};"></view>
+    <view class="shareLayer {{menuDisplay?'moveUpIn':'moveUpOut'}}" catchtap="cA" data-action="share">
+      <view class="shareBtnCtn">
+        <button wx:if="{{shareable}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="share">
+          分享{{env==='wx'?'到微信':'给好友/分享到空间'}}
+        </button>
+        <button wx:if="{{shareable}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" data-role="download">
+          保存页面二维码
+        </button>
+        <button wx:if="{{contact}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="contact" data-role="contact">
+          联系开发者
+        </button>
+        <button wx:if="{{feedback}}" class="shareBtn" hover-class="shareBtnHover" hover-start-time="0" plain="true" open-type="feedback" data-role="feedback">
+          意见反馈
+        </button>
+        <button class="cancelBtn" hover-class="shareBtnHover">取消</button>
+      </view>
+    </view>
   </block>
 </template>
 <!-- 文字段落 -->
@@ -174,6 +254,10 @@ Author: Mr.Hope
 <!-- 图片 -->
 <template name="img">
   <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy,desc}}" />
+</template>
+<!-- 网格 -->
+<template name="grid">
+  <template is="{{T}}grid" data="{{head,content,foot}}" />
 </template>
 <!-- 错误提示 -->
 <template name="error">
@@ -215,6 +299,17 @@ Author: Mr.Hope
   </view>
   <image id="{{id}}" class="iOS-img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="iOSN">▲{{desc}}</view>
+</template>
+<!-- iOS网格组件 -->
+<template name="iOSgrid">
+  <view wx:if="{{head!==false}}" class="commonhead">{{head}}</view>
+  <view class="iOSgridCtn">
+    <view wx:for="{{content}}" wx:for-item="List" wx:key="text" class="iOSgridBox" hover-class="buttonHover" hover-stay-time="100" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}">
+      <image class="iOSgridIcon" src="{{List.icon}}" />
+      <view class="iOSgridTitle">{{List.text}}</view>
+    </view>
+  </view>
+  <view wx:if="{{foot}}" class="gridFoot">{{foot}}</view>
 </template>
 <!-- iOS错误 -->
 <template name="iOSerror">
@@ -277,6 +372,18 @@ Author: Mr.Hope
   </view>
   <image id="{{id}}" class="Android-img" style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="AndroidN">▲{{desc}}</view>
+</template>
+<!-- Android网格 -->
+<template name="Androidgrid">
+  <view wx:if="{{head!==false}}" class="AndroidGridHead">{{head}}</view>
+  <view class='AndriodGridList'>
+    <view class="AndriodGridbox bg-{{List.color}}" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}" wx:for="{{content}}" wx:for-item="List" wx:key="text">
+      <view class="AndriodGridText">{{List.text}}</view>
+      <view class="AndriodGridName">{{List.name}}</view>
+      <image class="gridIcon" src="{{List.icon}}" />
+    </view>
+  </view>
+  <view wx:if="{{foot}}" class="gridFoot">{{foot}}</view>
 </template>
 <!-- Android错误页面 -->
 <template name="Androiderror">
@@ -343,6 +450,17 @@ Author: Mr.Hope
   </view>
   <image id="{{id}}" class='iOS-img' style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
   <view wx:if="{{desc}}" class='iOSN'>▲{{desc}}</view>
+</template>
+<!-- NENU网格组件 -->
+<template name="NENUgrid">
+  <view wx:if="{{head!==false}}" class="commonhead">{{head}}</view>
+  <view class="gridCtn">
+    <view wx:for="{{content}}" wx:for-item="List" wx:key="text" class="gridBox" hover-class="buttonHover" hover-stay-time="100" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}">
+      <image class="gridIcon" src="{{List.icon}}" />
+      <view class="gridTitle">{{List.text}}</view>
+    </view>
+  </view>
+  <view wx:if="{{foot}}" class="gridFoot">{{foot}}</view>
 </template>
 <!-- NENU错误页面 -->
 <template name='NENUerror'>

@@ -1,6 +1,6 @@
 <import src="/components/template" />
 <view class="{{T}} {{head[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template is="all2" data="{{page:head,T}}" />
-  <weather-card />
+  <weather bind:navigate="navigate" />
   <template is="all2" data="{{page,T}}" />
 </view>

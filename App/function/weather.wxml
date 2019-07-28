@@ -1,16 +1,16 @@
 <view class="weatherCtn">
-  <view class="location icon-location">长春市</view>
-  <view class="temperature">{{weather.wendu}}℃</view>
-  <view class="type">{{weather.type}}</view>
-  <view class="desc">{{weather.ganmao}}</view>
-  <view class="yesterday">
-    <view class='weatherListTitle icon-titles'>{{yesterday.date}} | {{yesterday.type}} \n</view>
-    <view class='weatherListDetail'>
-      {{yesterday.high}}-{{yesterday.low}} | {{yesterday.fx}} \n
-    </view>
+  <view class="location icon-location">长春市 南关区</view>
+  <view class="temperature">{{weather.observe.degree}}°</view>
+  <view class="type">{{weather.observe.weather}}</view>
+  <view class="detail">湿度 {{weather.observe.humidity}}%</view>
+  <view class="detail">{{weather.observe.wind_direction}} {{weather.observe.wind_power}}级</view>
+  <view class='weatherTip'>{{weather.tips.observe[number]}}</view>
+  <view class='weatherText  icon-refresh' catch:tap="_refresh">
+    {{weather.tips.observe[number]}}
   </view>
-  <block wx:for="{{weather.forecast}}" wx:for-item="day" wx:key="{{day.date}}">
-    <view class='weatherListTitle icon-titles'>{{day.date}} | {{day.type}} \n</view>
-    <view class='weatherListDetail'>{{day.high}}-{{day.low}} | {{day.fengxiang}} \n</view>
-  </block>
+  <view class="background">
+    <view class="layer layer1"></view>
+    <view class="layer layer2"></view>
+    <view class="layer layer3"></view>
+  </view>
 </view>

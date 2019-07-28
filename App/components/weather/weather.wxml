@@ -1,0 +1,18 @@
+<!-- 天气 -->
+<view class="weatherCtn animation-shake {{weatherClass === 'starry'? 'starry-bg': weatherClass === 'stormy'? 'stormy-bg': 'normal-bg' }}" catch:tap="_navigate">
+  <view class="weather-pic {{weatherClass}}" />
+  <block wx:if="{{weatherClass}}">
+    <view class='weatherDetail icon-location'>长春市 | {{weather.observe.weather}}</view>
+    <view class="temperature">
+      <text style="font-size:36px;">{{weather.observe.degree}}</text>
+      <text style="font-size:28px;">°C\n</text>
+      <view style="font-size:18px;">
+        {{weather.forecast_24h[1].max_degree}}°C - {{weather.forecast_24h[1].min_degree}}°C
+      </view>
+    </view>
+    <view class='weatherText  icon-refresh' catch:tap="_refresh">
+      {{weather.tips.observe[number]}}
+    </view>
+  </block>
+  <image wx:else src="/icon/loading.svg" class="loading" />
+</view>
