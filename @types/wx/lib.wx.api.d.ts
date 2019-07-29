@@ -4899,7 +4899,7 @@ ctx.draw()
       /** 本次绘制是否接着上一次绘制。即 reserve 参数为 false，则在本次调用绘制之前 native 层会先清空画布再继续绘制；若 reserve 参数为 true，则保留当前画布上的内容，本次调用 drawCanvas 绘制的内容覆盖在上面，默认 false。 */
       reserve: boolean,
       /** 绘制完成后执行的回调函数 */
-      callback: Function,
+      callback?: Function,
     ): void;
     /** [CanvasContext.draw(boolean reserve, function callback)](CanvasContext.draw.md)
 *
@@ -4938,7 +4938,7 @@ ctx.draw()
 * ![]((canvas/un-reserve.png)) */
     draw(
       /** 绘制完成后执行的回调函数 */
-      callback: Function,
+      callback?: Function,
     ): void;
     /** [CanvasContext.drawImage(string imageResource, number dx, number dy, number dWidth, number dHeight, number sx, number sy, number sWidth, number sHeight)](CanvasContext.drawImage.md)
 *

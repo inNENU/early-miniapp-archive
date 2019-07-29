@@ -1,31 +1,7 @@
 import $register from 'wxpage';
 
-interface WeatherAlarm {
-  /** 城市 */
-  city: string;
-  /** 区域 */
-  country: string;
-  /** 报警详情 */
-  detail: string;
-  /** 信息 */
-  info: string;
-  /** 级别代码 */
-  level_code: string;
-  /** 级别名称 */
-  level_name: string;
-  /** 省份 */
-  province: string;
-  /** 类型代码 */
-  type_code: string;
-  /** 类型名称 */
-  type_name: string;
-  /** 更新时间 */
-  update_time: string;
-  /** 对应地址 */
-  url: string;
-}
+export interface WeatherForcast1H {
 
-interface WeatherForcast1H {
   /** 摄氏度 */
   degree: string;
   /** 更新时间 */
@@ -40,8 +16,9 @@ interface WeatherForcast1H {
   wind_direction: string;
   /** 风力 */
   wind_power: string;
-}
-interface WeatherForcast24H {
+};
+
+export interface WeatherForcast24H {
   /** 日间天气 */
   day_weather: string;
   /** 日间天气代码 */
@@ -76,22 +53,48 @@ interface WeatherForcast24H {
   night_wind_power_code: string;
   /** 时间 */
   time: string;
-}
-
-interface WatherRise {
-  /** 日出时间 */
-  sunrise: string;
-  /** 日落时间 */
-  sunset: string;
-  /** 日期 */
-  time: string;
-}
+  /** 星期 */
+  weekday?: string;
+};
 
 export interface WeatherData {
+  /** 天气数据 */
   data: {
-    alarm: WeatherAlarm[];
-    forecast_1h: WeatherForcast1H[];
-    forecast_24h: WeatherForcast24H[];
+    /** 天气预警 */
+    alarm: {
+      [props: number]: {
+        /** 城市 */
+        city: string;
+        /** 区域 */
+        country: string;
+        /** 报警详情 */
+        detail: string;
+        /** 信息 */
+        info: string;
+        /** 级别代码 */
+        level_code: string;
+        /** 级别名称 */
+        level_name: string;
+        /** 省份 */
+        province: string;
+        /** 类型代码 */
+        type_code: string;
+        /** 类型名称 */
+        type_name: string;
+        /** 更新时间 */
+        update_time: string;
+        /** 对应地址 */
+        url: string;
+      }
+    };
+    /** 1小时天气预报 */
+    forecast_1h: {
+      [props: number]: WeatherForcast1H;
+    };
+    /** 24小时天气预报 */
+    forecast_24h: {
+      [props: number]: WeatherForcast24H;
+    };
     /** 实时数据 */
     observe: {
       /** 温度 */
@@ -115,10 +118,26 @@ export interface WeatherData {
       /** 风力 */
       wind_power: string;
     };
-    rise: WatherRise[];
+    /** 日出日落时间 */
+    rise: {
+      [props: number]: {
+        /** 日出时间 */
+        sunrise: string;
+        /** 日落时间 */
+        sunset: string;
+        /** 日期 */
+        time: string;
+      }
+    };
     tips: {
-      observe: string[];
-    }
+      observe: {
+        [props: number]: string;
+      };
+    };
+    /** 小时预报 */
+    hourForecast?: WeatherForcast1H[];
+    /** 天预报 */
+    dayForecast: WeatherForcast24H[];
   };
   message: string;
   status: number;
@@ -162,17 +181,7 @@ $register.C({
         url: 'https://mp.nenuyouth.com/server/weather2.php',
         success: res => {
           const weather = (res.data as WeatherData).data;
-
-          // /* 设置弹出框内容 */
-          // for (let i = 0; i < 5; i++) {
-          //   const forecast = weather.data.forecast[i];
-
-          //   forecast.low = forecast.low.substring(3);
-          //   forecast.high = forecast.high.substring(3);
-          // };
-
           const weatherType = weather.observe.weather_short;
-
           const weatherClass =
             weatherType.indexOf('晴') != -1
               ? (new Date().getHours() > 6 && new Date().getHours() < 18)

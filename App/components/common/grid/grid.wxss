@@ -2,13 +2,9 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-24 10:55:49
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-27 15:15:52
+ * @LastEditTime: 2019-07-29 18:48:57
  * @Description: 网格样式
  */
-
-/* TODO: */
-@import "../../../app.wxss";
-
 
 /* 通用样式 */
 .gridHead {

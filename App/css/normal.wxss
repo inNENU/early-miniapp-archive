@@ -384,3 +384,40 @@
 .hide {
   display: none;
 }
+
+/* 上下边框 */
+.borderT,
+.borderB,
+.borderTB {
+  position: relative;
+}
+
+.borderT:before,
+.borderTB:before {
+  top: 0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  border-top: 1px solid #acacb0;
+}
+
+.borderB:after,
+.borderTB:after {
+  bottom: 0;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  border-bottom: 1px solid #acacb0;
+}
+
+.borderT:before,
+.borderB:before,
+.borderTB:before,
+.borderTB:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  color: #acacb0;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
