@@ -4,8 +4,8 @@
     <image class='backIcon' src='/icon/back.svg' />
   </view>
   <view class="NENUnav {{page[0].borderDisplay?'fadeIn':'fadeOut'}}" style="background-color:{{page[0].color}};padding-top:{{page[0].statusBarHeight}}px;">
-    <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catchtap="{{page[0].action?'redirect':'cA'}}" data-action='back'>
-      <view class='iOS-backArrow' style='border-color:#fff;'></view>
+    <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catch:tap="{{page[0].action?'redirect':'cA'}}" data-action='back'>
+      <view class='iOS-backArrow' style='border-color:#fff;' />
       <text class='iOS-nav-text' style='color:#fff;'>返回</text>
     </button>
     <view class='NENU-navText'>{{page[0].title}}</view>

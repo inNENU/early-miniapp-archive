@@ -3,8 +3,8 @@
 <view class="{{T}} {{nm?'nm':''}}">
   <template is="all2" data="{{page,T}}" />
   <view class="QRCodeCtn">
-    <image class="QRCode1" src="https://mp.nenuyouth.com/img/donate/Wechat.png" data-name="Wechat" bindtap="save" mode="widthFix" lazy-load="true" />
-    <image class="QRCode2" src="https://mp.nenuyouth.com/img/donate/Alipay.png" data-name="Alipay" bindtap="save" mode="widthFix" lazy-load="true" />
+    <image class="QRCode1" src="https://mp.nenuyouth.com/img/donate/Wechat.png" data-name="Wechat" bind:tap="save" mode="widthFix" lazy-load="true" />
+    <image class="QRCode2" src="https://mp.nenuyouth.com/img/donate/Alipay.png" data-name="Alipay" bind:tap="save" mode="widthFix" lazy-load="true" />
   </view>
   <view class="donateList">
     <view class="donateTitle">捐赠列表：</view>

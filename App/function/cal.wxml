@@ -4,7 +4,7 @@
   <view class='gradeHeader'>
     <scroll-view scroll-x class='picker'>
       新计算
-      <button></button>
+      <button />
     </scroll-view>
     <view class='edit' bindtap='edit'>{{editText}}</view>
   </view>

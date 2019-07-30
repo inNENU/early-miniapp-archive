@@ -2,7 +2,7 @@
 <view class="iOS grey {{nm?'nm':''}}" style="{{input.status?'padding-bottom:'+input.height+'px;':''}}">
   <template is='head' data="{{...page[0],T}}" />
   <view class="descCtn">
-    <view class="descBtn" hover-class="buttonHover" catchtap="navigate">
+    <view class="descBtn" hover-class="buttonHover" catch:tap="navigate">
       <image src="/icon/about.svg" class="descIcon" />
       <view class="descText">体测说明</view>
     </view>
@@ -20,36 +20,36 @@
   <view class="list">
     <view class="listItem">
       <view class="listText">性别</view>
-      <picker class="listPicker" bindchange="genderChange" range="{{gender.picker}}" mode="selector">
+      <picker class="listPicker" bind:change="genderChange" range="{{gender.picker}}" mode="selector">
         {{gender.index===undefined?'请选择':gender.picker[gender.index]}}
       </picker>
     </view>
     <view class="listItem">
       <view class="listText">年级</view>
-      <picker class="listPicker" bindchange="gradeChange" range="{{grade.picker}}" mode="selector">
+      <picker class="listPicker" bind:change="gradeChange" range="{{grade.picker}}" mode="selector">
         {{grade.index===undefined?'请选择':grade.picker[grade.index]}}
       </picker>
     </view>
     <block wx:for="{{list}}" wx:key="item.id">
       <view class="listItem">
         <view class="listText">{{item.text}}</view>
-        <input id="{{item.id}}" class="listInput" type="{{item.type}}" adjust-position="{{false}}" placeholder="{{item.desc}}" bindfocus="focus" bindinput="input" bindblur="blur" />
+        <input id="{{item.id}}" class="listInput" type="{{item.type}}" adjust-position="{{false}}" placeholder="{{item.desc}}" bind:focus="focus" bind:input="input" bind:blur="blur" />
         <view class="listUnit">{{item.unit}}</view>
       </view>
     </block>
     <view class="listItem">
       <view class="listText">{{longRun.text}}</view>
-      <picker class="listPicker" bindchange="longRunHandler" range="{{longRun.picker}}" mode="multiSelector">
+      <picker class="listPicker" bind:change="longRunHandler" range="{{longRun.picker}}" mode="multiSelector">
         {{longRun.value?longRun.value:'秒'}}
       </picker>
     </view>
     <view class="listItem">
       <view class="listText">{{special.text}}</view>
-      <input id="{{special.id}}" class="listInput" type="{{special.type}}" adjust-position="{{false}}" placeholder="{{special.desc}}" bindfocus="focus" bindinput="input" bindblur="blur" />
+      <input id="{{special.id}}" class="listInput" type="{{special.type}}" adjust-position="{{false}}" placeholder="{{special.desc}}" bind:focus="focus" bind:input="input" bind:blur="blur" />
       <view class="listUnit">{{special.unit}}</view>
     </view>
   </view>
-  <button type="primary" class='calBtn' bindtap="calculate">计算</button>
+  <button type="primary" class='calBtn' bind:tap="calculate">计算</button>
   <!-- <view class="scoreListCtn"> -->
   <view wx:if="{{showScore}}" class="scoreListCtn">
     <view class="scoreListTitle">体 测 成 绩</view>
