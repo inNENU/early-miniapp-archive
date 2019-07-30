@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:21:49
+ * @LastEditTime: 2019-07-30 20:56:55
  * @Description: 小程序主脚本
  */
 
@@ -23,7 +23,6 @@ $register.A({
   },
   config: {
     route: ['/page/$page', '/module/$page', '/function/$page', '/settings/$page'],
-    // eslint-disable-next-line no-confusing-arrow
     resolvePath: (name: string) =>
       ['main', 'function', 'guide', 'me'].includes(name)
         ? `/page/${name}`
@@ -35,16 +34,7 @@ $register.A({
   },
 
   onLaunch(opts) {
-    wx.getSetting({
-      success: res => {
-        console.warn(res.authSetting);
-      }
-    });
     console.info('小程序启动，参数为', opts); // 调试
-
-    // Const capsule = wx.getMenuButtonBoundingClientRect();
-
-    // Console.log(capsule);
 
     // 获取设备与运行环境信息
     this.globalData.info = wx.getSystemInfoSync();
@@ -75,9 +65,6 @@ $register.A({
     app.noticeCheck(this.globalData.version);
     app.appUpdate(this.globalData.version);
   },
-
-  // OnShow: function () { },
-
   onError(errorMsg) {
     console.error('出错信息为：', errorMsg);
     this.logger.warn('Error ocurred', errorMsg); // 调试

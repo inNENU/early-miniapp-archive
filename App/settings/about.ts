@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:22:28
+ * @LastEditTime: 2019-07-31 00:20:05
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -11,9 +11,9 @@ import $file from '../utils/file';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
+let clickNumber = 0;
 
 $register('about', {
-  clickNumber: 0,
   data: {
     T: a.T,
     nm: a.nm,
@@ -120,12 +120,12 @@ $register('about', {
         x.hidden = !(y === 0);
       });
       this.setData!({ page: this.data.page });
-      this.clickNumber = 0;
+      clickNumber = 0;
       this.developMode = false;
-    } else if (this.clickNumber < 5) this.clickNumber += 1;
-    else if (this.clickNumber < 10) {
-      $wx.tip(`再点击${10 - this.clickNumber}次即可启用开发者模式`);
-      this.clickNumber += 1;
+    } else if (clickNumber < 5) clickNumber += 1;
+    else if (clickNumber < 10) {
+      $wx.tip(`再点击${10 - clickNumber}次即可启用开发者模式`);
+      clickNumber += 1;
     } else {
       this.setData!({ debug: true });
       wx.nextTick(() => {
@@ -134,6 +134,7 @@ $register('about', {
     }
   },
   password(event: MiniprogramEvent) {
+    console.log(event);
     if (event.detail.value.length === 7) {
       if (event.detail.value === '5201314') { // 密码正确
         $wx.tip('已启用开发者模式');

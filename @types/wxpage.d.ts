@@ -85,7 +85,7 @@ declare module 'wxpage' {
         extendComponentBefore?(def: any): void;
       },
       /** 小程序的全局数据 */
-      globalData: GlobalData
+      globalData: InitGlobalData;
       /**
        * 小程序在切入后台后被唤醒
        *

@@ -9,11 +9,11 @@
   </view>
   <view class="coverCtn">
     <image wx:if="{{!coverLoad}}" class="cover {{play?'rotate':''}}" src='/function/icon/cd.svg' />
-    <image class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{currentSong.cover}}" bind:load='loadCover' />
+    <image class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{currentSong.cover}}" bindload='loadCover' />
   </view>
   <view class='progressBarCtn'>
     <view class='timeDisplay'>{{present?present[0]+":"+present[1]:"--:--"}}</view>
-    <slider class='progressBar' min='0' max='{{songLength*100}}' step='1' value="{{currentTime*100}}" block-size='15' backgroundColor='e9e9e9' selected-color='#27C087' block-color="#27C087" bind:change='drag' bind:changing='drag' />
+    <slider class='progressBar' min='0' max='{{songLength*100}}' step='1' value="{{currentTime*100}}" block-size='15' backgroundColor='e9e9e9' selected-color='#27C087' block-color="#27C087" bindchange='drag' bindchanging='drag' />
     <view class='timeDisplay'>{{total?total[0]+":"+total[1]:"--:--"}}</view>
   </view>
   <view class='playerCtn'>

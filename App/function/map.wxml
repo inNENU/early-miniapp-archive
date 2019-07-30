@@ -1,4 +1,4 @@
-<map wx:if="{{nm}}" subkey="YNUBZ-AN3HF-P62JK-J2GND-XQTQQ-TTBOB" id="schoolMap" class="schoolMap" style="width:100%;height:100%;" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" show-location markers="{{markers}}" bind:markertap="markers" bind:callouttap="markers" bind:updated="update" bind:regionchange="regionChange" enable-3D enable-scroll enable-rotate show-compass enable-overlooking enable-zoom>
+<map wx:if="{{nm}}" subkey="YNUBZ-AN3HF-P62JK-J2GND-XQTQQ-TTBOB" id="schoolMap" class="schoolMap" style="width:100%;height:100%;" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" show-location markers="{{markers}}" bindmarkertap="markers" bindcallouttap="markers" bindupdated="update" bindregionchange="regionChange" enable-3D enable-scroll enable-rotate show-compass enable-overlooking enable-zoom>
   <cover-view class="backBtn" style="top:{{info.statusBarHeight+5}}px;z-index:97;" hover-class="buttonHover" catch:tap="back">
     <cover-image class="backIcon" src="/icon/back{{a.nm?'':'Black'}}.png" />
   </cover-view>
@@ -34,7 +34,7 @@
     <cover-image class="closeIcon" src="/icon/close.png" />
   </cover-view>
 </map>
-<map wx:else subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4" id="schoolMap" class="schoolMap" style="width:100%;height:100%;" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" show-location markers="{{markers}}" bind:markertap="markers" bind:callouttap="markers" bind:updated="update" bind:regionchange="regionChange" enable-3D enable-scroll enable-rotate show-compass enable-overlooking enable-zoom>
+<map wx:else subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4" id="schoolMap" class="schoolMap" style="width:100%;height:100%;" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" show-location markers="{{markers}}" bindmarkertap="markers" bindcallouttap="markers" bindupdated="update" bindregionchange="regionChange" enable-3D enable-scroll enable-rotate show-compass enable-overlooking enable-zoom>
   <cover-view class="backBtn" style="top:{{info.statusBarHeight+5}}px;z-index:97;" hover-class="buttonHover" catchtap="back">
     <cover-image class="backIcon" src="/icon/back{{a.nm?'':'Black'}}.png" />
   </cover-view>

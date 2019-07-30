@@ -1,6 +1,6 @@
 /// <reference path="./pageData.d.ts" />
 
-declare interface GlobalData {
+declare interface InitGlobalData {
   /** 小程序运行环境 */
   env: string;
   /** 版本号 */
@@ -20,15 +20,26 @@ declare interface GlobalData {
     /** 页面名称 */
     aim: string
   };
+  /** 启动时间 */
+  date: number;
   /** 正在应用的主题 */
   T?: string;
   /** 夜间模式开启状态 */
   nm?: boolean;
   /** 设备信息 */
   info?: wx.GetSystemInfoResult;
-  /** 启动时间 */
-  date?: number;
   /** 小程序appid */
   appID?: string;
+}
+
+declare interface GlobalData extends InitGlobalData {
+  /** 正在应用的主题 */
+  T: string;
+  /** 夜间模式开启状态 */
+  nm: boolean;
+  /** 设备信息 */
+  info: wx.GetSystemInfoResult;
+  /** 小程序appid */
+  appID: string;
 }
 

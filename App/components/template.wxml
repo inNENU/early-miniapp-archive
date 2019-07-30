@@ -84,7 +84,7 @@ Author: Mr.Hope
           </view>
         </button>
         <!-- 非嵌入选择器 -->
-        <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}" data-action="picker">
+        <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" catch:change="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}" data-action="picker">
           <view class="list-Container">
             <view class="LinkText">{{List.text}}</view>
             <view wx:if="{{List.pickerValue}}" class="linkDesciption">
@@ -108,7 +108,7 @@ Author: Mr.Hope
             </view>
             <view class="linkDesciption">
               {{List.desc}}
-              <switch wx:if="{{List.swiKey}}" checked="{{List.status}}" bindchange="{{List.Switch?List.Switch:'cA'}}" color="{{color}}" data-id="{{List.id}}" data-action="switch" />
+              <switch wx:if="{{List.swiKey}}" checked="{{List.status}}" bind:change="{{List.Switch?List.Switch:'cA'}}" color="{{color}}" data-id="{{List.id}}" data-action="switch" />
             </view>
           </view>
         </view>
@@ -116,7 +116,7 @@ Author: Mr.Hope
         <block wx:if="{{List.visible}}">
           <view class="link-divline"></view>
           <view wx:if="{{List.slider}}" class="sliderCtn">
-            <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value="{{List.value}}" bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action="slider" />
+            <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value="{{List.value}}" bind:changing="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bind:change="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action="slider" />
           </view>
           <picker-view wx:if="{{List.pickerValue}}" indicator-class="pickSelected" class="pickerViewCtn" value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action="picker" mask-class="pickerMask">
             <block wx:if="{{List.single}}">
@@ -213,14 +213,14 @@ Author: Mr.Hope
     <image class="loadingImg" mode="{{imgMode}}" src="/icon/loading.svg" lazy-load="{{true}}" />
     <text>加载中...</text>
   </view>
-  <image id="{{id}}" class="iOS-img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action="img" />
+  <image id="{{id}}" class="iOS-img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" bind:error="cA" catch:tap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="iOSN">▲{{desc}}</view>
 </template>
 <!-- iOS错误 -->
 <template name="iOSerror">
   <view class="iOS-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view class="iOS-titletext">页面出错</view>
-    <button wx:if="{{!action}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="cA" data-action="back">
+    <button wx:if="{{!action}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="cA" data-action="back">
       <view class="iOS-backArrow" />
       <text class="iOS-nav-text">返回</text>
     </button>
@@ -252,7 +252,7 @@ Author: Mr.Hope
 <template name="AndroidHead">
   <view class="Android-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">{{title}}</view>
-    <button wx:if="{{!action}}" class="Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="{{action==undefined?'cA':action}}" data-action="back">
+    <button wx:if="{{!action}}" class="Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="{{action==undefined?'cA':action}}" data-action="back">
       <view wx:if="{{!action}}" class="Android-backArrow" />
       <view class="Android-leftText">{{leftText}}</view>
     </button>
@@ -275,14 +275,14 @@ Author: Mr.Hope
     <image class="loadingImg" mode="{{imgMode}}" src="/icon/loading.svg" />
     <text class="Grey">加载中...</text>
   </view>
-  <image id="{{id}}" class="Android-img" style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action="img" />
+  <image id="{{id}}" class="Android-img" style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bind:load="cA" bind:error="cA" catch:tap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="AndroidN">▲{{desc}}</view>
 </template>
 <!-- Android错误页面 -->
 <template name="Androiderror">
   <view class="Android-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">页面出错</view>
-    <button wx:if="{{!top}}" class="Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="cA" data-action="back">
+    <button wx:if="{{!top}}" class="Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="cA" data-action="back">
       <view class="Android-backArrow" />
     </button>
   </view>
@@ -310,11 +310,11 @@ Author: Mr.Hope
 ********************************************* -->
 <template name='NENUHead'>
   <block wx:if="{{action==undefined}}">
-    <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catchtap="cA" data-action='back'>
+    <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catch:tap="cA" data-action='back'>
       <image class='backIcon' src="/icon/back.svg" />
     </view>
     <view class="NENUnav {{titleDisplay?'fadeOut':'fadeIn'}}" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
-      <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catchtap="cA" data-action='back'>
+      <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catch:tap="cA" data-action='back'>
         <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;' />
         <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
       </button>
@@ -323,7 +323,7 @@ Author: Mr.Hope
   </block>
   <block wx:else>
     <view class="NENUnav" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
-      <button wx:if="{{action!==true}}" class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catchtap="{{action}}">
+      <button wx:if="{{action!==true}}" class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catch:tap="{{action}}">
         <view wx:if="{{action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
         <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
       </button>
@@ -341,7 +341,7 @@ Author: Mr.Hope
     <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" lazy-load="{{true}}" />
     <text>加载中...</text>
   </view>
-  <image id="{{id}}" class='iOS-img' style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catchtap="cA" data-action='img' />
+  <image id="{{id}}" class='iOS-img' style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bind:load="cA" catch:error="cA" catch:tap="cA" data-action='img' />
   <view wx:if="{{desc}}" class='iOSN'>▲{{desc}}</view>
 </template>
 <!-- NENU错误页面 -->
@@ -350,7 +350,7 @@ Author: Mr.Hope
     <view class='NENU-navText'>页面出错</view>
   </view>
   <view style='width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;' />
-  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' hover-stay-time='100' catchtap='cA' data-action='back'>
+  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' hover-stay-time='100' catch:tap='cA' data-action='back'>
     <image class='backIcon' src='/icon/back.svg' />
   </view>
   <view class="errorCtn">
@@ -374,7 +374,7 @@ Author: Mr.Hope
       </button>
       <view wx:if="{{login}}" class='nickCtn'>
         <image class='NENUnickHead' />
-        <view class="NENUnickname"></view>
+        <view class="NENUnickname" />
       </view>
     </view>
   </view>
