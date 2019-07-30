@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-24 13:11:22
+ * @LastEditTime: 2019-07-30 16:52:48
  * @Description: 分享组件
  */
 
@@ -14,7 +14,7 @@ const { logger, globalData: { env } } = getApp();// 获得日志管理器，全�
 $register.C({
   properties: { config: { type: Object, value: { aim: '' } } },
   data: {
-    env, // 小程序运行环境
+    env // 小程序运行环境
   },
   methods: {
     _move(event: NormalEvent) { // 分享按钮
@@ -32,7 +32,6 @@ $register.C({
         case 'touchend':// 如果触摸小于200ms——>视为点击操作，显示菜单
         default:
           if (this.time > event.timeStamp - 200) this.setData({ menuDisplay: true });
-          break;
       }
     },
     // 取消显示菜单

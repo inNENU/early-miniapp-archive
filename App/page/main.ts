@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-24 10:45:53
+ * @LastEditTime: 2019-07-30 16:25:03
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -48,53 +48,53 @@ $register('main', {
         foot: ' '
       },
       {
-        tag: "list",
-        head: "新生群一览",
+        tag: 'list',
+        head: '新生群一览',
         content: [
           {
-            text: "官方迎新QQ群",
-            icon: "https://mp.nenuyouth.com/icon/module/QQ.svg",
-            aim: "check23"
+            text: '官方迎新QQ群',
+            icon: 'https://mp.nenuyouth.com/icon/module/QQ.svg',
+            aim: 'check23'
           },
           {
-            text: "老乡QQ群",
-            icon: "https://mp.nenuyouth.com/icon/module/QQ.svg",
-            aim: "check25"
+            text: '老乡QQ群',
+            icon: 'https://mp.nenuyouth.com/icon/module/QQ.svg',
+            aim: 'check25'
           }
         ]
       },
       {
-        tag: "list",
-        head: "找到组织",
+        tag: 'list',
+        head: '找到组织',
         content: [
           {
-            text: "各专业所属学院",
-            icon: "/icon/tabPage/course.svg",
-            aim: "check6"
+            text: '各专业所属学院',
+            icon: '/icon/tabPage/course.svg',
+            aim: 'check6'
           }
         ]
       },
       {
-        tag: "list",
-        head: "专业调整",
+        tag: 'list',
+        head: '专业调整',
         content: [
           {
-            text: "双学位与辅修",
-            icon: "/icon/tabPage/course.svg",
-            aim: "course13"
+            text: '双学位与辅修',
+            icon: '/icon/tabPage/course.svg',
+            aim: 'course13'
           },
           {
-            text: "转专业",
-            icon: "/icon/tabPage/course.svg",
-            aim: "course12"
+            text: '转专业',
+            icon: '/icon/tabPage/course.svg',
+            aim: 'course12'
           }
         ]
       },
       {
-        tag: "p",
-        head: " ",
-        style: "font-size:14px;color:#888;",
-        text: "   如果各位新生同学们还有什么疑问，但是小程序中没有提及的，欢迎联系QQ1178522294咨询。\n   目前QQ小程序无法正常对指南页面进行分享，待2.0.4版本审核通过以后即可正常使用。由于QQ小程序审核周期太长，推荐大家微信搜索小程序“myNenu”使用。(微信小程序版本现为V2.0.5)"
+        tag: 'p',
+        head: ' ',
+        style: 'font-size:14px;color:#888;',
+        text: '   如果各位新生同学们还有什么疑问，但是小程序中没有提及的，欢迎联系QQ1178522294咨询。\n   目前QQ小程序无法正常对指南页面进行分享，待2.0.4版本审核通过以后即可正常使用。由于QQ小程序审核周期太长，推荐大家微信搜索小程序“myNenu”使用。(微信小程序版本现为V2.0.5)'
       }
     ]
   },

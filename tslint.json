@@ -76,11 +76,7 @@
     "no-arg": true,
     "no-bitwise": true,
     "no-conditional-assignment": true,
-    "no-console": [
-      true,
-      "log",
-      "error"
-    ],
+    "no-console": false,
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-super": true,
@@ -101,7 +97,7 @@
     "no-implicit-dependencies": false,
     "no-inferred-empty-object-type": true,
     "no-invalid-template-strings": true,
-    "no-invalid-this": true,
+    "no-invalid-this": false,
     "no-misused-new": true,
     "no-null-keyword": true,
     "no-object-literal-type-assertion": true,
@@ -137,7 +133,6 @@
       "allow-new"
     ],
     "no-unused-variable": true,
-    "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-void-expression": [
       true,
@@ -178,7 +173,6 @@
       false
     ],
     "no-mergeable-namespace": true,
-    // 需要require json以及没有ts支持的模块
     "no-require-imports": true,
     "object-literal-sort-keys": false,
     "prefer-const": [

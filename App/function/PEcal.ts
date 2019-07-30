@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-21 15:08:19
+ * @LastEditTime: 2019-07-30 16:45:12
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
@@ -18,7 +18,7 @@ const special = [
 const longRunText = ['1000米跑', '800米跑'];
 const longRunPicker = [['2分', '3分', '4分', '5分', '6分', '7分'], []];
 
-for (let i = 0; i < 60; i++) longRunPicker[1].push(`${i}秒`);
+for (let i = 0; i < 60; i += 1) longRunPicker[1].push(`${i}秒`);
 
 $register('PEcal', {
   data: {
@@ -126,18 +126,10 @@ $register('PEcal', {
       .boundingClientRect();
     query.selectViewport().fields({ size: true, scrollOffset: true });
     query.exec((res: any) => {
-      console.log(res);
-      console.log('bottom是', res[0].bottom);
-      console.log('scrollTop是', res[1].scrollTop);
-      console.log('键盘高度是', event.detail.height);
-      console.log('屏幕高度为', res[1].height);
-      console.log(res[0].bottom + event.detail.height > res[1].height);
-      if (res[0].bottom + event.detail.height > res[1].height) {
-        console.log('scroll');
-        console.log('计划向上滚动', res[0].bottom + event.detail.height - res[1].height + 10);
-        console.log('新的应为', res[1].scrollTop + res[0].bottom + event.detail.height - res[1].height + 10);
-        wx.pageScrollTo({ scrollTop: res[1].scrollTop + res[0].bottom + event.detail.height - res[1].height + 10 });
-      }
+      if (res[0].bottom + event.detail.height > res[1].height)
+        wx.pageScrollTo({
+          scrollTop: res[1].scrollTop + res[0].bottom + event.detail.height - res[1].height + 10
+        });
     });
   },
   input(event: InputEvent) {
@@ -168,12 +160,12 @@ $register('PEcal', {
 
     if (result.gender && result.grade) { // 可以计算
       interface PEScore {
-        BMI: number,
-        vitalCapacity: number,
-        sitAndReach: number,
-        standingLongJump: number,
-        shortRun: number,
-        longRun: number,
+        BMI: number;
+        vitalCapacity: number;
+        sitAndReach: number;
+        standingLongJump: number;
+        shortRun: number;
+        longRun: number;
         special: number;
         passScore: number;
         [props: string]: number;
@@ -199,8 +191,8 @@ $register('PEcal', {
 
         // 计算BMI状态与分值
         [state, PEscore.BMI] = result.gender === 'male'
-          ? score <= 17.8 ? ['低体重', 80] : score >= 28.0 ? ['肥胖', 60] : score >= 24.0 ? ['超重', 80] : ['正常', 100]
-          : score <= 17.1 ? ['低体重', 80] : score >= 28.0 ? ['肥胖', 60] : score >= 24.0 ? ['超重', 80] : ['正常', 100];
+          ? score <= 17.8 ? ['低体重', 80] : score >= 28 ? ['肥胖', 60] : score >= 24 ? ['超重', 80] : ['正常', 100]
+          : score <= 17.1 ? ['低体重', 80] : score >= 28 ? ['肥胖', 60] : score >= 24 ? ['超重', 80] : ['正常', 100];
 
         // 计算及格分数
         PEscore.passScore = result.grade === 'Low'
@@ -227,7 +219,7 @@ $register('PEcal', {
         // 以下三项越高越好，进行计算
         ['vitalCapacity', 'sitAndReach', 'standingLongJump'].forEach(x => {
           if (result[x]) {
-            for (let i = 0; i < length; i++)
+            for (let i = 0; i < length; i += 1)
               if (result[x] <= config[x][i]) {
                 PEscore[x] = hash[i];
                 break;
@@ -239,7 +231,7 @@ $register('PEcal', {
         // 以下两项越低越好
         ['shortRun', 'longRun'].forEach(x => {
           if (result[x]) {
-            for (let i = 0; i < length; i++)
+            for (let i = 0; i < length; i += 1)
               if (result[x] >= config[x][i]) {
                 PEscore[x] = hash[i];
                 break;
@@ -251,9 +243,13 @@ $register('PEcal', {
         // 计算特别类项目分数
         const specialScore = result.gender === 'male' ? 'chinning' : 'situp';
 
-        for (let i = 0; i < length; i++)
+        for (let i = 0; i < length; i += 1)
           if (result[specialScore]) {
-            if (config[specialScore][i] !== '' && result[specialScore] && result[specialScore] <= config[specialScore][i]) {
+            if (
+              config[specialScore][i] !== ''
+              && result[specialScore]
+              && result[specialScore] <= config[specialScore][i]
+            ) {
               PEscore.special = hash[i];
               break;
             } else if (i === length - 1)
@@ -270,8 +266,8 @@ $register('PEcal', {
 
         console.info('成绩为', PEscore);
         this.setData!({
-          showScore: true,
           PEscore,
+          showScore: true,
           PE: {
             score: finalScore,
             state: finalScore >= PEscore.passScore ? '及格' : '不及格'

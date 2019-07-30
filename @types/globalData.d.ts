@@ -25,7 +25,7 @@ declare interface GlobalData {
   /** 夜间模式开启状态 */
   nm?: boolean;
   /** 设备信息 */
-  info?: any;
+  info?: wx.GetSystemInfoResult;
   /** 启动时间 */
   date?: number;
   /** 小程序appid */

@@ -2,9 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 23:47:21
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 22:51:47
+ * @LastEditTime: 2019-07-30 16:27:55
  * @Description: 绩点计算
  */
+
 import $register from 'wxpage';
 import $component from '../utils/component';
 import $page from '../utils/page';

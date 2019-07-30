@@ -1,3 +1,11 @@
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-07-30 14:43:46
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-07-30 16:27:09
+ * @Description: 模块页面2
+ */
+
 import $register, { WXPage } from 'wxpage';
 import $component from '../utils/component';
 import $page from '../utils/page';

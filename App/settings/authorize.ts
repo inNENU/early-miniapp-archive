@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 14:07:37
+ * @LastEditTime: 2019-07-30 16:23:39
  * @Description: 捐赠
  */
 import $register, { WXPage } from 'wxpage';
@@ -10,9 +10,20 @@ import $component from '../utils/component';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
-const authorizeList: authorizeList[] = ['scope.userLocation', 'scope.writePhotosAlbum', 'scope.userInfo', 'scope.address', 'scope.invoiceTitle', 'scope.invoice', 'scope.werun', 'scope.record', 'scope.camera'];
+const authorizeList: authorizeList[] = [
+  'scope.userLocation',
+  'scope.writePhotosAlbum',
+  'scope.userInfo',
+  'scope.address',
+  'scope.invoiceTitle',
+  'scope.invoice',
+  'scope.werun',
+  'scope.record',
+  'scope.camera'
+];
 
-type authorizeList = 'scope.userLocation' | 'scope.writePhotosAlbum' | 'scope.userInfo' | 'scope.address' | 'scope.invoiceTitle' | 'scope.invoice' | 'scope.werun' | 'scope.record' | 'scope.camera';
+type authorizeList = 'scope.userLocation' | 'scope.writePhotosAlbum' | 'scope.userInfo' |
+  'scope.address' | 'scope.invoiceTitle' | 'scope.invoice' | 'scope.werun' | 'scope.record' | 'scope.camera';
 
 $register('authorize', {
   data: {
@@ -120,7 +131,7 @@ $register('authorize', {
               }
               else $wx.tip('授权失败，您没有授权');
             }
-          })
+          });
         });
       }
     });

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 13:49:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-28 10:06:15
+ * @LastEditTime: 2019-07-30 16:00:47
  * @Description: 组件函数库
  */
 
@@ -18,7 +18,8 @@ const image = (res: NormalEvent, ctx: any) => {
   switch (res.type) {
 
     // 图片加载完成
-    case 'load': ctx.setData({ [`page[${res.target.id}].load`]: true });
+    case 'load':
+      ctx.setData({ [`page[${res.target.id}].load`]: true });
       break;
 
     // 图片加载出错
@@ -90,11 +91,13 @@ const slider = (res: SliderEvent, ctx: any, callback?: (type: string) => void) =
   switch (res.type) {
 
     // 切换滑块显隐
-    case 'tap': content.visible = !content.visible;
+    case 'tap':
+      content.visible = !content.visible;
       break;
 
     // 移动时实时更新页面显示
-    case 'changing': content.value = value;
+    case 'changing':
+      content.value = value;
       break;
 
     // 更新页面数据，并写入值到存储
@@ -135,21 +138,24 @@ const Switch = (res: SwitchEvent, ctx: any, callback?: () => void) => {
  */
 const componentAction = (res: MiniprogramEvent, ctx: any, callback?: (type?: string) => void) => {
   switch (res.currentTarget.dataset.action) { // 判断action类型并调用各组件函数
-    case 'img': image(res, ctx);
+    case 'img':
+      image(res, ctx);
       break;
     case 'navigate':
       ctx.$route(res.currentTarget.dataset.url);
       break;
-    case 'back': ctx.$back();
+    case 'back':
+      ctx.$back();
       break;
-    case 'picker': picker(res, ctx, callback);
+    case 'picker':
+      picker(res, ctx, callback);
       break;
-    case 'switch': Switch(res, ctx, callback);
+    case 'switch':
+      Switch(res, ctx, callback);
       break;
-    case 'slider': slider(res, ctx, callback);
+    case 'slider':
+      slider(res, ctx, callback);
       break;
-    // case 'list': list(res, ctx);
-    //   break;
 
     // 找不到对应函数，错误报警
     default:

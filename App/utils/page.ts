@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-27 14:49:01
+ * @LastEditTime: 2019-07-30 16:14:57
  * @Description: Page函数库
  */
 
@@ -17,6 +17,23 @@ const logger = wx.getLogManager({ level: 1 });
 
 // 声明全局数据
 const globalData: GlobalData = getApp().globalData;
+
+const getDoctype = (docType: string) =>
+  docType === 'docx' || docType === 'doc'
+    ? 'doc'
+    : docType === 'pptx' || docType === 'ppt'
+      ? 'ppt'
+      : docType === 'xlsx' || docType === 'xls'
+        ? 'xls'
+        : docType === 'jpg' || docType === 'jpeg'
+          ? 'jpg'
+          : docType === 'mp4' || docType === 'mov' || docType === 'avi' || docType === 'rmvb'
+            ? 'video'
+            : docType === 'pdf'
+              ? 'pdf'
+              : docType === 'png' || docType === 'gif'
+                ? docType
+                : 'document';
 
 /**
  * 获得界面数据，生成正确的界面数据
@@ -68,21 +85,7 @@ const disposePage = (page: PageData, option: PageArg) => {
           const { 1: temp } = element.docName.split('.');
 
           element.docName = element.docName.split('.')[0];
-          element.docType = temp === 'docx' || temp === 'doc'
-            ? 'doc'
-            : temp === 'pptx' || temp === 'ppt'
-              ? 'ppt'
-              : temp === 'xlsx' || temp === 'xls'
-                ? 'xls'
-                : temp === 'jpg' || temp === 'jpeg'
-                  ? 'jpg'
-                  : temp === 'mp4' || temp === 'mov' || temp === 'avi' || temp === 'rmvb'
-                    ? 'video'
-                    : temp === 'pdf'
-                      ? 'pdf'
-                      : temp === 'png' || temp === 'gif'
-                        ? temp
-                        : 'document';
+          element.docType = getDoctype(temp);
         }
 
         // 设置list组件
@@ -107,7 +110,8 @@ const disposePage = (page: PageData, option: PageArg) => {
               listElement.value = listElement.pickerValue[pickerValue];
               listElement.currentValue = [pickerValue];
             } else { // 多列选择器
-              const pickerValues: string[] = wx.getStorageSync(listElement.key).split('-');
+              const pickerValues: string[] = wx.getStorageSync(listElement.key)
+                .split('-');
 
               listElement.currentValue = [];
               listElement.value = [];
@@ -141,11 +145,12 @@ const disposePage = (page: PageData, option: PageArg) => {
  * 获取文件夹与路径名称
  *
  * @param aim 页面名称
+ * @returns 文件夹与路径
  */
 const resolveAim = (aim: string) => {
   let { length } = aim;
 
-  while (!isNaN(Number(aim.charAt(length)))) length--;
+  while (!isNaN(Number(aim.charAt(length)))) length -= 1;
   const folder = aim.substring(0, length + 1);
 
   return { folder, path: `${folder}/${aim}` };
@@ -163,7 +168,7 @@ const preGetPage = (page: PageData) => {
         if ('aim' in element) {
           const { path } = resolveAim(element.aim);
 
-          $file.getJson(`page/${path}`, () => null);
+          $file.getJson(`page/${path}`, () => undefined);
         }
       });
   });
@@ -172,16 +177,17 @@ const preGetPage = (page: PageData) => {
 
 /**
  * **简介:**
- * 
+ *
  * - 描述：预处理页面数据写入全局数据
- * 
+ *
  * - 用法：在页面onNavigate时调用，
- * 
+ *
  * - 性质：同步函数
- * 
+ *
  * @param option 页面跳转参数
  * @param page page数组
  * @param Set 是否将处理后的数据写入到全局数据中
+ * @returns 处理后的page配置
  */
 const resolvePage = (option: WXPage.PageArg, page?: PageData, Set = true) => {
   console.info('将要跳转：', option); // 控制台输出参数
@@ -224,10 +230,11 @@ interface SetPageOption {
  * - 用法：在页面onLoad时调用，
  *
  * - 性质：同步函数
- * 
- * @param option 页面传参
- * @param ctx 页面指针
- * @param [handle=false] 页面是否已经被处理
+ *
+ * @param object 配置对象
+ * - option 页面传参
+ * - ctx 页面指针
+ * - [handle=false] 页面是否已经被处理
  * @param [page] 页面数据
  * @param [preload=true] 是否预加载子页面
  */
@@ -262,11 +269,11 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
 
 /**
  * **简介:**
- * 
+ *
  * - 描述：弹出通知
- * 
+ *
  * - 用法：在页面onLoad时调用，
- * 
+ *
  * - 性质：同步函数
  *
  * @param aim 当前界面的aim值
@@ -287,11 +294,11 @@ const popNotice = (aim: string) => {
 
 /**
  * **简介:**
- * 
+ *
  * - 描述：设置在线界面数据
- * 
+ *
  * - 用法：在页面onLoad时调用，
- * 
+ *
  * - 性质：同步函数
  *
  * @param option 页面传参
@@ -385,6 +392,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
  * - 性质：同步函数
  *
  * @param grey 页面是否为灰色背景
+ * @returns 页面实际的胶囊与背景颜色
  */
 const color = (grey: boolean) => {
   const [frontColor, backgroundColor] = globalData.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
@@ -392,9 +400,11 @@ const color = (grey: boolean) => {
 
   if (globalData.nm && grey)
     switch (globalData.T) {
-      case 'Andriod': temp = ['#10110b', '#10110b', '#10110b'];
+      case 'Andriod':
+        temp = ['#10110b', '#10110b', '#10110b'];
         break;
-      case 'iOS': temp = ['#000000', '#000000', '#000000'];
+      case 'iOS':
+        temp = ['#000000', '#000000', '#000000'];
         break;
       case 'NENU':
       default:
@@ -402,7 +412,8 @@ const color = (grey: boolean) => {
     }
   else if (globalData.nm && !grey)
     switch (globalData.T) {
-      case 'iOS': temp = ['#000000', '#000000', '#000000'];
+      case 'iOS':
+        temp = ['#000000', '#000000', '#000000'];
         break;
       case 'Andriod':
       case 'NENU':
@@ -411,18 +422,23 @@ const color = (grey: boolean) => {
     }
   else if (!globalData.nm && grey)
     switch (globalData.T) {
-      case 'Andriod': temp = ['#f8f8f8', '#f8f8f8', '#f8f8f8'];
+      case 'Andriod':
+        temp = ['#f8f8f8', '#f8f8f8', '#f8f8f8'];
         break;
-      case 'NENU': temp = ['#f0f0f0', '#f0f0f0', '#f0f0f0'];
+      case 'NENU':
+        temp = ['#f0f0f0', '#f0f0f0', '#f0f0f0'];
         break;
       case 'iOS':
-      default: temp = ['#f4f4f4', '#efeef4', '#efeef4'];
+      default:
+        temp = ['#f4f4f4', '#efeef4', '#efeef4'];
     }
   else
     switch (globalData.T) {
-      case 'Andriod': temp = ['#f8f8f8', '#f8f8f8', '#f8f8f8'];
+      case 'Andriod':
+        temp = ['#f8f8f8', '#f8f8f8', '#f8f8f8'];
         break;
-      case 'NENU': temp = ['ffffff', 'ffffff', 'ffffff'];
+      case 'NENU':
+        temp = ['ffffff', 'ffffff', 'ffffff'];
         break;
       case 'iOS':
       default:
@@ -463,10 +479,10 @@ const loadFont = (theme: string) => {
 };
 
 export default {
+  color,
+  loadFont,
   resolve: resolvePage,
   Set: setPage,
   Online: setOnlinePage,
-  Notice: popNotice,
-  color,
-  loadFont
+  Notice: popNotice
 };

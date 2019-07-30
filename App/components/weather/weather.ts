@@ -1,3 +1,11 @@
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-07-30 14:43:46
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-07-30 16:54:29
+ * @Description: 天气小组件
+ */
+
 import $register from 'wxpage';
 
 export interface WeatherForcast1H {
@@ -16,7 +24,7 @@ export interface WeatherForcast1H {
   wind_direction: string;
   /** 风力 */
   wind_power: string;
-};
+}
 
 export interface WeatherForcast24H {
   /** 日间天气 */
@@ -55,7 +63,7 @@ export interface WeatherForcast24H {
   time: string;
   /** 星期 */
   weekday?: string;
-};
+}
 
 export interface WeatherData {
   /** 天气数据 */
@@ -85,7 +93,7 @@ export interface WeatherData {
         update_time: string;
         /** 对应地址 */
         url: string;
-      }
+      };
     };
     /** 1小时天气预报 */
     forecast_1h: {
@@ -127,7 +135,7 @@ export interface WeatherData {
         sunset: string;
         /** 日期 */
         time: string;
-      }
+      };
     };
     tips: {
       observe: {
@@ -148,7 +156,7 @@ $register.C({
     /** 提示的数字 */
     number: 0,
     /** 天气信息 */
-    weather: null,
+    weather: '',
     /** 天气类别 */
     weatherClass: ''
   },
@@ -170,9 +178,9 @@ $register.C({
     /** 变更提示信息 */
     _refresh() {
       const { length } = Object.keys(this.data.weather.tips.observe);
-      const number = this.data.number;
+      const numbers = this.data.number;
 
-      this.setData({ number: number === 0 ? length - 1 : number - 1 });
+      this.setData({ number: numbers === 0 ? length - 1 : numbers - 1 });
     },
     /* 获取天气信息 */
     getWeather() {
@@ -183,9 +191,9 @@ $register.C({
           const weather = (res.data as WeatherData).data;
           const weatherType = weather.observe.weather_short;
           const weatherClass =
-            weatherType.indexOf('晴') != -1
+            weatherType.indexOf('晴') !== -1
               ? (new Date().getHours() > 6 && new Date().getHours() < 18)
-                ? new Date().getSeconds() % 2 == 0 ? 'sunny' : 'rainbow'
+                ? new Date().getSeconds() % 2 === 0 ? 'sunny' : 'rainbow'
                 : 'starry'
               : weatherType.indexOf('雷') !== -1 || weatherType.indexOf('电') !== -1 || weatherType.indexOf('暴') !== -1
                 ? 'stormy'
@@ -194,13 +202,13 @@ $register.C({
                   : weatherType.indexOf('雨') !== -1
                     ? 'rainy'
                     : weatherType.indexOf('阴') !== -1 || weatherType.indexOf('云') !== -1
-                      ? 'cloudy' : "";
+                      ? 'cloudy' : '';
 
           this.setData({ weatherClass, weather });
 
           wx.setStorageSync('weather', weather);
         }
-      })
-    },
+      });
+    }
   }
 });

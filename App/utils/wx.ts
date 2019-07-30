@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-07-24 13:08:22
+ * @LastEditTime: 2019-07-30 16:20:36
  */
 
 /** 日志管理器 */
@@ -17,7 +17,7 @@ const logger = wx.getLogManager({ level: 1 });
  * @param [icon='none'] 提示图标
  */
 export const tip = (text: string, duration?: number, icon: 'success' | 'loading' | 'none' = 'none') => {
-  wx.showToast({ title: text, icon, duration: duration ? duration : 1500 });
+  wx.showToast({ icon, title: text, duration: duration ? duration : 1500 });
 };
 
 /**
@@ -42,12 +42,8 @@ export const modal = (title: string, content: string, callback?: () => void, can
   });
 };
 
-/**
- * 网络状态汇报
- *
- * @returns {void}
- */
-const netWorkReport = () => {
+/** 网络状态汇报 */
+const netReport = () => {
 
   // 获取网络信息
   wx.getNetworkType({
@@ -76,7 +72,7 @@ const netWorkReport = () => {
           break;
         default:
           tip('网络连接出现问题，请稍后重试');
-      };
+      }
 
       logger.warn('Request fail with', networkType);
     },
@@ -106,21 +102,20 @@ const request = (
     url: `https://mp.nenuyouth.com/${path}.json`,
     success: res => {
       console.log('Request success:', res);// 调试
-      if (res.statusCode === 200) return callback(res.data as object);
+      if (res.statusCode === 200) callback(res.data as object);
+      else {
+        tip('服务器出现问题，请稍后重试');
+        // 调试
+        console.warn(`Request ${path} fail: ${res.statusCode}`);
+        logger.warn(`Request ${path} fail: ${res.statusCode}`);
+        wx.reportMonitor('3', 1);
 
-      tip('服务器出现问题，请稍后重试');
-      // 调试
-      console.warn(`Request ${path} fail: ${res.statusCode}`);
-      logger.warn(`Request ${path} fail: ${res.statusCode}`);
-      wx.reportMonitor('3', 1);
-
-      if (errorFunc) errorFunc(res.statusCode);
-
-      return null;
+        if (errorFunc) errorFunc(res.statusCode);
+      }
     },
     fail: failMsg => {
       if (failFunc) failFunc(failMsg);
-      netWorkReport();
+      netReport();
 
       // 调试
       console.warn(`Request ${path} fail:`, failMsg);
@@ -147,28 +142,27 @@ const downLoad = (
   const progress = wx.downloadFile({
     url: `https://mp.nenuyouth.com/${path}`,
     success: res => {
-      if (res.statusCode === 200) return callback(res.tempFilePath);
+      if (res.statusCode === 200) callback(res.tempFilePath);
+      else {
+        tip('服务器出现问题，请稍后重试');
+        if (errorFunc) errorFunc(res.statusCode);
 
-      tip('服务器出现问题，请稍后重试');
-      if (errorFunc) errorFunc(res.statusCode);
-
-      // 调试
-      console.warn(`DownLoad ${path} fail: ${res.statusCode}`);
-      logger.warn(`DownLoad ${path} fail: ${res.statusCode}`);
-
-      return null;
+        // 调试
+        console.warn(`DownLoad ${path} fail: ${res.statusCode}`);
+        logger.warn(`DownLoad ${path} fail: ${res.statusCode}`);
+      }
     },
     fail: failMsg => {
       if (failFunc) failFunc(failMsg);
-      netWorkReport();
+      netReport();
       console.warn(`DownLoad ${path} fail:`, failMsg);
       logger.warn(`DownLoad ${path} fail:`, failMsg);
     }
   });
 
   progress.onProgressUpdate(res => {
-    wx.showLoading({ title: `下载中${Math.round(res.progress)}%` })
+    wx.showLoading({ title: `下载中${Math.round(res.progress)}%` });
   });
 };
 
-export default { downLoad, netReport: netWorkReport, request, tip, modal };
+export default { downLoad, modal, netReport, request, tip };

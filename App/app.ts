@@ -2,16 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 13:51:39
+ * @LastEditTime: 2019-07-30 16:21:49
  * @Description: 小程序主脚本
  */
 
 import $register from 'wxpage';
 import app from './utils/app';
 
-const $App = $register.A;
-
-$App({
+$register.A({
   globalData: {
     version: 'V 2.1.4',
     music: { play: false, played: false, index: 0 },

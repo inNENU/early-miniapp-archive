@@ -1,4 +1,11 @@
-/* global wx Page*/
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-07-30 14:43:46
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-07-30 16:27:26
+ * @Description: 建设中页面
+ */
+
 import $register from 'wxpage';
 import $wx from '../utils/wx';
 

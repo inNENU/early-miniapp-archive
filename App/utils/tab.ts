@@ -16,7 +16,7 @@ const logger = wx.getLogManager({ level: 1 });
 /**
  * 资源下载 from fuction.js & guide.js 被checkResUpdate调用
  *
- * @param {string} name 下载资源名称
+ * @param name 下载资源名称
  */
 const resDownload = (name: string) => {
   wx.showLoading({ title: '更新中...', mask: true });
@@ -73,7 +73,7 @@ const checkResUpdate = (name: string, dataUsage: string) => {
   console.log(`${name}通知状态为${notify}`, '本地版本文件为：', localVersion);
   console.log(`${name}更新于${localTime}, 现在时间是${currentTime}`);
 
-  if (notify || currentTime > localTime + 1000000)// 如果需要更新
+  if (notify || currentTime > Number(localTime) + 1000000)// 如果需要更新
     $wx.request(`${name}Version`, data => {
 
       // 资源为最新
@@ -102,7 +102,7 @@ const checkResUpdate = (name: string, dataUsage: string) => {
                 if (choice2.cancel) $wx.modal(
                   '更新提示已关闭', '您可以在设置中重新打开提示。请注意：小程序会每半个月对界面文件进行强制更新。',
                   () => {
-                    wx.setStorageSync(`${name}ResNotify`, false);// 关闭更新提示       
+                    wx.setStorageSync(`${name}ResNotify`, false);// 关闭更新提示
                   }
                 );
               }
@@ -119,8 +119,7 @@ const checkResUpdate = (name: string, dataUsage: string) => {
 /**
  * 动态根据夜间模式改变导航栏 from main.js & me.js
  *
- * @param {boolean} nightmode 夜间模式开启状态
- * @returns {void}
+ * @param nightmode 夜间模式开启状态
  */
 const tabBarChanger = (nightmode: boolean) => {
   const color = nightmode ? ['#000000', 'white'] : ['#ffffff', 'black'];
@@ -132,8 +131,8 @@ const tabBarChanger = (nightmode: boolean) => {
  * 动态根据夜间模式改变导航栏 from main.js & me.js
  *
  * @param name 页面名称
- * @param globalData 全局数据
  * @param ctx 页面指针
+ * @param globalData 全局数据
  */
 const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   const test = wx.getStorageSync('test');
@@ -141,17 +140,17 @@ const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   // 开启测试后展示测试界面
   if (test) $wx.request(`config/${name}Test`, data => {
     wx.setStorageSync(name, data);
-    $page.Set({ option: { aim: name }, ctx }, data as PageData);
+    $page.Set({ ctx, option: { aim: name } }, data as PageData);
   });
   // 普通界面加载
   else $wx.request(`config/${globalData.version}/${name}`, data => {
-    $page.Set({ option: { aim: name }, ctx }, data as PageData);
+    $page.Set({ ctx, option: { aim: name } }, data as PageData);
   });
 };
 
 interface Marker {
-  id: number,
-  latitude: number,
+  id: number;
+  latitude: number;
   longitude: number;
   title?: string;
   name: string;
@@ -169,7 +168,7 @@ const initMarker = (markers: Marker[]) => {
     const markerOrigin = {
       iconPath: '/function/icon/marker.png', width: 25, height: 25, alpha: 0.8,
       label: {
-        content: marker.name, color: '#1A9D5E', fontSize: '10', anchorX: -4 - 5 * marker.name.length, anchorY: 0,
+        content: marker.name, color: '#1A9D5E', fontSize: '10', anchorX: marker.name.length * (-5) - 4, anchorY: 0,
         bgColor: '#ffffff', borderWidth: 1, borderColor: '#efeef4', borderRadius: 2, padding: '3'
       },
       callout: {
@@ -203,7 +202,7 @@ interface MarkerData extends Marker {
     borderColor: string;
     borderRadius: number;
     padding: string;
-  }
+  };
   callout: {
     content: string;
     color: string;
@@ -211,15 +210,15 @@ interface MarkerData extends Marker {
     bgColor: string;
     borderRadius: number;
     padding: string;
-    display: 'BYCLICK' | 'ALWAYS'
-  }
+    display: 'BYCLICK' | 'ALWAYS';
+  };
 }
 
 interface MarkerConfig {
   points: MarkerData[];
   category: {
     [props: string]: number[];
-  }
+  };
 }
 
 /**
@@ -227,19 +226,20 @@ interface MarkerConfig {
  *
  * @param data marker数据
  * @param name marker名称
- * @returns {boolean} 成功后返回
+ * @returns 成功后返回
  */
 const setMarker = (data: MarkerConfig, name: string) => {
   const marker = initMarker(data.points);
   const { category } = data;
 
   wx.setStorageSync(`${name}-all`, marker);
-  Object.keys(category).forEach(i => {
-    const markerDetail = [];
+  Object.keys(category)
+    .forEach(i => {
+      const markerDetail = [];
 
-    for (let j = category[i][0]; j <= category[i][1]; j++) markerDetail.push(marker[j]);
-    wx.setStorageSync(`${name}-${i}`, markerDetail);
-  });
+      for (let j = category[i][0]; j <= category[i][1]; j += 1) markerDetail.push(marker[j]);
+      wx.setStorageSync(`${name}-${i}`, markerDetail);
+    });
 
   return true;
 };
@@ -276,7 +276,11 @@ const markerSet = () => {
         $file.writeJson('function', 'marker', data);
 
         // 设置Marker
-        if (setMarker(data as MarkerConfig[][0], 'benbu') && setMarker(data as MarkerConfig[][1], 'jingyue') && markerVersion)
+        if (
+          setMarker(data as MarkerConfig[][0], 'benbu') &&
+          setMarker(data as MarkerConfig[][1], 'jingyue') &&
+          markerVersion
+        )
           wx.setStorageSync('markerVersion', markerVersion);
         else {
           console.warn('Marker set failure.');
@@ -287,4 +291,4 @@ const markerSet = () => {
   }
 };
 
-export default { update: checkResUpdate, tabBarChanger, refresh: refreshPage, markerSet, resDownload };
+export default { markerSet, resDownload, tabBarChanger, update: checkResUpdate, refresh: refreshPage };

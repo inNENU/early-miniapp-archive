@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 22:44:31
+ * @LastEditTime: 2019-07-30 16:43:35
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -56,8 +56,8 @@ $register('music', {
 
     // 写入基本信息
     this.setData!({
-      share: option.share || false,
       index,
+      share: option.share || false,
       info: a.info,
       nm: a.nm,
       play: a.music.play,
@@ -85,7 +85,7 @@ $register('music', {
       // 在线获取歌曲列表
     } else $wx.request('function/song', data => {
       currentSong = data[index];
-      this.setData!({ songList: data, currentSong });
+      this.setData!({ currentSong, songList: data });
 
       // 如果正在播放，设置能够播放
       if (a.music.played) this.setData!({ canplay: true });
@@ -103,12 +103,12 @@ $register('music', {
       $file.writeJson('function', 'song', data);
     });
 
-    //　能够播放100ms后设置可以播放
+    // 能够播放100ms后设置可以播放
     manager.onCanplay(() => {
       setTimeout(() => {
         console.log('Canplay'); // 调试
         this.setData!({ canplay: true });
-      }, 100)
+      }, 100);
     });
 
     // 在相应动作时改变状态
@@ -130,19 +130,23 @@ $register('music', {
        * console.log(`bufferedTime是${manager.buffered},duration是${manager.duration}`);
        */
 
-      const presentSecond = Math.round(manager.currentTime % 60).toString();
-      const totalSecond = Math.round(manager.duration % 60).toString();
+      const presentSecond = Math.round(manager.currentTime % 60)
+        .toString();
+      const totalSecond = Math.round(manager.duration % 60)
+        .toString();
 
       // 更新歌曲信息
       this.setData!({
         songLength: Math.round(manager.duration * 100) / 100,
         total: [
-          Math.round(manager.duration / 60).toString(),
+          Math.round(manager.duration / 60)
+            .toString(),
           totalSecond.length === 1 ? `0${totalSecond}` : totalSecond
         ],
         currentTime: Math.round(manager.currentTime * 100) / 100,
         present: [
-          Math.round(manager.currentTime / 60).toString(),
+          Math.round(manager.currentTime / 60)
+            .toString(),
           presentSecond.length === 1 ? `0${presentSecond}` : presentSecond
         ],
         bufferedTime: manager.buffered,
@@ -210,13 +214,13 @@ $register('music', {
         index = temp;
         break;
       case 2:
-        index = index + 1 === total ? 'stop' : index + 1;
+        index = index as number + 1 === total ? 'stop' : index as number + 1;
         $wx.tip('播放完毕');
         break;
       case 1:
         break;
       case 0:
-      default: index = index + 1 === total ? 0 : index + 1;
+      default: index = index as number + 1 === total ? 0 : index as number + 1;
     }
     this.Switch(index);
   },
@@ -232,14 +236,14 @@ $register('music', {
         index = temp;
         break;
       case 2:
-        if (index + 1 === total) {
+        if (index as number + 1 === total) {
           index = 'nothing';
           $wx.tip('已是最后一曲');
         } else index += 1;
         break;
       case 1:
       case 0:
-      default: index = index + 1 === total ? 0 : index + 1;
+      default: index = index as number + 1 === total ? 0 : index as number + 1;
     }
     this.Switch(index);
   },
@@ -276,7 +280,7 @@ $register('music', {
 
       manager.stop();
 
-    } else if (index !== 'nothing') {　// 正常赋值
+    } else if (index !== 'nothing') { // 正常赋值
 
       const currentSong = this.data.songList[index];
 
@@ -296,15 +300,18 @@ $register('music', {
   },
   modeSwitch() { // 切换播放模式
     let modeName;
-    const mode = this.data.mode === 3 ? 0 : this.data.mode + 1;
+    const mode = this.data.mode === 3 ? 0 : this.data.mode as number + 1;
 
     this.setData!({ mode });
     switch (mode) {
-      case 1: modeName = '单曲循环';
+      case 1:
+        modeName = '单曲循环';
         break;
-      case 2: modeName = '顺序播放';
+      case 2:
+        modeName = '顺序播放';
         break;
-      case 3: modeName = '随机播放';
+      case 3:
+        modeName = '随机播放';
         break;
       case 0:
       default:

@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-07-27 14:38:52
+ * @LastEditTime: 2019-07-30 16:08:57
  */
 
 // 初始化文件管理器、用户路径与日志管理器
@@ -16,11 +16,14 @@ const logger = wx.getLogManager({ level: 1 });
  * @param path 要删除的文件或文件夹路径
  * @param isDir 要删除的是否是文件夹
  */
-const Delete = (path: string, isDir = false) => {
+const Delete = (path: string, isDir?: boolean | null) => {
   if (isDir === null)
     try {
       // 判断路径是否是文件，并执行对应删除操作
-      if (fileManager.statSync(`${userPath}/${path}`).isFile())
+      if (
+        fileManager.statSync(`${userPath}/${path}`)
+          .isFile()
+      )
         fileManager.unlinkSync(`${userPath}/${path}`);
       else fileManager.rmdirSync(`${userPath}/${path}`, true);
 
@@ -29,29 +32,27 @@ const Delete = (path: string, isDir = false) => {
       logger.warn(`删除${path}出错,错误为:`, err);
     }
   // 是目录
-  else if (isDir) try {
-
-    fileManager.rmdirSync(`${userPath}/${path}`, true);
-
-  } catch (err) { // 调试
-    console.error(`删除${path}出错,错误为:`, err);
-    logger.warn(`删除${path}出错,错误为:`, err);
-  }
+  else if (isDir)
+    try {
+      fileManager.rmdirSync(`${userPath}/${path}`, true);
+    } catch (err) { // 调试
+      console.error(`删除${path}出错,错误为:`, err);
+      logger.warn(`删除${path}出错,错误为:`, err);
+    }
   // 是文件
-  else try {
-
-    fileManager.unlinkSync(`${userPath}/${path}`);
-
-  } catch (err) { // 调试
-    console.error(`删除${path}出错,错误为:`, err);
-    logger.warn(`删除${path}出错,错误为:`, err);
-  }
+  else
+    try {
+      fileManager.unlinkSync(`${userPath}/${path}`);
+    } catch (err) { // 调试
+      console.error(`删除${path}出错,错误为:`, err);
+      logger.warn(`删除${path}出错,错误为:`, err);
+    }
 };
 
 /**
  * 列出目录下文件
  * @param path 要查看的文件夹路径
- * @return {string[]} 指定目录下的文件名数组
+ * @returns 指定目录下的文件名数组
  */
 const listFile = (path: string) => {
   try {
@@ -70,9 +71,10 @@ const listFile = (path: string) => {
 
 /**
  * 文件管理器读取文件包装
+ *
  * @param path 待读取文件相对用户文件夹的路径
  * @param encoding 文件的编码格式
- * @return {string} 文件内容
+ * @returns 文件内容
  */
 const readFile = (path: string, encoding = 'utf-8') => {
   try {
@@ -81,15 +83,16 @@ const readFile = (path: string, encoding = 'utf-8') => {
     console.warn(`${path}不存在`);
     logger.debug(`${path}不存在`);
 
-    return null;
+    return undefined;
   }
 };
 
 /**
  * 读取并解析Json文件
+ *
  * @param path Json文件相对用户文件夹的路径
  * @param encoding 文件的编码格式
- * @return {object} 解析后的json
+ * @returns  解析后的json
  */
 const readJson = (path: string, encoding = 'utf-8') => {
   let fileContent;
@@ -103,7 +106,7 @@ const readJson = (path: string, encoding = 'utf-8') => {
       console.log(`read ${path}.json成功：`, data);
 
     } catch (err) {
-      data = null;
+      data = undefined;
 
       // 调试
       console.warn(`${path}解析失败`);
@@ -111,7 +114,7 @@ const readJson = (path: string, encoding = 'utf-8') => {
     }
 
   } catch (err) {
-    data = null;
+    data = undefined;
 
     // 调试
     console.warn(`${path}不存在`);
@@ -154,9 +157,12 @@ const saveFile = (tempFilePath: string, path: string) => {
 
 /**
  * 保存在线文件
- * @param onlinePath 在线文件路径
- * @param savePath 本地保存路径
- * @param fileName 本地保存文件名
+ *
+ * @param array 参数数组
+ *  - onlinePath 在线文件路径
+ *  - savePath 本地保存路径
+ *  - fileName 本地保存文件名
+ *
  * @param successFunc 成功回调函数
  * @param failFunc  失败回调函数
  * @param errorFunc 失败回调函数
@@ -223,43 +229,43 @@ const writeJson = (path: string, fileName: string, data: object, encoding = 'utf
  * @param path JSON文件路径
  * @param callback Json获取成功后的回调
  * @param failFunc Json获取失败后的回调
+ * @returns callback或null
  */
 const getJson = (path: string, callback: (data: object | string) => void, failFunc?: () => void) => {
   let data = readJson(path);
 
-  if (data) return callback(data);
+  if (data) callback(data);
+  else {
 
-  const temp = path.split('/');
-  const fileName = temp.pop();
-  const folder = temp.join('/');
+    const temp = path.split('/');
+    const fileName = temp.pop();
+    const folder = temp.join('/');
 
-  makeDir(folder);
+    makeDir(folder);
 
-  wx.downloadFile({
-    url: `https://mp.nenuyouth.com/${path}.json`,
-    filePath: `${userPath}/${folder}/${fileName}.json`,
-    success: res => {
-      if (res.statusCode === 200) {
-        console.info(`Save ${path}.json success`);
+    wx.downloadFile({
+      url: `https://mp.nenuyouth.com/${path}.json`,
+      filePath: `${userPath}/${folder}/${fileName}.json`,
+      success: res => {
+        if (res.statusCode === 200) {
+          console.info(`Save ${path}.json success`);
 
-        data = readJson(path);
+          data = readJson(path);
 
-        return callback(data);
+          callback(data);
+        } else {
+          console.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
+          logger.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
+          if (failFunc) failFunc();
+        }
+      },
+      fail: failMsg => {
+        console.warn(`下载${path}.json失败，错误为`, failMsg);
+        logger.warn(`下载${path}.json失败，错误为`, failMsg);
+        if (failFunc) failFunc();
       }
-      console.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
-      logger.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
-      if (failFunc) return failFunc();
-
-      return null;
-    },
-    fail: failMsg => {
-      console.warn(`下载${path}.json失败，错误为`, failMsg);
-      logger.warn(`下载${path}.json失败，错误为`, failMsg);
-      if (failFunc) return failFunc();
-
-      return null;
-    }
-  });
+    });
+  }
 };
 
 /**
@@ -272,9 +278,7 @@ const unzip = (path: string, unzipPath: string, callback?: () => void) => {
   fileManager.unzip({
     zipFilePath: `${userPath}/${path}`, targetPath: `${userPath}/${unzipPath}`,
     success: () => {
-      if (callback) return callback();
-
-      return null;
+      if (callback) callback();
     },
     fail: failMsg => {
       console.error(`unzip ${path} fail:`, failMsg);
@@ -284,6 +288,6 @@ const unzip = (path: string, unzipPath: string, callback?: () => void) => {
 };
 
 export default {
-  Delete, getJson, Manager: fileManager, listFile, readFile, readJson,
-  makeDir, saveFile, saveOnlineFile, writeFile, writeJson, unzip
+  Delete, getJson, listFile, readFile, readJson,
+  makeDir, saveFile, saveOnlineFile, writeFile, writeJson, unzip, Manager: fileManager
 };

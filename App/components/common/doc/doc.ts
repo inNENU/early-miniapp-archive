@@ -42,7 +42,10 @@ $register.C({
         });
 
         // 检测到图片，开始图片浏览
-      } else if (['jpg', 'jpeg', 'jfif', 'png', 'gif'].includes(this.data.config.docType)) wx.previewImage({ urls: [this.data.config.url] });
+      } else if (
+        ['jpg', 'jpeg', 'jfif', 'png', 'gif']
+          .includes(this.data.config.docType)
+      ) wx.previewImage({ urls: [this.data.config.url] });
     }
   },
   options: {

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 11:06:38
+ * @LastEditTime: 2019-07-30 15:59:10
  * @Description: APP函数库
  */
 
@@ -48,6 +48,7 @@ const appOption: AppOption = {
  * 下载list中的对应资源
  *
  * @param list 需要下载的资源列表
+ * @param callBack 下载完成的回调函数
  */
 const resDownload = (list: string[], callBack: () => void) => {
   /** 监听数 */
@@ -133,15 +134,16 @@ const appInit = () => {
   }
 
   // 写入预设数据
-  for (const data in appOption) if (data !== 'theme') wx.setStorageSync(data, appOption[data]);
+  Object.keys(appOption)
+    .forEach(data => {
+      if (data !== 'theme') wx.setStorageSync(data, appOption[data]);
+    });
 
   resDownload(['page', 'function'], () => {
     // 成功初始化
     wx.setStorageSync('inited', true);
-
-    wx.hideLoading()
+    wx.hideLoading();
   });
-
 };
 
 /**
@@ -217,9 +219,11 @@ export const nightmode = () => {
   /** 日间模式亮度改变状态 */
   const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
   /** 夜间模式开始时间 */
-  const nmStart = wx.getStorageSync('nightmodeStartTime').split('-');
+  const nmStart = wx.getStorageSync('nightmodeStartTime')
+    .split('-');
   /** 夜间模式结束时间 */
-  const nmEnd = wx.getStorageSync('nightmodeEndTime').split('-');
+  const nmEnd = wx.getStorageSync('nightmodeEndTime')
+    .split('-');
   const nightmodeStartTime = Number(nmStart[0]) * 100 + Number(nmStart[1]);
   const nightmodeEndTime = Number(nmEnd[0]) * 100 + Number(nmEnd[1]);
   /** 当前夜间模式状态 */
@@ -260,7 +264,7 @@ interface VersionInfo {
 
 /**
  * 检查小程序更新
- * 
+ *
  * 如果检测到小程序更新，获取升级状态（新版本号，是否立即更新、是否重置小程序）并做相应处理
  *
  * @param localVersion 小程序的本地版本
@@ -299,9 +303,10 @@ const appUpdate = (localVersion: string) => {
               wx.showLoading({ title: '初始化中', mask: true });
 
               // 清除文件系统文件与数据存储
-              $file.listFile('').forEach(filePath => {
-                $file.Delete(filePath);
-              });
+              $file.listFile('')
+                .forEach(filePath => {
+                  $file.Delete(filePath);
+                });
               wx.clearStorageSync();
 
               // 隐藏提示
@@ -332,7 +337,7 @@ const appUpdate = (localVersion: string) => {
 
 /**
  * 小程序启动时的运行函数
- * 
+ *
  * 负责检查通知与小程序更新，注册网络、内存、截屏的监听
  *
  * @param version 小程序的版本
@@ -347,7 +352,7 @@ const startup = (version: string) => {
     $wx.tip('内存不足');
     console.warn('onMemoryWarningReceive');
     wx.reportAnalytics('memory_warning', {
-      memory_warning: res && res.level ? res.level : 0,
+      memory_warning: res && res.level ? res.level : 0
     });
   });
 

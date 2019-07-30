@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 12:59:54
+ * @LastEditTime: 2019-07-30 16:22:28
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -101,7 +101,8 @@ $register('about', {
     $wx.request(`config/${a.version}/about`, (data: object) => {
       $page.Set(
         { option: { aim: 'about' }, ctx: this },
-        this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1))
+        this.data.page.slice(0, 2)
+          .concat(data, this.data.page.slice(-1))
       );
     });
 
@@ -175,9 +176,10 @@ $register('about', {
   deleteFile() {
     wx.showLoading({ title: '删除中', mask: true });
 
-    $file.listFile('').forEach((filePath: string) => {
-      $file.Delete(filePath);
-    });
+    $file.listFile('')
+      .forEach((filePath: string) => {
+        $file.Delete(filePath);
+      });
 
     wx.hideLoading();
   },
@@ -186,9 +188,10 @@ $register('about', {
     wx.showLoading({ title: '初始化中', mask: true });
 
     // 清除文件系统文件与数据存储
-    $file.listFile('').forEach((filePath: string) => {
-      $file.Delete(filePath);
-    });
+    $file.listFile('')
+      .forEach((filePath: string) => {
+        $file.Delete(filePath);
+      });
     wx.clearStorageSync();
 
     // 隐藏提示

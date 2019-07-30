@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-21 15:08:44
+ * @LastEditTime: 2019-07-30 16:35:57
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -106,7 +106,8 @@ $register('map', {
   },
   onReady() {
     // 设置tab
-    wx.createSelectorQuery().select('#mapTab')
+    wx.createSelectorQuery()
+      .select('#mapTab')
       .boundingClientRect(rect => {
         this.setData!({ tabHeight: rect.height });
       })
@@ -114,18 +115,26 @@ $register('map', {
   },
   getMarker() {
     const value = wx.getStorageSync('mapSwitch');
-    const mapSwitch = value || value === false ? value : (wx.setStorageSync('mapSwitch', true), true);
+    let mapSwitch;
+
+    if (value || value === false)
+      mapSwitch = value;
+    else {
+      wx.setStorageSync('mapSwitch', true);
+      mapSwitch = true;
+    }
+
     const markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
 
     return { mapSwitch, markers };
   },
-  Switch() {
+  switchTap() {
     const temp = !this.data.mapSwitch;
     const markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
 
     this.setData!({
-      mapSwitch: temp,
-      markers
+      markers,
+      mapSwitch: temp
     });
     this.mapCtx = wx.createMapContext('schoolMap');
     this.mapCtx.includePoints(temp ? includePoint1 : includePoint2);
@@ -147,7 +156,7 @@ $register('map', {
       success: (r2: any) => {
         this.setData!({
           map: {
-            scale: this.data.map.scale + (e.currentTarget.dataset.action === 'enlarge' ? 1 : -1),
+            scale: this.data.map.scale as number + (e.currentTarget.dataset.action === 'enlarge' ? 1 : -1),
             latitude: r2.latitude, longitude: r2.longitude
           }
         });
@@ -201,9 +210,9 @@ $register('map', {
     const xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
 
     if (e.type === 'markertap')
-      this.$preload(`situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + e.markerId}`);
+      this.$preload(`situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + e.markerId.toString()}`);
     else if (e.type === 'callouttap')
-      this.$route(`/function/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + e.markerId}`);
+      this.$route(`/function/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + e.markerId.toString()}`);
   },
   showList() {
     if (this.data.list) {
@@ -214,7 +223,7 @@ $register('map', {
     } else
       this.setData!({
         list: !this.data.list,
-        closeTop: a.info.statusBarHeight + 5.5
+        closeTop: a.info.statusBarHeight as number + 5.5
       });
 
   },
