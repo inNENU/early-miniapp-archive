@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-29 19:25:15
+ * @LastEditTime: 2019-07-30 11:04:22
  * @Description: 天气预报
  */
 import $register from 'wxpage';
@@ -111,7 +111,7 @@ $register('weather', {
       const x = width / 10 + i * width / 5;
       const y = (max - highTemperature[i]) / gap * 100;
 
-      ctx.fillText(`${dayForecast[i].max_degree}°`, x - 12, y + 20);
+      ctx.fillText(`${dayForecast[i].max_degree}°`, x - 10, y + 20);
       if (i === 0) ctx.moveTo(x, y + 32);
       else ctx.lineTo(x, y + 32);
     };
@@ -125,12 +125,14 @@ $register('weather', {
       const x = width / 10 + i * width / 5;
       const y = (max - lowTemperature[i]) / gap * 100;
 
-      ctx.fillText(`${dayForecast[i].min_degree}°`, x - 12, y + 44);
+      ctx.fillText(`${dayForecast[i].min_degree}°`, x - 10, y + 44);
       if (i === 0) ctx.moveTo(x, y + 20);
       else ctx.lineTo(x, y + 20);
     };
     ctx.stroke();
     ctx.draw(true);
+
+    this.setData!({ statusBarHeight: wx.getSystemInfoSync().statusBarHeight });
   },
   // 更新提示
   refresh() {
@@ -138,5 +140,11 @@ $register('weather', {
     const number = this.data.number;
 
     this.setData!({ number: number === 0 ? length - 1 : number - 1 });
+  },
+  back() {
+    this.$back();
+  },
+  redirect() {
+    wx.switchTab({ url: '/page/main' });
   }
 });

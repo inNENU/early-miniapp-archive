@@ -17,6 +17,7 @@ page {
   position: relative;
   text-align: center;
   color: #fff;
+  box-sizing: border-box;
 }
 
 .location {

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-24 10:47:58
+ * @LastEditTime: 2019-07-30 11:06:38
  * @Description: APP函数库
  */
 
@@ -166,7 +166,7 @@ const noticeCheck = (version: string) => {
     keys.forEach(page => {
 
       // 如果读取到强制通知设置，每次都要通知，直接写入通知信息
-      if (noticeList[page][2] === true) {
+      if (noticeList[page][2]) {
         wx.setStorageSync(`${page}notice`, [noticeList[page][0], noticeList[page][1]]);
         wx.setStorageSync(`${page}Notify`, true);
 
@@ -174,7 +174,7 @@ const noticeCheck = (version: string) => {
       } else {
         const oldNotice = wx.getStorageSync(`${page}notice`);
 
-        if (!oldNotice || oldNotice[0] !== page[0] || oldNotice[1] !== page[1]) {
+        if (!oldNotice || oldNotice[0] !== noticeList[page][0] || oldNotice[1] !== noticeList[page][1]) {
           wx.setStorageSync(`${page}notice`, [noticeList[page][0], noticeList[page][1]]);
           wx.setStorageSync(`${page}Notify`, true);// 写入
         }

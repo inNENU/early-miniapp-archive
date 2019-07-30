@@ -1,4 +1,7 @@
-<view class="weatherCtn">
+<view class="weatherCtn" style="padding-top:{{statusBarHeight}}px;">
+  <view class='backBtn' style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'back'}}" data-action='back'>
+    <image class="backIcon" src="/icon/back{{nm?'':'Black'}}.png" />
+  </view>
   <view class="location icon-location">长春市 南关区</view>
   <view class="temperature">{{weather.observe.degree}}°</view>
   <view class="type">{{weather.observe.weather}}</view>
@@ -36,7 +39,7 @@
 <!-- 小时预报 -->
 <scroll-view scroll-x="true" class="hours borderTB">
   <view class="flexCtn">
-    <view wx:for="{{weather.hourForecast}}" class="item">
+    <view wx:for="{{weather.hourForecast}}" class="item" wx:key="update_time">
       <text class="time">{{item.update_time}}</text>
       <image class="icon" src="https://mp.nenuyouth.com/img/weather/icon/{{item.weather_code}}.svg" />
       <text class="degree">{{item.degree}}</text>
@@ -45,7 +48,7 @@
 </scroll-view>
 <!-- 日预报 -->
 <view class="days flexCtn borderTB">
-  <view wx:for="{{weather.dayForecast}}" class="item">
+  <view wx:for="{{weather.dayForecast}}" class="item" wx:key="weekday">
     <view class="day">{{item.weekday}}</view>
     <view class="date">{{item.time}}</view>
     <view class="weather">{{item.day_weather_short}}</view>
@@ -59,16 +62,13 @@
   <canvas class="canvas temperature" canvas-id="weather" />
 </view>
 <!-- 其他信息 -->
-<swiper class="info" indicator-dots="false">
+<!-- <swiper class="info" indicator-dots="false">
   <swiper-item class="" item-id="0">
     <view class="item">
-        <text class="icon icon_xianhao"></text>
-        <view class="content">{{weather.index.clothes.info}}</view>
-        <view class="title">{{weather.index.clothes.name}}</view>
-      </li>
+      <text class="icon icon_xianhao"></text>
+      <view class="content">{{weather.index.clothes.info}}</view>
+      <view class="title">{{weather.index.clothes.name}}</view>
     </view>
   </swiper-item>
-  <swiper-item class="" item-id="1">
-    
-  </swiper-item>
-</swiper>
+  <swiper-item class="" item-id="1"></swiper-item>
+</swiper> -->

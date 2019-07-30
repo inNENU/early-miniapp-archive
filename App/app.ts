@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-29 18:39:39
+ * @LastEditTime: 2019-07-30 13:51:39
  * @Description: 小程序主脚本
  */
 
@@ -13,7 +13,7 @@ const $App = $register.A;
 
 $App({
   globalData: {
-    version: 'V 2.1.1',
+    version: 'V 2.1.4',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -29,7 +29,7 @@ $App({
     resolvePath: (name: string) =>
       ['main', 'function', 'guide', 'me'].includes(name)
         ? `/page/${name}`
-        : ['setting', 'version', 'about'].includes(name)
+        : ['setting', 'version', 'about', 'authorize'].includes(name)
           ? `/settings/${name}`
           : ['weather', 'map', 'situs', 'PEcal', 'player'].includes(name)
             ? `/function/${name}`
@@ -37,6 +37,11 @@ $App({
   },
 
   onLaunch(opts) {
+    wx.getSetting({
+      success: res => {
+        console.warn(res.authSetting);
+      }
+    });
     console.info('小程序启动，参数为', opts); // 调试
 
     // Const capsule = wx.getMenuButtonBoundingClientRect();

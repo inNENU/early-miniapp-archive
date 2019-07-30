@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-23 10:25:04
+ * @LastEditTime: 2019-07-30 12:59:54
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -37,7 +37,7 @@ $register('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\n优化样式` },
+          { text: `${a.version}\n添加天气页面` },
           { text: '查看详细日志', url: '/settings/version' }
         ]
       },
@@ -48,6 +48,7 @@ $register('about', {
           { text: '   小程序全部内容均由Hope Studio独立开发。' },
           { text: 'Hope Studio介绍', aim: 'MrHope0' },
           { text: 'Mr.Hope个人介绍', aim: 'MrHope1' },
+          { text: '开发者访谈', aim: 'MrHope3' },
           { text: '   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月在界面编写、排版与订正上给予的无私帮助。' }
         ]
       },
