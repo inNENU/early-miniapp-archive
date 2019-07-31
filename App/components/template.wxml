@@ -108,7 +108,7 @@ Author: Mr.Hope
             </view>
             <view class="linkDesciption">
               {{List.desc}}
-              <switch wx:if="{{List.swiKey}}" checked="{{List.status}}" bind:change="{{List.Switch?List.Switch:'cA'}}" color="{{color}}" data-id="{{List.id}}" data-action="switch" />
+              <switch wx:if="{{List.swiKey}}" checked="{{List.status}}" bindchange="{{List.Switch?List.Switch:'cA'}}" color="{{color}}" data-id="{{List.id}}" data-action="switch" />
             </view>
           </view>
         </view>
@@ -116,7 +116,7 @@ Author: Mr.Hope
         <block wx:if="{{List.visible}}">
           <view class="link-divline"></view>
           <view wx:if="{{List.slider}}" class="sliderCtn">
-            <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value="{{List.value}}" bind:changing="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bind:change="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action="slider" />
+            <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value="{{List.value}}" bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action="slider" />
           </view>
           <picker-view wx:if="{{List.pickerValue}}" indicator-class="pickSelected" class="pickerViewCtn" value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action="picker" mask-class="pickerMask">
             <block wx:if="{{List.single}}">
@@ -213,7 +213,7 @@ Author: Mr.Hope
     <image class="loadingImg" mode="{{imgMode}}" src="/icon/loading.svg" lazy-load="{{true}}" />
     <text>加载中...</text>
   </view>
-  <image id="{{id}}" class="iOS-img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" bind:error="cA" catch:tap="cA" data-action="img" />
+  <image id="{{id}}" class="iOS-img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catch:tap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="iOSN">▲{{desc}}</view>
 </template>
 <!-- iOS错误 -->
@@ -275,7 +275,7 @@ Author: Mr.Hope
     <image class="loadingImg" mode="{{imgMode}}" src="/icon/loading.svg" />
     <text class="Grey">加载中...</text>
   </view>
-  <image id="{{id}}" class="Android-img" style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bind:load="cA" bind:error="cA" catch:tap="cA" data-action="img" />
+  <image id="{{id}}" class="Android-img" style="{{load?'':'width:1rpx;height:1rpx;border:none;box-shadow:none;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" binderror="cA" catch:tap="cA" data-action="img" />
   <view wx:if="{{desc}}" class="AndroidN">▲{{desc}}</view>
 </template>
 <!-- Android错误页面 -->
@@ -341,7 +341,7 @@ Author: Mr.Hope
     <image class='loadingImg' mode="{{imgMode}}" src="/icon/loading.svg" lazy-load="{{true}}" />
     <text>加载中...</text>
   </view>
-  <image id="{{id}}" class='iOS-img' style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bind:load="cA" catch:error="cA" catch:tap="cA" data-action='img' />
+  <image id="{{id}}" class='iOS-img' style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{imgMode}}" lazy-load="{{lazy!==false}}" src="{{src}}" bindload="cA" catch:error="cA" catch:tap="cA" data-action='img' />
   <view wx:if="{{desc}}" class='iOSN'>▲{{desc}}</view>
 </template>
 <!-- NENU错误页面 -->

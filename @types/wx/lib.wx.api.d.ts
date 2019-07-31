@@ -2277,7 +2277,12 @@ innerAudioContext.onError((res) => {
     wifiList: Array<WifiInfo>;
   }
   interface OnGyroscopeChangeCallbackResult {
-    res: Result;
+    /** x 轴的角速度 */
+    x: number;
+    /** y 轴的角速度 */
+    y: number;
+    /** z 轴的角速度 */
+    z: number;
   }
   interface OnHCEMessageCallbackResult {
     /** `messageType=1` 时 ,客户端接收到 NFC 设备的指令 */
@@ -2914,14 +2919,6 @@ innerAudioContext.onError((res) => {
   interface RequestTaskOnHeadersReceivedCallbackResult {
     /** 开发者服务器返回的 HTTP Response Header */
     header: object;
-  }
-  interface Result {
-    /** x 轴的角速度 */
-    x: number;
-    /** y 轴的角速度 */
-    y: number;
-    /** z 轴的角速度 */
-    z: number;
   }
   interface ResultOption {
     /** 小程序切前台的路径 */

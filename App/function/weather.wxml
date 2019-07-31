@@ -3,7 +3,7 @@
     <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'back'}}" data-action='back'>
       <image class="backIcon" src="/icon/back{{nm?'':'Black'}}.png" />
     </view>
-    <button class="share" hover-class="btnHover" hover-start-time="0" plain="true" open-type="share">
+    <button class="share icon-forwardfill" hover-class="btnHover" hover-start-time="0" plain="true" open-type="share">
       分享
     </button>
     <view class="location icon-location">长春市 南关区</view>
@@ -13,9 +13,9 @@
     <view class="detail">{{weather.observe.wind_direction}}风 {{weather.observe.wind_power}}级</view>
     <view class='tip' catch:tap="refresh">{{weather.tips.observe[number]}}</view>
     <view class="background">
-      <view class="layer layer1"></view>
-      <view class="layer layer2"></view>
-      <view class="layer layer3"></view>
+      <view class="layer layer1" animation="{{animation1}}"></view>
+      <view class="layer layer2" animation="{{animation2}}"></view>
+      <view class="layer layer3" animation="{{animation3}}"></view>
     </view>
   </view>
   <view class="forecast borderB">

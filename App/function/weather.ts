@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-31 13:28:29
+ * @LastEditTime: 2019-07-31 15:35:01
  * @Description: 天气预报
  */
 import $register from 'wxpage';
@@ -14,7 +14,8 @@ const { globalData: a } = getApp();
 $register('weather', {
   data: {
     weather: {},
-    number: 0
+    number: 0,
+    animation: {}
   },
   onLoad(options = {}) {
     const weatherData = wx.getStorageSync('weather');
@@ -51,10 +52,14 @@ $register('weather', {
       }
     });
 
-
+    // 设置页面背景色
     wx.setBackgroundColor({
-      backgroundColorTop: '#efeef4', backgroundColor: '#efeef4', backgroundColorBottom: '#efeef4'
+      backgroundColorTop: a.nm ? '#000000' : '#efeef4',
+      backgroundColor: a.nm ? '#000000' : '#efeef4',
+      backgroundColorBottom: a.nm ? '#000000' : '#efeef4'
     });
+
+    this.backgroundChange();
   },
   // 绘制温度曲线
   canvas(weather: WeatherData['data']) {
@@ -96,20 +101,21 @@ $register('weather', {
     ctx.draw();
 
     // 绘制温度与点
-    ctx.setFillStyle('#ffb74d');
     for (let i = 0; i < dayForecast.length; i += 1) {
       const x = width / 10 + i * width / 5;
       const y = (max - highTemperature[i]) / gap * 100;
 
-      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.setFillStyle('#ffb74d');
+      ctx.arc(x, y + 32, 3, 0, Math.PI * 2);
       ctx.fill();
+      ctx.draw(true);
 
+      ctx.setFillStyle('#ffb74d');
       ctx.fillText(`${dayForecast[i].max_degree}°`, x - 10, y + 20);
+      ctx.draw(true);
     }
-    ctx.draw(true);
 
     ctx.setStrokeStyle('#4fc3f7');
-    ctx.setFillStyle('#4fc3f7');
     // 绘制低温曲线
     for (let i = 0; i < dayForecast.length; i += 1) {
       const x = width / 10 + i * width / 5;
@@ -122,17 +128,57 @@ $register('weather', {
     ctx.draw(true);
 
     ctx.setFillStyle('#4fc3f7');
-
     for (let i = 0; i < dayForecast.length; i += 1) {
       const x = width / 10 + i * width / 5;
       const y = (max - lowTemperature[i]) / gap * 100;
 
-
-      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.setFillStyle('#4fc3f7');
+      ctx.arc(x, y + 20, 3, 0, Math.PI * 2);
       ctx.fill();
+      ctx.draw(true);
+
+      ctx.setFillStyle('#4fc3f7');
       ctx.fillText(`${dayForecast[i].min_degree}°`, x - 10, y + 44);
+      ctx.draw(true);
     }
-    ctx.draw(true);
+  },
+  backgroundChange() {
+    const animation1 = wx.createAnimation({
+      duration: 200,
+      timingFunction: 'ease'
+    });
+    const animation2 = wx.createAnimation({
+      duration: 200,
+      timingFunction: 'ease'
+    });
+    const animation3 = wx.createAnimation({
+      duration: 200,
+      timingFunction: 'ease'
+    });
+
+    wx.startAccelerometer({
+      interval: 'normal',
+      success: res => {
+        console.log('success', res);
+      }
+    });
+
+    wx.onAccelerometerChange(res => {
+      console.warn(res.x, res.y, res.z);
+
+      animation1.translateX(res.x * 13.5)
+        .step();
+      animation2.translateX(res.x * 18)
+        .step();
+      animation3.translateX(res.x * 22.5)
+        .step();
+
+      this.setData!({
+        animation1: animation1.export(),
+        animation2: animation2.export(),
+        animation3: animation3.export()
+      });
+    });
   },
   // 更新提示
   refresh() {
@@ -140,6 +186,13 @@ $register('weather', {
     const numbers = this.data.number;
 
     this.setData!({ number: numbers === 0 ? length - 1 : numbers - 1 });
+  },
+  onUnload() {
+    wx.stopAccelerometer({
+      success: res => {
+        console.log('stop success', res);
+      }
+    });
   },
   back() {
     this.$back();
