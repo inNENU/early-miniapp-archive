@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:23:39
+ * @LastEditTime: 2019-07-31 10:50:55
  * @Description: 捐赠
  */
 import $register, { WXPage } from 'wxpage';
@@ -123,13 +123,20 @@ $register('authorize', {
         $wx.modal('权限被拒', '您拒绝了权限授予，请在小程序设置页允许权限', () => {
           wx.openSetting({
             success: res => {
-              if (res.authSetting[authorizeList[type]]) {
-                $wx.tip('授权成功');
-                this.setData!({
-                  [`page[1].content[${type}].desc`]: '√'
-                });
-              }
+              if (res.authSetting[authorizeList[type]]) $wx.tip('授权成功');
               else $wx.tip('授权失败，您没有授权');
+
+              wx.getSetting({
+                success: res2 => {
+                  const list = this.data.page[1].content;
+
+                  authorizeList.forEach((type2, index) => {
+                    if (res2.authSetting[type2]) list[index].desc = '√';
+                  });
+
+                  this.setData!({ 'page[1].content': list });
+                }
+              });
             }
           });
         });

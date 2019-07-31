@@ -1,68 +1,72 @@
-<view class="weatherCtn" style="padding-top:{{statusBarHeight}}px;">
-  <view class='backBtn' style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'back'}}" data-action='back'>
-    <image class="backIcon" src="/icon/back{{nm?'':'Black'}}.png" />
-  </view>
-  <view class="location icon-location">长春市 南关区</view>
-  <view class="temperature">{{weather.observe.degree}}°</view>
-  <view class="type">{{weather.observe.weather}}</view>
-  <view class="detail">湿度 {{weather.observe.humidity}}%</view>
-  <view class="detail">{{weather.observe.wind_direction}}风 {{weather.observe.wind_power}}级</view>
-  <view class='tip' catch:tap="refresh">{{weather.tips.observe[number]}}</view>
-  <view class="background">
-    <view class="layer layer1"></view>
-    <view class="layer layer2"></view>
-    <view class="layer layer3"></view>
-  </view>
-</view>
-<view class="forecast borderB">
-  <view class="item">
-    <view class="top">
-      <text class="date">今天</text>
-      <text class="temperature">31/23°</text>
+<view class="Ctn {{nm?'nm':''}}">
+  <view class="weatherCtn {{night?'night':''}}" style="padding-top:{{statusBarHeight}}px;">
+    <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap="{{share?'redirect':'back'}}" data-action='back'>
+      <image class="backIcon" src="/icon/back{{nm?'':'Black'}}.png" />
     </view>
-    <view class="bottom">
-      <text class="weather">多云转暴雨</text>
-      <image src="https://mp.nenuyouth.com/img/weather/icon/{{weather.forecast_24h[1].day_weather_code}}.svg" class="icon" />
+    <button class="share" hover-class="btnHover" hover-start-time="0" plain="true" open-type="share">
+      分享
+    </button>
+    <view class="location icon-location">长春市 南关区</view>
+    <view class="temperature">{{weather.observe.degree}}°</view>
+    <view class="type">{{weather.observe.weather}}</view>
+    <view class="detail">湿度 {{weather.observe.humidity}}%</view>
+    <view class="detail">{{weather.observe.wind_direction}}风 {{weather.observe.wind_power}}级</view>
+    <view class='tip' catch:tap="refresh">{{weather.tips.observe[number]}}</view>
+    <view class="background">
+      <view class="layer layer1"></view>
+      <view class="layer layer2"></view>
+      <view class="layer layer3"></view>
     </view>
   </view>
-  <view class="item">
-    <view class="top">
-      <text class="date">明天</text>
-      <text class="temperature">27/22°</text>
+  <view class="forecast borderB">
+    <view class="item">
+      <view class="top">
+        <text class="date">今天</text>
+        <text class="temperature">31/23°</text>
+      </view>
+      <view class="bottom">
+        <text class="weather">多云转暴雨</text>
+        <image src="https://mp.nenuyouth.com/img/weather/icon/{{weather.forecast_24h[1].day_weather_code}}.svg" class="icon" />
+      </view>
     </view>
-    <view class="bottom">
-      <text class="weather">中雨转多云</text>
-      <image src="https://mp.nenuyouth.com/img/weather/icon/{{weather.forecast_24h[2].day_weather_code}}.svg" class="icon" />
+    <view class="item">
+      <view class="top">
+        <text class="date">明天</text>
+        <text class="temperature">27/22°</text>
+      </view>
+      <view class="bottom">
+        <text class="weather">中雨转多云</text>
+        <image src="https://mp.nenuyouth.com/img/weather/icon/{{weather.forecast_24h[2].day_weather_code}}.svg" class="icon" />
+      </view>
     </view>
   </view>
-</view>
-<!-- 小时预报 -->
-<scroll-view scroll-x="true" class="hours borderTB">
-  <view class="flexCtn">
-    <view wx:for="{{weather.hourForecast}}" class="item" wx:key="update_time">
-      <text class="time">{{item.update_time}}</text>
-      <image class="icon" src="https://mp.nenuyouth.com/img/weather/icon/{{item.weather_code}}.svg" />
-      <text class="degree">{{item.degree}}</text>
+  <!-- 小时预报 -->
+  <scroll-view scroll-x="true" class="hours borderTB">
+    <view class="flexCtn">
+      <view wx:for="{{weather.hourForecast}}" class="item" wx:key="update_time">
+        <text class="time">{{item.update_time}}</text>
+        <image class="icon" src="https://mp.nenuyouth.com/img/weather/icon/{{item.weather_code}}.svg" />
+        <text class="degree">{{item.degree}}</text>
+      </view>
     </view>
+  </scroll-view>
+  <!-- 日预报 -->
+  <view class="days flexCtn borderTB">
+    <view wx:for="{{weather.dayForecast}}" class="item" wx:key="weekday">
+      <view class="day">{{item.weekday}}</view>
+      <view class="date">{{item.time}}</view>
+      <view class="weather">{{item.day_weather_short}}</view>
+      <image class="icon" src="https://mp.nenuyouth.com/img/weather/icon/{{item.day_weather_code}}.svg" />
+      <image class="icon night" src="https://mp.nenuyouth.com/img/weather/icon/{{item.night_weather_code}}.svg" />
+      <view class="weather">{{item.night_weather_short}}</view>
+      <view class="wind">{{item.night_wind_direction}}</view>
+      <view class="wind">{{item.night_wind_power}}级</view>
+    </view>
+    <!-- 温度曲线 -->
+    <canvas class="canvas temperature" canvas-id="weather" />
   </view>
-</scroll-view>
-<!-- 日预报 -->
-<view class="days flexCtn borderTB">
-  <view wx:for="{{weather.dayForecast}}" class="item" wx:key="weekday">
-    <view class="day">{{item.weekday}}</view>
-    <view class="date">{{item.time}}</view>
-    <view class="weather">{{item.day_weather_short}}</view>
-    <image class="icon" src="https://mp.nenuyouth.com/img/weather/icon/{{item.day_weather_code}}.svg" />
-    <image class="icon night" src="https://mp.nenuyouth.com/img/weather/icon/{{item.night_weather_code}}.svg" />
-    <view class="weather">{{item.night_weather_short}}</view>
-    <view class="wind">{{item.night_wind_direction}}</view>
-    <view class="wind">{{item.night_wind_power}}级</view>
-  </view>
-  <!-- 温度曲线 -->
-  <canvas class="canvas temperature" canvas-id="weather" />
-</view>
-<!-- 其他信息 -->
-<!-- <swiper class="info" indicator-dots="false">
+  <!-- 其他信息 -->
+  <!-- <swiper class="info" indicator-dots="false">
   <swiper-item class="" item-id="0">
     <view class="item">
       <text class="icon icon_xianhao"></text>
@@ -72,3 +76,4 @@
   </swiper-item>
   <swiper-item class="" item-id="1"></swiper-item>
 </swiper> -->
+</view>

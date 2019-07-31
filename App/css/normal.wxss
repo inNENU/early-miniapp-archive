@@ -409,7 +409,7 @@
 }
 
 .borderT:before,
-.borderB:before,
+.borderB:after,
 .borderTB:before,
 .borderTB:after {
   content: " ";
@@ -417,7 +417,13 @@
   left: 0;
   right: 0;
   height: 1px;
-  color: #acacb0;
   -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
+}
+
+.nm .borderT:before,
+.nm .borderB:after,
+.nm .borderTB:before,
+.nm .borderTB:after {
+  border-color: #3D3D41;
 }

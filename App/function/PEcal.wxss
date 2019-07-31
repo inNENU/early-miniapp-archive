@@ -21,7 +21,7 @@
 
 .descText {
   font-size: 15px;
-  color: #888
+  color: #888;
 }
 
 /* 分数部分 */
@@ -65,7 +65,7 @@
 }
 
 .nm .list {
-  background-color: #000;
+  background-color: #1C1C1E;
   color: #fff;
 }
 
@@ -98,7 +98,7 @@
 
 .nm .list:before,
 .nm .list:after {
-  border-color: #0B0B09;
+  border-color: #3D3D41;
 }
 
 .listItem {
@@ -125,7 +125,7 @@
 }
 
 .nm .listItem:after {
-  border-color: #0B0B09;
+  border-color: #3D3D41;
 }
 
 .listItem:after :last-child {
@@ -178,7 +178,7 @@
 }
 
 .nm .scoreListCtn {
-  background-color: #000;
+  background-color: #1C1C1E;
   color: #fff;
 }
 
@@ -199,7 +199,7 @@
 }
 
 .nm .scoreListCtn:after {
-  border-color: #0B0B09;
+  border-color: #3D3D41;
 }
 
 .scoreListTitle {
@@ -233,7 +233,7 @@
 }
 
 .nm .scoreItemCtn:before {
-  border-color: #0B0B09;
+  border-color: #3D3D41;
 }
 
 .listScore {

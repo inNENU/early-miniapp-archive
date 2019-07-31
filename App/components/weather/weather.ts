@@ -2,11 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:54:29
+ * @LastEditTime: 2019-07-31 11:12:39
  * @Description: 天气小组件
  */
 
 import $register from 'wxpage';
+import weatherHandler from './handler';
 
 export interface WeatherForcast1H {
 
@@ -206,7 +207,10 @@ $register.C({
 
           this.setData({ weatherClass, weather });
 
-          wx.setStorageSync('weather', weather);
+          wx.setStorageSync('weather', {
+            data: weatherHandler(weather),
+            date: new Date()
+          });
         }
       });
     }

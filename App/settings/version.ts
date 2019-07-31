@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 11:08:36
+ * @LastEditTime: 2019-07-31 10:55:31
  * @Description: 版本介绍
  */
 import $register, { WXPage } from 'wxpage';
@@ -21,6 +21,9 @@ $register('version', {
       { tag: 'p', head: 'V2.1.2 2019.7.28', text: '添加天气页面' },
       { tag: 'p', head: 'V2.1.3 2019.7.29', text: '修复预加载逻辑问题' },
       { tag: 'p', head: 'V2.1.4 2019.7.30', text: '修复通知重复弹出的问题' },
+      { tag: 'p', head: 'V2.1.5 2019.7.31', text: '修复体测计算器夜间模式\n修复功能页文字错误' },
+      { tag: 'p', head: 'V2.1.6 2019.7.31', text: '改进天气模式背景' },
+      { tag: 'p', head: 'V2.1.7 2019.7.31', text: '添加授权设置页面' },
       { tag: 'list', content: [{ text: '历史更新', desc: '点击查看', aim: 'log0' }] },
       { tag: 'foot', author: 'Mr.Hope' }
     ]

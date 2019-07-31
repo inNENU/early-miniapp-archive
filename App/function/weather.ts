@@ -2,11 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:48:08
+ * @LastEditTime: 2019-07-31 13:28:29
  * @Description: 天气预报
  */
 import $register from 'wxpage';
-import { WeatherData, WeatherForcast1H } from '../components/weather/weather';
+import weatherHandler from '../components/weather/handler';
+import { WeatherData } from '../components/weather/weather';
 
 const { globalData: a } = getApp();
 
@@ -15,80 +16,53 @@ $register('weather', {
     weather: {},
     number: 0
   },
-  onLoad() {
-    const weather = wx.getStorageSync('weather') as WeatherData['data'];
+  onLoad(options = {}) {
+    const weatherData = wx.getStorageSync('weather');
 
-    if (weather) {
-      const windDirection = weather.observe.wind_direction;
+    // 如果天气数据获取时间小于5分钟，则可以使用
+    if (weatherData.date > new Date().getTime() - 300000) {
+      const weather = weatherData.data.data as WeatherData['data'];
 
-      // 设置风向
-      weather.observe.wind_direction =
-        windDirection === '0' ? '北'
-          : windDirection === '1' ? '东北'
-            : weather.observe.wind_direction === '2' ? '东'
-              : weather.observe.wind_direction === '3' ? '东南'
-                : weather.observe.wind_direction === '4' ? '南'
-                  : weather.observe.wind_direction === '5' ? '西南'
-                    : weather.observe.wind_direction === '6' ? '西'
-                      : weather.observe.wind_direction === '7' ? '西北'
-                        : '未知';
+      this.canvas(weather);
 
-      weather.hourForecast = [];
-      weather.dayForecast = [];
-
-      // 设置天气预报的时间
-      Object.keys(weather.forecast_1h)
-        .forEach(x => {
-          const index = Number(x);
-          const time = weather.forecast_1h[index].update_time;
-
-          weather.forecast_1h[index].update_time = `${time.slice(8, 10)}:${time.slice(10, 12)}`;
-
-          if (index < 24) (weather.hourForecast as WeatherForcast1H[]).push(weather.forecast_1h[index]);
-        });
-
-      // 设置天气预报的时间
-      Object.keys(weather.forecast_24h)
-        .forEach(x => {
-          const index = Number(x);
-          if (index < 5) {
-            const time = weather.forecast_24h[index].time;
-
-            weather.forecast_24h[index].weekday =
-              index === 0 ? '昨天'
-                : index === 1 ? '今天'
-                  : index === 2 ? '明天'
-                    : index === 3 ? '后天'
-                      : `星期${['天', '一', '二', '三', '四', '五', '六'][new Date().getDay() + index - 1]}`;
-
-            weather.forecast_24h[index].time = `${time.slice(5, 7)}/${time.slice(8, 10)}`;
-
-            weather.dayForecast.push(weather.forecast_24h[index]);
-          }
-        });
-
-      this.setData!({ weather, nm: a.nm });
-    } else wx.request({
+      this.setData!({
+        weather,
+        share: Boolean(options.share),
+        night: new Date().getHours() > 18 || new Date().getHours() < 5,
+        nm: a.nm,
+        statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+      });
+    }
+    // 否则需要重新获取并处理
+    else wx.request({
       url: 'https://mp.nenuyouth.com/server/weather2.php',
       success: res => {
-        const weatherData = (res.data as WeatherData).data;
+        const weather = weatherHandler((res.data as WeatherData).data);
 
-        this.setData!({ weather: weatherData });
+        this.canvas(weather);
+
+        this.setData!({
+          weather,
+          share: Boolean(options.share),
+          night: new Date().getHours() > 18 || new Date().getHours() < 5,
+          nm: a.nm,
+          statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+        });
       }
     });
-    this.canvas();
+
 
     wx.setBackgroundColor({
       backgroundColorTop: '#efeef4', backgroundColor: '#efeef4', backgroundColorBottom: '#efeef4'
     });
   },
   // 绘制温度曲线
-  canvas() {
+  canvas(weather: WeatherData['data']) {
     const width = getApp().globalData.info.screenWidth;
     const ctx = wx.createCanvasContext('weather');
     const highTemperature: number[] = [];
     const lowTemperature: number[] = [];
-    const dayForecast = this.data.weather.dayForecast as WeatherData['data']['dayForecast'];
+    const dayForecast = weather.dayForecast;
     let max = -50;
     let min = 50;
 
@@ -115,12 +89,24 @@ $register('weather', {
       const x = width / 10 + i * width / 5;
       const y = (max - highTemperature[i]) / gap * 100;
 
-      ctx.fillText(`${dayForecast[i].max_degree}°`, x - 10, y + 20);
       if (i === 0) ctx.moveTo(x, y + 32);
       else ctx.lineTo(x, y + 32);
     }
     ctx.stroke();
     ctx.draw();
+
+    // 绘制温度与点
+    ctx.setFillStyle('#ffb74d');
+    for (let i = 0; i < dayForecast.length; i += 1) {
+      const x = width / 10 + i * width / 5;
+      const y = (max - highTemperature[i]) / gap * 100;
+
+      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillText(`${dayForecast[i].max_degree}°`, x - 10, y + 20);
+    }
+    ctx.draw(true);
 
     ctx.setStrokeStyle('#4fc3f7');
     ctx.setFillStyle('#4fc3f7');
@@ -129,14 +115,24 @@ $register('weather', {
       const x = width / 10 + i * width / 5;
       const y = (max - lowTemperature[i]) / gap * 100;
 
-      ctx.fillText(`${dayForecast[i].min_degree}°`, x - 10, y + 44);
       if (i === 0) ctx.moveTo(x, y + 20);
       else ctx.lineTo(x, y + 20);
     }
     ctx.stroke();
     ctx.draw(true);
 
-    this.setData!({ statusBarHeight: wx.getSystemInfoSync().statusBarHeight });
+    ctx.setFillStyle('#4fc3f7');
+
+    for (let i = 0; i < dayForecast.length; i += 1) {
+      const x = width / 10 + i * width / 5;
+      const y = (max - lowTemperature[i]) / gap * 100;
+
+
+      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillText(`${dayForecast[i].min_degree}°`, x - 10, y + 44);
+    }
+    ctx.draw(true);
   },
   // 更新提示
   refresh() {
@@ -150,5 +146,6 @@ $register('weather', {
   },
   redirect() {
     wx.switchTab({ url: '/page/main' });
-  }
+  },
+  onShareAppMessage: () => ({ title: '天气', path: '/function/weather?share=true' })
 });
