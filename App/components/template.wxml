@@ -17,7 +17,9 @@
       <!-- share组件 -->
       <share config="{{page[0]}}" />
       <block wx:for="{{page}}" wx:key="id">
-        <foot config="{{item}}" wx:if="{{item.tag==='foot'}}" />
+        <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
+        <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag==='img'}}" />
+        <foot config="{{item}}" wx:elif="{{item.tag==='foot'}}" />
         <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
         <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
         <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
@@ -32,7 +34,9 @@
 <template name="all2">
   <share config="{{page[0]}}" />
   <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
-    <foot config="{{item}}" wx:if="{{item.tag==='foot'}}" />
+    <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
+    <img config="{{item}}" url="{{page[0].url}}" wx:if="{{item.tag==='img'}}" />
+    <foot config="{{item}}" wx:elif="{{item.tag==='foot'}}" />
     <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
     <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
     <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
@@ -170,10 +174,6 @@ Author: Mr.Hope
       <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy,desc}}" />
     </block>
   </view>
-</template>
-<!-- 图片 -->
-<template name="img">
-  <template is="{{T}}img" data="{{src,load,error,id,imgMode,lazy,desc}}" />
 </template>
 <!-- 错误提示 -->
 <template name="error">

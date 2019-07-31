@@ -144,8 +144,8 @@
 
 /* iOS content */
 
-.iOSTitle,
-.iOShead {
+/* .iOShead , */
+.iOSTitle {
   text-align: left;
   font-weight: 500;
   padding: 12px 5% 4px 5%;
@@ -155,7 +155,7 @@
   min-height: 24px;
   font-size: 22px;
 }
-
+/* 
 .iOShead {
   min-height: 36px;
   font-size: 19px;
@@ -168,7 +168,7 @@
   color: #666;
   padding: 23px 15px 5px 15px;
   margin: 0 auto;
-}
+} */
 
 @media (min-width:768px) {
   .iOSTitle {
@@ -176,7 +176,7 @@
     font-size: 24px;
   }
 
-  .iOShead {
+  /* .iOShead {
     min-height: 38px;
     font-size: 21px;
   }
@@ -184,18 +184,19 @@
   .grey .iOShead {
     font-size: 14px;
     min-height: 38px;
-  }
+  } */
 }
-
+/* 
 .grey.nm .iOShead {
   color: #999;
-}
+} */
 
-.iOSTitle+.iOShead,
+/* .iOSTitle+.iOShead, */
 .iOSTitle+.iOSTitle {
   padding-top: 2px;
 }
 
+/* 
 .iOS-img {
   width: 90% !important;
   margin: 4px auto;
@@ -232,7 +233,7 @@
 
 .nm .iOSN {
   color: #ddd;
-}
+} */
 
 .nm.iOS {
   background-color: #000;

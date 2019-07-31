@@ -1,250 +1,29 @@
-/* ---Android theme made by Mr.Hope--- */
 
-/* V 1.0.0 */
-
-/* 安卓容器 */
-.Android,
-.Androidgrey {
-  width: 100%;
-  min-height: 100%;
-  text-align: center;
-  background-color: #f8f8f8;
-  font-family: "Helvetica Neue",
-    FZKTJW,
-    -apple-system-font,
-    "PingFang SC",
-    Helvetica,
-    STHeiti,
-    Tahoma,
-    Simsun,
-    sans-serif !important;
+/* 针对Android的额外处理 */
+.gridName {
+  display: none;
 }
 
-.nm.Android {
-  background-color: #000;
-  color: #fff;
-}
 
-.nm.Android.grey {
-  background-color: #10110b;
-  color: #fff;
-}
-
-/* 导航 */
-
-.Android-navigationBar,
-.Android-navPlaceHolder {
-  width: 100%;
-  background-color: #f8f8f8;
-}
-
-.Android-navigationBar {
-  box-sizing: content-box;
-  height: 44px;
-  display: -webkit-flex;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  position: fixed;
-  z-index: 99;
-}
-
-.AndroidNavShadow {
-  box-shadow: 0px 0px 4px 1.5px rgba(208, 208, 208, 80);
-}
-
-.nm .AndroidNavShadow {
-  box-shadow: 0px 0px 4px 1.5px rgba(47, 47, 47, 80);
-}
-
-.Android-navPlaceHolder {
-  position: relative;
-  height: 69px;
-  font-size: 8px;
-  color: #d9d9d9;
-}
-
-.nm .Android-navigationBar,
-.nm .Android-navPlaceHolder {
-  background-color: #000;
-}
-
-.grey.nm .Android-navigationBar,
-.grey.nm .Android-navPlaceHolder {
-  background-color: #10110b;
-}
-
-.Android-titletext {
-  width: 100%;
-  position: absolute;
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1;
-  z-index: 100;
-}
-
-.Android-navBack {
-  position: relative;
-  min-width: 10 !important;
-  min-height: 16 !important;
-  display: -webkit-flex;
-  display: flex;
-  align-items: center;
-  margin: 0 3%;
-  padding: 8px 5px !important;
-  border: none !important;
-  background-color: rgba(0, 0, 0, 0) !important;
-  line-height: 2.4;
-  z-index: 101;
-}
-
-.Android-backArrow {
-  width: 11px;
-  height: 11px;
-  border-width: 0 0 3px 3px;
-  border-style: solid;
-  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
-  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
-  border-color: black;
-}
-
-.nm .Android-backArrow {
-  border-color: white;
-}
-
-.Android-leftText {
-  font-size: 14px;
-}
-
-.nm .Android-leftText {
-  color: #cacaca;
-}
-
-.Android-head {
-  padding: 25px 40px;
-}
-
-.Android-title {
-  text-align: left;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.Android-desc {
-  text-align: left;
-  font-size: 14px;
-  margin-top: 5px;
-  color: #888;
-}
-
-.nm .Android-desc {
-  color: #777;
-}
-
-.AndroidTitle {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.6;
-  margin: 0.66em 5% 0.34em 5%;
-}
-
-/* List */
-
-.AndroidListHeadBtn {
-  position: relative;
-  text-align: left;
-  padding: 12px 6%;
-}
-
-.AndroidListHead {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 2;
-  color: #444;
-}
-
-.AndroidListArrow {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  top: calc(50% - 15px);
-  right: 4%;
-}
-
-.AndroidLctn {
-  background-color: #fefefe;
-  width: 92%;
-  margin: 12px 4%;
-  border-radius: 24px;
-  box-shadow: 1px 2px 4px 2px rgba(127, 127, 127, 0.15);
-  overflow: hidden;
-  /* max-width: 517px; */
-}
-
-.nm .AndroidLctn {
-  background-color: #000;
-}
-
-.AndroidListCtn {
-  padding: 0 20px;
-  font-size: 17px;
-  line-height: 1.45;
-  border-radius: 0;
-  border: none !important;
-  color: #000 !important;
-}
-
-/* 列表箭头旋转 */
-@keyframes listRotate {
-  from {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  to {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
-}
-
-@keyframes listRotate2 {
-  from {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  to {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
-}
-
-.AndroidListRotate {
-  transform: rotate(180deg);
-  -webkit-animation: listRotate 0.3s linear 0s none 1 normal;
-  animation: listRotate 0.3s linear 0s none 1 normal;
-}
-
-.AndroidListRotateNone {
-  -webkit-animation: listRotate2 0.3s linear 0s none 1 reverse;
-  animation: listRotate2 0.3s linear 0s none 1 reverse;
-}
-
-/* grid */
-/* .AndroidGridHead {
+/* Android grid */
+.Android .gridHead {
   text-align: left;
   min-height: 37px;
   padding: 23px 25px 5px 25px;
 }
 
-.AndriodGridList {
+.Android .gridCtn {
   display: flex;
   flex-wrap: wrap;
   padding: 0 15px;
   text-align: left;
 }
 
-.AndriodGridbox {
+.Andriod .buttonHover {
+  background-color: inherit;
+}
+
+.Android .gridBox {
   padding: 15px;
   border-radius: 6px;
   width: 45%;
@@ -256,7 +35,7 @@
   z-index: 1;
 }
 
-.AndriodGridbox::after {
+.Android .gridBox::after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -270,50 +49,45 @@
   transform: scale(0.9, 0.9);
 }
 
-.AndriodGridbox.cur {
-  color: #fff;
-  background: rgb(94, 185, 94);
-  box-shadow: 2px 2px 3px rgba(94, 185, 94, 0.4);
-}
-
 @media (min-width:768px) {
-  .AndriodGridList {
+  .Android .gridCtn {
     padding: 0 10px;
   }
 }
 
 @media (min-width:480px) {
-  .AndriodGridbox {
+  .Android .gridBox {
     margin: 0 10px 20px;
     width: calc(25% - 20px);
   }
 }
 
 @media (min-width:1024px) {
-  .AndriodGridbox {
+  .Andriod .gridBox {
     width: calc(16.666% - 20px);
     margin: 0 10px 20px;
   }
 }
 
-.AndriodGridText {
+.Android .gridText {
   font-size: 16px;
   font-weight: 300;
 }
 
-.AndriodGridText::first-letter {
+.Android .gridText::first-letter {
   font-size: 20px;
   margin-right: 2px;
 }
 
-.AndriodGridName {
+.Android .gridName {
   font-size: 15px;
   text-transform: Capitalize;
   margin-top: 10px;
   position: relative;
+  display: block;
 }
 
-.AndriodGridName::before {
+.Android .gridName::before {
   content: "";
   position: absolute;
   display: block;
@@ -325,7 +99,7 @@
   opacity: 0.5;
 }
 
-.AndriodGridName::after {
+.Andriod .gridName::after {
   content: "";
   position: absolute;
   display: block;
@@ -337,13 +111,13 @@
   opacity: 0.3;
 }
 
-.AndriodGridName::first-letter {
+.Android .gridName::first-letter {
   font-weight: bold;
   font-size: 18px;
   margin-right: 1px;
 }
 
-.AndriodGridbox .gridIcon {
+.Android .gridIcon {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -352,4 +126,9 @@
   height: 30px;
   text-align: center;
   line-height: 30px;
-} */
+}
+
+.nm.Android .gridHead,
+.nm.Android .gridCtn {
+  background-color: #000;
+}

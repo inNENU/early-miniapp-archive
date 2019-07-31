@@ -240,8 +240,6 @@ const setMarker = (data: MarkerConfig, name: string) => {
       for (let j = category[i][0]; j <= category[i][1]; j += 1) markerDetail.push(marker[j]);
       wx.setStorageSync(`${name}-${i}`, markerDetail);
     });
-
-  return true;
 };
 
 /** 设置marker */
@@ -257,15 +255,12 @@ const markerSet = () => {
     const markerData = $file.readJson('function/marker');
 
     // 找到MarkerData，直接设置Marker
-    if (markerData)
-      if (setMarker(markerData[0], 'benbu') && setMarker(markerData[1], 'jingyue'))
-        wx.setStorageSync('markerVersion', markerVersion);
-      else {
-        console.warn('Marker set failure.');
-        wx.reportMonitor('25', 1);
-      }
-
-    // 没有找到MarkerData，可能又初始化中断造成
+    if (Array.isArray(markerData)) {
+      setMarker(markerData[0], 'benbu');
+      setMarker(markerData[1], 'jingyue');
+      wx.setStorageSync('markerVersion', markerVersion);
+    }
+    // 没有找到MarkerData，可能因为初始化中断造成
     else {
       // 调试
       console.log('get Marker error');
@@ -276,16 +271,13 @@ const markerSet = () => {
         $file.writeJson('function', 'marker', data);
 
         // 设置Marker
-        if (
-          setMarker(data as MarkerConfig[][0], 'benbu') &&
-          setMarker(data as MarkerConfig[][1], 'jingyue') &&
-          markerVersion
-        )
-          wx.setStorageSync('markerVersion', markerVersion);
-        else {
-          console.warn('Marker set failure.');
-          wx.reportMonitor('25', 1);
-        }
+        setMarker(data as MarkerConfig[][0], 'benbu');
+        setMarker(data as MarkerConfig[][1], 'jingyue');
+
+        // 写入线上版本
+        $wx.request('function/functionVersion', data2 => {
+          wx.setStorageSync('markerVersion', data2);
+        });
       });
     }
   }

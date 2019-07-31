@@ -1,0 +1,7 @@
+<view wx:if="{{config.head}}" class="head">{{config.head}}</view>
+<view class="P" style="{{config.align? 'text-align:'+ config.align + ';': ''}}">
+  <text style="{{config.style?config.style:''}}" selectable="true" space="ensp" decode="true">{{config.text}}</text>
+  <block wx:if="{{config.src}}">
+    <img config="{{config}}" />
+  </block>
+</view>

@@ -1,0 +1,151 @@
+/* common */
+.P {
+  font-size: 16px;
+  padding: 0 15px;
+  line-height: 1.6;
+  text-align: justify;
+  word-wrap: break-word;
+  margin: 0 auto;
+}
+
+@media (min-width:768px) {
+  .P {
+    font-size: 18px;
+  }
+}
+
+.grey .P {
+  font-size: 17px;
+  padding: 10px 15px;
+  line-height: 1.6;
+  text-align: left;
+  background-color: #fefefe;
+  margin: 0 auto;
+  position: relative;
+}
+
+.grey .P:after,
+.grey .P:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  color: #cac9ce;
+}
+
+.grey .P:after {
+  bottom: 0;
+  border-bottom: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.grey .P:before {
+  top: 0;
+  border-top: 1px solid #cac9ce;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.4);
+  transform: scaleY(0.4);
+}
+
+.grey.nm .P:before,
+.grey.nm .P:after {
+  border-color: #3D3D41;
+}
+
+@media (min-width:768px) {
+  .grey .P {
+    margin: 0 15px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .grey .P:after,
+  .grey .P:before {
+    border: none;
+  }
+}
+
+.grey.nm .P {
+  background-color: #1C1C1E;
+}
+
+.nm .P {
+  background-color: #000;
+  color: #fff;
+}
+
+/* iOS */
+.iOS .head {
+  text-align: left;
+  font-weight: 500;
+  padding: 12px 5% 4px 5%;
+  min-height: 36px;
+  font-size: 19px;
+}
+
+.iOSTitle+.head {
+  padding-top: 2px;
+}
+
+.grey.iOS .head {
+  font-size: 13px;
+  min-height: 37px;
+  font-weight: 400;
+  color: #666;
+  padding: 23px 15px 5px 15px;
+  margin: 0 auto;
+}
+
+
+@media (min-width:768px) {
+  .iOShead {
+    min-height: 38px;
+    font-size: 21px;
+  }
+
+  .grey .iOShead {
+    font-size: 14px;
+    min-height: 38px;
+  }
+}
+
+.grey.nm.iOS .head {
+  color: #999;
+}
+
+/* Android */
+.Android .head {
+  text-align: left;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0.33em 25px 0.17em 25px;
+}
+
+.grey.Android .head {
+  margin: 0.77em 0 0.3em 0;
+  padding: 0 15px;
+  color: #999;
+  font-size: 14px;
+  font-weight: 400;
+  min-height: 10px;
+}
+
+.grey.nm.Android .head {
+  color: #666;
+}
+
+.Android .P {
+  font-size: 15px;
+}
+
+/* 段落兼容 */
+
+.P .img {
+  width: 100% !important;
+}

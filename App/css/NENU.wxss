@@ -86,10 +86,9 @@
 }
 
 /* paragraph */
-
+/* .NENUP, */
 .NENUTitle,
-.NENUhead,
-.NENUP {
+.NENUhead {
   text-align: left;
 }
 
@@ -125,10 +124,10 @@
   color: #999;
 }
 
-
+/* 
 .NENUP .iOS-img {
   width: 100% !important;
-}
+} */
 
 .NENUInfoCtn {
   width: 100%;

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-31 15:35:01
+ * @LastEditTime: 2019-07-31 16:15:53
  * @Description: 天气预报
  */
 import $register from 'wxpage';
@@ -10,6 +10,7 @@ import weatherHandler from '../components/weather/handler';
 import { WeatherData } from '../components/weather/weather';
 
 const { globalData: a } = getApp();
+let share = false;
 
 $register('weather', {
   data: {
@@ -28,11 +29,13 @@ $register('weather', {
 
       this.setData!({
         weather,
-        share: Boolean(options.share),
         night: new Date().getHours() > 18 || new Date().getHours() < 5,
         nm: a.nm,
         statusBarHeight: wx.getSystemInfoSync().statusBarHeight
       });
+
+      // 设置是否被分享
+      share = Boolean(options.share);
     }
     // 否则需要重新获取并处理
     else wx.request({
@@ -158,14 +161,10 @@ $register('weather', {
 
     wx.startAccelerometer({
       interval: 'normal',
-      success: res => {
-        console.log('success', res);
-      }
+      success: () => console.log('start Accelerometer success')
     });
 
     wx.onAccelerometerChange(res => {
-      console.warn(res.x, res.y, res.z);
-
       animation1.translateX(res.x * 13.5)
         .step();
       animation2.translateX(res.x * 18)
@@ -189,16 +188,12 @@ $register('weather', {
   },
   onUnload() {
     wx.stopAccelerometer({
-      success: res => {
-        console.log('stop success', res);
-      }
+      success: () => console.log('stop Accelerometer success')
     });
   },
   back() {
-    this.$back();
-  },
-  redirect() {
-    wx.switchTab({ url: '/page/main' });
+    if (share) this.$back();
+    else wx.switchTab({ url: '/page/main' });
   },
   onShareAppMessage: () => ({ title: '天气', path: '/function/weather?share=true' })
 });
