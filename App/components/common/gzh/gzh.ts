@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-27 20:23:10
+ * @LastEditTime: 2019-08-02 15:38:07
  * @Description: 公众号组件
  */
 
@@ -12,7 +12,7 @@ import { modal } from '../../../utils/wx';
 $register.C({
   properties: { config: Object },
   methods: {
-    _gzh() {
+    gzh() {
       const { globalData: { appID } } = getApp();// 获得当前小程序ID
 
       // 为企业主体微信小程序

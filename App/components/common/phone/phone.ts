@@ -12,10 +12,10 @@ import { tip } from '../../../utils/wx';
 $register.C({
   properties: { config: { type: Object } },
   methods: {
-    _call() {
+    call() {
       wx.makePhoneCall({ phoneNumber: this.data.config.num.toString() });// 拨打电话
     },
-    _addContact() {
+    addContact() {
       const { globalData: { env } } = getApp();// 获得当前小程序环境
 
       if (env === 'wx')

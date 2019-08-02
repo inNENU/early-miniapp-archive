@@ -267,15 +267,18 @@ const markerSet = () => {
       logger.warn('get Marker error');
 
       $wx.request('function/marker', data => {
+        console.log(data);
+
+
         // 将Marker数据保存文件
         $file.writeJson('function', 'marker', data);
 
         // 设置Marker
-        setMarker(data as MarkerConfig[][0], 'benbu');
-        setMarker(data as MarkerConfig[][1], 'jingyue');
+        setMarker((data as MarkerConfig[])[0], 'benbu');
+        setMarker((data as MarkerConfig[])[1], 'jingyue');
 
         // 写入线上版本
-        $wx.request('function/functionVersion', data2 => {
+        $wx.request('functionVersion', data2 => {
           wx.setStorageSync('markerVersion', data2);
         });
       });

@@ -1,6 +1,6 @@
 <view wx:if="{{config.head!==false}}" class="gridHead">{{config.head}}</view>
 <view class="gridCtn">
-  <view wx:for="{{config.content}}" wx:for-item="List" wx:key="text" class="bg-{{List.color}} gridBox" hover-class="buttonHover" hover-stay-time="100" catch:tap="_navigate" data-url="{{List.url}}">
+  <view wx:for="{{config.content}}" wx:for-item="List" wx:key="text" class="bg-{{List.color}} gridBox" hover-class="buttonHover" hover-stay-time="100" catch:tap="navigate" data-url="{{List.url}}">
     <image class="gridIcon" src="{{List.icon}}" />
     <view class="gridText">{{List.text}}</view>
     <view class="gridName">{{List.name}}</view>

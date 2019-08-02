@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-31 16:49:40
+ * @LastEditTime: 2019-08-02 15:38:18
  * @Description: 图片组件
  */
 
@@ -17,16 +17,16 @@ $register.C({
     }
   },
   methods: {
-    _load() { // 图片加载完成
+    load() { // 图片加载完成
       this.setData({ load: true });
     },
-    _error() { // 图片加载出错
+    error() { // 图片加载出错
       this.setData({ error: true });
 
-      console.warn('图片加载失败');
+      console.warn(`${this.data.config.src}图片加载失败`);
       wx.reportMonitor('10', 1);
     },
-    _view() { // 开始预览图片
+    view() { // 开始预览图片
       wx.previewImage({
         current: this.data.config.res || this.data.config.src,
         urls: this.data.url.length === 0 ? [this.data.config.res || this.data.config.src] : this.data.url

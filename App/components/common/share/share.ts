@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:52:48
+ * @LastEditTime: 2019-08-02 15:46:28
  * @Description: 分享组件
  */
 
@@ -17,7 +17,7 @@ $register.C({
     env // 小程序运行环境
   },
   methods: {
-    _move(event: NormalEvent) { // 分享按钮
+    move(event: NormalEvent) { // 分享按钮
       const touch = event.touches[0];
 
       switch (event.type) {
@@ -35,16 +35,15 @@ $register.C({
       }
     },
     // 取消显示菜单
-    _cancel() {
+    cancel() {
       this.setData({ menuDisplay: false });
     },
     // QQ暂不支持联系客服的兼容
-    _contact() {
+    contact() {
       if (env === 'qq') $wx.tip('QQ小程序暂不支持联系客服');
-      this._cancel();
     },
     // 下载二维码
-    _download() {
+    download() {
       // 下载二维码
       console.log('Start QRCode download.');// 调试
       if (env === 'wx')
@@ -124,8 +123,6 @@ $register.C({
           wx.reportMonitor('7', 1);
         });
       else $wx.tip('QQ暂不支持二维码');
-
-      this._cancel();
     }
   },
   time: 0,

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-02 11:31:29
+ * @LastEditTime: 2019-08-02 14:12:11
  * @Description: 列表组件
  */
 
@@ -89,10 +89,9 @@ $register.C({
       if (res.type === 'change') wx.setStorageSync(content.sliKey, value);
     },
     getDetail(res: MiniprogramEvent) { // 获得选择器位置与内容
-      return {
-        id: res.currentTarget.dataset.id,
-        content: this.data.config.content[res.currentTarget.dataset.id]
-      };
+      const id = res.currentTarget.id || res.currentTarget.dataset.id;
+
+      return { id, content: this.data.config.content[id] };
     }
   },
   options: {

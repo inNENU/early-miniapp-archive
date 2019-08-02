@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:50:10
+ * @LastEditTime: 2019-08-02 15:37:51
  * @Description: 分享组件
  */
 
@@ -13,7 +13,7 @@ $register.C({
     config: { type: Object, value: { aim: '' } }
   },
   methods: {
-    _navigate(event: NormalEvent) {
+    navigate(event: NormalEvent) {
       this.$route(event.currentTarget.dataset.url);
     }
   },

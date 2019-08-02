@@ -1,16 +1,16 @@
-<view wx:if="{{config.shareable||config.contact||config.feedback}}" class="iconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="iconHover" hover-stay-time="200" catch:touchstart="_move" catch:touchmove="_move" catch:touchend="_move" aria-role="button" aria-label="分享按钮">
+<view wx:if="{{config.shareable||config.contact||config.feedback}}" class="iconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="iconHover" hover-stay-time="200" catch:touchstart="move" catch:touchmove="move" catch:touchend="move" aria-role="button" aria-label="分享按钮">
   <image class="icon" src="share.svg" />
 </view>
 <view wx:if="{{menuDisplay}}" class="mask {{menuDisplay?'fadeIn':'fadeOut'}}" style="top:{{menuDisplay?'0':'100%'}};" />
-<view class="layer {{menuDisplay?'moveUpIn':'moveUpOut'}}">
-  <view class="btnList" catch:tap="_cancel">
+<view class="layer {{menuDisplay?'moveUpIn':'moveUpOut'}}" catch:tap="cancel">
+  <view class="btnList">
     <button wx:if="{{config.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="share">
       分享{{env==='qq'?'给好友/分享到空间':'到微信'}}
     </button>
-    <button wx:if="{{config.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" bind:tap="_download">
+    <button wx:if="{{config.shareable}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" bind:tap="download">
       保存页面二维码
     </button>
-    <button wx:if="{{config.contact}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="contact" bind:tap="_contact">
+    <button wx:if="{{config.contact}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="contact" bind:tap="contact">
       联系开发者
     </button>
     <button wx:if="{{config.feedback}}" class="btn" hover-class="btnHover" hover-start-time="0" plain="true" open-type="feedback">

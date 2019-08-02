@@ -11,11 +11,11 @@
         </view>
       </view>
       <!-- 按钮、嵌入选择器与滑块 -->
-      <button wx:elif="{{List.inlay||List.button||List.slider}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="{{List.pickerValue? 'pickerTap': List.button? 'button': List.slider? 'slider': ''}}" data-id="{{List.id}}" plain="true" disabled="{{List.disabled}}">
+      <button wx:elif="{{List.inlay||List.button||List.slider}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="{{List.pickerValue? 'pickerTap': List.button? 'button': List.slider? 'slider': ''}}" plain="true" disabled="{{List.disabled}}">
         <view class="list-Container">
           <image wx:if="{{List.icon}}" class="listIcon" src="{{List.icon}}" />
           <!-- 按钮文字为蓝色 -->
-          <view class="LinkText" style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
+          <view class="LinkText" style="{{List.button? 'color:#3478f7;': ''}}">{{List.text}}</view>
           <!-- 显示滑块值 -->
           <view wx:if="{{List.slider}}" class="linkDesciption">{{List.value}}</view>
           <!-- 显示行内选择器值 -->
@@ -28,7 +28,7 @@
         </view>
       </button>
       <!-- 非嵌入选择器 -->
-      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" bindchange="{{List.picker?List.picker:'pickerChange'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}">
+      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" bindchange="{{List.picker?List.picker:'pickerChange'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}">
         <view class="list-Container">
           <view class="LinkText">{{List.text}}</view>
           <view wx:if="{{List.pickerValue}}" class="linkDesciption">
