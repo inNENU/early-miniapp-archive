@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-31 11:05:08
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-31 11:06:48
+ * @LastEditTime: 2019-08-01 12:50:33
  * @Description: 天气处理函数
  */
 import { WeatherData, WeatherForcast1H } from './weather';
@@ -48,7 +48,7 @@ const weatherHandler = (weather: WeatherData['data']) => {
             : index === 1 ? '今天'
               : index === 2 ? '明天'
                 : index === 3 ? '后天'
-                  : `星期${['天', '一', '二', '三', '四', '五', '六'][new Date().getDay() + index - 1]}`;
+                  : `星期${['天', '一', '二', '三', '四', '五', '六', '天', '一', '二'][new Date().getDay() + index - 1]}`;
 
         weather.forecast_24h[index].time = `${time.slice(5, 7)}/${time.slice(8, 10)}`;
 

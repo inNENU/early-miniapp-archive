@@ -2,11 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-24 10:55:49
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-29 18:48:57
+ * @LastEditTime: 2019-08-01 00:12:47
  * @Description: 网格样式
+ * @Version: 1.0
  */
 
-/* 通用样式 */
+/****************** 
+      通用样式
+ *****************/
 .gridHead {
   text-align: left;
   font-weight: 500;

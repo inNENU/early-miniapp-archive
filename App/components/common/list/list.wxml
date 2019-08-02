@@ -1,19 +1,19 @@
-<view wx:if="{{head!==false}}" class="commonhead">{{head}}</view>
+<view wx:if="{{config.head!==false}}" class="commonhead">{{config.head}}</view>
 <view class="Lctn">
-  <block wx:for="{{content}}" wx:for-item="List" wx:key="text">
+  <block wx:for="{{config.content}}" wx:for-item="List" wx:key="text">
     <block wx:if="{{!List.hidden}}">
       <!-- 导航链接 -->
-      <view wx:if="{{List.url}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" catchtap="cA" data-action="navigate" data-url="{{List.url}}" data-aim="{{List.aim}}">
+      <view wx:if="{{List.url}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="navigate">
         <view class="list-Container">
-          <image wx:if="{{List.icon}}" class="listIcon" src="{{List.icon}}" data-icon="true" />
+          <image wx:if="{{List.icon}}" class="listIcon" src="{{List.icon}}" />
           <view class="LinkText">{{List.text}}</view>
           <view class="linkDesciption access">{{List.desc}}</view>
         </view>
       </view>
       <!-- 按钮、嵌入选择器与滑块 -->
-      <button wx:elif="{{List.inlay||List.button||List.slider}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" catchtap="{{List.pickerValue?List.picker?List.picker:'cA':List.button?List.button:List.slider?List.slider:''}}" data-id="{{List.id}}" data-action="picker" plain="true" disabled="{{List.disabled}}">
+      <button wx:elif="{{List.inlay||List.button||List.slider}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="{{List.pickerValue? 'pickerTap': List.button? 'button': List.slider? 'slider': ''}}" data-id="{{List.id}}" plain="true" disabled="{{List.disabled}}">
         <view class="list-Container">
-          <image wx:if="{{List.icon}}" class="listIcon" src="{{List.icon}}" data-icon="true" />
+          <image wx:if="{{List.icon}}" class="listIcon" src="{{List.icon}}" />
           <!-- 按钮文字为蓝色 -->
           <view class="LinkText" style="{{List.button?'color:#3478f7;':''}}">{{List.text}}</view>
           <!-- 显示滑块值 -->
@@ -28,7 +28,7 @@
         </view>
       </button>
       <!-- 非嵌入选择器 -->
-      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" bindchange="{{List.picker?List.picker:'cA'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}" data-action="picker">
+      <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" bindchange="{{List.picker?List.picker:'pickerChange'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}" data-id="{{List.id}}">
         <view class="list-Container">
           <view class="LinkText">{{List.text}}</view>
           <view wx:if="{{List.pickerValue}}" class="linkDesciption">
@@ -36,23 +36,25 @@
           </view>
         </view>
       </picker>
-      <navigator wx:elif="{{List.navigate}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" url="{{List.navigate}}" openType="{{List.openType}}" target="{{List.target}}">
+      <!-- 需要进行测试 -->
+      <!-- <navigator wx:elif="{{List.navigate}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" url="{{List.navigate}}" openType="{{List.openType}}" target="{{List.target}}"> -->
+      <!-- <navigator wx:elif="{{List.navigate}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" url="{{List.navigate}}">
         <view class="list-Container">
           <image wx:if="{{List.icon}}" class="listIcon" src="{{List.icon}}" data-icon="true" />
           <view class="LinkText">{{List.text}}</view>
           <view class="linkDesciption {{List.url?'access':''}}">{{List.desc}}</view>
         </view>
-      </navigator>
+      </navigator> -->
       <!-- 普通文字段落与开关 -->
       <view wx:else id="{{List.id}}" class="listCtn">
-        <image wx:if="{{List.icon}}" class="listIcon" src="{{List.icon}}" data-icon="true" />
+        <image wx:if="{{List.icon}}" class="listIcon" src="{{List.icon}}" />
         <view class="list-Container">
           <view class="LinkText">
             <text selectable="true" space="ensp" decode="true">{{List.text}}</text>
           </view>
           <view class="linkDesciption">
             {{List.desc}}
-            <switch wx:if="{{List.swiKey}}" checked="{{List.status}}" bindchange="{{List.Switch?List.Switch:'cA'}}" color="{{color}}" data-id="{{List.id}}" data-action="switch" />
+            <switch wx:if="{{List.swiKey}}" checked="{{List.status}}" bindchange="{{List.Switch? List.Switch: 'switch'}}" color="{{color}}" data-id="{{List.id}}" />
           </view>
         </view>
       </view>
@@ -60,9 +62,9 @@
       <block wx:if="{{List.visible}}">
         <view class="link-divline"></view>
         <view wx:if="{{List.slider}}" class="sliderCtn">
-          <slider min="{{List.min?List.min:'0'}}" max="{{List.max?List.max:'100'}}" value="{{List.value}}" bindchanging="{{List.slider?List.slider:''}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:''}}" data-id="{{List.id}}" data-action="slider" />
+          <slider min="{{List.min? List.min: '0'}}" max="{{List.max? List.max: '100'}}" value="{{List.value}}" bindchanging="{{List.slider?List.slider:'sliderChange'}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:'sliderChange'}}" data-id="{{List.id}}" />
         </view>
-        <picker-view wx:if="{{List.pickerValue}}" indicator-class="pickSelected" class="pickerViewCtn" value="{{List.currentValue}}" bindchange="cA" data-id="{{List.id}}" data-action="picker" mask-class="pickerMask">
+        <picker-view wx:if="{{List.pickerValue}}" indicator-class="pickSelected" class="pickerViewCtn" value="{{List.currentValue}}" bindchange="pickerChange" data-id="{{List.id}}" mask-class="pickerMask">
           <block wx:if="{{List.single}}">
             <picker-view-column class="pick-view-column">
               <view wx:for="{{List.pickerValue}}" wx:key="*this" class="pickColumn">{{item}}</view>
@@ -77,8 +79,8 @@
           </block>
         </picker-view>
       </block>
-      <view class="{{List.icon?'listIcon ':''}}link-divline" />
+      <view class="{{List.icon? 'listIcon ' :''}}link-divline" />
     </block>
   </block>
 </view>
-<view wx:if="{{foot}}" class="commonfoot">{{foot}}</view>
+<view wx:if="{{config.foot}}" class="commonfoot">{{config.foot}}</view>

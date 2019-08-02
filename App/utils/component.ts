@@ -2,38 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 13:49:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:00:47
+ * @LastEditTime: 2019-08-01 00:01:52
  * @Description: 组件函数库
  */
 
 const logger = wx.getLogManager({ level: 1 });
-
-/**
- * 图片函数
- *
- * @param res 组件参数
- * @param ctx 页面指针
- */
-const image = (res: NormalEvent, ctx: any) => {
-  switch (res.type) {
-
-    // 图片加载完成
-    case 'load':
-      ctx.setData({ [`page[${res.target.id}].load`]: true });
-      break;
-
-    // 图片加载出错
-    case 'error':
-      console.warn('图片加载失败');
-      wx.reportMonitor('10', 1);
-      ctx.setData({ [`page[${res.target.id}].error`]: true });
-      break;
-
-    // 开始预览图片
-    case 'tap':
-    default: wx.previewImage({ current: ctx.data.page[res.target.id].res, urls: ctx.data.page[0].url });
-  }
-};
 
 /**
  * 选择器函数
@@ -138,9 +111,6 @@ const Switch = (res: SwitchEvent, ctx: any, callback?: () => void) => {
  */
 const componentAction = (res: MiniprogramEvent, ctx: any, callback?: (type?: string) => void) => {
   switch (res.currentTarget.dataset.action) { // 判断action类型并调用各组件函数
-    case 'img':
-      image(res, ctx);
-      break;
     case 'navigate':
       ctx.$route(res.currentTarget.dataset.url);
       break;

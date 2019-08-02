@@ -70,5 +70,5 @@
       <view class="listScore">{{PE.score}}分</view>
     </view>
   </view>
-  <template is="foot" />
+  <foot />
 </view>

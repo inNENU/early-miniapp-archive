@@ -1,0 +1,38 @@
+/* iOS */
+.iOS .head {
+  text-align: left;
+  font-weight: 500;
+  padding: 12px 5% 4px 5%;
+  min-height: 36px;
+  font-size: 19px;
+}
+
+.iOSTitle+.head {
+  padding-top: 2px;
+}
+
+.grey.iOS .head {
+  font-size: 13px;
+  min-height: 37px;
+  font-weight: 400;
+  color: #666;
+  padding: 23px 15px 5px 15px;
+  margin: 0 auto;
+}
+
+
+@media (min-width:768px) {
+  .iOShead {
+    min-height: 38px;
+    font-size: 21px;
+  }
+
+  .grey .iOShead {
+    font-size: 14px;
+    min-height: 38px;
+  }
+}
+
+.grey.nm.iOS .head {
+  color: #999;
+}

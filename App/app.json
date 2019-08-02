@@ -127,11 +127,13 @@
     "gzh": "/components/common/gzh/gzh",
     "img": "/components/common/img/img",
     "intro": "/components/common/intro/intro",
+    "list": "/components/common/list/list",
     "p": "/components/common/paragraph/paragraph",
     "phone": "/components/common/phone/phone",
     "share": "/components/common/share/share",
     "media": "/components/common/media/media",
     "swiper": "/components/common/swiper/swiper"
   },
+  "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

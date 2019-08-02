@@ -6,5 +6,5 @@
   <image class="loadingImg" src="/icon/loading.svg" lazy-load />
   <text>加载中...</text>
 </view>
-<image id="{{id}}" class="img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{config.imgMode}}" lazy-load="{{config.lazy!==false}}" src="{{config.src}}" bindload="_load" binderror="_error" catch:tap="_view" />
+<image class="img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{config.imgMode? config.imgMode: 'widthFix'}}" lazy-load="{{config.lazy!==false}}" src="{{config.src}}" bindload="_load" binderror="_error" catch:tap="_view" />
 <view wx:if="{{config.desc}}" class="imgDesc">▲{{config.desc}}</view>

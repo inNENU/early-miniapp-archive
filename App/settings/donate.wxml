@@ -17,5 +17,5 @@
     </block>
     <view wx:else>暂无捐赠</view>
   </view>
-  <template is="foot" />
+  <foot />
 </view>
