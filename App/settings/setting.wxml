@@ -1,12 +1,2 @@
-<!-- <import src="/components/template" />
-<template is="all" data="{{page,T,nm}}" /> -->
-<view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template is="head" data="{{...page[0],T}}" />
-  <list config="{{page[1]}}" />
-  <list config="{{page[2]}}" />
-  <list config="{{page[3]}}" />
-  <list config="{{page[4]}}" />
-  <list config="{{page[5]}}" />
-  <list config="{{page[6]}}" />
-  <foot />
-</view>
+<import src="/components/template" />
+<template is="all" data="{{page,T,nm}}" />

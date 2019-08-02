@@ -19,6 +19,7 @@
       <block wx:for="{{page}}" wx:key="id">
         <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
         <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag==='img'}}" />
+        <list config="{{item}}" bind:change="list" wx:elif="{{item.tag==='list'}}" />
         <foot config="{{item}}" wx:elif="{{item.tag==='foot'}}" />
         <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
         <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
@@ -36,6 +37,7 @@
   <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
     <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
     <img config="{{item}}" url="{{page[0].url}}" wx:if="{{item.tag==='img'}}" />
+    <list config="{{item}}" bind:change="list" wx:elif="{{item.tag==='list'}}" />
     <foot config="{{item}}" wx:elif="{{item.tag==='foot'}}" />
     <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
     <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />

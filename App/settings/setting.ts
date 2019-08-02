@@ -67,8 +67,8 @@ $register('setting', {
   },
   onNavigate(res: WXPage.PageArg) {
     // 生成时间
-    for (let i = 0; i <= 23; i++) time[0].push(`${i}时`);
-    for (let i = 0; i <= 59; i++)
+    for (let i = 0; i <= 23; i += 1) time[0].push(`${i}时`);
+    for (let i = 0; i <= 59; i += 1)
       if (i < 10) time[1].push(`0${i}分`);
       else time[1].push(`${i}分`);
 
@@ -122,128 +122,117 @@ $register('setting', {
   cA(e) {
     $component.trigger(e, this);
   },
-  onUnload() {
+  onUnload() { // 退出时重新计算夜间模式
     a.nm = nightmode();
   },
-  setTheme(event: MiniprogramEvent) {
-    $component.trigger(event, this, type => {
-      if (type === 'change') {
-        const theme = this.data.page[1].content[0].pickerValue[event.detail.value];
-
-        a.T = theme;
-        wx.setStorageSync('theme', theme);
-        $page.Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
-        this.$emit!('theme', theme);
-        console.log(`theme切换为${theme}`); // 调试
-      }
-    });
+  list({ detail }: any) {
+    console.log(detail);
+    if (detail.event) this[detail.event](detail.value);
   },
-  switchnm(event: MiniprogramEvent) {
-    $component.trigger(event, this, () => {
-      const { page } = this.data;
-      const list = page[3].content;
-      const { value } = event.detail;
+  setTheme(value: string) {
+    const theme = this.data.page[1].content[0].pickerValue[value];
 
-      list[0].status = false;
+    a.T = theme;
+    wx.setStorageSync('theme', theme);
+    $page.Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
+    this.$emit!('theme', theme);
+    console.log(`theme切换为${theme}`); // 调试
+  },
+  switchnm(value: boolean) {
+    const { page } = this.data;
+    const list = page[3].content;
+
+    list[0].status = false;
+    list[1].hidden = list[2].hidden = true;
+    list[1].visible = list[2].visible = false;
+    if (value) {
+      list[3].hidden = list[4].hidden = true;
+      list[4].visible = list[5].hidden = false;
+      if (list[5].status) {
+        list[6].hidden = false;
+        wx.setScreenBrightness({ value: list[6].value / 100 });
+      } else {
+        list[6].hidden = true;
+        list[6].visible = false;
+      }
+    } else {
+      list[5].hidden = list[6].hidden = true;
+      list[6].visible = list[3].hidden = false;
+      if (list[3].status) {
+        list[4].hidden = false;
+        wx.setScreenBrightness({ value: list[4].value / 100 });
+      } else {
+        list[4].hidden = true;
+        list[4].visible = false;
+      }
+    }
+    wx.setStorageSync('nightmodeAutoChange', false);
+    this.setData!({ page, nm: value });
+    a.nm = value;
+    this.$emit!('nightmode', value);
+
+    // 设置胶囊和背景颜色
+    const { nc, bc } = $page.color(this.data.page[0].grey);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
+  },
+  switchnmAC(value: boolean) {
+    const { page } = this.data;
+    const list = page[3].content;
+    const nm = nightmode();
+
+    page[2].content[0].status = nm;
+    wx.setStorageSync('nightmode', nm);
+    if (nm && list[5].status) wx.setScreenBrightness({ value: list[6].value / 100 });
+    else if (!nm && list[3].status) wx.setScreenBrightness({ value: list[4].value / 100 });
+    if (value) {
+      list[1].hidden = false;
+      list[2].hidden = false;
+    } else {
       list[1].hidden = list[2].hidden = true;
       list[1].visible = list[2].visible = false;
-      if (value) {
-        list[3].hidden = list[4].hidden = true;
-        list[4].visible = list[5].hidden = false;
-        if (list[5].status) {
-          list[6].hidden = false;
-          wx.setScreenBrightness({ value: list[6].value / 100 });
-        } else {
-          list[6].hidden = true;
-          list[6].visible = false;
-        }
-      } else {
-        list[5].hidden = list[6].hidden = true;
-        list[6].visible = list[3].hidden = false;
-        if (list[3].status) {
-          list[4].hidden = false;
-          wx.setScreenBrightness({ value: list[4].value / 100 });
-        } else {
-          list[4].hidden = true;
-          list[4].visible = false;
-        }
-      }
-      wx.setStorageSync('nightmodeAutoChange', false);
-      this.setData!({ nm: value, page });
-      a.nm = value;
-      this.$emit!('nightmode', value);
+    }
+    if (nm) {
+      list[3].hidden = list[4].hidden = true;
+      list[4].visible = list[5].hidden = false;
+      list[6].hidden = !list[5].status;
+    } else {
+      list[3].hidden = list[6].visible = false;
+      list[5].hidden = list[6].hidden = true;
+      list[4].hidden = !list[3].status;
+    }
+    this.setData!({ nm, page });
+    a.nm = nm;
+    this.$emit!('nightmode', nm);
 
-      // 设置胶囊和背景颜色
-      const { nc, bc } = $page.color(this.data.page[0].grey);
+    // 设置胶囊和背景颜色
+    const { nc, bc } = $page.color(this.data.page[0].grey);
 
-      wx.setNavigationBarColor(nc);
-      wx.setBackgroundColor(bc);
-    });
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
-  switchnmAC(event: MiniprogramEvent) {
-    $component.trigger(event, this, () => {
-      const { page } = this.data;
-      const list = page[3].content;
-      const nm = nightmode();
+  dayBrightnessSwitchHandler(value: boolean) {
+    const { page } = this.data;
+    const list = page[3].content;
 
-      page[2].content[0].status = nm;
-      wx.setStorageSync('nightmode', nm);
-      if (nm && list[5].status) wx.setScreenBrightness({ value: list[6].value / 100 });
-      else if (!nm && list[3].status) wx.setScreenBrightness({ value: list[4].value / 100 });
-      if (event.detail.value) {
-        list[1].hidden = false;
-        list[2].hidden = false;
-      } else {
-        list[1].hidden = list[2].hidden = true;
-        list[1].visible = list[2].visible = false;
-      }
-      if (nm) {
-        list[3].hidden = list[4].hidden = true;
-        list[4].visible = list[5].hidden = false;
-        list[6].hidden = !list[5].status;
-      } else {
-        list[3].hidden = list[6].visible = false;
-        list[5].hidden = list[6].hidden = true;
-        list[4].hidden = !list[3].status;
-      }
-      this.setData!({ nm, page });
-      a.nm = nm;
-      this.$emit!('nightmode', nm);
-
-      // 设置胶囊和背景颜色
-      const { nc, bc } = $page.color(this.data.page[0].grey);
-
-      wx.setNavigationBarColor(nc);
-      wx.setBackgroundColor(bc);
-    });
+    list[4].visible = value;
+    list[4].hidden = !value;
+    this.setData!({ page });
   },
-  dayBrightnessSwitchHandler(event: MiniprogramEvent) {
-    $component.trigger(event, this, () => {
-      const { page } = this.data;
-      const list = page[3].content;
+  nightBrightnessSwitchHandler(value: boolean) {
+    const { page } = this.data;
+    const list = page[3].content;
 
-      list[4].visible = event.detail.value;
-      list[4].hidden = !event.detail.value;
-      this.setData!({ page });
-    });
+    list[6].visible = value;
+    list[6].hidden = !value;
+    this.setData!({ page });
   },
-  nightBrightnessSwitchHandler(event: MiniprogramEvent) {
-    $component.trigger(event, this, () => {
-      const { page } = this.data;
-      const list = page[3].content;
-
-      list[6].visible = event.detail.value;
-      list[6].hidden = !event.detail.value;
-      this.setData!({ page });
-    });
+  dayBrightnessHandler(value: number) {
+    if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: value / 100 });
   },
-  dayBrightnessHandler(event: MiniprogramEvent) {
-    $component.trigger(event, this);
-    if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: event.detail.value / 100 });
-  },
-  nightBrightnessHandler(event: MiniprogramEvent) {
-    $component.trigger(event, this);
-    if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: event.detail.value / 100 });
+  nightBrightnessHandler(value: number) {
+    if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: value / 100 });
   },
   refreshGuide() {
     $tab.resDownload('page');

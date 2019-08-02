@@ -3,6 +3,7 @@
 /* V 1.0.0 */
 
 /* 安卓容器 */
+
 .Android,
 .Androidgrey {
   width: 100%;
@@ -90,7 +91,7 @@
   display: -webkit-flex;
   display: flex;
   align-items: center;
-  margin: 0 3%;
+  margin: 0 3% !important;
   padding: 8px 5px !important;
   border: none !important;
   background-color: rgba(0, 0, 0, 0) !important;
@@ -195,6 +196,7 @@
 }
 
 /* 列表箭头旋转 */
+
 @keyframes listRotate {
   from {
     -webkit-transform: rotate(0deg);
@@ -231,6 +233,7 @@
 }
 
 /* grid */
+
 /* .AndroidGridHead {
   text-align: left;
   min-height: 37px;

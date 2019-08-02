@@ -3,22 +3,22 @@
     <cover-image class="backIcon" src="/icon/back{{a.nm?'':'Black'}}.png" />
   </cover-view>
   <cover-view class="selectCtn {{pointDisplay?'fadeIn':'fadeOut'}}" style="bottom:{{selectBottom}}rpx;z-index:96;" catch:tap="select">
-    <cover-view wx:for="{{category}}" wx:key="{{item[0]}}" class="selectBtn {{selectItem==item[1]?'active':''}}" hover-class="pressHover" data-category="{{item[1]}}">
+    <cover-view wx:for="{{category}}" wx:key="{{item[0]}}" class="selectBtn {{selectItem==item[1]?'active':''}}" hover-class="hover" data-category="{{item[1]}}">
       <cover-view data-category="{{item[1]}}">{{item[0]}}</cover-view>
     </cover-view>
   </cover-view>
-  <cover-view class="pointCtn" hover-class="pressHover" catch:tap="point">
+  <cover-view class="pointCtn" hover-class="hover" catch:tap="point">
     <cover-image class="pointBtn" src="/function/icon/point.png" />
   </cover-view>
-  <cover-view class="scaleLargeBtn" hover-class="pressHover" catch:tap="scale" data-action="enlarge">
+  <cover-view class="scaleLargeBtn" hover-class="hover" catch:tap="scale" data-action="enlarge">
     <cover-view>+</cover-view>
   </cover-view>
-  <cover-view class="scaleSmallBtn" hover-class="pressHover" catch:tap="scale" data-action="narrow">
+  <cover-view class="scaleSmallBtn" hover-class="hover" catch:tap="scale" data-action="narrow">
     <cover-view>-</cover-view>
   </cover-view>
   <cover-view class="listCtn {{list?'moveUpIn':'moveUpOut'}}" style="top:{{info.screenHeight-tabHeight}}px;height:{{info.screenHeight-tabHeight}}px;"></cover-view>
   <cover-view class="tab" id="mapTab">
-    <cover-view class="locateCtn" hover-class="pressHover" catch:tap="moveToLocation">
+    <cover-view class="locateCtn" hover-class="hover" catch:tap="moveToLocation">
       <cover-image class="locateBtn" src="/function/icon/locate.png" />
     </cover-view>
     <cover-view class="switch" catch:tap="switchTap">
@@ -30,7 +30,7 @@
       <cover-image wx:if="{{list}}" class="listBtn" src="/function/icon/list-active.png" />
     </cover-view>
   </cover-view>
-  <cover-view class="closeBtn {{list?'fadeIn':'fadeOut'}}" style="top:{{closeTop}}px;z-index:100;" hover-class="pressHover" catch:tap="showList">
+  <cover-view class="closeBtn {{list?'fadeIn':'fadeOut'}}" style="top:{{closeTop}}px;z-index:100;" hover-class="hover" catch:tap="showList">
     <cover-image class="closeIcon" src="/icon/close.png" />
   </cover-view>
 </map>
@@ -39,22 +39,22 @@
     <cover-image class="backIcon" src="/icon/back{{a.nm?'':'Black'}}.png" />
   </cover-view>
   <cover-view class="selectCtn {{pointDisplay?'fadeIn':'fadeOut'}}" style="bottom:{{selectBottom}}rpx;z-index:96;" catchtap="select">
-    <cover-view wx:for="{{category}}" wx:key="{{item[0]}}" class="selectBtn {{selectItem==item[1]?'active':''}}" hover-class="pressHover" data-category="{{item[1]}}">
+    <cover-view wx:for="{{category}}" wx:key="{{item[0]}}" class="selectBtn {{selectItem==item[1]?'active':''}}" hover-class="hover" data-category="{{item[1]}}">
       <cover-view data-category="{{item[1]}}">{{item[0]}}</cover-view>
     </cover-view>
   </cover-view>
-  <cover-view class="pointCtn" hover-class="pressHover" catch:tap="point">
+  <cover-view class="pointCtn" hover-class="hover" catch:tap="point">
     <cover-image class="pointBtn" src="/function/icon/point.png" />
   </cover-view>
-  <cover-view class="scaleLargeBtn" hover-class="pressHover" catch:tap="scale" data-action="enlarge">
+  <cover-view class="scaleLargeBtn" hover-class="hover" catch:tap="scale" data-action="enlarge">
     <cover-view>+</cover-view>
   </cover-view>
-  <cover-view class="scaleSmallBtn" hover-class="pressHover" catch:tap="scale" data-action="narrow">
+  <cover-view class="scaleSmallBtn" hover-class="hover" catch:tap="scale" data-action="narrow">
     <cover-view>-</cover-view>
   </cover-view>
   <cover-view class="listCtn {{list?'moveUpIn':'moveUpOut'}}" style="top:{{info.screenHeight-tabHeight}}px;height:{{info.screenHeight-tabHeight}}px;"></cover-view>
   <cover-view class="tab" id="mapTab">
-    <cover-view class="locateCtn" hover-class="pressHover" catch:tap="moveToLocation">
+    <cover-view class="locateCtn" hover-class="hover" catch:tap="moveToLocation">
       <cover-image class="locateBtn" src="/function/icon/locate.png" />
     </cover-view>
     <cover-view class="switch" catch:tap="Switch">
@@ -66,7 +66,7 @@
       <cover-image wx:if="{{list}}" class="listBtn" src="/function/icon/list-active.png" />
     </cover-view>
   </cover-view>
-  <cover-view class="closeBtn {{list?'fadeIn':'fadeOut'}}" style="top:{{closeTop}}px;z-index:100;" hover-class="pressHover" catch:tap="showList">
+  <cover-view class="closeBtn {{list?'fadeIn':'fadeOut'}}" style="top:{{closeTop}}px;z-index:100;" hover-class="hover" catch:tap="showList">
     <cover-image class="closeIcon" src="/icon/close.png" />
   </cover-view>
 </map>

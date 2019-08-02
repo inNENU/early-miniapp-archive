@@ -252,7 +252,7 @@
 
 /* common */
 
-.pressHover {
+.hover {
   background-color: #eee !important;
 }
 

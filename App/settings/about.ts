@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-31 00:20:05
+ * @LastEditTime: 2019-08-02 16:27:00
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -113,6 +113,10 @@ $register('about', {
   cA(e) {
     $component.trigger(e, this);
   },
+  list({ detail }: any) {
+    console.log(detail);
+    if (detail.event) this[detail.event](detail.value);
+  },
   debugMode() {
     if (this.developMode) {
       wx.setStorageSync('developMode', false);
@@ -157,18 +161,17 @@ $register('about', {
   cancelInput() {
     this.setData!({ debug: false });
   },
-  debugSwitch(event: MiniprogramEvent) {
-    const pos = event.target.dataset.id.split('-');
+  debugSwitch(value: boolean) {
 
-    this.data.page[pos[0]].content[pos[1]].status = event.detail.value;
+    this.data.page[1].content[2].status = value;
     this.setData!({ page: this.data.page });
-    wx.setStorageSync('debugMode', event.detail.value);
-    if (event.detail.value) wx.setEnableDebug({ enableDebug: true });
+    wx.setStorageSync('debugMode', value);
+
+    if (value) wx.setEnableDebug({ enableDebug: true });
     else wx.setEnableDebug({ enableDebug: false });
   },
-  testSwitch(event: MiniprogramEvent) {
-    $component.trigger(event, this);
-    $wx.tip(`已${event.detail.value ? '启用' : '关闭'}测试功能`);
+  testSwitch(value: boolean) {
+    $wx.tip(`已${value ? '启用' : '关闭'}测试功能`);
   },
   deleteData() {
     wx.clearStorageSync();

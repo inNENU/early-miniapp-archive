@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-02 14:12:11
+ * @LastEditTime: 2019-08-02 16:20:32
  * @Description: 列表组件
  */
 
@@ -46,7 +46,9 @@ $register.C({
         // 将选择器的变更响应到页面上
         this.setData(
           { [`config.content[${id}]`]: content },
-          () => this.triggerEvent('list', { id, value, type: 'picker' })
+          () => {
+            this.triggerEvent('change', { id, value, type: 'picker', event: content.picker });
+          }
         );
       }
     },
@@ -56,15 +58,17 @@ $register.C({
       // 更新页面数据
       this.setData(
         { [`this.config.content[${id}].status`]: res.detail.value },
-        () => this.triggerEvent('list', { id, value: res.detail.value, type: 'switch' })
+        () => {
+          this.triggerEvent('change', { id, event: content.Switch, value: res.detail.value, type: 'switch' });
+        }
       );
 
       wx.setStorageSync(content.swiKey, res.detail.value); // 将开关值写入存储的swiKey变量中
     },
     button(res: NormalEvent) { // 触发按钮事件
-      const { id } = this.getDetail(res);
+      const { id, content } = this.getDetail(res);
 
-      this.triggerEvent('list', { id, type: 'button' });
+      this.triggerEvent('change', { id, type: 'button', event: content.button });
     },
     sliderTap(res: NormalEvent) { // 触发滑块事件
       const { id, content } = this.getDetail(res);
@@ -83,7 +87,9 @@ $register.C({
       // 写入页面数据
       this.setData(
         { [`this.config.content[${id}].value`]: value },
-        () => this.triggerEvent('list', { id, value, type: 'sliderChange' })
+        () => {
+          this.triggerEvent('change', { id, value, type: 'sliderChange', event: content.slider });
+        }
       );
 
       if (res.type === 'change') wx.setStorageSync(content.sliKey, value);

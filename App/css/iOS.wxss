@@ -63,7 +63,7 @@
   padding: 0 5px !important;
   border: none !important;
   background-color: rgba(0, 0, 0, 0);
-  margin: 0 12px;
+  margin: 0 12px !important;
   line-height: 2.4;
   position: relative;
   display: -webkit-flex;
@@ -155,6 +155,7 @@
   min-height: 24px;
   font-size: 22px;
 }
+
 /* 
 .iOShead {
   min-height: 36px;
@@ -186,6 +187,7 @@
     min-height: 38px;
   } */
 }
+
 /* 
 .grey.nm .iOShead {
   color: #999;
@@ -241,7 +243,7 @@
 }
 
 /* list */
-
+/* 
 .grey .commonhead {
   min-height: 37px;
   padding: 23px 15px 5px 15px;
@@ -490,8 +492,9 @@
 .nm .LinkText,
 .nm .pickerViewCtn {
   color: #fff;
-}
+} */
 
+/* 备用样式 */
 /* .pickerMask {
   background-color: rgba(0, 0, 0, 0.438);
 } */

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-31 16:15:53
+ * @LastEditTime: 2019-08-02 16:42:25
  * @Description: 天气预报
  */
 import $register from 'wxpage';
@@ -33,9 +33,6 @@ $register('weather', {
         nm: a.nm,
         statusBarHeight: wx.getSystemInfoSync().statusBarHeight
       });
-
-      // 设置是否被分享
-      share = Boolean(options.share);
     }
     // 否则需要重新获取并处理
     else wx.request({
@@ -62,10 +59,12 @@ $register('weather', {
       backgroundColorBottom: a.nm ? '#000000' : '#efeef4'
     });
 
+    // 设置是否被分享
+    share = Boolean(options.share);
+
     this.backgroundChange();
   },
-  // 绘制温度曲线
-  canvas(weather: WeatherData['data']) {
+  canvas(weather: WeatherData['data']) { // 绘制温度曲线
     const width = getApp().globalData.info.screenWidth;
     const ctx = wx.createCanvasContext('weather');
     const highTemperature: number[] = [];
@@ -145,7 +144,7 @@ $register('weather', {
       ctx.draw(true);
     }
   },
-  backgroundChange() {
+  backgroundChange() { // 改变背景动画
     const animation1 = wx.createAnimation({
       duration: 200,
       timingFunction: 'ease'
@@ -192,8 +191,8 @@ $register('weather', {
     });
   },
   back() {
-    if (share) this.$back();
-    else wx.switchTab({ url: '/page/main' });
+    if (share) wx.switchTab({ url: '/page/main' });
+    else this.$back();
   },
   onShareAppMessage: () => ({ title: '天气', path: '/function/weather?share=true' })
 });
