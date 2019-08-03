@@ -10,7 +10,7 @@ import $register from 'wxpage';
 import { tip } from '../../../utils/wx';
 
 $register.C({
-  properties: { config: Object },
+  properties: { config: { type: Object } },
   methods: {
     doc() {
       if (['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(this.data.config.docType)) {

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:26:47
+ * @LastEditTime: 2019-08-02 23:29:07
  * @Description: 模块页面8
  */
 
@@ -26,11 +26,13 @@ $register('sharePage', {
     wx.reportMonitor('2', 1);
   },
   onShow() {
-    // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    if (this.data.page) {
+      // 设置胶囊和背景颜色
+      const { nc, bc } = $page.color(this.data.page[0].grey);
 
-    wx.setNavigationBarColor(nc);
-    wx.setBackgroundColor(bc);
+      wx.setNavigationBarColor(nc);
+      wx.setBackgroundColor(bc);
+    }
   },
   onPageScroll(res) {
     $component.nav(res, this);

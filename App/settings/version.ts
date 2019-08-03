@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-31 10:55:31
+ * @LastEditTime: 2019-08-02 23:15:46
  * @Description: 版本介绍
  */
 import $register, { WXPage } from 'wxpage';
@@ -24,6 +24,8 @@ $register('version', {
       { tag: 'p', head: 'V2.1.5 2019.7.31', text: '修复体测计算器夜间模式\n修复功能页文字错误' },
       { tag: 'p', head: 'V2.1.6 2019.7.31', text: '改进天气模式背景' },
       { tag: 'p', head: 'V2.1.7 2019.7.31', text: '添加授权设置页面' },
+      { tag: 'p', head: 'V2.1.8 2019.8.1', text: '完成段落与图片的组件化' },
+      { tag: 'p', head: 'V2.1.9 2019.8.2', text: '初步完成列表的组件化\n应用WeUIV2样式' },
       { tag: 'list', content: [{ text: '历史更新', desc: '点击查看', aim: 'log0' }] },
       { tag: 'foot', author: 'Mr.Hope' }
     ]

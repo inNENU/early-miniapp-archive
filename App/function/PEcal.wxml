@@ -49,7 +49,7 @@
       <view class="listUnit">{{special.unit}}</view>
     </view>
   </view>
-  <button type="primary" class='calBtn' bind:tap="calculate">计算</button>
+  <button type="primary" class='button calBtn' bind:tap="calculate">计算</button>
   <!-- <view class="scoreListCtn"> -->
   <view wx:if="{{showScore}}" class="scoreListCtn">
     <view class="scoreListTitle">体 测 成 绩</view>

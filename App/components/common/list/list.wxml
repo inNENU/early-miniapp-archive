@@ -11,7 +11,7 @@
         </view>
       </view>
       <!-- 按钮、嵌入选择器与滑块 -->
-      <button wx:elif="{{List.inlay||List.button||List.slider}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="{{List.pickerValue? 'pickerTap': List.button? 'button': List.slider? 'sliderTap': ''}}" plain="true" disabled="{{List.disabled}}">
+      <button wx:elif="{{List.inlay||List.button||List.slider}}" id="{{List.id}}" class="button listCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="{{List.pickerValue? 'pickerTap': List.button? 'button': List.slider? 'sliderTap': ''}}" plain="true" disabled="{{List.disabled}}">
         <view class="list-Container">
           <image wx:if="{{List.icon}}" class="listIcon" src="{{List.icon}}" />
           <!-- 按钮文字为蓝色 -->
@@ -29,7 +29,6 @@
       </button>
       <!-- 非嵌入选择器 -->
       <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" bindchange="pickerChange" value="{{List.currentValue}}" range="{{List.pickerValue}}">
-        <!-- <picker wx:elif="{{List.pickerValue}}" id="{{List.id}}" class="listCtn" hover-class="buttonHover" hover-stay-time="100" bindchange="{{List.picker?List.picker:'pickerChange'}}" value="{{List.currentValue}}" range="{{List.pickerValue}}"> -->
         <view class="list-Container">
           <view class="LinkText">{{List.text}}</view>
           <view wx:if="{{List.pickerValue}}" class="linkDesciption">
@@ -65,7 +64,6 @@
         <view class="link-divline"></view>
         <view wx:if="{{List.slider}}" class="sliderCtn">
           <slider min="{{List.min? List.min: '0'}}" max="{{List.max? List.max: '100'}}" value="{{List.value}}" step="{{List.step?List.step:'1'}}" bindchanging="sliderChange" bindchange="sliderChange" data-id="{{List.id}}" />
-          <!-- <slider min="{{List.min? List.min: '0'}}" max="{{List.max? List.max: '100'}}" value="{{List.value}}" bindchanging="{{List.slider?List.slider:'sliderChange'}}" step="{{List.step?List.step:'1'}}" bindchange="{{List.slider?List.slider:'sliderChange'}}" data-id="{{List.id}}" /> -->
         </view>
         <picker-view wx:if="{{List.pickerValue}}" indicator-class="pickSelected" class="pickerViewCtn" value="{{List.currentValue}}" bindchange="pickerChange" data-id="{{List.id}}" mask-class="pickerMask">
           <block wx:if="{{List.single}}">

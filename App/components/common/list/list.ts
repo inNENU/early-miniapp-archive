@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-02 16:20:32
+ * @LastEditTime: 2019-08-04 02:49:26
  * @Description: 列表组件
  */
 
 import $register from 'wxpage';
 
 $register.C({
-  properties: { config: Object },
+  properties: { config: { type: Object } },
   methods: {
     navigate(res: NormalEvent) {
       const { url } = this.getDetail(res).content;
@@ -47,7 +47,8 @@ $register.C({
         this.setData(
           { [`config.content[${id}]`]: content },
           () => {
-            this.triggerEvent('change', { id, value, type: 'picker', event: content.picker });
+            this.triggerEvent('change', { value, event: content.picker });
+            // this.triggerEvent('change', { id, value, type: 'picker', event: content.picker });
           }
         );
       }
@@ -59,16 +60,17 @@ $register.C({
       this.setData(
         { [`this.config.content[${id}].status`]: res.detail.value },
         () => {
-          this.triggerEvent('change', { id, event: content.Switch, value: res.detail.value, type: 'switch' });
+          console.log(this.data.config);
+          this.triggerEvent('change', { event: content.Switch, value: res.detail.value });
         }
       );
 
       wx.setStorageSync(content.swiKey, res.detail.value); // 将开关值写入存储的swiKey变量中
     },
     button(res: NormalEvent) { // 触发按钮事件
-      const { id, content } = this.getDetail(res);
+      const { content } = this.getDetail(res);
 
-      this.triggerEvent('change', { id, type: 'button', event: content.button });
+      this.triggerEvent('change', { event: content.button });
     },
     sliderTap(res: NormalEvent) { // 触发滑块事件
       const { id, content } = this.getDetail(res);
@@ -88,7 +90,7 @@ $register.C({
       this.setData(
         { [`this.config.content[${id}].value`]: value },
         () => {
-          this.triggerEvent('change', { id, value, type: 'sliderChange', event: content.slider });
+          this.triggerEvent('change', { value, event: content.slider });
         }
       );
 

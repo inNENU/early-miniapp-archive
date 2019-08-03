@@ -1,5 +1,6 @@
 /// <reference path="./wx/lib.wx.app.d.ts" />
 /// <reference path="./wx/lib.wx.page.d.ts" />
+/// <reference path="./wx/lib.wx.component.d.ts" />
 /// <reference path="./globalData.d.ts" />
 declare module 'wxpage' {
   /** WXPage库 */
@@ -96,7 +97,7 @@ declare module 'wxpage' {
     }
 
     /** 组件选项 */
-    interface ComponentOption extends Component.ComponentInstance {
+    interface ComponentOption extends BaseComponent {
       [props: string]: any;
     }
   }

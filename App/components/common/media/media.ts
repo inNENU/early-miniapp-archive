@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 15:12:14
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:52:08
+ * @LastEditTime: 2019-08-04 02:49:34
  * @Description: 媒体组件
  */
 
@@ -10,7 +10,7 @@ import $register from 'wxpage';
 import { tip } from '../../../utils/wx';
 
 $register.C({
-  properties: { config: Object },
+  properties: { config: { type: Object } },
   methods: {
     wait(){
       tip('缓冲中..'); // 视频缓冲时提示用户等待
