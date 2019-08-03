@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 02:49:26
+ * @LastEditTime: 2019-08-04 04:14:00
  * @Description: 列表组件
  */
 
@@ -11,7 +11,7 @@ import $register from 'wxpage';
 $register.C({
   properties: { config: { type: Object } },
   methods: {
-    navigate(res: NormalEvent) {
+    navigate(res: WXEvent.Base) {
       const { url } = this.getDetail(res).content;
 
       this.$route(url);
@@ -23,7 +23,7 @@ $register.C({
         [`config.content[${id}].visible`]: !value
       });
     },
-    pickerChange(res: PickerEvent) {
+    pickerChange(res: WXEvent.PickerChange) {
       const { id, content } = this.getDetail(res);
 
       if (res.type === 'change') {
@@ -53,7 +53,7 @@ $register.C({
         );
       }
     },
-    switch(res: SwitchEvent) {
+    switch(res: WXEvent.SwitchChange) {
       const { id, content } = this.getDetail(res);
 
       // 更新页面数据
@@ -67,12 +67,12 @@ $register.C({
 
       wx.setStorageSync(content.swiKey, res.detail.value); // 将开关值写入存储的swiKey变量中
     },
-    button(res: NormalEvent) { // 触发按钮事件
+    button(res: WXEvent.Base) { // 触发按钮事件
       const { content } = this.getDetail(res);
 
       this.triggerEvent('change', { event: content.button });
     },
-    sliderTap(res: NormalEvent) { // 触发滑块事件
+    sliderTap(res: WXEvent.Base) { // 触发滑块事件
       const { id, content } = this.getDetail(res);
 
       // 更新页面数据
@@ -96,7 +96,7 @@ $register.C({
 
       if (res.type === 'change') wx.setStorageSync(content.sliKey, value);
     },
-    getDetail(res: MiniprogramEvent) { // 获得选择器位置与内容
+    getDetail(res: WXEvent.Base) { // 获得选择器位置与内容
       const id = res.currentTarget.id || res.currentTarget.dataset.id;
 
       return { id, content: this.data.config.content[id] };

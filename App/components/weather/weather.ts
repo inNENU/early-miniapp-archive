@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-31 11:12:39
+ * @LastEditTime: 2019-08-04 04:16:18
  * @Description: 天气小组件
  */
 
@@ -173,11 +173,11 @@ $register.C({
   },
 
   methods: {
-    _navigate() {
+    navigate() {
       this.$route('weather');
     },
     /** 变更提示信息 */
-    _refresh() {
+    refresh() {
       const { length } = Object.keys(this.data.weather.tips.observe);
       const numbers = this.data.number;
 

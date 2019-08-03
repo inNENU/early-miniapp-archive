@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 15:12:14
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 02:49:34
+ * @LastEditTime: 2019-08-04 04:14:12
  * @Description: 媒体组件
  */
 
@@ -12,15 +12,15 @@ import { tip } from '../../../utils/wx';
 $register.C({
   properties: { config: { type: Object } },
   methods: {
-    wait(){
+    wait() {
       tip('缓冲中..'); // 视频缓冲时提示用户等待
     },
-    play(){
+    play() {
       wx.hideToast(); // 正常播放时隐藏提示
     },
-    error(){
+    error() {
       tip('视频加载出错');
-       wx.reportMonitor('5', 1); // 调试
+      wx.reportMonitor('5', 1); // 调试
     }
   }
 });
