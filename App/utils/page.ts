@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-01 00:38:25
+ * @LastEditTime: 2019-08-04 03:29:28
  * @Description: Page函数库
  */
 
@@ -434,7 +434,7 @@ const color = (grey: boolean) => {
     }
 
   return {
-    nc: { frontColor, backgroundColor },
+    nc: { frontColor, backgroundColor, animation: {} },
     bc: { backgroundColorTop: temp[0], backgroundColor: temp[1], backgroundColorBottom: temp[2] }
   };
 };

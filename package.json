@@ -8,8 +8,5 @@
     "tslint-config-airbnb": "^5.11.1",
     "typescript": "^3.5.3",
     "tslint": "^5.18.0"
-  },
-  "dependencies": {
-    "miniprogram-api-typings": "^2.7.7"
   }
 }

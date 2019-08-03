@@ -27,7 +27,7 @@ declare interface InitGlobalData {
   /** 夜间模式开启状态 */
   nm?: boolean;
   /** 设备信息 */
-  info?: wx.GetSystemInfoResult;
+  info?: wx.GetSystemInfoSyncResult;
   /** 小程序appid */
   appID?: string;
 }
@@ -38,7 +38,7 @@ declare interface GlobalData extends InitGlobalData {
   /** 夜间模式开启状态 */
   nm: boolean;
   /** 设备信息 */
-  info: wx.GetSystemInfoResult;
+  info: wx.GetSystemInfoSyncResult;
   /** 小程序appid */
   appID: string;
 }

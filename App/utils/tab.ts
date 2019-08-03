@@ -124,7 +124,12 @@ const checkResUpdate = (name: string, dataUsage: string) => {
 const tabBarChanger = (nightmode: boolean) => {
   const color = nightmode ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
-  wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
+  wx.setTabBarStyle({
+    backgroundColor: color[0],
+    borderStyle: color[1],
+    color: '#8a8a8a',
+    selectedColor: '#3cc51f'
+  });
 };
 
 /**

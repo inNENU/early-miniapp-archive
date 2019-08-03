@@ -8,7 +8,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ***************************************************************************** */
 
-declare namespace WechatMiniprogram {
+declare namespace wx {
   interface AccessFailCallbackResult {
     /** 错误信息
      *
@@ -1156,10 +1156,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
   }
   /** 上报的自定义数据。 */
   interface Data {
-    /** 配置中的字段名 */
-    key: string;
-    /** 上报的数据 */
-    value: any;
+    /** 配置中的字段名: 上报的数据 */
+    [key: string]: any;
   }
   /** 可选的字体描述符 */
   interface DescOption {
@@ -1896,6 +1894,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     windowWidth: number;
   }
   interface GetSystemInfoSyncResult {
+    /** 客户端环境 */
+    AppPlatform: 'qq' | undefined;
     /** 客户端基础库版本
      *
      * 最低基础库： `1.1.0` */
@@ -14032,7 +14032,7 @@ wx.writeBLECharacteristicValue({
   /** 接口调用成功的回调函数 */
   type WxStopRecordSuccessCallback = (res: GeneralCallbackResult) => void;
 }
-declare const wx: WechatMiniprogram.Wx;
+declare const wx: wx.Wx;
 /** [clearInterval(number intervalID)](https://developers.weixin.qq.com/miniprogram/dev/api/base/timer/clearInterval.html)
  *
  * 取消由 setInterval 设置的定时器。 */

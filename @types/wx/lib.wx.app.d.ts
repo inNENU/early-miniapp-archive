@@ -198,12 +198,12 @@ declare namespace App {
      *
      * 小程序初始化完成时触发，全局只触发一次。
      */
-    onLaunch?(options?: ILaunchShowOption): void;
+    onLaunch?(options: ILaunchShowOption): void;
     /** 生命周期回调—监听小程序显示
      *
      * 小程序启动，或从后台进入前台显示时
      */
-    onShow?(options?: ILaunchShowOption): void;
+    onShow?(options: ILaunchShowOption): void;
     /** 生命周期回调—监听小程序隐藏
      *
      * 小程序从前台进入后台时
@@ -213,7 +213,7 @@ declare namespace App {
      *
      * 小程序发生脚本错误，或者 api
      */
-    onError?(/** 错误信息，包含堆栈 */ error?: string): void;
+    onError?(/** 错误信息，包含堆栈 */ error: string): void;
     /** 页面不存在监听函数
      *
      * 小程序要打开的页面不存在时触发，会带上页面信息回调该函数
@@ -224,11 +224,11 @@ declare namespace App {
      *
      * 最低基础库： 1.9.90
      */
-    onPageNotFound?(options?: IPageNotFoundOption): void;
+    onPageNotFound?(options: IPageNotFoundOption): void;
   }
 
   interface AppConstructor {
-    <T extends IAnyObject & AppInstance>(options: AppInstance<T> & T): void;
+    <T extends IAnyObject>(options: AppInstance<T> & T): void;
   }
 
   interface IGetAppOption {
@@ -240,7 +240,7 @@ declare namespace App {
   }
 
   interface GetApp {
-    <T extends IAnyObject>(opts?: IGetAppOption): AppInstance<T> & T;
+    <T extends IAnyObject = IAnyObject>(opts?: IGetAppOption): AppInstance<T> & T;
   }
 }
 

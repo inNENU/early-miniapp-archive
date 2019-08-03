@@ -27,7 +27,7 @@ declare module 'wxpage' {
       off(event: string, callback: (...args: any[]) => void): void;
     }
     /** 页面注册选项 */
-    interface PageOption extends Page.PageInstance {
+    interface PageOption extends Page.PageOptions<IAnyObject> {
       /** 
        * 页面即将被导航时触发
        *
@@ -104,10 +104,10 @@ declare module 'wxpage' {
 
 
 
-  interface Wxpage {
+  interface Wxpage extends Page.PageConstructor {
     A(options: WXPage.AppOption): void;
     C(options: WXPage.ComponentOption): void;
-    (name: string, options: WXPage.PageOption): void;
+    // (name: string, options: WXPage.PageOption): void;
   }
 
   const wxpage: Wxpage;
