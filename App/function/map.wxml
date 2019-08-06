@@ -21,7 +21,7 @@
     <cover-view class="locateCtn" hover-class="hover" catch:tap="moveToLocation">
       <cover-image class="locateBtn" src="/function/icon/locate.png" />
     </cover-view>
-    <cover-view class="switch" catch:tap="switchTap">
+    <cover-view class="switch" catch:tap="xiaoquSwitch">
       <cover-view class="switchItem {{mapSwitch?'active':''}}">本部</cover-view>
       <cover-view class="switchItem {{mapSwitch?'':'active'}}">净月</cover-view>
     </cover-view>
@@ -57,7 +57,7 @@
     <cover-view class="locateCtn" hover-class="hover" catch:tap="moveToLocation">
       <cover-image class="locateBtn" src="/function/icon/locate.png" />
     </cover-view>
-    <cover-view class="switch" catch:tap="Switch">
+    <cover-view class="switch" catch:tap="xiaoquSwitch">
       <cover-view class="switchItem {{mapSwitch?'active':''}}">本部</cover-view>
       <cover-view class="switchItem {{mapSwitch?'':'active'}}">净月</cover-view>
     </cover-view>

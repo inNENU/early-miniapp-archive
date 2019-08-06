@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:24:25
+ * @LastEditTime: 2019-08-06 18:46:03
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
@@ -54,7 +54,7 @@ $register('function', {
     console.log(`功能大厅预加载用时${new Date().getTime() - a.date}ms`);
   },
   onLoad() {
-    this.setData!({
+    this.setData({
       head: $page.resolve({ query: { aim: 'function' } }, this.data.head, false)
     });
 
@@ -71,11 +71,11 @@ $register('function', {
   },
   onReady() {
     // 注册事件监听器
-    this.$on!('theme', (T: string) => {
-      this.setData!({ T });
+    this.$on('theme', (T: string) => {
+      this.setData({ T });
     });
-    this.$on!('nightmode', (nm: boolean) => {
-      this.setData!({ nm });
+    this.$on('nightmode', (nm: boolean) => {
+      this.setData({ nm });
     });
 
     // 此处还需要再优化

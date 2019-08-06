@@ -2,14 +2,17 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 04:14:00
+ * @LastEditTime: 2019-08-06 20:38:29
  * @Description: 列表组件
  */
 
 import $register from 'wxpage';
 
 $register.C({
-  properties: { config: { type: Object } },
+  properties: {
+    config: { type: Object },
+    change: { type: Object }
+  },
   methods: {
     navigate(res: WXEvent.Base) {
       const { url } = this.getDetail(res).content;
@@ -48,7 +51,6 @@ $register.C({
           { [`config.content[${id}]`]: content },
           () => {
             this.triggerEvent('change', { value, event: content.picker });
-            // this.triggerEvent('change', { id, value, type: 'picker', event: content.picker });
           }
         );
       }
@@ -58,7 +60,7 @@ $register.C({
 
       // 更新页面数据
       this.setData(
-        { [`this.config.content[${id}].status`]: res.detail.value },
+        { [`config.content[${id}].status`]: res.detail.value },
         () => {
           console.log(this.data.config);
           this.triggerEvent('change', { event: content.Switch, value: res.detail.value });
@@ -77,7 +79,7 @@ $register.C({
 
       // 更新页面数据
       this.setData(
-        { [`this.config.content[${id}].visible`]: !content.visible }
+        { [`config.content[${id}].visible`]: !content.visible }
       );
     },
     sliderChange(res: SliderEvent) {
@@ -88,7 +90,7 @@ $register.C({
 
       // 写入页面数据
       this.setData(
-        { [`this.config.content[${id}].value`]: value },
+        { [`config.content[${id}].value`]: value },
         () => {
           this.triggerEvent('change', { value, event: content.slider });
         }
@@ -100,6 +102,20 @@ $register.C({
       const id = res.currentTarget.id || res.currentTarget.dataset.id;
 
       return { id, content: this.data.config.content[id] };
+    }
+  },
+  observers: {
+    change(detail: IAnyObject) {
+      if (detail) {
+        const detail2: IAnyObject = {};
+        Object.keys(detail)
+          .forEach(element => {
+            detail2[`config.${element}`] = detail[element];
+          });
+        console.log(detail2);
+        this.setData(detail2);
+      }
+
     }
   },
   options: {

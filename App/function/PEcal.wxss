@@ -161,8 +161,8 @@
 /* 计算按钮 */
 
 .calBtn {
-  width: 92%;
-  margin: 12px 4%;
+  width: 92% !important;
+  margin: 12px 4% !important;
 }
 
 /* 成绩列表 */

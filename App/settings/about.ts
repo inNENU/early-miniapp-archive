@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-02 16:27:00
+ * @LastEditTime: 2019-08-06 19:05:04
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -12,6 +12,7 @@ import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 let clickNumber = 0;
+let developMode=false;
 
 $register('about', {
   data: {
@@ -68,9 +69,9 @@ $register('about', {
     const p = this.data.page;
     const value = wx.getStorageSync('developMode');
 
-    this.developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
+    developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
     if (wx.getStorageSync('debugMode')) p[1].content[2].status = true;
-    if (!this.developMode) p[1].content.forEach((x: any, y: number) => {
+    if (!developMode) p[1].content.forEach((x: any, y: number) => {
       x.hidden = !(y === 0);
     });
     $page.resolve(res, p);
@@ -81,8 +82,8 @@ $register('about', {
       const p = this.data.page;
       const value = wx.getStorageSync('developMode');
 
-      this.developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
-      if (!this.developMode) p[1].content.forEach((x: any, y: number) => {
+      developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
+      if (!developMode) p[1].content.forEach((x: any, y: number) => {
         x.hidden = !(y === 0);
       });
       $page.Set({ option: { aim: 'about' }, ctx: this }, p);
@@ -118,14 +119,14 @@ $register('about', {
     if (detail.event) this[detail.event](detail.value);
   },
   debugMode() {
-    if (this.developMode) {
+    if (developMode) {
       wx.setStorageSync('developMode', false);
       this.data.page[1].content.forEach((x: any, y: number) => {
         x.hidden = !(y === 0);
       });
       this.setData!({ page: this.data.page });
       clickNumber = 0;
-      this.developMode = false;
+      developMode = false;
     } else if (clickNumber < 5) clickNumber += 1;
     else if (clickNumber < 10) {
       $wx.tip(`再点击${10 - clickNumber}次即可启用开发者模式`);
@@ -147,7 +148,7 @@ $register('about', {
         });
         this.setData!({ page: this.data.page, debug: false });
         wx.setStorageSync('developMode', true);
-        this.developMode = true;
+        developMode = true;
 
       } else { // 密码错误
         wx.showToast({ title: '密码错误', icon: 'none', duration: 1000, image: '/icon/close.png' });

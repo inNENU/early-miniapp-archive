@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:24:40
+ * @LastEditTime: 2019-08-06 18:45:56
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -87,11 +87,11 @@ $register('guide', {
   },
   onReady() {
     // 注册事件监听器
-    this.$on!('theme', (T: string) => {
-      this.setData!({ T });
+    this.$on('theme', (T: string) => {
+      this.setData({ T });
     });
-    this.$on!('nightmode', (nm: boolean) => {
-      this.setData!({ nm });
+    this.$on('nightmode', (nm: boolean) => {
+      this.setData({ nm });
     });
   },
   onPullDownRefresh() {

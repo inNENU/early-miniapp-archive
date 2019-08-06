@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:35:57
+ * @LastEditTime: 2019-08-06 19:00:35
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -128,7 +128,7 @@ $register('map', {
 
     return { mapSwitch, markers };
   },
-  switchTap() {
+  xiaoquSwitch() {
     const temp = !this.data.mapSwitch;
     const markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
 

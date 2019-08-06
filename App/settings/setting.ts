@@ -13,6 +13,7 @@ $register('setting', {
   data: {
     T: a.T,
     nm: a.nm,
+    event: [],
     page: [
       { tag: 'head', title: '设置', grey: true },
       {
@@ -134,7 +135,8 @@ $register('setting', {
 
     a.T = theme;
     wx.setStorageSync('theme', theme);
-    $page.Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
+    this.setData({ T: theme });
+    // $page.Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
     this.$emit('theme', theme);
     console.log(`theme切换为${theme}`); // 调试
   },
@@ -167,7 +169,8 @@ $register('setting', {
       }
     }
     wx.setStorageSync('nightmodeAutoChange', false);
-    this.setData({ 'page[3].content': list, nm: value });
+    this.setData({ nm: value, 'event[3]': { content: list } });
+    // this.setData({ 'page[3].content': list, nm: value });
     a.nm = value;
     this.$emit('nightmode', value);
 
@@ -185,7 +188,7 @@ $register('setting', {
     const list = page[3].content;
     const nm = nightmode();
 
-    page[2].content[0].status = nm;
+    // page[2].content[0].status = nm;
     wx.setStorageSync('nightmode', nm);
     if (nm && list[5].status) wx.setScreenBrightness({ value: list[6].value / 100 });
     else if (!nm && list[3].status) wx.setScreenBrightness({ value: list[4].value / 100 });
@@ -205,7 +208,10 @@ $register('setting', {
       list[5].hidden = list[6].hidden = true;
       list[4].hidden = !list[3].status;
     }
-    this.setData({ nm, page });
+
+    list[0].status = value;
+    this.setData({ nm, 'event[2]': { 'content[0].status': nm }, 'event[3]': { content: list } });
+    // this.setData({ nm, page });
     a.nm = nm;
     this.$emit('nightmode', nm);
 
@@ -222,7 +228,8 @@ $register('setting', {
 
     list[4].visible = value;
     list[4].hidden = !value;
-    this.setData({ page });
+    this.setData({ 'event[3]': { 'content[4].visible': value, 'content[4].hidden': !value } });
+    // this.setData({ page });
   },
   nightBrightnessSwitchHandler(value: boolean) {
     const { page } = this.data;
@@ -230,7 +237,9 @@ $register('setting', {
 
     list[6].visible = value;
     list[6].hidden = !value;
-    this.setData({ page });
+    // this.setData({ page });
+
+    this.setData({ 'event[3]': { 'content[6].visible': value, 'content[6].hidden': !value } });
   },
   dayBrightnessHandler(value: number) {
     if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: value / 100 });
