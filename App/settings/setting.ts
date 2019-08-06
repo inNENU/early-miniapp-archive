@@ -65,7 +65,7 @@ $register('setting', {
       { tag: 'foot' }
     ]
   },
-  onNavigate(res: WXPage.PageArg) {
+  onNavigate(res: WXPage.PageLifeTimeOptions) {
     // 生成时间
     for (let i = 0; i <= 23; i += 1) time[0].push(`${i}时`);
     for (let i = 0; i <= 59; i += 1)
@@ -127,7 +127,7 @@ $register('setting', {
   },
   list({ detail }: any) {
     console.log(detail);
-    if (detail.event) this[detail.event](detail.value);
+    if (detail.event) this[detail.event as string](detail.value);
   },
   setTheme(value: string) {
     const theme = this.data.page[1].content[0].pickerValue[value];
@@ -135,12 +135,12 @@ $register('setting', {
     a.T = theme;
     wx.setStorageSync('theme', theme);
     $page.Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
-    this.$emit!('theme', theme);
+    this.$emit('theme', theme);
     console.log(`theme切换为${theme}`); // 调试
   },
   switchnm(value: boolean) {
-    const { page } = this.data;
-    const list = page[3].content;
+    console.log(this.data.page);
+    const list = this.data.page[3].content;
 
     list[0].status = false;
     list[1].hidden = list[2].hidden = true;
@@ -167,17 +167,20 @@ $register('setting', {
       }
     }
     wx.setStorageSync('nightmodeAutoChange', false);
-    this.setData!({ page, nm: value });
+    this.setData({ 'page[3].content': list, nm: value });
     a.nm = value;
-    this.$emit!('nightmode', value);
+    this.$emit('nightmode', value);
 
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
+    console.log(this.data.page);
   },
   switchnmAC(value: boolean) {
+    console.log(this.data.page);
+
     const { page } = this.data;
     const list = page[3].content;
     const nm = nightmode();
@@ -202,15 +205,16 @@ $register('setting', {
       list[5].hidden = list[6].hidden = true;
       list[4].hidden = !list[3].status;
     }
-    this.setData!({ nm, page });
+    this.setData({ nm, page });
     a.nm = nm;
-    this.$emit!('nightmode', nm);
+    this.$emit('nightmode', nm);
 
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
+    console.log(this.data.page);
   },
   dayBrightnessSwitchHandler(value: boolean) {
     const { page } = this.data;
@@ -218,7 +222,7 @@ $register('setting', {
 
     list[4].visible = value;
     list[4].hidden = !value;
-    this.setData!({ page });
+    this.setData({ page });
   },
   nightBrightnessSwitchHandler(value: boolean) {
     const { page } = this.data;
@@ -226,7 +230,7 @@ $register('setting', {
 
     list[6].visible = value;
     list[6].hidden = !value;
-    this.setData!({ page });
+    this.setData({ page });
   },
   dayBrightnessHandler(value: number) {
     if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: value / 100 });

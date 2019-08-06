@@ -11,7 +11,7 @@ import $component from '../utils/component';
 import $page from '../utils/page';
 
 $register('module4', {
-  onNavigate(res: WXPage.PageArg) {
+  onNavigate(res: WXPage.PageLifeTimeOptions) {
     $page.resolve(res);
   },
   onLoad(res: any) {
@@ -37,8 +37,5 @@ $register('module4', {
       title: this.data.page[0].title,
       path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.data.page[0].aim}`
     };
-  },
-  onUnload() {
-    delete this.data.page;
   }
 });

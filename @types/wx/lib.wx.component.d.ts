@@ -146,8 +146,21 @@ type DefinitionFilter<TThis> = (
 ) => void;
 
 declare interface ComponentOptions {
+  /** 是否启用多插槽支持 */
   multipleSlots?: boolean;
+  /** 是否启用全局class样式支持 */
   addGlobalClass?: boolean;
+  /** 
+   * 样式隔离选项支持
+   *
+   * 最低基础库： `2.6.5`
+   * 
+   * 只支持以下取值：
+   * - `isolated` 表示启用样式隔离，在自定义组件内外，使用 class 指定的样式将不会相互影响（一般情况下的默认值）；
+   * - `apply-shared` 表示页面 wxss 样式将影响到自定义组件，但自定义组件 wxss 中指定的样式不会影响页面；
+   * - `shared` 表示页面 wxss 样式将影响到自定义组件，自定义组件 wxss 中指定的样式也会影响页面和其他设置了 apply-shared 或 shared 的自定义组件。（这个选项在插件中不可用。）
+   */
+  styleIsolation?: 'isolated' | 'apply-shared' | 'shared'
 }
 
 type ThisComponent<TProp, TData, TMethod extends Record<string, Function>, TExt> = ThisType<WxComponent<TProp, TData, TMethod> & { properties: TProp, data: TData & TProp } & TMethod & TExt>

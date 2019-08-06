@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 03:29:28
+ * @LastEditTime: 2019-08-04 18:28:52
  * @Description: Page函数库
  */
 
@@ -177,7 +177,7 @@ const preGetPage = (page: PageData) => {
  * @param Set 是否将处理后的数据写入到全局数据中
  * @returns 处理后的page配置
  */
-const resolvePage = (option: WXPage.PageArg, page?: PageData, Set = true) => {
+const resolvePage = (option: WXPage.PageLifeTimeOptions, page?: PageData, Set = true) => {
   console.info('将要跳转：', option); // 控制台输出参数
   const { aim } = option.query;
   let data;
@@ -382,7 +382,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
  * @param grey 页面是否为灰色背景
  * @returns 页面实际的胶囊与背景颜色
  */
-const color = (grey: boolean) => {
+const color = (grey: boolean | undefined) => {
   const [frontColor, backgroundColor] = globalData.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
   let temp;
 

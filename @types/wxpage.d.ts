@@ -2,11 +2,12 @@
 /// <reference path="./wx/lib.wx.page.d.ts" />
 /// <reference path="./wx/lib.wx.component.d.ts" />
 /// <reference path="./globalData.d.ts" />
+
 declare module 'wxpage' {
   /** WXPage库 */
   export namespace WXPage {
     /** 页面跳转参数 */
-    interface PageArg {
+    interface PageLifeTimeOptions {
       /** 页面跳转地址 */
       url?: string;
       /** 跳转参数 */
@@ -14,6 +15,8 @@ declare module 'wxpage' {
         aim: string;
         [props: string]: string;
       }
+
+      [props: string]: any;
     }
     /** 小程序状态 */
     interface State {
@@ -26,8 +29,9 @@ declare module 'wxpage' {
       emit(event: string, callback: (...args: any[]) => void): void;
       off(event: string, callback: (...args: any[]) => void): void;
     }
+
     /** 页面注册选项 */
-    interface PageOption extends Page.PageOptions<IAnyObject> {
+    interface PageOption extends Page.PageOptions<IAnyObject, IAnyObject> {
       /** 
        * 页面即将被导航时触发
        *
@@ -37,37 +41,58 @@ declare module 'wxpage' {
        * 另外需要特别注意第一次进入一个分包界面
        * 或者是通过微信小程序二维码或微信内分享直接跳转到小程序子页面时同样不会触发
        */
-      onNavigate?(arg: PageArg): void;
+      onNavigate?(arg: PageLifeTimeOptions): void;
       /** 
        * 页面预加载时触发
        *
        * 需要在调用页面中使用`this.preload(pageName或pageShortName)`
        */
-      onPreload?(arg: PageArg): void;
+      onPreload?(arg: PageLifeTimeOptions): void;
+      /** 组件处理函数 */
+      cA?(event: MiniprogramEvent): void;
+      [props: string]: any;
+    }
+
+
+
+    /** 页面实例 */
+    interface PageInstance extends Page.PageInstance<IAnyObject, PageLifeTimeOptions> {
       /** 一些由wxpage生成的页面状态 */
-      $state?: State;
-      $emitter?: Emitter;
+      $state: State;
+      $emitter: Emitter;
       /** 
        * 开始监听一个事件
        * 
        * @param eventName 开始监听的事件名称
        * @param callback 当监听事件被触发时执行的回调
        */
-      $on?(eventName: string, callback: (...args: any[]) => void): void;
+      $on(eventName: string, callback: (...args: any[]) => void): void;
       /** 
         * 触发一个事件
         * 
         * @param eventName 触发的事件名称
-        * @param callback 当监听事件被触发时执行的回调
+        * @param args 传递的参数
         */
-      /** 触发一个事件 */
-      $emit?(event: string, ...args: any[]): void;
+      $emit(event: string, ...args: any[]): void;
       /** 结束一个事件监听 */
-      $off?(event: string, callback: (...args: any[]) => void): void;
-      /** 组件处理函数 */
-      cA?(event: MiniprogramEvent): void;
-      [props: string]: any;
+      $off(event: string, callback: (...args: any[]) => void): void;
+      /**
+        * 导航
+        *
+        * @param eventName 触发的事件名称
+        * @param args 传递的参数
+        */
+      $route(path: string): void;
     }
+
+    /** 页面构造器 */
+    interface PageConstructor {
+      (
+        name: string,
+        options: PageOption & ThisType<PageInstance & PageOption>
+      ): void;
+    }
+
     /** APP选项 */
     interface AppOption extends App.AppInstance {
       /** 小程序路径解析配置 */
@@ -97,19 +122,48 @@ declare module 'wxpage' {
     }
 
     /** 组件选项 */
-    interface ComponentOption extends BaseComponent {
-      [props: string]: any;
+    interface ComponentOption extends BaseComponent<IAnyObject, IAnyObject, Record<string, Function>> {
+    }
+
+    /** 组件实例 */
+    interface CompoenentInstance extends Page.PageInstance<IAnyObject, PageLifeTimeOptions> {
+      /** 
+       * 开始监听一个事件
+       * 
+       * @param eventName 开始监听的事件名称
+       * @param callback 当监听事件被触发时执行的回调
+       */
+      $on(eventName: string, callback: (...args: any[]) => void): void;
+      /** 
+        * 触发一个事件
+        * 
+        * @param eventName 触发的事件名称
+        * @param args 传递的参数
+        */
+      $emit(event: string, ...args: any[]): void;
+      /** 结束一个事件监听 */
+      $off(event: string, callback: (...args: any[]) => void): void;
+      /**
+        * 导航
+        *
+        * @param eventName 触发的事件名称
+        * @param args 传递的参数
+        */
+      $route(path: string): void;
+    }
+
+    /** 组件构建 */
+    interface ComponentConstructor {
+      (options: {} & ComponentOption & ThisType<CompoenentInstance & ComponentOption & WxComponent<IAnyObject, IAnyObject, IAnyObject>>): void;
     }
   }
 
 
-
-  interface Wxpage extends Page.PageConstructor {
+  interface WXPage extends WXPage.PageConstructor {
     A(options: WXPage.AppOption): void;
-    C(options: WXPage.ComponentOption): void;
-    // (name: string, options: WXPage.PageOption): void;
+    C: WXPage.ComponentConstructor;
   }
 
-  const wxpage: Wxpage;
+  const wxpage: WXPage;
   export default wxpage;
 }

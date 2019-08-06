@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-02 23:29:07
+ * @LastEditTime: 2019-08-06 18:43:29
  * @Description: 模块页面8
  */
 
@@ -11,7 +11,7 @@ import $component from '../utils/component';
 import $page from '../utils/page';
 
 $register('sharePage', {
-  onNavigate(res: WXPage.PageArg) {
+  onNavigate(res: WXPage.PageLifeTimeOptions) {
     $page.resolve(res);
   },
   onLoad(res: any) {
@@ -48,8 +48,5 @@ $register('sharePage', {
       title: this.data.page[0].title,
       path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.data.page[0].aim}`
     };
-  },
-  onUnload() {
-    delete this.data.page;
   }
 });

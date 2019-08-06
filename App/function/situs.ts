@@ -14,7 +14,7 @@ const { globalData: a } = getApp();
 
 $register('situs', {
   data: {},
-  onPreload(res: WXPage.PageArg) {
+  onPreload(res: WXPage.PageLifeTimeOptions) {
     $page.resolve(res, $file.readJson(`function/${res.query.xiaoqu}/${res.query.aim}`));
   },
   onLoad(option: any) {

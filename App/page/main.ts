@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:25:03
+ * @LastEditTime: 2019-08-06 18:42:54
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -104,7 +104,12 @@ $register('main', {
     const color = a.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
     $page.resolve({ query: { aim: 'main' } }, page ? page : this.data.page);
-    wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
+    wx.setTabBarStyle({
+      color: '#8a8a8a',
+      selectedColor: '#3cc51f',
+      backgroundColor: color[0],
+      borderStyle: color[1]
+    });
   },
   onLoad() {
     $page.Set({ option: { aim: 'main' }, ctx: this });
@@ -118,15 +123,20 @@ $register('main', {
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
-    wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
+    wx.setTabBarStyle({
+      color: '#8a8a8a',
+      selectedColor: '#3cc51f',
+      backgroundColor: color[0],
+      borderStyle: color[1]
+    });
   },
   onReady() {
     // 注册事件监听器
-    this.$on!('theme', (T: string) => {
-      this.setData!({ T });
+    this.$on('theme', (T: string) => {
+      this.setData({ T });
     });
-    this.$on!('nightmode', (nm: boolean) => {
-      this.setData!({ nm });
+    this.$on('nightmode', (nm: boolean) => {
+      this.setData({ nm });
     });
 
     // 执行tab页预加载

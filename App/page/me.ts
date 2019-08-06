@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:25:19
+ * @LastEditTime: 2019-08-06 18:05:53
  * @Description: 我的东师
  */
 import $register, { WXPage } from 'wxpage';
@@ -26,7 +26,7 @@ $register('me', {
       { tag: 'foot', desc: `当前版本：${a.version}\n小程序由Mr.Hope个人制作，如有错误还请见谅` }
     ]
   },
-  onPreload(res: WXPage.PageArg) {
+  onPreload(res: WXPage.PageLifeTimeOptions) {
     $page.resolve(res, this.data.page);
     console.log(`我的东师预加载用时${new Date().getTime() - a.date}ms`);
   },
@@ -41,15 +41,20 @@ $register('me', {
     // 设置胶囊、背景颜色以及tab栏颜色
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
-    wx.setTabBarStyle({ backgroundColor: color[0], borderStyle: color[1] });
+    wx.setTabBarStyle({
+      color: '#8a8a8a',
+      selectedColor: '#3cc51f',
+      backgroundColor: color[0],
+      borderStyle: color[1]
+    });
   },
   onReady() {
     // 注册事件监听器
-    this.$on!('theme', (T: string) => {
-      this.setData!({ T });
+    this.$on('theme', (T: string) => {
+      this.setData({ T });
     });
-    this.$on!('nightmode', (nm: boolean) => {
-      this.setData!({ nm });
+    this.$on('nightmode', (nm: boolean) => {
+      this.setData({ nm });
     });
   },
   onPageScroll(e) {

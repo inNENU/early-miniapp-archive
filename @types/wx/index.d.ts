@@ -15,6 +15,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 /// <reference path="./lib.wx.event.d.ts" />
 /// <reference path="./lib.wx.component.d.ts" />
 /// <reference path="./lib.wx.behavior.d.ts" />
+/// <reference path="./lib.wx.cloud.d.ts" />
 
 
 type IAnyObject = Record<string, any>;

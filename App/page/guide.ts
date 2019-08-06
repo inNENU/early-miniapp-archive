@@ -67,7 +67,7 @@ $register('guide', {
       }
     ]
   },
-  onPreload(res: WXPage.PageArg) {
+  onPreload(res: WXPage.PageLifeTimeOptions) {
     const pageData = this.$take('guide');
 
     $page.resolve(res, pageData ? pageData : wx.getStorageSync('guide'));

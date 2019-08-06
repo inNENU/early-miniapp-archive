@@ -64,7 +64,7 @@ $register('about', {
       { tag: 'foot', desc: `当前版本：${a.version}` }
     ]
   },
-  onNavigate(res: WXPage.PageArg) {
+  onNavigate(res: WXPage.PageLifeTimeOptions) {
     const p = this.data.page;
     const value = wx.getStorageSync('developMode');
 

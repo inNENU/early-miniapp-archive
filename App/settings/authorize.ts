@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-31 10:50:55
+ * @LastEditTime: 2019-08-06 17:51:37
  * @Description: 捐赠
  */
 import $register, { WXPage } from 'wxpage';
@@ -63,7 +63,7 @@ $register('authorize', {
     ],
     authorize: {}
   },
-  onNavigate(res: WXPage.PageArg) {
+  onNavigate(res: WXPage.PageLifeTimeOptions) {
     $page.resolve(res, this.data.page);
   },
   onLoad() {
@@ -85,7 +85,7 @@ $register('authorize', {
           if (res.authSetting[type]) list[index].desc = '√';
         });
 
-        this.setData!({ 'page[1].content': list });
+        this.setData({ 'page[1].content': list });
       }
     });
   },
@@ -134,7 +134,7 @@ $register('authorize', {
                     if (res2.authSetting[type2]) list[index].desc = '√';
                   });
 
-                  this.setData!({ 'page[1].content': list });
+                  this.setData({ 'page[1].content': list });
                 }
               });
             }

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-02 23:15:46
+ * @LastEditTime: 2019-08-04 18:14:32
  * @Description: 版本介绍
  */
 import $register, { WXPage } from 'wxpage';
@@ -30,18 +30,18 @@ $register('version', {
       { tag: 'foot', author: 'Mr.Hope' }
     ]
   },
-  onNavigate(res: WXPage.PageArg) {
+  onNavigate(res: WXPage.PageLifeTimeOptions) {
     $page.resolve(res, this.data.page);
   },
   onLoad(res: any) {
     $page.Set({ option: res, ctx: this });
 
     // 显示通知
-    $page.Notice(this.aim);
+    $page.Notice('version');
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(this.data.page && this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

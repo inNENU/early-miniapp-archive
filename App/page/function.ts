@@ -47,7 +47,7 @@ $register('function', {
       }
     ]
   },
-  onPreload(res: WXPage.PageArg) {
+  onPreload(res: WXPage.PageLifeTimeOptions) {
     const pageData = this.$take('function');
 
     $page.resolve(res, pageData ? pageData : wx.getStorageSync('function'));

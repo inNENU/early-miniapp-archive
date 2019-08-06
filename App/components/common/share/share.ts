@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 04:15:27
+ * @LastEditTime: 2019-08-06 18:41:16
  * @Description: 分享组件
  */
 
@@ -10,6 +10,10 @@ import $register from 'wxpage';
 import $wx from '../../../utils/wx';
 
 const { logger, globalData: { env } } = getApp();// 获得日志管理器，全局数据
+
+let time = 0;
+let left = 0;
+let top = 0;
 
 $register.C({
   properties: { config: { type: Object, value: { aim: '' } } },
@@ -22,16 +26,16 @@ $register.C({
 
       switch (event.type) {
         case 'touchstart':// 计算点击点与按钮左上角的距离
-          this.left = touch.pageX - event.currentTarget.offsetLeft;
-          this.top = touch.pageY - event.currentTarget.offsetTop;
-          this.time = event.timeStamp;
+          left = touch.pageX - event.currentTarget.offsetLeft;
+          top = touch.pageY - event.currentTarget.offsetTop;
+          time = event.timeStamp;
           break;
         case 'touchmove':// 根据touchstart的计算值移动分享按钮
-          this.setData({ top: touch.pageY - this.top, left: touch.pageX - this.left });
+          this.setData({ top: touch.pageY - top, left: touch.pageX - left });
           break;
         case 'touchend':// 如果触摸小于200ms——>视为点击操作，显示菜单
         default:
-          if (this.time > event.timeStamp - 200) this.setData({ menuDisplay: true });
+          if (time > event.timeStamp - 200) this.setData({ menuDisplay: true });
       }
     },
     // 取消显示菜单
@@ -124,8 +128,5 @@ $register.C({
         });
       else $wx.tip('QQ暂不支持二维码');
     }
-  },
-  time: 0,
-  left: 0,
-  top: 0
+  }
 });
