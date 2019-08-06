@@ -1,0 +1,24 @@
+<view class="searchBar">
+  <view class="searchForm">
+    <view class="searchCtn" wx:if="{{showInput}}">
+      <icon class="searchIcon input" type="search" size="16" />
+      <input type="text" class="searchInput" placeholder="搜索" value="{{value}}" focus="{{showInput}}" bindinput="inputTyping" bindconfirm="confirm" />
+      <view class="clearIconBtn" wx:if="{{value.length > 0}}" catch:tap="clearInput">
+        <icon class="clearIcon" type="clear" size="16" />
+      </view>
+    </view>
+    <view class="searchLabel" wx:else catch:tap="showInput">
+      <view class="searchText">
+        <icon class="searchIcon" type="search" size="16" />
+        搜索
+      </view>
+    </view>
+  </view>
+  <view class="cancelBtn" hidden="{{!showInput}}" catch:tap="hideInput">取消</view>
+</view>
+<view class="resultList" wx:if="{{result.length > 0}}">
+  <view class="resultCtn">
+    <view>{{title}}</view>
+    <view>{{desc}}</view>
+  </view>
+</view>

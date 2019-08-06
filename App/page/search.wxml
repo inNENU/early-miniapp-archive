@@ -1,0 +1,2 @@
+<view class="nav" style="height:{{statusBarHeight+40}}px;"></view>
+<search words="{{words}}" result="{{result}}" />
