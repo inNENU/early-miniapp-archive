@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 21:14:50
+ * @LastEditTime: 2019-08-07 23:39:39
  * @Description: 小程序主脚本
  */
 
@@ -13,7 +13,7 @@ let keywords: object;
 
 $register.A({
   globalData: {
-    version: 'V 2.2.1',
+    version: 'V 2.2.2',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],

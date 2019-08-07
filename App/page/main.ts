@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 21:14:08
+ * @LastEditTime: 2019-08-07 23:46:55
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -169,10 +169,11 @@ $register('main', {
     if (searchWord) {
       Object.keys(keywords)
         .forEach(jsonName => {
-          // 判断每个关键词是否包含了searchWord，如果包含则推送。
-          keywords[jsonName].keywords.forEach(keyword => {
-            if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
-          });
+          // 判断每个关键词是否包含了searchWord，如果包含则推送
+          if (keywords[jsonName].keywords)
+            keywords[jsonName].keywords.forEach(keyword => {
+              if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
+            });
         });
 
       console.log(words);

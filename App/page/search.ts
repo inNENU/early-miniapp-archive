@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 21:18:50
+ * @LastEditTime: 2019-08-07 23:52:34
  * @Description: 搜索页
  */
 
@@ -52,9 +52,10 @@ $register('search', {
       Object.keys(keywords)
         .forEach(jsonName => {
           // 判断每个关键词是否包含了searchWord，如果包含则推送。
-          keywords[jsonName].keywords.forEach(keyword => {
-            if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
-          });
+          if (keywords[jsonName].keywords)
+            keywords[jsonName].keywords.forEach(keyword => {
+              if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
+            });
         });
 
       console.log(words);
@@ -70,23 +71,24 @@ $register('search', {
     const resultList: SearchResult[] = [];
     const desc: IAnyObject = {};
 
-    console.log(keywords);
 
     Object.keys(keywords)
       .forEach(jsonName => {
-        // 搜索关键词
-        keywords[jsonName].keywords.forEach(keyword => {
-          console.log(keyword);
-
-          searchWord.forEach(word => {
-            if (keyword.indexOf(word) !== -1) weight[jsonName] = (weight[jsonName] || 0) + 1;
-          });
+        // 搜索页面标题
+        searchWord.forEach(word => {
+          if (keywords[jsonName].title.indexOf(word) !== -1) weight[jsonName] = (weight[jsonName] || 0) + 4;
         });
+
+        // 搜索关键词
+        if (keywords[jsonName].keywords)
+          keywords[jsonName].keywords.forEach(keyword => {
+            searchWord.forEach(word => {
+              if (keyword.indexOf(word) !== -1) weight[jsonName] = (weight[jsonName] || 0) + 2;
+            });
+          });
 
         // 搜索标题
         keywords[jsonName].desc.forEach(descText => {
-          console.log(descText);
-
           searchWord.forEach(word => {
             if (descText.indexOf(word) !== -1) {
               weight[jsonName] = (weight[jsonName] || 0) + 1;
@@ -102,12 +104,14 @@ $register('search', {
       return weight[b] - weight[a];
     });
 
+    // 为权重大于2的匹配值生成最终结果
     keys.forEach(key => {
-      resultList.push({
-        url: `module1?aim=${key}&From=搜索`,
-        text: keywords[key].title,
-        desc: desc[key]
-      });
+      if (weight[key] >= 2)
+        resultList.push({
+          url: `module1?aim=${key}&From=搜索`,
+          text: keywords[key].title,
+          desc: desc[key]
+        });
     });
 
     console.log(resultList);

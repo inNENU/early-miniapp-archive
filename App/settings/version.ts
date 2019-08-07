@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 21:25:16
+ * @LastEditTime: 2019-08-07 23:40:04
  * @Description: 版本介绍
  */
 import $register, { WXPage } from 'wxpage';
@@ -16,7 +16,8 @@ $register('version', {
     nm: globalData.nm,
     page: [
       { tag: 'head', title: '更新日志', grey: true, aimDepth: 1, aim: 'currentLog' },
-      { tag: 'p', head: 'V2.2.1 2019.8.7', text: '初步添加搜索模块' },
+      { tag: 'p', head: 'V2.2.1 2019.8.6', text: '初步添加搜索模块' },
+      { tag: 'p', head: 'V2.2.2 2019.8.7', text: '优化排序算法' },
       { tag: 'foot', author: 'Mr.Hope' }
     ]
   },

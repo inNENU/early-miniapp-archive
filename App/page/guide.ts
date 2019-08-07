@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 21:14:14
+ * @LastEditTime: 2019-08-07 23:47:05
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -120,9 +120,10 @@ $register('guide', {
       Object.keys(keywords)
         .forEach(jsonName => {
           // 判断每个关键词是否包含了searchWord，如果包含则推送。
-          keywords[jsonName].keywords.forEach(keyword => {
-            if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
-          });
+          if (keywords[jsonName].keywords)
+            keywords[jsonName].keywords.forEach(keyword => {
+              if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
+            });
         });
 
       console.log(words);

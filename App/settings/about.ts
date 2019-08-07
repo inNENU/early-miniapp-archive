@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-06 19:05:04
+ * @LastEditTime: 2019-08-07 23:15:39
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -12,7 +12,7 @@ import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 let clickNumber = 0;
-let developMode=false;
+let developMode = false;
 
 $register('about', {
   data: {
@@ -50,7 +50,7 @@ $register('about', {
           { text: 'Hope Studio介绍', aim: 'MrHope0' },
           { text: 'Mr.Hope个人介绍', aim: 'MrHope1' },
           { text: '开发者访谈', aim: 'MrHope3' },
-          { text: '   感谢陈旭、董雨馨、傅阳、林传舜、沈竞泽、苏炀、邱诗懿、王一竹、张霁月在界面编写、排版与订正上给予的无私帮助。' }
+          { text: '致谢名单', aim: 'MrHope4' }
         ]
       },
       {
@@ -124,7 +124,7 @@ $register('about', {
       this.data.page[1].content.forEach((x: any, y: number) => {
         x.hidden = !(y === 0);
       });
-      this.setData!({ page: this.data.page });
+      this.setData({ page: this.data.page });
       clickNumber = 0;
       developMode = false;
     } else if (clickNumber < 5) clickNumber += 1;
@@ -132,9 +132,9 @@ $register('about', {
       $wx.tip(`再点击${10 - clickNumber}次即可启用开发者模式`);
       clickNumber += 1;
     } else {
-      this.setData!({ debug: true });
+      this.setData({ debug: true });
       wx.nextTick(() => {
-        this.setData!({ focus: true });
+        this.setData({ focus: true });
       });
     }
   },
@@ -146,13 +146,13 @@ $register('about', {
         this.data.page[1].content.forEach((x: any) => {
           x.hidden = false;
         });
-        this.setData!({ page: this.data.page, debug: false });
+        this.setData({ page: this.data.page, debug: false });
         wx.setStorageSync('developMode', true);
         developMode = true;
 
       } else { // 密码错误
         wx.showToast({ title: '密码错误', icon: 'none', duration: 1000, image: '/icon/close.png' });
-        this.setData!({ debug: false });
+        this.setData({ debug: false });
       }
       event.detail.value = '';
     }
@@ -160,12 +160,12 @@ $register('about', {
     return event.detail.value;
   },
   cancelInput() {
-    this.setData!({ debug: false });
+    this.setData({ debug: false });
   },
   debugSwitch(value: boolean) {
 
     this.data.page[1].content[2].status = value;
-    this.setData!({ page: this.data.page });
+    this.setData({ page: this.data.page });
     wx.setStorageSync('debugMode', value);
 
     if (value) wx.setEnableDebug({ enableDebug: true });
