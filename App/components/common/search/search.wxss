@@ -79,6 +79,21 @@
   white-space: nowrap;
 }
 
-.resultList {
-  width: 100%;
+.wordList {
+  position: absolute;
+  top: 40px;
+  left: 8px;
+  right: 46px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.word {
+  padding: 4px 32px;
+  line-height: 1.5;
+  font-size: 15px;
+  text-align: left;
+  color: #444;
 }

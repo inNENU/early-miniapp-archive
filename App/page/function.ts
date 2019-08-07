@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-06 18:46:03
+ * @LastEditTime: 2019-08-07 21:02:04
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
@@ -15,9 +15,7 @@ $register('function', {
   data: {
     T: a.T,
     nm: a.nm,
-    head: [
-      { tag: 'head', title: '功能大厅', action: true, grey: true }
-    ],
+    head: { tag: 'head', title: '功能大厅', action: true, grey: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       { tag: 'head', title: '功能大厅', hidden: true },
       {
@@ -54,10 +52,6 @@ $register('function', {
     console.log(`功能大厅预加载用时${new Date().getTime() - a.date}ms`);
   },
   onLoad() {
-    this.setData({
-      head: $page.resolve({ query: { aim: 'function' } }, this.data.head, false)
-    });
-
     $page.Set({ option: { aim: 'function' }, ctx: this });
     $page.Notice('function');
     $tab.update('function', '70K');

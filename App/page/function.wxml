@@ -1,6 +1,6 @@
 <import src="/components/template" />
-<view class="{{T}} {{head[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <template is="all2" data="{{page:head,T}}" />
+<view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template is="head" data="{{...head,T}}" />
   <weather bind:navigate="navigate" />
   <template is="all2" data="{{page,T}}" />
 </view>

@@ -2,21 +2,26 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-06 18:45:56
+ * @LastEditTime: 2019-08-07 21:14:14
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
 import $component from '../utils/component';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
+import { Keywords } from './search';
 const { globalData: a } = getApp();
 
 $register('guide', {
   data: {
     T: a.T,
     nm: a.nm,
+    words: [],
+    head: {
+      title: '东师指南', action: true, aimDepth: 1, grey: true, statusBarHeight: a.info.statusBarHeight
+    },
     page: [
-      { tag: 'head', title: '东师指南', action: true, aimDepth: 1, grey: true },
+      { tag: 'head', title: '东师指南', action: true, aimDepth: 1, grey: true, hidden: true },
       {
         tag: 'grid',
         head: '新生你好',
@@ -76,7 +81,7 @@ $register('guide', {
   onLoad() {
     $page.Set({ option: { aim: 'guide' }, ctx: this });
     $page.Notice('guide');
-    $tab.update('page', '185K');
+    $tab.update('page', '200K');
   },
   onShow() {
     // 设置胶囊和背景颜色
@@ -104,6 +109,29 @@ $register('guide', {
   },
   cA(e) {
     $component.trigger(e, this);
+  },
+  searching(event: WXEvent.Input) {
+    const keywords = getApp()
+      .keywords() as Keywords;
+    const searchWord = event.detail.value;
+    const words: string[] = [];
+
+    if (searchWord) {
+      Object.keys(keywords)
+        .forEach(jsonName => {
+          // 判断每个关键词是否包含了searchWord，如果包含则推送。
+          keywords[jsonName].keywords.forEach(keyword => {
+            if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
+          });
+        });
+
+      console.log(words);
+
+      this.setData({ words });
+    }
+  },
+  search(event: WXEvent.Input) {
+    this.$route(`search?words=${event.detail.value}`);
   },
   onShareAppMessage: () => ({ title: '东师指南', path: '/page/guide' })
 });

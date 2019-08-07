@@ -23,6 +23,7 @@
         <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
         <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
         <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
+        <swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
         <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
         <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
         <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
@@ -41,6 +42,7 @@
     <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
     <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
     <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
+    <swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
     <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
     <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
     <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />

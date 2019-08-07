@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 18:28:52
+ * @LastEditTime: 2019-08-07 21:10:55
  * @Description: Page函数库
  */
 
@@ -52,18 +52,16 @@ const disposePage = (page: PageData, option: PageArg) => {
 
       if (option && !page[0].action) {
         page[0].aim = 'aim' in option ? option.aim : page[0].title; // 设置界面名称
-        if ('From' in option) page[0].leftText = option.From; // 设置页面来源
-        if ('depth' in option) page[0].aimDepth = Number(option.depth) + 1; // 设置界面路径深度
+        page[0].leftText = option.From || '返回'; // 设置页面来源
+        page[0].aimDepth = Number(option.depth || 1) + 1; // 设置界面路径深度
 
         // 判断是否来自分享，分享页左上角动作默认为重定向
         if ('share' in option) {
           page[0].action = 'redirect';
           console.info('redirect');
         }
-
-        // 添加返回文字
-        if (!page[0].leftText) page[0].leftText = '返回';
       }
+
       page.forEach(element => {
         // 处理图片
         if (element.src) page[0].url.push(element.res || element.src);
@@ -77,8 +75,7 @@ const disposePage = (page: PageData, option: PageArg) => {
         }
 
         // 设置list组件
-        if ('content' in element) element.content.forEach((listElement: any, listIndex: number) => {
-          listElement.id = listIndex; // 列表每项添加id
+        if ('content' in element) element.content.forEach((listElement: any) => {
 
           // 设置列表导航
           if ('url' in listElement) listElement.url += `?From=${page[0].title}`;
@@ -156,7 +153,7 @@ const preGetPage = (page: PageData) => {
         if ('aim' in element) {
           const { path } = resolveAim(element.aim);
 
-          $file.getJson(`page/${path}`, () => undefined);
+          $file.getJson(`page/${path}`);
         }
       });
   });

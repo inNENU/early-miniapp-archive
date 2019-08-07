@@ -1,2 +1,3 @@
 <view class="nav" style="height:{{statusBarHeight+40}}px;"></view>
-<search words="{{words}}" result="{{result}}" />
+<search words="{{words}}" catch:searching="searching" catch:search="search" />
+<list config="{{result}}" />

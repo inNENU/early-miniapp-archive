@@ -256,10 +256,10 @@
   background-color: #eee !important;
 }
 
-.divLine1 {
+.divLine {
+  position: relative;
   width: 100%;
   height: 0px;
-  border-bottom: 1rpx #cac9ce solid;
 }
 
 .Grey {
@@ -297,6 +297,7 @@
   border-top: 1px solid #acacb0;
 }
 
+.divline:after,
 .borderB:after,
 .borderTB:after {
   bottom: 0;
@@ -305,6 +306,7 @@
   border-bottom: 1px solid #acacb0;
 }
 
+.divline:after,
 .borderT:before,
 .borderB:after,
 .borderTB:before,
@@ -318,6 +320,7 @@
   transform: scaleY(0.4);
 }
 
+.nm .divline:after,
 .nm .borderT:before,
 .nm .borderB:after,
 .nm .borderTB:before,

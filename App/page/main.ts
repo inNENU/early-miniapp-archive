@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-06 18:42:54
+ * @LastEditTime: 2019-08-07 21:14:08
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -10,20 +10,21 @@ import $component from '../utils/component';
 import $wx from '../utils/wx';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
+import { Keywords } from './search';
 const { globalData: a } = getApp();
 
 $register('main', {
   data: {
     T: a.T,
     nm: a.nm,
-    res: {
-      tag: 'head', title: '首页', aim: 'main',
-      action: true, aimStep: 1, aimDepth: 1, grey: true, shareable: true
+    words: [],
+    head: {
+      tag: 'head', title: '首页', aim: 'main', action: true, statusBarHeight: a.info.statusBarHeight
     },
     page: [
       {
         tag: 'head', title: '首页', aim: 'main',
-        action: true, aimStep: 1, aimDepth: 1, grey: true
+        action: true, aimStep: 1, aimDepth: 1, grey: true, hidden: true
       },
       {
         tag: 'grid',
@@ -158,6 +159,29 @@ $register('main', {
   },
   cA(e) {
     $component.trigger(e, this);
+  },
+  searching(event: WXEvent.Input) {
+    const keywords = getApp()
+      .keywords() as Keywords;
+    const searchWord = event.detail.value;
+    const words: string[] = [];
+
+    if (searchWord) {
+      Object.keys(keywords)
+        .forEach(jsonName => {
+          // 判断每个关键词是否包含了searchWord，如果包含则推送。
+          keywords[jsonName].keywords.forEach(keyword => {
+            if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
+          });
+        });
+
+      console.log(words);
+
+      this.setData({ words });
+    }
+  },
+  search(event: WXEvent.Input) {
+    this.$route(`search?words=${event.detail.value}`);
   },
   onShareAppMessage: () => ({ title: 'myNENU', path: '/page/main' })
 });

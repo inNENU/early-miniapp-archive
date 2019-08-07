@@ -2,16 +2,18 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-03 11:19:31
+ * @LastEditTime: 2019-08-07 21:14:50
  * @Description: 小程序主脚本
  */
 
 import $register from 'wxpage';
 import app from './utils/app';
+import $file from './utils/file';
+let keywords: object;
 
 $register.A({
   globalData: {
-    version: 'V 2.2.0',
+    version: 'V 2.2.1',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -24,7 +26,7 @@ $register.A({
   config: {
     route: ['/page/$page', '/module/$page', '/function/$page', '/settings/$page'],
     resolvePath: (name: string) =>
-      ['main', 'function', 'guide', 'me'].includes(name)
+      ['main', 'function', 'guide', 'me', 'search'].includes(name)
         ? `/page/${name}`
         : ['setting', 'version', 'about', 'authorize'].includes(name)
           ? `/settings/${name}`
@@ -75,6 +77,11 @@ $register.A({
 
     console.warn('未找到界面:', msg);
     this.logger.warn('未找到界面', msg); // 调试
+  },
+  keywords() {
+    if (!keywords) keywords = $file.readJson('page/keywords');
+
+    return keywords;
   },
 
   // 日志管理器对象

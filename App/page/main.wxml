@@ -1,2 +1,7 @@
 <import src="/components/template" />
-<template is="all" data="{{page,T,nm}}" />
+<import src="/components/template" />
+<view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template is="head" data="{{...head,T}}" />
+  <search words="{{words}}" catch:searching="searching" catch:search="search" />
+  <template is="all2" data="{{page,T}}" />
+</view>

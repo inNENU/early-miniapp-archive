@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-07-30 16:08:57
+ * @LastEditTime: 2019-08-07 21:12:38
  */
 
 // 初始化文件管理器、用户路径与日志管理器
@@ -47,6 +47,25 @@ const Delete = (path: string, isDir?: boolean | null) => {
       console.error(`删除${path}出错,错误为:`, err);
       logger.warn(`删除${path}出错,错误为:`, err);
     }
+};
+
+/**
+ * 判断文件或文件夹是否存在
+ *
+ * @param path 要查看的文件/文件夹路径
+ * @returns true
+ */
+const isFileExist = (path: string) => {
+  try {
+    fileManager.statSync(`${userPath}/${path}`, false);
+
+    return true;
+  } catch (err) { // 调试
+    console.error(`${path}不存在:`, err);
+    logger.warn(`${path}不存在`, err);
+
+    return false;
+  }
 };
 
 /**
@@ -231,11 +250,43 @@ const writeJson = (path: string, fileName: string, data: object, encoding = 'utf
  * @param failFunc Json获取失败后的回调
  * @returns callback或null
  */
-const getJson = (path: string, callback: (data: object | string) => void, failFunc?: () => void) => {
-  let data = readJson(path);
+const getJson = (path: string, callback?: (data: object | string) => void, failFunc?: () => void) => {
+  if (callback) {
+    let data = readJson(path);
 
-  if (data) callback(data);
-  else {
+    if (data) callback(data);
+    else {
+
+      const temp = path.split('/');
+      const fileName = temp.pop();
+      const folder = temp.join('/');
+
+      makeDir(folder);
+
+      wx.downloadFile({
+        url: `https://mp.nenuyouth.com/${path}.json`,
+        filePath: `${userPath}/${folder}/${fileName}.json`,
+        success: res => {
+          if (res.statusCode === 200) {
+            console.info(`Save ${path}.json success`);
+
+            data = readJson(path);
+
+            callback(data);
+          } else {
+            console.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
+            logger.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
+            if (failFunc) failFunc();
+          }
+        },
+        fail: failMsg => {
+          console.warn(`下载${path}.json失败，错误为`, failMsg);
+          logger.warn(`下载${path}.json失败，错误为`, failMsg);
+          if (failFunc) failFunc();
+        }
+      });
+    }
+  } else if (!isFileExist(`${path}.json`)) {
 
     const temp = path.split('/');
     const fileName = temp.pop();
@@ -247,22 +298,16 @@ const getJson = (path: string, callback: (data: object | string) => void, failFu
       url: `https://mp.nenuyouth.com/${path}.json`,
       filePath: `${userPath}/${folder}/${fileName}.json`,
       success: res => {
-        if (res.statusCode === 200) {
+        if (res.statusCode === 200)
           console.info(`Save ${path}.json success`);
-
-          data = readJson(path);
-
-          callback(data);
-        } else {
+        else {
           console.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
           logger.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
-          if (failFunc) failFunc();
         }
       },
       fail: failMsg => {
         console.warn(`下载${path}.json失败，错误为`, failMsg);
         logger.warn(`下载${path}.json失败，错误为`, failMsg);
-        if (failFunc) failFunc();
       }
     });
   }
@@ -289,5 +334,5 @@ const unzip = (path: string, unzipPath: string, callback?: () => void) => {
 
 export default {
   Delete, getJson, listFile, readFile, readJson,
-  makeDir, saveFile, saveOnlineFile, writeFile, writeJson, unzip, Manager: fileManager
+  makeDir, saveFile, saveOnlineFile, writeFile, writeJson, unzip, exist: isFileExist, Manager: fileManager
 };
