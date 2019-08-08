@@ -7,11 +7,20 @@
   align-items: center;
 }
 
+.nm .searchBar {
+  background-color: #000;
+  color: #fff;
+}
+
 .searchForm {
-  border-radius: 4px;
-  width: 100%;
   flex-shrink: 1;
-  background: #fff;
+  width: 100%;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.nm .searchForm {
+  background-color: #121212;
 }
 
 .searchCtn {
@@ -28,6 +37,10 @@
   align-items: center;
   color: rgba(0, 0, 0, 0.5);
   line-height: 32px;
+}
+
+.nm .searchLabel {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .searchIcon {
@@ -49,7 +62,6 @@
   line-height: 32px;
   font-size: 14px;
   margin-left: 4px;
-  caret-color: #07c160;
 }
 
 .searchIcon.input {
@@ -90,10 +102,18 @@
   z-index: 2;
 }
 
+.nm .wordList {
+  background-color: #000;
+}
+
 .word {
   padding: 4px 32px;
   line-height: 1.5;
   font-size: 15px;
   text-align: left;
   color: #444;
+}
+
+.nm .word {
+  color: #bbb;
 }

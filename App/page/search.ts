@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 23:52:34
+ * @LastEditTime: 2019-08-08 10:27:33
  * @Description: 搜索页
  */
 
@@ -30,18 +30,20 @@ $register('search', {
   data: {
     statusBarHeight: getApp().globalData.info.statusBarHeight,
     words: [],
-    result: {}
+    result: {},
+    searchword: ''
   },
   onLoad(options) {
     this.keywords = getApp()
       .keywords() as Keywords;
 
-    if (options.words)
+    if (options.words) {
+      this.setData({ searchword: options.words });
+
       this.search({
-        detail: {
-          value: options.words
-        }
+        detail: { value: options.words }
       });
+    }
   },
   searching(event: WXEvent.Input) {
     const keywords = this.keywords as Keywords;

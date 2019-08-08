@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 23:46:55
+ * @LastEditTime: 2019-08-08 12:33:18
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -155,7 +155,7 @@ $register('main', {
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
-    $component.nav(e, this);
+    $component.nav(e, this, 'head');
   },
   cA(e) {
     $component.trigger(e, this);

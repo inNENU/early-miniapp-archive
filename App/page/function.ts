@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 21:02:04
+ * @LastEditTime: 2019-08-08 12:35:01
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
@@ -15,7 +15,7 @@ $register('function', {
   data: {
     T: a.T,
     nm: a.nm,
-    head: { tag: 'head', title: '功能大厅', action: true, grey: true, statusBarHeight: a.info.statusBarHeight },
+    head: { tag: 'head', title: '功能大厅', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       { tag: 'head', title: '功能大厅', hidden: true },
       {
@@ -81,7 +81,7 @@ $register('function', {
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
-    $component.nav(e, this);
+    $component.nav(e, this, 'head');
   },
   cA(e) {
     $component.trigger(e, this);

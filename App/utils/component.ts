@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 13:49:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 03:48:03
+ * @LastEditTime: 2019-08-08 12:29:19
  * @Description: 组件函数库
  */
 
@@ -37,9 +37,10 @@ const componentAction = (res: MiniprogramEvent, ctx: any) => {
  *
  * @param option 组件参数
  * @param ctx 页面指针
+ * @param [headName] 头部对象名称
  */
-const changeNav = (option: Page.IPageScrollOption, ctx: any) => {
-  const { 0: pageHead } = ctx.data.page;
+const changeNav = (option: Page.IPageScrollOption, ctx: any, headName?: string) => {
+  const pageHead = headName ? ctx.data[headName] : ctx.data.page[0];
   let titleDisplay;
   let borderDisplay;
   let shadow;
@@ -56,9 +57,10 @@ const changeNav = (option: Page.IPageScrollOption, ctx: any) => {
   }
 
   // 判断结果并更新界面数据
-  if (pageHead.titleDisplay !== titleDisplay) ctx.setData({ 'page[0].titleDisplay': titleDisplay });
-  else if (pageHead.borderDisplay !== borderDisplay) ctx.setData({ 'page[0].borderDisplay': borderDisplay });
-  else if (pageHead.shadow !== shadow) ctx.setData({ 'page[0].shadow': shadow });
+  if (pageHead.titleDisplay !== titleDisplay) ctx.setData({ [`${headName || 'page[0]'}.titleDisplay`]: titleDisplay });
+  else if (pageHead.borderDisplay !== borderDisplay)
+    ctx.setData({ [`${headName || 'page[0]'}.borderDisplay`]: borderDisplay });
+  else if (pageHead.shadow !== shadow) ctx.setData({ [`${headName || 'page[0]'}.shadow`]: shadow });
 };
 
 export default {

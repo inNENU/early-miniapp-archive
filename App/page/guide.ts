@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 23:47:05
+ * @LastEditTime: 2019-08-08 12:35:09
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -28,7 +28,7 @@ $register('guide', {
         content: [
           { text: '新生报到', color: 'orange', name: 'Check', icon: '/icon/tabPage/check.svg', aim: 'check0' },
           { text: '报到流程', color: 'blue', name: 'Step', icon: 'https://mp.nenuyouth.com/icon/module/list.svg', aim: 'check9' },
-          { text: '需带物品', color: 'red', name: 'Necessities', icon: 'https://mp.nenuyouth.com/icon/module/good.svg', aim: 'check7' },
+          { text: '需带物品', color: 'red', name: 'Necessity', icon: 'https://mp.nenuyouth.com/icon/module/good.svg', aim: 'check7' },
           { text: '缴费相关', color: 'purple', name: 'Payment', icon: 'https://mp.nenuyouth.com/icon/module/pay.svg', aim: 'check10' }
         ]
       },
@@ -81,7 +81,7 @@ $register('guide', {
   onLoad() {
     $page.Set({ option: { aim: 'guide' }, ctx: this });
     $page.Notice('guide');
-    $tab.update('page', '200K');
+    $tab.update('page', '210K');
   },
   onShow() {
     // 设置胶囊和背景颜色
@@ -101,11 +101,11 @@ $register('guide', {
   },
   onPullDownRefresh() {
     $tab.refresh('guide', this, a);
-    $tab.update('page', '175K');
+    $tab.update('page', '210K');
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
-    $component.nav(e, this);
+    $component.nav(e, this, 'head');
   },
   cA(e) {
     $component.trigger(e, this);

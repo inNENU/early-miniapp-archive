@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 19:13:05
+ * @LastEditTime: 2019-08-08 12:21:29
  * @Description: 搜索组件
  */
 
@@ -10,7 +10,10 @@ import $register from 'wxpage';
 // import { tip } from '../../../utils/wx';
 
 $register.C({
-  properties: { words: Array },
+  properties: {
+    words: Array,
+    searchword: String
+  },
   data: {
     showInput: false,
     value: ''
@@ -42,7 +45,12 @@ $register.C({
       this.triggerEvent('search', { value: event.detail.value });
     }
   },
+  observers: {
+    searchword(value: string) {
+      this.setData({ value, showInput: true });
+    }
+  },
   options: {
-    styleIsolation: 'apply-shared'
+    styleIsolation: 'shared'
   }
 });
