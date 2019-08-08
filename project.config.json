@@ -62,7 +62,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -82,6 +82,13 @@
 					"name": "计算器分享",
 					"pathName": "function/PEcal",
 					"query": "share=true",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "分享",
+					"pathName": "module/sharePage",
+					"query": "aim=check0",
 					"scene": null
 				}
 			]

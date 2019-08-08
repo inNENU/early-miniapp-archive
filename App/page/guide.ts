@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 12:38:02
+ * @LastEditTime: 2019-08-08 14:47:12
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -25,9 +25,18 @@ $register('guide', {
         head: '新生你好',
         content: [
           { text: '新生报到', color: 'orange', name: 'Check', icon: '/icon/tabPage/check.svg', aim: 'check0' },
-          { text: '报到流程', color: 'blue', name: 'Step', icon: 'https://mp.nenuyouth.com/icon/module/list.svg', aim: 'check9' },
-          { text: '需带物品', color: 'red', name: 'Necessity', icon: 'https://mp.nenuyouth.com/icon/module/good.svg', aim: 'check7' },
-          { text: '缴费相关', color: 'purple', name: 'Payment', icon: 'https://mp.nenuyouth.com/icon/module/pay.svg', aim: 'check10' }
+          {
+            text: '报到流程', color: 'blue', name: 'Step',
+            icon: 'https://mp.nenuyouth.com/icon/module/list.svg', aim: 'check9'
+          },
+          {
+            text: '需带物品', color: 'red', name: 'Necessity',
+            icon: 'https://mp.nenuyouth.com/icon/module/good.svg', aim: 'check7'
+          },
+          {
+            text: '缴费相关', color: 'purple', name: 'Payment',
+            icon: 'https://mp.nenuyouth.com/icon/module/pay.svg', aim: 'check10'
+          }
         ]
       },
       {
@@ -56,15 +65,14 @@ $register('guide', {
         tag: 'grid',
         head: '乐在东师',
         content: [
-          { text: '学生组织', color: 'orange', name: 'Orgnazation', icon: '/icon/tabPage/studentOrg.svg', aim: 'studentOrg0' },
+          {
+            text: '学生组织', color: 'orange', name: 'Orgnazation',
+            icon: '/icon/tabPage/studentOrg.svg', aim: 'studentOrg0'
+          },
           { text: '社团', color: 'blue', name: 'Coporation', icon: '/icon/tabPage/corporation.svg', aim: 'corporation0' },
           { text: '交通', color: 'red', name: 'Traffic', icon: '/icon/tabPage/traffic.svg', aim: 'traffic0' },
           { text: '吃喝玩乐', color: 'purple', name: 'Nearby', icon: '/icon/tabPage/nearby.svg', aim: 'nearby0' }
-          /*
-           * { text: '新生报到', icon: '/icon/guide/check.svg', aim: 'check0' },
-           * { text: 'SIM卡', icon: '/icon/guide/sim.svg', aim: 'sim0' }
-           */
-
+          // { text: 'SIM卡', icon: '/icon/guide/sim.svg', aim: 'sim0' }
         ],
         foot: ' '
       }

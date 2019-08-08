@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-06 18:43:51
+ * @LastEditTime: 2019-08-08 14:36:36
  * @Description: 模块页面5
  */
 
@@ -35,7 +35,7 @@ $register('module5', {
   onShareAppMessage() {
     return {
       title: this.data.page[0].title,
-      path: `/module/sharePage?From=主页&depth=1&share=true&aim=${this.data.page[0].aim}`
+      path: `/module/sharePage?aim=${this.data.page[0].aim}`
     };
   }
 });

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 14:20:07
+ * @LastEditTime: 2019-08-08 14:41:27
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -38,7 +38,7 @@ $register('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\n添加天气页面` },
+          { text: `${a.version}\n自定义导航栏改进` },
           { text: '查看详细日志', url: '/settings/version' }
         ]
       },

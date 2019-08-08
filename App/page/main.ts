@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 13:56:38
+ * @LastEditTime: 2019-08-08 14:46:32
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -28,10 +28,22 @@ $register('main', {
         tag: 'grid',
         head: '新生你好',
         content: [
-          { text: '新生报到', color: 'orange', name: 'Check', icon: '/icon/tabPage/check.svg', aim: 'check0' },
-          { text: '报到流程', color: 'blue', name: 'Step', icon: 'https://mp.nenuyouth.com/icon/module/list.svg', aim: 'check9' },
-          { text: '需带物品', color: 'red', name: 'Necessities', icon: 'https://mp.nenuyouth.com/icon/module/good.svg', aim: 'check7' },
-          { text: '缴费相关', color: 'purple', name: 'Payment', icon: 'https://mp.nenuyouth.com/icon/module/pay.svg', aim: 'check10' }
+          {
+            text: '报到流程', color: 'orange', name: 'Check',
+            icon: 'https://mp.nenuyouth.com/icon/module/list.svg', aim: 'check9'
+          },
+          {
+            text: '需带物品', color: 'blue', name: 'Necessary',
+            icon: 'https://mp.nenuyouth.com/icon/module/good.svg', aim: 'check7'
+          },
+          {
+            text: '缴费相关', color: 'red', name: 'Payment',
+            icon: 'https://mp.nenuyouth.com/icon/module/pay.svg', aim: 'check10'
+          },
+          {
+            text: '防盗防骗', color: 'purple', name: 'Fraud Guard',
+            icon: 'https://mp.nenuyouth.com/icon/module/safe.svg', aim: 'check14'
+          }
         ]
       },
       {
@@ -48,28 +60,27 @@ $register('main', {
       },
       {
         tag: 'list',
-        head: '新生群一览',
+        head: '新生关心的问题',
         content: [
           {
-            text: '官方迎新QQ群',
-            icon: 'https://mp.nenuyouth.com/icon/module/QQ.svg',
-            aim: 'check23'
+            text: '新生入学前课程学习',
+            icon: '/icon/tabPage/course.svg',
+            aim: 'FAQ11'
           },
           {
-            text: '老乡QQ群',
-            icon: 'https://mp.nenuyouth.com/icon/module/QQ.svg',
-            aim: 'check25'
-          }
-        ]
-      },
-      {
-        tag: 'list',
-        head: '找到组织',
-        content: [
+            text: '报道时间',
+            icon: '/icon/tabPage/check.svg',
+            aim: 'FAQ7'
+          },
           {
-            text: '各专业所属学院',
-            icon: '/icon/tabPage/course.svg',
-            aim: 'check6'
+            text: '导员姓名及联系方式',
+            icon: '/components/common/phone/phone.svg',
+            aim: 'FAQ10'
+          },
+          {
+            text: '查看更多',
+            icon: 'https://mp.nenuyouth.com/icon/module/list.svg',
+            aim: 'FAQ0'
           }
         ]
       },
@@ -86,6 +97,11 @@ $register('main', {
             text: '转专业',
             icon: '/icon/tabPage/course.svg',
             aim: 'course12'
+          },
+          {
+            text: '查看更多',
+            icon: '/icon/tabPage/course.svg',
+            aim: 'course0'
           }
         ]
       },
@@ -93,7 +109,7 @@ $register('main', {
         tag: 'p',
         head: ' ',
         style: 'font-size:14px;color:#888;',
-        text: '   如果各位新生同学们还有什么疑问，但是小程序中没有提及的，欢迎联系QQ1178522294咨询。\n   目前QQ小程序无法正常对指南页面进行分享，待2.0.4版本审核通过以后即可正常使用。由于QQ小程序审核周期太长，推荐大家微信搜索小程序“myNenu”使用。(微信小程序版本现为V2.0.5)'
+        text: '   如果各位新生同学们还有什么疑问，但是小程序中没有提及的，欢迎联系QQ1178522294咨询。'
       }
     ]
   },
