@@ -2,11 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 10:27:33
+ * @LastEditTime: 2019-08-08 14:07:15
  * @Description: 搜索页
  */
 
 import $register from 'wxpage';
+import $page from '../utils/page';
+import $component from '../utils/component';
+const { globalData: a } = getApp();
 
 export interface Keywords {
   [jsonName: string]: {
@@ -30,20 +33,27 @@ $register('search', {
   data: {
     statusBarHeight: getApp().globalData.info.statusBarHeight,
     words: [],
-    result: {},
-    searchword: ''
+    result: {
+      head: false,
+      content: []
+    },
+    searchword: '',
+    head: { title: '搜索', statusBarHeight: a.info.statusBarHeight, leftText: '返回' }
   },
   onLoad(options) {
     this.keywords = getApp()
       .keywords() as Keywords;
 
-    if (options.words) {
-      this.setData({ searchword: options.words });
-
+    if (options.words)
       this.search({
         detail: { value: options.words }
       });
-    }
+
+    this.setData({ searchword: options.words, T: a.T, nm: a.nm });
+    $page.Notice('search');
+  },
+  onPageScroll(e) {
+    $component.nav(e, this, 'head');
   },
   searching(event: WXEvent.Input) {
     const keywords = this.keywords as Keywords;

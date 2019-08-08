@@ -123,6 +123,7 @@
   ],
   "usingComponents": {
     "doc": "/components/common/doc/doc",
+    "ex-list": "/components/common/ex-list/list",
     "foot": "/components/common/foot/foot",
     "grid": "/components/common/grid/grid",
     "gzh": "/components/common/gzh/gzh",

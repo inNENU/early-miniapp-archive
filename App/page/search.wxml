@@ -1,3 +1,8 @@
-<view class="nav" style="height:{{statusBarHeight+40}}px;"></view>
-<search words="{{words}}" searchword="{{searchword}}" catch:searching="searching" catch:search="search" />
-<list config="{{result}}" />
+<import src="/components/template" />
+<view class="{{T}} grey {{nm?'nm':''}}">
+  <template is="head" data="{{...head,T}}" />
+  <search words="{{words}}" searchword="{{searchword}}" catch:searching="searching" catch:search="search" />
+  <template is="all2" data="{{page,T}}" />
+  <list config="{{result}}" />
+  <foot />
+</view>

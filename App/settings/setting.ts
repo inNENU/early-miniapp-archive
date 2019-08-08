@@ -17,7 +17,7 @@ $register('setting', {
     page: [
       { tag: 'head', title: '设置', grey: true },
       {
-        tag: 'list', head: '主题设置', foot: 'NENU主题还在完善中',
+        tag: 'List', head: '主题设置', foot: 'NENU主题还在完善中',
         content: [
           {
             text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'Android', 'NENU'], picker: 'setTheme'
@@ -25,13 +25,13 @@ $register('setting', {
         ]
       },
       {
-        tag: 'list',
+        tag: 'List',
         head: '夜间模式',
         foot: '启用后，将采用暗色背景与亮色文字，在保持暗光下显示效果的同时保护眼睛。',
         content: [{ text: '夜间模式', Switch: 'switchnm', swiKey: 'nightmode' }]
       },
       {
-        tag: 'list',
+        tag: 'List',
         foot: '亮度数据为百分比',
         content: [
           { text: '设定时间', Switch: 'switchnmAC', swiKey: 'nightmodeAutoChange' },
@@ -44,14 +44,14 @@ $register('setting', {
         ]
       },
       {
-        tag: 'list', head: '资源更新',
+        tag: 'List', head: '资源更新',
         content: [
           { text: '功能资源更新提示', swiKey: 'functionResNotify' },
           { text: '指南资源更新提示', swiKey: 'pageResNotify' }
         ]
       },
       {
-        tag: 'list', head: '如果页面显示出现问题请刷新资源',
+        tag: 'List', head: '如果页面显示出现问题请刷新资源',
         content: [
           { text: '刷新功能资源', button: 'refreshFunc' },
           { text: '刷新指南资源', button: 'refreshGuide' }

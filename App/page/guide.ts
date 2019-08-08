@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 12:35:09
+ * @LastEditTime: 2019-08-08 12:38:02
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -17,11 +17,9 @@ $register('guide', {
     T: a.T,
     nm: a.nm,
     words: [],
-    head: {
-      title: '东师指南', action: true, aimDepth: 1, grey: true, statusBarHeight: a.info.statusBarHeight
-    },
+    head: { title: '东师指南', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
-      { tag: 'head', title: '东师指南', action: true, aimDepth: 1, grey: true, hidden: true },
+      { tag: 'head', title: '东师指南', action: true, aimDepth: 1, hidden: true },
       {
         tag: 'grid',
         head: '新生你好',

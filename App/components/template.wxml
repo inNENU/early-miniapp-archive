@@ -2,7 +2,7 @@
 <template name="all">
   <block wx:if="{{!page}}">
     <view class="{{T}} {{nm?'nm':''}} commonLoading">
-      <view class="backBtn" style="top:27.5px;" hover-class="buttonHover" hover-stay-time="100" catchtap="cA" data-action="back">
+      <view class="backBtn" style="top:27.5px;" hover-class="buttonHover" hover-stay-time="100" catchtap="$back">
         <image class="backIcon" src="/icon/back.svg" />
       </view>
       <view class="loadingIconCtn">
@@ -18,7 +18,7 @@
       <block wx:for="{{page}}" wx:key="id">
         <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
         <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag==='img'}}" />
-        <list config="{{item}}" bind:change="list" wx:elif="{{item.tag==='list'}}" change="{{event?event[index]:''}}" />
+        <list config="{{item}}" wx:elif="{{item.tag==='list'}}" />
         <foot config="{{item}}" wx:elif="{{item.tag==='foot'}}" />
         <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
         <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
@@ -26,6 +26,7 @@
         <swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
         <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
         <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
+        <ex-list config="{{item}}" wx:elif="{{item.tag==='List'}}" change="{{event?event[index]:''}}" bind:change="list" />
         <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
         <template wx:else is="{{item.tag}}" data="{{...item,T}}" />
       </block>
@@ -37,13 +38,14 @@
   <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
     <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
     <img config="{{item}}" url="{{page[0].url}}" wx:if="{{item.tag==='img'}}" />
-    <list config="{{item}}" bind:change="list" wx:elif="{{item.tag==='list'}}" change="{{event?event[index]:''}}" />
+    <list config="{{item}}" wx:elif="{{item.tag==='list'}}" />
     <foot config="{{item}}" wx:elif="{{item.tag==='foot'}}" />
     <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
     <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
     <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
     <swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
     <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
+    <ex-list config="{{item}}" wx:elif="{{item.tag==='List'}}" change="{{event?event[index]:''}}" bind:change="list" />
     <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
     <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
     <template wx:else is="{{item.tag}}" data="{{...item,T}}" />
@@ -98,7 +100,7 @@ Author: Mr.Hope
 <template name="iOSHead">
   <view class="iOS-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view wx:if="{{titleDisplay}}" class="iOS-titletext">{{title}}</view>
-    <button wx:if="{{action!==true}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="{{action==undefined?'cA':action}}" data-action="back">
+    <button wx:if="{{action!==true}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="{{action==undefined?'$back':action}}">
       <view wx:if="{{action==undefined||action=='redirect'}}" class="iOS-backArrow" />
       <text class="iOS-nav-text">{{leftText}}</text>
     </button>
@@ -113,7 +115,7 @@ Author: Mr.Hope
 <template name="iOSerror">
   <view class="iOS-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view class="iOS-titletext">页面出错</view>
-    <button wx:if="{{!action}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="cA" data-action="back">
+    <button wx:if="{{!action}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="$back">
       <view class="iOS-backArrow" />
       <text class="iOS-nav-text">返回</text>
     </button>
@@ -145,7 +147,7 @@ Author: Mr.Hope
 <template name="AndroidHead">
   <view class="Android-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">{{title}}</view>
-    <button wx:if="{{!action}}" class="button Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="{{action==undefined?'cA':action}}" data-action="back">
+    <button wx:if="{{!action}}" class="button Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="{{action==undefined?'$back':action}}">
       <view wx:if="{{!action}}" class="Android-backArrow" />
       <view class="Android-leftText">{{leftText}}</view>
     </button>
@@ -162,7 +164,7 @@ Author: Mr.Hope
 <template name="Androiderror">
   <view class="Android-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">页面出错</view>
-    <button wx:if="{{!top}}" class="Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="cA" data-action="back">
+    <button wx:if="{{!top}}" class="Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="$back">
       <view class="Android-backArrow" />
     </button>
   </view>
@@ -190,11 +192,11 @@ Author: Mr.Hope
 ********************************************* -->
 <template name='NENUHead'>
   <block wx:if="{{action==undefined}}">
-    <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catch:tap="cA" data-action='back'>
+    <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catch:tap="$back">
       <image class='backIcon' src="/icon/back.svg" />
     </view>
     <view class="NENUnav {{titleDisplay?'fadeOut':'fadeIn'}}" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
-      <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catch:tap="cA" data-action='back'>
+      <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catch:tap="$back">
         <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;' />
         <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
       </button>
@@ -218,7 +220,7 @@ Author: Mr.Hope
     <view class='NENU-navText'>页面出错</view>
   </view>
   <view style='width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;' />
-  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' hover-stay-time='100' catch:tap='cA' data-action='back'>
+  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' hover-stay-time='100' catch:tap='$back'>
     <image class='backIcon' src='/icon/back.svg' />
   </view>
   <view class="errorCtn">

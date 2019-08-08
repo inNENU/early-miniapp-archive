@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 12:33:18
+ * @LastEditTime: 2019-08-08 13:56:38
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -18,9 +18,7 @@ $register('main', {
     T: a.T,
     nm: a.nm,
     words: [],
-    head: {
-      tag: 'head', title: '首页', aim: 'main', action: true, statusBarHeight: a.info.statusBarHeight
-    },
+    head: { title: '首页', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       {
         tag: 'head', title: '首页', aim: 'main',

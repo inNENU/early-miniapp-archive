@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 23:15:39
+ * @LastEditTime: 2019-08-08 14:20:07
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -21,7 +21,7 @@ $register('about', {
     page: [
       { tag: 'head', title: '关于', aimDepth: 1, grey: true, feedback: true, contact: true },
       {
-        tag: 'list',
+        tag: 'List',
         head: '版本号',
         content: [
           { text: a.version, button: 'debugMode' },
