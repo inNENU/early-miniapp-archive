@@ -23,7 +23,7 @@
         <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
         <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
         <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
-        <swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
+        <my-swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
         <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
         <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
         <ex-list config="{{item}}" wx:elif="{{item.tag==='List'}}" change="{{event?event[index]:''}}" bind:change="list" />
@@ -37,13 +37,13 @@
   <share config="{{page[0]}}" />
   <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
     <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
-    <img config="{{item}}" url="{{page[0].url}}" wx:if="{{item.tag==='img'}}" />
+    <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag==='img'}}" />
     <list config="{{item}}" wx:elif="{{item.tag==='list'}}" />
     <foot config="{{item}}" wx:elif="{{item.tag==='foot'}}" />
     <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
     <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
     <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
-    <swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
+    <my-swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
     <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
     <ex-list config="{{item}}" wx:elif="{{item.tag==='List'}}" change="{{event?event[index]:''}}" bind:change="list" />
     <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />

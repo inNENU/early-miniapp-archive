@@ -135,7 +135,7 @@
     "phone": "/components/common/phone/phone",
     "search": "/components/common/search/search",
     "share": "/components/common/share/share",
-    "swiper": "/components/common/swiper/swiper"
+    "my-swiper": "/components/common/swiper/swiper"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
