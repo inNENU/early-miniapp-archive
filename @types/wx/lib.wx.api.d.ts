@@ -1,3 +1,10 @@
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-08-03 11:21:51
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-08-09 11:06:13
+ * @Description: 
+ */
 /*! *****************************************************************************
 Copyright (c) 2018 Tencent, Inc. All rights reserved.
 
@@ -1800,6 +1807,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     success?: GetSystemInfoSuccessCallback;
   }
   interface GetSystemInfoSuccessCallbackResult {
+    /** 运行平台 */
+    AppPlatform: 'qq' | undefined;
     /** 客户端基础库版本
      *
      * 最低基础库： `1.1.0` */
