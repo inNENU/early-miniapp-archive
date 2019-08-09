@@ -1,0 +1,6 @@
+<view class="{{T}} {{nm?'nm':''}}">
+  <button type="primary" class="action" wx:if="{{contact}}" open-type="contact">联系客服</button>
+  <button type="primary" class="action" wx:if="{{feedback}}" open-type="feedback">意见反馈</button>
+  <button type="primary" class="action" wx:if="{{login}}" open-type="getUserInfo">登录</button>
+  <button type="default" class="back" catch:tap="main">返回主页</button>
+</view>

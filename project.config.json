@@ -62,7 +62,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -89,6 +89,13 @@
 					"name": "分享",
 					"pathName": "module/sharePage",
 					"query": "aim=check0",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "客服",
+					"pathName": "module/function",
+					"query": "action=contact",
 					"scene": null
 				}
 			]

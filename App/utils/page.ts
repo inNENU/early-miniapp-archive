@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-09 11:08:19
+ * @LastEditTime: 2019-08-07 21:10:55
  * @Description: Page函数库
  */
 
@@ -60,13 +60,9 @@ const disposePage = (page: PageData, option: PageArg) => {
           page[0].action = 'redirect';
           console.info('redirect');
         }
-
-        // 添加运行环境
-        page[0].env = globalData.env;
       }
-      page.forEach((element, index) => {
-        element.id = index; // 对page每项元素添加id
 
+      page.forEach(element => {
         // 处理图片
         if (element.src) page[0].url.push(element.res || element.src);
 
@@ -79,8 +75,7 @@ const disposePage = (page: PageData, option: PageArg) => {
         }
 
         // 设置list组件
-        if ('content' in element) element.content.forEach((listElement: any, listIndex: number) => {
-          listElement.id = `${index}-${listIndex}`; // 列表每项添加id
+        if ('content' in element) element.content.forEach((listElement: any) => {
 
           // 设置列表导航
           if ('url' in listElement) listElement.url += `?From=${page[0].title}`;

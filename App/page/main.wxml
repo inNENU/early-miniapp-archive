@@ -1,5 +1,4 @@
 <import src="/components/template" />
-<import src="/components/template" />
 <view class="{{T}} grey {{nm?'nm':''}}">
   <template is="head" data="{{...head,T}}" />
   <search words="{{words}}" catch:searching="searching" catch:search="search" />
