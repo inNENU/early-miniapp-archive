@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 14:08:23
+ * @LastEditTime: 2019-08-08 15:18:31
  * @Description: 版本介绍
  */
 import $register, { WXPage } from 'wxpage';
@@ -19,7 +19,8 @@ $register('version', {
       { tag: 'p', head: 'V2.2.1 2019.8.6', text: '初步添加搜索模块' },
       { tag: 'p', head: 'V2.2.2 2019.8.7', text: '优化排序算法' },
       { tag: 'p', head: 'V2.2.3 2019.8.8', text: '搜索模式适配夜间模式' },
-      { tag: 'p', head: 'V2.2.4 2019.8.9', text: '自定义导航栏改进' },
+      { tag: 'p', head: 'V2.2.4 2019.8.8', text: '自定义导航栏改进' },
+      { tag: 'p', head: 'V2.2.5 2019.8.8', text: '修复swiper故障的问题' },
       { tag: 'foot', author: 'Mr.Hope' }
     ]
   },

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-06 18:05:53
+ * @LastEditTime: 2019-08-09 10:18:19
  * @Description: 我的东师
  */
 import $register, { WXPage } from 'wxpage';
@@ -15,7 +15,7 @@ $register('me', {
     T: a.T,
     nm: a.nm,
     page: [
-      { tag: 'head', title: '我的东师', aim: 'me', action: true, grey: true },
+      { tag: 'head', title: '我的东师', aim: 'me', action: true, grey: true, contact: true },
       {
         tag: 'list',
         content: [

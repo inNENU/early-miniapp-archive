@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 14:07:15
+ * @LastEditTime: 2019-08-09 10:08:15
  * @Description: 搜索页
  */
 
@@ -51,6 +51,13 @@ $register('search', {
 
     this.setData({ searchword: options.words, T: a.T, nm: a.nm });
     $page.Notice('search');
+  },
+  onShow() {
+    // 设置胶囊和背景颜色
+    const { nc, bc } = $page.color(this.data.page[0].grey);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   onPageScroll(e) {
     $component.nav(e, this, 'head');

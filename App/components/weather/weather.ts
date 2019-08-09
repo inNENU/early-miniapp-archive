@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 04:16:18
+ * @LastEditTime: 2019-08-08 19:35:39
  * @Description: 天气小组件
  */
 
@@ -187,7 +187,7 @@ $register.C({
     getWeather() {
 
       wx.request({
-        url: 'https://mp.nenuyouth.com/server/weather2.php',
+        url: 'https://mp.nenuyouth.com/server/weather.php',
         success: res => {
           const weather = (res.data as WeatherData).data;
           const weatherType = weather.observe.weather_short;

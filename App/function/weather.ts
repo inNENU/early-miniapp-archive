@@ -2,10 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-02 16:42:25
+ * @LastEditTime: 2019-08-09 10:08:49
  * @Description: 天气预报
  */
 import $register from 'wxpage';
+import $page from '../utils/page';
 import weatherHandler from '../components/weather/handler';
 import { WeatherData } from '../components/weather/weather';
 
@@ -27,7 +28,7 @@ $register('weather', {
 
       this.canvas(weather);
 
-      this.setData!({
+      this.setData({
         weather,
         night: new Date().getHours() > 18 || new Date().getHours() < 5,
         nm: a.nm,
@@ -36,13 +37,13 @@ $register('weather', {
     }
     // 否则需要重新获取并处理
     else wx.request({
-      url: 'https://mp.nenuyouth.com/server/weather2.php',
+      url: 'https://mp.nenuyouth.com/server/weather.php',
       success: res => {
         const weather = weatherHandler((res.data as WeatherData).data);
 
         this.canvas(weather);
 
-        this.setData!({
+        this.setData({
           weather,
           share: Boolean(options.share),
           night: new Date().getHours() > 18 || new Date().getHours() < 5,
@@ -63,6 +64,13 @@ $register('weather', {
     share = Boolean(options.share);
 
     this.backgroundChange();
+  },
+  onShow() {
+    // 设置胶囊和背景颜色
+    const { nc, bc } = $page.color(this.data.page[0].grey);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
   canvas(weather: WeatherData['data']) { // 绘制温度曲线
     const width = getApp().globalData.info.screenWidth;
@@ -171,7 +179,7 @@ $register('weather', {
       animation3.translateX(res.x * 22.5)
         .step();
 
-      this.setData!({
+      this.setData({
         animation1: animation1.export(),
         animation2: animation2.export(),
         animation3: animation3.export()
@@ -183,7 +191,7 @@ $register('weather', {
     const { length } = Object.keys(this.data.weather.tips.observe);
     const numbers = this.data.number;
 
-    this.setData!({ number: numbers === 0 ? length - 1 : numbers - 1 });
+    this.setData({ number: numbers === 0 ? length - 1 : numbers - 1 });
   },
   onUnload() {
     wx.stopAccelerometer({

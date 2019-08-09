@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:45:12
+ * @LastEditTime: 2019-08-08 19:43:48
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
@@ -60,7 +60,7 @@ $register('PEcal', {
 
     // 将用户上次选择的性别和年级载入
     if (genderIndex || genderIndex === 0)  // 改变特别项目和长跑的名称
-      this.setData!({
+      this.setData({
         'gender.index': genderIndex,
         'longRun.text': genderIndex === 0 ? longRunText[0] : longRunText[1],
         special: genderIndex === 0 ? special[0] : special[1],
@@ -68,13 +68,13 @@ $register('PEcal', {
       });
 
     if (gradeIndex || gradeIndex === 0) // 写入年级
-      this.setData!({
+      this.setData({
         'grade.index': gradeIndex,
         'result.grade': this.data.grade.value[gradeIndex]
       });
 
     // 设置长跑选择器数据
-    this.setData!({ 'longRun.picker': longRunPicker });
+    this.setData({ 'longRun.picker': longRunPicker });
 
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color(true);
@@ -98,7 +98,7 @@ $register('PEcal', {
     wx.setStorageSync('gender', index);
 
     // 改变特别项目和长跑的名称
-    this.setData!({
+    this.setData({
       'result.gender': gender,
       'gender.index': index,
       special: gender === 'male' ? special[0] : special[1],
@@ -109,7 +109,7 @@ $register('PEcal', {
     const index = Number(event.detail.value);
 
     // 设置年级
-    this.setData!({
+    this.setData({
       'grade.index': index,
       'result.grade': this.data.grade.value[index]
     });
@@ -120,15 +120,18 @@ $register('PEcal', {
     const { id } = event.currentTarget;
     const query = wx.createSelectorQuery();
 
-    this.setData!({ input: { status: true, height: event.detail.height } });
+    this.setData({ input: { status: true, height: event.detail.height } });
 
     query.select(`#${id}`)
       .boundingClientRect();
-    query.selectViewport().fields({ size: true, scrollOffset: true });
-    query.exec((res: any) => {
-      if (res[0].bottom + event.detail.height > res[1].height)
+    query.selectViewport()
+      .fields({ size: true, scrollOffset: true });
+    query.exec((res: any[]) => {
+      if ((res[0].bottom as number) + (event.detail.height as number) > (res[1].height as number))
         wx.pageScrollTo({
-          scrollTop: res[1].scrollTop + res[0].bottom + event.detail.height - res[1].height + 10
+          scrollTop:
+            (res[1].scrollTop as number) + (res[0].bottom as number) +
+            (event.detail.height as number) - (res[1].height as number) + 10
         });
     });
   },
@@ -136,21 +139,19 @@ $register('PEcal', {
     console.log(event);
     const project = event.currentTarget.id;
 
-    this.setData!({ [`result.${project}`]: event.detail.value });
+    this.setData({ [`result.${project}`]: event.detail.value });
   },
   blur() {
-    this.setData!({ 'input.status': false });
+    this.setData({ 'input.status': false });
   },
   longRunHandler(event: MiniprogramEvent) {
     const { value } = event.detail;
 
     // 设置显示数据
-    this.setData!({
+    this.setData({
       'longRun.value': `${longRunPicker[0][value[0]]} ${longRunPicker[1][value[1]]}`,
-      'result.longRun': (value[0] + 2) * 60 + value[1]
+      'result.longRun': ((value[0] as number) + 2) * 60 + (value[1] as number)
     });
-
-
   },
   calculate() {
     const { result } = this.data;
@@ -199,7 +200,7 @@ $register('PEcal', {
           ? score <= 28 ? 60 : 60 - Math.ceil(score - 28) * 2
           : 50;
 
-        this.setData!({ BMI: { score, state } });
+        this.setData({ BMI: { score, state } });
       }
 
       $file.getJson(`function/PEcal/${result.gender}${result.grade}`, (config: any) => { // 读取相应配置文件
@@ -265,7 +266,7 @@ $register('PEcal', {
           PEscore.BMI * 15) / 100;
 
         console.info('成绩为', PEscore);
-        this.setData!({
+        this.setData({
           PEscore,
           showScore: true,
           PE: {

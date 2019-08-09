@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 15:59:10
+ * @LastEditTime: 2019-08-08 19:56:32
  * @Description: APP函数库
  */
 
@@ -335,14 +335,37 @@ const appUpdate = (localVersion: string) => {
   });
 };
 
+const login = (appID: string) => {
+  wx.login({
+    success: res => {
+      if (res.code)
+        wx.request({
+          url: 'https://mp.nenuyouth.com/server/login.php',
+          method: 'POST',
+          data: {
+            appID,
+            code: res.code
+          },
+          success: res2 => {
+            console.log(res2.data);
+          }
+        });
+    },
+    fail: errMsg => {
+      console.error(`登录失败！${errMsg}`);
+    }
+  });
+};
+
 /**
  * 小程序启动时的运行函数
  *
  * 负责检查通知与小程序更新，注册网络、内存、截屏的监听
  *
  * @param version 小程序的版本
+ * @param appID 小程序的APPID
  */
-const startup = (version: string) => {
+const startup = (version: string, appID: string) => {
   // 检查通知更新与小程序更新
   noticeCheck(version);
   appUpdate(version);
@@ -382,6 +405,9 @@ const startup = (version: string) => {
   wx.onUserCaptureScreen(() => {
     $wx.tip('您可以点击右上角——转发或点击页面右下角——保存二维码分享小程序');
   });
+
+  // 登录
+  login(appID);
 };
 
 export default { appInit, appUpdate, nightmode, noticeCheck, startup };

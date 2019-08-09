@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 15:10:38
+ * @LastEditTime: 2019-08-08 19:56:58
  * @Description: 小程序主脚本
  */
 
@@ -53,7 +53,7 @@ $register.A({
 
     this.globalData.appID = wx.getAccountInfoSync().miniProgram.appId;
 
-    app.startup(this.globalData.version);
+    app.startup(this.globalData.version, this.globalData.appID);
 
     console.log('全局数据为', this.globalData);
   },
