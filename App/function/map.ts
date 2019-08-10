@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-06 19:00:35
+ * @LastEditTime: 2019-08-11 00:11:31
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -61,38 +61,60 @@ $register('map', {
       '无法查看',
       'QQ小程序暂不支持地图。Mr.Hope会在推出后第一时间适配，如有需求查看，请使用微信小程序“myNenu”。',
       () => {
-        wx.navigateBack({ delta: 1 });
+        this.$back();
       });
 
     wx.showLoading({ title: '加载中...' });
 
-    $tab.markerSet();
+    let mapSwitch;
+    let markers;
 
-    const { mapSwitch, markers } = a.marker ? a.marker : this.getMarker();
+    if (a.marker) {
+      mapSwitch = a.marker.mapSwitch;
+      markers = a.marker.markers;
 
-    delete a.marker;
+      delete a.marker;
+    } else {
+      $tab.markerSet();
 
-    this.setData!({
+      const result = this.getMarker();
+
+      mapSwitch = result.mapSwitch;
+      markers = result.markers;
+    }
+
+    this.setData({
       mapSwitch,
       markers,
       info: a.info,
       mapStyle: a.nm ? '46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA' : 'PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF',
       nm: a.nm
     });
-    this.mapCtx = wx.createMapContext('schoolMap');
-    this.mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
+
+    // 创建地图对象
+    const mapCtx = wx.createMapContext('schoolMap');
+    mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
+
     setTimeout(() => {
-      this.mapCtx.getScale({
-        success: (r1: any) => {
-          this.mapCtx.getCenterLocation({
-            success: (r2: any) => {
-              this.setData!({ map: { scale: r1.scale, latitude: r2.latitude, longitude: r2.longitude } });
+      mapCtx.getScale({
+        success: r1 => {
+          mapCtx.getCenterLocation({
+            success: r2 => {
+              this.setData({
+                map: {
+                  scale: r1.scale,
+                  latitude: r2.latitude,
+                  longitude: r2.longitude
+                }
+              });
             }
           });
         }
       });
       wx.hideLoading();
     }, 500);
+
+    this.mapCtx = mapCtx;
 
     // 弹出通知
     $page.Notice('map');
@@ -109,7 +131,7 @@ $register('map', {
     wx.createSelectorQuery()
       .select('#mapTab')
       .boundingClientRect(rect => {
-        this.setData!({ tabHeight: rect.height });
+        this.setData({ tabHeight: rect.height });
       })
       .exec();
   },
@@ -117,8 +139,7 @@ $register('map', {
     const value = wx.getStorageSync('mapSwitch');
     let mapSwitch;
 
-    if (value || value === false)
-      mapSwitch = value;
+    if (value || value === false) mapSwitch = false;
     else {
       wx.setStorageSync('mapSwitch', true);
       mapSwitch = true;
@@ -132,32 +153,42 @@ $register('map', {
     const temp = !this.data.mapSwitch;
     const markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
 
-    this.setData!({
+    this.setData({
       markers,
       mapSwitch: temp
     });
-    this.mapCtx = wx.createMapContext('schoolMap');
-    this.mapCtx.includePoints(temp ? includePoint1 : includePoint2);
+
+    const mapCtx = this.mapCtx as wx.MapContext;
+
+    mapCtx.includePoints(temp ? includePoint1 : includePoint2);
+
     setTimeout(() => {
-      this.mapCtx.getScale({
-        success: (r1: any) => {
-          this.mapCtx.getCenterLocation({
-            success: (r2: any) => {
-              this.setData!({ map: { scale: r1.scale, latitude: r2.latitude, longitude: r2.longitude } });
+      mapCtx.getScale({
+        success: r1 => {
+          mapCtx.getCenterLocation({
+            success: r2 => {
+              this.setData({
+                map: {
+                  scale: r1.scale,
+                  latitude: r2.latitude, longitude: r2.longitude
+                }
+              });
             }
           });
         }
       });
     }, 500);
+
     wx.setStorageSync('mapSwitch', temp);
   },
-  scale(e: any) {
-    this.mapCtx.getCenterLocation({
-      success: (r2: any) => {
-        this.setData!({
+  scale(e: WXEvent.Touch) {
+    (this.mapCtx as wx.MapContext).getCenterLocation({
+      success: r2 => {
+        this.setData({
           map: {
             scale: this.data.map.scale as number + (e.currentTarget.dataset.action === 'enlarge' ? 1 : -1),
-            latitude: r2.latitude, longitude: r2.longitude
+            latitude: r2.latitude,
+            longitude: r2.longitude
           }
         });
       }
@@ -182,28 +213,30 @@ $register('map', {
      */
   },
   moveToLocation() {
-    this.mapCtx.moveToLocation();
+    (this.mapCtx as wx.MapContext).moveToLocation();
   },
   point() {
     if (this.data.pointDisplay) {
-      this.setData!({ pointDisplay: !this.data.pointDisplay });
+      this.setData({
+        pointDisplay: !this.data.pointDisplay
+      });
+
       setTimeout(() => {
-        this.setData!({ selectBottom: a.info.screenHeight / a.info.screenWidth * 750 });
+        this.setData({ selectBottom: a.info.screenHeight / a.info.screenWidth * 750 });
       }, 500);
     } else
-      this.setData!({
+      this.setData({
         pointDisplay: !this.data.pointDisplay,
         selectBottom: 190
       });
-
   },
   select(e: NormalEvent) {
     const name = this.data.mapSwitch ? 'benbu' : 'jingyue';
     const current = e.target.dataset.category;
     const markers = wx.getStorageSync(`${name}-${current}`);
 
-    this.setData!({ markers, selectItem: current });
-    this.mapCtx.includePoints({ padding: [30, 20, 30, 20], points: markers });
+    this.setData({ markers, selectItem: current });
+    (this.mapCtx as wx.MapContext).includePoints({ padding: [30, 20, 30, 20], points: markers });
   },
   markers(e: MarkerEvent) {
     const { mapSwitch } = this.data;
@@ -216,25 +249,22 @@ $register('map', {
   },
   showList() {
     if (this.data.list) {
-      this.setData!({ list: !this.data.list });
+      this.setData({ list: !this.data.list });
+
       setTimeout(() => {
-        this.setData!({ closeTop: -31 });
+        this.setData({ closeTop: -31 });
       }, 500);
     } else
-      this.setData!({
+      this.setData({
         list: !this.data.list,
         closeTop: a.info.statusBarHeight as number + 5.5
       });
-
   },
-  back() {
-    wx.navigateBack({ delta: 1 });
+  regionChange(event: any) {
+    console.log('regionChange', event);
   },
-  regionChange(e: any) {
-    console.log('regionChange', e);
-  },
-  update(e: any) {
-    console.log('update', e);
+  update(event: any) {
+    console.log('update', event);
   }
 
   /*

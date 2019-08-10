@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-10 23:32:39
+ * @LastEditTime: 2019-08-10 23:54:32
  * @Description: 视频页面
  */
 
@@ -13,29 +13,53 @@ import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 
 $register('video', {
+  onNavigate() {
+    const songList = $file.readJson('function/video');
+
+    if (!songList) $wx.request('function/video', data => {
+      // 写入JSON文件
+      $file.writeJson('function', 'video', data);
+    });
+  },
   onLoad(options) {
     wx.loadFontFace({
-      family: 'FZSSJW',
-      source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+      family: 'FZSSJW', source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
       complete: res => {
-        console.log(`宋体字体${(res as unknown as any).status}`); // 调试
+        console.log(`宋体字体${res}`); // 调试
       }
     });
 
     const id = options.scene || options.id || 0;
     const videoList = $file.readJson('function/video');
-    const item = videoList[id];
 
-    this.setData({
-      id,
-      videoList,
-      share: options.share,
-      statusBarHeight: a.info.statusBarHeight,
-      nm: a.nm,
-      videoName: item.name,
-      videoAuthor: item.author,
-      src: item.src || '',
-      vid: item.vid || ''
+    if (videoList) {
+      const item = videoList[id];
+
+      this.setData({
+        id,
+        videoList,
+        share: options.share,
+        statusBarHeight: a.info.statusBarHeight,
+        nm: a.nm,
+        videoName: item.name,
+        videoAuthor: item.author,
+        src: item.src || '',
+        vid: item.vid || ''
+      });
+    } else $wx.request('function/video', data => {
+      const item = data[id];
+
+      this.setData({
+        id,
+        videoList: data,
+        share: options.share,
+        statusBarHeight: a.info.statusBarHeight,
+        nm: a.nm,
+        videoName: item.name,
+        videoAuthor: item.author,
+        src: item.src || '',
+        vid: item.vid || ''
+      });
     });
 
     $page.Notice('video');
