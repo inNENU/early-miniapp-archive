@@ -19,10 +19,17 @@
         "map",
         "situs",
         "player",
+        "video",
         "PEcal",
         "scenery",
         "weather"
-      ]
+      ],
+      "plugins": {
+        "tencentvideo": {
+          "version": "1.3.6",
+          "provider": "wxa75efa648b60994b"
+        }
+      }
     },
     {
       "root": "module",

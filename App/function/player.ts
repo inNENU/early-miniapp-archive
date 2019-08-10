@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 19:36:30
+ * @LastEditTime: 2019-08-10 21:40:24
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -54,6 +54,8 @@ $register('music', {
     const songList = $file.readJson('function/song');
     const mode = wx.getStorageSync('playMode');
 
+    if (!mode) wx.setStorageSync('playMode', 0);
+
     // 写入基本信息
     this.setData({
       index,
@@ -61,7 +63,7 @@ $register('music', {
       info: a.info,
       nm: a.nm,
       play: a.music.play,
-      mode: mode ? mode : (wx.setStorageSync('playMode', 0), 0)
+      mode: mode || 0
     });
 
 
@@ -108,7 +110,7 @@ $register('music', {
       setTimeout(() => {
         console.log('Canplay'); // 调试
         this.setData({ canplay: true });
-      }, 100);
+      }, 200);
     });
 
     // 在相应动作时改变状态
@@ -222,7 +224,7 @@ $register('music', {
       case 0:
       default: index = index as number + 1 === total ? 0 : index as number + 1;
     }
-    this.Switch(index);
+    this.switchSong(index);
   },
   next() { // 下一曲动作
     let { index } = this.data;
@@ -245,7 +247,7 @@ $register('music', {
       case 0:
       default: index = index as number + 1 === total ? 0 : index as number + 1;
     }
-    this.Switch(index);
+    this.switchSong(index);
   },
   previous() { // 上一曲动作
     let { index } = this.data;
@@ -268,9 +270,9 @@ $register('music', {
       case 0:
       default: index = index === 0 ? total - 1 : index - 1;
     }
-    this.Switch(index);
+    this.switchSong(index);
   },
-  Switch(index: string | number) { // 切换歌曲
+  switchSong(index: string | number) { // 切换歌曲
     if (index === 'stop') {
 
       this.setData({
@@ -325,7 +327,7 @@ $register('music', {
   },
   change(res: MiniprogramEvent) { // 点击列表具体歌曲项时触发
     this.list();
-    this.Switch(res.currentTarget.dataset.index);
+    this.switchSong(res.currentTarget.dataset.index);
   },
   cA(e) {
     $component.trigger(e, this);

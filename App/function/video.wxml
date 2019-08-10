@@ -1,0 +1,25 @@
+<view class="{{nm? 'nm': ''}} commonBg">
+  <view style='height:15%;' />
+  <view class='headerCtn'>
+    <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catch:tap="{{share? 'redirect': '$back'}}" data-action='back'>
+      <image class='backIcon' src="/icon/back{{nm?'':'Black'}}.png" />
+    </view>
+    <view class='videoName'>{{videoName}}</view>
+    <view class='videoAuthor'>—— {{videoAuthor}} ——</view>
+  </view>
+  <view class='videoPlayer'>
+    <txv-video wx:if="{{vid}}" class='player' vid="{{vid}}" playerid="video" controls='true' bindplay='play' bindwaiting="wait" binderror="error" />
+    <video wx:else class='player' src="{{src}}" controls='true' bindplay='play' bindwaiting="wait" binderror="error" data-action='video' />
+  </view>
+  <scroll-view scroll-y class='videoList'>
+    <view style='height:6%;' />
+    <view wx:for="{{videoList}}" wx:key="{{videoList.name}}" class='video-ListCtn'>
+      <view class="videoListCtn {{id === index? 'active': ''}}" id='{{index}}' hover-class='buttonHover' catch:tap='change'>
+        <view class='videoListName'>{{item.name}}</view>
+        <view class='videoListAuthor'>{{item.author}}</view>
+      </view>
+      <view class='divLine' />
+    </view>
+    <view style='height:6%;' />
+  </scroll-view>
+</view>

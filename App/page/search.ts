@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-09 10:08:15
+ * @LastEditTime: 2019-08-10 21:36:48
  * @Description: 搜索页
  */
 
@@ -54,7 +54,7 @@ $register('search', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -119,8 +119,8 @@ $register('search', {
 
     const keys = Object.keys(weight);
 
-    keys.sort((a, b) => {
-      return weight[b] - weight[a];
+    keys.sort((x, y) => {
+      return weight[y] - weight[x];
     });
 
     // 为权重大于2的匹配值生成最终结果

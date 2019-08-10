@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-09 10:08:49
+ * @LastEditTime: 2019-08-10 20:54:18
  * @Description: 天气预报
  */
 import $register from 'wxpage';
@@ -67,7 +67,7 @@ $register('weather', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

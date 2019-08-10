@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 21:10:55
+ * @LastEditTime: 2019-08-10 20:54:44
  * @Description: Page函数库
  */
 
@@ -379,7 +379,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
  * @param grey 页面是否为灰色背景
  * @returns 页面实际的胶囊与背景颜色
  */
-const color = (grey: boolean | undefined) => {
+const color = (grey = false) => {
   const [frontColor, backgroundColor] = globalData.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
   let temp;
 
