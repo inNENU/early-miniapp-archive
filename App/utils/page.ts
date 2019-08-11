@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 15:16:19
+ * @LastEditTime: 2019-08-11 21:15:46
  * @Description: Page函数库
  */
 
@@ -185,15 +185,15 @@ const resolvePage = (option: WXPage.PageLifeTimeOptions, page?: PageData, Set = 
 
     if (pageData) data = disposePage(pageData as PageData, option.query);
     else {
-      data = '';
+      data = [{}];
       console.warn(`${aim}文件不存在，处理失败`);
     }
   }
 
   if (data && Set) {
     // 设置aim值
-    globalData.page.aim = aim;
-    globalData.page.data = data as ComponentData[];
+    globalData.page.aim = aim || data[0].title;
+    globalData.page.data = data;
   }
 
   return data;
@@ -231,17 +231,20 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
       page: handle ? page : disposePage(page, option)
     });
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
-  else if (globalData.page.aim === option.aim) {
-    console.log(`${option.aim}已处理`);
+  else if (
+    globalData.page.aim === option.aim
+    || ctx.data.page && ctx.data.page[0] && globalData.page.aim === ctx.data.page[0].title
+  ) {
+    console.log(`${globalData.page.aim}已处理`);
     ctx.setData({ T: globalData.T, nm: globalData.nm, page: globalData.page.data }, () => {
-      console.log(`${option.aim}已写入`);
+      console.log(`${globalData.page.aim}已写入`);
       if (preload) {
         preGetPage(ctx.data.page);
-        console.log(`${option.aim}预加载子页面完成`);
+        console.log(`${globalData.page.aim}预加载子页面完成`);
       }
     });
   } else {
-    console.log(`${option.aim}未处理`);
+    console.log(`${option.aim || '未知页面'}未处理`);
     // 设置页面数据
     ctx.setData({
       T: globalData.T,

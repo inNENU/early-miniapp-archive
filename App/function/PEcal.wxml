@@ -3,7 +3,7 @@
   <template is='head' data="{{...page[0],T}}" />
   <view class="descCtn">
     <view class="descBtn" hover-class="buttonHover" catch:tap="navigate">
-      <image src="/icon/about.svg" class="descIcon" />
+      <image src="/icon/tabPage/about.svg" class="descIcon" />
       <view class="descText">体测说明</view>
     </view>
   </view>

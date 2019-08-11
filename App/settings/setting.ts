@@ -1,7 +1,6 @@
 /* global wx getApp*/
 import $register, { WXPage } from 'wxpage';
 import $page from '../utils/page';
-import $tab from '../utils/tab';
 import { nightmode } from '../utils/app';
 const { globalData: a } = getApp();
 
@@ -14,7 +13,7 @@ $register('setting', {
     nm: a.nm,
     event: [],
     page: [
-      { tag: 'head', title: '设置', grey: true },
+      { tag: 'head', title: '外观设置', grey: true },
       {
         tag: 'List', head: '主题设置', foot: 'NENU主题还在完善中',
         content: [
@@ -49,13 +48,6 @@ $register('setting', {
           { text: '指南资源更新提示', swiKey: 'pageResNotify' }
         ]
       },
-      {
-        tag: 'List', head: '如果页面显示出现问题请刷新资源',
-        content: [
-          { text: '刷新功能资源', button: 'refreshFunc' },
-          { text: '刷新指南资源', button: 'refreshGuide' }
-        ]
-      },
       { tag: 'foot', author: '' }
     ]
   },
@@ -84,7 +76,7 @@ $register('setting', {
     $page.resolve(res, this.data.page);
   },
   onLoad(option: any) {
-    if (a.page.aim === option.aim) $page.Set({ option, ctx: this });
+    if (a.page.aim === '外观设置') $page.Set({ option, ctx: this });
     else {
       const list = this.data.page[3].content;
       const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
@@ -236,11 +228,5 @@ $register('setting', {
   },
   nightBrightnessHandler(value: number) {
     if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: value / 100 });
-  },
-  refreshGuide() {
-    $tab.resDownload('page');
-  },
-  refreshFunc() {
-    $tab.resDownload('function');
   }
 });

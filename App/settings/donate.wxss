@@ -5,11 +5,11 @@
 }
 
 .QRCode1 {
-  width: 50%;
+  width: 45%;
 }
 
 .QRCode2 {
-  width: 40%;
+  width: 45%;
 }
 
 .donateList {

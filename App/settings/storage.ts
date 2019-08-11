@@ -2,12 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 19:39:36
+ * @LastEditTime: 2019-08-11 21:20:10
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
 import $file from '../utils/file';
 import $page from '../utils/page';
+import $tab from '../utils/tab';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
 
@@ -32,6 +33,13 @@ $register('storage', {
         ]
       },
       {
+        tag: 'List', head: '资源刷新', foot: '如果页面显示出现问题请刷新资源',
+        content: [
+          { text: '刷新功能资源', button: 'refreshFunc' },
+          { text: '刷新指南资源', button: 'refreshGuide' }
+        ]
+      },
+      {
         tag: 'List',
         head: '重置',
         content: [
@@ -48,7 +56,7 @@ $register('storage', {
     $page.resolve(res, this.getStorage());
   },
   onLoad(option: any) {
-    if (a.page.aim === option.aim) $page.Set({ option, ctx: this });
+    if (a.page.aim === '存储设置') $page.Set({ option, ctx: this });
     else $page.Set({ option: { aim: 'about' }, ctx: this }, this.getStorage());
 
     $page.Notice('about');
@@ -82,6 +90,12 @@ $register('storage', {
     p[2].content[0].desc = `${Math.floor(fileSize / 1024)}K/10240K`; // 写入文件大小
 
     return p;
+  },
+  refreshGuide() {
+    $tab.resDownload('page');
+  },
+  refreshFunc() {
+    $tab.resDownload('function');
   },
   deleteData() {
     wx.clearStorageSync();

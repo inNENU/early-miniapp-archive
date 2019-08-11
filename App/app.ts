@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 19:11:24
+ * @LastEditTime: 2019-08-11 21:05:09
  * @Description: 小程序主脚本
  */
 
@@ -13,7 +13,7 @@ let keywords: object;
 
 $register.A({
   globalData: {
-    version: 'V 2.2.9',
+    version: 'V 2.3.0',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -28,7 +28,7 @@ $register.A({
     resolvePath: (name: string) =>
       ['main', 'function', 'guide', 'me', 'search'].includes(name)
         ? `/page/${name}`
-        : ['setting', 'version', 'about', 'authorize', 'storage'].includes(name)
+        : ['setting', 'version', 'about', 'authorize', 'storage', 'donate'].includes(name)
           ? `/settings/${name}`
           : ['weather', 'map', 'situs', 'PEcal', 'player', 'video'].includes(name)
             ? `/function/${name}`

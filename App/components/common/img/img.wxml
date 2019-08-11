@@ -3,7 +3,7 @@
   <text>图片加载失败</text>
 </view>
 <view wx:elif="{{!load}}" class="imgError">
-  <image class="loadingImg" src="loading.svg" lazy-load />
+  <image class="loadingImg" src="/icon/loading.svg" lazy-load />
   <text>加载中...</text>
 </view>
 <image class="img" style="{{load?'':'width:1rpx;height:1rpx;'}}" mode="{{config.imgMode? config.imgMode: 'widthFix'}}" lazy-load="{{config.lazy!==false}}" src="{{config.src}}" bindload="load" binderror="error" catch:tap="view" />

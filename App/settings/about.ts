@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 19:32:02
+ * @LastEditTime: 2019-08-11 21:19:40
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -32,7 +32,7 @@ $register('about', {
         tag: 'list',
         head: '正式版开发日志',
         content: [
-          { text: `${a.version}\n自定义导航栏改进` },
+          { text: `${a.version}\n重构我的东师\nV 2.2.2\n增加搜索功能\n V 2.1.7\n添加天气页面` },
           { text: '查看详细日志', url: '/settings/version' }
         ]
       },
@@ -44,16 +44,8 @@ $register('about', {
           { text: 'Hope Studio介绍', aim: 'MrHope0' },
           { text: 'Mr.Hope个人介绍', aim: 'MrHope1' },
           { text: '开发者访谈', aim: 'MrHope3' },
-          { text: '致谢名单', aim: 'MrHope4' }
-        ]
-      },
-      {
-        tag: 'list',
-        head: '遇到问题？',
-        content: [
-          { text: '对小程序有任何意见、建议或是想汇报bug？\n请添加QQ 1178522294 或点击右下角来联系开发者。' },
-          { text: '小程序功能太少?', aim: 'MrHope2' },
-          { text: '小程序响应慢？', desc: '欢迎捐赠', url: '/settings/donate' }
+          { text: '致谢名单', aim: 'MrHope4' },
+          { text: '小程序功能太少?', aim: 'MrHope2' }
         ]
       },
       { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
@@ -71,7 +63,7 @@ $register('about', {
     $page.resolve(res, p);
   },
   onLoad(option: any) {
-    if (a.page.aim === option.aim) $page.Set({ option, ctx: this });
+    if (a.page.aim === '关于') $page.Set({ option, ctx: this });
     else {
       const p = this.data.page;
       const value = wx.getStorageSync('developMode');
@@ -95,7 +87,7 @@ $register('about', {
   onReady() {
     $wx.request(`config/${a.appID}/${a.version}/about`, (data: object) => {
       $page.Set(
-        { option: { aim: 'about' }, ctx: this },
+        { option: { aim: '关于' }, ctx: this },
         this.data.page.slice(0, 2)
           .concat(data, this.data.page.slice(-1))
       );
