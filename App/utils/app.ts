@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 10:48:59
+ * @LastEditTime: 2019-08-11 19:08:25
  * @Description: APP函数库
  */
 
@@ -149,9 +149,9 @@ const appInit = () => {
 /**
  * 弹窗通知检查
  *
- * @param version 小程序的版本
+ * @param globalData 小程序的全局数据
  */
-const noticeCheck = (version: string) => {
+const noticeCheck = (globalData: GlobalData) => {
   /** 通知列表格式 */
   interface NoticeList {
     [props: string]: {
@@ -161,7 +161,7 @@ const noticeCheck = (version: string) => {
     };
   }
 
-  $wx.request(`config/${version}/notice`, (noticeList: NoticeList) => {
+  $wx.request(`config/${globalData.appID}/${globalData.version}/notice`, (noticeList: NoticeList) => {
     /** 通知页面名称 */
     const keys = Object.keys(noticeList);
 
@@ -267,9 +267,9 @@ interface VersionInfo {
  *
  * 如果检测到小程序更新，获取升级状态（新版本号，是否立即更新、是否重置小程序）并做相应处理
  *
- * @param localVersion 小程序的本地版本
+ * @param globalData 小程序的全局数据
  */
-const appUpdate = (localVersion: string) => {
+const appUpdate = (globalData: GlobalData) => {
   const updateManager = wx.getUpdateManager();
   let version = '9.9.9';
   let forceUpdate = true;
@@ -285,7 +285,7 @@ const appUpdate = (localVersion: string) => {
   updateManager.onUpdateReady(() => {
 
     // 请求配置文件
-    $wx.request(`config/${localVersion}/config`, data => {
+    $wx.request(`config/${globalData.appID}/${globalData.version}/config`, data => {
       ({ forceUpdate, reset, version } = data as VersionInfo);
 
       // 更新下载就绪，提示用户重新启动
@@ -392,8 +392,8 @@ const startup = (globalData: InitGlobalData) => {
       });
 
   // 检查通知更新与小程序更新
-  noticeCheck(globalData.version);
-  appUpdate(globalData.version);
+  noticeCheck(globalData as GlobalData);
+  appUpdate(globalData as GlobalData);
 
   // 设置内存不足警告
   wx.onMemoryWarning(res => {

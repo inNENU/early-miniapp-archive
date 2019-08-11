@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:55:05
+ * @LastEditTime: 2019-08-11 20:26:00
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
@@ -82,8 +82,8 @@ $register('function', {
     $tab.update('function', '80K');
     wx.stopPullDownRefresh();
   },
-  onPageScroll(e) {
-    $page.nav(e, this, 'head');
+  onPageScroll(event) {
+    $page.nav(event, this, 'head');
   },
   onShareAppMessage: () => ({ title: '功能大厅', path: '/page/function' })
 });

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:52:41
+ * @LastEditTime: 2019-08-11 15:16:19
  * @Description: Page函数库
  */
 
@@ -57,7 +57,7 @@ const disposePage = (page: PageData, option: PageArg) => {
         // 判断是否来自分享，分享页左上角动作默认为重定向
         if ('share' in option) {
           page[0].action = 'redirect';
-          console.info('redirect');
+          console.info('页面为分享界面');
         }
       }
 
@@ -111,13 +111,13 @@ const disposePage = (page: PageData, option: PageArg) => {
     }
     // 调试：未找到head tag
     else {
-      console.warn('No head tag in page!');
-      logger.warn('No head tag');
+      console.warn('页面不包含head标签');
+      logger.warn('页面不包含head标签');
       wx.reportMonitor('14', 1);
     }
   // 调试：未传入page
   else {
-    console.warn('No pageData!');
+    console.error('页面数据不存在');
     wx.reportMonitor('15', 1);
   }
 
@@ -441,25 +441,21 @@ const color = (grey = false) => {
  * @param theme 主题
  */
 const loadFont = (theme: string) => {
-  try {
-    if (theme === 'Android')
-      wx.loadFontFace({
-        family: 'FZKTJW', source: 'url("https://mp.nenuyouth.com/fonts/FZKTJW.ttf")',
-        complete: res => {
-          console.info('楷体字体', res);// 调试
-        }
-      });
-    else if (theme === 'NENU')
-      wx.loadFontFace({
-        family: 'FZSSJW', source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
-        complete: res => {
-          console.info('宋体字体', res);// 调试
-        }
-      });
-    else throw theme;
-  } catch (e) {
-    console.warn(`Theme ${e} cannot be handled.`);
-  }
+  if (theme === 'Android')
+    wx.loadFontFace({
+      family: 'FZKTJW', source: 'url("https://mp.nenuyouth.com/fonts/FZKTJW.ttf")',
+      complete: res => {
+        console.info('楷体字体', res);// 调试
+      }
+    });
+  else if (theme === 'NENU')
+    wx.loadFontFace({
+      family: 'FZSSJW', source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
+      complete: res => {
+        console.info('宋体字体', res);// 调试
+      }
+    });
+  else console.warn(`无法处理主题${theme}`);
 };
 
 /**

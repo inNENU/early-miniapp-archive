@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-07-30 16:20:36
+ * @LastEditTime: 2019-08-11 15:14:00
  */
 
 /** 日志管理器 */
@@ -101,13 +101,13 @@ const request = (
   wx.request({
     url: `https://mp.nenuyouth.com/${path}.json`,
     success: res => {
-      console.log('Request success:', res);// 调试
+      console.log(`请求${path}成功:`, res);// 调试
       if (res.statusCode === 200) callback(res.data as object);
       else {
         tip('服务器出现问题，请稍后重试');
         // 调试
-        console.warn(`Request ${path} fail: ${res.statusCode}`);
-        logger.warn(`Request ${path} fail: ${res.statusCode}`);
+        console.warn(`请求${path}失败：${res.statusCode}`);
+        logger.warn(`请求${path}失败：${res.statusCode}`);
         wx.reportMonitor('3', 1);
 
         if (errorFunc) errorFunc(res.statusCode);
@@ -118,8 +118,8 @@ const request = (
       netReport();
 
       // 调试
-      console.warn(`Request ${path} fail:`, failMsg);
-      logger.warn(`Request ${path} fail:`, failMsg);
+      console.warn(`请求${path}失败:`, failMsg);
+      logger.warn(`请求${path}失败:`, failMsg);
       wx.reportMonitor('4', 1);
     }
   });
@@ -148,15 +148,15 @@ const downLoad = (
         if (errorFunc) errorFunc(res.statusCode);
 
         // 调试
-        console.warn(`DownLoad ${path} fail: ${res.statusCode}`);
-        logger.warn(`DownLoad ${path} fail: ${res.statusCode}`);
+        console.warn(`下载 ${path} 失败: ${res.statusCode}`);
+        logger.warn(`下载 ${path} 失败: ${res.statusCode}`);
       }
     },
     fail: failMsg => {
       if (failFunc) failFunc(failMsg);
       netReport();
-      console.warn(`DownLoad ${path} fail:`, failMsg);
-      logger.warn(`DownLoad ${path} fail:`, failMsg);
+      console.warn(`下载 ${path} 失败:`, failMsg);
+      logger.warn(`下载 ${path} 失败:`, failMsg);
     }
   });
 

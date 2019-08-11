@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:55:04
+ * @LastEditTime: 2019-08-11 20:25:56
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -18,7 +18,7 @@ $register('guide', {
     words: [],
     head: { title: '东师指南', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
-      { tag: 'head', title: '东师指南', action: true, aimDepth: 1, hidden: true },
+      { tag: 'head', title: '东师指南', hidden: true },
       {
         tag: 'grid',
         head: '新生你好',
@@ -109,8 +109,8 @@ $register('guide', {
     $tab.update('page', '215K');
     wx.stopPullDownRefresh();
   },
-  onPageScroll(e) {
-    $page.nav(e, this, 'head');
+  onPageScroll(event) {
+    $page.nav(event, this, 'head');
   },
   searching(event: WXEvent.Input) {
     const keywords = getApp()

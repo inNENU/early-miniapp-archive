@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:59:17
+ * @LastEditTime: 2019-08-11 20:26:16
  * @Description: 搜索页
  */
 
@@ -60,8 +60,8 @@ $register('search', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
-  onPageScroll(e) {
-    $page.nav(e, this, 'head');
+  onPageScroll(event) {
+    $page.nav(event, this, 'head');
   },
   searching(event: WXEvent.Input) {
     const keywords = this.keywords as Keywords;

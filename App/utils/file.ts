@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-08-07 21:12:38
+ * @LastEditTime: 2019-08-11 15:18:20
  */
 
 // 初始化文件管理器、用户路径与日志管理器
@@ -122,7 +122,7 @@ const readJson = (path: string, encoding = 'utf-8') => {
     try {
       data = JSON.parse(fileContent);
 
-      console.log(`read ${path}.json成功：`, data);
+      console.log(`读取 ${path}.json成功：`, data);
 
     } catch (err) {
       data = undefined;
@@ -198,7 +198,7 @@ const saveOnlineFile = (
     filePath: `${userPath}/${savePath}/${fileName}`,
     success: res => {
       if (res.statusCode === 200) {
-        console.info(`save ${onlinePath} success`);
+        console.info(`保存 ${onlinePath} 成功`);
         successFunc(res.tempFilePath);
       } else {
         if (errorFunc) errorFunc(res.statusCode);
@@ -268,7 +268,7 @@ const getJson = (path: string, callback?: (data: object | string) => void, failF
         filePath: `${userPath}/${folder}/${fileName}.json`,
         success: res => {
           if (res.statusCode === 200) {
-            console.info(`Save ${path}.json success`);
+            console.info(`保存 ${path}.json 成功`);
 
             data = readJson(path);
 
@@ -299,7 +299,7 @@ const getJson = (path: string, callback?: (data: object | string) => void, failF
       filePath: `${userPath}/${folder}/${fileName}.json`,
       success: res => {
         if (res.statusCode === 200)
-          console.info(`Save ${path}.json success`);
+          console.info(`保存 ${path}.json 成功`);
         else {
           console.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
           logger.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
@@ -326,8 +326,8 @@ const unzip = (path: string, unzipPath: string, callback?: () => void) => {
       if (callback) callback();
     },
     fail: failMsg => {
-      console.error(`unzip ${path} fail:`, failMsg);
-      logger.warn(`unzip ${path} fail:`, failMsg);
+      console.error(`解压 ${path} 失败:`, failMsg);
+      logger.warn(`解压 ${path} 失败:`, failMsg);
     }
   });
 };

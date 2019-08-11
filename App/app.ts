@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 10:50:02
+ * @LastEditTime: 2019-08-11 19:11:24
  * @Description: 小程序主脚本
  */
 
@@ -13,7 +13,7 @@ let keywords: object;
 
 $register.A({
   globalData: {
-    version: 'V 2.2.8',
+    version: 'V 2.2.9',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -28,7 +28,7 @@ $register.A({
     resolvePath: (name: string) =>
       ['main', 'function', 'guide', 'me', 'search'].includes(name)
         ? `/page/${name}`
-        : ['setting', 'version', 'about', 'authorize'].includes(name)
+        : ['setting', 'version', 'about', 'authorize', 'storage'].includes(name)
           ? `/settings/${name}`
           : ['weather', 'map', 'situs', 'PEcal', 'player', 'video'].includes(name)
             ? `/function/${name}`
@@ -52,8 +52,8 @@ $register.A({
     // 重新应用夜间模式、
     this.globalData.nm = app.nightmode();
 
-    app.noticeCheck(this.globalData.version);
-    app.appUpdate(this.globalData.version);
+    app.noticeCheck(this.globalData as GlobalData);
+    app.appUpdate(this.globalData as GlobalData);
   },
   onError(errorMsg) {
     console.error('出错信息为：', errorMsg);

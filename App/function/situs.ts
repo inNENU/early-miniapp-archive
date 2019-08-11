@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:54:34
+ * @LastEditTime: 2019-08-11 19:50:52
  * @Description: 地点详情
  */
 import $register, { WXPage } from 'wxpage';
@@ -70,9 +70,7 @@ $register('situs', {
       path: `/function/situs?From=主页&depth=1&share=true&xiaoqu=${this.xiaoqu}&id=${this.id}&aim=${this.aim}`
     };
   },
-
-  // 覆写重定向到主页
-  redirect() {
+  redirect() { // 覆写重定向到主页
     this.$switch('/page/main');
   }
 });

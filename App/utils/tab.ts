@@ -24,25 +24,21 @@ const resDownload = (name: string) => {
   const downLoadTask = wx.downloadFile({
     url: `https://mp.nenuyouth.com/${name}.zip`,
     success: res => {
-      console.log(`${name} statusCode is ${res.statusCode}`);// 调试
       if (res.statusCode === 200) {
         wx.showLoading({ title: '保存中...', mask: true });
 
         // 保存压缩文件到压缩目录
         $file.saveFile(res.tempFilePath, `${name}Zip`);
-        console.log(`save ${name} success`);// 调试
 
         wx.showLoading({ title: '解压中...', mask: true });
 
         // 解压文件到根目录
         $file.unzip(`${name}Zip`, '', () => {
-          console.log(`unzip ${name} sucess`);// 调试
 
           // 删除压缩目录，并将下载成功信息写入存储、判断取消提示
           $file.Delete(`${name}Zip`, false);
           wx.setStorageSync(`${name}Download`, true);
 
-          console.log(`delete ${name} sucess`);// 调试
           wx.hideLoading();
         });
       }
@@ -70,23 +66,23 @@ const checkResUpdate = (name: string, dataUsage: string) => {
   const currentTime = Math.round(new Date().getTime() / 1000);// 读取当前和上次更新时间
 
   // 调试
-  console.log(`${name}通知状态为${notify}`, '本地版本文件为：', localVersion);
+  console.log(`${name}通知状态为${notify}`, `本地版本文件为：${localVersion}`);
   console.log(`${name}更新于${localTime}, 现在时间是${currentTime}`);
 
   if (notify || currentTime > Number(localTime) + 1000000)// 如果需要更新
     $wx.request(`${name}Version`, data => {
 
       // 资源为最新
-      if (Number(localVersion) === Number(data)) console.info(`${name}Version match`);// 调试
+      if (Number(localVersion) === Number(data)) console.info(`${name}资源已是最新版`);// 调试
 
       // 需要更新
       else {
-        console.info(`${name}not match`); // 调试
+        console.info(`${name}资源有更新`); // 调试
 
         // 如果需要提醒，则弹窗
         if (notify) wx.showModal({
-          title: '发现资源更新', content: `是否立即更新资源？\n(会消耗${dataUsage}流量)`,
-          cancelText: '否', cancelColor: '#ff0000', confirmText: '是',
+          title: '资源有更新', content: `请更新资源以获得最新功能与内容。\n(会消耗${dataUsage}流量)`,
+          cancelText: '取消', cancelColor: '#ff0000', confirmText: '更新',
           success: choice => {
 
             // 用户确认，下载更新
@@ -94,17 +90,19 @@ const checkResUpdate = (name: string, dataUsage: string) => {
 
             // 用户取消，询问是否关闭更新提示
             else if (choice.cancel) wx.showModal({
-              title: '开启资源更新提示？', content: '在资源有更新时会提示您更新资源文件。',
-              cancelText: '残忍关闭', cancelColor: '#ff0000', confirmText: '保持开启',
+              title: '开启资源更新提示？', content: '开启后在资源有更新时会提示您更新资源文件。',
+              cancelText: '关闭', cancelColor: '#ff0000', confirmText: '保持开启',
               success: choice2 => {
 
                 // 用户选择关闭
-                if (choice2.cancel) $wx.modal(
-                  '更新提示已关闭', '您可以在设置中重新打开提示。请注意：小程序会每半个月对界面文件进行强制更新。',
-                  () => {
-                    wx.setStorageSync(`${name}ResNotify`, false);// 关闭更新提示
-                  }
-                );
+                if (choice2.cancel)
+                  $wx.modal(
+                    '更新提示已关闭', '您可以在设置中重新打开提示。请注意：为保障正常运行，小程序会每半个月对资源进行强制更新。',
+                    // 关闭更新提示
+                    () => {
+                      wx.setStorageSync(`${name}ResNotify`, false);
+                    }
+                  );
               }
             });
           }
@@ -143,12 +141,12 @@ const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   const test = wx.getStorageSync('test');
 
   // 开启测试后展示测试界面
-  if (test) $wx.request(`config/${name}Test`, data => {
+  if (test) $wx.request(`config/${globalData.appID}/test/${name}`, data => {
     wx.setStorageSync(name, data);
     $page.Set({ ctx, option: { aim: name } }, data as PageData);
   });
   // 普通界面加载
-  else $wx.request(`config/${globalData.version}/${name}`, data => {
+  else $wx.request(`config/${globalData.appID}/${globalData.version}/${name}`, data => {
     $page.Set({ ctx, option: { aim: name } }, data as PageData);
   });
 };
@@ -268,12 +266,10 @@ const markerSet = () => {
     // 没有找到MarkerData，可能因为初始化中断造成
     else {
       // 调试
-      console.log('get Marker error');
-      logger.warn('get Marker error');
+      console.log('获取Marker失败');
+      logger.warn('获取Marker失败');
 
       $wx.request('function/marker', data => {
-        console.log(data);
-
 
         // 将Marker数据保存文件
         $file.writeJson('function', 'marker', data);

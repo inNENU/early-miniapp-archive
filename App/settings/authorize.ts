@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:58:49
+ * @LastEditTime: 2019-08-11 19:53:26
  * @Description: 捐赠
  */
 import $register, { WXPage } from 'wxpage';
@@ -46,7 +46,7 @@ $register('authorize', {
         ]
       },
       {
-        tag: 'list',
+        tag: 'List',
         head: '进行授权',
         content: [
           { text: '地理位置', button: 'location' },
@@ -87,6 +87,10 @@ $register('authorize', {
         this.setData({ 'page[1].content': list });
       }
     });
+  },
+  list({ detail }: any) {
+    console.log(detail);
+    if (detail.event) this[detail.event](detail.value);
   },
   location() {
     this.authorize(0);

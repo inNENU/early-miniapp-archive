@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:55:02
+ * @LastEditTime: 2019-08-11 19:32:02
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
-import $file from '../utils/file';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
@@ -18,7 +17,7 @@ $register('about', {
     T: a.T,
     nm: a.nm,
     page: [
-      { tag: 'head', title: '关于', aimDepth: 1, grey: true, feedback: true, contact: true },
+      { tag: 'head', title: '关于', grey: true, feedback: true, contact: true },
       {
         tag: 'List',
         head: '版本号',
@@ -26,10 +25,6 @@ $register('about', {
           { text: a.version, button: 'debugMode' },
           { text: '启用测试功能', swiKey: 'test', Switch: 'testSwitch' },
           { text: '调试开关', swiKey: 'debugMode', Switch: 'debugSwitch' },
-          { text: '清除小程序数据', button: 'deleteData' },
-          { text: '清除小程序文件', button: 'deleteFile' },
-          { text: '初始化小程序', button: 'resetApp' },
-          { text: '退出小程序', navigate: true, openType: 'exit', target: 'miniProgram' },
           { text: '退出开发者模式', button: 'debugMode' }
         ]
       },
@@ -61,7 +56,7 @@ $register('about', {
           { text: '小程序响应慢？', desc: '欢迎捐赠', url: '/settings/donate' }
         ]
       },
-      { tag: 'foot', desc: `当前版本：${a.version}` }
+      { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
     ]
   },
   onNavigate(res: WXPage.PageLifeTimeOptions) {
@@ -69,7 +64,7 @@ $register('about', {
     const value = wx.getStorageSync('developMode');
 
     developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
-    if (wx.getStorageSync('debugMode')) p[1].content[2].status = true;
+
     if (!developMode) p[1].content.forEach((x: any, y: number) => {
       x.hidden = !(y === 0);
     });
@@ -98,14 +93,13 @@ $register('about', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    $wx.request(`config/${a.version}/about`, (data: object) => {
+    $wx.request(`config/${a.appID}/${a.version}/about`, (data: object) => {
       $page.Set(
         { option: { aim: 'about' }, ctx: this },
         this.data.page.slice(0, 2)
           .concat(data, this.data.page.slice(-1))
       );
     });
-
   },
   onPageScroll(event) {
     $page.nav(event, this);
@@ -169,35 +163,5 @@ $register('about', {
   },
   testSwitch(value: boolean) {
     $wx.tip(`已${value ? '启用' : '关闭'}测试功能`);
-  },
-  deleteData() {
-    wx.clearStorageSync();
-    $wx.tip('数据清除完成');
-  },
-  deleteFile() {
-    wx.showLoading({ title: '删除中', mask: true });
-
-    $file.listFile('')
-      .forEach((filePath: string) => {
-        $file.Delete(filePath);
-      });
-
-    wx.hideLoading();
-  },
-  resetApp() {
-    // 显示提示
-    wx.showLoading({ title: '初始化中', mask: true });
-
-    // 清除文件系统文件与数据存储
-    $file.listFile('')
-      .forEach((filePath: string) => {
-        $file.Delete(filePath);
-      });
-    wx.clearStorageSync();
-
-    // 隐藏提示
-    wx.hideLoading();
-    // 提示用户重启
-    $wx.modal('小程序初始化完成', '请单击 “退出小程序按钮” 退出小程序');
   }
 });

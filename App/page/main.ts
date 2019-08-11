@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:55:03
+ * @LastEditTime: 2019-08-11 20:26:06
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -20,8 +20,7 @@ $register('main', {
     head: { title: '首页', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       {
-        tag: 'head', title: '首页', aim: 'main',
-        action: true, aimStep: 1, aimDepth: 1, grey: true, hidden: true
+        tag: 'head', title: '首页', aim: 'main', grey: true, hidden: true
       },
       {
         tag: 'grid',
@@ -155,7 +154,7 @@ $register('main', {
 
     // 执行tab页预加载
     ['guide', 'function'].forEach(x => {
-      $wx.request(`config/${a.version}/${x}`, (data: object) => {
+      $wx.request(`config/${a.appID}/${a.version}/${x}`, (data: object) => {
         this.$put(x, data);
         this.$preload(`${x}?aim=${x}`);
         wx.setStorageSync(x, data);
@@ -167,8 +166,8 @@ $register('main', {
     $tab.refresh('main', this, a);
     wx.stopPullDownRefresh();
   },
-  onPageScroll(e) {
-    $page.nav(e, this, 'head');
+  onPageScroll(event) {
+    $page.nav(event, this, 'head');
   },
   searching(event: WXEvent.Input) {
     const keywords = getApp()

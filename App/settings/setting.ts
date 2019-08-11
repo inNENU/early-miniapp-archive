@@ -56,13 +56,7 @@ $register('setting', {
           { text: '刷新指南资源', button: 'refreshGuide' }
         ]
       },
-      {
-        tag: 'list', head: '授权设置',
-        content: [
-          { text: '查看授权详情', url: 'authorize' }
-        ]
-      },
-      { tag: 'foot' }
+      { tag: 'foot', author: '' }
     ]
   },
   onNavigate(res: WXPage.PageLifeTimeOptions) {

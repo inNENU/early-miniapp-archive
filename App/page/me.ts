@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:55:02
+ * @LastEditTime: 2019-08-11 20:25:45
  * @Description: 我的东师
  */
 import $register, { WXPage } from 'wxpage';
@@ -13,17 +13,20 @@ $register('me', {
   data: {
     T: a.T,
     nm: a.nm,
+    head: { title: '我的东师', action: true, grey: true, statusBarHeight: a.info.statusBarHeight },
     page: [
-      { tag: 'head', title: '我的东师', aim: 'me', action: true, grey: true, contact: true },
+      { tag: 'head', title: '我的东师', hidden: true },
       {
-        tag: 'list',
+        tag: 'list', foot: ' ',
         content: [
-          { text: '设置', icon: '/icon/setting.svg', url: '/settings/setting?From=我的东师&aim=settings' },
-          { text: '关于', icon: '/icon/about.svg', url: '/settings/about?From=我的东师&aim=about', desc: a.version }
+          { text: '外观设置', icon: '/icon/tabPage/setting.svg', url: 'setting?From=我的东师&aim=settings' },
+          { text: '权限设置', icon: '/icon/tabPage/setting.svg', url: 'authorize?From=我的东师&aim=authorize' },
+          { text: '存储设置', icon: '/icon/tabPage/setting.svg', url: 'storage?From=我的东师&aim=storage' },
+          { text: '关于', icon: '/icon/tabPage/about.svg', url: 'about?From=我的东师&aim=about', desc: a.version }
         ]
-      },
-      { tag: 'foot', desc: `当前版本：${a.version}\n小程序由Mr.Hope个人制作，如有错误还请见谅` }
-    ]
+      }
+    ],
+    foot: { author: '', desc: `当前版本：${a.version}\n小程序由Mr.Hope个人制作，如有错误还请见谅` }
   },
   onPreload(res: WXPage.PageLifeTimeOptions) {
     $page.resolve(res, this.data.page);
@@ -57,7 +60,7 @@ $register('me', {
     });
   },
   onPageScroll(event) {
-    $page.nav(event, this);
+    $page.nav(event, this, 'head');
   },
   onShareAppMessage: () => ({ title: '我的东师', path: '/page/me' })
 });

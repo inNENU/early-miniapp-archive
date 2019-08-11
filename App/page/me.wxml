@@ -1,15 +1,45 @@
 <import src="/components/template" />
 <view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+  <template is="head" data="{{...head,T}}" />
+  <view class="infoCtn">
+    <view class="avator">
+      <open-data type="userAvatarUrl" />
+    </view>
+    <view>
+      <view class="nickName">
+        <open-data type="userNickName" />
+      </view>
+      <view class="detail">
+        <open-data type="userGender" lang="zh_CN" />
+        <text decode="true">&ensp;</text>
+        <open-data type="userProvince" lang="zh_CN" />
+        <text decode="true">&ensp;</text>
+        <open-data type="userCity" lang="zh_CN" />
+      </view>
+    </view>
+  </view>
   <template is="all2" data="{{page,T}}" />
-  <view class="shareBtnGroup">
-    <button class="button share" plain="true" hover-class="buttonHover" open-type="share">
-      <text class="icon-forwardfill" style="margin-right:4px;" />
-      分享小程序
+  <view class="Lctn">
+    <button class="button listCtn" plain="true" hover-class="buttonHover" open-type="share" hover-stay-time="100" id="2">
+      <view class="list-Container">
+        <image class="listIcon" src="/icon/tabPage/share.svg" />
+        <view class="LinkText">分享小程序</view>
+      </view>
     </button>
-    <view class="divLine" />
-    <button class="button share" plain="true" hover-class="buttonHover" open-type="feedback">
-      <text class="icon-community" style="margin-right:4px;" />
-      反馈Bug
+    <view class="listIcon link-divline" />
+    <button class="button listCtn" plain="true" hover-class="buttonHover" open-type="feedback" hover-stay-time="100" id="3">
+      <view class="list-Container">
+        <image class="listIcon" src="/icon/tabPage/bug.svg" />
+        <view class="LinkText">反馈Bug</view>
+      </view>
+    </button>
+    <view class="listIcon link-divline" />
+    <button class="button listCtn" plain="true" hover-class="buttonHover" open-type="contact" hover-stay-time="100" id="3">
+      <view class="list-Container">
+        <image class="listIcon" src="/icon/tabPage/contact.svg" />
+        <view class="LinkText">联系我们</view>
+      </view>
     </button>
   </view>
+  <foot config="{{foot}}" />
 </view>

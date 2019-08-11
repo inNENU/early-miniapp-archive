@@ -1,35 +1,25 @@
-.shareBtnGroup {
-  margin: 10px 15px;
-  border-radius: 12px;
+.infoCtn {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 20px;
+}
+
+.avator {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   overflow: hidden;
-  text-align: center;
+  margin-right: 12px;
 }
 
-button.share {
-  display: inline-block;
-  width: calc(50% - 1px) !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  font-size: 15px !important;
-  background-color: #fff !important;
-  color: #444 !important;
-  line-height: 2.5;
+.nickName {
+  text-align: left;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
-.nm button.share {
-  color: #bbb !important;
-  background-color: #1C1C1E !important;
-}
-
-.divLine {
-  display: inline-block;
-  width: 2px;
-  height: 100%;
-  background-color: #333;
-}
-
-.nm .divLine {
-  background-color: #ccc;
+.detail {
+  text-align: left;
+  line-height: 1.5;
 }
