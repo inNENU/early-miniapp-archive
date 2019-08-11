@@ -2,12 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 23:47:21
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:27:55
+ * @LastEditTime: 2019-08-11 14:58:41
  * @Description: 绩点计算
  */
 
 import $register from 'wxpage';
-import $component from '../utils/component';
 import $page from '../utils/page';
 
 $register('cal', {
@@ -46,7 +45,7 @@ $register('cal', {
     });
 
     // 向grade最后插入一个新元素
-    this.setData!({ grade: gradeNew });
+    this.setData({ grade: gradeNew });
     // 对data赋值
   },
   input(e: InputEvent) {
@@ -76,7 +75,7 @@ $register('cal', {
     else grade[id][target] = e.detail.value;
     // 如果value无法转换为number，得到对应课程的grade数组并对其中的相应对象赋值字符
     console.log(grade);
-    this.setData!({ grade });
+    this.setData({ grade });
     // 将新值写回data中
   },
   next(e: NormalEvent) {
@@ -84,12 +83,12 @@ $register('cal', {
     const { id } = e.currentTarget.dataset;
 
     grade[id].gradeFocus = true;
-    this.setData!({ grade });
+    this.setData({ grade });
   },
   edit() {
     const editText = this.data.display ? '编辑' : '完成';
 
-    this.setData!({
+    this.setData({
       display: !this.data.display,
       editText
     });
@@ -109,7 +108,7 @@ $register('cal', {
       grade[i].id = i;
 
     // 重新设定id
-    this.setData!({ grade });
+    this.setData({ grade });
   },
   calculate() {
     const courseNumber = this.data.grade.length;
@@ -148,7 +147,7 @@ $register('cal', {
     if (Number(flunkingCredit) === 0) {
       console.log('都及格了');
       // 如果都及格什么也不做
-      this.setData!({
+      this.setData({
         totalCredit,
         gradePointAverage: totalGradeCal / totalCredit
       });
@@ -180,15 +179,12 @@ $register('cal', {
          * console.log(totalGradeCal / totalCredit)
          */
         // 向data赋值计算结果
-        this.setData!({ totalCredit, gradePointAverage: totalGradeCal / totalCredit });
+        this.setData({ totalCredit, gradePointAverage: totalGradeCal / totalCredit });
       }
     });
 
   },
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(e) {
-    $component.trigger(e, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   }
 });

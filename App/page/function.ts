@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 14:47:25
+ * @LastEditTime: 2019-08-11 14:55:05
  * @Description: 功能大厅
  */
 import $register, { WXPage } from 'wxpage';
-import $component from '../utils/component';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
 const { globalData: a } = getApp();
@@ -57,7 +56,7 @@ $register('function', {
   onLoad() {
     $page.Set({ option: { aim: 'function' }, ctx: this });
     $page.Notice('function');
-    $tab.update('function', '70K');
+    $tab.update('function', '100K');
   },
   onShow() {
     // 设置胶囊和背景颜色
@@ -84,10 +83,7 @@ $register('function', {
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
-    $component.nav(e, this, 'head');
-  },
-  cA(e) {
-    $component.trigger(e, this);
+    $page.nav(e, this, 'head');
   },
   onShareAppMessage: () => ({ title: '功能大厅', path: '/page/function' })
 });

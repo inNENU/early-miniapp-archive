@@ -2,12 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 14:36:40
+ * @LastEditTime: 2019-08-11 14:55:45
  * @Description: 模块页面4
  */
 
 import $register, { WXPage } from 'wxpage';
-import $component from '../utils/component';
 import $page from '../utils/page';
 
 $register('module4', {
@@ -26,11 +25,8 @@ $register('module4', {
       wx.setBackgroundColor(bc);
     }
   },
-  onPageScroll(res) {
-    $component.nav(res, this);
-  },
-  cA(res) {
-    $component.trigger(res, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   },
   onShareAppMessage() {
     return {

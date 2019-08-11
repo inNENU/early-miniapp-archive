@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:50:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-09 17:09:06
+ * @LastEditTime: 2019-08-11 14:57:24
  * @Description: 版本介绍
  */
 import $register, { WXPage } from 'wxpage';
-import $component from '../utils/component';
 import $page from '../utils/page';
 const { globalData } = getApp();
 
@@ -22,6 +21,9 @@ $register('version', {
       { tag: 'p', head: 'V2.2.4 2019.8.8', text: '自定义导航栏改进' },
       { tag: 'p', head: 'V2.2.5 2019.8.8', text: '修复swiper故障的问题' },
       { tag: 'p', head: 'V2.2.6 2019.8.9', text: '添加客服/意见反馈入口\n优化搜索与天气页面UI' },
+      { tag: 'p', head: 'V2.2.7 2019.8.10', text: '修复搜索模式bug\n加入影约东师' },
+      { tag: 'p', head: 'V2.2.8 2019.8.11', text: '地图页面适配夜间模式' },
+      { tag: 'list', content: [{ text: '历史更新', desc: '点击查看', aim: 'log0' }] },
       { tag: 'foot', author: 'Mr.Hope' }
     ]
   },
@@ -41,10 +43,7 @@ $register('version', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(e) {
-    $component.trigger(e, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   }
 });

@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 14:47:12
+ * @LastEditTime: 2019-08-11 14:55:04
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
-import $component from '../utils/component';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
 import { Keywords } from './search';
@@ -107,14 +106,11 @@ $register('guide', {
   },
   onPullDownRefresh() {
     $tab.refresh('guide', this, a);
-    $tab.update('page', '210K');
+    $tab.update('page', '215K');
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
-    $component.nav(e, this, 'head');
-  },
-  cA(e) {
-    $component.trigger(e, this);
+    $page.nav(e, this, 'head');
   },
   searching(event: WXEvent.Input) {
     const keywords = getApp()

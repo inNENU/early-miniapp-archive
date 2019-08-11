@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 14:41:27
+ * @LastEditTime: 2019-08-11 14:55:02
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
-import $component from '../utils/component';
 import $file from '../utils/file';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
@@ -108,11 +107,8 @@ $register('about', {
     });
 
   },
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(e) {
-    $component.trigger(e, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   },
   list({ detail }: any) {
     console.log(detail);

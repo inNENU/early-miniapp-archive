@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-09 10:18:19
+ * @LastEditTime: 2019-08-11 14:55:02
  * @Description: 我的东师
  */
 import $register, { WXPage } from 'wxpage';
-import $component from '../utils/component';
 import $page from '../utils/page';
 const { globalData: a } = getApp();
 
@@ -57,11 +56,8 @@ $register('me', {
       this.setData({ nm });
     });
   },
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(e) {
-    $component.trigger(e, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   },
   onShareAppMessage: () => ({ title: '我的东师', path: '/page/me' })
 });

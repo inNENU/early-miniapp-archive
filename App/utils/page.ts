@@ -2,10 +2,9 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-10 20:54:44
+ * @LastEditTime: 2019-08-11 14:52:41
  * @Description: Page函数库
  */
-
 
 // 引入文件管理
 import $file from './file';
@@ -105,14 +104,13 @@ const disposePage = (page: PageData, option: PageArg) => {
                 listElement.currentValue[l] = Number(k);
               });
             }
-
         });
       });
       // 调试
       console.info(`${page[0].aim}处理完毕`);
-
-      // 调试：未找到head tag
-    } else {
+    }
+    // 调试：未找到head tag
+    else {
       console.warn('No head tag in page!');
       logger.warn('No head tag');
       wx.reportMonitor('14', 1);
@@ -172,6 +170,7 @@ const preGetPage = (page: PageData) => {
  * @param option 页面跳转参数
  * @param page page数组
  * @param Set 是否将处理后的数据写入到全局数据中
+ *
  * @returns 处理后的page配置
  */
 const resolvePage = (option: WXPage.PageLifeTimeOptions, page?: PageData, Set = true) => {
@@ -291,7 +290,6 @@ const popNotice = (aim: string) => {
  * @param preload 是否需要预加载(默认需要)
  */
 const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
-
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   if (globalData.page.aim === option.aim) {
     console.log(`${option.aim}已处理`);
@@ -302,9 +300,9 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
         console.log(`${option.aim}预加载子页面完成`);
       }
     });
-
-    // 需要重新载入界面
-  } else {
+  }
+  // 需要重新载入界面
+  else {
     console.info(`${option.aim}onLoad开始，参数为：`, option);
     const { folder, path } = resolveAim(option.aim);
 
@@ -377,6 +375,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
  * - 性质：同步函数
  *
  * @param grey 页面是否为灰色背景
+ *
  * @returns 页面实际的胶囊与背景颜色
  */
 const color = (grey = false) => {
@@ -463,11 +462,42 @@ const loadFont = (theme: string) => {
   }
 };
 
+/**
+ * 导航栏动态改变
+ *
+ * @param option 组件参数
+ * @param ctx 页面指针
+ * @param [headName] 头部对象名称
+ */
+const changeNav = (option: Page.IPageScrollOption, ctx: any, headName?: string) => {
+  const pageHead = headName ? ctx.data[headName] : ctx.data.page[0];
+  let titleDisplay;
+  let borderDisplay;
+  let shadow;
+
+  // 判断情况并赋值
+  if (option.scrollTop <= 1) titleDisplay = borderDisplay = shadow = false;
+  else if (option.scrollTop <= 42) {
+    titleDisplay = borderDisplay = false;
+    shadow = true;
+  } else if (option.scrollTop >= 53) titleDisplay = borderDisplay = shadow = true;
+  else {
+    titleDisplay = shadow = true;
+    borderDisplay = false;
+  }
+
+  // 判断结果并更新界面数据
+  if (pageHead.titleDisplay !== titleDisplay) ctx.setData({ [`${headName || 'page[0]'}.titleDisplay`]: titleDisplay });
+  else if (pageHead.borderDisplay !== borderDisplay)
+    ctx.setData({ [`${headName || 'page[0]'}.borderDisplay`]: borderDisplay });
+  else if (pageHead.shadow !== shadow) ctx.setData({ [`${headName || 'page[0]'}.shadow`]: shadow });
+};
+
 export default {
-  color,
-  loadFont,
+  color, loadFont,
   resolve: resolvePage,
   Set: setPage,
   Online: setOnlinePage,
-  Notice: popNotice
+  Notice: popNotice,
+  nav: changeNav
 };

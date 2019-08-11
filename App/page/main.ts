@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-09 16:42:36
+ * @LastEditTime: 2019-08-11 14:55:03
  * @Description: 主页
  */
 import $register from 'wxpage';
-import $component from '../utils/component';
 import $wx from '../utils/wx';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
@@ -169,10 +168,7 @@ $register('main', {
     wx.stopPullDownRefresh();
   },
   onPageScroll(e) {
-    $component.nav(e, this, 'head');
-  },
-  cA(e) {
-    $component.trigger(e, this);
+    $page.nav(e, this, 'head');
   },
   searching(event: WXEvent.Input) {
     const keywords = getApp()

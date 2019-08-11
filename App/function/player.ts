@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-10 21:40:24
+ * @LastEditTime: 2019-08-11 14:35:33
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
-import $component from '../utils/component';
 import $file from '../utils/file';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
@@ -30,12 +29,7 @@ $register('music', {
     songListDisplay: false
   },
   onNavigate() {
-    const songList = $file.readJson('function/song');
-
-    if (!songList) $wx.request('function/song', data => {
-      // 写入JSON文件
-      $file.writeJson('function', 'song', data as SongDetail[]);
-    });
+    $file.getJson('function/song');
   },
   onLoad(option = {}) {
     // 加载字体
@@ -51,7 +45,7 @@ $register('music', {
     if (option.index) a.music.index = option.index;
 
     const { index } = a.music;
-    const songList = $file.readJson('function/song');
+    const songList = $file.readJson('function/song') as SongDetail[];
     const mode = wx.getStorageSync('playMode');
 
     if (!mode) wx.setStorageSync('playMode', 0);
@@ -86,7 +80,7 @@ $register('music', {
 
       // 在线获取歌曲列表
     } else $wx.request('function/song', data => {
-      currentSong = data[index];
+      currentSong = data[index] as SongDetail;
       this.setData({ currentSong, songList: data });
 
       // 如果正在播放，设置能够播放
@@ -329,12 +323,9 @@ $register('music', {
     this.list();
     this.switchSong(res.currentTarget.dataset.index);
   },
-  cA(e) {
-    $component.trigger(e, this);
-  },
   onShareAppMessage() {
     return {
-      title: this.data.title,
+      title: this.data.currentSong.title,
       path: `/function/player?index=${this.data.index}&share=true`
     };
   },

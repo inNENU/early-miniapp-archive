@@ -1,6 +1,6 @@
 <import src="/components/template" />
 <view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
-  <view class="backBtn {{page[0].titleDisplay?'fadeOut':'fadeIn'}}" style="top:{{page[0].statusBarHeight+5.5}}px;" hover-class='buttonHover' catchtap="{{page[0].action? 'redirect': '$back'}}">
+  <view class="backBtn {{page[0].titleDisplay?'fadeOut':'fadeIn'}}" style="top:{{page[0].statusBarHeight+5.5}}px;" hover-class='buttonHover' catch:tap="{{page[0].action? 'redirect': '$back'}}">
     <image class='backIcon' src='/icon/back.svg' />
   </view>
   <view class="NENUnav {{page[0].borderDisplay?'fadeIn':'fadeOut'}}" style="background-color:{{page[0].color}};padding-top:{{page[0].statusBarHeight}}px;">

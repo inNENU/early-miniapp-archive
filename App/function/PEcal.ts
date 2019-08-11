@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 19:43:48
+ * @LastEditTime: 2019-08-11 14:59:27
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
-import $component from '../utils/component';
 import $file from '../utils/file';
 import $page from '../utils/page';
 const { globalData: a } = getApp();
@@ -85,11 +84,8 @@ $register('PEcal', {
     // 设置通知
     $page.Notice('PEcal');
   },
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(e) {
-    $component.trigger(e, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   },
   genderChange(event: PickerEvent) {
     const index = Number(event.detail.value);

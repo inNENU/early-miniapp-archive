@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-30 16:23:54
+ * @LastEditTime: 2019-08-11 14:54:59
  * @Description: 捐赠
  */
 import $register from 'wxpage';
-import $component from '../utils/component';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
@@ -30,9 +29,9 @@ $register('donate', {
     ]
   },
   onLoad() {
-    this.setData!({ 'page[0].statusBarHeight': a.info.statusBarHeight });
+    this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
     $wx.request('config/donateList', donateList => {
-      this.setData!({ donateList });
+      this.setData({ donateList });
     });
   },
   onShow() {
@@ -81,11 +80,8 @@ $register('donate', {
       $wx.tip('二维码下载失败');
     });
   },
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(res) {
-    $component.trigger(res, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   },
   onShareAppMessage: () => ({ title: '捐赠Mr.Hope', path: '/settings/donate' })
 });

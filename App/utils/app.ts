@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-09 13:11:56
+ * @LastEditTime: 2019-08-11 10:48:59
  * @Description: APP函数库
  */
 
@@ -362,13 +362,38 @@ const login = (appID: string) => {
  *
  * 负责检查通知与小程序更新，注册网络、内存、截屏的监听
  *
- * @param version 小程序的版本
+ * @param globalData 小程序的全局数据
  * @param appID 小程序的APPID
  */
-const startup = (version: string, appID: string) => {
+const startup = (globalData: InitGlobalData) => {
+
+  // 获取设备与运行环境信息
+  globalData.info = wx.getSystemInfoSync();
+
+  // 写入运行环境
+  if (globalData.info.AppPlatform === 'qq') globalData.env = 'qq';
+
+  // 获取主题、夜间模式
+  globalData.T = wx.getStorageSync('theme');
+  globalData.nm = nightmode();
+
+  globalData.appID = wx.getAccountInfoSync().miniProgram.appId;
+
+  // 检测基础库版本
+  if (
+    Number(globalData.info.SDKVersion.split('.')[1]) < 7
+    && wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
+  )
+    $wx.modal(
+      '基础库版本偏低',
+      '您的基础库版本偏低，可能导致部分内容无法正常显示，建议您更新最新版微信。',
+      () => { // 避免重复提示
+        wx.setStorageSync('SDKVersion', (globalData as GlobalData).info.SDKVersion);
+      });
+
   // 检查通知更新与小程序更新
-  noticeCheck(version);
-  appUpdate(version);
+  noticeCheck(globalData.version);
+  appUpdate(globalData.version);
 
   // 设置内存不足警告
   wx.onMemoryWarning(res => {
@@ -407,7 +432,7 @@ const startup = (version: string, appID: string) => {
   });
 
   // 登录
-  login(appID);
+  login(globalData.appID);
 };
 
 export default { appInit, appUpdate, nightmode, noticeCheck, startup };

@@ -2,13 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-10 21:36:48
+ * @LastEditTime: 2019-08-11 14:59:17
  * @Description: 搜索页
  */
 
 import $register from 'wxpage';
 import $page from '../utils/page';
-import $component from '../utils/component';
 const { globalData: a } = getApp();
 
 export interface Keywords {
@@ -31,6 +30,8 @@ interface SearchResult {
 
 $register('search', {
   data: {
+    T: a.T,
+    nm: a.nm,
     statusBarHeight: getApp().globalData.info.statusBarHeight,
     words: [],
     result: {
@@ -60,7 +61,7 @@ $register('search', {
     wx.setBackgroundColor(bc);
   },
   onPageScroll(e) {
-    $component.nav(e, this, 'head');
+    $page.nav(e, this, 'head');
   },
   searching(event: WXEvent.Input) {
     const keywords = this.keywords as Keywords;
@@ -70,14 +71,23 @@ $register('search', {
     if (searchWord) {
       Object.keys(keywords)
         .forEach(jsonName => {
-          // 判断每个关键词是否包含了searchWord，如果包含则推送。
+          const { title } = keywords[jsonName];
+
+          // 检查标题是否包含了searchWord
+          if (title && title.indexOf(searchWord) !== -1 && words.indexOf(title) === -1) words.push(title);
+
+          // 检查每个关键词是否包含了searchWord
           if (keywords[jsonName].keywords)
             keywords[jsonName].keywords.forEach(keyword => {
               if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
             });
-        });
 
-      console.log(words);
+          // 检查描述是否包含了searchWord
+          if (keywords[jsonName].desc)
+            keywords[jsonName].desc.forEach(keyword => {
+              if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
+            });
+        });
 
       this.setData({ words });
     }

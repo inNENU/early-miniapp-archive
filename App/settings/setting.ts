@@ -1,6 +1,5 @@
 /* global wx getApp*/
 import $register, { WXPage } from 'wxpage';
-import $component from '../utils/component';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
 import { nightmode } from '../utils/app';
@@ -117,11 +116,8 @@ $register('setting', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(e) {
-    $component.trigger(e, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   },
   onUnload() { // 退出时重新计算夜间模式
     a.nm = nightmode();

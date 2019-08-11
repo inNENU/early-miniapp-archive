@@ -6,7 +6,7 @@
     </navigator>
   </view>
   <text wx:if="{{config.desc}}">{{config.desc}}\n</text>
-  <text wx:if="{{config.author}}">编辑人：{{config.author}}</text>
+  <text wx:if="{{config.author !== ''}}" decode="{{true}}">编辑人：{{config.author || 'Mr.Hope'}}&ensp;</text>
   <text wx:if="{{config.time}}">最后编辑于{{config.time}}</text>
   <text wx:if="{{config.time||config.author}}">\n</text>
   Copyright © 2017-2019 HopeStudio

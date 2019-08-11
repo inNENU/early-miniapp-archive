@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 00:15:47
+ * @LastEditTime: 2019-08-11 10:50:02
  * @Description: 小程序主脚本
  */
 
@@ -30,7 +30,7 @@ $register.A({
         ? `/page/${name}`
         : ['setting', 'version', 'about', 'authorize'].includes(name)
           ? `/settings/${name}`
-          : ['weather', 'map', 'situs', 'PEcal', 'player'].includes(name)
+          : ['weather', 'map', 'situs', 'PEcal', 'player', 'video'].includes(name)
             ? `/function/${name}`
             : `/module/${name}`
   },
@@ -38,22 +38,10 @@ $register.A({
   onLaunch(opts) {
     console.info('小程序启动，参数为', opts); // 调试
 
-    // 获取设备与运行环境信息
-    this.globalData.info = wx.getSystemInfoSync();
-
-    // 写入运行环境
-    if (this.globalData.info.AppPlatform === 'qq') this.globalData.env = 'qq';
-
     // 如果初次启动执行初始化
     if (!wx.getStorageSync('inited')) app.appInit();
 
-    // 获取主题、夜间模式
-    this.globalData.T = wx.getStorageSync('theme');
-    this.globalData.nm = app.nightmode();
-
-    this.globalData.appID = wx.getAccountInfoSync().miniProgram.appId;
-
-    app.startup(this.globalData.version, this.globalData.appID);
+    app.startup(this.globalData);
 
     console.log('全局数据为', this.globalData);
   },

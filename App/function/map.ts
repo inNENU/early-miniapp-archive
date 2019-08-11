@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 00:11:31
+ * @LastEditTime: 2019-08-11 10:35:08
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -37,7 +37,6 @@ $register('map', {
     list: false,
     pointDisplay: false,
     closeTop: -31,
-    selectBottom: 0,
     selectItem: 'all',
     category: [
       ['全部', 'all'],
@@ -181,12 +180,12 @@ $register('map', {
 
     wx.setStorageSync('mapSwitch', temp);
   },
-  scale(e: WXEvent.Touch) {
+  scale(event: WXEvent.Touch) {
     (this.mapCtx as wx.MapContext).getCenterLocation({
       success: r2 => {
         this.setData({
           map: {
-            scale: this.data.map.scale as number + (e.currentTarget.dataset.action === 'enlarge' ? 1 : -1),
+            scale: this.data.map.scale as number + (event.currentTarget.dataset.action === 'enlarge' ? 1 : -1),
             latitude: r2.latitude,
             longitude: r2.longitude
           }
@@ -216,36 +215,26 @@ $register('map', {
     (this.mapCtx as wx.MapContext).moveToLocation();
   },
   point() {
-    if (this.data.pointDisplay) {
-      this.setData({
-        pointDisplay: !this.data.pointDisplay
-      });
-
-      setTimeout(() => {
-        this.setData({ selectBottom: a.info.screenHeight / a.info.screenWidth * 750 });
-      }, 500);
-    } else
-      this.setData({
-        pointDisplay: !this.data.pointDisplay,
-        selectBottom: 190
-      });
+    this.setData({
+      pointDisplay: !this.data.pointDisplay
+    });
   },
-  select(e: NormalEvent) {
+  select(event: WXEvent.Touch) {
     const name = this.data.mapSwitch ? 'benbu' : 'jingyue';
-    const current = e.target.dataset.category;
+    const current = event.target.dataset.category;
     const markers = wx.getStorageSync(`${name}-${current}`);
 
     this.setData({ markers, selectItem: current });
     (this.mapCtx as wx.MapContext).includePoints({ padding: [30, 20, 30, 20], points: markers });
   },
-  markers(e: MarkerEvent) {
+  markers(event: MarkerEvent) {
     const { mapSwitch } = this.data;
     const xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
 
-    if (e.type === 'markertap')
-      this.$preload(`situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + e.markerId.toString()}`);
-    else if (e.type === 'callouttap')
-      this.$route(`/function/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + e.markerId.toString()}`);
+    if (event.type === 'markertap')
+      this.$preload(`situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + event.markerId.toString()}`);
+    else if (event.type === 'callouttap')
+      this.$route(`/function/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + event.markerId.toString()}`);
   },
   showList() {
     if (this.data.list) {

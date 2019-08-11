@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-20 22:44:09
+ * @LastEditTime: 2019-08-11 14:54:34
  * @Description: 地点详情
  */
 import $register, { WXPage } from 'wxpage';
-import $component from '../utils/component';
 import $file from '../utils/file';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
@@ -62,11 +61,8 @@ $register('situs', {
    *   });
    * },
    */
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(e) {
-    $component.trigger(e, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   },
   onShareAppMessage() {
     return {

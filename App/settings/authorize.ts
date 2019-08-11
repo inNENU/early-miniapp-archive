@@ -2,11 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-06 17:51:37
+ * @LastEditTime: 2019-08-11 14:58:49
  * @Description: 捐赠
  */
 import $register, { WXPage } from 'wxpage';
-import $component from '../utils/component';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
@@ -143,10 +142,7 @@ $register('authorize', {
       }
     });
   },
-  onPageScroll(e) {
-    $component.nav(e, this);
-  },
-  cA(res) {
-    $component.trigger(res, this);
+  onPageScroll(event) {
+    $page.nav(event, this);
   }
 });

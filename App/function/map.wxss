@@ -7,13 +7,17 @@
 
 .selectCtn {
   position: fixed;
-  bottom: 88px;
+  bottom: 130px;
   left: 17px;
   background-color: #fff;
-  border: 1rpx solid #eee;
   font-size: 14px;
   border-radius: 0.4em;
   overflow: hidden;
+  z-index: 96;
+}
+
+.nm .selectCtn {
+  background-color: #000;
 }
 
 .selectBtn {
@@ -27,12 +31,17 @@
 
 .pointCtn {
   position: fixed;
-  bottom: calc(env(safe-area-inset-bottom) / 2 + 60px);
+  bottom: 90px;
   left: 17px;
   padding: 6px;
   background-color: #fff;
   border: 1rpx solid #eee;
   border-radius: 5px;
+}
+
+.nm .pointCtn {
+  background-color: #000;
+  border: 1rpx solid #111;
 }
 
 .pointBtn {
@@ -58,6 +67,12 @@
   align-items: center;
   font-size: 24px;
   color: #888;
+}
+
+.nm .scaleLargeBtn,
+.nm .scaleSmallBtn {
+  background-color: #444;
+  box-shadow: -1px 3px 5px #4b4d47d3;
 }
 
 .scaleLargeBtn {
@@ -88,6 +103,11 @@
   box-shadow: 0 -2px 5px rgba(219, 218, 223, 0.95);
 }
 
+.nm .tab {
+  background-color: #000;
+  box-shadow: 0 -2px 5px rgba(45, 44, 49, 0.95);
+}
+
 /* switch组件 */
 
 .switch {
@@ -96,6 +116,10 @@
   background-color: #fff;
   border: 1px solid #3478f7;
   border-radius: 5px;
+}
+
+.nm .switch {
+  background-color: #000;
 }
 
 .switchItem {

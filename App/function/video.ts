@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-10 23:54:32
+ * @LastEditTime: 2019-08-11 14:42:43
  * @Description: 视频页面
  */
 
@@ -14,55 +14,59 @@ const { globalData: a } = getApp();
 
 $register('video', {
   onNavigate() {
-    const songList = $file.readJson('function/video');
-
-    if (!songList) $wx.request('function/video', data => {
-      // 写入JSON文件
-      $file.writeJson('function', 'video', data);
-    });
+    $file.getJson('function/video');
   },
   onLoad(options) {
-    wx.loadFontFace({
-      family: 'FZSSJW', source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
-      complete: res => {
-        console.log(`宋体字体${res}`); // 调试
-      }
-    });
+    if (a.appID === 'wx9ce37d9662499df3') {
 
-    const id = options.scene || options.id || 0;
-    const videoList = $file.readJson('function/video');
 
-    if (videoList) {
-      const item = videoList[id];
-
-      this.setData({
-        id,
-        videoList,
-        share: options.share,
-        statusBarHeight: a.info.statusBarHeight,
-        nm: a.nm,
-        videoName: item.name,
-        videoAuthor: item.author,
-        src: item.src || '',
-        vid: item.vid || ''
+      wx.loadFontFace({
+        family: 'FZSSJW', source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+        complete: res => {
+          console.log(`宋体字体${res}`); // 调试
+        }
       });
-    } else $wx.request('function/video', data => {
-      const item = data[id];
 
-      this.setData({
-        id,
-        videoList: data,
-        share: options.share,
-        statusBarHeight: a.info.statusBarHeight,
-        nm: a.nm,
-        videoName: item.name,
-        videoAuthor: item.author,
-        src: item.src || '',
-        vid: item.vid || ''
+      const id = options.scene || options.id || 0;
+      const videoList = $file.readJson('function/video');
+
+      if (videoList) {
+        const item = videoList[id];
+
+        this.setData({
+          id,
+          videoList,
+          share: options.share,
+          statusBarHeight: a.info.statusBarHeight,
+          nm: a.nm,
+          videoName: item.name,
+          videoAuthor: item.author,
+          src: item.src || '',
+          vid: item.vid || ''
+        });
+      } else $wx.request('function/video', data => {
+        const item = data[id];
+
+        this.setData({
+          id,
+          videoList: data,
+          share: options.share,
+          statusBarHeight: a.info.statusBarHeight,
+          nm: a.nm,
+          videoName: item.name,
+          videoAuthor: item.author,
+          src: item.src || '',
+          vid: item.vid || ''
+        });
       });
-    });
 
-    $page.Notice('video');
+      $page.Notice('video');
+    } else
+      $wx.modal(
+        '禁止播放',
+        '只有企业主体小程序才可以播放视频，请使用微信搜索小程序“东师青年+”。',
+        () => this.$back()
+      );
   },
   onShow() {
     // 设置胶囊和背景颜色
