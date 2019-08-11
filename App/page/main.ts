@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 20:26:06
+ * @LastEditTime: 2019-08-12 01:35:05
  * @Description: 主页
  */
 import $register from 'wxpage';
 import $wx from '../utils/wx';
 import $page from '../utils/page';
+import $search from '../utils/search';
 import $tab from '../utils/tab';
-import { Keywords } from './search';
 const { globalData: a } = getApp();
 
 $register('main', {
@@ -123,6 +123,7 @@ $register('main', {
       backgroundColor: color[0],
       borderStyle: color[1]
     });
+    $search.init();
   },
   onLoad() {
     $page.Set({ option: { aim: 'main' }, ctx: this });
@@ -169,29 +170,13 @@ $register('main', {
   onPageScroll(event) {
     $page.nav(event, this, 'head');
   },
-  searching(event: WXEvent.Input) {
-    const keywords = getApp()
-      .keywords() as Keywords;
-    const searchWord = event.detail.value;
-    const words: string[] = [];
-
-    if (searchWord) {
-      Object.keys(keywords)
-        .forEach(jsonName => {
-          // 判断每个关键词是否包含了searchWord，如果包含则推送
-          if (keywords[jsonName].keywords)
-            keywords[jsonName].keywords.forEach(keyword => {
-              if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
-            });
-        });
-
-      console.log(words);
-
-      this.setData({ words });
-    }
+  searching({ detail }: WXEvent.Input) {
+    this.setData({
+      words: $search.searching(detail.value)
+    });
   },
-  search(event: WXEvent.Input) {
-    this.$route(`search?words=${event.detail.value}`);
+  search({ detail }: WXEvent.Input) {
+    this.$route(`search?words=${detail.value}`);
   },
   onShareAppMessage: () => ({ title: 'myNENU', path: '/page/main' })
 });

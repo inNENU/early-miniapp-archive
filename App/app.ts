@@ -2,14 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 21:05:09
+ * @LastEditTime: 2019-08-12 01:35:58
  * @Description: 小程序主脚本
  */
 
 import $register from 'wxpage';
 import app from './utils/app';
-import $file from './utils/file';
-let keywords: object;
 
 $register.A({
   globalData: {
@@ -66,12 +64,6 @@ $register.A({
     console.warn('未找到界面:', msg);
     this.logger.warn('未找到界面', msg); // 调试
   },
-  keywords() {
-    if (!keywords) keywords = $file.readJson('page/keywords');
-
-    return keywords;
-  },
-
   // 日志管理器对象
   logger: wx.getLogManager({ level: 1 })
 });

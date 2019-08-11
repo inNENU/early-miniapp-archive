@@ -30,11 +30,11 @@
     <button class="button listCtn" plain="true" hover-class="buttonHover" open-type="feedback" hover-stay-time="100" id="3">
       <view class="list-Container">
         <image class="listIcon" src="/icon/tabPage/bug.svg" />
-        <view class="LinkText">意见反馈</view>
+        <view class="LinkText">bug反馈</view>
       </view>
     </button>
     <view class="listIcon link-divline" />
-    <button class="button listCtn" plain="true" hover-class="buttonHover" open-type="contact" hover-stay-time="100" id="3">
+    <button wx:if="{{env==='qq'}}" class="button listCtn" plain="true" hover-class="buttonHover" open-type="contact" hover-stay-time="100" id="3">
       <view class="list-Container">
         <image class="listIcon" src="/icon/tabPage/contact.svg" />
         <view class="LinkText">联系Mr.Hope</view>

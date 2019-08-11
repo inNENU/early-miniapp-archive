@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 20:25:56
+ * @LastEditTime: 2019-08-12 01:30:41
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
 import $page from '../utils/page';
+import $search from '../utils/search';
 import $tab from '../utils/tab';
-import { Keywords } from './search';
 const { globalData: a } = getApp();
 
 $register('guide', {
@@ -112,29 +112,13 @@ $register('guide', {
   onPageScroll(event) {
     $page.nav(event, this, 'head');
   },
-  searching(event: WXEvent.Input) {
-    const keywords = getApp()
-      .keywords() as Keywords;
-    const searchWord = event.detail.value;
-    const words: string[] = [];
-
-    if (searchWord) {
-      Object.keys(keywords)
-        .forEach(jsonName => {
-          // 判断每个关键词是否包含了searchWord，如果包含则推送。
-          if (keywords[jsonName].keywords)
-            keywords[jsonName].keywords.forEach(keyword => {
-              if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
-            });
-        });
-
-      console.log(words);
-
-      this.setData({ words });
-    }
+  searching({ detail }: WXEvent.Input) {
+    this.setData({
+      words: $search.searching(detail.value)
+    });
   },
-  search(event: WXEvent.Input) {
-    this.$route(`search?words=${event.detail.value}`);
+  search({ detail }: WXEvent.Input) {
+    this.$route(`search?words=${detail.value}`);
   },
   onShareAppMessage: () => ({ title: '东师指南', path: '/page/guide' })
 });

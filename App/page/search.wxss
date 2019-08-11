@@ -1,11 +1,5 @@
-.nav {
-  width: 100%;
-  background-color: #fff;
-}
-
-.resultCtn {
-  width: 100%;
-  background-color: #fff;
-  text-align: left;
-  padding: 8px 15px;
+.info {
+  line-height: 1.5;
+  font-size: 18px;
+  font-weight: 600;
 }
