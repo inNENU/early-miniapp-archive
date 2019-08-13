@@ -25,7 +25,7 @@
 .iOS-navigationBar,
 .iOS-navPlaceHolder {
   width: 100%;
-  background-color: #F4F4F6;
+  background-color: #f4f4f6;
   text-align: center;
 }
 
@@ -61,6 +61,7 @@
   min-width: 10px !important;
   min-height: 0 !important;
   padding: 0 5px !important;
+  font-weight: normal !important;
   border: none !important;
   background-color: rgba(0, 0, 0, 0);
   margin: 0 12px !important;
@@ -126,8 +127,8 @@
 
 .nm .iOSnavDl:after,
 .nm .iOS-head:after {
-  border-bottom: 1px #3D3D41 solid;
-  color: #3D3D41;
+  border-bottom: 1px #3d3d41 solid;
+  color: #3d3d41;
 }
 
 .iOS-head {
@@ -135,7 +136,7 @@
   text-align: left;
   font-size: 34px;
   font-weight: 500;
-  background-color: #F4F4F6;
+  background-color: #f4f4f6;
 }
 
 .nm .iOS-head {
@@ -145,6 +146,7 @@
 /* iOS content */
 
 /* .iOShead , */
+
 .iOSTitle {
   text-align: left;
   font-weight: 500;
@@ -194,6 +196,7 @@
 } */
 
 /* .iOSTitle+.iOShead, */
+
 .iOSTitle+.iOSTitle {
   padding-top: 2px;
 }
@@ -243,6 +246,7 @@
 }
 
 /* list */
+
 /* 
 .grey .commonhead {
   min-height: 37px;
@@ -495,6 +499,7 @@
 } */
 
 /* 备用样式 */
+
 /* .pickerMask {
   background-color: rgba(0, 0, 0, 0.438);
 } */

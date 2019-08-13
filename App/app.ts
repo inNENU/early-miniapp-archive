@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 01:35:58
+ * @LastEditTime: 2019-08-12 13:15:33
  * @Description: 小程序主脚本
  */
 
@@ -11,7 +11,7 @@ import app from './utils/app';
 
 $register.A({
   globalData: {
-    version: 'V 2.3.0',
+    version: 'V 2.3.1',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -26,7 +26,7 @@ $register.A({
     resolvePath: (name: string) =>
       ['main', 'function', 'guide', 'me', 'search'].includes(name)
         ? `/page/${name}`
-        : ['setting', 'version', 'about', 'authorize', 'storage', 'donate'].includes(name)
+        : ['setting', 'version', 'about', 'authorize', 'storage', 'donate', 'log'].includes(name)
           ? `/settings/${name}`
           : ['weather', 'map', 'situs', 'PEcal', 'player', 'video'].includes(name)
             ? `/function/${name}`

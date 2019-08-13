@@ -4,13 +4,7 @@
     "page/function",
     "page/guide",
     "page/me",
-    "page/search",
-    "settings/version",
-    "settings/setting",
-    "settings/donate",
-    "settings/about",
-    "settings/authorize",
-    "settings/storage"
+    "page/search"
   ],
   "subPackages": [
     {
@@ -40,6 +34,17 @@
         "web",
         "building",
         "function"
+      ]
+    },
+    {
+      "root": "settings",
+      "pages": [
+        "setting",
+        "donate",
+        "about",
+        "authorize",
+        "storage",
+        "log"
       ]
     }
   ],

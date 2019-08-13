@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 19:08:25
+ * @LastEditTime: 2019-08-12 11:22:14
  * @Description: APP函数库
  */
 
@@ -336,18 +336,19 @@ const appUpdate = (globalData: GlobalData) => {
 };
 
 const login = (appID: string) => {
-  wx.login({
+  const openid = wx.getStorageSync('openid');
+
+  if (openid) console.log(`openid为：${openid}`);
+  else wx.login({
     success: res => {
       if (res.code)
         wx.request({
           url: 'https://mp.nenuyouth.com/server/login.php',
           method: 'POST',
-          data: {
-            appID,
-            code: res.code
-          },
+          data: { appID, code: res.code },
           success: res2 => {
-            console.log(res2.data);
+            wx.setStorageSync('openid', (res2.data as any).openid);
+            console.log(`openid为：${(res2.data as any).openid}`);
           }
         });
     },

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 22:34:26
+ * @LastEditTime: 2019-08-12 15:19:43
  * @Description: 我的东师
  */
 import $register, { WXPage } from 'wxpage';
@@ -18,12 +18,13 @@ $register('me', {
     page: [
       { tag: 'head', title: '我的东师', hidden: true },
       {
-        tag: 'list', foot: ' ',
+        tag: 'list', head: false,
         content: [
           { text: '外观设置', icon: '/icon/tabPage/setting.svg', url: 'setting' },
           { text: '权限设置', icon: '/icon/tabPage/setting.svg', url: 'authorize' },
           { text: '存储设置', icon: '/icon/tabPage/setting.svg', url: 'storage' },
-          { text: '关于', icon: '/icon/tabPage/about.svg', url: 'about', desc: a.version },
+          { text: '更新日志', icon: '/icon/tabPage/about.svg', url: 'log', desc: a.version },
+          { text: '关于', icon: '/icon/tabPage/about.svg', url: 'about' },
           { text: '捐赠Mr.Hope', icon: '/icon/tabPage/donate.svg', desc: '了解详情', url: 'donate' }
         ]
       }

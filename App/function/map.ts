@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 10:35:08
+ * @LastEditTime: 2019-08-12 15:35:34
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -138,11 +138,10 @@ $register('map', {
     const value = wx.getStorageSync('mapSwitch');
     let mapSwitch;
 
-    if (value || value === false) mapSwitch = false;
-    else {
+    if (value === undefined) {
       wx.setStorageSync('mapSwitch', true);
       mapSwitch = true;
-    }
+    } else mapSwitch = value;
 
     const markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
 

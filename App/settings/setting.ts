@@ -6,6 +6,11 @@ const { globalData: a } = getApp();
 
 // 生成时间
 const time: string[][] = [[], []];
+// 生成时间
+for (let i = 0; i <= 23; i += 1) time[0].push(`${i}时`);
+for (let i = 0; i <= 59; i += 1)
+  if (i < 10) time[1].push(`0${i}分`);
+  else time[1].push(`${i}分`);
 
 $register('setting', {
   data: {
@@ -52,12 +57,6 @@ $register('setting', {
     ]
   },
   onNavigate(res: WXPage.PageLifeTimeOptions) {
-    // 生成时间
-    for (let i = 0; i <= 23; i += 1) time[0].push(`${i}时`);
-    for (let i = 0; i <= 59; i += 1)
-      if (i < 10) time[1].push(`0${i}分`);
-      else time[1].push(`${i}分`);
-
     // 读取状态数据并执行预加载
     const list = this.data.page[3].content;
     const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');

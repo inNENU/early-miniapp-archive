@@ -37,3 +37,10 @@ module.exports = {
 
 
 // 更改template，component.ts和app.wxss
+
+// "plugins": {
+//   "tencentvideo": {
+//     "version": "1.3.6",
+//       "provider": "wxa75efa648b60994b"
+//   }
+// }

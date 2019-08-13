@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 21:19:40
+ * @LastEditTime: 2019-08-12 13:14:42
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -30,21 +30,19 @@ $register('about', {
       },
       {
         tag: 'list',
-        head: '正式版开发日志',
-        content: [
-          { text: `${a.version}\n重构我的东师\nV 2.2.2\n增加搜索功能\n V 2.1.7\n添加天气页面` },
-          { text: '查看详细日志', url: '/settings/version' }
-        ]
-      },
-      {
-        tag: 'list',
         head: '工作室与开发者介绍',
         content: [
           { text: '   小程序全部内容均由Hope Studio独立开发。' },
           { text: 'Hope Studio介绍', aim: 'MrHope0' },
           { text: 'Mr.Hope个人介绍', aim: 'MrHope1' },
+          { text: '致谢名单', aim: 'MrHope4' }
+        ]
+      },
+      {
+        tag: 'list',
+        head: '小程序介绍',
+        content: [
           { text: '开发者访谈', aim: 'MrHope3' },
-          { text: '致谢名单', aim: 'MrHope4' },
           { text: '小程序功能太少?', aim: 'MrHope2' }
         ]
       },

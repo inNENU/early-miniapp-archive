@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 21:20:10
+ * @LastEditTime: 2019-08-12 15:16:29
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -57,9 +57,9 @@ $register('storage', {
   },
   onLoad(option: any) {
     if (a.page.aim === '存储设置') $page.Set({ option, ctx: this });
-    else $page.Set({ option: { aim: 'about' }, ctx: this }, this.getStorage());
+    else $page.Set({ option: { aim: 'storage' }, ctx: this }, this.getStorage());
 
-    $page.Notice('about');
+    $page.Notice('storage');
   },
   onShow() {
     // 设置胶囊和背景颜色

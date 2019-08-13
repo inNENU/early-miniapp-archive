@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 19:53:26
+ * @LastEditTime: 2019-08-12 15:18:32
  * @Description: 捐赠
  */
 import $register, { WXPage } from 'wxpage';
@@ -34,15 +34,15 @@ $register('authorize', {
         tag: 'list',
         head: '授权信息',
         content: [
-          { text: '地理位置', desc: 'X' },
-          { text: '保存到相册', desc: 'X' },
-          { text: '用户信息', desc: 'X' },
-          { text: '通讯地址', desc: 'X' },
-          { text: '发票抬头', desc: 'X' },
-          { text: '获取发票', desc: 'X' },
-          { text: '微信运动步数', desc: 'X' },
-          { text: '录音', desc: 'X' },
-          { text: '摄像头', desc: 'X' }
+          { text: '地理位置', desc: '未授权×' },
+          { text: '保存到相册', desc: '未授权×' },
+          { text: '用户信息', desc: '未授权×' },
+          { text: '通讯地址', desc: '未授权×' },
+          { text: '发票抬头', desc: '未授权×' },
+          { text: '获取发票', desc: '未授权×' },
+          { text: '微信运动步数', desc: '未授权×' },
+          { text: '录音', desc: '未授权×' },
+          { text: '摄像头', desc: '未授权×' }
         ]
       },
       {
@@ -65,8 +65,11 @@ $register('authorize', {
   onNavigate(res: WXPage.PageLifeTimeOptions) {
     $page.resolve(res, this.data.page);
   },
-  onLoad() {
-    $page.Set({ ctx: this, option: { aim: 'authorize' } });
+  onLoad(option: any) {
+    if (a.page.aim === '授权设置') $page.Set({ option, ctx: this });
+    else $page.Set({ option: { aim: 'authorize' }, ctx: this });
+
+    $page.Notice('authorize');
   },
   onShow() {
     // 设置胶囊和背景颜色
@@ -81,7 +84,7 @@ $register('authorize', {
     wx.getSetting({
       success: res => {
         authorizeList.forEach((type, index) => {
-          if (res.authSetting[type]) list[index].desc = '√';
+          if (res.authSetting[type]) list[index].desc = '已授权✓';
         });
 
         this.setData({ 'page[1].content': list });
@@ -89,7 +92,6 @@ $register('authorize', {
     });
   },
   list({ detail }: any) {
-    console.log(detail);
     if (detail.event) this[detail.event](detail.value);
   },
   location() {
@@ -117,12 +119,16 @@ $register('authorize', {
     this.authorize(8);
   },
   authorize(type: number) {
+    wx.showLoading({ title: '授权中' });
+
     wx.authorize({
       scope: authorizeList[type],
       success: () => {
+        wx.hideLoading();
         $wx.tip('授权成功');
       },
       fail: () => { // 用户拒绝权限，提示用户开启权限
+        wx.hideLoading();
         $wx.modal('权限被拒', '您拒绝了权限授予，请在小程序设置页允许权限', () => {
           wx.openSetting({
             success: res => {
@@ -134,7 +140,7 @@ $register('authorize', {
                   const list = this.data.page[1].content;
 
                   authorizeList.forEach((type2, index) => {
-                    if (res2.authSetting[type2]) list[index].desc = '√';
+                    list[index].desc = res2.authSetting[type2] ? '已授权✓' : '未授权×';
                   });
 
                   this.setData({ 'page[1].content': list });
