@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 01:33:19
+ * @LastEditTime: 2019-08-13 19:25:24
  * @Description: 搜索页
  */
 
@@ -34,9 +34,7 @@ $register('search', {
   },
   onLoad(options) {
     if (options.words)
-      this.search({
-        detail: { value: options.words }
-      });
+      this.search({ detail: { value: options.words } });
 
     this.setData({ searchword: options.words, T: a.T, nm: a.nm });
     $page.Notice('search');
@@ -52,9 +50,7 @@ $register('search', {
     $page.nav(event, this, 'head');
   },
   searching({ detail }: WXEvent.Input) {
-    this.setData({
-      words: $search.searching(detail.value)
-    });
+    this.setData({ words: $search.searching(detail.value) });
   },
   search({ detail }: WXEvent.Input) {
     wx.showLoading({ title: '搜索中...' });

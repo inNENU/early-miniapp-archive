@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-06 18:41:16
+ * @LastEditTime: 2019-08-13 19:31:05
  * @Description: 分享组件
  */
 
@@ -18,7 +18,8 @@ let top = 0;
 $register.C({
   properties: { config: { type: Object, value: { aim: '' } } },
   data: {
-    env // 小程序运行环境
+    // 小程序运行环境
+    env
   },
   methods: {
     move(event: WXEvent.Touch) { // 分享按钮

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 15:35:34
+ * @LastEditTime: 2019-08-13 19:34:45
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -61,7 +61,8 @@ $register('map', {
       'QQ小程序暂不支持地图。Mr.Hope会在推出后第一时间适配，如有需求查看，请使用微信小程序“myNenu”。',
       () => {
         this.$back();
-      });
+      }
+    );
 
     wx.showLoading({ title: '加载中...' });
 
@@ -92,6 +93,7 @@ $register('map', {
 
     // 创建地图对象
     const mapCtx = wx.createMapContext('schoolMap');
+
     mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
 
     setTimeout(() => {
@@ -214,9 +216,7 @@ $register('map', {
     (this.mapCtx as wx.MapContext).moveToLocation();
   },
   point() {
-    this.setData({
-      pointDisplay: !this.data.pointDisplay
-    });
+    this.setData({ pointDisplay: !this.data.pointDisplay });
   },
   select(event: WXEvent.Touch) {
     const name = this.data.mapSwitch ? 'benbu' : 'jingyue';
@@ -257,75 +257,75 @@ $register('map', {
 
   /*
    * Update() {
- *   console.log('update')
- *   this.mapCtx.getScale({
- *     success: function(res) {
- *       console.log('get scale');
- *       console.log(res);
- *     }
- *   });
- *   this.mapCtx.getCenterLocation({
- *     success: function(res) {
- *       console.log('getCenterLocation');
- *       console.log(res);
- *     }
- *   });
- * },
- * regionChange(e) {
- * console.log('regionChange');
- * console.log(trigger)
- * if (e.type == 'end' && trigger) {
- *   console.log('fuctioning');
- *   trigger = false;
- *   console.log(trigger);
- *   let that = this,
- *     map = this.data.map;
- *   setTimeout(function() {
- *     trigger = true;
- *     console.log("true")
- *     console.log(trigger)
- *   }, 500)
- *   var regionChange;
- *   this.mapCtx.getScale({
- *     success: function(res) {
- *       map.scale = res.scale;
- *       console.log('scale' + res.scale);
- *       regionChange = true;
- *     }
- *   });
- *   this.mapCtx.getCenterLocation({
- *     success: function(res) {
- *       console.log(res);
- *       console.log('distance is' + u.gD(map.latitude, map.longitude, res.latitude, res.longitude))
- *       if (regionChange && (u.gD(map.latitude, map.longitude, res.latitude, res.longitude) > 1)) {
- *         map.latitude = res.latitude;
- *         map.longitude = res.longitude;
- *         that.setData({
- *           map: map
- *         });
- *       };
- *       regionChange = false;
- *     }
- *   });
- * }
- * },
- * translateMarker: function() {
- *   this.mapCtx.translateMarker({
- *     markerId: 0,
- *     autoRotate: true,
- *     duration: 1000,
- *     destination: {
- *       latitude: 23.10229,
- *       longitude: 113.3345211,
- *     },
- *     animationEnd() {
- *       console.log('animation end')
- *     }
- *   })
- * },
- */
+   *   console.log('update')
+   *   this.mapCtx.getScale({
+   *     success: function(res) {
+   *       console.log('get scale');
+   *       console.log(res);
+   *     }
+   *   });
+   *   this.mapCtx.getCenterLocation({
+   *     success: function(res) {
+   *       console.log('getCenterLocation');
+   *       console.log(res);
+   *     }
+   *   });
+   * },
+   * regionChange(e) {
+   * console.log('regionChange');
+   * console.log(trigger)
+   * if (e.type == 'end' && trigger) {
+   *   console.log('fuctioning');
+   *   trigger = false;
+   *   console.log(trigger);
+   *   let that = this,
+   *     map = this.data.map;
+   *   setTimeout(function() {
+   *     trigger = true;
+   *     console.log("true")
+   *     console.log(trigger)
+   *   }, 500)
+   *   var regionChange;
+   *   this.mapCtx.getScale({
+   *     success: function(res) {
+   *       map.scale = res.scale;
+   *       console.log('scale' + res.scale);
+   *       regionChange = true;
+   *     }
+   *   });
+   *   this.mapCtx.getCenterLocation({
+   *     success: function(res) {
+   *       console.log(res);
+   *       console.log('distance is' + u.gD(map.latitude, map.longitude, res.latitude, res.longitude))
+   *       if (regionChange && (u.gD(map.latitude, map.longitude, res.latitude, res.longitude) > 1)) {
+   *         map.latitude = res.latitude;
+   *         map.longitude = res.longitude;
+   *         that.setData({
+   *           map: map
+   *         });
+   *       };
+   *       regionChange = false;
+   *     }
+   *   });
+   * }
+   * },
+   * translateMarker: function() {
+   *   this.mapCtx.translateMarker({
+   *     markerId: 0,
+   *     autoRotate: true,
+   *     duration: 1000,
+   *     destination: {
+   *       latitude: 23.10229,
+   *       longitude: 113.3345211,
+   *     },
+   *     animationEnd() {
+   *       console.log('animation end')
+   *     }
+   *   })
+   * },
+   */
   /*
-  * RegionChange() { },
+   * RegionChange() { },
    * update() { }
-    */
+   */
 });

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-09 16:43:03
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-09 16:45:58
+ * @LastEditTime: 2019-08-13 19:40:24
  * @Description: 通用模块
  */
 
@@ -15,7 +15,7 @@
  * @returns 参数对象
  */
 const queryParse = (queryString: string, spliter = '&') => {
-  // queryString为空
+  // QueryString为空
   if (!queryString) return {};
 
   /** 参数对象 */
@@ -33,7 +33,7 @@ const queryParse = (queryString: string, spliter = '&') => {
 };
 
 /**
- * query 对象转换字符串
+ * Query 对象转换字符串
  *
  * @param options query对象
  * @param [spliter='&'] 分隔符
@@ -64,17 +64,16 @@ const queryStringify = (options: IAnyObject, spliter = '&', unencoded = false) =
  */
 const queryJoin = (path: any, queries: any, unencoded: boolean) => {
   const qs = queryStringify(queries, '&', unencoded);
+
   if (!qs) return path;
 
   let sep;
 
-  if (/[\?&]$/.test(path)) sep = '';
+  if ((/[\?&]$/u).test(path)) sep = '';
   else if (path.indexOf('?')) sep = '&';
   else sep = '?';
 
   return `${path}${sep}${qs}`;
 };
 
-export default {
-  queryParse, queryJoin, queryStringify
-};
+export default { queryParse, queryJoin, queryStringify };

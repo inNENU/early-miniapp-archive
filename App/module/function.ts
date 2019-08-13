@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-10 21:36:12
+ * @LastEditTime: 2019-08-13 19:35:21
  * @Description: 建设中页面
  */
 
@@ -20,8 +20,7 @@ $register('function', {
         T: a.T,
         nm: a.nm
       });
-    }
-    else this.setData({
+    } else this.setData({
       [options.action]: true,
       T: a.T,
       nm: a.nm

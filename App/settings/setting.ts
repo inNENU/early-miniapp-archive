@@ -6,6 +6,7 @@ const { globalData: a } = getApp();
 
 // 生成时间
 const time: string[][] = [[], []];
+
 // 生成时间
 for (let i = 0; i <= 23; i += 1) time[0].push(`${i}时`);
 for (let i = 0; i <= 59; i += 1)
@@ -21,11 +22,7 @@ $register('setting', {
       { tag: 'head', title: '外观设置', grey: true },
       {
         tag: 'List', head: '主题设置', foot: 'NENU主题还在完善中',
-        content: [
-          {
-            text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'Android', 'NENU'], picker: 'setTheme'
-          }
-        ]
+        content: [{ text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'Android', 'NENU'], picker: 'setTheme' }]
       },
       {
         tag: 'List',
@@ -151,7 +148,7 @@ $register('setting', {
     }
     wx.setStorageSync('nightmodeAutoChange', false);
     this.setData({ nm: value, 'event[3]': { content: list } });
-    // this.setData({ 'page[3].content': list, nm: value });
+    // This.setData({ 'page[3].content': list, nm: value });
     a.nm = value;
     this.$emit('nightmode', value);
 
@@ -169,7 +166,7 @@ $register('setting', {
     const list = page[3].content;
     const nm = nightmode();
 
-    // page[2].content[0].status = nm;
+    // Page[2].content[0].status = nm;
     wx.setStorageSync('nightmode', nm);
     if (nm && list[5].status) wx.setScreenBrightness({ value: list[6].value / 100 });
     else if (!nm && list[3].status) wx.setScreenBrightness({ value: list[4].value / 100 });
@@ -192,7 +189,7 @@ $register('setting', {
 
     list[0].status = value;
     this.setData({ nm, 'event[2]': { 'content[0].status': nm }, 'event[3]': { content: list } });
-    // this.setData({ nm, page });
+    // This.setData({ nm, page });
     a.nm = nm;
     this.$emit('nightmode', nm);
 
@@ -210,7 +207,7 @@ $register('setting', {
     list[4].visible = value;
     list[4].hidden = !value;
     this.setData({ 'event[3]': { 'content[4].visible': value, 'content[4].hidden': !value } });
-    // this.setData({ page });
+    // This.setData({ page });
   },
   nightBrightnessSwitchHandler(value: boolean) {
     const { page } = this.data;
@@ -218,7 +215,7 @@ $register('setting', {
 
     list[6].visible = value;
     list[6].hidden = !value;
-    // this.setData({ page });
+    // This.setData({ page });
 
     this.setData({ 'event[3]': { 'content[6].visible': value, 'content[6].hidden': !value } });
   },

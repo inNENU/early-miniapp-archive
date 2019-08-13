@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:59:27
+ * @LastEditTime: 2019-08-13 19:33:19
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
@@ -243,9 +243,9 @@ $register('PEcal', {
         for (let i = 0; i < length; i += 1)
           if (result[specialScore]) {
             if (
-              config[specialScore][i] !== ''
-              && result[specialScore]
-              && result[specialScore] <= config[specialScore][i]
+              config[specialScore][i] !== '' &&
+              result[specialScore] &&
+              result[specialScore] <= config[specialScore][i]
             ) {
               PEscore.special = hash[i];
               break;

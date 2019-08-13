@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 /*
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 19:35:39
+ * @LastEditTime: 2019-08-13 19:29:17
  * @Description: 天气小组件
  */
 
@@ -168,9 +169,7 @@ $register.C({
     }
   },
 
-  options: {
-    addGlobalClass: true
-  },
+  options: { addGlobalClass: true },
 
   methods: {
     navigate() {
@@ -192,18 +191,19 @@ $register.C({
           const weather = (res.data as WeatherData).data;
           const weatherType = weather.observe.weather_short;
           const weatherClass =
-            weatherType.indexOf('晴') !== -1
-              ? (new Date().getHours() > 6 && new Date().getHours() < 18)
-                ? new Date().getSeconds() % 2 === 0 ? 'sunny' : 'rainbow'
-                : 'starry'
-              : weatherType.indexOf('雷') !== -1 || weatherType.indexOf('电') !== -1 || weatherType.indexOf('暴') !== -1
+            weatherType.indexOf('晴') === -1
+              ? weatherType.indexOf('雷') !== -1 || weatherType.indexOf('电') !== -1 || weatherType.indexOf('暴') !== -1
                 ? 'stormy'
                 : weatherType.indexOf('雪') !== -1 || weatherType.indexOf('霜') !== -1 || weatherType.indexOf('冰') !== -1
                   ? 'snowy'
-                  : weatherType.indexOf('雨') !== -1
-                    ? 'rainy'
-                    : weatherType.indexOf('阴') !== -1 || weatherType.indexOf('云') !== -1
-                      ? 'cloudy' : '';
+                  : weatherType.indexOf('雨') === -1
+                    ? weatherType.indexOf('阴') !== -1 || weatherType.indexOf('云') !== -1
+                      ? 'cloudy'
+                      : ''
+                    : 'rainy'
+              : (new Date().getHours() > 6 && new Date().getHours() < 18)
+                ? new Date().getSeconds() % 2 === 0 ? 'sunny' : 'rainbow'
+                : 'starry';
 
           this.setData({ weatherClass, weather });
 

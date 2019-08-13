@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-08-11 15:18:20
+ * @LastEditTime: 2019-08-13 19:36:37
  */
 
 // 初始化文件管理器、用户路径与日志管理器
@@ -246,15 +246,15 @@ const writeJson = (path: string, fileName: string, data: object, encoding = 'utf
  * 获取Json
  *
  * @param path JSON文件路径
- * @param callback Json获取成功后的回调
+ * @param successFunc Json获取成功后的回调
  * @param failFunc Json获取失败后的回调
  * @returns callback或null
  */
-const getJson = (path: string, callback?: (data: object | string) => void, failFunc?: () => void) => {
-  if (callback) {
+const getJson = (path: string, successFunc?: (data: object | string) => void, failFunc?: () => void) => {
+  if (successFunc) {
     let data = readJson(path);
 
-    if (data) callback(data);
+    if (data) successFunc(data);
     else {
 
       const temp = path.split('/');
@@ -272,7 +272,7 @@ const getJson = (path: string, callback?: (data: object | string) => void, failF
 
             data = readJson(path);
 
-            callback(data);
+            successFunc(data);
           } else {
             console.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
             logger.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
@@ -317,13 +317,13 @@ const getJson = (path: string, callback?: (data: object | string) => void, failF
  * 解压文件
  * @param path 压缩文件路径
  * @param unzipPath 解压路径
- * @param callback 回调函数
+ * @param successFunc 回调函数
  */
-const unzip = (path: string, unzipPath: string, callback?: () => void) => {
+const unzip = (path: string, unzipPath: string, successFunc?: () => void) => {
   fileManager.unzip({
     zipFilePath: `${userPath}/${path}`, targetPath: `${userPath}/${unzipPath}`,
     success: () => {
-      if (callback) callback();
+      if (successFunc) successFunc();
     },
     fail: failMsg => {
       console.error(`解压 ${path} 失败:`, failMsg);

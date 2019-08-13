@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 11:22:14
+ * @LastEditTime: 2019-08-13 19:21:22
  * @Description: APP函数库
  */
 
@@ -382,15 +382,16 @@ const startup = (globalData: InitGlobalData) => {
 
   // 检测基础库版本
   if (
-    Number(globalData.info.SDKVersion.split('.')[1]) < 7
-    && wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
+    Number(globalData.info.SDKVersion.split('.')[1]) < 7 &&
+    wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
   )
     $wx.modal(
       '基础库版本偏低',
       '您的基础库版本偏低，可能导致部分内容无法正常显示，建议您更新最新版微信。',
       () => { // 避免重复提示
         wx.setStorageSync('SDKVersion', (globalData as GlobalData).info.SDKVersion);
-      });
+      }
+    );
 
   // 检查通知更新与小程序更新
   noticeCheck(globalData as GlobalData);
@@ -400,9 +401,7 @@ const startup = (globalData: InitGlobalData) => {
   wx.onMemoryWarning(res => {
     $wx.tip('内存不足');
     console.warn('onMemoryWarningReceive');
-    wx.reportAnalytics('memory_warning', {
-      memory_warning: res && res.level ? res.level : 0
-    });
+    wx.reportAnalytics('memory_warning', { 'memory_warning': res && res.level ? res.level : 0 });
   });
 
   // 获取网络信息

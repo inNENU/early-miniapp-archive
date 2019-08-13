@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-10 20:54:18
+ * @LastEditTime: 2019-08-13 19:34:14
  * @Description: 天气预报
  */
 import $register from 'wxpage';
@@ -34,24 +34,23 @@ $register('weather', {
         nm: a.nm,
         statusBarHeight: wx.getSystemInfoSync().statusBarHeight
       });
-    }
-    // 否则需要重新获取并处理
-    else wx.request({
-      url: 'https://mp.nenuyouth.com/server/weather.php',
-      success: res => {
-        const weather = weatherHandler((res.data as WeatherData).data);
+    } else // 否则需要重新获取并处理
+      wx.request({
+        url: 'https://mp.nenuyouth.com/server/weather.php',
+        success: res => {
+          const weather = weatherHandler((res.data as WeatherData).data);
 
-        this.canvas(weather);
+          this.canvas(weather);
 
-        this.setData({
-          weather,
-          share: Boolean(options.share),
-          night: new Date().getHours() > 18 || new Date().getHours() < 5,
-          nm: a.nm,
-          statusBarHeight: wx.getSystemInfoSync().statusBarHeight
-        });
-      }
-    });
+          this.setData({
+            weather,
+            share: Boolean(options.share),
+            night: new Date().getHours() > 18 || new Date().getHours() < 5,
+            nm: a.nm,
+            statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+          });
+        }
+      });
 
     // 设置页面背景色
     wx.setBackgroundColor({
@@ -194,9 +193,7 @@ $register('weather', {
     this.setData({ number: numbers === 0 ? length - 1 : numbers - 1 });
   },
   onUnload() {
-    wx.stopAccelerometer({
-      success: () => console.log('stop Accelerometer success')
-    });
+    wx.stopAccelerometer({ success: () => console.log('stop Accelerometer success') });
   },
   back() {
     if (share) wx.switchTab({ url: '/page/main' });

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 01:30:41
+ * @LastEditTime: 2019-08-13 19:25:06
  * @Description: 东师指南
  */
 import $register, { WXPage } from 'wxpage';
@@ -113,9 +113,7 @@ $register('guide', {
     $page.nav(event, this, 'head');
   },
   searching({ detail }: WXEvent.Input) {
-    this.setData({
-      words: $search.searching(detail.value)
-    });
+    this.setData({ words: $search.searching(detail.value) });
   },
   search({ detail }: WXEvent.Input) {
     this.$route(`search?words=${detail.value}`);

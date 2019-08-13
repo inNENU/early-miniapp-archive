@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 15:18:32
+ * @LastEditTime: 2019-08-13 19:24:01
  * @Description: 捐赠
  */
 import $register, { WXPage } from 'wxpage';
@@ -22,7 +22,7 @@ const authorizeList: authorizeList[] = [
 ];
 
 type authorizeList = 'scope.userLocation' | 'scope.writePhotosAlbum' | 'scope.userInfo' |
-  'scope.address' | 'scope.invoiceTitle' | 'scope.invoice' | 'scope.werun' | 'scope.record' | 'scope.camera';
+'scope.address' | 'scope.invoiceTitle' | 'scope.invoice' | 'scope.werun' | 'scope.record' | 'scope.camera';
 
 $register('authorize', {
   data: {
@@ -80,6 +80,7 @@ $register('authorize', {
   },
   onReady() {
     const list = this.data.page[1].content;
+
     $page.Notice('authorize');
     wx.getSetting({
       success: res => {

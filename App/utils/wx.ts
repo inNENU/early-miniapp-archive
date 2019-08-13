@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-08-11 15:14:00
+ * @LastEditTime: 2019-08-13 19:37:19
  */
 
 /** 日志管理器 */
@@ -25,18 +25,18 @@ export const tip = (text: string, duration?: number, icon: 'success' | 'loading'
  *
  * @param title 提示文字
  * @param content 提示文字
- * @param [callback] 点击确定的回调
+ * @param [confirmFunc] 点击确定的回调
  * @param [cancelFunc] 点击取消的回调，不填则不显示取消按钮
  */
-export const modal = (title: string, content: string, callback?: () => void, cancelFunc?: () => void) => {
+export const modal = (title: string, content: string, confirmFunc?: () => void, cancelFunc?: () => void) => {
   /** 显示取消按钮 */
-  const showCancel = cancelFunc ? true : false;
+  const showCancel = !!cancelFunc;
 
   wx.showModal({
     title, content,
     showCancel,
     success: res => {
-      if (res.confirm && callback) callback();
+      if (res.confirm && confirmFunc) confirmFunc();
       else if (res.cancel && cancelFunc) cancelFunc();
     }
   });
@@ -88,13 +88,13 @@ const netReport = () => {
  * 包装wx.request
  *
  * @param path 请求路径
- * @param callback 回调函数
+ * @param successFunc 回调函数
  * @param [failFunc] 失败回调函数
  * @param [errorFunc] 状态码错误回调函数
  */
 const request = (
   path: string,
-  callback: (data: IAnyObject) => void,
+  successFunc: (data: IAnyObject) => void,
   failFunc?: (errMsg: wx.GeneralCallbackResult) => void,
   errorFunc?: (statusCode: number) => void
 ) => {
@@ -102,7 +102,7 @@ const request = (
     url: `https://mp.nenuyouth.com/${path}.json`,
     success: res => {
       console.log(`请求${path}成功:`, res);// 调试
-      if (res.statusCode === 200) callback(res.data as object);
+      if (res.statusCode === 200) successFunc(res.data as object);
       else {
         tip('服务器出现问题，请稍后重试');
         // 调试
@@ -129,20 +129,20 @@ const request = (
  * 包装wx.downloadFile
  *
  * @param path 下载路径
- * @param callback 成功回调函数
+ * @param successFunc 成功回调函数
  * @param [failFunc] 失败回调函数
  * @param [errorFunc] 状态码错误回调函数
  */
 const downLoad = (
   path: string,
-  callback: (path: string) => void,
+  successFunc: (path: string) => void,
   failFunc?: (errMsg: wx.GeneralCallbackResult) => void,
   errorFunc?: (statusCode: number) => void
 ) => {
   const progress = wx.downloadFile({
     url: `https://mp.nenuyouth.com/${path}`,
     success: res => {
-      if (res.statusCode === 200) callback(res.tempFilePath);
+      if (res.statusCode === 200) successFunc(res.tempFilePath);
       else {
         tip('服务器出现问题，请稍后重试');
         if (errorFunc) errorFunc(res.statusCode);

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 15:16:29
+ * @LastEditTime: 2019-08-13 19:24:25
  * @Description: 关于
  */
 import $register, { WXPage } from 'wxpage';
@@ -21,16 +21,12 @@ $register('storage', {
       {
         tag: 'List',
         head: '数据缓存',
-        content: [
-          { text: '空间占用情况', desc: '0K/10240K' }
-        ]
+        content: [{ text: '空间占用情况', desc: '0K/10240K' }]
       },
       {
         tag: 'List',
         head: '文件系统',
-        content: [
-          { text: '空间占用情况', desc: '0K/10240K' }
-        ]
+        content: [{ text: '空间占用情况', desc: '0K/10240K' }]
       },
       {
         tag: 'List', head: '资源刷新', foot: '如果页面显示出现问题请刷新资源',

@@ -262,9 +262,7 @@ const markerSet = () => {
       setMarker(markerData[0], 'benbu');
       setMarker(markerData[1], 'jingyue');
       wx.setStorageSync('markerVersion', markerVersion);
-    }
-    // 没有找到MarkerData，可能因为初始化中断造成
-    else {
+    } else { // 没有找到MarkerData，可能因为初始化中断造成
       // 调试
       console.log('获取Marker失败');
       logger.warn('获取Marker失败');

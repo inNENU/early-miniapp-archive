@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 01:35:05
+ * @LastEditTime: 2019-08-13 19:25:14
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -19,9 +19,7 @@ $register('main', {
     words: [],
     head: { title: '首页', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
-      {
-        tag: 'head', title: '首页', aim: 'main', grey: true, hidden: true
-      },
+      { tag: 'head', title: '首页', aim: 'main', grey: true, hidden: true },
       {
         tag: 'grid',
         head: '新生你好',
@@ -171,9 +169,7 @@ $register('main', {
     $page.nav(event, this, 'head');
   },
   searching({ detail }: WXEvent.Input) {
-    this.setData({
-      words: $search.searching(detail.value)
-    });
+    this.setData({ words: $search.searching(detail.value) });
   },
   search({ detail }: WXEvent.Input) {
     this.$route(`search?words=${detail.value}`);

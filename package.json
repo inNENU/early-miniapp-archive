@@ -2,11 +2,14 @@
   "name": "mynenu",
   "version": "2.2.9",
   "scripts": {
-    "tsc": "node ./node_modules/typescript/lib/tsc.js"
+    "tsc": "node ./node_modules/typescript/lib/tsc.js",
+    "lint": "eslint --ext .ts app",
+    "fix": "eslint --ext .ts app --fix"
   },
   "devDependencies": {
-    "tslint-config-airbnb": "^5.11.1",
-    "typescript": "^3.5.3",
-    "tslint": "^5.18.0"
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^6.1.0",
+    "typescript": "^3.5.3"
   }
 }

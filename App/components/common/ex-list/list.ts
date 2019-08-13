@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 14:31:37
+ * @LastEditTime: 2019-08-13 19:29:52
  * @Description: 列表组件
  */
 
@@ -22,9 +22,7 @@ $register.C({
     pickerTap(res: PickerEvent) { // 控制选择器显隐
       const { id, content: { visible: value } } = this.getDetail(res);
 
-      this.setData({
-        [`config.content[${id}].visible`]: !value
-      });
+      this.setData({ [`config.content[${id}].visible`]: !value });
     },
     pickerChange(res: WXEvent.PickerChange) {
       const { id, content } = this.getDetail(res);
@@ -78,13 +76,12 @@ $register.C({
       const { id, content } = this.getDetail(res);
 
       // 更新页面数据
-      this.setData(
-        { [`config.content[${id}].visible`]: !content.visible }
-      );
+      this.setData({ [`config.content[${id}].visible`]: !content.visible });
     },
     sliderChange(res: SliderEvent) {
       const { id, content } = this.getDetail(res);
       const { value } = res.detail;
+
       // 更新页面数据，并写入值到存储
       content.value = value;
 
@@ -108,6 +105,7 @@ $register.C({
     change(detail: IAnyObject) {
       if (detail) {
         const detail2: IAnyObject = {};
+
         Object.keys(detail)
           .forEach(element => {
             detail2[`config.${element}`] = detail[element];

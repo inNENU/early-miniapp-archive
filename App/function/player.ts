@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:35:33
+ * @LastEditTime: 2019-08-13 19:33:43
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -201,11 +201,10 @@ $register('music', {
   end() { // 结束动作
     let { index } = this.data;
     const total = this.data.songList.length;
+    let temp;
 
     switch (this.data.mode) {
       case 3:
-        let temp;
-
         do temp = Math.round(Math.random() * total - 0.5); while (index === temp);
         index = temp;
         break;
@@ -223,11 +222,10 @@ $register('music', {
   next() { // 下一曲动作
     let { index } = this.data;
     const total = this.data.songList.length;
+    let temp;
 
     switch (this.data.mode) {
       case 3:
-        let temp;
-
         do temp = Math.round(Math.random() * total - 0.5); while (index === temp);
         index = temp;
         break;
@@ -246,11 +244,10 @@ $register('music', {
   previous() { // 上一曲动作
     let { index } = this.data;
     const { length: total } = this.data.songList;
+    let temp;
 
     switch (this.data.mode) {
       case 3:
-        let temp;
-
         do temp = Math.round(Math.random() * total - 0.5); while (index === temp);
         index = temp;
         break;

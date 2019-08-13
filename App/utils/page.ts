@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 21:15:46
+ * @LastEditTime: 2019-08-13 19:22:35
  * @Description: Page函数库
  */
 
@@ -108,15 +108,11 @@ const disposePage = (page: PageData, option: PageArg) => {
       });
       // 调试
       console.info(`${page[0].aim}处理完毕`);
-    }
-    // 调试：未找到head tag
-    else {
+    } else { // 调试：未找到head tag
       console.warn('页面不包含head标签');
       logger.warn('页面不包含head标签');
       wx.reportMonitor('14', 1);
-    }
-  // 调试：未传入page
-  else {
+    } else { // 调试：未传入page
     console.error('页面数据不存在');
     wx.reportMonitor('15', 1);
   }
@@ -232,8 +228,8 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
     });
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   else if (
-    globalData.page.aim === option.aim
-    || ctx.data.page && ctx.data.page[0] && globalData.page.aim === ctx.data.page[0].title
+    globalData.page.aim === option.aim ||
+    (ctx.data.page && ctx.data.page[0] && globalData.page.aim === ctx.data.page[0].title)
   ) {
     console.log(`${globalData.page.aim}已处理`);
     ctx.setData({ T: globalData.T, nm: globalData.nm, page: globalData.page.data }, () => {
@@ -303,9 +299,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
         console.log(`${option.aim}预加载子页面完成`);
       }
     });
-  }
-  // 需要重新载入界面
-  else {
+  } else { // 需要重新载入界面
     console.info(`${option.aim}onLoad开始，参数为：`, option);
     const { folder, path } = resolveAim(option.aim);
 

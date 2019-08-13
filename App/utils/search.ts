@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-12 01:14:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 01:32:35
+ * @LastEditTime: 2019-08-13 19:23:12
  * @Description: 搜索模块
  */
 
@@ -49,13 +49,13 @@ const init = () => {
  * 搜索词
  *
  * @param searchWord 输入的搜索词
- * 
+ *
  * @returns 匹配的候选词列表
  */
 const searching = (searchWord: string) => {
   const words: string[] = [];
 
-  if (searchWord) {
+  if (searchWord)
     Object.keys(keywords)
       .forEach(jsonName => {
         const { title } = keywords[jsonName];
@@ -75,7 +75,6 @@ const searching = (searchWord: string) => {
             if (keyword.indexOf(searchWord) !== -1 && words.indexOf(keyword) === -1) words.push(keyword);
           });
       });
-  }
 
   return words;
 };
@@ -123,9 +122,7 @@ const search = (searchWord: string) => {
   // 按权重排序
   const keys = Object.keys(weight);
 
-  keys.sort((x, y) => {
-    return weight[y] - weight[x];
-  });
+  keys.sort((x, y) => weight[y] - weight[x]);
 
   // 为权重大于2的匹配值生成最终结果
   keys.forEach(key => {

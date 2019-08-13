@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 13:15:33
+ * @LastEditTime: 2019-08-13 18:23:34
  * @Description: 小程序主脚本
  */
 
@@ -32,7 +32,6 @@ $register.A({
             ? `/function/${name}`
             : `/module/${name}`
   },
-
   onLaunch(opts) {
     console.info('小程序启动，参数为', opts); // 调试
 

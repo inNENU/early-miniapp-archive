@@ -1,4 +1,11 @@
-/* global getApp wx*/
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-08-13 19:19:05
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-08-13 19:25:48
+ * @Description: Webview模块
+ */
+
 import $register from 'wxpage';
 import $page from '../utils/page';
 
@@ -7,7 +14,7 @@ $register('web', {
     const { title } = res;
 
     wx.setNavigationBarTitle({ title });
-    this.setData!({ url: res.url, title });
+    this.setData({ url: res.url, title });
   },
   onShow() {
     // 设置胶囊和背景颜色

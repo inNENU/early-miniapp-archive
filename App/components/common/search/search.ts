@@ -2,12 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-08 12:21:29
+ * @LastEditTime: 2019-08-13 19:30:54
  * @Description: 搜索组件
  */
 
 import $register from 'wxpage';
-// import { tip } from '../../../utils/wx';
 
 $register.C({
   properties: {
@@ -50,7 +49,5 @@ $register.C({
       this.setData({ value, showInput: true });
     }
   },
-  options: {
-    styleIsolation: 'shared'
-  }
+  options: { styleIsolation: 'shared' }
 });
