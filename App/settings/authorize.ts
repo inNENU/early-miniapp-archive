@@ -2,10 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:24:01
+ * @LastEditTime: 2019-08-14 22:53:39
  * @Description: 捐赠
  */
-import $register, { WXPage } from 'wxpage';
+import $register from 'wxpage';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
@@ -21,8 +21,11 @@ const authorizeList: authorizeList[] = [
   'scope.camera'
 ];
 
-type authorizeList = 'scope.userLocation' | 'scope.writePhotosAlbum' | 'scope.userInfo' |
-'scope.address' | 'scope.invoiceTitle' | 'scope.invoice' | 'scope.werun' | 'scope.record' | 'scope.camera';
+type authorizeList =
+  'scope.userLocation' | 'scope.writePhotosAlbum' | 'scope.userInfo' |
+  'scope.address' | 'scope.invoiceTitle' | 'scope.invoice' | 'scope.werun' | 'scope.record' | 'scope.camera';
+
+type ListAction = 'location' | 'album' | 'address' | 'invoiceTitle' | 'invoice' | 'werun' | 'record' | 'camera';
 
 $register('authorize', {
   data: {
@@ -62,7 +65,7 @@ $register('authorize', {
     ],
     authorize: {}
   },
-  onNavigate(res: WXPage.PageLifeTimeOptions) {
+  onNavigate(res) {
     $page.resolve(res, this.data.page);
   },
   onLoad(option: any) {
@@ -85,7 +88,7 @@ $register('authorize', {
     wx.getSetting({
       success: res => {
         authorizeList.forEach((type, index) => {
-          if (res.authSetting[type]) list[index].desc = '已授权✓';
+          if (res.authSetting[type]) (list as any[])[index].desc = '已授权✓';
         });
 
         this.setData({ 'page[1].content': list });
@@ -93,7 +96,7 @@ $register('authorize', {
     });
   },
   list({ detail }: any) {
-    if (detail.event) this[detail.event](detail.value);
+    if (detail.event) this[detail.event as ListAction]();
   },
   location() {
     this.authorize(0);
@@ -141,7 +144,7 @@ $register('authorize', {
                   const list = this.data.page[1].content;
 
                   authorizeList.forEach((type2, index) => {
-                    list[index].desc = res2.authSetting[type2] ? '已授权✓' : '未授权×';
+                    (list as any)[index].desc = res2.authSetting[type2] ? '已授权✓' : '未授权×';
                   });
 
                   this.setData({ 'page[1].content': list });

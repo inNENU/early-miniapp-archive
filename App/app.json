@@ -61,6 +61,12 @@
         "function"
       ]
     },
+    "page/me": {
+      "network": "all",
+      "packages": [
+        "settings"
+      ]
+    },
     "module/sharePage": {
       "network": "all",
       "packages": [
@@ -120,7 +126,7 @@
     "downloadFile": 25000
   },
   "debug": true,
-  "resizable": true,
+  "resizable": false,
   "permission": {
     "scope.userLocation": {
       "desc": "您的位置信息将用于校园地图导航"

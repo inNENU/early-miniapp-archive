@@ -2,25 +2,25 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:55:50
+ * @LastEditTime: 2019-08-14 23:08:52
  * @Description: 模块页面8
  */
 
-import $register, { WXPage } from 'wxpage';
+import $register from 'wxpage';
 import $page from '../utils/page';
 
 $register('sharePage', {
-  onNavigate(res: WXPage.PageLifeTimeOptions) {
-    $page.resolve(res);
+  onNavigate(option) {
+    $page.resolve(option);
   },
-  onLoad(res: any) {
-    if ('scene' in res) res.aim = decodeURIComponent(res.scene);
-    res.From = '主页';
-    res.share = true;
-    res.depth = 1;
+  onLoad(option: any) {
+    if ('scene' in option) option.aim = decodeURIComponent(option.scene);
+    option.From = '主页';
+    option.share = true;
+    option.depth = 1;
 
-    console.log(res);
-    $page.Online(res, this);
+    console.log(option);
+    $page.Online(option, this);
     wx.reportMonitor('2', 1);
   },
   onShow() {

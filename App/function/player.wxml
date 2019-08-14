@@ -7,6 +7,17 @@
     <view class='songName'>{{currentSong.title}}</view>
     <view class='songAuthor'>—— {{currentSong.singer}} ——</view>
   </view>
+  <!-- <swiper class="coverCtn">
+    <swiper-item>
+      <image wx:if="{{!coverLoad}}" class="cover {{play?'rotate':''}}" src='/function/icon/cd.svg' />
+      <image class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{currentSong.cover}}" bindload='loadCover' />
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="lyricCtn" scroll-y="{{true}}">
+        <view wx:for="{{lyric}}" class="lyricText {{item.active}}">{{item.text}}</view>
+      </scroll-view>
+    </swiper-item>
+  </swiper> -->
   <view class="coverCtn">
     <image wx:if="{{!coverLoad}}" class="cover {{play?'rotate':''}}" src='/function/icon/cd.svg' />
     <image class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{currentSong.cover}}" bindload='loadCover' />

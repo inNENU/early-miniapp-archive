@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:34:45
+ * @LastEditTime: 2019-08-14 23:18:03
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -38,6 +38,7 @@ $register('map', {
     pointDisplay: false,
     closeTop: -31,
     selectItem: 'all',
+    mapSwitch: true,
     category: [
       ['全部', 'all'],
       ['校门', 'gate'],
@@ -158,7 +159,7 @@ $register('map', {
       mapSwitch: temp
     });
 
-    const mapCtx = this.mapCtx as wx.MapContext;
+    const mapCtx = this.mapCtx;
 
     mapCtx.includePoints(temp ? includePoint1 : includePoint2);
 
@@ -182,7 +183,7 @@ $register('map', {
     wx.setStorageSync('mapSwitch', temp);
   },
   scale(event: WXEvent.Touch) {
-    (this.mapCtx as wx.MapContext).getCenterLocation({
+    this.mapCtx.getCenterLocation({
       success: r2 => {
         this.setData({
           map: {
@@ -213,7 +214,7 @@ $register('map', {
      */
   },
   moveToLocation() {
-    (this.mapCtx as wx.MapContext).moveToLocation();
+    this.mapCtx.moveToLocation({});
   },
   point() {
     this.setData({ pointDisplay: !this.data.pointDisplay });
@@ -224,7 +225,7 @@ $register('map', {
     const markers = wx.getStorageSync(`${name}-${current}`);
 
     this.setData({ markers, selectItem: current });
-    (this.mapCtx as wx.MapContext).includePoints({ padding: [30, 20, 30, 20], points: markers });
+    this.mapCtx.includePoints({ padding: [30, 20, 30, 20], points: markers });
   },
   markers(event: MarkerEvent) {
     const { mapSwitch } = this.data;
@@ -253,7 +254,8 @@ $register('map', {
   },
   update(event: any) {
     console.log('update', event);
-  }
+  },
+  mapCtx: {} as WechatMiniprogram.MapContext
 
   /*
    * Update() {

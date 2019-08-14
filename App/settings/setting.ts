@@ -1,8 +1,18 @@
-/* global wx getApp*/
-import $register, { WXPage } from 'wxpage';
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-08-14 00:04:29
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-08-14 23:45:15
+ * @Description: 设置页面
+ */
+import $register from 'wxpage';
 import $page from '../utils/page';
 import { nightmode } from '../utils/app';
 const { globalData: a } = getApp();
+
+type ListAction =
+  'setTheme' | 'switchnm' | 'switchnmAC' | 'dayBrightnessSwitchHandler' |
+  'nightBrightnessSwitchHandler' | 'dayBrightnessHandler' | 'nightBrightnessHandler';
 
 // 生成时间
 const time: string[][] = [[], []];
@@ -53,9 +63,9 @@ $register('setting', {
       { tag: 'foot', author: '' }
     ]
   },
-  onNavigate(res: WXPage.PageLifeTimeOptions) {
+  onNavigate(res) {
     // 读取状态数据并执行预加载
-    const list = this.data.page[3].content;
+    const list = this.data.page[3].content as any[];
     const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
     const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
     const nightBrightnessChange = wx.getStorageSync('nightBrightnessChange');
@@ -74,7 +84,7 @@ $register('setting', {
   onLoad(option: any) {
     if (a.page.aim === '外观设置') $page.Set({ option, ctx: this });
     else {
-      const list = this.data.page[3].content;
+      const list = this.data.page[3].content as any[];
       const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
       const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
       const nightBrightnessChange = wx.getStorageSync('nightBrightnessChange');
@@ -105,11 +115,10 @@ $register('setting', {
     a.nm = nightmode();
   },
   list({ detail }: any) {
-    console.log(detail);
-    if (detail.event) this[detail.event as string](detail.value);
+    if (detail.event) (this[detail.event as ListAction] as any)(detail.value);
   },
   setTheme(value: string) {
-    const theme = this.data.page[1].content[0].pickerValue[value];
+    const theme = (this.data.page[1].content as any[])[0].pickerValue[value];
 
     a.T = theme;
     wx.setStorageSync('theme', theme);
@@ -120,7 +129,7 @@ $register('setting', {
   },
   switchnm(value: boolean) {
     console.log(this.data.page);
-    const list = this.data.page[3].content;
+    const list = this.data.page[3].content as any[];
 
     list[0].status = false;
     list[1].hidden = list[2].hidden = true;
@@ -163,7 +172,7 @@ $register('setting', {
     console.log(this.data.page);
 
     const { page } = this.data;
-    const list = page[3].content;
+    const list = page[3].content as any[];
     const nm = nightmode();
 
     // Page[2].content[0].status = nm;
@@ -201,8 +210,7 @@ $register('setting', {
     console.log(this.data.page);
   },
   dayBrightnessSwitchHandler(value: boolean) {
-    const { page } = this.data;
-    const list = page[3].content;
+    const list = this.data.page[3].content as any[];
 
     list[4].visible = value;
     list[4].hidden = !value;
@@ -210,8 +218,7 @@ $register('setting', {
     // This.setData({ page });
   },
   nightBrightnessSwitchHandler(value: boolean) {
-    const { page } = this.data;
-    const list = page[3].content;
+    const list = this.data.page[3].content as any[];
 
     list[6].visible = value;
     list[6].hidden = !value;
@@ -220,9 +227,9 @@ $register('setting', {
     this.setData({ 'event[3]': { 'content[6].visible': value, 'content[6].hidden': !value } });
   },
   dayBrightnessHandler(value: number) {
-    if (!a.nm && this.data.page[3].content[3].status) wx.setScreenBrightness({ value: value / 100 });
+    if (!a.nm && (this.data.page[3].content as any[])[3].status) wx.setScreenBrightness({ value: value / 100 });
   },
   nightBrightnessHandler(value: number) {
-    if (a.nm && this.data.page[3].content[5].status) wx.setScreenBrightness({ value: value / 100 });
+    if (a.nm && (this.data.page[3].content as any[])[5].status) wx.setScreenBrightness({ value: value / 100 });
   }
 });

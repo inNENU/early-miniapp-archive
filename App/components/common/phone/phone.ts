@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-07 13:58:21
+ * @LastEditTime: 2019-08-14 23:40:01
  * @Description: 电话组件
  */
 
@@ -10,7 +10,7 @@ import $register from 'wxpage';
 import { tip } from '../../../utils/wx';
 
 $register.C({
-  properties: { config: Object },
+  properties: { config: Object as any },
   methods: {
     call() {
       wx.makePhoneCall({ phoneNumber: this.data.config.num.toString() });// 拨打电话

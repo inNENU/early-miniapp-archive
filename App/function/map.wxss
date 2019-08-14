@@ -98,7 +98,8 @@
   display: flex !important;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 3% calc(env(safe-area-inset-bottom) / 2 + 5px) 3%;
+  padding: 5px 15px 5px 15px;
+  padding: 5px 15px calc(env(safe-area-inset-bottom) / 2 + 5px) 15px;
   background-color: #fff;
   box-shadow: 0 -2px 5px rgba(219, 218, 223, 0.95);
 }

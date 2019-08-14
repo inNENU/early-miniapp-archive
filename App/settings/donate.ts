@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 20:56:45
+ * @LastEditTime: 2019-08-14 22:54:02
  * @Description: 捐赠
  */
 import $register from 'wxpage';
@@ -36,7 +36,7 @@ $register('donate', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

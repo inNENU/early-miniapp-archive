@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-08-13 19:37:19
+ * @LastEditTime: 2019-08-14 16:51:40
  */
 
 /** 日志管理器 */
@@ -95,7 +95,7 @@ const netReport = () => {
 const request = (
   path: string,
   successFunc: (data: IAnyObject) => void,
-  failFunc?: (errMsg: wx.GeneralCallbackResult) => void,
+  failFunc?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
   errorFunc?: (statusCode: number) => void
 ) => {
   wx.request({
@@ -136,7 +136,7 @@ const request = (
 const downLoad = (
   path: string,
   successFunc: (path: string) => void,
-  failFunc?: (errMsg: wx.GeneralCallbackResult) => void,
+  failFunc?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
   errorFunc?: (statusCode: number) => void
 ) => {
   const progress = wx.downloadFile({

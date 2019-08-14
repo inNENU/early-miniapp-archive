@@ -168,7 +168,7 @@ declare namespace WXEvent {
    *
    * 最低基础库: 2.1.0
    */
-  type CoverImageError = Custom<wx.GeneralCallbackResult>;
+  type CoverImageError = Custom<WechatMiniprogram.GeneralCallbackResult>;
 
   /**
    * 滚动到顶部/左边时触发
@@ -248,42 +248,43 @@ declare namespace WXEvent {
    *
    * 最低基础库: 1.3.0
    */
-  type ButtonGetUserInfo = Custom<wx.GeneralCallbackResult & wx.GetUserInfoSuccessCallbackResult>;
+  type ButtonGetUserInfo = Custom<WechatMiniprogram.GeneralCallbackResult & WechatMiniprogram.GetUserInfoSuccessCallbackResult>;
 
   /**
    * 客服消息回调，open-type="contact"时有效
    *
    * 最低基础库: 1.5.0
    */
-  type ButtonContact = Custom<wx.GeneralCallbackResult>;
+  type ButtonContact = Custom<WechatMiniprogram.GeneralCallbackResult>;
 
   /**
    * 获取用户手机号回调，open-type=getPhoneNumber时有效
    *
    * 最低基础库: 1.2.0
    */
-  type ButtonGetPhoneNumber = Custom<wx.GeneralCallbackResult & Partial<wx.GetWeRunDataSuccessCallbackResult>>;
+  type ButtonGetPhoneNumber =
+    Custom<WechatMiniprogram.GeneralCallbackResult & Partial<WechatMiniprogram.GetWeRunDataSuccessCallbackResult>>;
 
   /**
    * 当使用开放能力时，发生错误的回调，open-type=launchApp时有效
    *
    * 最低基础库: 1.9.5
    */
-  type ButtonError = Custom<wx.GeneralCallbackResult>;
+  type ButtonError = Custom<WechatMiniprogram.GeneralCallbackResult>;
 
   /**
    * 在打开授权设置页后回调，open-type=openSetting时有效
    *
    * 最低基础库: 2.0.7
    */
-  type ButtonOpenSetting = Custom<wx.GeneralCallbackResult & wx.OpenSettingSuccessCallbackResult>;
+  type ButtonOpenSetting = Custom<WechatMiniprogram.GeneralCallbackResult & WechatMiniprogram.OpenSettingSuccessCallbackResult>;
 
   /**
    * 打开 APP 成功的回调，open-type=launchApp时有效
    *
    * 最低基础库: 2.4.4
    */
-  type ButtonLaunchApp = Custom<wx.GeneralCallbackResult>;
+  type ButtonLaunchApp = Custom<WechatMiniprogram.GeneralCallbackResult>;
 
   /**
    * checkbox-group 中选中项发生改变时触发 change 事件，detail = {value:['选中的checkbox的value的数组']}

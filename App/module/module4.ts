@@ -2,16 +2,16 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:55:45
+ * @LastEditTime: 2019-08-14 23:11:41
  * @Description: 模块页面4
  */
 
-import $register, { WXPage } from 'wxpage';
+import $register from 'wxpage';
 import $page from '../utils/page';
 
 $register('module4', {
-  onNavigate(res: WXPage.PageLifeTimeOptions) {
-    $page.resolve(res);
+  onNavigate(option) {
+    $page.resolve(option);
   },
   onLoad(res: any) {
     $page.Online(res, this);

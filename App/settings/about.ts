@@ -2,10 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 13:14:42
+ * @LastEditTime: 2019-08-14 22:49:41
  * @Description: 关于
  */
-import $register, { WXPage } from 'wxpage';
+import $register from 'wxpage';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
@@ -49,13 +49,13 @@ $register('about', {
       { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
     ]
   },
-  onNavigate(res: WXPage.PageLifeTimeOptions) {
+  onNavigate(res) {
     const p = this.data.page;
     const value = wx.getStorageSync('developMode');
 
     developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
 
-    if (!developMode) p[1].content.forEach((x: any, y: number) => {
+    if (!developMode) (p[1].content as any[]).forEach((x, y) => {
       x.hidden = !(y === 0);
     });
     $page.resolve(res, p);
@@ -67,7 +67,7 @@ $register('about', {
       const value = wx.getStorageSync('developMode');
 
       developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
-      if (!developMode) p[1].content.forEach((x: any, y: number) => {
+      if (!developMode) (p[1].content as any[]).forEach((x, y) => {
         x.hidden = !(y === 0);
       });
       $page.Set({ option: { aim: 'about' }, ctx: this }, p);
@@ -83,7 +83,7 @@ $register('about', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    $wx.request(`config/${a.appID}/${a.version}/about`, (data: object) => {
+    $wx.request(`config/${a.appID}/${a.version}/about`, (data: any) => {
       $page.Set(
         { option: { aim: '关于' }, ctx: this },
         this.data.page.slice(0, 2)
@@ -96,12 +96,12 @@ $register('about', {
   },
   list({ detail }: any) {
     console.log(detail);
-    if (detail.event) this[detail.event](detail.value);
+    if (detail.event) this[detail.event as 'debugSwitch' | 'testSwitch'](detail.value);
   },
   debugMode() {
     if (developMode) {
       wx.setStorageSync('developMode', false);
-      this.data.page[1].content.forEach((x: any, y: number) => {
+      (this.data.page[1].content as any[]).forEach((x, y) => {
         x.hidden = !(y === 0);
       });
       this.setData({ page: this.data.page });
@@ -123,7 +123,7 @@ $register('about', {
     if (event.detail.value.length === 7) {
       if (event.detail.value === '5201314') { // 密码正确
         $wx.tip('已启用开发者模式');
-        this.data.page[1].content.forEach((x: any) => {
+        (this.data.page[1].content as any[]).forEach(x => {
           x.hidden = false;
         });
         this.setData({ page: this.data.page, debug: false });
@@ -144,7 +144,7 @@ $register('about', {
   },
   debugSwitch(value: boolean) {
 
-    this.data.page[1].content[2].status = value;
+    (this.data.page[1].content as any[])[2].status = value;
     this.setData({ page: this.data.page });
     wx.setStorageSync('debugMode', value);
 

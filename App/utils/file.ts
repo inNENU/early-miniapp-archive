@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-08-13 19:36:37
+ * @LastEditTime: 2019-08-14 16:53:07
  */
 
 // 初始化文件管理器、用户路径与日志管理器
@@ -21,7 +21,7 @@ const Delete = (path: string, isDir?: boolean | null) => {
     try {
       // 判断路径是否是文件，并执行对应删除操作
       if (
-        fileManager.statSync(`${userPath}/${path}`)
+        (fileManager.statSync(`${userPath}/${path}`) as WechatMiniprogram.Stats)
           .isFile()
       )
         fileManager.unlinkSync(`${userPath}/${path}`);
@@ -120,7 +120,7 @@ const readJson = (path: string, encoding = 'utf-8') => {
   try {
     fileContent = fileManager.readFileSync(`${userPath}/${path}.json`, encoding);
     try {
-      data = JSON.parse(fileContent);
+      data = JSON.parse(fileContent as string);
 
       console.log(`读取 ${path}.json成功：`, data);
 
@@ -189,7 +189,7 @@ const saveFile = (tempFilePath: string, path: string) => {
 const saveOnlineFile = (
   [onlinePath, savePath, fileName]: string[],
   successFunc: (path: string) => void,
-  failFunc?: (errMsg: wx.GeneralCallbackResult) => void,
+  failFunc?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
   errorFunc?: (statusCode: number) => void
 ) => {
   makeDir(savePath);

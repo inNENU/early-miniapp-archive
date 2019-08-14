@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:34:14
+ * @LastEditTime: 2019-08-14 23:46:14
  * @Description: 天气预报
  */
 import $register from 'wxpage';
@@ -15,7 +15,7 @@ let share = false;
 
 $register('weather', {
   data: {
-    weather: {},
+    weather: {} as unknown as WeatherData['data'],
     number: 0,
     animation: {}
   },
@@ -72,7 +72,7 @@ $register('weather', {
     wx.setBackgroundColor(bc);
   },
   canvas(weather: WeatherData['data']) { // 绘制温度曲线
-    const width = getApp().globalData.info.screenWidth;
+    const width = getApp().globalData.info.windowWidth;
     const ctx = wx.createCanvasContext('weather');
     const highTemperature: number[] = [];
     const lowTemperature: number[] = [];

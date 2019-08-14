@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 23:47:21
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:58:41
+ * @LastEditTime: 2019-08-14 23:47:56
  * @Description: 绩点计算
  */
 
@@ -15,10 +15,10 @@ $register('cal', {
       { tag: 'head', title: '绩点计算(beta)', leftText: '功能大厅' },
       { tag: 'title', text: '绩点计算器' }
     ],
-    grade: [],
+    grade: [] as any[],
     // 在这里必须定义一个grade的空数组
-    totalCredit: null,
-    gradePointAverage: null,
+    totalCredit: 0,
+    gradePointAverage: 0,
     editText: '编辑',
     display: false
   },

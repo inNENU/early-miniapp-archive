@@ -2,10 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 19:50:52
+ * @LastEditTime: 2019-08-14 23:22:40
  * @Description: 地点详情
  */
-import $register, { WXPage } from 'wxpage';
+import $register from 'wxpage';
 import $file from '../utils/file';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
@@ -13,7 +13,7 @@ const { globalData: a } = getApp();
 
 $register('situs', {
   data: {},
-  onPreload(res: WXPage.PageLifeTimeOptions) {
+  onPreload(res) {
     $page.resolve(res, $file.readJson(`function/${res.query.xiaoqu}/${res.query.aim}`));
   },
   onLoad(option: any) {
@@ -40,7 +40,7 @@ $register('situs', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color((this.data as any).page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -66,7 +66,7 @@ $register('situs', {
   },
   onShareAppMessage() {
     return {
-      title: this.data.page[0].title,
+      title: (this.data as any).page[0].title,
       path: `/function/situs?From=主页&depth=1&share=true&xiaoqu=${this.xiaoqu}&id=${this.id}&aim=${this.aim}`
     };
   },

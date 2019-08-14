@@ -3,7 +3,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:29:17
+ * @LastEditTime: 2019-08-14 23:29:31
  * @Description: 天气小组件
  */
 
@@ -158,7 +158,7 @@ $register.C({
     /** 提示的数字 */
     number: 0,
     /** 天气信息 */
-    weather: '',
+    weather: {} as unknown as WeatherData['data'],
     /** 天气类别 */
     weatherClass: ''
   },

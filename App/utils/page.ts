@@ -2,14 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:22:35
+ * @LastEditTime: 2019-08-14 23:01:23
  * @Description: Page函数库
  */
 
 // 引入文件管理
 import $file from './file';
 import $wx from './wx';
-import { WXPage } from 'wxpage';
 
 // 声明日志管理器
 const logger = wx.getLogManager({ level: 1 });
@@ -169,7 +168,7 @@ const preGetPage = (page: PageData) => {
  *
  * @returns 处理后的page配置
  */
-const resolvePage = (option: WXPage.PageLifeTimeOptions, page?: PageData, Set = true) => {
+const resolvePage = (option: MPPage.MPPageLifeTimeOptions, page?: PageData, Set = true) => {
   console.info('将要跳转：', option); // 控制台输出参数
   const { aim } = option.query;
   let data;
@@ -462,7 +461,7 @@ const loadFont = (theme: string) => {
  * @param ctx 页面指针
  * @param [headName] 头部对象名称
  */
-const changeNav = (option: Page.IPageScrollOption, ctx: any, headName?: string) => {
+const changeNav = (option: WechatMiniprogram.Page.IPageScrollOption, ctx: any, headName?: string) => {
   const pageHead = headName ? ctx.data[headName] : ctx.data.page[0];
   let titleDisplay;
   let borderDisplay;

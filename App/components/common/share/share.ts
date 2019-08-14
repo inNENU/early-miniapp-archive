@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:31:05
+ * @LastEditTime: 2019-08-14 23:39:26
  * @Description: 分享组件
  */
 
@@ -16,7 +16,7 @@ let left = 0;
 let top = 0;
 
 $register.C({
-  properties: { config: { type: Object, value: { aim: '' } } },
+  properties: { config: { type: Object, value: { aim: '' } } as any },
   data: {
     // 小程序运行环境
     env

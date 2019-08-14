@@ -2,15 +2,17 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:24:25
+ * @LastEditTime: 2019-08-14 23:00:39
  * @Description: 关于
  */
-import $register, { WXPage } from 'wxpage';
+import $register from 'wxpage';
 import $file from '../utils/file';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
+
+type ListAction = 'getStorage' | 'refreshGuide' | 'refreshFunc' | 'deleteData' | 'deleteData' | 'resetApp';
 
 $register('storage', {
   data: {
@@ -48,7 +50,7 @@ $register('storage', {
       { tag: 'foot', desc: `当前版本：${a.version}` }
     ]
   },
-  onNavigate(res: WXPage.PageLifeTimeOptions) {
+  onNavigate(res) {
     $page.resolve(res, this.getStorage());
   },
   onLoad(option: any) {
@@ -68,11 +70,10 @@ $register('storage', {
     $page.nav(event, this);
   },
   list({ detail }: any) {
-    console.log(detail);
-    if (detail.event) this[detail.event](detail.value);
+    if (detail.event) this[detail.event as ListAction]();
   },
   getStorage() { // 获得存储信息
-    const p = this.data.page;
+    const p = this.data.page as any;
     const { currentSize } = wx.getStorageInfoSync();
     let fileSize = 0;
 

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:33:43
+ * @LastEditTime: 2019-08-14 23:24:56
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -23,10 +23,14 @@ interface SongDetail {
 $register('music', {
   data: {
     canplay: false,
+    play: false,
+    index: 0 as string | number,
     currentTime: 0,
     songLength: 1,
-    currentSong: {},
-    songListDisplay: false
+    currentSong: {} as any,
+    songListDisplay: false,
+    songList: [] as any[],
+    mode: 0
   },
   onNavigate() {
     $file.getJson('function/song');
@@ -81,7 +85,7 @@ $register('music', {
       // 在线获取歌曲列表
     } else $wx.request('function/song', data => {
       currentSong = data[index] as SongDetail;
-      this.setData({ currentSong, songList: data });
+      this.setData({ currentSong, songList: data as any[] });
 
       // 如果正在播放，设置能够播放
       if (a.music.played) this.setData({ canplay: true });
@@ -233,7 +237,7 @@ $register('music', {
         if (index as number + 1 === total) {
           index = 'nothing';
           $wx.tip('已是最后一曲');
-        } else index += 1;
+        } else index = index as number + 1;
         break;
       case 1:
       case 0:
@@ -255,11 +259,11 @@ $register('music', {
         if (index === 0) {
           index = 'nothing';
           $wx.tip('已是第一曲');
-        } else index -= 1;
+        } else index = index as number - 1;
         break;
       case 1:
       case 0:
-      default: index = index === 0 ? total - 1 : index - 1;
+      default: index = index === 0 ? total - 1 : index as number - 1;
     }
     this.switchSong(index);
   },
@@ -275,7 +279,7 @@ $register('music', {
 
     } else if (index !== 'nothing') { // 正常赋值
 
-      const currentSong = this.data.songList[index];
+      const currentSong = this.data.songList[index as number];
 
       this.setData({
         index,

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 02:48:39
+ * @LastEditTime: 2019-08-14 23:40:56
  * @Description: 公众号组件
  */
 
@@ -10,7 +10,7 @@ import $register from 'wxpage';
 import { modal } from '../../../utils/wx';
 
 $register.C({
-  properties: { config: { type: Object } },
+  properties: { config: { type: Object as any } },
   methods: {
     gzh() {
       const { globalData: { appID } } = getApp();// 获得当前小程序ID

@@ -27,7 +27,7 @@
   },
   "include": [
     "App",
-    "@types/*"
+    "@types"
   ],
   "exclude": [
     "APP/miniprogram_npm",

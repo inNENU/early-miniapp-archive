@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:25:24
+ * @LastEditTime: 2019-08-14 22:46:08
  * @Description: 搜索页
  */
 
@@ -24,10 +24,10 @@ $register('search', {
     T: a.T,
     nm: a.nm,
     statusBarHeight: getApp().globalData.info.statusBarHeight,
-    words: [],
+    words: [] as string[],
     result: {
       head: false,
-      content: []
+      content: [] as any[]
     },
     searchword: '',
     head: { title: '搜索', statusBarHeight: a.info.statusBarHeight, leftText: '返回' }
@@ -49,10 +49,10 @@ $register('search', {
   onPageScroll(event) {
     $page.nav(event, this, 'head');
   },
-  searching({ detail }: WXEvent.Input) {
+  searching({ detail }: any) {
     this.setData({ words: $search.searching(detail.value) });
   },
-  search({ detail }: WXEvent.Input) {
+  search({ detail }: any) {
     wx.showLoading({ title: '搜索中...' });
 
     this.setData({

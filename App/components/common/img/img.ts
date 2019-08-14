@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-04 02:49:02
+ * @LastEditTime: 2019-08-14 23:40:51
  * @Description: 图片组件
  */
 
@@ -10,7 +10,7 @@ import $register from 'wxpage';
 
 $register.C({
   properties: {
-    config: { type: Object },
+    config: { type: Object as any },
     url: {
       type: Array,
       value: []

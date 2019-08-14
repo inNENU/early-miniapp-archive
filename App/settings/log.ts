@@ -2,11 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:24:11
+ * @LastEditTime: 2019-08-14 22:54:13
  * @Description: 更新日志
  */
 
-import $register, { WXPage } from 'wxpage';
+import $register from 'wxpage';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
@@ -30,7 +30,7 @@ $register('log', {
       { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
     ]
   },
-  onNavigate(res: WXPage.PageLifeTimeOptions) {
+  onNavigate(res) {
     $page.resolve(res, this.data.page);
   },
   onLoad(option: any) {
@@ -47,7 +47,7 @@ $register('log', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    $wx.request(`config/${a.appID}/${a.version}/log`, (data: object) => {
+    $wx.request(`config/${a.appID}/${a.version}/log`, (data: any) => {
       $page.Set(
         { option: { aim: '更新日志' }, ctx: this },
         this.data.page.slice(0, 1)

@@ -81,7 +81,7 @@ const checkResUpdate = (name: string, dataUsage: string) => {
 
         // 如果需要提醒，则弹窗
         if (notify) wx.showModal({
-          title: '资源有更新', content: `请更新资源以获得最新功能与内容。\n(会消耗${dataUsage}流量)`,
+          title: '资源有更新', content: `请更新资源以获得最新功能与内容。(会消耗${dataUsage}流量)`,
           cancelText: '取消', cancelColor: '#ff0000', confirmText: '更新',
           success: choice => {
 

@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: eslint配置文件
  * @Date: 2019-02-26 23:43:23
- * @LastEditTime: 2019-08-13 19:41:27
+ * @LastEditTime: 2019-08-14 16:06:01
  */
 module.exports = {
   // 阻止eslint读取父目录或总配置文件的规则
@@ -375,8 +375,11 @@ module.exports = {
     ],
 
     // tyepscript规则
-    "@typescript-eslint/indent": ["warn", 2],
     "@typescript-eslint/explicit-function-return-type": "off",
-    '@typescript-eslint/no-explicit-any': "off"
+    "@typescript-eslint/indent": ["warn", 2],
+    '@typescript-eslint/interface-name-prefix': "off",
+    '@typescript-eslint/no-empty-interface': "off",
+    '@typescript-eslint/no-explicit-any': "off",
+    '@typescript-eslint/no-triple-slash-reference': "off"
   }
 }

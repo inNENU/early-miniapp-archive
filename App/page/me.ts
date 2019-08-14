@@ -2,10 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-12 15:19:43
+ * @LastEditTime: 2019-08-14 22:44:58
  * @Description: 我的东师
  */
-import $register, { WXPage } from 'wxpage';
+import $register from 'wxpage';
 import $page from '../utils/page';
 const { globalData: a } = getApp();
 
@@ -31,7 +31,7 @@ $register('me', {
     ],
     foot: { author: '', desc: `当前版本：${a.version}\n小程序由Mr.Hope个人制作，如有错误还请见谅` }
   },
-  onPreload(res: WXPage.PageLifeTimeOptions) {
+  onPreload(res) {
     $page.resolve(res, this.data.page);
     console.log(`我的东师预加载用时${new Date().getTime() - a.date}ms`);
   },
@@ -41,7 +41,7 @@ $register('me', {
   },
   onShow() {
     const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(true);
 
     // 设置胶囊、背景颜色以及tab栏颜色
     wx.setNavigationBarColor(nc);

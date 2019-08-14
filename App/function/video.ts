@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-11 14:42:43
+ * @LastEditTime: 2019-08-14 23:08:13
  * @Description: 视频页面
  */
 
@@ -104,6 +104,6 @@ $register('video', {
     };
   },
   redirect() {
-    this.$switch('/pages/main');
+    this.$switch('/page/main');
   }
 });

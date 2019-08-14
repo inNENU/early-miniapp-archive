@@ -2,10 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:25:06
+ * @LastEditTime: 2019-08-14 22:41:51
  * @Description: 东师指南
  */
-import $register, { WXPage } from 'wxpage';
+import $register from 'wxpage';
 import $page from '../utils/page';
 import $search from '../utils/search';
 import $tab from '../utils/tab';
@@ -15,7 +15,7 @@ $register('guide', {
   data: {
     T: a.T,
     nm: a.nm,
-    words: [],
+    words: [] as string[],
     head: { title: '东师指南', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       { tag: 'head', title: '东师指南', hidden: true },
@@ -77,7 +77,7 @@ $register('guide', {
       }
     ]
   },
-  onPreload(res: WXPage.PageLifeTimeOptions) {
+  onPreload(res) {
     const pageData = this.$take('guide');
 
     $page.resolve(res, pageData ? pageData : wx.getStorageSync('guide'));
@@ -90,7 +90,7 @@ $register('guide', {
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = $page.color(true);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
