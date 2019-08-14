@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:21:22
+ * @LastEditTime: 2019-08-15 00:19:34
  * @Description: APP函数库
  */
 
@@ -382,12 +382,14 @@ const startup = (globalData: InitGlobalData) => {
 
   // 检测基础库版本
   if (
-    Number(globalData.info.SDKVersion.split('.')[1]) < 7 &&
-    wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
+    (
+      (globalData.env === 'qq' && Number(globalData.info.SDKVersion.split('.')[1]) < 6) ||
+      (globalData.env === 'wx' && Number(globalData.info.SDKVersion.split('.')[1]) < 7)
+    ) && wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
   )
     $wx.modal(
-      '基础库版本偏低',
-      '您的基础库版本偏低，可能导致部分内容无法正常显示，建议您更新最新版微信。',
+      '版本偏低',
+      '您的基础库版本偏低，可能导致部分内容无法正常显示，建议您更新至最新版客户端。',
       () => { // 避免重复提示
         wx.setStorageSync('SDKVersion', (globalData as GlobalData).info.SDKVersion);
       }

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 22:53:39
+ * @LastEditTime: 2019-08-15 00:14:59
  * @Description: 捐赠
  */
 import $register from 'wxpage';
@@ -130,6 +130,7 @@ $register('authorize', {
       success: () => {
         wx.hideLoading();
         $wx.tip('授权成功');
+        this.setData({ [`page[1].content.[${type}].desc`]: '已授权✓' });
       },
       fail: () => { // 用户拒绝权限，提示用户开启权限
         wx.hideLoading();
