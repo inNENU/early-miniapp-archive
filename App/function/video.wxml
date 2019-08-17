@@ -2,7 +2,7 @@
   <view style='height:15%;' />
   <view class='headerCtn'>
     <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catch:tap="{{share? 'redirect': '$back'}}" data-action='back'>
-      <image class='backIcon' src="/icon/back{{nm?'':'Black'}}.png" />
+      <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
     </view>
     <view class='videoName'>{{videoName}}</view>
     <view class='videoAuthor'>—— {{videoAuthor}} ——</view>

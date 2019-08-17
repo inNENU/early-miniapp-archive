@@ -7,11 +7,9 @@
  */
 
 import $file from './file';
+import $log from './log';
 import $page from './page';
 import $wx from './wx';
-
-// 初始化文件管理器、日志管理器
-const logger = wx.getLogManager({ level: 1 });
 
 /**
  * 资源下载 from fuction.js & guide.js 被checkResUpdate调用
@@ -45,7 +43,7 @@ const resDownload = (name: string) => {
     },
 
     // 下载失败
-    fail: failMsg => console.error(`download ${name} fail:`, failMsg)
+    fail: failMsg => $log.error(`download ${name} fail:`, failMsg)
   });
 
   downLoadTask.onProgressUpdate(res => {
@@ -66,18 +64,18 @@ const checkResUpdate = (name: string, dataUsage: string) => {
   const currentTime = Math.round(new Date().getTime() / 1000);// 读取当前和上次更新时间
 
   // 调试
-  console.log(`${name}通知状态为${notify}`, `本地版本文件为：${localVersion}`);
-  console.log(`${name}更新于${localTime}, 现在时间是${currentTime}`);
+  $log.debug(`${name}通知状态为${notify}`, `本地版本文件为：${localVersion}`);
+  $log.debug(`${name}更新于${localTime}, 现在时间是${currentTime}`);
 
   if (notify || currentTime > Number(localTime) + 1000000)// 如果需要更新
     $wx.request(`${name}Version`, data => {
 
       // 资源为最新
-      if (Number(localVersion) === Number(data)) console.info(`${name}资源已是最新版`);// 调试
+      if (Number(localVersion) === Number(data)) $log.debug(`${name}资源已是最新版`);// 调试
 
       // 需要更新
       else {
-        console.info(`${name}资源有更新`); // 调试
+        $log.info(`${name}资源有更新`); // 调试
 
         // 如果需要提醒，则弹窗
         if (notify) wx.showModal({
@@ -251,7 +249,7 @@ const markerSet = () => {
   const functionVersion = $file.readJson('functionVersion');
 
   if (markerVersion === functionVersion)// Marker已经设置完毕
-    console.log('Marker 已设置就绪');
+    $log.debug('Marker 已设置就绪');
 
   // 需要设置Marker
   else {
@@ -264,8 +262,7 @@ const markerSet = () => {
       wx.setStorageSync('markerVersion', markerVersion);
     } else { // 没有找到MarkerData，可能因为初始化中断造成
       // 调试
-      console.log('获取Marker失败');
-      logger.warn('获取Marker失败');
+      $log.warn('获取Marker失败');
 
       $wx.request('function/marker', data => {
 

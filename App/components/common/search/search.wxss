@@ -69,7 +69,7 @@
   margin-left: 0;
 }
 
-.clearIconBtn {
+ .searchClearIconBtn {
   position: absolute;
   top: 0;
   right: 0;
@@ -77,21 +77,21 @@
   padding: 0 12px;
 }
 
-.clearIcon {
+ .searchClearIcon {
   position: absolute;
   top: 50%;
   margin-top: -8px;
   right: 12px;
 }
 
-.cancelBtn {
+ .searchCancelBtn {
   margin-left: 8px;
   line-height: 32px;
   color: #576b95;
   white-space: nowrap;
 }
 
-.wordList {
+.searchWordList {
   position: absolute;
   top: 40px;
   left: 8px;
@@ -102,11 +102,11 @@
   z-index: 2;
 }
 
-.nm .wordList {
+.nm .searchWordList {
   background-color: #000;
 }
 
-.word {
+.searchWord {
   padding: 4px 32px;
   line-height: 1.5;
   font-size: 15px;
@@ -114,6 +114,6 @@
   color: #444;
 }
 
-.nm .word {
+.nm .searchWord {
   color: #bbb;
 }

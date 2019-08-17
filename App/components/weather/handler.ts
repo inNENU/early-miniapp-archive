@@ -4,7 +4,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-31 11:05:08
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-13 19:27:16
+ * @LastEditTime: 2019-08-15 14:42:25
  * @Description: 天气处理函数
  */
 import { WeatherData, WeatherForcast1H } from './weather';
@@ -14,7 +14,7 @@ const weatherHandler = (weather: WeatherData['data']) => {
 
   // 设置风向
   weather.observe.wind_direction =
-    windDirection === '0'
+    windDirection === '8'
       ? '北'
       : windDirection === '1'
         ? '东北'

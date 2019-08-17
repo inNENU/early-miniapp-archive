@@ -274,3 +274,16 @@
 - top right：不缩放图片，只显示图片的右上边区域；
 - bottom left：不缩放图片，只显示图片的左下边区域；
 - bottom right：不缩放图片，只显示图片的右下边区域；
+
+## popup参数
+
+| 参数        | 必填  |  值类型  | 内容                            |
+| ----------- | :---: | :------: | ------------------------------- |
+| title       |  是   |  String  | 主标题                          |
+| subtitle    |  是   |  String  | 副标题                          |
+| text        |  是   |  String  | 弹窗文字                        |
+| desc        |  否   |  String  | 弹窗文字解释                    |
+| more        |  否   | Booelean | 是否显示更多按钮，默认为`false` |
+| cancel      |  否   | Booelean | 设置为`false`来隐藏取消按钮     |
+| confirmText |  否   |  String  | 确定按钮文字，默认为'确定'      |
+| cancelText  |  否   |  String  | 取消按钮文字，默认为'取消'      |

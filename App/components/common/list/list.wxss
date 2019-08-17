@@ -6,6 +6,7 @@
 }
 
 .commonfoot {
+  min-height: 16px;
   padding: 5px 15px 0 15px;
 }
 
@@ -67,7 +68,7 @@
 
 .nm .Lctn:after,
 .nm .Lctn:before {
-  border-color: #3D3D41;
+  border-color: #3d3d41;
 }
 
 @media (min-width:768px) {
@@ -82,13 +83,11 @@
     border: none;
   }
 
-
   .commonfoot,
   .grey .commonhead {
     margin: 0 15px;
   }
 }
-
 
 .listCtn {
   padding: 0 15px;
@@ -104,7 +103,7 @@
 }
 
 .nm .listCtn {
-  background-color: #1C1C1E;
+  background-color: #1c1c1e;
   color: #fff !important;
 }
 
@@ -195,7 +194,7 @@
 }
 
 .nm .link-divline:after {
-  border-color: #3D3D41;
+  border-color: #3d3d41;
 }
 
 .link-divline:last-child:after {
@@ -237,7 +236,7 @@
 .nm .Lctn,
 .nm .pickerViewCtn,
 .nm .pick-view-column {
-  background-color: #1C1C1E;
+  background-color: #1c1c1e;
   color: #fff;
 }
 

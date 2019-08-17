@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-01 00:12:36
+ * @LastEditTime: 2019-08-17 01:04:13
  * @Description: 段落样式
  * @Version: 1.0
  */
@@ -92,6 +92,7 @@
 
 @import 'iOS.wxss';
 @import 'Android.wxss';
+@import 'weui.wxss';
 
 /****************** 
       段落兼容

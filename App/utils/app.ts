@@ -2,15 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-15 00:19:34
+ * @LastEditTime: 2019-08-17 10:50:55
  * @Description: APP函数库
  */
 
 /** 文件管理器与API封装 */
 import $file from './file';
 import $wx from './wx';
-/** 日志管理器 */
-const logger = wx.getLogManager({ level: 1 });
+import $log from './log';
 
 interface AppOption {
   [props: string]: string | boolean | number;
@@ -91,8 +90,7 @@ const resDownload = (list: string[], callBack: () => void) => {
       // 下载失败
       fail: failMsg => {
         $wx.netReport();
-        console.error(`download ${name} fail:`, failMsg);
-        logger.warn(`初始化小程序时下载${name}失败`);
+        $log.error(`初始化小程序时下载${name}失败:`, failMsg);
       }
     });
   });
@@ -102,7 +100,7 @@ const resDownload = (list: string[], callBack: () => void) => {
 const appInit = () => {
   // 提示用户正在初始化
   wx.showLoading({ title: '初始化中...', mask: true });
-  console.info('初次启动');
+  $log.info('初次启动');
 
   // 设置主题
   if (appOption.theme === 'auto') { // 主题为auto
@@ -187,13 +185,9 @@ const noticeCheck = (globalData: GlobalData) => {
     if ('app' in keys)
       $wx.modal(noticeList.app[0], noticeList.app[1], () => wx.removeStorageSync('appNotify'));
   }, () => { // 调试信息
-    console.error('Get noticeList fail');
-    logger.warn('noticeList error', 'Net Error');
-    wx.reportMonitor('24', 1);
+    $log.warn('noticeList error', 'Net Error');
   }, () => { // 调试信息
-    console.error('NoticeList address error');
-    logger.warn('noticeList error', 'Address Error');
-    wx.reportMonitor('24', 1);
+    $log.error('noticeList error', 'Address Error');
   });
 };
 
@@ -328,9 +322,7 @@ const appUpdate = (globalData: GlobalData) => {
     $wx.tip('小程序更新下载失败，请检查您的网络！');
 
     // 调试
-    console.warn('Update failure');
-    wx.reportMonitor('23', 1);
-    logger.warn('Upate App error because of Net Error');
+    $log.warn('Upate App error because of Net Error');
 
   });
 };

@@ -1,17 +1,30 @@
-<view wx:if="{{config.shareable||config.contact||config.feedback}}" class="iconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="iconHover" hover-stay-time="200" catch:touchstart="move" catch:touchmove="move" catch:touchend="move" aria-role="button" aria-label="分享按钮">
+<view wx:if="{{config.shareable||config.contact||config.feedback}}" class="iconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="iconHover" hover-stay-time="200" catch:touchstart="move" catch:touchmove="move" catch:touchend="move">
   <image class="icon" src="share.svg" />
 </view>
-<view wx:if="{{menuDisplay}}" class="mask {{menuDisplay?'fadeIn':'fadeOut'}}" style="top:{{menuDisplay?'0':'100%'}};" />
+<!-- <view wx:if="{{menuDisplay}}" class="mask {{menuDisplay?'fadeIn':'fadeOut'}}" style="top:{{menuDisplay?'0':'100%'}};" />
 <view class="layer {{menuDisplay?'moveUpIn':'moveUpOut'}}" catch:tap="cancel">
+  <view class="shareBtnList"> -->
+<view class="shareCtn{{menuDisplay? ' shareCtnShow': ''}}" catch:tap="cancel">
+  <view class="mask" />
   <view class="shareBtnList">
-    <button wx:if="{{config.shareable}}" class="shareBtn" hover-class="hover" hover-start-time="0" open-type="share">
-      分享{{env==='qq'?'给好友/分享到空间':'到微信'}}
-    </button>
-    <button wx:if="{{config.shareable}}" class="shareBtn" hover-class="hover" hover-start-time="0" bind:tap="download">
+    <block wx:if="{{config.shareable}}">
+      <block wx:if="{{env === 'qq'}}">
+        <button class="shareBtn" hover-class="hover" hover-start-time="0" open-type="share" share-type="2">
+          分享给好友
+        </button>
+        <button wx:if="{{config.shareable && env==='qq'}}" class="shareBtn" hover-class="hover" hover-start-time="0" open-type="share" share-type="1">
+          分享到空间
+        </button>
+      </block>
+      <button wx:else class="shareBtn" hover-class="hover" hover-start-time="0" open-type="share">
+        分享到微信
+      </button>
+    </block>
+    <button wx:if="{{config.shareable && env === 'wx'}}" class="shareBtn" hover-class="hover" hover-start-time="0" bind:tap="download">
       保存页面二维码
     </button>
     <button wx:if="{{config.contact}}" class="shareBtn" hover-class="hover" hover-start-time="0" open-type="contact" bind:tap="contact">
-      联系开发者
+      联系Mr.Hope
     </button>
     <button wx:if="{{config.feedback}}" class="shareBtn" hover-class="hover" hover-start-time="0" open-type="feedback">
       意见反馈

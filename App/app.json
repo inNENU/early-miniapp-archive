@@ -39,11 +39,11 @@
     {
       "root": "settings",
       "pages": [
-        "setting",
-        "donate",
-        "about",
-        "authorize",
+        "outlook",
         "storage",
+        "authorize",
+        "about",
+        "donate",
         "log"
       ]
     }
@@ -147,6 +147,7 @@
     "media": "/components/common/media/media",
     "p": "/components/common/paragraph/paragraph",
     "phone": "/components/common/phone/phone",
+    "popup": "/components/common/popup/popup",
     "search": "/components/common/search/search",
     "share": "/components/common/share/share",
     "my-swiper": "/components/common/swiper/swiper"

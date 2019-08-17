@@ -2,16 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:01:23
+ * @LastEditTime: 2019-08-17 10:56:31
  * @Description: Page函数库
  */
+
+import $log from './log';
 
 // 引入文件管理
 import $file from './file';
 import $wx from './wx';
-
-// 声明日志管理器
-const logger = wx.getLogManager({ level: 1 });
 
 // 声明全局数据
 const globalData: GlobalData = getApp().globalData;
@@ -56,11 +55,14 @@ const disposePage = (page: PageData, option: PageArg) => {
         // 判断是否来自分享，分享页左上角动作默认为重定向
         if ('share' in option) {
           page[0].action = 'redirect';
-          console.info('页面为分享界面');
+          $log.info(`${page[0].action}页面由分享载入`);
         }
       }
 
       page.forEach(element => {
+        // 处理段落
+        if (element.tag === 'p') element.muti = Array.isArray(element.text);
+
         // 处理图片
         if (element.src) page[0].url.push(element.res || element.src);
 
@@ -106,13 +108,12 @@ const disposePage = (page: PageData, option: PageArg) => {
         });
       });
       // 调试
-      console.info(`${page[0].aim}处理完毕`);
+      $log.info(`${page[0].aim}处理完毕`);
     } else { // 调试：未找到head tag
-      console.warn('页面不包含head标签');
-      logger.warn('页面不包含head标签');
+      $log.warn('页面不包含head标签');
       wx.reportMonitor('14', 1);
     } else { // 调试：未传入page
-    console.error('页面数据不存在');
+    $log.error('页面数据不存在');
     wx.reportMonitor('15', 1);
   }
 
@@ -169,7 +170,7 @@ const preGetPage = (page: PageData) => {
  * @returns 处理后的page配置
  */
 const resolvePage = (option: MPPage.MPPageLifeTimeOptions, page?: PageData, Set = true) => {
-  console.info('将要跳转：', option); // 控制台输出参数
+  $log.info('将要跳转：', option); // 控制台输出参数
   const { aim } = option.query;
   let data;
 
@@ -181,7 +182,7 @@ const resolvePage = (option: MPPage.MPPageLifeTimeOptions, page?: PageData, Set 
     if (pageData) data = disposePage(pageData as PageData, option.query);
     else {
       data = [{}];
-      console.warn(`${aim}文件不存在，处理失败`);
+      $log.warn(`${aim}文件不存在，处理失败`);
     }
   }
 
@@ -230,16 +231,16 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
     globalData.page.aim === option.aim ||
     (ctx.data.page && ctx.data.page[0] && globalData.page.aim === ctx.data.page[0].title)
   ) {
-    console.log(`${globalData.page.aim}已处理`);
+    $log.debug(`${globalData.page.aim}已处理`);
     ctx.setData({ T: globalData.T, nm: globalData.nm, page: globalData.page.data }, () => {
-      console.log(`${globalData.page.aim}已写入`);
+      $log.debug(`${globalData.page.aim}已写入`);
       if (preload) {
         preGetPage(ctx.data.page);
-        console.log(`${globalData.page.aim}预加载子页面完成`);
+        $log.debug(`${globalData.page.aim}预加载子页面完成`);
       }
     });
   } else {
-    console.log(`${option.aim || '未知页面'}未处理`);
+    $log.debug(`${option.aim || '未知页面'}未处理`);
     // 设置页面数据
     ctx.setData({
       T: globalData.T,
@@ -269,7 +270,7 @@ const popNotice = (aim: string) => {
     $wx.modal(notice[0], notice[1], () => {
       wx.removeStorageSync(`${aim}Notify`); // 防止二次弹窗
     });
-    console.info('弹出通知');// 调试
+    $log.info('弹出通知');// 调试
   }
   wx.reportAnalytics('page_aim_count', { aim });// Aim统计分析
 };
@@ -290,16 +291,16 @@ const popNotice = (aim: string) => {
 const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   if (globalData.page.aim === option.aim) {
-    console.log(`${option.aim}已处理`);
+    $log.debug(`${option.aim}已处理`);
     ctx.setData({ T: globalData.T, nm: globalData.nm, page: globalData.page.data }, () => {
-      console.log(`${option.aim}已写入`);
+      $log.debug(`${option.aim}已写入`);
       if (preload) {
         preGetPage(ctx.data.page);
-        console.log(`${option.aim}预加载子页面完成`);
+        $log.debug(`${option.aim}预加载子页面完成`);
       }
     });
   } else { // 需要重新载入界面
-    console.info(`${option.aim}onLoad开始，参数为：`, option);
+    $log.info(`${option.aim}onLoad开始，参数为：`, option);
     const { folder, path } = resolveAim(option.aim);
 
     ctx.aim = option.aim;
@@ -310,13 +311,13 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
     if (page) {
       setPage({ option, ctx }, page);
       popNotice(option.aim);
-      console.info(`${option.aim}onLoad成功：`, ctx.data);
+      $log.info(`${option.aim}onLoad成功：`, ctx.data);
       wx.reportMonitor('0', 1);
 
       // 如果需要执行预加载，则执行
       if (preload) {
         preGetPage(ctx.data.page);
-        console.log(`${option.aim}界面预加载完成`);
+        $log.debug(`${option.aim}界面预加载完成`);
       }
     } else
       // 请求页面Json
@@ -330,33 +331,27 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
         // 如果需要执行预加载，则执行
         if (preload) {
           preGetPage(ctx.data.page);
-          console.log(`${option.aim}界面预加载完成`);
+          $log.debug(`${option.aim}界面预加载完成`);
         }
 
         // 弹出通知
         popNotice(option.aim);
 
         // 调试
-        console.info(`${option.aim}onLoad成功`);
-        wx.reportMonitor('0', 1);
+        $log.info(`${option.aim}onLoad成功`);
       }, res => {
         // 设置error页面并弹出通知
         setPage({ option, ctx }, [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }]);
         popNotice(option.aim);
 
         // 调试
-        console.warn(`${option.aim}onLoad失败，错误为`, res);
-        logger.warn(`${option.aim}onLoad失败，错误为`, res);
-        wx.reportMonitor('13', 1);
+        $log.warn(`${option.aim}onLoad失败，错误为`, res);
       }, () => {
         // 设置error界面
         setPage({ option, ctx }, [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }]);
 
         // 调试
-        console.warn(`${option.aim}资源错误`);
-        wx.reportMonitor('12', 1);
-        console.info(`${option.aim}onLoad成功`);
-        wx.reportMonitor('0', 1);
+        $log.warn(`${option.aim}资源错误`);
       });
   }
 };
@@ -441,17 +436,17 @@ const loadFont = (theme: string) => {
     wx.loadFontFace({
       family: 'FZKTJW', source: 'url("https://mp.nenuyouth.com/fonts/FZKTJW.ttf")',
       complete: res => {
-        console.info('楷体字体', res);// 调试
+        $log.info('楷体字体', res);// 调试
       }
     });
   else if (theme === 'NENU')
     wx.loadFontFace({
       family: 'FZSSJW', source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
       complete: res => {
-        console.info('宋体字体', res);// 调试
+        $log.info('宋体字体', res);// 调试
       }
     });
-  else console.warn(`无法处理主题${theme}`);
+  else $log.warn(`无法处理主题${theme}`);
 };
 
 /**

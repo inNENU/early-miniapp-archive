@@ -1,7 +1,7 @@
 <view class="Ctn {{nm?'nm':''}}">
   <view class="weatherCtn {{night?'night':''}}" style="padding-top:{{statusBarHeight}}px;">
     <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catch:tap="back">
-      <image class="backIcon" src="/icon/back{{nm?'':'Black'}}.png" />
+      <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
     </view>
     <button class="button share icon-forwardfill" hover-class="btnHover" hover-start-time="0" plain="true" open-type="share">
       分享

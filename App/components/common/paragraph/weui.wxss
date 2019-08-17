@@ -1,0 +1,27 @@
+.weui .head {
+  text-align: left;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: .34em;
+  padding: 0 16px;
+  padding: 0 calc(16px + constant(safe-area-inset-right)) 0 calc(16px + constant(safe-area-inset-left));
+  padding: 0 calc(16px + env(safe-area-inset-right)) 0 calc(16px + env(safe-area-inset-left));
+  line-height: 1.4;
+}
+
+.grey.weui .head {
+  margin: 0.77em 0 0.3em 0;
+  padding: 0 15px;
+  color: #999;
+  font-size: 14px;
+  font-weight: 400;
+  min-height: 10px;
+}
+
+.grey.nm.weui .head {
+  color: #666;
+}
+
+.weui .P {
+  margin: 0 0 0.8em;
+}

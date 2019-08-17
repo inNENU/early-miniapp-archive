@@ -11,6 +11,7 @@
 @import "css/Android.wxss";
 @import "css/NENU.wxss";
 @import "css/iOS.wxss";
+@import "css/weui.wxss";
 @import "css/animation.wxss";
 
 page {

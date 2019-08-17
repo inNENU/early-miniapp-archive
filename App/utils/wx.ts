@@ -3,11 +3,10 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-08-14 16:51:40
+ * @LastEditTime: 2019-08-17 10:59:35
  */
 
-/** 日志管理器 */
-const logger = wx.getLogManager({ level: 1 });
+import $log from './log';
 
 /**
  * 显示提示文字
@@ -74,12 +73,12 @@ const netReport = () => {
           tip('网络连接出现问题，请稍后重试');
       }
 
-      logger.warn('Request fail with', networkType);
+      $log.warn('Request fail with', networkType);
     },
     fail: () => {
       tip('网络连接出现问题，请稍后重试');
 
-      logger.warn('Request fail and cannot get networkType');
+      $log.warn('Request fail and cannot get networkType');
     }
   });
 };
@@ -101,13 +100,12 @@ const request = (
   wx.request({
     url: `https://mp.nenuyouth.com/${path}.json`,
     success: res => {
-      console.log(`请求${path}成功:`, res);// 调试
+      $log.debug(`请求${path}成功:`, res);// 调试
       if (res.statusCode === 200) successFunc(res.data as object);
       else {
         tip('服务器出现问题，请稍后重试');
         // 调试
-        console.warn(`请求${path}失败：${res.statusCode}`);
-        logger.warn(`请求${path}失败：${res.statusCode}`);
+        $log.warn(`请求${path}失败：${res.statusCode}`);
         wx.reportMonitor('3', 1);
 
         if (errorFunc) errorFunc(res.statusCode);
@@ -118,8 +116,7 @@ const request = (
       netReport();
 
       // 调试
-      console.warn(`请求${path}失败:`, failMsg);
-      logger.warn(`请求${path}失败:`, failMsg);
+      $log.warn(`请求${path}失败:`, failMsg);
       wx.reportMonitor('4', 1);
     }
   });
@@ -148,15 +145,13 @@ const downLoad = (
         if (errorFunc) errorFunc(res.statusCode);
 
         // 调试
-        console.warn(`下载 ${path} 失败: ${res.statusCode}`);
-        logger.warn(`下载 ${path} 失败: ${res.statusCode}`);
+        $log.warn(`下载 ${path} 失败: ${res.statusCode}`);
       }
     },
     fail: failMsg => {
       if (failFunc) failFunc(failMsg);
       netReport();
-      console.warn(`下载 ${path} 失败:`, failMsg);
-      logger.warn(`下载 ${path} 失败:`, failMsg);
+      $log.warn(`下载 ${path} 失败:`, failMsg);
     }
   });
 

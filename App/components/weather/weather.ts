@@ -3,7 +3,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:29:31
+ * @LastEditTime: 2019-08-15 11:09:24
  * @Description: 天气小组件
  */
 
@@ -162,15 +162,6 @@ $register.C({
     /** 天气类别 */
     weatherClass: ''
   },
-
-  lifetimes: {
-    attached() {
-      this.getWeather();
-    }
-  },
-
-  options: { addGlobalClass: true },
-
   methods: {
     navigate() {
       this.$route('weather');
@@ -214,5 +205,6 @@ $register.C({
         }
       });
     }
-  }
+  },
+  options: { addGlobalClass: true }
 });

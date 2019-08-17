@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 00:04:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:45:15
+ * @LastEditTime: 2019-08-16 17:26:06
  * @Description: 设置页面
  */
 import $register from 'wxpage';
@@ -32,7 +32,7 @@ $register('setting', {
       { tag: 'head', title: '外观设置', grey: true },
       {
         tag: 'List', head: '主题设置', foot: 'NENU主题还在完善中',
-        content: [{ text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'Android', 'NENU'], picker: 'setTheme' }]
+        content: [{ text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'Android', 'NENU', 'weui'], picker: 'setTheme' }]
       },
       {
         tag: 'List',

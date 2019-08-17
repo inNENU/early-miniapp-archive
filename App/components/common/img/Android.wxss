@@ -1,0 +1,32 @@
+/* Android  */
+.Android .img {
+  align-self: center;
+  margin: 24rpx auto;
+  width: 620rpx;
+  font-weight: 500;
+  border: 8rpx solid #fff;
+  box-shadow: 0px 2px 5px 2px rgba(95, 95, 95, 0.5);
+}
+
+.Android .img+.Android .img {
+  margin-top: 0px;
+}
+
+.nm.Android .img {
+  border-color: #070707;
+  box-shadow: 0px 2px 5px 2px rgba(143, 143, 143, 0.5);
+}
+
+.Android .imgDesc {
+  padding: 2px 10%;
+  font-size: 12px;
+  color: #888;
+}
+
+.nm.Android .imgDesc {
+  color: #777;
+}
+
+.Android .img+.Android .imgDesc {
+  margin-top: -12px;
+}

@@ -1,7 +1,7 @@
 <template name="mapControl">
   <!-- 返回按钮 -->
   <cover-view class="backBtn" style="top:{{info.statusBarHeight + 5}}px;z-index:97;" hover-class="buttonHover" catch:tap="$back">
-    <cover-image class="backIcon" src="/icon/back{{nm? '': 'Black'}}.png" />
+    <cover-image class="backIcon" src="/icon/back{{nm? 'White': ''}}.png" />
   </cover-view>
   <!-- 放大按钮 -->
   <cover-view class="scaleLargeBtn" hover-class="buttonHover" catch:tap="scale" data-action="enlarge">

@@ -2,14 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:39:26
+ * @LastEditTime: 2019-08-17 11:07:57
  * @Description: 分享组件
  */
 
+import $log from '../../../utils/log';
 import $register from 'wxpage';
 import $wx from '../../../utils/wx';
 
-const { logger, globalData: { env } } = getApp();// 获得日志管理器，全局数据
+const { globalData: { env } } = getApp();// 获得日志管理器，全局数据
 
 let time = 0;
 let left = 0;
@@ -45,89 +46,83 @@ $register.C({
     },
     // QQ暂不支持联系客服的兼容
     contact() {
-      if (env === 'qq') $wx.tip('QQ小程序暂不支持联系客服');
+      if (env === 'qq') $wx.modal('暂不支持', 'QQ小程序暂不支持联系客服，请添加QQ1178522294');
     },
     // 下载二维码
     download() {
       // 下载二维码
       console.log('Start QRCode download.');// 调试
-      if (env === 'wx')
-        $wx.downLoad(`/img/QRCode/${env}/${this.data.config.aim}.jpg`, path => {
-          wx.getSetting({// 获取用户设置
-            success: res2 => {
-              // 如果已经授权相册直接写入图片
-              if (res2.authSetting['scope.writePhotosAlbum'])
+      $wx.downLoad(`/img/QRCode/${env}/${this.data.config.aim}.jpg`, path => {
+        wx.getSetting({// 获取用户设置
+          success: res2 => {
+            // 如果已经授权相册直接写入图片
+            if (res2.authSetting['scope.writePhotosAlbum'])
+              wx.saveImageToPhotosAlbum({
+                filePath: path,
+                success: () => {
+                  $wx.tip('二维码已保存至相册');
+
+                  // 调试
+                  $log.debug('二维码保存成功');
+                  wx.reportMonitor('8', 1);
+                },
+                fail: msg => {
+                  $wx.tip('二维码保存失败');
+
+                  // 调试
+                  $log.warn('二维码保存失败', msg);
+                  wx.reportMonitor('6', 1);
+                }
+              });
+
+            // 没有授权——>提示用户授权
+            else wx.authorize({
+              scope: 'scope.writePhotosAlbum',
+              success: () => {
+
+                // 获得授权，写入图片
                 wx.saveImageToPhotosAlbum({
                   filePath: path,
                   success: () => {
                     $wx.tip('二维码已保存至相册');
 
                     // 调试
-                    logger.debug('二维码保存成功');
+                    $log.debug('二维码保存成功');
                     wx.reportMonitor('8', 1);
                   },
                   fail: msg => {
                     $wx.tip('二维码保存失败');
 
                     // 调试
-                    console.warn('二维码保存失败:', msg);
-                    logger.warn('二维码保存失败', msg);
+                    $log.warn('二维码保存失败', msg);
                     wx.reportMonitor('6', 1);
                   }
                 });
+              },
 
-              // 没有授权——>提示用户授权
-              else wx.authorize({
-                scope: 'scope.writePhotosAlbum',
-                success: () => {
-
-                  // 获得授权，写入图片
-                  wx.saveImageToPhotosAlbum({
-                    filePath: path,
-                    success: () => {
-                      $wx.tip('二维码已保存至相册');
-
-                      // 调试
-                      logger.debug('二维码保存成功');
-                      wx.reportMonitor('8', 1);
-                    },
-                    fail: msg => {
-                      $wx.tip('二维码保存失败');
-
-                      // 调试
-                      console.warn('二维码保存失败:', msg);
-                      logger.warn('二维码保存失败', msg);
-                      wx.reportMonitor('6', 1);
-                    }
-                  });
-                },
-
-                // 用户拒绝权限，提示用户开启权限
-                fail: () => {
-                  $wx.modal('权限被拒', '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限', () => {
-                    $wx.tip('二维码保存失败');
-                    logger.warn('用户拒绝相册授权'); // 调试
-                  });
-                }
-              });
-            }
-          });
-        }, () => {
-          $wx.tip('二维码下载失败');
-
-          // 调试
-          console.warn(`下载二维码失败${this.data.config.aim}`);
-          logger.warn(`下载二维码失败${this.data.config.aim}`);
-          wx.reportMonitor('6', 1);
-        }, statusCode => {
-          $wx.tip('二维码下载失败，服务器出错');
-
-          // 调试
-          console.warn(`二维码状态码异常:${statusCode}`);
-          logger.warn(`二维码状态码异常:${statusCode}`);
-          wx.reportMonitor('7', 1);
+              // 用户拒绝权限，提示用户开启权限
+              fail: () => {
+                $wx.modal('权限被拒', '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限', () => {
+                  $wx.tip('二维码保存失败');
+                  $log.warn('用户拒绝相册授权'); // 调试
+                });
+              }
+            });
+          }
         });
-      else $wx.tip('QQ暂不支持二维码');
+      }, () => {
+        $wx.tip('二维码下载失败');
+
+        // 调试
+        $log.warn(`下载二维码失败${this.data.config.aim}`);
+        wx.reportMonitor('6', 1);
+      }, statusCode => {
+        $wx.tip('二维码下载失败，服务器出错');
+
+        // 调试
+        $log.warn(`二维码状态码异常:${statusCode}`);
+        wx.reportMonitor('7', 1);
+      });
     }
   }
 });

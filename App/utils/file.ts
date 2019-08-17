@@ -3,13 +3,14 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-08-14 16:53:07
+ * @LastEditTime: 2019-08-17 10:57:49
  */
 
-// 初始化文件管理器、用户路径与日志管理器
+import $log from './log';
+
+// 初始化文件管理器、用户路径
 const fileManager = wx.getFileSystemManager();
 const userPath = wx.env.USER_DATA_PATH;
-const logger = wx.getLogManager({ level: 1 });
 
 /**
  * 删除文件或文件夹
@@ -28,24 +29,21 @@ const Delete = (path: string, isDir?: boolean | null) => {
       else fileManager.rmdirSync(`${userPath}/${path}`, true);
 
     } catch (err) { // 调试
-      console.error(`删除${path}出错,错误为:`, err);
-      logger.warn(`删除${path}出错,错误为:`, err);
+      $log.error(`删除${path}出错,错误为:`, err);
     }
   // 是目录
   else if (isDir)
     try {
       fileManager.rmdirSync(`${userPath}/${path}`, true);
     } catch (err) { // 调试
-      console.error(`删除${path}出错,错误为:`, err);
-      logger.warn(`删除${path}出错,错误为:`, err);
+      $log.error(`删除${path}出错,错误为:`, err);
     }
   // 是文件
   else
     try {
       fileManager.unlinkSync(`${userPath}/${path}`);
     } catch (err) { // 调试
-      console.error(`删除${path}出错,错误为:`, err);
-      logger.warn(`删除${path}出错,错误为:`, err);
+      $log.error(`删除${path}出错,错误为:`, err);
     }
 };
 
@@ -61,8 +59,7 @@ const isFileExist = (path: string) => {
 
     return true;
   } catch (err) { // 调试
-    console.error(`${path}不存在:`, err);
-    logger.warn(`${path}不存在`, err);
+    $log.error(`${path}不存在`, err);
 
     return false;
   }
@@ -77,12 +74,11 @@ const listFile = (path: string) => {
   try {
     const fileList = fileManager.readdirSync(`${userPath}/${path}`);
 
-    console.info(`${path}文件夹下文件为：`, fileList);// 调试
+    $log.info(`${path}文件夹下文件为：`, fileList);// 调试
 
     return fileList;
   } catch (err) { // 调试
-    console.error(`列出${path}文件夹下文件错误：`, err);
-    logger.warn(`列出${path}文件夹下文件错误：`, err);
+    $log.error(`列出${path}文件夹下文件错误：`, err);
 
     return [];
   }
@@ -99,8 +95,7 @@ const readFile = (path: string, encoding = 'utf-8') => {
   try {
     return fileManager.readFileSync(`${userPath}/${path}`, encoding);
   } catch (err) {
-    console.warn(`${path}不存在`);
-    logger.debug(`${path}不存在`);
+    $log.warn(`${path}不存在`);
 
     return undefined;
   }
@@ -122,22 +117,20 @@ const readJson = (path: string, encoding = 'utf-8') => {
     try {
       data = JSON.parse(fileContent as string);
 
-      console.log(`读取 ${path}.json成功：`, data);
+      $log.debug(`读取 ${path}.json成功：`, data);
 
     } catch (err) {
       data = undefined;
 
       // 调试
-      console.warn(`${path}解析失败`);
-      logger.debug(`${path}解析失败`);
+      $log.warn(`${path}解析失败`);
     }
 
   } catch (err) {
     data = undefined;
 
     // 调试
-    console.warn(`${path}不存在`);
-    logger.debug(`${path}不存在`);
+    $log.warn(`${path}不存在`);
   }
 
   return data;
@@ -153,8 +146,7 @@ const makeDir = (path: string, recursive = true) => {
     fileManager.mkdirSync(`${userPath}/${path}`, recursive);
 
   } catch (err) { // 调试
-    console.info(`${path}目录已存在`, err);
-    logger.debug(`${path}目录已存在`, err);
+    $log.info(`${path}目录已存在`, err);
   }
 
 };
@@ -169,8 +161,7 @@ const saveFile = (tempFilePath: string, path: string) => {
     fileManager.saveFileSync(tempFilePath, `${userPath}/${path}`);
 
   } catch (err) { // 调试
-    console.error(`保存文件到${path}失败：`, err);
-    logger.warn(`保存文件到${path}失败：`, err);
+    $log.error(`保存文件到${path}失败：`, err);
   }
 };
 
@@ -198,18 +189,16 @@ const saveOnlineFile = (
     filePath: `${userPath}/${savePath}/${fileName}`,
     success: res => {
       if (res.statusCode === 200) {
-        console.info(`保存 ${onlinePath} 成功`);
+        $log.info(`保存 ${onlinePath} 成功`);
         successFunc(res.tempFilePath);
       } else {
         if (errorFunc) errorFunc(res.statusCode);
-        console.warn(`下载${onlinePath}失败，状态码为${res.statusCode}`);
-        logger.warn(`下载${onlinePath}失败，状态码为${res.statusCode}`);
+        $log.warn(`下载${onlinePath}失败，状态码为${res.statusCode}`);
       }
     },
     fail: failMsg => {
       if (failFunc) failFunc(failMsg);
-      console.warn(`下载${onlinePath}失败，错误为`, failMsg);
-      logger.warn(`下载${onlinePath}失败，错误为`, failMsg);
+      $log.warn(`下载${onlinePath}失败，错误为`, failMsg);
     }
   });
 };
@@ -268,20 +257,18 @@ const getJson = (path: string, successFunc?: (data: object | string) => void, fa
         filePath: `${userPath}/${folder}/${fileName}.json`,
         success: res => {
           if (res.statusCode === 200) {
-            console.info(`保存 ${path}.json 成功`);
+            $log.info(`保存 ${path}.json 成功`);
 
             data = readJson(path);
 
             successFunc(data);
           } else {
-            console.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
-            logger.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
+            $log.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
             if (failFunc) failFunc();
           }
         },
         fail: failMsg => {
-          console.warn(`下载${path}.json失败，错误为`, failMsg);
-          logger.warn(`下载${path}.json失败，错误为`, failMsg);
+          $log.warn(`下载${path}.json失败，错误为`, failMsg);
           if (failFunc) failFunc();
         }
       });
@@ -298,16 +285,11 @@ const getJson = (path: string, successFunc?: (data: object | string) => void, fa
       url: `https://mp.nenuyouth.com/${path}.json`,
       filePath: `${userPath}/${folder}/${fileName}.json`,
       success: res => {
-        if (res.statusCode === 200)
-          console.info(`保存 ${path}.json 成功`);
-        else {
-          console.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
-          logger.warn(`获取${path}.json失败，状态码为${res.statusCode}`);
-        }
+        if (res.statusCode === 200) $log.info(`保存 ${path}.json 成功`);
+        else $log.error(`获取${path}.json失败，状态码为${res.statusCode}`);
       },
       fail: failMsg => {
-        console.warn(`下载${path}.json失败，错误为`, failMsg);
-        logger.warn(`下载${path}.json失败，错误为`, failMsg);
+        $log.error(`下载${path}.json失败，错误为`, failMsg);
       }
     });
   }
@@ -326,8 +308,7 @@ const unzip = (path: string, unzipPath: string, successFunc?: () => void) => {
       if (successFunc) successFunc();
     },
     fail: failMsg => {
-      console.error(`解压 ${path} 失败:`, failMsg);
-      logger.warn(`解压 ${path} 失败:`, failMsg);
+      $log.error(`解压 ${path} 失败:`, failMsg);
     }
   });
 };

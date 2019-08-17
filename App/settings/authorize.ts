@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-15 00:14:59
+ * @LastEditTime: 2019-08-17 11:21:30
  * @Description: 捐赠
  */
 import $register from 'wxpage';
@@ -60,8 +60,10 @@ $register('authorize', {
           { text: '微信运动步数', button: 'werun' },
           { text: '录音', button: 'record' },
           { text: '摄像头', button: 'camera' }
-        ]
-      }
+        ],
+        foot: ' '
+      },
+      { tag: 'foot' }
     ],
     authorize: {}
   },
@@ -82,13 +84,13 @@ $register('authorize', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
-    const list = this.data.page[1].content;
+    const list = this.data.page[1].content as any[];
 
     $page.Notice('authorize');
     wx.getSetting({
       success: res => {
         authorizeList.forEach((type, index) => {
-          if (res.authSetting[type]) (list as any[])[index].desc = '已授权✓';
+          if (res.authSetting[type]) list[index].desc = '已授权✓';
         });
 
         this.setData({ 'page[1].content': list });

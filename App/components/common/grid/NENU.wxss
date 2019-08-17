@@ -82,13 +82,13 @@
 }
 
 .NENU .gridIcon {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   margin-top: 16px;
 }
 
 .NENU .gridText {
-  font-size: 16px;
+  font-size: 15px;
   color: #444;
   margin-bottom: 6px;
 }
