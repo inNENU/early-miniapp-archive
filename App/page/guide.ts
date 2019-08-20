@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 22:41:51
+ * @LastEditTime: 2019-08-19 11:39:37
  * @Description: 东师指南
  */
 import $register from 'wxpage';
@@ -19,25 +19,6 @@ $register('guide', {
     head: { title: '东师指南', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       { tag: 'head', title: '东师指南', hidden: true },
-      {
-        tag: 'grid',
-        head: '新生你好',
-        content: [
-          { text: '新生报到', color: 'orange', name: 'Check', icon: '/icon/tabPage/check.svg', aim: 'check0' },
-          {
-            text: '报到流程', color: 'blue', name: 'Step',
-            icon: 'https://mp.nenuyouth.com/icon/module/list.svg', aim: 'check9'
-          },
-          {
-            text: '需带物品', color: 'red', name: 'Necessity',
-            icon: 'https://mp.nenuyouth.com/icon/module/good.svg', aim: 'check7'
-          },
-          {
-            text: '缴费相关', color: 'purple', name: 'Payment',
-            icon: 'https://mp.nenuyouth.com/icon/module/pay.svg', aim: 'check10'
-          }
-        ]
-      },
       {
         tag: 'grid',
         head: '学在东师',
@@ -57,7 +38,8 @@ $register('guide', {
           { text: '生活', color: 'red', name: 'Life', icon: '/icon/tabPage/life.svg', aim: 'life0' },
           { text: '寝室', color: 'purple', name: 'Dorm', icon: '/icon/tabPage/dorm.svg', aim: 'dorm0' },
           { text: '校园网', color: 'cyan', name: 'Network', icon: '/icon/tabPage/network.svg', aim: 'network0' },
-          { text: '资助', color: 'olive', name: 'Subsidize', icon: '/icon/tabPage/subsidize.svg', aim: 'subsidize0' }
+          { text: '资助', color: 'olive', name: 'Subsidize', icon: '/icon/tabPage/subsidize.svg', aim: 'subsidize0' },
+          { text: '学校机构', color: 'mauve', name: 'Apartment', icon: '/icon/tabPage/studentOrg.svg', aim: 'apartment0' }
         ]
       },
       {
@@ -74,6 +56,21 @@ $register('guide', {
           // { text: 'SIM卡', icon: '/icon/guide/sim.svg', aim: 'sim0' }
         ],
         foot: ' '
+      },
+      {
+        tag: 'grid',
+        head: '新生你好',
+        content: [
+          { text: '新生报到', color: 'orange', name: 'Check', icon: '/icon/tabPage/check.svg', aim: 'check0' },
+          {
+            text: '防盗防骗', color: 'blue', name: 'Safety',
+            icon: 'https://mp.nenuyouth.com/icon/module/safe.svg', aim: 'check14'
+          },
+          {
+            text: '缴费相关', color: 'red', name: 'Payment',
+            icon: 'https://mp.nenuyouth.com/icon/module/pay.svg', aim: 'check10'
+          }
+        ]
       }
     ]
   },
@@ -86,7 +83,7 @@ $register('guide', {
   onLoad() {
     $page.Set({ option: { aim: 'guide' }, ctx: this });
     $page.Notice('guide');
-    $tab.update('page', '210K');
+    $tab.update('page', '220K');
   },
   onShow() {
     // 设置胶囊和背景颜色

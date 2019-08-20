@@ -14,6 +14,7 @@
         <text style="font-weight:500;">{{item[0]}}</text>
         打赏{{item[1]}}元
       </view>
+      <view>共计：{{sum}}元</view>
     </block>
     <view wx:else>暂无捐赠</view>
   </view>

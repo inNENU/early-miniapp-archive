@@ -34,13 +34,15 @@
         <view class="LinkText">bug反馈</view>
       </view>
     </button>
-    <view class="listIcon link-divline" />
-    <button wx:if="{{env === 'wx'}}" class="button listCtn" plain="true" hover-class="buttonHover" open-type="contact" hover-stay-time="100" id="3">
-      <view class="list-Container">
-        <image class="listIcon" src="/icon/tabPage/contact.svg" />
-        <view class="LinkText">联系{{a.appID === 'wx9ce37d9662499df3'? '校会君': 'Mr.Hope'}}</view>
-      </view>
-    </button>
+    <block wx:if="{{env === 'wx'}}">
+      <view class="listIcon link-divline" />
+      <button class="button listCtn" plain="true" hover-class="buttonHover" open-type="contact" hover-stay-time="100" id="3">
+        <view class="list-Container">
+          <image class="listIcon" src="/icon/tabPage/contact.svg" />
+          <view class="LinkText">联系{{a.appID === 'wx9ce37d9662499df3'? '校会君': 'Mr.Hope'}}</view>
+        </view>
+      </button>
+    </block>
   </view>
   <foot config="{{foot}}" />
 </view>

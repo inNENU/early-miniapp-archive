@@ -3,7 +3,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-15 11:09:24
+ * @LastEditTime: 2019-08-19 11:43:58
  * @Description: 天气小组件
  */
 
@@ -161,6 +161,11 @@ $register.C({
     weather: {} as unknown as WeatherData['data'],
     /** 天气类别 */
     weatherClass: ''
+  },
+  lifetimes: {
+    attached() {
+      this.getWeather();
+    }
   },
   methods: {
     navigate() {

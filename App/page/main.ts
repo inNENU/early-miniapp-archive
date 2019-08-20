@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-17 11:31:23
+ * @LastEditTime: 2019-08-19 11:53:23
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -20,87 +20,6 @@ $register('main', {
     head: { title: '首页', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       { tag: 'head', title: '首页', aim: 'main', grey: true, hidden: true },
-      {
-        tag: 'grid',
-        head: '新生你好',
-        content: [
-          {
-            text: '报到流程', color: 'orange', name: 'Check',
-            icon: 'https://mp.nenuyouth.com/icon/module/list.svg', aim: 'check9'
-          },
-          {
-            text: '需带物品', color: 'blue', name: 'Necessary',
-            icon: 'https://mp.nenuyouth.com/icon/module/good.svg', aim: 'check7'
-          },
-          {
-            text: '缴费相关', color: 'red', name: 'Payment',
-            icon: 'https://mp.nenuyouth.com/icon/module/pay.svg', aim: 'check10'
-          },
-          {
-            text: '防盗防骗', color: 'purple', name: 'Fraud Guard',
-            icon: 'https://mp.nenuyouth.com/icon/module/safe.svg', aim: 'check14'
-          }
-        ]
-      },
-      {
-        tag: 'list',
-        head: false,
-        content: [
-          {
-            text: '查看更多',
-            icon: '/icon/tabPage/check.svg',
-            aim: 'check0'
-          }
-        ],
-        foot: ' '
-      },
-      {
-        tag: 'list',
-        head: '新生关心的问题',
-        content: [
-          {
-            text: '新生入学前课程学习',
-            icon: '/icon/tabPage/course.svg',
-            aim: 'FAQ11'
-          },
-          {
-            text: '报道时间',
-            icon: '/icon/tabPage/check.svg',
-            aim: 'FAQ7'
-          },
-          {
-            text: '导员姓名及联系方式',
-            icon: '/components/common/phone/phone.svg',
-            aim: 'FAQ10'
-          },
-          {
-            text: '查看更多',
-            icon: 'https://mp.nenuyouth.com/icon/module/list.svg',
-            aim: 'FAQ0'
-          }
-        ]
-      },
-      {
-        tag: 'list',
-        head: '专业调整',
-        content: [
-          {
-            text: '双学位与辅修',
-            icon: '/icon/tabPage/course.svg',
-            aim: 'course13'
-          },
-          {
-            text: '转专业',
-            icon: '/icon/tabPage/course.svg',
-            aim: 'course12'
-          },
-          {
-            text: '查看更多',
-            icon: '/icon/tabPage/course.svg',
-            aim: 'course0'
-          }
-        ]
-      },
       {
         tag: 'p',
         head: ' ',
@@ -126,6 +45,7 @@ $register('main', {
   onLoad() {
     $page.Set({ option: { aim: 'main' }, ctx: this });
     $tab.refresh('main', this, a);
+    $tab.update('page', '220K');
     $page.Notice('main');
   },
   onShow() {

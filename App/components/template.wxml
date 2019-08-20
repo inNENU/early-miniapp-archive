@@ -211,7 +211,7 @@ Author: Mr.Hope
   </view>
   <view style='width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;' />
   <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' hover-stay-time='100' catch:tap='$back'>
-    <image class='backIcon' src='/icon/back{{nm? 'White': ''}}.svg' />
+    <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
   </view>
   <view class="errorCtn">
     <icon type="warn" size="80" />

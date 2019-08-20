@@ -67,7 +67,7 @@ const checkResUpdate = (name: string, dataUsage: string) => {
   $log.debug(`${name}通知状态为${notify}`, `本地版本文件为：${localVersion}`);
   $log.debug(`${name}更新于${localTime}, 现在时间是${currentTime}`);
 
-  if (notify || currentTime > Number(localTime) + 1000000)// 如果需要更新
+  if (notify || currentTime > Number(localTime) + 604800)// 如果需要更新
     $wx.request(`${name}Version`, data => {
 
       // 资源为最新
@@ -95,7 +95,7 @@ const checkResUpdate = (name: string, dataUsage: string) => {
                 // 用户选择关闭
                 if (choice2.cancel)
                   $wx.modal(
-                    '更新提示已关闭', '您可以在设置中重新打开提示。请注意：为保障正常运行，小程序会每半个月对资源进行强制更新。',
+                    '更新提示已关闭', '您可以在设置中重新打开提示。请注意：为保障正常运行，小程序会每周对资源进行强制更新。',
                     // 关闭更新提示
                     () => {
                       wx.setStorageSync(`${name}ResNotify`, false);

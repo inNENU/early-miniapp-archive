@@ -148,7 +148,6 @@
     "p": "/components/common/paragraph/paragraph",
     "phone": "/components/common/phone/phone",
     "popup": "/components/common/popup/popup",
-    "search": "/components/common/search/search",
     "share": "/components/common/share/share",
     "my-swiper": "/components/common/swiper/swiper"
   },

@@ -2,14 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-17 10:56:31
+ * @LastEditTime: 2019-08-17 15:48:40
  * @Description: Page函数库
  */
 
-import $log from './log';
-
 // 引入文件管理
 import $file from './file';
+import $log from './log';
 import $wx from './wx';
 
 // 声明全局数据
@@ -109,13 +108,13 @@ const disposePage = (page: PageData, option: PageArg) => {
       });
       // 调试
       $log.info(`${page[0].aim}处理完毕`);
-    } else { // 调试：未找到head tag
+    } else
+      // 调试：未找到head tag
       $log.warn('页面不包含head标签');
-      wx.reportMonitor('14', 1);
-    } else { // 调试：未传入page
+  else
+    // 调试：未传入page
     $log.error('页面数据不存在');
-    wx.reportMonitor('15', 1);
-  }
+
 
   return page; // 返回处理后的page
 };
@@ -181,7 +180,7 @@ const resolvePage = (option: MPPage.MPPageLifeTimeOptions, page?: PageData, Set 
 
     if (pageData) data = disposePage(pageData as PageData, option.query);
     else {
-      data = [{}];
+      data = undefined;
       $log.warn(`${aim}文件不存在，处理失败`);
     }
   }

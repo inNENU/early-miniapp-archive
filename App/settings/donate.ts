@@ -2,13 +2,22 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 22:54:02
+ * @LastEditTime: 2019-08-19 11:30:56
  * @Description: 捐赠
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = getApp();
+
+interface DonateDetail {
+  /** 捐赠者姓名 */
+  0: string;
+  /** 捐赠金额 */
+  1: number;
+}
+
+type DonateList = DonateDetail[];
 
 $register('donate', {
   data: {
@@ -31,7 +40,13 @@ $register('donate', {
   onLoad() {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
     $wx.request('config/donateList', donateList => {
-      this.setData({ donateList });
+      let sum = 0;
+
+      (donateList as unknown as DonateList).forEach(element => {
+        sum += element[1];
+      });
+
+      this.setData({ donateList, sum });
     });
   },
   onShow() {
