@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-17 15:53:26
+ * @LastEditTime: 2019-08-20 11:57:23
  * @Description: 小程序主脚本
  */
 
@@ -27,11 +27,9 @@ $register.A({
     resolvePath: (name: string) =>
       ['main', 'function', 'guide', 'me', 'search'].includes(name)
         ? `/page/${name}`
-        : ['outlook', 'version', 'about', 'authorize', 'storage', 'donate', 'log'].includes(name)
-          ? `/settings/${name}`
-          : ['weather', 'map', 'situs', 'PEcal', 'player', 'video'].includes(name)
-            ? `/function/${name}`
-            : `/module/${name}`
+        : ['weather', 'map', 'situs', 'PEcal', 'player', 'video'].includes(name)
+          ? `/function/${name}`
+          : `/module/${name}`
   },
   onLaunch(opts) {
     console.info('小程序启动，参数为', opts); // 调试

@@ -46,3 +46,4 @@
   </view>
   <foot config="{{foot}}" />
 </view>
+<add-tip />
