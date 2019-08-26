@@ -1,3 +1,5 @@
-/node_modules
-App/**/*.js
-out
+/node_modules/
+/App/**/*.js
+/App/miniprogram_npm/
+!/App/node_modules/**/*.js
+/out/

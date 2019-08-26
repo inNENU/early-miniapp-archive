@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 22:13:31
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-17 10:35:33
+ * @LastEditTime: 2019-08-26 10:23:17
  * @Description: MPPage声明文件
  */
 
@@ -108,10 +108,10 @@ declare namespace MPPage {
 
     /**
      * 返回上一页
-     * 
+     *
      * @param delta 返回的层数
      */
-    $back(delta?: number): void
+    $back(delta?: number): void;
 
     /**
      * relauch到某个界面
@@ -184,7 +184,7 @@ declare namespace MPPage {
 }
 
 declare namespace WechatMiniprogram {
-  //FIXME:
+  // FIXME:
   interface GetRealtimeLogManager {
     debug(...args: any[]): void;
     info(...args: any[]): void;
@@ -205,22 +205,18 @@ declare namespace WechatMiniprogram {
   namespace Page {
     type MPInstance<
       D extends DataOption,
-      C extends CustomOption
-      > = MPPage.PageInstance & Instance<D, C>
+      C extends CustomOption> = MPPage.PageInstance & Instance<D, C>
 
     type MPOption<
       D extends DataOption,
-      C extends CustomOption,
-      > =
+      C extends CustomOption> =
       Partial<MPPage.PageOption> &
       ThisType<MPInstance<D, C>> &
       Options<D, C>;
 
     interface MPConstructor {
-      <
-        D extends DataOption,
-        C extends CustomOption
-        >(
+      <D extends DataOption,
+        C extends CustomOption>(
         name: string,
         options: MPOption<D, C>
       ): void;
@@ -228,17 +224,13 @@ declare namespace WechatMiniprogram {
   }
 
   namespace Component {
-    type MPInstance<
-      D extends DataOption,
+    type MPInstance<D extends DataOption,
       P extends PropertyOption,
-      M extends MethodOption
-      > = MPPage.ComponentInstance & Instance<D, P, M>;
+      M extends MethodOption> = MPPage.ComponentInstance & Instance<D, P, M>;
 
-    type MPOption<
-      D extends DataOption,
+    type MPOption<D extends DataOption,
       P extends PropertyOption,
-      M extends MethodOption
-      > =
+      M extends MethodOption> =
       ThisType<MPInstance<D, P, M>> &
       Options<D, P, M>;
 
@@ -246,8 +238,7 @@ declare namespace WechatMiniprogram {
       <
         D extends DataOption,
         P extends PropertyOption,
-        M extends MethodOption
-        >(
+        M extends MethodOption>(
         options: MPOption<D, P, M>
       ): string;
     }
@@ -256,12 +247,13 @@ declare namespace WechatMiniprogram {
   namespace App {
     type MPInstance<T extends IAnyObject> = Option & T
 
-    type MPOption<T extends IAnyObject> = Partial<MPPage.AppOption> & Partial<Option> &
+    type MPOption<T extends IAnyObject> =
+      Partial<MPPage.AppOption> & Partial<Option> &
       T &
       ThisType<Instance<T>>
 
     interface MPConstructor {
-      <T extends IAnyObject>(options: MPOption<T>): void
+      <T extends IAnyObject>(options: MPOption<T>): void;
     }
   }
 }

@@ -18,7 +18,13 @@
         "PEcal",
         "scenery",
         "weather"
-      ]
+      ],
+      "plugins": {
+        "tencentvideo": {
+          "version": "1.3.6",
+            "provider": "wxa75efa648b60994b"
+        }
+      }
     },
     {
       "root": "module",
@@ -148,7 +154,6 @@
     "media": "/components/common/media/media",
     "p": "/components/common/paragraph/paragraph",
     "phone": "/components/common/phone/phone",
-    "popup": "/components/common/popup/popup",
     "share": "/components/common/share/share",
     "my-swiper": "/components/common/swiper/swiper"
   },

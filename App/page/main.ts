@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-19 11:53:23
+ * @LastEditTime: 2019-08-21 20:40:06
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -45,7 +45,6 @@ $register('main', {
   onLoad() {
     $page.Set({ option: { aim: 'main' }, ctx: this });
     $tab.refresh('main', this, a);
-    $tab.update('page', '220K');
     $page.Notice('main');
   },
   onShow() {
@@ -70,6 +69,9 @@ $register('main', {
     this.$on('nightmode', (nm: boolean) => {
       this.setData({ nm });
     });
+
+    // 小程序已经初始化完成，检查页面资源
+    if (wx.getStorageSync('inited')) $tab.update('page', '235K');
 
     // 执行tab页预加载
     ['guide', 'function'].forEach(x => {

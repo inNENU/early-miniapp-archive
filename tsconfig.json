@@ -9,7 +9,6 @@
     "noImplicitAny": true,
     "lib": [
       "es6",
-      "dom",
       "es2017"
     ],
     "allowJs": false,
@@ -23,6 +22,8 @@
     "strict": true,
     "removeComments": true,
     "pretty": true,
+    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": true,
     "strictPropertyInitialization": true
   },
   "include": [

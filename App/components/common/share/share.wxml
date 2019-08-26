@@ -1,5 +1,5 @@
 <view wx:if="{{config.shareable||config.contact||config.feedback}}" class="iconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="iconHover" hover-stay-time="200" catch:touchstart="move" catch:touchmove="move" catch:touchend="move">
-  <image class="icon" src="share.svg" />
+  <image class="icon" src="./share.svg" />
 </view>
 <view class="shareCtn{{menuDisplay? ' shareCtnShow': ''}}" catch:tap="cancel">
   <view class="mask" />

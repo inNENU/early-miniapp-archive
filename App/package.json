@@ -4,6 +4,7 @@
   "description": "东师小程序",
   "author": "Mr.Hope",
   "dependencies": {
+    "tslib": "^1.10.0",
     "wxpage": "^1.1.9"
   }
 }

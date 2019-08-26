@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-20 17:33:36
+ * @LastEditTime: 2019-08-20 19:25:03
  * @Description: 我的东师
  */
 import $register from 'wxpage';
@@ -14,6 +14,7 @@ $register('me', {
     T: a.T,
     nm: a.nm,
     env: a.env,
+    appID: a.appID,
     head: { title: '我的东师', action: true, grey: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       { tag: 'head', title: '我的东师', hidden: true },
@@ -33,7 +34,10 @@ $register('me', {
         ]
       }
     ],
-    foot: { author: '', desc: `当前版本：${a.version}\n小程序由Mr.Hope个人制作，如有错误还请见谅` }
+    foot: {
+      author: '',
+      desc: `当前版本：${a.version}\n小程序由${a.appID === 'wx9ce37d9662499df3' ? '校学生会委托Mr.Hope' : 'Mr.Hope个人'}制作，如有错误还请见谅`
+    }
   },
   onPreload(res) {
     $page.resolve(res, this.data.page);

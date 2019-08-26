@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-08-17 10:57:49
+ * @LastEditTime: 2019-08-21 20:38:13
  */
 
 import $log from './log';
@@ -17,8 +17,8 @@ const userPath = wx.env.USER_DATA_PATH;
  * @param path 要删除的文件或文件夹路径
  * @param isDir 要删除的是否是文件夹
  */
-const Delete = (path: string, isDir?: boolean | null) => {
-  if (isDir === null)
+const Delete = (path: string, isDir?: boolean | undefined) => {
+  if (isDir === undefined)
     try {
       // 判断路径是否是文件，并执行对应删除操作
       if (
@@ -237,7 +237,6 @@ const writeJson = (path: string, fileName: string, data: object, encoding = 'utf
  * @param path JSON文件路径
  * @param successFunc Json获取成功后的回调
  * @param failFunc Json获取失败后的回调
- * @returns callback或null
  */
 const getJson = (path: string, successFunc?: (data: object | string) => void, failFunc?: () => void) => {
   if (successFunc) {

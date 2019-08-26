@@ -39,7 +39,7 @@
       <button class="button listCtn" plain="true" hover-class="buttonHover" open-type="contact" hover-stay-time="100" id="3">
         <view class="list-Container">
           <image class="listIcon" src="/icon/tabPage/contact.svg" />
-          <view class="LinkText">联系{{a.appID === 'wx9ce37d9662499df3'? '校会君': 'Mr.Hope'}}</view>
+          <view class="LinkText">联系{{appID === 'wx9ce37d9662499df3'? '校会君': 'Mr.Hope'}}</view>
         </view>
       </button>
     </block>

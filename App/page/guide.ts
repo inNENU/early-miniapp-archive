@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-19 11:39:37
+ * @LastEditTime: 2019-08-25 13:53:13
  * @Description: 东师指南
  */
 import $register from 'wxpage';
@@ -83,7 +83,7 @@ $register('guide', {
   onLoad() {
     $page.Set({ option: { aim: 'guide' }, ctx: this });
     $page.Notice('guide');
-    $tab.update('page', '220K');
+    $tab.update('page', '235K');
   },
   onShow() {
     // 设置胶囊和背景颜色
@@ -103,7 +103,7 @@ $register('guide', {
   },
   onPullDownRefresh() {
     $tab.refresh('guide', this, a);
-    $tab.update('page', '215K');
+    $tab.update('page', '235K');
     wx.stopPullDownRefresh();
   },
   onPageScroll(event) {

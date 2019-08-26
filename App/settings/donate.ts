@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-19 11:30:56
+ * @LastEditTime: 2019-08-21 20:42:54
  * @Description: 捐赠
  */
 import $register from 'wxpage';
@@ -46,7 +46,7 @@ $register('donate', {
         sum += element[1];
       });
 
-      this.setData({ donateList, sum });
+      this.setData({ donateList, sum: Math.floor(100 * sum) / 100 });
     });
   },
   onShow() {
