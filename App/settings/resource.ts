@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-20 18:19:36
+ * @LastEditTime: 2019-08-27 13:07:56
  * @Description: 小程序资源说明
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 type ListAction = 'github' | 'gitee';
 
@@ -30,7 +30,7 @@ $register('resource', {
       { tag: 'title', text: '学习资源' },
       {
         tag: 'p',
-        text: '   目前，Mr.Hope正在发起学习资源共享。你可以提供你所在专业的学习资料来帮助Mr.Hope扩充资料库。'
+        text: '   目前，Mr.Hope正在发起学习资源共享。你可以提供你所在专业的学习资料来帮助Mr.Hope扩充资料库。您可以点击下方的复制链接按钮复制链接，并使用浏览器访问对应网站。'
       },
       {
         tag: 'List',

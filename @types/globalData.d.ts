@@ -16,9 +16,9 @@ declare interface InitGlobalData {
   /** 页面信息 */
   page: {
     /** 页面数据 */
-    data: PageData,
+    data?: PageData,
     /** 页面名称 */
-    aim: string
+    aim?: string
   };
   /** 启动时间 */
   date: number;
@@ -30,6 +30,8 @@ declare interface InitGlobalData {
   info?: WechatMiniprogram.GetSystemInfoSyncResult;
   /** 小程序appid */
   appID?: string;
+  /** 地图点位 */
+  marker: any;
 }
 
 declare interface GlobalData extends InitGlobalData {

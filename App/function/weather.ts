@@ -10,7 +10,7 @@ import $page from '../utils/page';
 import weatherHandler from '../components/weather/handler';
 import { WeatherData } from '../components/weather/weather';
 
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 let share = false;
 
 $register('weather', {

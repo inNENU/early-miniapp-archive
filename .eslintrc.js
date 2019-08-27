@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: eslint配置文件
  * @Date: 2019-02-26 23:43:23
- * @LastEditTime: 2019-08-14 16:06:01
+ * @LastEditTime: 2019-08-27 00:33:43
  */
 module.exports = {
   // 阻止eslint读取父目录或总配置文件的规则
@@ -45,11 +45,9 @@ module.exports = {
     ],
     'array-bracket-spacing': 'warn',
     'array-callback-return': 'error',
-    'array-element-newline': ['error', 'consistent'
-    ],
+    'array-element-newline': ['error', 'consistent'],
     'arrow-body-style': 'error',
-    'arrow-parens': ['error', 'as-needed'
-    ],
+    'arrow-parens': ['error', 'as-needed'],
     'arrow-spacing': [
       'error',
       {
@@ -66,21 +64,17 @@ module.exports = {
     ],
     'callback-return': 'error',
     camelcase: 'error',
-    'capitalized-comments': 'error',
-    // 因为vue的原因此项需要设置off
+    'capitalized-comments': 'off',
     'class-methods-use-this': 'off',
-    'comma-dangle': ['error', 'never'
-    ],
+    'comma-dangle': ['error', 'never'],
     'comma-spacing': 'error',
-    'comma-style': ['error', 'last'
-    ],
+    'comma-style': ['error', 'last'],
     complexity: ['warn',
       {
         max: 25
       }
     ],
-    'computed-property-spacing': ['error', 'never'
-    ],
+    'computed-property-spacing': ['error', 'never'],
     'consistent-return': 'error',
     'consistent-this': 'error',
     curly: ['error', 'multi'
@@ -134,8 +128,7 @@ module.exports = {
     'max-statements': 'off',
     'max-statements-per-line': 'error',
     'multiline-comment-style': 'warn',
-    'multiline-ternary': ['error', 'always-multiline'
-    ],
+    'multiline-ternary': ['error', 'always-multiline'],
     'new-parens': 'error',
     'newline-per-chained-call': 'error',
     'no-alert': 'warn',
@@ -220,8 +213,7 @@ module.exports = {
     'no-restricted-modules': 'error',
     'no-restricted-properties': 'error',
     'no-restricted-syntax': 'error',
-    'no-return-assign': ['error', 'except-parens'
-    ],
+    'no-return-assign': ['error', 'except-parens'],
     'no-return-await': 'error',
     'no-script-url': 'error',
     'no-self-compare': 'error',
@@ -254,39 +246,23 @@ module.exports = {
     'no-useless-return': 'error',
     'no-var': 'error',
     'no-void': 'error',
-    'no-warning-comments': ['warn',
-      {
-        terms: ['todo', 'fixme', 'xxx'
-        ], location: 'start'
-      }
-    ],
+    'no-warning-comments': ['warn', { terms: ['todo', 'fixme', 'xxx'], location: 'start' }],
     'no-whitespace-before-property': 'error',
     'no-with': 'error',
-    'nonblock-statement-body-position': ['error', 'any'
-    ],
+    'nonblock-statement-body-position': ['error', 'any'],
     'object-curly-newline': ['error',
       {
-        ExportDeclaration: {
-          multiline: true, minProperties: 3
-        },
-        ImportDeclaration: {
-          multiline: true, minProperties: 5
-        },
-        ObjectExpression: {
-          multiline: true
-        },
-        ObjectPattern: {
-          multiline: true
-        }
+        ExportDeclaration: { multiline: true, minProperties: 3 },
+        ImportDeclaration: { multiline: true, minProperties: 5 },
+        ObjectExpression: { multiline: true },
+        ObjectPattern: { multiline: true }
       }
     ],
     'object-curly-spacing': 'off',
     'object-property-newline': 'off',
     'object-shorthand': 'error',
-    'one-var': ['error', 'never'
-    ],
-    'one-var-declaration-per-line': ['error', 'initializations'
-    ],
+    'one-var': ['error', 'never'],
+    'one-var-declaration-per-line': ['error', 'initializations'],
     'operator-assignment': 'error',
     'operator-linebreak': ['error', 'after',
       {
@@ -298,31 +274,16 @@ module.exports = {
     'padded-blocks': 'off',
     'padding-line-between-statements': [
       'error',
-      {
-        blankLine: 'always', prev: 'directive', next: '*'
-      },
-      {
-        blankLine: 'any', prev: 'directive', next: 'directive'
-      },
-      {
-        blankLine: 'always', prev: ['const', 'let', 'var'
-        ], next: '*'
-      },
-      {
-        blankLine: 'any', prev: ['const', 'let', 'var'
-        ], next: ['const', 'let', 'var'
-        ]
-      },
-      {
-        blankLine: 'always', prev: '*', next: 'return'
-      }
+      { blankLine: 'always', prev: 'directive', next: '*' },
+      { blankLine: 'any', prev: 'directive', next: 'directive' },
+      { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
+      { blankLine: 'always', prev: '*', next: 'return' }
     ],
     'prefer-arrow-callback': 'error',
     'prefer-const': 'error',
     'prefer-destructuring': ['off',
-      {
-        object: true, array: false
-      }
+      { object: true, array: false }
     ],
     'prefer-numeric-literals': 'error',
     'prefer-object-spread': 'error',
@@ -331,10 +292,8 @@ module.exports = {
     'prefer-spread': 'error',
     'prefer-template': 'error',
     'quote-props': 'off',
-    quotes: ['warn', 'single'
-    ],
-    radix: ['error', 'as-needed'
-    ],
+    quotes: ['warn', 'single'],
+    radix: ['error', 'as-needed'],
     'require-atomic-updates': 'error',
     'require-await': 'error',
     'require-unicode-regexp': 'error',
@@ -349,8 +308,7 @@ module.exports = {
 
     'space-before-blocks': 'error',
     'space-before-function-paren': 'off',
-    'space-in-parens': ['error', 'never'
-    ],
+    'space-in-parens': ['error', 'never'],
     'space-infix-ops': 'error',
     'space-unary-ops': 'error',
     'spaced-comment': 'error',
@@ -363,16 +321,13 @@ module.exports = {
       }
     ],
     'symbol-description': 'error',
-    'template-curly-spacing': ['error', 'never'
-    ],
+    'template-curly-spacing': ['error', 'never'],
     'template-tag-spacing': 'error',
-    'unicode-bom': ['error', 'never'
-    ],
+    'unicode-bom': ['error', 'never'],
     'vars-on-top': 'error',
     'wrap-regex': 'error',
     'yield-star-spacing': 'error',
-    yoda: ['error', 'never'
-    ],
+    yoda: ['error', 'never'],
 
     // tyepscript规则
     "@typescript-eslint/explicit-function-return-type": "off",

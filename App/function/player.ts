@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:24:56
+ * @LastEditTime: 2019-08-27 12:39:54
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
 import $file from '../utils/file';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 const manager = wx.getBackgroundAudioManager();
 
 interface SongDetail {
@@ -24,7 +24,7 @@ $register('music', {
   data: {
     canplay: false,
     play: false,
-    index: 0 as string | number,
+    index: 0,
     currentTime: 0,
     songLength: 1,
     currentSong: {} as any,
@@ -46,7 +46,7 @@ $register('music', {
 
     let currentSong;
 
-    if (option.index) a.music.index = option.index;
+    if (option.index) a.music.index = Number(option.index);
 
     const { index } = a.music;
     const songList = $file.readJson('function/song') as SongDetail[];
@@ -203,7 +203,7 @@ $register('music', {
     }
   },
   end() { // 结束动作
-    let { index } = this.data;
+    let index = this.data.index as number | string;
     const total = this.data.songList.length;
     let temp;
 
@@ -224,7 +224,7 @@ $register('music', {
     this.switchSong(index);
   },
   next() { // 下一曲动作
-    let { index } = this.data;
+    let index = this.data.index as number | string;
     const total = this.data.songList.length;
     let temp;
 
@@ -246,7 +246,7 @@ $register('music', {
     this.switchSong(index);
   },
   previous() { // 上一曲动作
-    let { index } = this.data;
+    let index = this.data.index as number | string;
     const { length: total } = this.data.songList;
     let temp;
 
@@ -282,7 +282,7 @@ $register('music', {
       const currentSong = this.data.songList[index as number];
 
       this.setData({
-        index,
+        index: index as number,
         currentSong,
         play: false,
         canPlay: false
@@ -292,7 +292,7 @@ $register('music', {
       manager.title = currentSong.title;
       manager.singer = currentSong.singer;
       manager.coverImgUrl = currentSong.cover;
-      a.music.index = index;
+      a.music.index = Number(index);
     }
   },
   modeSwitch() { // 切换播放模式

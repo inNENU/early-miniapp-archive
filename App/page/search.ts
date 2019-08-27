@@ -9,7 +9,7 @@
 import $register from 'wxpage';
 import $page from '../utils/page';
 import $search from '../utils/search';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 export interface Keywords {
   [jsonName: string]: {

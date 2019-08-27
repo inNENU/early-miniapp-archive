@@ -8,7 +8,7 @@
 
 import $register from 'wxpage';
 import $page from '../utils/page';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('function', {
   onLoad(options) {

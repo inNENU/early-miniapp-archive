@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-21 20:42:54
+ * @LastEditTime: 2019-08-27 13:09:10
  * @Description: 捐赠
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 interface DonateDetail {
   /** 捐赠者姓名 */
@@ -28,13 +28,14 @@ $register('donate', {
       { tag: 'title', text: '服务器现状' },
       {
         tag: 'p',
-        text: '   目前，小程序服务器后端部署在阿里云的轻量应用服务器上，您每一次在小程序对图片和文件的访问都会造成服务器的流量开销。而且由于服务器配置不高，在访问人数较多的时候可能会出现无应答或异常应答的情况。您可以选择捐赠来让小程序变得更好。\n   Mr.Hope向同学郑重承诺，你打赏的每一分钱都会投入到小程序开发上来。'
+        text: '   目前，小程序服务器后端部署在阿里云的轻量应用服务器上，您每一次在小程序对图片和文件的访问都会造成服务器的流量开销。而且由于服务器配置不高，在访问人数较多的时候可能会出现无应答或异常应答的情况。您可以选择捐赠来让小程序变得更好。\n   Mr.Hope每年会在小程序与网站上支出服务器、域名、数据库等成本约600元。Mr.Hope向同学郑重承诺，你打赏的每一分钱都会投入到小程序开发上来。'
       },
       { tag: 'title', text: '捐赠方式' },
       {
         tag: 'p',
         text: '   如果您愿意对我进行捐赠，可以点击下方二维码。这样会将对应的二维码保存至您的手机相册。您可以稍后使用相应APP扫码来进行打赏。因为您也是学生，Mr.Hope不建议您捐赠数目较大的金额，几分钱也是同学一份心意。如果可以，希望您在打赏时能够注明“小程序打赏”并备注姓名，这样能够方便Mr.Hope统计。Mr.Hope会将每一笔捐赠的姓名和打赏金额显示在下方的列表中。再次感谢您的支持！'
-      }
+      },
+      { tag: 'foot', author: '' }
     ]
   },
   onLoad() {

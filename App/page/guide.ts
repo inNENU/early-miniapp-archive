@@ -9,7 +9,7 @@ import $register from 'wxpage';
 import $page from '../utils/page';
 import $search from '../utils/search';
 import $tab from '../utils/tab';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('guide', {
   data: {

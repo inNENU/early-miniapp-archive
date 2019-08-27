@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:18:59
+ * @LastEditTime: 2019-08-27 00:31:58
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
 import $file from '../utils/file';
 import $page from '../utils/page';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 const special = [
   { text: '引体向上', unit: '个', type: 'number', id: 'chinning' },
@@ -215,7 +215,7 @@ $register('PEcal', {
 
         // 以下三项越高越好，进行计算
         ['vitalCapacity', 'sitAndReach', 'standingLongJump'].forEach(x => {
-          if (result[x]) {
+          if (result[x] && Number(result[x])) {
             for (let i = 0; i < length; i += 1)
               if (result[x] <= config[x][i]) {
                 PEscore[x] = hash[i];
@@ -240,18 +240,17 @@ $register('PEcal', {
         // 计算特别类项目分数
         const specialScore = result.gender === 'male' ? 'chinning' : 'situp';
 
-        for (let i = 0; i < length; i += 1)
-          if (result[specialScore]) {
+        if (result[specialScore] && Number(result[specialScore])) {
+          for (let i = 0; i < length; i += 1)
             if (
               config[specialScore][i] !== '' &&
-              result[specialScore] &&
               result[specialScore] <= config[specialScore][i]
             ) {
               PEscore.special = hash[i];
               break;
             } else if (i === length - 1)
               PEscore.special = hash[i];
-          } else PEscore.special = 0;
+        } else PEscore.special = 0;
 
         // TODO:计算加分
 
@@ -284,5 +283,6 @@ $register('PEcal', {
   redirect() {
     this.$launch('/page/main');
   },
-  onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal?share=true' })
+  onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal' })
+  // onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal?share=true' })
 });

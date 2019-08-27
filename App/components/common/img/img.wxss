@@ -19,3 +19,6 @@
   align-items: center;
   padding: 8px 5%;
 }
+
+@import "Android.wxss";
+@import "iOS.wxss";

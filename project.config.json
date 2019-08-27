@@ -19,10 +19,10 @@
 	"miniprogramRoot": "App/",
 	"compileType": "miniprogram",
 	"libVersion": "2.8.1",
-	"appid": "wx33acb831ee1831a5",
+	"appid": "wx9ce37d9662499df3",
 	"qqLibVersion": "1.6.3",
 	"qqappid": "1109559721",
-	"projectname": "myNENU",
+	"projectname": "in%E4%B8%9C%E5%B8%88",
 	"setting": {
 		"urlCheck": true,
 		"es6": false,
@@ -62,7 +62,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
@@ -103,6 +103,13 @@
 					"name": "二维码分享",
 					"pathName": "module/sharePage",
 					"query": "scene=check0",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "体测计算器",
+					"pathName": "function/PEcal",
+					"query": "",
 					"scene": null
 				}
 			]

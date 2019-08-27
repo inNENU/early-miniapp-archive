@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:18:03
+ * @LastEditTime: 2019-08-27 12:35:50
  * @Description: 地图
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
 import $wx from '../utils/wx';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 const includePoint1 = {
   padding: [30, 20, 30, 20],
@@ -138,8 +138,8 @@ $register('map', {
       .exec();
   },
   getMarker() {
-    const value = wx.getStorageSync('mapSwitch');
-    let mapSwitch;
+    const value: boolean = wx.getStorageSync('mapSwitch');
+    let mapSwitch: boolean;
 
     if (value === undefined) {
       wx.setStorageSync('mapSwitch', true);

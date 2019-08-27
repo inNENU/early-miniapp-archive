@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-17 11:21:30
+ * @LastEditTime: 2019-08-27 11:55:36
  * @Description: 捐赠
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 const authorizeList: authorizeList[] = [
   'scope.userLocation',
   'scope.writePhotosAlbum',
@@ -63,7 +63,7 @@ $register('authorize', {
         ],
         foot: ' '
       },
-      { tag: 'foot' }
+      { tag: 'foot', author: '' }
     ],
     authorize: {}
   },

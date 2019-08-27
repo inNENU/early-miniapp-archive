@@ -8,7 +8,7 @@
 import $register from 'wxpage';
 import $page from '../utils/page';
 import { nightmode } from '../utils/app';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 type ListAction =
   'setTheme' | 'switchnm' | 'switchnmAC' | 'dayBrightnessSwitchHandler' |

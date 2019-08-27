@@ -9,7 +9,7 @@ import $register from 'wxpage';
 import $file from '../utils/file';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('situs', {
   data: {},

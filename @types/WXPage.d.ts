@@ -2,9 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 22:13:31
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-26 10:23:17
+ * @LastEditTime: 2019-08-27 11:50:36
  * @Description: MPPage声明文件
  */
+
+/// <reference path="./globalData.d.ts" />
 
 declare namespace MPPage {
   /** 页面跳转参数 */
@@ -245,15 +247,23 @@ declare namespace WechatMiniprogram {
   }
 
   namespace App {
-    type MPInstance<T extends IAnyObject> = Option & T
+    /** 全局数据 */
+    interface Globaldata {
+      globalData: GlobalData;
+    }
+
+    type MPInstance<T extends IAnyObject> = Option & T & Globaldata;
 
     type MPOption<T extends IAnyObject> =
       Partial<MPPage.AppOption> & Partial<Option> &
-      T &
-      ThisType<Instance<T>>
+      T & ThisType<MPInstance<T>>;
 
     interface MPConstructor {
       <T extends IAnyObject>(options: MPOption<T>): void;
+    }
+
+    interface GetApp {
+      (opts?: GetAppOption): MPInstance<IAnyObject>;
     }
   }
 }

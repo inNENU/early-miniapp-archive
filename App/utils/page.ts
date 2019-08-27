@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-17 15:48:40
+ * @LastEditTime: 2019-08-27 12:42:02
  * @Description: Page函数库
  */
 
@@ -12,7 +12,7 @@ import $log from './log';
 import $wx from './wx';
 
 // 声明全局数据
-const globalData: GlobalData = getApp().globalData;
+const { globalData } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 const getDoctype = (docType: string) =>
   docType === 'docx' || docType === 'doc'
@@ -36,9 +36,10 @@ const getDoctype = (docType: string) =>
  *
  * @param page 页面数据
  * @param option 页面传参
+ * @param firstPage 是否是第一个页面
  * @returns 处理之后的page
  */
-const disposePage = (page: PageData, option: PageArg) => {
+const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
   if (page)  // 如果page参数传入
     if (page[0].tag === 'head') {
 
@@ -52,7 +53,7 @@ const disposePage = (page: PageData, option: PageArg) => {
         page[0].aimDepth = Number(option.depth || 1) + 1; // 设置界面路径深度
 
         // 判断是否来自分享，分享页左上角动作默认为重定向
-        if ('share' in option) {
+        if ('share' in option || firstOpen) {
           page[0].action = 'redirect';
           $log.info(`${page[0].action}页面由分享载入`);
         }
@@ -196,7 +197,7 @@ const resolvePage = (option: MPPage.MPPageLifeTimeOptions, page?: PageData, Set 
 
 interface SetPageOption {
   option: PageArg;
-  ctx: any;
+  ctx: WechatMiniprogram.Page.MPInstance<IAnyObject, IAnyObject>;
   handle?: boolean;
 }
 
@@ -223,7 +224,7 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
     ctx.setData({
       T: globalData.T,
       nm: globalData.nm,
-      page: handle ? page : disposePage(page, option)
+      page: handle ? page : disposePage(page, option, ctx.$state.firstOpen)
     });
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   else if (
@@ -244,7 +245,7 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
     ctx.setData({
       T: globalData.T,
       nm: globalData.nm,
-      page: handle ? ctx.data.page : disposePage(ctx.data.page, option)
+      page: handle ? ctx.data.page : disposePage(ctx.data.page, option, ctx.$state.firstOpen)
     });
   }
 };

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-21 20:40:06
+ * @LastEditTime: 2019-08-27 13:38:40
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -10,7 +10,7 @@ import $wx from '../utils/wx';
 import $page from '../utils/page';
 import $search from '../utils/search';
 import $tab from '../utils/tab';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('main', {
   data: {
@@ -96,5 +96,5 @@ $register('main', {
   search({ detail }: WXEvent.Input) {
     this.$route(`search?words=${detail.value}`);
   },
-  onShareAppMessage: () => ({ title: 'myNENU', path: '/page/main' })
+  onShareAppMessage: () => ({ title: a.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'in东师', path: '/page/main' })
 });

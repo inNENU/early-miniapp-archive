@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-17 10:50:55
+ * @LastEditTime: 2019-08-27 12:56:57
  * @Description: APP函数库
  */
 
@@ -246,15 +246,12 @@ export const nightmode = () => {
   return currentNightModeStatus;// 返回夜间模式状态
 };
 
-interface VersionInfo {
+interface UpdateInfo {
   /** 是否进行强制更新 */
   forceUpdate: boolean;
   /** 是否进行强制初始化 */
   reset: boolean;
-  /** 小程序的最新版本号 */
-  version: string;
 }
-
 
 /**
  * 检查小程序更新
@@ -280,37 +277,41 @@ const appUpdate = (globalData: GlobalData) => {
 
     // 请求配置文件
     $wx.request(`config/${globalData.appID}/${globalData.version}/config`, data => {
-      ({ forceUpdate, reset, version } = data as VersionInfo);
+      ({ forceUpdate, reset } = data as UpdateInfo);
 
-      // 更新下载就绪，提示用户重新启动
-      wx.showModal({
-        title: '已找到新版本',
-        content: `新版本${version}已下载，请重启应用更新。${(reset ? '该版本会初始化小程序。' : '')}`,
-        showCancel: !reset && !forceUpdate, confirmText: '应用', cancelText: '取消',
-        success: res => {
-          // 用户确认，应用更新
-          if (res.confirm) {
+      // 请求配置文件
+      $wx.request(`config/${globalData.appID}/version`, data => {
+        version = data as unknown as string;
+        // 更新下载就绪，提示用户重新启动
+        wx.showModal({
+          title: '已找到新版本',
+          content: `新版本${version}已下载，请重启应用更新。${(reset ? '该版本会初始化小程序。' : '')}`,
+          showCancel: !reset && !forceUpdate, confirmText: '应用', cancelText: '取消',
+          success: res => {
+            // 用户确认，应用更新
+            if (res.confirm) {
 
-            // 需要初始化
-            if (reset) {
-              // 显示提示
-              wx.showLoading({ title: '初始化中', mask: true });
+              // 需要初始化
+              if (reset) {
+                // 显示提示
+                wx.showLoading({ title: '初始化中', mask: true });
 
-              // 清除文件系统文件与数据存储
-              $file.listFile('')
-                .forEach(filePath => {
-                  $file.Delete(filePath);
-                });
-              wx.clearStorageSync();
+                // 清除文件系统文件与数据存储
+                $file.listFile('')
+                  .forEach(filePath => {
+                    $file.Delete(filePath);
+                  });
+                wx.clearStorageSync();
 
-              // 隐藏提示
-              wx.hideLoading();
+                // 隐藏提示
+                wx.hideLoading();
+              }
+
+              // 应用更新
+              updateManager.applyUpdate();
             }
-
-            // 应用更新
-            updateManager.applyUpdate();
           }
-        }
+        });
       });
     });
   });
@@ -358,7 +359,7 @@ const login = (appID: string) => {
  * @param globalData 小程序的全局数据
  * @param appID 小程序的APPID
  */
-const startup = (globalData: InitGlobalData) => {
+const startup = (globalData: GlobalData) => {
 
   // 获取设备与运行环境信息
   globalData.info = wx.getSystemInfoSync();
@@ -383,13 +384,13 @@ const startup = (globalData: InitGlobalData) => {
       '版本偏低',
       '您的基础库版本偏低，可能导致部分内容无法正常显示，建议您更新至最新版客户端。',
       () => { // 避免重复提示
-        wx.setStorageSync('SDKVersion', (globalData as GlobalData).info.SDKVersion);
+        wx.setStorageSync('SDKVersion', globalData.info.SDKVersion);
       }
     );
 
   // 检查通知更新与小程序更新
-  noticeCheck(globalData as GlobalData);
-  appUpdate(globalData as GlobalData);
+  noticeCheck(globalData);
+  appUpdate(globalData);
 
   // 设置内存不足警告
   wx.onMemoryWarning(res => {

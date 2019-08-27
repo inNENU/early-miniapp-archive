@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:00:39
+ * @LastEditTime: 2019-08-27 11:56:58
  * @Description: 关于
  */
 import $register from 'wxpage';
@@ -10,7 +10,7 @@ import $file from '../utils/file';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
 import $wx from '../utils/wx';
-const { globalData: a } = getApp();
+const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 type ListAction = 'getStorage' | 'refreshGuide' | 'refreshFunc' | 'deleteData' | 'deleteData' | 'resetApp';
 
@@ -47,7 +47,7 @@ $register('storage', {
           { text: '退出小程序', navigate: true, openType: 'exit', target: 'miniProgram' }
         ]
       },
-      { tag: 'foot', desc: `当前版本：${a.version}` }
+      { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
     ]
   },
   onNavigate(res) {
