@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-27 12:59:10
+ * @LastEditTime: 2019-08-29 12:34:41
  * @Description: 小程序主脚本
  */
 
@@ -12,7 +12,7 @@ import app from './utils/app';
 $register.A({
   /** 小程序的全局数据 */
   globalData: {
-    version: 'V 2.3.6',
+    version: 'V 2.3.7',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],

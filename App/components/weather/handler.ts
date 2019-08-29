@@ -4,12 +4,19 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-31 11:05:08
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-15 14:42:25
+ * @LastEditTime: 2019-08-29 15:42:34
  * @Description: 天气处理函数
  */
 import { WeatherData, WeatherForcast1H } from './weather';
 
+/**
+ * 天气处理函数
+ *
+ * @param weather API返回的原生天气数据
+ * @returns 处理后的可读天气数据
+ */
 const weatherHandler = (weather: WeatherData['data']) => {
+  /** 当前风向代码 */
   const windDirection = weather.observe.wind_direction;
 
   // 设置风向
@@ -39,10 +46,12 @@ const weatherHandler = (weather: WeatherData['data']) => {
   Object.keys(weather.forecast_1h)
     .forEach(x => {
       const index = Number(x);
+      /** 更新时间 */
       const time = weather.forecast_1h[index].update_time;
 
       weather.forecast_1h[index].update_time = `${time.slice(8, 10)}:${time.slice(10, 12)}`;
 
+      // 暂时只显示24小时天气预报 TODO: 显示48小时天气预报，并增加日落日出时间
       if (index < 24) (weather.hourForecast as WeatherForcast1H[]).push(weather.forecast_1h[index]);
     });
 
@@ -51,6 +60,7 @@ const weatherHandler = (weather: WeatherData['data']) => {
     .forEach(x => {
       const index = Number(x);
 
+      // 暂时只显示五日天气预报。 TODO: 让此部分可横向滑动，补全7日天气预报
       if (index < 5) {
         const time = weather.forecast_24h[index].time;
 

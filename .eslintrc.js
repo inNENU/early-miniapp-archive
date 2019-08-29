@@ -3,8 +3,9 @@
  * @LastEditors: Mr.Hope
  * @Description: eslint配置文件
  * @Date: 2019-02-26 23:43:23
- * @LastEditTime: 2019-08-27 00:33:43
+ * @LastEditTime: 2019-08-27 14:19:19
  */
+
 module.exports = {
   // 阻止eslint读取父目录或总配置文件的规则
   root: true,
@@ -18,16 +19,14 @@ module.exports = {
   parser: "@typescript-eslint/parser",
 
   parserOptions: {
-    parser: '@typescript-eslint/parser'
+    parser: '@typescript-eslint/parser',
+    project: "./tsconfig.json"
   },
 
   plugins: [
     "@typescript-eslint"
   ],
 
-  parserOptions: {
-    project: "./tsconfig.json"
-  },
   // 所使用的规则配置
   extends: [
     "eslint:recommended",
@@ -77,11 +76,9 @@ module.exports = {
     'computed-property-spacing': ['error', 'never'],
     'consistent-return': 'error',
     'consistent-this': 'error',
-    curly: ['error', 'multi'
-    ],
+    curly: ['error', 'multi'],
     'default-case': 'warn',
-    'dot-location': ['error', 'property'
-    ],
+    'dot-location': ['error', 'property'],
     'dot-notation': 'error',
     'eol-last': 'error',
     eqeqeq: 'error',
@@ -99,8 +96,7 @@ module.exports = {
     'id-match': 'error',
     // 'implicit-arrow-linebreak': ['error', 'beside'],
     // 防止因为自动换行造成的报错
-    'implicit-arrow-linebreak': ['off', 'beside'
-    ],
+    'implicit-arrow-linebreak': ['off', 'beside'],
     indent: 'off',
     'init-declarations': 'off',
     'jsx-quotes': 'error',
@@ -140,9 +136,9 @@ module.exports = {
     'no-caller': 'error',
     // 简化代码，忽略迷惑的箭头函数提示
     'no-confusing-arrow': 'off',
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-console': 'off',
     'no-continue': 'error',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': 'off',
     'no-div-regex': 'error',
     'no-duplicate-imports': 'error',
     'no-else-return': 'error',
@@ -219,9 +215,7 @@ module.exports = {
     'no-self-compare': 'error',
     'no-sequences': 'off',
     'no-shadow': ['error',
-      {
-        hoist: 'all'
-      }
+      { hoist: 'all' }
     ],
     'no-shadow-restricted-names': 'error',
     'no-sync': 'off',
@@ -337,4 +331,4 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': "off",
     '@typescript-eslint/no-triple-slash-reference': "off"
   }
-}
+};

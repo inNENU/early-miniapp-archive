@@ -2,37 +2,40 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:46:14
+ * @LastEditTime: 2019-08-29 16:57:19
  * @Description: 天气预报
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
 import weatherHandler from '../components/weather/handler';
-import { WeatherData } from '../components/weather/weather';
+import { WeatherData, WeatherDetail } from '../components/weather/weather';
 
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
-let share = false;
 
 $register('weather', {
   data: {
-    weather: {} as unknown as WeatherData['data'],
-    number: 0,
+    /** 天气数据 */
+    weather: {} as WeatherDetail,
+    /** 当前tips的索引值 */
+    tipIndex: 0,
+    /** 动画对象 */
     animation: {}
   },
-  onLoad(options = {}) {
+  onLoad() {
     const weatherData = wx.getStorageSync('weather');
 
     // 如果天气数据获取时间小于5分钟，则可以使用
     if (weatherData.date > new Date().getTime() - 300000) {
-      const weather = weatherData.data.data as WeatherData['data'];
+      const weather = (weatherData.data as WeatherDetail);
 
       this.canvas(weather);
 
       this.setData({
         weather,
+        // 18点至次日5点为夜间
         night: new Date().getHours() > 18 || new Date().getHours() < 5,
         nm: a.nm,
-        statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+        statusBarHeight: a.info.statusBarHeight
       });
     } else // 否则需要重新获取并处理
       wx.request({
@@ -44,10 +47,10 @@ $register('weather', {
 
           this.setData({
             weather,
-            share: Boolean(options.share),
+            // 18点至次日5点为夜间
             night: new Date().getHours() > 18 || new Date().getHours() < 5,
             nm: a.nm,
-            statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+            statusBarHeight: a.info.statusBarHeight
           });
         }
       });
@@ -59,9 +62,6 @@ $register('weather', {
       backgroundColorBottom: a.nm ? '#000000' : '#efeef4'
     });
 
-    // 设置是否被分享
-    share = Boolean(options.share);
-
     this.backgroundChange();
   },
   onShow() {
@@ -71,15 +71,25 @@ $register('weather', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
-  canvas(weather: WeatherData['data']) { // 绘制温度曲线
+
+  /**
+   * 绘制温度曲线
+   *
+   * @param weather 天气详情
+   */
+  canvas(weather: WeatherDetail) {
+    console.log(weather);
+    // 为了防止iPad等设备可以转屏，必须即时获取
     const width = getApp().globalData.info.windowWidth;
-    const ctx = wx.createCanvasContext('weather');
+    /** 天气画布组件 */
+    const canvaseContent = wx.createCanvasContext('weather');
     const highTemperature: number[] = [];
     const lowTemperature: number[] = [];
     const dayForecast = weather.dayForecast;
     let max = -50;
     let min = 50;
 
+    // 生成最高/最低温
     dayForecast.forEach(element => {
       const maxDegreee = Number(element.max_degree);
       const minDegree = Number(element.min_degree);
@@ -90,80 +100,78 @@ $register('weather', {
       if (minDegree < min) min = minDegree;
     });
 
+    /** 温差 */
     const gap = max - min;
 
-    ctx.beginPath();
+    canvaseContent.beginPath();
+    canvaseContent.lineWidth = 2;
+    canvaseContent.font = '16px sans-serif';
+
+    canvaseContent.strokeStyle = '#ffb74d';
+    canvaseContent.fillStyle = '#ffb74d';
 
     // 绘制高温曲线
-    ctx.setLineWidth(2);
-    ctx.setStrokeStyle('#ffb74d');
-    ctx.setFillStyle('#ffb74d');
-    ctx.setFontSize(16);
     for (let i = 0; i < dayForecast.length; i += 1) {
       const x = width / 10 + i * width / 5;
       const y = (max - highTemperature[i]) / gap * 100;
 
-      if (i === 0) ctx.moveTo(x, y + 32);
-      else ctx.lineTo(x, y + 32);
+      if (i === 0) canvaseContent.moveTo(x, y + 32);
+      else canvaseContent.lineTo(x, y + 32);
     }
-    ctx.stroke();
-    ctx.draw();
+    canvaseContent.stroke();
+    canvaseContent.draw();
 
-    // 绘制温度与点
+    // 绘制高温度数值与点
     for (let i = 0; i < dayForecast.length; i += 1) {
       const x = width / 10 + i * width / 5;
       const y = (max - highTemperature[i]) / gap * 100;
 
-      ctx.setFillStyle('#ffb74d');
-      ctx.arc(x, y + 32, 3, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.draw(true);
+      canvaseContent.arc(x, y + 32, 3, 0, Math.PI * 2);
+      canvaseContent.fill();
+      canvaseContent.draw(true);
 
-      ctx.setFillStyle('#ffb74d');
-      ctx.fillText(`${dayForecast[i].max_degree}°`, x - 10, y + 20);
-      ctx.draw(true);
+      canvaseContent.fillText(`${dayForecast[i].max_degree}°`, x - 10, y + 20);
+      canvaseContent.draw(true);
     }
 
-    ctx.setStrokeStyle('#4fc3f7');
+    canvaseContent.strokeStyle = '#4fc3f7';
+    canvaseContent.fillStyle = '#4fc3f7';
+
     // 绘制低温曲线
     for (let i = 0; i < dayForecast.length; i += 1) {
       const x = width / 10 + i * width / 5;
       const y = (max - lowTemperature[i]) / gap * 100;
 
-      if (i === 0) ctx.moveTo(x, y + 20);
-      else ctx.lineTo(x, y + 20);
+      if (i === 0) canvaseContent.moveTo(x, y + 20);
+      else canvaseContent.lineTo(x, y + 20);
     }
-    ctx.stroke();
-    ctx.draw(true);
+    canvaseContent.stroke();
+    canvaseContent.draw(true);
 
-    ctx.setFillStyle('#4fc3f7');
+    // 绘制低温度数值与点
     for (let i = 0; i < dayForecast.length; i += 1) {
       const x = width / 10 + i * width / 5;
       const y = (max - lowTemperature[i]) / gap * 100;
 
-      ctx.setFillStyle('#4fc3f7');
-      ctx.arc(x, y + 20, 3, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.draw(true);
+      canvaseContent.arc(x, y + 20, 3, 0, Math.PI * 2);
+      canvaseContent.fill();
+      canvaseContent.draw(true);
 
-      ctx.setFillStyle('#4fc3f7');
-      ctx.fillText(`${dayForecast[i].min_degree}°`, x - 10, y + 44);
-      ctx.draw(true);
+      canvaseContent.fillText(`${dayForecast[i].min_degree}°`, x - 10, y + 44);
+      canvaseContent.draw(true);
     }
   },
-  backgroundChange() { // 改变背景动画
-    const animation1 = wx.createAnimation({
-      duration: 200,
-      timingFunction: 'ease'
-    });
-    const animation2 = wx.createAnimation({
-      duration: 200,
-      timingFunction: 'ease'
-    });
-    const animation3 = wx.createAnimation({
-      duration: 200,
-      timingFunction: 'ease'
-    });
+
+  /** 改变背景动画 */
+  backgroundChange() {
+    /** 动画选项 */
+    const animationOptions: WechatMiniprogram.CreateAnimationOption = { duration: 200, timingFunction: 'ease' };
+    /** 背景层1动画 */
+    const layer1Animation = wx.createAnimation(animationOptions);
+    /** 背景层2动画 */
+    const layer2Animation = wx.createAnimation(animationOptions);
+    /** 背景层3动画 */
+    const layer3Animation = wx.createAnimation(animationOptions);
 
     wx.startAccelerometer({
       interval: 'normal',
@@ -171,33 +179,35 @@ $register('weather', {
     });
 
     wx.onAccelerometerChange(res => {
-      animation1.translateX(res.x * 13.5)
+      layer1Animation.translateX(res.x * 13.5)
         .step();
-      animation2.translateX(res.x * 18)
+      layer2Animation.translateX(res.x * 18)
         .step();
-      animation3.translateX(res.x * 22.5)
+      layer3Animation.translateX(res.x * 22.5)
         .step();
 
       this.setData({
-        animation1: animation1.export(),
-        animation2: animation2.export(),
-        animation3: animation3.export()
+        animation1: layer1Animation.export(),
+        animation2: layer2Animation.export(),
+        animation3: layer3Animation.export()
       });
     });
   },
-  // 更新提示
+
+  /** 更新提示 */
   refresh() {
     const { length } = Object.keys(this.data.weather.tips.observe);
-    const numbers = this.data.number;
+    const numbers = this.data.tipIndex;
 
-    this.setData({ number: numbers === 0 ? length - 1 : numbers - 1 });
+    this.setData({ tipIndex: numbers === 0 ? length - 1 : numbers - 1 });
   },
   onUnload() {
+    /** 移除加速度计监听 */
     wx.stopAccelerometer({ success: () => console.log('stop Accelerometer success') });
   },
   back() {
-    if (share) wx.switchTab({ url: '/page/main' });
+    if (this.$state.firstOpen) wx.reLaunch({ url: '/page/main' });
     else this.$back();
   },
-  onShareAppMessage: () => ({ title: '天气', path: '/function/weather?share=true' })
+  onShareAppMessage: () => ({ title: '天气', path: '/function/weather' })
 });

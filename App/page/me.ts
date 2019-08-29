@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-20 19:25:03
+ * @LastEditTime: 2019-08-29 15:42:02
  * @Description: 我的东师
  */
 import $register from 'wxpage';

@@ -19,7 +19,7 @@ declare interface ComponentData {
 declare type PageData = ComponentData[]
 
 declare interface PageArg {
-  aim: string;
+  aim?: string;
   depth?: number;
   From?: string;
   share?: boolean

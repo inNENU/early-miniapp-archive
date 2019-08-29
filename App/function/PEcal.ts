@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-27 00:31:58
+ * @LastEditTime: 2019-08-29 10:54:47
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
@@ -33,7 +33,7 @@ $register('PEcal', {
       value: ['Low', 'Low', 'High', 'High']
     },
     list: [
-      { text: '身高', unit: '厘米', type: 'number', id: 'height' },
+      { text: '身高', unit: '厘米', type: 'digit', id: 'height' },
       { text: '体重', unit: '千克', type: 'digit', id: 'weight' },
       { text: '坐位体前屈', unit: '厘米', type: 'digit', id: 'sitAndReach' },
       { text: '肺活量', unit: '毫升', type: 'number', id: 'vitalCapacity' },
@@ -284,5 +284,4 @@ $register('PEcal', {
     this.$launch('/page/main');
   },
   onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal' })
-  // onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal?share=true' })
 });

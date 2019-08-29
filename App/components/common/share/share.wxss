@@ -1,9 +1,10 @@
 /* share 组件*/
 
 @import "../../../css/animation.wxss";
+@import "../../../css/normal.wxss";
 
 /* share按钮 */
-.iconCtn {
+.shareIconCtn {
   width: 40px;
   height: 40px;
   position: fixed;
@@ -15,11 +16,11 @@
   box-shadow: 1px 1px 3px rgba(127, 127, 127, 0.15);
 }
 
-.iconHover {
+.shareIconHover {
   background-color: #32a71a;
 }
 
-.icon {
+.shareIcon {
   width: 70%;
   height: 70%;
   margin: 15%;
@@ -59,6 +60,11 @@
   overflow: hidden;
 }
 
+.nm .shareBtnList {
+  background-color: #000;
+  color: #fff !important;
+}
+
 .shareBtn,
 .shareCtn .cancelBtn {
   width: 100% !important;
@@ -68,9 +74,18 @@
   border-radius: 0 !important;
 }
 
+.nm .shareBtn,
+.nm .shareCtn .cancelBtn {
+  background-color: #1C1C1E;
+}
+
 .shareBtn {
   line-height: 2.4;
   border-top: 1rpx #cac9ce solid !important;
+}
+
+.nm .shareBtn {
+  border-top: 1rpx #3d3d41 solid !important;
 }
 
 .shareCtn .cancelBtn {
@@ -78,4 +93,6 @@
   border-top: 8px #d9d9d9 solid !important;
 }
 
-@import "../../../css/normal.wxss";
+.nm .shareCtn .cancelBtn {
+  border-top: 8px #000 solid !important;
+}

@@ -11,7 +11,7 @@
       </view>
     </view>
     <view class='weatherText  icon-refresh' catch:tap="refresh">
-      {{weather.tips.observe[number]}}
+      {{weather.tips.observe[tipIndex]}}
     </view>
   </block>
   <image wx:else src="/icon/loading.svg" class="loading" />

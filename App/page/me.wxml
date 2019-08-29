@@ -18,6 +18,7 @@
       </view>
     </view>
   </view>
+  <official-account />
   <template is="all2" data="{{page,T}}" />
   <view class="commonhead"></view>
   <view class="Lctn">

@@ -1,7 +1,7 @@
 <view wx:if="{{config.head}}" class="head">{{config.head}}</view>
 <view class="P" style="{{config.align? 'text-align:'+ config.align + ';': ''}}">
-  <block wx:if="{{muti}}">
-    <text wx:for="{{config.text}}" style="{{config.style || ''}}" selectable="true" space="ensp" decode="true">{{item}}</text>
+  <block wx:if="{{config.muti}}">
+    <text wx:for="{{config.text}}" style="display:block;{{config.style || ''}}" selectable="true" space="ensp" decode="true">{{item}}</text>
   </block>
   <text wx:else style="{{config.style || ''}}" selectable="true" space="ensp" decode="true">{{config.text}}</text>
   <block wx:if="{{config.src}}">

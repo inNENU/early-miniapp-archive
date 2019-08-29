@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-27 12:39:54
+ * @LastEditTime: 2019-08-29 10:54:55
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -57,7 +57,7 @@ $register('music', {
     // 写入基本信息
     this.setData({
       index,
-      share: option.share || false,
+      share: this.$state.firstOpen,
       info: a.info,
       nm: a.nm,
       play: a.music.play,
@@ -327,7 +327,7 @@ $register('music', {
   onShareAppMessage() {
     return {
       title: this.data.currentSong.title,
-      path: `/function/player?index=${this.data.index}&share=true`
+      path: `/function/player?index=${this.data.index}`
     };
   },
   redirect() {

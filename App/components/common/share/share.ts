@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-17 11:07:57
+ * @LastEditTime: 2019-08-29 10:52:23
  * @Description: 分享组件
  */
 
@@ -124,5 +124,9 @@ $register.C({
         wx.reportMonitor('7', 1);
       });
     }
+  },
+  options: {
+    addGlobalClass: true, // 兼容QQ
+    styleIsolation: 'shared'
   }
 });

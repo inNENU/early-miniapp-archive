@@ -19,7 +19,7 @@
 	"miniprogramRoot": "App/",
 	"compileType": "miniprogram",
 	"libVersion": "2.8.1",
-	"appid": "wx9ce37d9662499df3",
+	"appid": "wx33acb831ee1831a5",
 	"qqLibVersion": "1.6.3",
 	"qqappid": "1109559721",
 	"projectname": "in%E4%B8%9C%E5%B8%88",
@@ -62,26 +62,20 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
 					"name": "师大师大",
 					"pathName": "function/player",
-					"query": "index=5&share=true"
-				},
-				{
-					"id": 1,
-					"name": "更新",
-					"pathName": "page/main",
-					"query": "",
+					"query": "index=5",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "计算器分享",
 					"pathName": "function/PEcal",
-					"query": "share=true",
+					"query": "",
 					"scene": null
 				},
 				{

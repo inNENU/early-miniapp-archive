@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-27 12:42:02
+ * @LastEditTime: 2019-08-28 00:32:05
  * @Description: Page函数库
  */
 
@@ -169,7 +169,7 @@ const preGetPage = (page: PageData) => {
  *
  * @returns 处理后的page配置
  */
-const resolvePage = (option: MPPage.MPPageLifeTimeOptions, page?: PageData, Set = true) => {
+const resolvePage = (option: MPPage.PageLifeTimeOptions, page?: PageData, Set = true) => {
   $log.info('将要跳转：', option); // 控制台输出参数
   const { aim } = option.query;
   let data;
@@ -299,7 +299,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
         $log.debug(`${option.aim}预加载子页面完成`);
       }
     });
-  } else { // 需要重新载入界面
+  } else if (option.aim) { // 需要重新载入界面
     $log.info(`${option.aim}onLoad开始，参数为：`, option);
     const { folder, path } = resolveAim(option.aim);
 
@@ -335,14 +335,14 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
         }
 
         // 弹出通知
-        popNotice(option.aim);
+        popNotice(option.aim as string);
 
         // 调试
         $log.info(`${option.aim}onLoad成功`);
       }, res => {
         // 设置error页面并弹出通知
         setPage({ option, ctx }, [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }]);
-        popNotice(option.aim);
+        popNotice(option.aim as string);
 
         // 调试
         $log.warn(`${option.aim}onLoad失败，错误为`, res);
@@ -353,7 +353,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
         // 调试
         $log.warn(`${option.aim}资源错误`);
       });
-  }
+  } else $log.error('no aim');
 };
 
 /**

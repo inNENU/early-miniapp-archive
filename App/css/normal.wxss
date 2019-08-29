@@ -275,6 +275,10 @@
   background-color: #eee !important;
 }
 
+.nm .hover {
+  background-color: #111 !important;
+}
+
 .divLine {
   position: relative;
   width: 100%;

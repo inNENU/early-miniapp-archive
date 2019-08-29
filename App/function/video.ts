@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:08:13
+ * @LastEditTime: 2019-08-29 10:55:20
  * @Description: 视频页面
  */
 
@@ -18,15 +18,6 @@ $register('video', {
   },
   onLoad(options) {
     if (a.appID === 'wx9ce37d9662499df3') {
-
-
-      wx.loadFontFace({
-        family: 'FZSSJW', source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
-        complete: res => {
-          console.log(`宋体字体${res}`); // 调试
-        }
-      });
-
       const id = options.scene || options.id || 0;
       const videoList = $file.readJson('function/video');
 
@@ -36,7 +27,7 @@ $register('video', {
         this.setData({
           id,
           videoList,
-          share: options.share,
+          share: this.$state.firstOpen,
           statusBarHeight: a.info.statusBarHeight,
           nm: a.nm,
           videoName: item.name,
@@ -50,7 +41,7 @@ $register('video', {
         this.setData({
           id,
           videoList: data,
-          share: options.share,
+          share: this.$state.firstOpen,
           statusBarHeight: a.info.statusBarHeight,
           nm: a.nm,
           videoName: item.name,
@@ -74,6 +65,14 @@ $register('video', {
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
+
+    wx.loadFontFace({
+      family: 'FZSSJW', source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+      complete: res => {
+        console.log(`宋体字体${res}`); // 调试
+      }
+    });
+
   },
   change(event: WXEvent.Touch) {
     const { id } = event.currentTarget;
@@ -100,7 +99,7 @@ $register('video', {
   onShareAppMessage() {
     return {
       title: this.data.videoName,
-      path: `/function/video?id=${this.data.id}&share=true`
+      path: `/function/video?id=${this.data.id}`
     };
   },
   redirect() {

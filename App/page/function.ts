@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 22:39:32
+ * @LastEditTime: 2019-08-29 11:09:04
  * @Description: 功能大厅
  */
 import $register from 'wxpage';
@@ -44,6 +44,11 @@ $register('function', {
          *     { text: '校历', icon: '/icon/function/calendar.svg', url: '/module/building?month=1' }
          *   ]
          */
+      },
+      {
+        tag: 'p',
+        style: 'color:#888;font-size:14px;',
+        text: '   Mr.Hope要考研了，小程序在年底之前应该不会推出新功能。Mr.Hope会尽量在明年推出大家需要的课程表、成绩查询等功能。'
       }
     ]
   },

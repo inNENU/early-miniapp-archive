@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-27 12:56:57
+ * @LastEditTime: 2019-08-29 10:19:57
  * @Description: APP函数库
  */
 
@@ -328,6 +328,11 @@ const appUpdate = (globalData: GlobalData) => {
   });
 };
 
+/**
+ * 登录
+ *
+ * @param appID 小程序的appID
+ */
 const login = (appID: string) => {
   const openid = wx.getStorageSync('openid');
 
@@ -357,7 +362,6 @@ const login = (appID: string) => {
  * 负责检查通知与小程序更新，注册网络、内存、截屏的监听
  *
  * @param globalData 小程序的全局数据
- * @param appID 小程序的APPID
  */
 const startup = (globalData: GlobalData) => {
 
