@@ -3,14 +3,17 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-08-21 20:38:13
+ * @LastEditTime: 2019-09-01 01:05:46
  */
 
 import $log from './log';
 
-// 初始化文件管理器、用户路径
+/** 文件管理器 */
 const fileManager = wx.getFileSystemManager();
+/** 用户文件夹路径 */
 const userPath = wx.env.USER_DATA_PATH;
+/** 请求网址 */
+const url = 'mp.nenuyouth.com';
 
 /**
  * 删除文件或文件夹
@@ -67,6 +70,7 @@ const isFileExist = (path: string) => {
 
 /**
  * 列出目录下文件
+ *
  * @param path 要查看的文件夹路径
  * @returns 指定目录下的文件名数组
  */
@@ -168,7 +172,7 @@ const saveFile = (tempFilePath: string, path: string) => {
 /**
  * 保存在线文件
  *
- * @param array 参数数组
+ * @param options 参数数组
  *  - onlinePath 在线文件路径
  *  - savePath 本地保存路径
  *  - fileName 本地保存文件名
@@ -185,7 +189,7 @@ const saveOnlineFile = (
 ) => {
   makeDir(savePath);
   wx.downloadFile({
-    url: `https://mp.nenuyouth.com/${onlinePath}`,
+    url: `https://${url}/${onlinePath}`,
     filePath: `${userPath}/${savePath}/${fileName}`,
     success: res => {
       if (res.statusCode === 200) {
@@ -205,6 +209,7 @@ const saveOnlineFile = (
 
 /**
  * 写入文件
+ *
  * @param path 写入文件的路径
  * @param fileName 写入文件的文件名
  * @param data 写入文件的数据
@@ -219,6 +224,7 @@ const writeFile = (path: string, fileName: string, data: object | ArrayBuffer | 
 
 /**
  * 写入Json文件
+ *
  * @param path 写入文件的路径
  * @param fileName 写入文件的文件名
  * @param data 写入文件的数据
@@ -252,7 +258,7 @@ const getJson = (path: string, successFunc?: (data: object | string) => void, fa
       makeDir(folder);
 
       wx.downloadFile({
-        url: `https://mp.nenuyouth.com/${path}.json`,
+        url: `https://${url}/${path}.json`,
         filePath: `${userPath}/${folder}/${fileName}.json`,
         success: res => {
           if (res.statusCode === 200) {
@@ -281,7 +287,7 @@ const getJson = (path: string, successFunc?: (data: object | string) => void, fa
     makeDir(folder);
 
     wx.downloadFile({
-      url: `https://mp.nenuyouth.com/${path}.json`,
+      url: `https://${url}/${path}.json`,
       filePath: `${userPath}/${folder}/${fileName}.json`,
       success: res => {
         if (res.statusCode === 200) $log.info(`保存 ${path}.json 成功`);
@@ -296,6 +302,7 @@ const getJson = (path: string, successFunc?: (data: object | string) => void, fa
 
 /**
  * 解压文件
+ *
  * @param path 压缩文件路径
  * @param unzipPath 解压路径
  * @param successFunc 回调函数
@@ -314,5 +321,6 @@ const unzip = (path: string, unzipPath: string, successFunc?: () => void) => {
 
 export default {
   Delete, getJson, listFile, readFile, readJson,
-  makeDir, saveFile, saveOnlineFile, writeFile, writeJson, unzip, exist: isFileExist, Manager: fileManager
+  makeDir, saveFile, saveOnlineFile, writeFile, writeJson,
+  unzip, exist: isFileExist, Manager: fileManager
 };

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 15:42:02
+ * @LastEditTime: 2019-09-01 01:51:59
  * @Description: 我的东师
  */
 import $register from 'wxpage';
@@ -15,6 +15,8 @@ $register('me', {
     nm: a.nm,
     env: a.env,
     appID: a.appID,
+
+    /** 自定义导航栏配置 */
     head: { title: '我的东师', action: true, grey: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       { tag: 'head', title: '我的东师', hidden: true },
@@ -39,14 +41,17 @@ $register('me', {
       desc: `当前版本：${a.version}\n小程序由${a.appID === 'wx9ce37d9662499df3' ? '校学生会委托Mr.Hope' : 'Mr.Hope个人'}制作，如有错误还请见谅`
     }
   },
+
   onPreload(res) {
     $page.resolve(res, this.data.page);
     console.log(`我的东师预加载用时${new Date().getTime() - a.date}ms`);
   },
+
   onLoad() {
     $page.Set({ option: { aim: 'me' }, ctx: this });
     $page.Notice('me');
   },
+
   onShow() {
     const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
     const { nc, bc } = $page.color(true);
@@ -61,6 +66,7 @@ $register('me', {
       borderStyle: color[1]
     });
   },
+
   onReady() {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
@@ -70,8 +76,10 @@ $register('me', {
       this.setData({ nm });
     });
   },
+
   onPageScroll(event) {
     $page.nav(event, this, 'head');
   },
+
   onShareAppMessage: () => ({ title: '我的东师', path: '/page/me' })
 });

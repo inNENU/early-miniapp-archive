@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 12:34:41
+ * @LastEditTime: 2019-09-01 01:19:45
  * @Description: 小程序主脚本
  */
 
@@ -12,7 +12,7 @@ import app from './utils/app';
 $register.A({
   /** 小程序的全局数据 */
   globalData: {
-    version: 'V 2.3.7',
+    version: 'V 2.3.8',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -22,6 +22,7 @@ $register.A({
     env: 'wx'
     // T, nm, info也在globalData中
   } as unknown as GlobalData,
+
   config: {
     route: ['/page/$page', '/module/$page', '/function/$page', '/settings/$page'],
     resolvePath: (name: string) =>

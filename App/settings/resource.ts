@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-27 13:07:56
+ * @LastEditTime: 2019-09-01 01:40:27
  * @Description: 小程序资源说明
  */
 import $register from 'wxpage';
@@ -10,6 +10,7 @@ import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
+/** 列表动作 */
 type ListAction = 'github' | 'gitee';
 
 $register('resource', {
@@ -39,10 +40,12 @@ $register('resource', {
       { tag: 'foot', author: '' }
     ]
   },
+
   onLoad() {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
     $page.Notice('resource');
   },
+
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color();
@@ -50,21 +53,37 @@ $register('resource', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
+  onPageScroll(event) {
+    $page.nav(event, this);
+  },
+
+  /** 列表动作 */
   list({ detail }: any) {
     if (detail.event) this[detail.event as ListAction]();
   },
+
+  /** 复制github地址到剪切板 */
   github() {
     this.copy('https://github.com/GodofHope/miniprogramWebsite');
   },
+
+  /** 复制码云地址到剪切板 */
   gitee() {
     this.copy('https://gitee.com/Mr-Hope/miniprogramWebsite');
   },
+
+  /** 复制公共课程地址到剪切板 */
   public() {
     this.copy('https://github.com/GodofHope/publicCourse');
   },
+
+  /** 复制物理学课程地址到剪切板 */
   physics() {
     this.copy('https://github.com/GodofHope/physics');
   },
+
+  /** 复制内容到剪切板 */
   copy(url: string) {
     wx.setClipboardData({
       data: url,
@@ -72,8 +91,5 @@ $register('resource', {
         $wx.modal('复制成功', '链接地址已经成功复制至剪切板，请打开浏览器粘贴跳转');
       }
     });
-  },
-  onPageScroll(event) {
-    $page.nav(event, this);
   }
 });

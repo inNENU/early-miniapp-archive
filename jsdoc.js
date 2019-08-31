@@ -1,16 +1,27 @@
+/*
+ * @Author: Mr.Hope
+ * @Date: 2019-07-30 14:43:47
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2019-08-30 12:07:48
+ * @Description: JSdoc 配置文件
+ */
 'use strict';
 
-const jsdoc2md = require('jsdoc-to-markdown');
+// const jsdoc2md = require('jsdoc-to-markdown');
 
-jsdoc2md.render({ files: 'miniprogram/utils/*.ts' }).then(console.log);
+// jsdoc2md.render({ files: 'App/utils/*.ts' }).then(console.log);
 
 module.exports = {
-  plugins: ['plugins/markdown'],
-  'recurseDepth': 10,
-  'source': {
-    'include': ['./miniprogram/utils'],
+  plugins: [
+    "plugins/markdown",
+    "plugins/summarize"
+  ],
+  // plugins: ['plugins/markdown'],
+  recurseDepth: 10,
+  source: {
+    'include': ['./App/utils'],
     'exclude': [],
-    'includePattern': '.+\\.ts(doc|x)?$',
+    'includePattern': 'ts$',
     'excludePattern': '(^|\\/|\\\\)_'
   },
   'sourceType': 'module',
@@ -21,7 +32,7 @@ module.exports = {
   'opts': {
     'template': 'templates/default',  // Same as -t templates/default
     'encoding': 'utf8',               // Same as -e utf8
-    'destination': './out/',          // Same as -d ./out/
+    'destination': './doc/',          // Same as -d ./out/
     'recurse': true,             // Same as -r
     'package': './package.json'
   },

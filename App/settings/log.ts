@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 22:54:13
+ * @LastEditTime: 2019-09-01 01:34:21
  * @Description: 更新日志
  */
 
@@ -30,15 +30,18 @@ $register('log', {
       { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
     ]
   },
+
   onNavigate(res) {
     $page.resolve(res, this.data.page);
   },
+
   onLoad(option: any) {
     if (a.page.aim === '更新日志') $page.Set({ option, ctx: this });
     else $page.Set({ option: { aim: 'log' }, ctx: this });
 
     $page.Notice('log');
   },
+
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color(this.data.page[0].grey);
@@ -46,7 +49,9 @@ $register('log', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
   onReady() {
+    // 在线获取日志页面文件
     $wx.request(`config/${a.appID}/${a.version}/log`, (data: any) => {
       $page.Set(
         { option: { aim: '更新日志' }, ctx: this },
@@ -55,8 +60,10 @@ $register('log', {
       );
     });
   },
+
   onPageScroll(event) {
     $page.nav(event, this);
   },
+
   onShareAppMessage: () => ({ title: '更新日志', path: '/settings/log' })
 });

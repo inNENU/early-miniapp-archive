@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 11:09:04
+ * @LastEditTime: 2019-09-01 01:53:33
  * @Description: 功能大厅
  */
 import $register from 'wxpage';
@@ -14,6 +14,8 @@ $register('function', {
   data: {
     T: a.T,
     nm: a.nm,
+
+    /** 自定义导航栏配置 */
     head: { tag: 'head', title: '功能大厅', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       { tag: 'head', title: '功能大厅', hidden: true },
@@ -52,17 +54,20 @@ $register('function', {
       }
     ]
   },
+
   onPreload(res) {
     const pageData = this.$take('function');
 
     $page.resolve(res, pageData ? pageData : wx.getStorageSync('function'));
     console.log(`功能大厅预加载用时${new Date().getTime() - a.date}ms`);
   },
+
   onLoad() {
     $page.Set({ option: { aim: 'function' }, ctx: this });
     $page.Notice('function');
     $tab.update('function', '100K');
   },
+
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color(true);
@@ -70,6 +75,7 @@ $register('function', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
   onReady() {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
@@ -82,13 +88,16 @@ $register('function', {
     // 此处还需要再优化
     $tab.markerSet();
   },
+
   onPullDownRefresh() {
     $tab.refresh('function', this, a);
-    $tab.update('function', '80K');
+    $tab.update('function', '100K');
     wx.stopPullDownRefresh();
   },
+
   onPageScroll(event) {
     $page.nav(event, this, 'head');
   },
+
   onShareAppMessage: () => ({ title: '功能大厅', path: '/page/function' })
 });

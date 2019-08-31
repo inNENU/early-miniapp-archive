@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-25 13:53:13
+ * @LastEditTime: 2019-09-01 01:52:22
  * @Description: 东师指南
  */
 import $register from 'wxpage';
@@ -15,7 +15,11 @@ $register('guide', {
   data: {
     T: a.T,
     nm: a.nm,
+
+    /** 候选词 */
     words: [] as string[],
+
+    /** 自定义导航栏配置 */
     head: { title: '东师指南', action: true, statusBarHeight: a.info.statusBarHeight },
     page: [
       { tag: 'head', title: '东师指南', hidden: true },
@@ -74,17 +78,20 @@ $register('guide', {
       }
     ]
   },
+
   onPreload(res) {
     const pageData = this.$take('guide');
 
     $page.resolve(res, pageData ? pageData : wx.getStorageSync('guide'));
     console.log(`东师指南预加载用时${new Date().getTime() - a.date}ms`);
   },
+
   onLoad() {
     $page.Set({ option: { aim: 'guide' }, ctx: this });
     $page.Notice('guide');
-    $tab.update('page', '235K');
+    $tab.update('page', '250K');
   },
+
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color(true);
@@ -92,6 +99,7 @@ $register('guide', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
   onReady() {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
@@ -101,19 +109,34 @@ $register('guide', {
       this.setData({ nm });
     });
   },
+
   onPullDownRefresh() {
     $tab.refresh('guide', this, a);
     $tab.update('page', '235K');
     wx.stopPullDownRefresh();
   },
+
   onPageScroll(event) {
     $page.nav(event, this, 'head');
   },
-  searching({ detail }: WXEvent.Input) {
-    this.setData({ words: $search.searching(detail.value) });
+
+  onShareAppMessage: () => ({ title: '东师指南', path: '/page/guide' }),
+
+  /**
+   * 在搜索框中输入时触发的函数
+   *
+   * @param value 输入的搜索词
+   */
+  searching({ detail: { value } }: WXEvent.Input) {
+    this.setData({ words: $search.searching(value) });
   },
+
+  /**
+   * 跳转到搜索页面
+   *
+   * @param value 输入的搜索词
+   */
   search({ detail }: WXEvent.Input) {
     this.$route(`search?words=${detail.value}`);
-  },
-  onShareAppMessage: () => ({ title: '东师指南', path: '/page/guide' })
+  }
 });

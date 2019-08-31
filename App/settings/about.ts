@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 22:49:41
+ * @LastEditTime: 2019-09-01 01:28:30
  * @Description: 关于
  */
 import $register from 'wxpage';
@@ -51,25 +51,26 @@ $register('about', {
   },
   onNavigate(res) {
     const p = this.data.page;
-    const value = wx.getStorageSync('developMode');
 
-    developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
-
+    // 读取开发者模式并对页面显示做相应改变
+    developMode = wx.getStorageSync('developMode');
     if (!developMode) (p[1].content as any[]).forEach((x, y) => {
       x.hidden = !(y === 0);
     });
+
     $page.resolve(res, p);
   },
   onLoad(option: any) {
     if (a.page.aim === '关于') $page.Set({ option, ctx: this });
     else {
       const p = this.data.page;
-      const value = wx.getStorageSync('developMode');
 
-      developMode = value || value === false ? value : wx.setStorageSync('developMode', false);
+      // 读取开发者模式并对页面显示做相应改变
+      developMode = wx.getStorageSync('developMode');
       if (!developMode) (p[1].content as any[]).forEach((x, y) => {
         x.hidden = !(y === 0);
       });
+
       $page.Set({ option: { aim: 'about' }, ctx: this }, p);
     }
 
@@ -83,6 +84,7 @@ $register('about', {
     wx.setBackgroundColor(bc);
   },
   onReady() {
+    // 读取在线文件更新页面显示
     $wx.request(`config/${a.appID}/${a.version}/about`, (data: any) => {
       $page.Set(
         { option: { aim: '关于' }, ctx: this },
@@ -94,11 +96,16 @@ $register('about', {
   onPageScroll(event) {
     $page.nav(event, this);
   },
+
+  /** 列表控制函数 */
   list({ detail }: any) {
     console.log(detail);
     if (detail.event) this[detail.event as 'debugSwitch' | 'testSwitch'](detail.value);
   },
+
+  /** 点击版本号时触发的函数 */
   debugMode() {
+    // 关闭开发者模式
     if (developMode) {
       wx.setStorageSync('developMode', false);
       (this.data.page[1].content as any[]).forEach((x, y) => {
@@ -107,21 +114,33 @@ $register('about', {
       this.setData({ page: this.data.page });
       clickNumber = 0;
       developMode = false;
+
+      // 不做任何操作
     } else if (clickNumber < 5) clickNumber += 1;
+
+    // 提示还有几次点击即可启用开发者模式
     else if (clickNumber < 10) {
       $wx.tip(`再点击${10 - clickNumber}次即可启用开发者模式`);
       clickNumber += 1;
-    } else {
-      this.setData({ debug: true });
+
+      // 启用开发者模式
+    } else this.setData({ debug: true }, () => {
       wx.nextTick(() => {
         this.setData({ focus: true });
       });
-    }
+    });
   },
-  password(event: MiniprogramEvent) {
-    console.log(event);
+
+  /**
+   * 输入密码时出发的函数
+   * 用于判断密码是否正确并启用开发者模式
+   *
+   * @param event 输入事件
+   */
+  password(event: WXEvent.Input) {
     if (event.detail.value.length === 7) {
-      if (event.detail.value === '5201314') { // 密码正确
+      // 密码正确
+      if (event.detail.value === '5201314') {
         $wx.tip('已启用开发者模式');
         (this.data.page[1].content as any[]).forEach(x => {
           x.hidden = false;
@@ -134,14 +153,24 @@ $register('about', {
         wx.showToast({ title: '密码错误', icon: 'none', duration: 1000, image: '/icon/close.png' });
         this.setData({ debug: false });
       }
+
+      // 清空输入框
       event.detail.value = '';
     }
 
     return event.detail.value;
   },
+
+  /** 取消输入 */
   cancelInput() {
     this.setData({ debug: false });
   },
+
+  /**
+   * 控制调试开关
+   *
+   * @param value 开关状态
+   */
   debugSwitch(value: boolean) {
 
     (this.data.page[1].content as any[])[2].status = value;
@@ -151,6 +180,12 @@ $register('about', {
     if (value) wx.setEnableDebug({ enableDebug: true });
     else wx.setEnableDebug({ enableDebug: false });
   },
+
+  /**
+   * 控制测试功能开关
+   *
+   * @param value 开关状态
+   */
   testSwitch(value: boolean) {
     $wx.tip(`已${value ? '启用' : '关闭'}测试功能`);
   }

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-28 00:32:05
+ * @LastEditTime: 2019-09-01 01:18:11
  * @Description: Page函数库
  */
 
@@ -11,7 +11,7 @@ import $file from './file';
 import $log from './log';
 import $wx from './wx';
 
-// 声明全局数据
+/** 全局数据 */
 const { globalData } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 const getDoctype = (docType: string) =>
@@ -37,6 +37,7 @@ const getDoctype = (docType: string) =>
  * @param page 页面数据
  * @param option 页面传参
  * @param firstPage 是否是第一个页面
+ *
  * @returns 处理之后的page
  */
 const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
@@ -124,6 +125,7 @@ const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
  * 获取文件夹与路径名称
  *
  * @param aim 页面名称
+ *
  * @returns 文件夹与路径
  */
 const resolveAim = (aim: string) => {
@@ -214,9 +216,9 @@ interface SetPageOption {
  * @param object 配置对象
  * - option 页面传参
  * - ctx 页面指针
- * - [handle=false] 页面是否已经被处理
- * @param [page] 页面数据
- * @param [preload=true] 是否预加载子页面
+ * - handle 页面是否已经被处理
+ * @param page 页面数据
+ * @param preload 是否预加载子页面
  */
 const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData, preload = true) => {
   // 设置页面数据
@@ -454,7 +456,7 @@ const loadFont = (theme: string) => {
  *
  * @param option 组件参数
  * @param ctx 页面指针
- * @param [headName] 头部对象名称
+ * @param headName 导航栏配置对象名称
  */
 const changeNav = (option: WechatMiniprogram.Page.IPageScrollOption, ctx: any, headName?: string) => {
   const pageHead = headName ? ctx.data[headName] : ctx.data.page[0];

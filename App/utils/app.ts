@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 10:19:57
+ * @LastEditTime: 2019-09-01 01:21:09
  * @Description: APP函数库
  */
 
@@ -11,11 +11,12 @@ import $file from './file';
 import $wx from './wx';
 import $log from './log';
 
+/** App初始化选项 */
 interface AppOption {
   [props: string]: string | boolean | number;
 }
 
-// 小程序配置
+/** 小程序配置 */
 const appOption: AppOption = {
   /** 主题设置 */
   theme: 'auto',
@@ -40,7 +41,9 @@ const appOption: AppOption = {
   /** 功能更新提示 */
   functionResNotify: true,
   /** 页面更新提示 */
-  pageResNotify: true
+  pageResNotify: true,
+  /** 开发者模式开启状态 */
+  developMode: false
 };
 
 /**
@@ -111,6 +114,7 @@ const appInit = () => {
     // 根据平台设置主题
     switch (platform) {
       case 'ios':
+      case 'windows':
         theme = 'iOS';
         num = 0;
         break;
@@ -280,8 +284,8 @@ const appUpdate = (globalData: GlobalData) => {
       ({ forceUpdate, reset } = data as UpdateInfo);
 
       // 请求配置文件
-      $wx.request(`config/${globalData.appID}/version`, data => {
-        version = data as unknown as string;
+      $wx.request(`config/${globalData.appID}/version`, data2 => {
+        version = data2 as unknown as string;
         // 更新下载就绪，提示用户重新启动
         wx.showModal({
           title: '已找到新版本',
@@ -385,8 +389,8 @@ const startup = (globalData: GlobalData) => {
     ) && wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
   )
     $wx.modal(
-      '版本偏低',
-      '您的基础库版本偏低，可能导致部分内容无法正常显示，建议您更新至最新版客户端。',
+      '基础库版本偏低',
+      `您的${globalData.env === 'qq' ? 'QQ' : '微信'}偏低，会导致小程序部分内容显示异常，但这不会影响您在小程序的操作。建议您将${globalData.env === 'qq' ? 'QQ' : '微信'}更新至最新版版本。以获得最佳体验。`,
       () => { // 避免重复提示
         wx.setStorageSync('SDKVersion', globalData.info.SDKVersion);
       }

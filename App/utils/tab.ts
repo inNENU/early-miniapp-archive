@@ -113,7 +113,7 @@ const checkResUpdate = (name: string, dataUsage: string) => {
 };
 
 /**
- * 动态根据夜间模式改变导航栏 from main.js & me.js
+ * 动态根据夜间模式改变导航栏
  *
  * @param nightmode 夜间模式开启状态
  */
@@ -149,6 +149,7 @@ const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   });
 };
 
+/** 标记点 */
 interface Marker {
   id: number;
   latitude: number;
@@ -162,6 +163,7 @@ interface Marker {
  * 初始化marker，被setMarker调用
  *
  * @param markers 待处理的Marker数组
+ *
  * @returns 处理后的marker
  */
 const initMarker = (markers: Marker[]) => {
@@ -187,6 +189,7 @@ const initMarker = (markers: Marker[]) => {
   return markers;
 };
 
+/** 标记点数据 */
 interface MarkerData extends Marker {
   iconPath: string;
   width: number;
@@ -227,7 +230,6 @@ interface MarkerConfig {
  *
  * @param data marker数据
  * @param name marker名称
- * @returns 成功后返回
  */
 const setMarker = (data: MarkerConfig, name: string) => {
   const marker = initMarker(data.points);

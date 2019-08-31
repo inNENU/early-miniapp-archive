@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-27 12:35:50
+ * @LastEditTime: 2019-09-01 01:59:11
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -28,13 +28,20 @@ const includePoint2 = {
 
 $register('map', {
   data: {
+    /** 夜间模式状态 */
     nm: a.nm,
+
+    /** 地图数据 */
     map: {
       latitude: 43.862007982140646,
       longitude: 125.33405307523934,
       scale: 17
     },
+
+    /** 右下角列表显示状态 */
     list: false,
+
+    /** 点分类显示状态 */
     pointDisplay: false,
     closeTop: -31,
     selectItem: 'all',

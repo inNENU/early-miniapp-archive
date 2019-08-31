@@ -2,4 +2,4 @@
 /App/**/*.js
 /App/miniprogram_npm/
 !/App/node_modules/**/*.js
-/out/
+/doc/

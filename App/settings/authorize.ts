@@ -2,14 +2,21 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-27 11:55:36
+ * @LastEditTime: 2019-09-01 01:32:04
  * @Description: 捐赠
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
 import $wx from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
-const authorizeList: authorizeList[] = [
+
+type AuthorizeList =
+  'scope.userLocation' | 'scope.writePhotosAlbum' | 'scope.userInfo' |
+  'scope.address' | 'scope.invoiceTitle' | 'scope.invoice' | 'scope.werun' | 'scope.record' | 'scope.camera';
+
+type ListAction = 'location' | 'album' | 'address' | 'invoiceTitle' | 'invoice' | 'werun' | 'record' | 'camera';
+
+const authorizeList: AuthorizeList[] = [
   'scope.userLocation',
   'scope.writePhotosAlbum',
   'scope.userInfo',
@@ -20,12 +27,6 @@ const authorizeList: authorizeList[] = [
   'scope.record',
   'scope.camera'
 ];
-
-type authorizeList =
-  'scope.userLocation' | 'scope.writePhotosAlbum' | 'scope.userInfo' |
-  'scope.address' | 'scope.invoiceTitle' | 'scope.invoice' | 'scope.werun' | 'scope.record' | 'scope.camera';
-
-type ListAction = 'location' | 'album' | 'address' | 'invoiceTitle' | 'invoice' | 'werun' | 'record' | 'camera';
 
 $register('authorize', {
   data: {
@@ -67,15 +68,18 @@ $register('authorize', {
     ],
     authorize: {}
   },
+
   onNavigate(res) {
     $page.resolve(res, this.data.page);
   },
+
   onLoad(option: any) {
     if (a.page.aim === '授权设置') $page.Set({ option, ctx: this });
     else $page.Set({ option: { aim: 'authorize' }, ctx: this });
 
     $page.Notice('authorize');
   },
+
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color(this.data.page[0].grey);
@@ -83,6 +87,7 @@ $register('authorize', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
   onReady() {
     const list = this.data.page[1].content as any[];
 
@@ -97,33 +102,57 @@ $register('authorize', {
       }
     });
   },
+
+  onPageScroll(event) {
+    $page.nav(event, this);
+  },
+
+  /** 列表处理函数 */
   list({ detail }: any) {
     if (detail.event) this[detail.event as ListAction]();
   },
+
+  /** 定位授权 */
   location() {
     this.authorize(0);
   },
+
+  /** 相册授权 */
   album() {
     this.authorize(1);
   },
+
+  /** 通讯地址授权 */
   address() {
     this.authorize(3);
   },
+
+  /** 发票抬头授权 */
   invoiceTitle() {
     this.authorize(4);
   },
+
+  /** 发票授权 */
   invoice() {
     this.authorize(5);
   },
+
+  /** 微信运动数据授权 */
   werun() {
     this.authorize(6);
   },
+
+  /** 录音授权 */
   record() {
     this.authorize(7);
   },
+
+  /** 摄像头授权 */
   camera() {
     this.authorize(8);
   },
+
+  /** 授权函数 */
   authorize(type: number) {
     wx.showLoading({ title: '授权中' });
 
@@ -158,8 +187,5 @@ $register('authorize', {
         });
       }
     });
-  },
-  onPageScroll(event) {
-    $page.nav(event, this);
   }
 });

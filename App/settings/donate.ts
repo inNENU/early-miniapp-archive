@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 10:42:58
+ * @LastEditTime: 2019-09-01 01:33:49
  * @Description: 捐赠
  */
 import $register from 'wxpage';
@@ -39,6 +39,8 @@ $register('donate', {
   },
   onLoad() {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
+
+    // 获取捐赠列表数据
     $wx.request('config/donateList', donateList => {
       let sum = 0;
 
@@ -49,6 +51,7 @@ $register('donate', {
       this.setData({ donateList, sum: Math.floor(100 * sum) / 100 });
     });
   },
+
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color();
@@ -56,24 +59,35 @@ $register('donate', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
   onReady() {
     $page.Notice('donate');
   },
-  save(res: MiniprogramEvent) {
+
+  onPageScroll(event) {
+    $page.nav(event, this);
+  },
+
+  onShareAppMessage: () => ({ title: '捐赠Mr.Hope', path: '/settings/donate' }),
+
+  /** 保存二维码 */
+  save(res: WXEvent.Touch) {
     console.log('Start QRCode download.');// 调试
     $wx.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, (path: string) => {
       // 获取用户设置
       wx.getSetting({
         success: res2 => {
+          // 如果已经授权相册直接写入图片
           if (res2.authSetting['scope.writePhotosAlbum'])
-            // 如果已经授权相册直接写入图片
             wx.saveImageToPhotosAlbum({
               filePath: path,
               success: () => {
                 $wx.tip('保存成功');
               }
             });
-          else wx.authorize({// 没有授权——>提示用户授权
+
+          // 没有授权——>提示用户授权
+          else wx.authorize({
             scope: 'scope.writePhotosAlbum',
             success: () => {
               wx.saveImageToPhotosAlbum({
@@ -83,7 +97,9 @@ $register('donate', {
                 }
               });
             },
-            fail: () => { // 用户拒绝权限，提示用户开启权限
+
+            // 用户拒绝权限，提示用户开启权限
+            fail: () => {
               $wx.modal('权限被拒', '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限', () => {
                 $wx.tip('二维码保存失败');
               });
@@ -94,9 +110,5 @@ $register('donate', {
     }, () => {
       $wx.tip('二维码下载失败');
     });
-  },
-  onPageScroll(event) {
-    $page.nav(event, this);
-  },
-  onShareAppMessage: () => ({ title: '捐赠Mr.Hope', path: '/settings/donate' })
+  }
 });

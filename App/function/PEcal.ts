@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 10:54:47
+ * @LastEditTime: 2019-09-01 01:59:24
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
@@ -276,6 +276,7 @@ $register('PEcal', {
       wx.showToast({ title: '请选择性别年级', icon: 'none', duration: 2500, image: '/icon/close.png' });
     }
   },
+
   navigate() {
     this.$route('/module/module1?From=体测计算器&aim=test0&depth=1');
   },
@@ -283,5 +284,6 @@ $register('PEcal', {
   redirect() {
     this.$launch('/page/main');
   },
+
   onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal' })
 });

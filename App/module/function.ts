@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:26:51
+ * @LastEditTime: 2019-09-01 01:56:43
  * @Description: 功能页面
  */
 
@@ -27,6 +27,7 @@ $register('function', {
         nm: a.nm
       });
   },
+
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color();
@@ -34,6 +35,8 @@ $register('function', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
+  /** 返回主页 */
   main() {
     this.$launch('/page/main');
   }

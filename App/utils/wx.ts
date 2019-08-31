@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-08-17 10:59:35
+ * @LastEditTime: 2019-08-30 14:17:53
  */
 
 import $log from './log';
@@ -12,10 +12,10 @@ import $log from './log';
  * 显示提示文字
  *
  * @param text 提示文字
- * @param [duration=1500] 提示持续时间
- * @param [icon='none'] 提示图标
+ * @param duration 提示持续时间
+ * @param icon= 提示图标
  */
-export const tip = (text: string, duration?: number, icon: 'success' | 'loading' | 'none' = 'none') => {
+export const tip = (text: string, duration = 1500, icon: 'success' | 'loading' | 'none' = 'none') => {
   wx.showToast({ icon, title: text, duration: duration ? duration : 1500 });
 };
 
@@ -132,9 +132,9 @@ const request = (
  */
 const downLoad = (
   path: string,
-  successFunc: (path: string) => void,
-  failFunc?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
-  errorFunc?: (statusCode: number) => void
+  successFunc: (/** 缓存文件路径 */tempFilePath: string) => void,
+  failFunc?: (/** 失败信息 */errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
+  errorFunc?: (/** 服务器状态码 */statusCode: number) => void
 ) => {
   const progress = wx.downloadFile({
     url: `https://mp.nenuyouth.com/${path}`,

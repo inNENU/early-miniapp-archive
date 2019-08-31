@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-27 11:56:58
+ * @LastEditTime: 2019-09-01 01:41:58
  * @Description: 关于
  */
 import $register from 'wxpage';
@@ -12,6 +12,7 @@ import $tab from '../utils/tab';
 import $wx from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
+/** 列表动作 */
 type ListAction = 'getStorage' | 'refreshGuide' | 'refreshFunc' | 'deleteData' | 'deleteData' | 'resetApp';
 
 $register('storage', {
@@ -50,6 +51,7 @@ $register('storage', {
       { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
     ]
   },
+
   onNavigate(res) {
     $page.resolve(res, this.getStorage());
   },
@@ -59,6 +61,7 @@ $register('storage', {
 
     $page.Notice('storage');
   },
+
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color(this.data.page[0].grey);
@@ -66,13 +69,18 @@ $register('storage', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
   onPageScroll(event) {
     $page.nav(event, this);
   },
+
+  /** 列表动作 */
   list({ detail }: any) {
     if (detail.event) this[detail.event as ListAction]();
   },
-  getStorage() { // 获得存储信息
+
+  /** 获得存储信息 */
+  getStorage() {
     const p = this.data.page as any;
     const { currentSize } = wx.getStorageInfoSync();
     let fileSize = 0;
@@ -88,16 +96,24 @@ $register('storage', {
 
     return p;
   },
+
+  /** 刷新指南资源 */
   refreshGuide() {
     $tab.resDownload('page');
   },
+
+  /** 刷新功能资源 */
   refreshFunc() {
     $tab.resDownload('function');
   },
+
+  /** 清除小程序数据 */
   deleteData() {
     wx.clearStorageSync();
     $wx.tip('数据清除完成');
   },
+
+  /** 清除小程序文件 */
   deleteFile() {
     wx.showLoading({ title: '删除中', mask: true });
 
@@ -108,6 +124,8 @@ $register('storage', {
 
     wx.hideLoading();
   },
+
+  /** 初始化小程序 */
   resetApp() {
     // 显示提示
     wx.showLoading({ title: '初始化中', mask: true });

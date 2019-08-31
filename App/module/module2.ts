@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:11:47
+ * @LastEditTime: 2019-09-01 01:55:55
  * @Description: 模块页面2
  */
 
@@ -13,9 +13,11 @@ $register('module2', {
   onNavigate(option) {
     $page.resolve(option);
   },
+
   onLoad(res: any) {
     $page.Online(res, this);
   },
+
   onShow() {
     if (this.data.page) {
       // 设置胶囊和背景颜色
@@ -25,9 +27,11 @@ $register('module2', {
       wx.setBackgroundColor(bc);
     }
   },
+
   onPageScroll(event) {
     $page.nav(event, this);
   },
+
   onShareAppMessage() {
     return {
       title: this.data.page[0].title,
