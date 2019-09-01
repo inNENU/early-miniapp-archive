@@ -1,8 +1,12 @@
 <view class="introBox">
+  <!-- 高斯模糊背景 -->
   <image class="introBg" src="{{config.src}}" mode="aspectFill" />
   <view class="introCtn">
+    <!-- 图标 -->
     <image class="introIcon" src="{{config.src}}" />
+    <!-- 名称 -->
     <view class="introName">{{config.name}}</view>
+    <!-- 详情介绍 -->
     <view class="introDesc">{{config.desc}}</view>
   </view>
 </view>

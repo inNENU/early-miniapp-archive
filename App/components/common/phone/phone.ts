@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:40:01
+ * @LastEditTime: 2019-09-01 15:31:04
  * @Description: 电话组件
  */
 
@@ -10,13 +10,19 @@ import $register from 'wxpage';
 import { tip } from '../../../utils/wx';
 
 $register.C({
-  properties: { config: Object as any },
+  properties: {
+    /** 电话组件配置 */
+    config: Object as any
+  },
   methods: {
+    /** 拨打电话 */
     call() {
-      wx.makePhoneCall({ phoneNumber: this.data.config.num.toString() });// 拨打电话
+      wx.makePhoneCall({ phoneNumber: this.data.config.num.toString() });
     },
+
+    /** 添加联系人 */
     addContact() {
-      const { globalData: { env } } = getApp();// 获得当前小程序环境
+      const { globalData: { env } } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);// 获得当前小程序环境
 
       if (env === 'wx')
         wx.addPhoneContact({// 添加联系人
@@ -39,9 +45,10 @@ $register.C({
           url: this.data.config.website,
           homePhoneNumber: this.data.config.homeNum
         });
-      else tip('QQ暂不支持添加联系人');
+      else tip('QQ暂不支持直接添加联系人');
     }
   },
+
   options: {
     addGlobalClass: true, // 兼容QQ
     styleIsolation: 'shared'

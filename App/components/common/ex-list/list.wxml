@@ -1,4 +1,6 @@
+<!-- 列表头部注释文字 -->
 <view wx:if="{{config.head!==false}}" class="commonhead">{{config.head}}</view>
+<!-- 列表主体 -->
 <view class="Lctn">
   <block wx:for="{{config.content}}" wx:for-item="List" wx:key="text">
     <block wx:if="{{!List.hidden}}">
@@ -59,10 +61,13 @@
       </view>
       <!-- 滑块与嵌入式选择器显示 -->
       <block wx:if="{{List.visible}}">
+        <!-- 分割线 -->
         <view class="link-divline"></view>
+        <!-- 滑块显示 -->
         <view wx:if="{{List.slider}}" class="sliderCtn">
           <slider min="{{List.min? List.min: '0'}}" max="{{List.max? List.max: '100'}}" value="{{List.value}}" step="{{List.step? List.step: '1'}}" bindchanging="sliderChange" bindchange="sliderChange" data-id="{{index}}" />
         </view>
+        <!-- 嵌入式选择器显示 -->
         <picker-view wx:if="{{List.pickerValue}}" indicator-class="pickSelected" class="pickerViewCtn" value="{{List.currentValue}}" bindchange="pickerChange" data-id="{{index}}" mask-class="pickerMask">
           <block wx:if="{{List.single}}">
             <picker-view-column class="pick-view-column">
@@ -78,8 +83,10 @@
           </block>
         </picker-view>
       </block>
+      <!-- 分割线显示 -->
       <view class="{{List.icon? 'listIcon ' :''}}link-divline" />
     </block>
   </block>
 </view>
+<!-- 列表尾部注释文字 -->
 <view wx:if="{{config.foot}}" class="commonfoot">{{config.foot}}</view>

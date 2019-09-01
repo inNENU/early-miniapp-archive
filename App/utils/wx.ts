@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-08-30 14:17:53
+ * @LastEditTime: 2019-09-01 15:32:49
  */
 
 import $log from './log';
@@ -130,7 +130,7 @@ const request = (
  * @param [failFunc] 失败回调函数
  * @param [errorFunc] 状态码错误回调函数
  */
-const downLoad = (
+export const downLoad = (
   path: string,
   successFunc: (/** 缓存文件路径 */tempFilePath: string) => void,
   failFunc?: (/** 失败信息 */errMsg: WechatMiniprogram.GeneralCallbackResult) => void,

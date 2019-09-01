@@ -1,4 +1,6 @@
 <view class="docCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="doc">
+  <!-- 文档图标 -->
   <image class="docIcon" mode="widthFix" src="icon/{{config.docType}}.svg" />
+  <!-- 文档名称 -->
   <view class="docName">{{config.docName}}.{{config.docType}}</view>
 </view>

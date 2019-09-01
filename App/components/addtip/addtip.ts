@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-19 12:08:25
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 00:30:48
+ * @LastEditTime: 2019-09-01 15:12:54
  * @Description: 添加到我的小程序
  */
 
@@ -42,7 +42,7 @@ $register.C({
   },
 
   methods: {
-    // 显示全屏添加说明
+    /** 显示全屏添加说明 */
     showModal() {
       this.setData({
         SHOW_TOP: false,
@@ -50,6 +50,7 @@ $register.C({
       });
     },
 
+    /** 确定逻辑处理 */
     okHandler() {
       this.setData({ SHOW_MODAL: false });
       wx.setStorage({ key: 'addtip', data: new Date().getTime() });

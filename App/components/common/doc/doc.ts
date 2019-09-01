@@ -10,7 +10,11 @@ import $register from 'wxpage';
 import { tip } from '../../../utils/wx';
 
 $register.C({
-  properties: { config: { type: Object as any } },
+  properties: {
+    /** 配置 */
+    config: { type: Object as any }
+  },
+
   methods: {
     doc() {
       if (['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(this.data.config.docType)) {
@@ -48,6 +52,7 @@ $register.C({
       ) wx.previewImage({ urls: [this.data.config.url] });
     }
   },
+
   options: {
     addGlobalClass: true, // 兼容QQ
     styleIsolation: 'shared'

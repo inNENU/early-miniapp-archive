@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 22:13:31
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 12:57:07
+ * @LastEditTime: 2019-09-01 21:32:41
  * @Description: MPPage声明文件
  */
 
@@ -600,12 +600,9 @@ declare namespace WechatMiniprogram {
   }
 
   namespace App {
-    /** 全局数据 */
-    interface Globaldata {
+    type MPInstance<T extends IAnyObject> = Option & T & {
       globalData: GlobalData;
-    }
-
-    type MPInstance<T extends IAnyObject> = Option & T & Globaldata;
+    };
 
     type MPOption<T extends IAnyObject> =
       Partial<MPPage.AppOption> & Partial<Option> &

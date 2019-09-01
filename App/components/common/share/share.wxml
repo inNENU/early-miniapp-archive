@@ -1,8 +1,12 @@
+<!-- 分享按钮 -->
 <view wx:if="{{config.shareable||config.contact||config.feedback}}" class="shareIconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="shareIconHover" hover-stay-time="200" catch:touchstart="move" catch:touchmove="move" catch:touchend="move">
   <image class="shareIcon" src="./share.svg" />
 </view>
+<!-- 分享菜单 -->
 <view class="shareCtn{{menuDisplay? ' shareCtnShow': ''}}" catch:tap="cancel">
+  <!-- 背景蒙层 -->
   <view class="mask" />
+  <!-- 分享按钮列表 -->
   <view class="shareBtnList">
     <block wx:if="{{config.shareable}}">
       <button class="shareBtn" hover-class="buttonHover" hover-start-time="0" open-type="share" share-type="1">

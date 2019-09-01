@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:40:56
+ * @LastEditTime: 2019-09-01 15:22:00
  * @Description: 公众号组件
  */
 
@@ -10,10 +10,15 @@ import $register from 'wxpage';
 import { modal } from '../../../utils/wx';
 
 $register.C({
-  properties: { config: { type: Object as any } },
+  properties: {
+    /** 公众号组件配置 */
+    config: { type: Object as any }
+  },
+
   methods: {
+    /** 点击公众号组件触发的操作 */
     gzh() {
-      const { globalData: { appID } } = getApp();// 获得当前小程序ID
+      const { globalData: { appID } } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);// 获得当前小程序ID
 
       // 为企业主体微信小程序
       if (appID === 'wx9ce37d9662499df3')
@@ -28,6 +33,7 @@ $register.C({
       });
     }
   },
+
   options: {
     addGlobalClass: true, // 兼容QQ
     styleIsolation: 'shared'

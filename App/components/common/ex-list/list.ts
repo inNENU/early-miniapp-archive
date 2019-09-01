@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 12:49:39
+ * @LastEditTime: 2019-09-01 15:16:41
  * @Description: 列表组件
  */
 
@@ -10,35 +10,44 @@ import $register from 'wxpage';
 
 $register.C({
   properties: {
+    /** 配置 */
     config: { type: Object as any },
+
+    /** 改变触发 */
     change: { type: Object }
   },
   methods: {
+    /** 导航到指定页面 */
     navigate(res: WXEvent.Touch) {
       const { url } = this.getDetail(res).content;
 
       this.$route(url);
     },
-    pickerTap(res: WXEvent.PickerChange) { // 控制选择器显隐
+
+    /** 控制选择器显隐 */
+    pickerTap(res: WXEvent.Touch) {
       const { id, content: { visible: value } } = this.getDetail(res);
 
       this.setData({ [`config.content[${id}].visible`]: !value });
     },
+
+    /** 控制选择器改变 */
     pickerChange(res: WXEvent.PickerChange) {
       const { id, content } = this.getDetail(res);
 
       if (res.type === 'change') {
         const { value } = res.detail;
 
+        // 判断为多列选择器，遍历每一列更新页面数据、并存储选择器值
         if (Array.isArray(value)) {
-          // 判断为多列选择器，遍历每一列更新页面数据、并存储选择器值
           value.forEach((x: string | number, y: number) => {
             content.value[y] = content.pickerValue[y][Number(x)];
             content.currentValue[y] = x;
           });
           wx.setStorageSync(content.key, value.join('-'));
-        } else {
+
           // 判断为单列选择器，更新页面数据并存储选择器值
+        } else {
           content.value = content.pickerValue[Number(value)];
           content.currentValue = Number(value);
           wx.setStorageSync(content.key, Number(value));
@@ -53,6 +62,8 @@ $register.C({
         );
       }
     },
+
+    /** 开关改变 */
     switch(res: WXEvent.SwitchChange) {
       const { id, content } = this.getDetail(res);
 
@@ -67,17 +78,23 @@ $register.C({
 
       wx.setStorageSync(content.swiKey, res.detail.value); // 将开关值写入存储的swiKey变量中
     },
-    button(res: WXEvent.Base) { // 触发按钮事件
+
+    /** 触发按钮事件 */
+    button(res: WXEvent.Touch) {
       const { content } = this.getDetail(res);
 
       this.triggerEvent('change', { event: content.button });
     },
-    sliderTap(res: WXEvent.Base) { // 触发滑块事件
+
+    /** 控制滑块显隐 */
+    sliderTap(res: WXEvent.Touch) {
       const { id, content } = this.getDetail(res);
 
       // 更新页面数据
       this.setData({ [`config.content[${id}].visible`]: !content.visible });
     },
+
+    /** 滑块改变 */
     sliderChange(res: WXEvent.SliderChange) {
       const { id, content } = this.getDetail(res);
       const { value } = res.detail;
@@ -95,13 +112,20 @@ $register.C({
 
       if (res.type === 'change') wx.setStorageSync(content.sliKey, value);
     },
-    getDetail(res: WXEvent.Base) { // 获得选择器位置与内容
+
+    /** 获得选择器位置与内容 */
+    getDetail(res: WXEvent.Base) {
       const id = res.currentTarget.id || res.currentTarget.dataset.id;
 
       return { id, content: this.data.config.content[id] };
     }
   },
   observers: {
+    /**
+     * 改变触发
+     *
+     * @param detail 需要改变的键及其对应值
+     */
     change(detail: IAnyObject) {
       if (detail) {
         const detail2: IAnyObject = {};
@@ -116,6 +140,7 @@ $register.C({
 
     }
   },
+
   options: {
     addGlobalClass: true, // 兼容QQ
     styleIsolation: 'shared'
