@@ -1,5 +1,5 @@
 <view class="Ctn {{nm?'nm':''}}">
-  <view class="weatherCtn {{night?'night':''}}" style="padding-top:{{statusBarHeight}}px;">
+  <view class="weatherCtn {{night?'night':'day'}}" style="padding-top:{{statusBarHeight}}px;">
     <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' catch:tap="back">
       <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
     </view>

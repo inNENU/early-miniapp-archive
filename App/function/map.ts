@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:59:11
+ * @LastEditTime: 2019-09-01 13:07:03
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -11,14 +11,17 @@ import $tab from '../utils/tab';
 import $wx from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
-const includePoint1 = {
+/** 本部栅格 */
+const benbuPoint = {
   padding: [30, 20, 30, 20],
   points: [
     { latitude: 43.8578480844, longitude: 125.3252720833 },
     { latitude: 43.8633404949, longitude: 125.3379964828 }
   ]
 };
-const includePoint2 = {
+
+/** 本部栅格 */
+const jingyuePoint = {
   padding: [30, 20, 30, 20],
   points: [
     { latitude: 43.8256570334, longitude: 125.4175829887 },
@@ -44,8 +47,14 @@ $register('map', {
     /** 点分类显示状态 */
     pointDisplay: false,
     closeTop: -31,
+
+    /** 点位选择 */
     selectItem: 'all',
-    mapSwitch: true,
+
+    /** 地图开关，是否是本部 */
+    isBenbu: true,
+
+    /** 点位分类 */
     category: [
       ['全部', 'all'],
       ['校门', 'gate'],
@@ -57,16 +66,18 @@ $register('map', {
       ['风景', 'scenery']
     ]
   },
+
   onNavigate() {
     console.log('将要跳转Map');
     $tab.markerSet();
     a.marker = this.getMarker();
   },
+
   onLoad() {
     // QQ小程序暂不支持地图的处理
     if (a.env === 'qq') $wx.modal(
-      '无法查看',
-      'QQ小程序暂不支持地图。Mr.Hope会在推出后第一时间适配，如有需求查看，请使用微信小程序“myNenu”。',
+      '暂不支持',
+      'QQ小程序暂未推出地图功能，Mr.Hope会在第一时间适配，如需查看地图请使用微信小程序。',
       () => {
         this.$back();
       }
@@ -74,27 +85,30 @@ $register('map', {
 
     wx.showLoading({ title: '加载中...' });
 
-    let mapSwitch;
+    /** 当前校区是否是本部 */
+    let isBenbu;
+    /** 地图标记点 */
     let markers;
 
     if (a.marker) {
-      mapSwitch = a.marker.mapSwitch;
+      isBenbu = a.marker.isBenbu;
       markers = a.marker.markers;
 
       delete a.marker;
     } else {
       $tab.markerSet();
-
       const result = this.getMarker();
 
-      mapSwitch = result.mapSwitch;
+      isBenbu = result.isBenbu;
       markers = result.markers;
     }
 
     this.setData({
-      mapSwitch,
+      isBenbu,
       markers,
+      /** 设备信息 */
       info: a.info,
+      /** 地图风格 */
       mapStyle: a.nm ? '46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA' : 'PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF',
       nm: a.nm
     });
@@ -102,8 +116,10 @@ $register('map', {
     // 创建地图对象
     const mapCtx = wx.createMapContext('schoolMap');
 
-    mapCtx.includePoints(mapSwitch ? includePoint1 : includePoint2);
+    // 将地图缩放到对应的校区
+    mapCtx.includePoints(isBenbu ? benbuPoint : jingyuePoint);
 
+    // 500ms之后拿到缩放值和地图中心点坐标，写入地图组件配置
     setTimeout(() => {
       mapCtx.getScale({
         success: r1 => {
@@ -123,9 +139,9 @@ $register('map', {
       wx.hideLoading();
     }, 500);
 
+    // 将地图写入options实例中
     this.mapCtx = mapCtx;
 
-    // 弹出通知
     $page.Notice('map');
   },
   onShow() {
@@ -135,8 +151,9 @@ $register('map', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
   onReady() {
-    // 设置tab
+    // 读取tab高度
     wx.createSelectorQuery()
       .select('#mapTab')
       .boundingClientRect(rect => {
@@ -144,32 +161,35 @@ $register('map', {
       })
       .exec();
   },
+
   getMarker() {
-    const value: boolean = wx.getStorageSync('mapSwitch');
-    let mapSwitch: boolean;
+    const value: boolean = wx.getStorageSync('isBenbu');
+    let isBenbu: boolean;
 
     if (value === undefined) {
-      wx.setStorageSync('mapSwitch', true);
-      mapSwitch = true;
-    } else mapSwitch = value;
+      wx.setStorageSync('isBenbu', true);
+      isBenbu = true;
+    } else isBenbu = value;
 
-    const markers = wx.getStorageSync(mapSwitch ? 'benbu-all' : 'jingyue-all');
+    const markers = wx.getStorageSync(isBenbu ? 'benbu-all' : 'jingyue-all');
 
-    return { mapSwitch, markers };
+    return { isBenbu, markers };
   },
   xiaoquSwitch() {
-    const temp = !this.data.mapSwitch;
+    const temp = !this.data.isBenbu;
     const markers = wx.getStorageSync(temp ? 'benbu-all' : 'jingyue-all');
 
     this.setData({
       markers,
-      mapSwitch: temp
+      isBenbu: temp
     });
 
     const mapCtx = this.mapCtx;
 
-    mapCtx.includePoints(temp ? includePoint1 : includePoint2);
+    // 重新缩放校区
+    mapCtx.includePoints(temp ? benbuPoint : jingyuePoint);
 
+    // 重新获取缩放值与中心点坐标写入地图组件
     setTimeout(() => {
       mapCtx.getScale({
         success: r1 => {
@@ -187,8 +207,14 @@ $register('map', {
       });
     }, 500);
 
-    wx.setStorageSync('mapSwitch', temp);
+    wx.setStorageSync('isBenbu', temp);
   },
+
+  /**
+   * 获取缩放值
+   *
+   * @param event 触摸事件
+   */
   scale(event: WXEvent.Touch) {
     this.mapCtx.getCenterLocation({
       success: r2 => {
@@ -220,6 +246,8 @@ $register('map', {
      * });
      */
   },
+
+  /** 移动到当前坐标 */
   moveToLocation() {
     this.mapCtx.moveToLocation({});
   },
@@ -227,16 +255,16 @@ $register('map', {
     this.setData({ pointDisplay: !this.data.pointDisplay });
   },
   select(event: WXEvent.Touch) {
-    const name = this.data.mapSwitch ? 'benbu' : 'jingyue';
+    const name = this.data.isBenbu ? 'benbu' : 'jingyue';
     const current = event.target.dataset.category;
     const markers = wx.getStorageSync(`${name}-${current}`);
 
     this.setData({ markers, selectItem: current });
     this.mapCtx.includePoints({ padding: [30, 20, 30, 20], points: markers });
   },
-  markers(event: MarkerEvent) {
-    const { mapSwitch } = this.data;
-    const xiaoqu = mapSwitch ? 'benbu' : 'jingyue';
+  markers(event: WXEvent.MarkerTap) {
+    const { isBenbu } = this.data;
+    const xiaoqu = isBenbu ? 'benbu' : 'jingyue';
 
     if (event.type === 'markertap')
       this.$preload(`situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + event.markerId.toString()}`);

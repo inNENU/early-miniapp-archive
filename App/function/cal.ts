@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 23:47:21
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:47:56
+ * @LastEditTime: 2019-09-01 12:50:15
  * @Description: 绩点计算
  */
 
@@ -48,20 +48,20 @@ $register('cal', {
     this.setData({ grade: gradeNew });
     // 对data赋值
   },
-  input(e: InputEvent) {
-    console.log(e);
+  input(event: WXEvent.Input) {
+    console.log(event);
     const { grade } = this.data;
 
     /*
      * 获取grade
      * console.log(Number(e.detail.value));
      */
-    const { id } = e.currentTarget.dataset;
-    const target = e.currentTarget.dataset.class;
+    const { id } = event.currentTarget.dataset;
+    const target = event.currentTarget.dataset.class;
 
     // 获取正在输入的输入框id  获取正在输入对象
     grade[id][`${target}Focus`] = true;
-    console.log(e.detail.value.length);
+    console.log(event.detail.value.length);
 
     /*
      * If (e.detail.value.length < e.currentTarget.dataset.maxLength) {
@@ -70,15 +70,15 @@ $register('cal', {
      *   grade[id][target + 'Focus'] = false;
      * }
      */
-    if (Number(e.detail.value)) grade[id][target] = Number(e.detail.value);
+    if (Number(event.detail.value)) grade[id][target] = Number(event.detail.value);
     // 如果value可以转换为number，得到对应课程的grade数组并对其中的相应对象赋值数字
-    else grade[id][target] = e.detail.value;
+    else grade[id][target] = event.detail.value;
     // 如果value无法转换为number，得到对应课程的grade数组并对其中的相应对象赋值字符
     console.log(grade);
     this.setData({ grade });
     // 将新值写回data中
   },
-  next(e: NormalEvent) {
+  next(e: WXEvent.Touch) {
     const { grade } = this.data;
     const { id } = e.currentTarget.dataset;
 
@@ -93,7 +93,7 @@ $register('cal', {
       editText
     });
   },
-  sort(e: NormalEvent) {
+  sort(e: WXEvent.Touch) {
     console.log(e);
   },
   remove(e: any) {

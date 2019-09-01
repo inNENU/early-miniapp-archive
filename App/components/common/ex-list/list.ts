@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-14 23:41:10
+ * @LastEditTime: 2019-09-01 12:49:39
  * @Description: 列表组件
  */
 
@@ -14,12 +14,12 @@ $register.C({
     change: { type: Object }
   },
   methods: {
-    navigate(res: WXEvent.Base) {
+    navigate(res: WXEvent.Touch) {
       const { url } = this.getDetail(res).content;
 
       this.$route(url);
     },
-    pickerTap(res: PickerEvent) { // 控制选择器显隐
+    pickerTap(res: WXEvent.PickerChange) { // 控制选择器显隐
       const { id, content: { visible: value } } = this.getDetail(res);
 
       this.setData({ [`config.content[${id}].visible`]: !value });
@@ -78,7 +78,7 @@ $register.C({
       // 更新页面数据
       this.setData({ [`config.content[${id}].visible`]: !content.visible });
     },
-    sliderChange(res: SliderEvent) {
+    sliderChange(res: WXEvent.SliderChange) {
       const { id, content } = this.getDetail(res);
       const { value } = res.detail;
 

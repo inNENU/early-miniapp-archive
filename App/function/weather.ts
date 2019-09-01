@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 16:57:19
+ * @LastEditTime: 2019-09-01 12:39:59
  * @Description: 天气预报
  */
 import $register from 'wxpage';
@@ -21,6 +21,7 @@ $register('weather', {
     /** 动画对象 */
     animation: {}
   },
+
   onLoad() {
     const weatherData = wx.getStorageSync('weather');
 
@@ -64,6 +65,7 @@ $register('weather', {
 
     this.backgroundChange();
   },
+
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = $page.color();
@@ -71,6 +73,8 @@ $register('weather', {
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
+
+  onShareAppMessage: () => ({ title: '天气', path: '/function/weather' }),
 
   /**
    * 绘制温度曲线
@@ -205,9 +209,10 @@ $register('weather', {
     /** 移除加速度计监听 */
     wx.stopAccelerometer({ success: () => console.log('stop Accelerometer success') });
   },
+
+  /** 返回按钮功能 */
   back() {
     if (this.$state.firstOpen) wx.reLaunch({ url: '/page/main' });
     else this.$back();
-  },
-  onShareAppMessage: () => ({ title: '天气', path: '/function/weather' })
+  }
 });

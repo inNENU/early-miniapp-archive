@@ -31,8 +31,8 @@
       <cover-image class="locateBtn" src="/function/icon/locate.png" />
     </cover-view>
     <cover-view class="switch" catch:tap="xiaoquSwitch">
-      <cover-view class="switchItem {{mapSwitch? 'active': ''}}">本部</cover-view>
-      <cover-view class="switchItem {{mapSwitch? '': 'active'}}">净月</cover-view>
+      <cover-view class="switchItem {{isBenbu? 'active': ''}}">本部</cover-view>
+      <cover-view class="switchItem {{isBenbu? '': 'active'}}">净月</cover-view>
     </cover-view>
     <cover-view class="listBtnCtn {{list?'listActive':''}}" hover-class="{{list?'active':'nomarl'}}" catch:tap="showList">
       <cover-image class="listBtn" src="/function/icon/list{{list? '-active': ''}}.png" />
@@ -41,9 +41,9 @@
 </template>
 <!-- 夜间模式地图 -->
 <map wx:if="{{nm}}" subkey="YNUBZ-AN3HF-P62JK-J2GND-XQTQQ-TTBOB" id="schoolMap" class="schoolMap nm" style="width:100%;height:100%;" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" show-location markers="{{markers}}" bindmarkertap="markers" bindcallouttap="markers" bindupdated="update" bindregionchange="regionChange" enable-3D enable-scroll enable-rotate show-compass enable-overlooking enable-zoom>
-  <template is="mapControl" data="{{nm,list,closeTop,info,mapSwitch,category,selectItem,pointDisplay,tabHeight}}" />
+  <template is="mapControl" data="{{nm,list,closeTop,info,isBenbu,category,selectItem,pointDisplay,tabHeight}}" />
 </map>
 <!-- 日间模式地图 -->
 <map wx:else subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4" id="schoolMap" class="schoolMap" style="width:100%;height:100%;" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" show-location markers="{{markers}}" bindmarkertap="markers" bindcallouttap="markers" bindupdated="update" bindregionchange="regionChange" enable-3D enable-scroll enable-rotate show-compass enable-overlooking enable-zoom>
-  <template is="mapControl" data="{{nm,list,closeTop,info,mapSwitch,category,selectItem,pointDisplay,tabHeight}}" />
+  <template is="mapControl" data="{{nm,list,closeTop,info,isBenbu,category,selectItem,pointDisplay,tabHeight}}" />
 </map>

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:59:24
+ * @LastEditTime: 2019-09-01 12:48:54
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
@@ -10,11 +10,14 @@ import $file from '../utils/file';
 import $page from '../utils/page';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
+/** 特殊项目 */
 const special = [
   { text: '引体向上', unit: '个', type: 'number', id: 'chinning' },
   { text: '仰卧起坐', unit: '个', type: 'number', id: 'situp' }
 ];
+/** 长跑文字 */
 const longRunText = ['1000米跑', '800米跑'];
+/** 长跑选择器内容 */
 const longRunPicker = [['2分', '3分', '4分', '5分', '6分', '7分'], []];
 
 for (let i = 0; i < 60; i += 1) longRunPicker[1].push(`${i}秒`);
@@ -84,10 +87,17 @@ $register('PEcal', {
     // 设置通知
     $page.Notice('PEcal');
   },
+
   onPageScroll(event) {
     $page.nav(event, this);
   },
-  genderChange(event: PickerEvent) {
+
+  /**
+   * 性别切换
+   *
+   * @param event 选择器事件
+   */
+  genderChange(event: WXEvent.PickerChange) {
     const index = Number(event.detail.value);
     const gender = this.data.gender.value[index];
 
@@ -101,7 +111,13 @@ $register('PEcal', {
       'longRun.text': gender === 'male' ? longRunText[0] : longRunText[1]
     });
   },
-  gradeChange(event: PickerEvent) {
+
+  /**
+   * 年级切换
+   *
+   * @param event 选择器事件
+   */
+  gradeChange(event: WXEvent.PickerChange) {
     const index = Number(event.detail.value);
 
     // 设置年级
@@ -111,6 +127,8 @@ $register('PEcal', {
     });
     wx.setStorageSync('grade', index);
   },
+
+  /** 输入框聚焦 */
   focus(event: any) {
     console.log('focus', event);
     const { id } = event.currentTarget;
@@ -131,7 +149,7 @@ $register('PEcal', {
         });
     });
   },
-  input(event: InputEvent) {
+  input(event: WXEvent.Input) {
     console.log(event);
     const project = event.currentTarget.id;
 
@@ -140,12 +158,12 @@ $register('PEcal', {
   blur() {
     this.setData({ 'input.status': false });
   },
-  longRunHandler(event: MiniprogramEvent) {
+  longRunHandler(event: WXEvent.PickerChange) {
     const { value } = event.detail;
 
     // 设置显示数据
     this.setData({
-      'longRun.value': `${longRunPicker[0][value[0]]} ${longRunPicker[1][value[1]]}`,
+      'longRun.value': `${longRunPicker[0][value[0] as number]} ${longRunPicker[1][value[1] as number]}`,
       'result.longRun': ((value[0] as number) + 2) * 60 + (value[1] as number)
     });
   },

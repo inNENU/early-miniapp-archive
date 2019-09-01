@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 10:55:13
+ * @LastEditTime: 2019-09-01 12:41:53
  * @Description: 地点详情
  */
 import $register from 'wxpage';
@@ -12,10 +12,10 @@ import $wx from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('situs', {
-  data: {},
   onPreload(res) {
     $page.resolve(res, $file.readJson(`function/${res.query.xiaoqu}/${res.query.aim}`));
   },
+
   onLoad(option: any) {
     if (a.page.aim === option.aim) $page.Set({ option, ctx: this });
     else {
@@ -38,9 +38,10 @@ $register('situs', {
         });
     }
   },
+
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color((this.data as any).page[0].grey);
+    const { nc, bc } = $page.color();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -64,13 +65,17 @@ $register('situs', {
   onPageScroll(event) {
     $page.nav(event, this);
   },
+
   onShareAppMessage() {
     return {
       title: (this.data as any).page[0].title,
       path: `/function/situs?From=主页&depth=1&xiaoqu=${this.xiaoqu}&id=${this.id}&aim=${this.aim}`
     };
   },
-  redirect() { // 覆写重定向到主页
-    this.$switch('/page/main');
+
+  /** 返回按钮功能 */
+  back() {
+    if (this.$state.firstOpen) this.$launch('main');
+    else this.$back();
   }
 });

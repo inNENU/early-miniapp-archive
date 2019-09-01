@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 10:54:55
+ * @LastEditTime: 2019-09-01 12:48:09
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -188,14 +188,14 @@ $register('music', {
 
     $page.Notice('music');
   },
-  loadCover(event: MiniprogramEvent) { // 加载封面
+  loadCover(event: WXEvent.ImageLoad) { // 加载封面
     if (event.type === 'load') this.setData({ coverLoad: true });
   },
   play() { // 播放
     if (this.data.play) manager.pause();
     else manager.play();
   },
-  drag(event: MiniprogramEvent) { // 拖拽进度
+  drag(event: WXEvent.SliderChange) { // 拖拽进度
     manager.seek(event.detail.value / 100);
     if (event.type === 'change') {
       this.setData({ currentTime: event.detail.value / 100 });
@@ -320,7 +320,7 @@ $register('music', {
   list() { // 切换列表显隐
     this.setData({ songListDisplay: !this.data.songListDisplay });
   },
-  change(res: MiniprogramEvent) { // 点击列表具体歌曲项时触发
+  change(res: WXEvent.Touch) { // 点击列表具体歌曲项时触发
     this.list();
     this.switchSong(res.currentTarget.dataset.index);
   },

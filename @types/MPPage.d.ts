@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 22:13:31
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-28 00:32:03
+ * @LastEditTime: 2019-09-01 12:57:07
  * @Description: MPPage声明文件
  */
 
@@ -551,18 +551,6 @@ declare namespace MPPage {
 }
 
 declare namespace WechatMiniprogram {
-  // FIXME:
-  interface GetRealtimeLogManager {
-    debug(...args: any[]): void;
-    info(...args: any[]): void;
-    warn(...args: any[]): void;
-    error(...args: any[]): void;
-    setFilterMsg(filterMsg: string): void;
-  }
-  interface Wx {
-    getRealtimeLogManager(): GetRealtimeLogManager;
-  }
-
   // QQ兼容
   interface GetSystemInfoSyncResult {
     /** 运行环境 */
