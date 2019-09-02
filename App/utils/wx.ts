@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-09-01 15:32:49
+ * @LastEditTime: 2019-09-02 00:41:03
  */
 
 import $log from './log';
@@ -93,7 +93,7 @@ const netReport = () => {
  */
 const request = (
   path: string,
-  successFunc: (data: IAnyObject) => void,
+  successFunc: (data: Record<string, any>) => void,
   failFunc?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
   errorFunc?: (statusCode: number) => void
 ) => {

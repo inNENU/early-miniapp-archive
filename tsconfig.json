@@ -32,7 +32,6 @@
   ],
   "exclude": [
     "APP/miniprogram_npm",
-    "node_modules",
-    "**/*.spec.ts"
+    "node_modules"
   ]
 }

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 22:13:31
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 21:32:41
+ * @LastEditTime: 2019-09-02 00:40:12
  * @Description: MPPage声明文件
  */
 
@@ -442,7 +442,7 @@ declare namespace MPPage {
      *
      * @param options 同setData的第一项
      */
-    $set(options: Partial<D> & IAnyObject): void;
+    $set(options: Partial<D> & Record<string, any>): void;
 
     /** TODO: Remove
      *

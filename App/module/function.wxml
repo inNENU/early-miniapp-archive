@@ -1,5 +1,10 @@
 <view class="{{T}} {{nm?'nm':''}}">
-  <button type="primary" class="action" wx:if="{{contact}}" open-type="contact">联系客服</button>
+  <block wx:if="{{contact}}">
+    <button type="primary" class="action" wx:if="{{appID='wx9ce37d9662499df3'}}" open-type="contact">
+      联系校会君
+    </button>
+    <button type="primary" class="action" wx:else open-type="contact">联系Mr.Hope</button>
+  </block>
   <button type="primary" class="action" wx:if="{{feedback}}" open-type="feedback">意见反馈</button>
   <button type="primary" class="action" wx:if="{{login}}" open-type="getUserInfo">登录</button>
   <button type="default" class="back" catch:tap="main">返回主页</button>

@@ -3,7 +3,3 @@
 /* eslint-disable @typescript-eslint/triple-slash-reference */
 /// <reference path="../node_modules/miniprogram-api-typings/index.d.ts" />
 /// <reference path="./wx/lib.wx.event.d.ts" />
-
-interface IAnyObject {
-  [props: string]: any;
-}

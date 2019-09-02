@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-12 01:14:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:17:21
+ * @LastEditTime: 2019-09-02 00:40:56
  * @Description: 搜索模块
  */
 
@@ -91,7 +91,7 @@ const search = (searchWord: string) => {
   const words = searchWord.split('');
   const weight: SearchResultWeight = {};
   const resultList: SearchResult[] = [];
-  const desc: IAnyObject = {};
+  const desc: Record<string, any> = {};
 
   Object.keys(keywords)
     .forEach(jsonName => {

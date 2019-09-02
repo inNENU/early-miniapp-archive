@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 15:16:41
+ * @LastEditTime: 2019-09-02 00:40:25
  * @Description: 列表组件
  */
 
@@ -126,9 +126,9 @@ $register.C({
      *
      * @param detail 需要改变的键及其对应值
      */
-    change(detail: IAnyObject) {
+    change(detail: Record<string, any>) {
       if (detail) {
-        const detail2: IAnyObject = {};
+        const detail2: Record<string, any> = {};
 
         Object.keys(detail)
           .forEach(element => {

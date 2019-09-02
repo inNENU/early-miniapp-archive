@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:18:11
+ * @LastEditTime: 2019-09-02 00:40:42
  * @Description: Page函数库
  */
 
@@ -199,7 +199,7 @@ const resolvePage = (option: MPPage.PageLifeTimeOptions, page?: PageData, Set = 
 
 interface SetPageOption {
   option: PageArg;
-  ctx: WechatMiniprogram.Page.MPInstance<IAnyObject, IAnyObject>;
+  ctx: WechatMiniprogram.Page.MPInstance<Record<string, any>, Record<string, any>>;
   handle?: boolean;
 }
 

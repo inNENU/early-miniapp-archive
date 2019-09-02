@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:56:43
+ * @LastEditTime: 2019-09-02 18:49:44
  * @Description: 功能页面
  */
 
@@ -11,6 +11,7 @@ import $page from '../utils/page';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('function', {
+  data: { appID: a.appID },
   onLoad(options) {
     if (options.scene) {
       const arg = decodeURIComponent(options.scene);
