@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-17 10:09:53
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 12:59:44
+ * @LastEditTime: 2019-09-04 12:55:27
  * @Description: 实时日志封装
  */
 
@@ -11,7 +11,7 @@ const log = wx.getRealtimeLogManager ? wx.getRealtimeLogManager() : wx.getLogMan
 const realtime = Boolean(wx.getRealtimeLogManager);
 
 /** 写入普通日志 */
-const debug = (...args: any[]) => {
+export const debug = (...args: any[]) => {
   console.log(...args);
   if (realtime) log.info('debug', ...args);
   else (log as WechatMiniprogram.LogManager).debug(...args);
@@ -24,7 +24,7 @@ const info = (...args: any[]) => {
 };
 
 /** 写入警告日志 */
-const warn = (...args: any[]) => {
+export const warn = (...args: any[]) => {
   console.warn(...args);
   log.warn(...args);
 };

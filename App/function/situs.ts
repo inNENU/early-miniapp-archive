@@ -2,34 +2,34 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 12:41:53
+ * @LastEditTime: 2019-09-04 12:49:20
  * @Description: 地点详情
  */
 import $register from 'wxpage';
-import $file from '../utils/file';
+import { readJson, makeDir, writeJson } from '../utils/file';
 import $page from '../utils/page';
-import $wx from '../utils/wx';
+import { request } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('situs', {
   onPreload(res) {
-    $page.resolve(res, $file.readJson(`function/${res.query.xiaoqu}/${res.query.aim}`));
+    $page.resolve(res, readJson(`function/${res.query.xiaoqu}/${res.query.aim}`));
   },
 
   onLoad(option: any) {
     if (a.page.aim === option.aim) $page.Set({ option, ctx: this });
     else {
-      const pageData = $file.readJson(`function/${option.xiaoqu}/${option.aim}`);
+      const pageData = readJson(`function/${option.xiaoqu}/${option.aim}`);
 
       if (pageData) $page.Set({ option, ctx: this }, pageData);
       else // 向服务器请求json
-        $wx.request(`function/${option.xiaoqu}/${option.aim}`, (data: object) => {
+        request(`function/${option.xiaoqu}/${option.aim}`, (data: object) => {
           $page.Set({ option, ctx: this }, data as PageData);
 
           // 非分享界面下将页面数据写入存储
           if (!option.share) {
-            $file.makeDir(`function/${option.xiaoqu}`);
-            $file.writeJson(`function/${option.xiaoqu}`, option.aim, data);
+            makeDir(`function/${option.xiaoqu}`);
+            writeJson(`function/${option.xiaoqu}`, option.aim, data);
           }
         }, () => {
           $page.Set({ option, ctx: this }, [{ tag: 'error', statusBarHeight: a.info.statusBarHeight }]);

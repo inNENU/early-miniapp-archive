@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:33:49
+ * @LastEditTime: 2019-09-04 12:50:54
  * @Description: 捐赠
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
-import $wx from '../utils/wx';
+import { request, tip, downLoad, modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 interface DonateDetail {
@@ -41,7 +41,7 @@ $register('donate', {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
 
     // 获取捐赠列表数据
-    $wx.request('config/donateList', donateList => {
+    request('config/donateList', donateList => {
       let sum = 0;
 
       (donateList as unknown as DonateList).forEach(element => {
@@ -73,7 +73,7 @@ $register('donate', {
   /** 保存二维码 */
   save(res: WXEvent.Touch) {
     console.log('Start QRCode download.');// 调试
-    $wx.downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, (path: string) => {
+    downLoad(`img/donate/${res.currentTarget.dataset.name}.png`, (path: string) => {
       // 获取用户设置
       wx.getSetting({
         success: res2 => {
@@ -82,7 +82,7 @@ $register('donate', {
             wx.saveImageToPhotosAlbum({
               filePath: path,
               success: () => {
-                $wx.tip('保存成功');
+                tip('保存成功');
               }
             });
 
@@ -93,22 +93,22 @@ $register('donate', {
               wx.saveImageToPhotosAlbum({
                 filePath: path,
                 success: () => {
-                  $wx.tip('保存成功');
+                  tip('保存成功');
                 }
               });
             },
 
             // 用户拒绝权限，提示用户开启权限
             fail: () => {
-              $wx.modal('权限被拒', '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限', () => {
-                $wx.tip('二维码保存失败');
+              modal('权限被拒', '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限', () => {
+                tip('二维码保存失败');
               });
             }
           });
         }
       });
     }, () => {
-      $wx.tip('二维码下载失败');
+      tip('二维码下载失败');
     });
   }
 });

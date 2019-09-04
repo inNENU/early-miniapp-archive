@@ -9,7 +9,7 @@
 import $file from './file';
 import $log from './log';
 import $page from './page';
-import $wx from './wx';
+import { tip, modal, request } from './wx';
 
 /**
  * 资源下载 from fuction.js & guide.js 被checkResUpdate调用
@@ -68,47 +68,52 @@ const checkResUpdate = (name: string, dataUsage: string) => {
   $log.debug(`${name}更新于${localTime}, 现在时间是${currentTime}`);
 
   if (notify || currentTime > Number(localTime) + 604800)// 如果需要更新
-    $wx.request(`${name}Version`, data => {
+    wx.request({
+      url: `https://mp.nenuyouth.com/server/resVersion.php?res=${name}`,
+      success: res => {
+        if (res.statusCode === 200)
+          // 资源为最新
+          if (Number(localVersion) === Number(res.data)) $log.debug(`${name}资源已是最新版`);// 调试
 
-      // 资源为最新
-      if (Number(localVersion) === Number(data)) $log.debug(`${name}资源已是最新版`);// 调试
+          // 需要更新
+          else {
+            $log.info(`${name}资源有更新`); // 调试
 
-      // 需要更新
-      else {
-        $log.info(`${name}资源有更新`); // 调试
+            // 如果需要提醒，则弹窗
+            if (notify) wx.showModal({
+              title: '资源有更新', content: `请更新资源以获得最新功能与内容。(会消耗${dataUsage}流量)`,
+              cancelText: '取消', cancelColor: '#ff0000', confirmText: '更新',
+              success: choice => {
 
-        // 如果需要提醒，则弹窗
-        if (notify) wx.showModal({
-          title: '资源有更新', content: `请更新资源以获得最新功能与内容。(会消耗${dataUsage}流量)`,
-          cancelText: '取消', cancelColor: '#ff0000', confirmText: '更新',
-          success: choice => {
+                // 用户确认，下载更新
+                if (choice.confirm) resDownload(name);
 
-            // 用户确认，下载更新
-            if (choice.confirm) resDownload(name);
+                // 用户取消，询问是否关闭更新提示
+                else if (choice.cancel) wx.showModal({
+                  title: '开启资源更新提示？', content: '开启后在资源有更新时会提示您更新资源文件。',
+                  cancelText: '关闭', cancelColor: '#ff0000', confirmText: '保持开启',
+                  success: choice2 => {
 
-            // 用户取消，询问是否关闭更新提示
-            else if (choice.cancel) wx.showModal({
-              title: '开启资源更新提示？', content: '开启后在资源有更新时会提示您更新资源文件。',
-              cancelText: '关闭', cancelColor: '#ff0000', confirmText: '保持开启',
-              success: choice2 => {
-
-                // 用户选择关闭
-                if (choice2.cancel)
-                  $wx.modal(
-                    '更新提示已关闭', '您可以在设置中重新打开提示。请注意：为保障正常运行，小程序会每周对资源进行强制更新。',
-                    // 关闭更新提示
-                    () => {
-                      wx.setStorageSync(`${name}ResNotify`, false);
-                    }
-                  );
+                    // 用户选择关闭
+                    if (choice2.cancel)
+                      modal(
+                        '更新提示已关闭', '您可以在设置中重新打开提示。请注意：为保障正常运行，小程序会每周对资源进行强制更新。',
+                        // 关闭更新提示
+                        () => {
+                          wx.setStorageSync(`${name}ResNotify`, false);
+                        }
+                      );
+                  }
+                });
               }
             });
-          }
-        });
 
-        // 距上次更新已经半个月了，强制更新
-        else resDownload(name);
-      }
+            // 距上次更新已经半个月了，强制更新
+            else resDownload(name);
+          }
+        else tip('服务器出现问题');
+      },
+      fail: () => tip('服务器出现问题')
     });
 };
 
@@ -139,12 +144,12 @@ const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   const test = wx.getStorageSync('test');
 
   // 开启测试后展示测试界面
-  if (test) $wx.request(`config/${globalData.appID}/test/${name}`, data => {
+  if (test) request(`config/${globalData.appID}/test/${name}`, data => {
     wx.setStorageSync(name, data);
     $page.Set({ ctx, option: { aim: name } }, data as PageData);
   });
   // 普通界面加载
-  else $wx.request(`config/${globalData.appID}/${globalData.version}/${name}`, data => {
+  else request(`config/${globalData.appID}/${globalData.version}/${name}`, data => {
     $page.Set({ ctx, option: { aim: name } }, data as PageData);
   });
 };
@@ -266,7 +271,7 @@ const markerSet = () => {
       // 调试
       $log.warn('获取Marker失败');
 
-      $wx.request('function/marker', data => {
+      request('function/marker', data => {
 
         // 将Marker数据保存文件
         $file.writeJson('function', 'marker', data);
@@ -276,7 +281,7 @@ const markerSet = () => {
         setMarker((data as MarkerConfig[])[1], 'jingyue');
 
         // 写入线上版本
-        $wx.request('functionVersion', data2 => {
+        request('functionVersion', data2 => {
           wx.setStorageSync('markerVersion', data2);
         });
       });

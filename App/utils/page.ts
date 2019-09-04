@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-02 00:40:42
+ * @LastEditTime: 2019-09-04 12:52:35
  * @Description: Page函数库
  */
 
 // 引入文件管理
-import $file from './file';
+import { getJson, readJson, writeJson } from './file';
 import $log from './log';
-import $wx from './wx';
+import { modal, request } from './wx';
 
 /** 全局数据 */
 const { globalData } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
@@ -149,7 +149,7 @@ const preGetPage = (page: PageData) => {
         if ('aim' in element) {
           const { path } = resolveAim(element.aim);
 
-          $file.getJson(`page/${path}`);
+          getJson(`page/${path}`);
         }
       });
   });
@@ -179,7 +179,7 @@ const resolvePage = (option: MPPage.PageLifeTimeOptions, page?: PageData, Set = 
   if (page) data = disposePage(page, option.query);
   else {
     const { path } = resolveAim(aim);
-    const pageData = $file.readJson(`page/${path}`);
+    const pageData = readJson(`page/${path}`);
 
     if (pageData) data = disposePage(pageData as PageData, option.query);
     else {
@@ -269,7 +269,7 @@ const popNotice = (aim: string) => {
     // 从存储中获取通知内容并展示
     const notice = wx.getStorageSync(`${aim}notice`);
 
-    $wx.modal(notice[0], notice[1], () => {
+    modal(notice[0], notice[1], () => {
       wx.removeStorageSync(`${aim}Notify`); // 防止二次弹窗
     });
     $log.info('弹出通知');// 调试
@@ -307,7 +307,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
 
     ctx.aim = option.aim;
 
-    const page = $file.readJson(`page/${path}`);
+    const page = readJson(`page/${path}`);
 
     // 如果本地存储中含有page直接处理
     if (page) {
@@ -323,12 +323,12 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
       }
     } else
       // 请求页面Json
-      $wx.request(`page/${path}`, data => {
+      request(`page/${path}`, data => {
         // 设置界面
         setPage({ option, ctx }, data as PageData);
 
         // 非分享界面下将页面数据写入存储
-        if (!option.share) $file.writeJson(`page/${folder}`, `${option.aim}`, data);
+        if (!option.share) writeJson(`page/${folder}`, `${option.aim}`, data);
 
         // 如果需要执行预加载，则执行
         if (preload) {

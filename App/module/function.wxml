@@ -1,11 +1,15 @@
 <view class="{{T}} {{nm?'nm':''}}">
   <block wx:if="{{contact}}">
-    <button type="primary" class="action" wx:if="{{appID='wx9ce37d9662499df3'}}" open-type="contact">
+    <button wx:if="{{appID === 'wx9ce37d9662499df3'}}" type="primary" class="action" open-type="contact">
       联系校会君
     </button>
-    <button type="primary" class="action" wx:else open-type="contact">联系Mr.Hope</button>
+    <button wx:else type="primary" class="action" open-type="contact">联系Mr.Hope</button>
   </block>
   <button type="primary" class="action" wx:if="{{feedback}}" open-type="feedback">意见反馈</button>
   <button type="primary" class="action" wx:if="{{login}}" open-type="getUserInfo">登录</button>
+  <button type="primary" class="action" wx:if="{{reset}}" catch:tap="resetApp">初始化小程序</button>
+  <navigator wx:if="{{exit}}" open-type="exit" target="miniProgram">
+    <button type="primary" class="action">退出小程序</button>
+  </navigator>
   <button type="default" class="back" catch:tap="main">返回主页</button>
 </view>

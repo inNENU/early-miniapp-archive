@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 12:48:09
+ * @LastEditTime: 2019-09-04 12:48:09
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
-import $file from '../utils/file';
+import { getJson, readJson, writeJson } from '../utils/file';
 import $page from '../utils/page';
-import $wx from '../utils/wx';
+import { request, tip } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 const manager = wx.getBackgroundAudioManager();
 
@@ -33,7 +33,7 @@ $register('music', {
     mode: 0
   },
   onNavigate() {
-    $file.getJson('function/song');
+    getJson('function/song');
   },
   onLoad(option = {}) {
     // 加载字体
@@ -49,7 +49,7 @@ $register('music', {
     if (option.index) a.music.index = Number(option.index);
 
     const { index } = a.music;
-    const songList = $file.readJson('function/song') as SongDetail[];
+    const songList = readJson('function/song') as SongDetail[];
     const mode = wx.getStorageSync('playMode');
 
     if (!mode) wx.setStorageSync('playMode', 0);
@@ -83,7 +83,7 @@ $register('music', {
       }
 
       // 在线获取歌曲列表
-    } else $wx.request('function/song', data => {
+    } else request('function/song', data => {
       currentSong = data[index] as SongDetail;
       this.setData({ currentSong, songList: data as any[] });
 
@@ -100,7 +100,7 @@ $register('music', {
       }
 
       // 写入JSON文件
-      $file.writeJson('function', 'song', data);
+      writeJson('function', 'song', data);
     });
 
     // 能够播放100ms后设置可以播放
@@ -177,7 +177,7 @@ $register('music', {
     });
 
     manager.onError(() => {
-      $wx.tip('获取音乐出错，请稍后重试');
+      tip('获取音乐出错，请稍后重试');
     });
 
     // 设置胶囊和背景颜色
@@ -214,7 +214,7 @@ $register('music', {
         break;
       case 2:
         index = index as number + 1 === total ? 'stop' : index as number + 1;
-        $wx.tip('播放完毕');
+        tip('播放完毕');
         break;
       case 1:
         break;
@@ -236,7 +236,7 @@ $register('music', {
       case 2:
         if (index as number + 1 === total) {
           index = 'nothing';
-          $wx.tip('已是最后一曲');
+          tip('已是最后一曲');
         } else index = index as number + 1;
         break;
       case 1:
@@ -258,7 +258,7 @@ $register('music', {
       case 2:
         if (index === 0) {
           index = 'nothing';
-          $wx.tip('已是第一曲');
+          tip('已是第一曲');
         } else index = index as number - 1;
         break;
       case 1:
@@ -315,7 +315,7 @@ $register('music', {
         modeName = '列表循环';
     }
     wx.setStorageSync('playMode', mode);
-    $wx.tip(`${modeName}模式`);
+    tip(`${modeName}模式`);
   },
   list() { // 切换列表显隐
     this.setData({ songListDisplay: !this.data.songListDisplay });

@@ -2,11 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 12:48:54
+ * @LastEditTime: 2019-09-04 12:42:02
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
-import $file from '../utils/file';
+import { getJson } from '../utils/file';
 import $page from '../utils/page';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -217,7 +217,7 @@ $register('PEcal', {
         this.setData({ BMI: { score, state } });
       }
 
-      $file.getJson(`function/PEcal/${result.gender}${result.grade}`, (config: any) => { // 读取相应配置文件
+      getJson(`function/PEcal/${result.gender}${result.grade}`, (config: any) => { // 读取相应配置文件
 
         // 转换长跑时间
         config.longRun = config.longRun.map((element: string) => {

@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:28:30
+ * @LastEditTime: 2019-09-04 12:50:16
  * @Description: 关于
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
-import $wx from '../utils/wx';
+import { request, tip } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 let clickNumber = 0;
 let developMode = false;
@@ -85,7 +85,7 @@ $register('about', {
   },
   onReady() {
     // 读取在线文件更新页面显示
-    $wx.request(`config/${a.appID}/${a.version}/about`, (data: any) => {
+    request(`config/${a.appID}/${a.version}/about`, (data: any) => {
       $page.Set(
         { option: { aim: '关于' }, ctx: this },
         this.data.page.slice(0, 2)
@@ -120,7 +120,7 @@ $register('about', {
 
     // 提示还有几次点击即可启用开发者模式
     else if (clickNumber < 10) {
-      $wx.tip(`再点击${10 - clickNumber}次即可启用开发者模式`);
+      tip(`再点击${10 - clickNumber}次即可启用开发者模式`);
       clickNumber += 1;
 
       // 启用开发者模式
@@ -141,7 +141,7 @@ $register('about', {
     if (event.detail.value.length === 7) {
       // 密码正确
       if (event.detail.value === '5201314') {
-        $wx.tip('已启用开发者模式');
+        tip('已启用开发者模式');
         (this.data.page[1].content as any[]).forEach(x => {
           x.hidden = false;
         });
@@ -187,6 +187,6 @@ $register('about', {
    * @param value 开关状态
    */
   testSwitch(value: boolean) {
-    $wx.tip(`已${value ? '启用' : '关闭'}测试功能`);
+    tip(`已${value ? '启用' : '关闭'}测试功能`);
   }
 });

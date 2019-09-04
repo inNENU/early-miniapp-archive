@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:41:58
+ * @LastEditTime: 2019-09-04 12:51:23
  * @Description: 关于
  */
 import $register from 'wxpage';
-import $file from '../utils/file';
+import { Delete, listFile } from '../utils/file';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
-import $wx from '../utils/wx';
+import { tip, modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 /** 列表动作 */
@@ -110,16 +110,16 @@ $register('storage', {
   /** 清除小程序数据 */
   deleteData() {
     wx.clearStorageSync();
-    $wx.tip('数据清除完成');
+    tip('数据清除完成');
   },
 
   /** 清除小程序文件 */
   deleteFile() {
     wx.showLoading({ title: '删除中', mask: true });
 
-    $file.listFile('')
+    listFile('')
       .forEach((filePath: string) => {
-        $file.Delete(filePath);
+        Delete(filePath);
       });
 
     wx.hideLoading();
@@ -131,15 +131,15 @@ $register('storage', {
     wx.showLoading({ title: '初始化中', mask: true });
 
     // 清除文件系统文件与数据存储
-    $file.listFile('')
+    listFile('')
       .forEach((filePath: string) => {
-        $file.Delete(filePath);
+        Delete(filePath);
       });
     wx.clearStorageSync();
 
     // 隐藏提示
     wx.hideLoading();
     // 提示用户重启
-    $wx.modal('小程序初始化完成', '请单击 “退出小程序按钮” 退出小程序');
+    modal('小程序初始化完成', '请单击 “退出小程序按钮” 退出小程序');
   }
 });

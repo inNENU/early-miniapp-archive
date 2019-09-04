@@ -3,7 +3,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-09-01 01:05:46
+ * @LastEditTime: 2019-09-04 12:44:57
  */
 
 import $log from './log';
@@ -20,7 +20,7 @@ const url = 'mp.nenuyouth.com';
  * @param path 要删除的文件或文件夹路径
  * @param isDir 要删除的是否是文件夹
  */
-const Delete = (path: string, isDir?: boolean | undefined) => {
+export const Delete = (path: string, isDir?: boolean | undefined) => {
   if (isDir === undefined)
     try {
       // 判断路径是否是文件，并执行对应删除操作
@@ -74,7 +74,7 @@ const isFileExist = (path: string) => {
  * @param path 要查看的文件夹路径
  * @returns 指定目录下的文件名数组
  */
-const listFile = (path: string) => {
+export const listFile = (path: string) => {
   try {
     const fileList = fileManager.readdirSync(`${userPath}/${path}`);
 
@@ -112,7 +112,7 @@ const readFile = (path: string, encoding = 'utf-8') => {
  * @param encoding 文件的编码格式
  * @returns  解析后的json
  */
-const readJson = (path: string, encoding = 'utf-8') => {
+export const readJson = (path: string, encoding = 'utf-8') => {
   let fileContent;
   let data;
 
@@ -145,7 +145,7 @@ const readJson = (path: string, encoding = 'utf-8') => {
  * @param path 要创建的目录路径
  * @param recursive 是否递归创建目录
  */
-const makeDir = (path: string, recursive = true) => {
+export const makeDir = (path: string, recursive = true) => {
   try {
     fileManager.mkdirSync(`${userPath}/${path}`, recursive);
 
@@ -230,7 +230,7 @@ const writeFile = (path: string, fileName: string, data: object | ArrayBuffer | 
  * @param data 写入文件的数据
  * @param encoding 文件编码选项
  */
-const writeJson = (path: string, fileName: string, data: object, encoding = 'utf-8') => {
+export const writeJson = (path: string, fileName: string, data: object, encoding = 'utf-8') => {
   const jsonString = JSON.stringify(data);
 
   makeDir(path);
@@ -244,7 +244,7 @@ const writeJson = (path: string, fileName: string, data: object, encoding = 'utf
  * @param successFunc Json获取成功后的回调
  * @param failFunc Json获取失败后的回调
  */
-const getJson = (path: string, successFunc?: (data: object | string) => void, failFunc?: () => void) => {
+export const getJson = (path: string, successFunc?: (data: object | string) => void, failFunc?: () => void) => {
   if (successFunc) {
     let data = readJson(path);
 

@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:32:04
+ * @LastEditTime: 2019-09-04 12:50:36
  * @Description: 捐赠
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
-import $wx from '../utils/wx';
+import { modal, tip } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 type AuthorizeList =
@@ -160,16 +160,16 @@ $register('authorize', {
       scope: authorizeList[type],
       success: () => {
         wx.hideLoading();
-        $wx.tip('授权成功');
+        tip('授权成功');
         this.setData({ [`page[1].content.[${type}].desc`]: '已授权✓' });
       },
       fail: () => { // 用户拒绝权限，提示用户开启权限
         wx.hideLoading();
-        $wx.modal('权限被拒', '您拒绝了权限授予，请在小程序设置页允许权限', () => {
+        modal('权限被拒', '您拒绝了权限授予，请在小程序设置页允许权限', () => {
           wx.openSetting({
             success: res => {
-              if (res.authSetting[authorizeList[type]]) $wx.tip('授权成功');
-              else $wx.tip('授权失败，您没有授权');
+              if (res.authSetting[authorizeList[type]]) tip('授权成功');
+              else tip('授权失败，您没有授权');
 
               wx.getSetting({
                 success: res2 => {

@@ -2,25 +2,25 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 12:38:27
+ * @LastEditTime: 2019-09-04 12:49:41
  * @Description: 视频页面
  */
 
 import $register from 'wxpage';
-import $file from '../utils/file';
+import { getJson, readJson } from '../utils/file';
 import $page from '../utils/page';
-import $wx from '../utils/wx';
+import { tip, modal, request } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('video', {
   onNavigate() {
-    $file.getJson('function/video');
+    getJson('function/video');
   },
 
   onLoad(options) {
     if (a.appID === 'wx9ce37d9662499df3') {
       const id = options.scene || options.id || 0;
-      const videoList = $file.readJson('function/video');
+      const videoList = readJson('function/video');
 
       if (videoList) {
         const item = videoList[id];
@@ -36,7 +36,7 @@ $register('video', {
           src: item.src || '',
           vid: item.vid || ''
         });
-      } else $wx.request('function/video', data => {
+      } else request('function/video', data => {
         const item = data[id];
 
         this.setData({
@@ -54,7 +54,7 @@ $register('video', {
 
       $page.Notice('video');
     } else
-      $wx.modal(
+      modal(
         '禁止播放',
         '只有企业主体小程序才可以播放视频，请使用微信搜索小程序“东师青年+”。',
         () => this.$back()
@@ -99,7 +99,7 @@ $register('video', {
 
   /** 视频缓冲时提示用户等待 */
   wait() {
-    $wx.tip('缓冲中..');
+    tip('缓冲中..');
   },
 
   /** 正常播放时隐藏提示 */
@@ -109,7 +109,7 @@ $register('video', {
 
   /** 提示用户视频加载出错 */
   error() {
-    $wx.tip('视频加载出错');
+    tip('视频加载出错');
     wx.reportMonitor('5', 1); // 调试
   },
 

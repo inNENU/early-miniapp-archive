@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 13:07:03
+ * @LastEditTime: 2019-09-04 12:47:37
  * @Description: 地图
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
 import $tab from '../utils/tab';
-import $wx from '../utils/wx';
+import { modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 /** 本部栅格 */
@@ -75,7 +75,7 @@ $register('map', {
 
   onLoad() {
     // QQ小程序暂不支持地图的处理
-    if (a.env === 'qq') $wx.modal(
+    if (a.env === 'qq') modal(
       '暂不支持',
       'QQ小程序暂未推出地图功能，Mr.Hope会在第一时间适配，如需查看地图请使用微信小程序。',
       () => {

@@ -3,10 +3,10 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-09-02 00:41:03
+ * @LastEditTime: 2019-09-04 12:55:51
  */
 
-import $log from './log';
+import { debug, warn } from './log';
 
 /**
  * 显示提示文字
@@ -42,7 +42,7 @@ export const modal = (title: string, content: string, confirmFunc?: () => void, 
 };
 
 /** 网络状态汇报 */
-const netReport = () => {
+export const netReport = () => {
 
   // 获取网络信息
   wx.getNetworkType({
@@ -73,12 +73,12 @@ const netReport = () => {
           tip('网络连接出现问题，请稍后重试');
       }
 
-      $log.warn('Request fail with', networkType);
+      warn('Request fail with', networkType);
     },
     fail: () => {
       tip('网络连接出现问题，请稍后重试');
 
-      $log.warn('Request fail and cannot get networkType');
+      warn('Request fail and cannot get networkType');
     }
   });
 };
@@ -91,7 +91,7 @@ const netReport = () => {
  * @param [failFunc] 失败回调函数
  * @param [errorFunc] 状态码错误回调函数
  */
-const request = (
+export const request = (
   path: string,
   successFunc: (data: Record<string, any>) => void,
   failFunc?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
@@ -100,12 +100,12 @@ const request = (
   wx.request({
     url: `https://mp.nenuyouth.com/${path}.json`,
     success: res => {
-      $log.debug(`请求${path}成功:`, res);// 调试
+      debug(`请求${path}成功:`, res);// 调试
       if (res.statusCode === 200) successFunc(res.data as object);
       else {
         tip('服务器出现问题，请稍后重试');
         // 调试
-        $log.warn(`请求${path}失败：${res.statusCode}`);
+        warn(`请求${path}失败：${res.statusCode}`);
         wx.reportMonitor('3', 1);
 
         if (errorFunc) errorFunc(res.statusCode);
@@ -116,7 +116,7 @@ const request = (
       netReport();
 
       // 调试
-      $log.warn(`请求${path}失败:`, failMsg);
+      warn(`请求${path}失败:`, failMsg);
       wx.reportMonitor('4', 1);
     }
   });
@@ -145,13 +145,13 @@ export const downLoad = (
         if (errorFunc) errorFunc(res.statusCode);
 
         // 调试
-        $log.warn(`下载 ${path} 失败: ${res.statusCode}`);
+        warn(`下载 ${path} 失败: ${res.statusCode}`);
       }
     },
     fail: failMsg => {
       if (failFunc) failFunc(failMsg);
       netReport();
-      $log.warn(`下载 ${path} 失败:`, failMsg);
+      warn(`下载 ${path} 失败:`, failMsg);
     }
   });
 
@@ -159,5 +159,3 @@ export const downLoad = (
     wx.showLoading({ title: `下载中${Math.round(res.progress)}%` });
   });
 };
-
-export default { downLoad, modal, netReport, request, tip };

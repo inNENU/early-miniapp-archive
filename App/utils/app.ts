@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:21:09
+ * @LastEditTime: 2019-09-04 12:52:25
  * @Description: APP函数库
  */
 
 /** 文件管理器与API封装 */
 import $file from './file';
-import $wx from './wx';
+import { tip, request, modal, netReport } from './wx';
 import $log from './log';
 
 /** App初始化选项 */
@@ -92,7 +92,7 @@ const resDownload = (list: string[], callBack: () => void) => {
 
       // 下载失败
       fail: failMsg => {
-        $wx.netReport();
+        netReport();
         $log.error(`初始化小程序时下载${name}失败:`, failMsg);
       }
     });
@@ -163,7 +163,7 @@ const noticeCheck = (globalData: GlobalData) => {
     };
   }
 
-  $wx.request(`config/${globalData.appID}/${globalData.version}/notice`, (noticeList: NoticeList) => {
+  request(`config/${globalData.appID}/${globalData.version}/notice`, (noticeList: NoticeList) => {
     /** 通知页面名称 */
     const keys = Object.keys(noticeList);
 
@@ -187,7 +187,7 @@ const noticeCheck = (globalData: GlobalData) => {
 
     // 如果找到APP级通知，立即提醒
     if ('app' in keys)
-      $wx.modal(noticeList.app[0], noticeList.app[1], () => wx.removeStorageSync('appNotify'));
+      modal(noticeList.app[0], noticeList.app[1], () => wx.removeStorageSync('appNotify'));
   }, () => { // 调试信息
     $log.warn('noticeList error', 'Net Error');
   }, () => { // 调试信息
@@ -274,17 +274,17 @@ const appUpdate = (globalData: GlobalData) => {
   updateManager.onCheckForUpdate(status => {
 
     // 找到更新，提示用户获取到更新
-    if (status.hasUpdate) $wx.tip('发现小程序更新，下载中...');
+    if (status.hasUpdate) tip('发现小程序更新，下载中...');
   });
 
   updateManager.onUpdateReady(() => {
 
     // 请求配置文件
-    $wx.request(`config/${globalData.appID}/${globalData.version}/config`, data => {
+    request(`config/${globalData.appID}/${globalData.version}/config`, data => {
       ({ forceUpdate, reset } = data as UpdateInfo);
 
       // 请求配置文件
-      $wx.request(`config/${globalData.appID}/version`, data2 => {
+      request(`config/${globalData.appID}/version`, data2 => {
         version = data2 as unknown as string;
         // 更新下载就绪，提示用户重新启动
         wx.showModal({
@@ -324,7 +324,7 @@ const appUpdate = (globalData: GlobalData) => {
   updateManager.onUpdateFailed(() => {
 
     // 提示用户网络出现问题
-    $wx.tip('小程序更新下载失败，请检查您的网络！');
+    tip('小程序更新下载失败，请检查您的网络！');
 
     // 调试
     $log.warn('Upate App error because of Net Error');
@@ -388,7 +388,7 @@ const startup = (globalData: GlobalData) => {
       (globalData.env === 'wx' && Number(globalData.info.SDKVersion.split('.')[1]) < 7)
     ) && wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
   )
-    $wx.modal(
+    modal(
       '基础库版本偏低',
       `您的${globalData.env === 'qq' ? 'QQ' : '微信'}偏低，会导致小程序部分内容显示异常，但这不会影响您在小程序的操作。建议您将${globalData.env === 'qq' ? 'QQ' : '微信'}更新至最新版版本。以获得最佳体验。`,
       () => { // 避免重复提示
@@ -402,7 +402,7 @@ const startup = (globalData: GlobalData) => {
 
   // 设置内存不足警告
   wx.onMemoryWarning(res => {
-    $wx.tip('内存不足');
+    tip('内存不足');
     console.warn('onMemoryWarningReceive');
     wx.reportAnalytics('memory_warning', { 'memory_warning': res && res.level ? res.level : 0 });
   });
@@ -412,7 +412,7 @@ const startup = (globalData: GlobalData) => {
     success: res => {
       const { networkType } = res;
 
-      if (networkType === 'none' || networkType === 'unknown') $wx.tip('您的网络状态不佳');
+      if (networkType === 'none' || networkType === 'unknown') tip('您的网络状态不佳');
     }
   });
 
@@ -421,17 +421,17 @@ const startup = (globalData: GlobalData) => {
 
     // 显示提示
     if (!res.isConnected) {
-      $wx.tip('网络连接中断,部分小程序功能暂不可用');
+      tip('网络连接中断,部分小程序功能暂不可用');
       wx.setStorageSync('networkError', true);
     } else if (wx.getStorageSync('network')) {
       wx.setStorageSync('networkError', false);
-      $wx.tip('网络链接恢复');
+      tip('网络链接恢复');
     }
   });
 
   // 监听用户截屏
   wx.onUserCaptureScreen(() => {
-    $wx.tip('您可以点击右上角——转发或点击页面右下角——保存二维码分享小程序');
+    tip('您可以点击右上角——转发或点击页面右下角——保存二维码分享小程序');
   });
 
   // 登录

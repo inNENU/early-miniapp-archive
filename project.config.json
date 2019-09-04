@@ -19,7 +19,7 @@
 	"miniprogramRoot": "App/",
 	"compileType": "miniprogram",
 	"libVersion": "2.8.1",
-	"appid": "wx33acb831ee1831a5",
+	"appid": "wx9ce37d9662499df3",
 	"qqLibVersion": "1.6.3",
 	"qqappid": "1109559721",
 	"projectname": "in%E4%B8%9C%E5%B8%88",
@@ -62,7 +62,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -104,6 +104,13 @@
 					"name": "体测计算器",
 					"pathName": "function/PEcal",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "初始化小程序",
+					"pathName": "module/function",
+					"query": "action=reset",
 					"scene": null
 				}
 			]

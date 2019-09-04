@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:40:27
+ * @LastEditTime: 2019-09-04 12:52:16
  * @Description: 小程序资源说明
  */
 import $register from 'wxpage';
 import $page from '../utils/page';
-import $wx from '../utils/wx';
+import { modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 /** 列表动作 */
@@ -88,7 +88,7 @@ $register('resource', {
     wx.setClipboardData({
       data: url,
       success: () => {
-        $wx.modal('复制成功', '链接地址已经成功复制至剪切板，请打开浏览器粘贴跳转');
+        modal('复制成功', '链接地址已经成功复制至剪切板，请打开浏览器粘贴跳转');
       }
     });
   }

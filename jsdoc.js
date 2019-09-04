@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:47
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-30 12:07:48
+ * @LastEditTime: 2019-09-03 23:15:19
  * @Description: JSdoc 配置文件
  */
 'use strict';
@@ -45,9 +45,6 @@ module.exports = {
 // wx9ce37d9662499df3
 
 // wx33acb831ee1831a5
-
-
-// 更改template，component.ts和app.wxss
 
 // "plugins": {
 //   "tencentvideo": {

@@ -2,11 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:52:34
+ * @LastEditTime: 2019-09-04 12:50:03
  * @Description: 主页
  */
 import $register from 'wxpage';
-import $wx from '../utils/wx';
+import { request } from '../utils/wx';
 import $page from '../utils/page';
 import $search from '../utils/search';
 import $tab from '../utils/tab';
@@ -87,7 +87,7 @@ $register('main', {
 
     // 执行tab页预加载
     ['guide', 'function'].forEach(x => {
-      $wx.request(`config/${a.appID}/${a.version}/${x}`, (data: object) => {
+      request(`config/${a.appID}/${a.version}/${x}`, (data: object) => {
         this.$put(x, data);
         this.$preload(`${x}?aim=${x}`);
         wx.setStorageSync(x, data);
