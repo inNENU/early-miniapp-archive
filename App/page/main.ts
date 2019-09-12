@@ -88,9 +88,8 @@ $register('main', {
     // 执行tab页预加载
     ['guide', 'function'].forEach(x => {
       request(`config/${a.appID}/${a.version}/${x}`, (data: object) => {
-        this.$put(x, data);
-        this.$preload(`${x}?aim=${x}`);
         wx.setStorageSync(x, data);
+        this.$preload(`${x}?aim=${x}`);
       });
     });
     this.$preload('me?aim=me');

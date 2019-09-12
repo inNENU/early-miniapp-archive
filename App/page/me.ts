@@ -43,12 +43,12 @@ $register('me', {
   },
 
   onPreload(res) {
-    $page.resolve(res, this.data.page);
+    this.$put('me', $page.resolve(res, this.data.page));
     console.log(`我的东师预加载用时${new Date().getTime() - a.date}ms`);
   },
 
   onLoad() {
-    $page.Set({ option: { aim: 'me' }, ctx: this });
+    $page.Set({ option: { aim: 'me' }, ctx: this }, this.$take('me'));
     $page.Notice('me');
   },
 

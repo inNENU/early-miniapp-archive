@@ -28,6 +28,10 @@ $register('function', {
           {
             text: '体测计算器', color: 'blue', name: 'PE Calucator',
             icon: '/icon/tabPage/calculate.svg', url: '/function/PEcal'
+          },
+          {
+            text: '校历', color: 'purple', name: 'Calendar',
+            icon: '/icon/tabPage/calendar.svg', url: '/function/calendar'
           }
         ]
         /*
@@ -56,14 +60,15 @@ $register('function', {
   },
 
   onPreload(res) {
-    const pageData = this.$take('function');
-
-    $page.resolve(res, pageData ? pageData : wx.getStorageSync('function'));
+    this.$put('function', $page.resolve(res, wx.getStorageSync('function') || this.data.page));
     console.log(`功能大厅预加载用时${new Date().getTime() - a.date}ms`);
   },
 
   onLoad() {
-    $page.Set({ option: { aim: 'function' }, ctx: this });
+    $page.Set(
+      { option: { aim: 'function' }, ctx: this },
+      this.$take('function') || this.data.page
+    );
     $page.Notice('function');
     $tab.update('function', '100K');
   },
