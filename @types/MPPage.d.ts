@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 22:13:31
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-02 00:40:12
+ * @LastEditTime: 2019-09-12 14:07:31
  * @Description: MPPage声明文件
  */
 
@@ -175,12 +175,12 @@ declare namespace MPPage {
      * 示例：
      *
      * ```js
-     * this.$switchTab('main?user=mrhope');
-     * this.$switchTab('pages/about/about');
+     * this.$switch('main?user=mrhope');
+     * this.$switch('pages/about/about');
      * ```
      */
 
-    $switchTab(pagename: string, config?: WechatMiniprogram.SwitchTabOption): void;
+    $switch(pagename: string, config?: WechatMiniprogram.SwitchTabOption): void;
 
     /**
      * 关闭所有页面，打开到应用内的某个页面
