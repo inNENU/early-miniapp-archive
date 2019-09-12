@@ -1,0 +1,8 @@
+<import src="/components/template" />
+<view class="{{T}} grey {{nm?'nm':''}}">
+  <template is="head" data="{{...head,T}}" />
+  <time-line config="{{calendar}}" />
+  <view wx:if="{{display}}" class="popupCtn">
+    <time-line config="{{calendarDetail}}" />
+  </view>
+</view>

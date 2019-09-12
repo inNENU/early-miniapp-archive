@@ -1,0 +1,10 @@
+.popupCtn {
+  width: 84%;
+  margin: 15% 6% 10% 6%;
+  max-height: 75%;
+  overflow-y: scroll;
+}
+
+.popup {
+  width: 100%;
+}

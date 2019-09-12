@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "time-line": "/components/timeline/timeline"
+  }
+}
