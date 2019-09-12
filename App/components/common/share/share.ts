@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 15:34:51
+ * @LastEditTime: 2019-09-04 17:41:38
  * @Description: 分享组件
  */
 
@@ -10,7 +10,7 @@ import $log from '../../../utils/log';
 import $register from 'wxpage';
 import { downLoad, modal, tip } from '../../../utils/wx';
 
-const { globalData: { env } } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);// 获得日志管理器，全局数据
+const { globalData: { env, appID } } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);// 获得日志管理器，全局数据
 
 let time = 0;
 let left = 0;
@@ -49,12 +49,16 @@ $register.C({
 
     /** QQ暂不支持联系客服的兼容 */
     contact() {
-      if (env === 'qq') modal('暂不支持', 'QQ小程序暂不支持联系客服，请添加QQ1178522294');
+      if (env === 'qq')
+        wx.setClipboardData({
+          data: '1178522294',
+          success: () => modal('暂不支持', 'QQ小程序暂不支持联系客服，请添加QQ1178522294。QQ号已经添加至您的剪切板。')
+        });
     },
 
     /** 二维码下载 */
     download() {
-      downLoad(`/img/QRCode/${env}/${this.data.config.aim}.jpg`, path => {
+      downLoad(`/img/QRCode/${appID}/${this.data.config.aim}.jpg`, path => {
         wx.getSetting({// 获取用户设置
           success: res2 => {
             // 如果已经授权相册直接写入图片

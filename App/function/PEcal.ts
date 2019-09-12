@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:42:02
+ * @LastEditTime: 2019-09-08 00:28:22
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
@@ -46,7 +46,7 @@ $register('PEcal', {
     longRun: { text: '800米跑' },
     special: { text: '仰卧起坐', unit: '个', id: 'situp' },
     PEscore: {},
-    result: {} as any,
+    result: {} as Record<string, any>,
     scoreList: [
       { text: 'BMI', id: 'BMI' },
       { text: '坐位体前屈', id: 'sitAndReach' },

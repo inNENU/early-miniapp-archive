@@ -161,7 +161,7 @@ const preGetPage = (page: PageData) => {
  *
  * - 描述：预处理页面数据写入全局数据
  *
- * - 用法：在页面onNavigate时调用，
+ * - 用法：在页面`onNavigate`时调用
  *
  * - 性质：同步函数
  *
@@ -209,7 +209,7 @@ interface SetPageOption {
  * - 描述：设置本地界面数据，如果传入`page`参数，则根据`handle`的值决定是否在`setData`前处理`page`。
  * 如果没有传入`page`，则使用`PageOption.data.page`。之后根据`preload`的值决定是否对页面链接进行预加载。
  *
- * - 用法：在页面onLoad时调用，
+ * - 用法：在页面`onLoad`时调用
  *
  * - 性质：同步函数
  *
@@ -257,7 +257,7 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
  *
  * - 描述：弹出通知
  *
- * - 用法：在页面onLoad时调用，
+ * - 用法：在页面`onLoad`时调用
  *
  * - 性质：同步函数
  *
@@ -282,7 +282,7 @@ const popNotice = (aim: string) => {
  *
  * - 描述：设置在线界面数据
  *
- * - 用法：在页面onLoad时调用，
+ * - 用法：在页面`onLoad`时调用
  *
  * - 性质：同步函数
  *
@@ -363,7 +363,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
  *
  * - 描述：设置胶囊与背景颜色
  *
- * - 用法：在页面onShow时调用，
+ * - 用法：在页面`onShow`时调用
  *
  * - 性质：同步函数
  *
@@ -452,11 +452,25 @@ const loadFont = (theme: string) => {
 };
 
 /**
- * 导航栏动态改变
+ * **简介:**
+ *
+ * - 描述：导航栏动态改变
+ *
+ * - 用法：在页面`onPageScroll`时调用
+ *
+ * - 性质：同步函数
  *
  * @param option 组件参数
  * @param ctx 页面指针
- * @param headName 导航栏配置对象名称
+ * @param headName 导航栏配置对象在`data`中的名称
+ *
+ * **案例:**
+ *
+ * ```ts
+ *   onPageScroll(event) {
+ *     $page.nav(event, this);
+ *   },
+ * ```
  */
 const changeNav = (option: WechatMiniprogram.Page.IPageScrollOption, ctx: any, headName?: string) => {
   const pageHead = headName ? ctx.data[headName] : ctx.data.page[0];

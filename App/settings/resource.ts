@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:52:16
+ * @LastEditTime: 2019-09-08 17:05:13
  * @Description: 小程序资源说明
  */
 import $register from 'wxpage';
@@ -11,7 +11,7 @@ import { modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 /** 列表动作 */
-type ListAction = 'github' | 'gitee';
+type ListAction = 'resource' | 'public' | 'physics';
 
 $register('resource', {
   data: {
@@ -26,7 +26,7 @@ $register('resource', {
       },
       {
         tag: 'List',
-        content: [{ text: 'Github地址', button: 'github' }, { text: '码云地址', button: 'gitee' }]
+        content: [{ text: '资源地址', button: 'resource' }]
       },
       { tag: 'title', text: '学习资源' },
       {
@@ -63,14 +63,9 @@ $register('resource', {
     if (detail.event) this[detail.event as ListAction]();
   },
 
-  /** 复制github地址到剪切板 */
-  github() {
-    this.copy('https://github.com/GodofHope/miniprogramWebsite');
-  },
-
-  /** 复制码云地址到剪切板 */
-  gitee() {
-    this.copy('https://gitee.com/Mr-Hope/miniprogramWebsite');
+  /** 复制资源地址到剪切板 */
+  resource() {
+    this.copy('https://github.com/GodofHope/inNENUWebsite');
   },
 
   /** 复制公共课程地址到剪切板 */

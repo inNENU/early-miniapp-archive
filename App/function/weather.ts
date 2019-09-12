@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 12:39:59
+ * @LastEditTime: 2019-09-08 00:30:59
  * @Description: 天气预报
  */
 import $register from 'wxpage';
@@ -82,7 +82,8 @@ $register('weather', {
    * @param weather 天气详情
    */
   canvas(weather: WeatherDetail) {
-    console.log(weather);
+    // TODO:添加旋转监听
+
     // 为了防止iPad等设备可以转屏，必须即时获取
     const width = getApp().globalData.info.windowWidth;
     /** 天气画布组件 */

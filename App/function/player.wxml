@@ -1,5 +1,5 @@
 <view class="{{nm?'nm':''}} commonBg">
-  <view class='backBtn' style="top:{{info.statusBarHeight+5}}px;" hover-class='buttonHover' catch:tap="{{share? 'redirect': '$back'}}">
+  <view class='backBtn' style="top:{{info.statusBarHeight+5}}px;" hover-class='buttonHover' catch:tap="back">
     <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
   </view>
   <view style='height:10%;' />

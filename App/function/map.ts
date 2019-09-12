@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:47:37
+ * @LastEditTime: 2019-09-08 00:18:20
  * @Description: 地图
  */
 import $register from 'wxpage';
@@ -91,16 +91,11 @@ $register('map', {
     let markers;
 
     if (a.marker) {
-      isBenbu = a.marker.isBenbu;
-      markers = a.marker.markers;
-
+      ({ isBenbu, markers } = a.marker);
       delete a.marker;
     } else {
       $tab.markerSet();
-      const result = this.getMarker();
-
-      isBenbu = result.isBenbu;
-      markers = result.markers;
+      ({ isBenbu, markers } = this.getMarker());
     }
 
     this.setData({
@@ -220,7 +215,7 @@ $register('map', {
       success: r2 => {
         this.setData({
           map: {
-            scale: this.data.map.scale as number + (event.currentTarget.dataset.action === 'enlarge' ? 1 : -1),
+            scale: this.data.map.scale + (event.currentTarget.dataset.action === 'enlarge' ? 1 : -1),
             latitude: r2.latitude,
             longitude: r2.longitude
           }
@@ -281,7 +276,7 @@ $register('map', {
     } else
       this.setData({
         list: !this.data.list,
-        closeTop: a.info.statusBarHeight as number + 5.5
+        closeTop: a.info.statusBarHeight + 5.5
       });
   },
   regionChange(event: any) {

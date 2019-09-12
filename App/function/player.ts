@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:48:09
+ * @LastEditTime: 2019-09-08 13:09:00
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
@@ -57,7 +57,6 @@ $register('music', {
     // 写入基本信息
     this.setData({
       index,
-      share: this.$state.firstOpen,
       info: a.info,
       nm: a.nm,
       play: a.music.play,
@@ -75,7 +74,7 @@ $register('music', {
 
       // 对音频管理器进行设置
       else {
-        manager.epname = 'NenuYouth';
+        manager.epname = 'in东师';
         manager.src = currentSong.src;
         manager.title = currentSong.title;
         manager.singer = currentSong.singer;
@@ -92,7 +91,7 @@ $register('music', {
 
       // 对音频管理器进行设置
       else {
-        manager.epname = 'NenuYouth';
+        manager.epname = 'in东师';
         manager.src = currentSong.src;
         manager.title = currentSong.title;
         manager.singer = currentSong.singer;
@@ -149,7 +148,7 @@ $register('music', {
             .toString(),
           presentSecond.length === 1 ? `0${presentSecond}` : presentSecond
         ],
-        bufferedTime: manager.buffered,
+        // bufferedTime: manager.buffered,
         canplay: true
       });
 
@@ -297,7 +296,7 @@ $register('music', {
   },
   modeSwitch() { // 切换播放模式
     let modeName;
-    const mode = this.data.mode === 3 ? 0 : this.data.mode as number + 1;
+    const mode = this.data.mode === 3 ? 0 : this.data.mode + 1;
 
     this.setData({ mode });
     switch (mode) {
@@ -330,7 +329,8 @@ $register('music', {
       path: `/function/player?index=${this.data.index}`
     };
   },
-  redirect() {
-    wx.switchTab({ url: '/page/main' });
+  back() {
+    if (this.$state.firstOpen) this.$switchTab('main');
+    else this.$back();
   }
 });
