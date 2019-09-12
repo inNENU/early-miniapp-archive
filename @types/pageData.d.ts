@@ -12,9 +12,8 @@ declare namespace PageData {
   }
   type Test = List[];
 }
-declare interface ComponentData {
-  [props: string]: any;
-}
+
+declare type ComponentData = Record<string, any>;
 
 declare type PageData = ComponentData[]
 
