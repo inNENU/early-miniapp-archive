@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:31:01
+ * @LastEditTime: 2019-09-25 07:09:45
  * @Description: 关于
  */
 import $register from 'wxpage';
@@ -10,7 +10,7 @@ import { Delete, listFile } from '../utils/file';
 import {
   resolvePage, setPage, popNotice, setColor, changeNav
 } from '../utils/page';
-import $tab from '../utils/tab';
+import { resDownload } from '../utils/tab';
 import { tip, modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -101,12 +101,12 @@ $register('storage', {
 
   /** 刷新指南资源 */
   refreshGuide() {
-    $tab.resDownload('page');
+    resDownload('page');
   },
 
   /** 刷新功能资源 */
   refreshFunc() {
-    $tab.resDownload('function');
+    resDownload('function');
   },
 
   /** 清除小程序数据 */

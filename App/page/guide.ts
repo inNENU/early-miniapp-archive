@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:22:34
+ * @LastEditTime: 2019-09-25 07:09:00
  * @Description: 东师指南
  */
 import $register from 'wxpage';
@@ -10,7 +10,7 @@ import {
   resolvePage, popNotice, setColor, changeNav, setPage
 } from '../utils/page';
 import $search from '../utils/search';
-import $tab from '../utils/tab';
+import { checkResUpdate, refreshPage } from '../utils/tab';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('guide', {
@@ -99,7 +99,7 @@ $register('guide', {
       this.$take('guide') || this.data.page
     );
     popNotice('guide');
-    $tab.update('page', '250K');
+    checkResUpdate('page', '250K');
   },
 
   onShow() {
@@ -121,8 +121,8 @@ $register('guide', {
   },
 
   onPullDownRefresh() {
-    $tab.refresh('guide', this, a);
-    $tab.update('page', '235K');
+    refreshPage('guide', this, a);
+    checkResUpdate('page', '235K');
     wx.stopPullDownRefresh();
   },
 

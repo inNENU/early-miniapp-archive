@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:18:27
+ * @LastEditTime: 2019-09-25 00:36:29
  * @Description: Page函数库
  */
 
@@ -468,7 +468,7 @@ export const loadFont = (theme: string) => {
  *
  * ```ts
  *   onPageScroll(event) {
- *     $page.nav(event, this);
+ *     changeNav(event, this);
  *   },
  * ```
  */

@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:13:04
+ * @LastEditTime: 2019-09-25 07:07:56
  * @Description: 地图
  */
 import $register from 'wxpage';
 import { popNotice, setColor } from '../utils/page';
-import $tab from '../utils/tab';
+import { markerSet } from '../utils/tab';
 import { modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -69,7 +69,7 @@ $register('map', {
 
   onNavigate() {
     console.log('将要跳转Map');
-    $tab.markerSet();
+    markerSet();
     a.marker = this.getMarker();
   },
 
@@ -94,7 +94,7 @@ $register('map', {
       ({ isBenbu, markers } = a.marker);
       delete a.marker;
     } else {
-      $tab.markerSet();
+      markerSet();
       ({ isBenbu, markers } = this.getMarker());
     }
 

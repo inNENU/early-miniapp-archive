@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:25:21
+ * @LastEditTime: 2019-09-25 07:08:35
  * @Description: 功能大厅
  */
 import $register from 'wxpage';
 import {
   resolvePage, setPage, popNotice, setColor, changeNav
 } from '../utils/page';
-import $tab from '../utils/tab';
+import { checkResUpdate, markerSet, refreshPage } from '../utils/tab';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('function', {
@@ -72,7 +72,7 @@ $register('function', {
       this.$take('function') || this.data.page
     );
     popNotice('function');
-    $tab.update('function', '100K');
+    checkResUpdate('function', '100K');
   },
 
   onShow() {
@@ -93,12 +93,12 @@ $register('function', {
     });
 
     // 此处还需要再优化
-    $tab.markerSet();
+    markerSet();
   },
 
   onPullDownRefresh() {
-    $tab.refresh('function', this, a);
-    $tab.update('function', '100K');
+    refreshPage('function', this, a);
+    checkResUpdate('function', '100K');
     wx.stopPullDownRefresh();
   },
 

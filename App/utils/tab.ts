@@ -18,7 +18,7 @@ import { tip, modal, request } from './wx';
  *
  * @param name 下载资源名称
  */
-const resDownload = (name: string) => {
+export const resDownload = (name: string) => {
   wx.showLoading({ title: '更新中...', mask: true });
   wx.setStorageSync(`${name}Download`, false);
   const downLoadTask = wx.downloadFile({
@@ -59,7 +59,7 @@ const resDownload = (name: string) => {
  * @param name 检查资源的名称
  * @param dataUsage 消耗的数据流量
  */
-const checkResUpdate = (name: string, dataUsage: string) => {
+export const checkResUpdate = (name: string, dataUsage: string) => {
   const notify = wx.getStorageSync(`${name}ResNotify`); // 资源提醒
   const localVersion = readJson(`${name}Version`); // 读取本地Version文件
   const localTime = wx.getStorageSync(`${name}UpdateTime`);
@@ -124,7 +124,7 @@ const checkResUpdate = (name: string, dataUsage: string) => {
  *
  * @param nightmode 夜间模式开启状态
  */
-const tabBarChanger = (nightmode: boolean) => {
+export const tabBarChanger = (nightmode: boolean) => {
   const color = nightmode ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
   wx.setTabBarStyle({
@@ -142,7 +142,7 @@ const tabBarChanger = (nightmode: boolean) => {
  * @param ctx 页面指针
  * @param globalData 全局数据
  */
-const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
+export const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   const test = wx.getStorageSync('test');
 
   // 开启测试后展示测试界面
@@ -253,7 +253,7 @@ const setMarker = (data: MarkerConfig, name: string) => {
 };
 
 /** 设置marker */
-const markerSet = () => {
+export const markerSet = () => {
   const markerVersion = wx.getStorageSync('markerVersion');
   const functionVersion = readJson('functionVersion');
 
@@ -290,5 +290,3 @@ const markerSet = () => {
     }
   }
 };
-
-export default { markerSet, resDownload, tabBarChanger, update: checkResUpdate, refresh: refreshPage };

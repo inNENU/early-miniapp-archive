@@ -2,6 +2,19 @@
 
 ![作者：Mr.Hope](https://img.shields.io/badge/作者-Mr.Hope-blue.svg) ![版本：V1.2](https://img.shields.io/badge/版本-V1.2-blue.svg) ![最后编辑于2019年9月8日](https://img.shields.io/badge/最后编辑于-2019年9月8日-success.svg)
 
+<!-- 
+wx9ce37d9662499df3
+
+wx33acb831ee1831a5
+
+"plugins": {
+  "tencentvideo": {
+    "version": "1.3.6",
+      "provider": "wxa75efa648b60994b"
+  }
+}
+-->
+
 ## **有效的tag值：**
 
 - [head](#head参数)：小程序界面的头部，包括标题和navigationBar

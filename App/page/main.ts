@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:23:34
+ * @LastEditTime: 2019-09-25 07:09:32
  * @Description: 主页
  */
 import $register from 'wxpage';
@@ -11,7 +11,7 @@ import {
   resolvePage, popNotice, setColor, changeNav, setPage
 } from '../utils/page';
 import $search from '../utils/search';
-import $tab from '../utils/tab';
+import { refreshPage, checkResUpdate } from '../utils/tab';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('main', {
@@ -56,7 +56,7 @@ $register('main', {
 
   onLoad() {
     setPage({ option: { aim: 'main' }, ctx: this });
-    $tab.refresh('main', this, a);
+    refreshPage('main', this, a);
     popNotice('main');
   },
 
@@ -85,7 +85,7 @@ $register('main', {
     });
 
     // 小程序已经初始化完成，检查页面资源
-    if (wx.getStorageSync('inited')) $tab.update('page', '250K');
+    if (wx.getStorageSync('inited')) checkResUpdate('page', '250K');
 
     // 执行tab页预加载
     ['guide', 'function'].forEach(x => {
@@ -98,7 +98,7 @@ $register('main', {
   },
 
   onPullDownRefresh() {
-    $tab.refresh('main', this, a);
+    refreshPage('main', this, a);
     wx.stopPullDownRefresh();
   },
 
