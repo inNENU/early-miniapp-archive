@@ -2,11 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-08 17:05:13
+ * @LastEditTime: 2019-09-25 00:30:33
  * @Description: 小程序资源说明
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { popNotice, setColor, changeNav } from '../utils/page';
 import { modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -43,19 +43,19 @@ $register('resource', {
 
   onLoad() {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
-    $page.Notice('resource');
+    popNotice('resource');
   },
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color();
+    const { nc, bc } = setColor();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
 
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   /** 列表动作 */

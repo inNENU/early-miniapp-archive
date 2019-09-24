@@ -1,10 +1,48 @@
 .popupCtn {
-  width: 84%;
-  margin: 15% 6% 10% 6%;
-  max-height: 75%;
+  position: fixed;
+  top: 12%;
+  bottom: 12%;
+  left: 15px;
+  right: 15px;
+  width: calc(100% - 30px);
+  max-height: 76%;
+  padding: 12px 8px;
   overflow-y: scroll;
+  background-color: #fff;
+  border-radius: 8px;
+  z-index: 1001;
+}
+
+.closeBtn {
+  position: fixed;
+  z-index: 100;
+  top: calc(8px + 12%);
+  right: 25px;
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+.nm .closeBtn {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1rpx solid rgba(0, 0, 0, 0.2);
+}
+
+.closeIcon {
+  width: 14px;
+  height: 14px;
+  margin: 5px;
 }
 
 .popup {
   width: 100%;
+}
+
+.name {
+  line-height: 1.5;
+  font-size: 17px;
+  font-weight: 500;
+  border-bottom: 1px solid #acacb0;
 }

@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:51:03
+ * @LastEditTime: 2019-09-25 00:26:02
  * @Description: 搜索页
  */
 
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { popNotice, setColor, changeNav } from '../utils/page';
 import $search from '../utils/search';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -52,18 +52,18 @@ $register('search', {
       this.search({ detail: { value: options.words } });
 
     this.setData({ searchword: options.words, T: a.T, nm: a.nm });
-    $page.Notice('search');
+    popNotice('search');
   },
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color();
+    const { nc, bc } = setColor();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
   onPageScroll(event) {
-    $page.nav(event, this, 'head');
+    changeNav(event, this, 'head');
   },
 
   /**

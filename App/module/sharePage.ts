@@ -2,16 +2,16 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:54:51
- * @Description: 模块页面8
+ * @LastEditTime: 2019-09-25 00:20:39
+ * @Description: 分享页面
  */
 
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { resolvePage, setOnlinePage, setColor, changeNav } from '../utils/page';
 
 $register('sharePage', {
   onNavigate(option) {
-    $page.resolve(option);
+    resolvePage(option);
   },
 
   onLoad(option: any) {
@@ -21,14 +21,14 @@ $register('sharePage', {
     option.depth = 1;
 
     console.log(option);
-    $page.Online(option, this);
+    setOnlinePage(option, this);
     wx.reportMonitor('2', 1);
   },
 
   onShow() {
     if (this.data.page) {
       // 设置胶囊和背景颜色
-      const { nc, bc } = $page.color(this.data.page[0].grey);
+      const { nc, bc } = setColor(this.data.page[0].grey);
 
       wx.setNavigationBarColor(nc);
       wx.setBackgroundColor(bc);
@@ -36,7 +36,7 @@ $register('sharePage', {
   },
 
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   /** 重定向到主页 */

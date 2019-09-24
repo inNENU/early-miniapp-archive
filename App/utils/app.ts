@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:52:25
+ * @LastEditTime: 2019-09-25 00:01:05
  * @Description: APP函数库
  */
 
 /** 文件管理器与API封装 */
-import $file from './file';
+import { Delete, listFile, saveFile, unzip } from './file';
 import { tip, request, modal, netReport } from './wx';
-import $log from './log';
+import { info, warn, error } from './log';
 
 /** App初始化选项 */
 interface AppOption {
@@ -65,15 +65,15 @@ const resDownload = (list: string[], callBack: () => void) => {
         if (res.statusCode === 200) {
 
           // 保存压缩文件到压缩目录
-          $file.saveFile(res.tempFilePath, `${name}Zip`);
+          saveFile(res.tempFilePath, `${name}Zip`);
           console.log(`save ${name} success`);// 调试
 
           // 解压文件到根目录
-          $file.unzip(`${name}Zip`, '', () => {
+          unzip(`${name}Zip`, '', () => {
             console.log(`unzip ${name} sucess`);// 调试
 
             // 删除压缩目录，并将下载成功信息写入存储、判断取消提示
-            $file.Delete(`${name}Zip`, false);
+            Delete(`${name}Zip`, false);
             wx.setStorageSync(`${name}Download`, true);
 
             console.log(`delete ${name} sucess`);// 调试
@@ -93,17 +93,17 @@ const resDownload = (list: string[], callBack: () => void) => {
       // 下载失败
       fail: failMsg => {
         netReport();
-        $log.error(`初始化小程序时下载${name}失败:`, failMsg);
+        error(`初始化小程序时下载${name}失败:`, failMsg);
       }
     });
   });
 };
 
 /** 初始化小程序 */
-const appInit = () => {
+export const appInit = () => {
   // 提示用户正在初始化
   wx.showLoading({ title: '初始化中...', mask: true });
-  $log.info('初次启动');
+  info('初次启动');
 
   // 设置主题
   if (appOption.theme === 'auto') { // 主题为auto
@@ -153,7 +153,7 @@ const appInit = () => {
  *
  * @param globalData 小程序的全局数据
  */
-const noticeCheck = (globalData: GlobalData) => {
+export const noticeCheck = (globalData: GlobalData) => {
   /** 通知列表格式 */
   interface NoticeList {
     [props: string]: {
@@ -189,9 +189,9 @@ const noticeCheck = (globalData: GlobalData) => {
     if ('app' in keys)
       modal(noticeList.app[0], noticeList.app[1], () => wx.removeStorageSync('appNotify'));
   }, () => { // 调试信息
-    $log.warn('noticeList error', 'Net Error');
+    warn('noticeList error', 'Net Error');
   }, () => { // 调试信息
-    $log.error('noticeList error', 'Address Error');
+    error('noticeList error', 'Address Error');
   });
 };
 
@@ -264,7 +264,7 @@ interface UpdateInfo {
  *
  * @param globalData 小程序的全局数据
  */
-const appUpdate = (globalData: GlobalData) => {
+export const appUpdate = (globalData: GlobalData) => {
   const updateManager = wx.getUpdateManager();
   let version = '9.9.9';
   let forceUpdate = true;
@@ -301,9 +301,9 @@ const appUpdate = (globalData: GlobalData) => {
                 wx.showLoading({ title: '初始化中', mask: true });
 
                 // 清除文件系统文件与数据存储
-                $file.listFile('')
+                listFile('')
                   .forEach(filePath => {
-                    $file.Delete(filePath);
+                    Delete(filePath);
                   });
                 wx.clearStorageSync();
 
@@ -327,7 +327,7 @@ const appUpdate = (globalData: GlobalData) => {
     tip('小程序更新下载失败，请检查您的网络！');
 
     // 调试
-    $log.warn('Upate App error because of Net Error');
+    warn('Upate App error because of Net Error');
 
   });
 };
@@ -367,7 +367,7 @@ const login = (appID: string) => {
  *
  * @param globalData 小程序的全局数据
  */
-const startup = (globalData: GlobalData) => {
+export const startup = (globalData: GlobalData) => {
 
   // 获取设备与运行环境信息
   globalData.info = wx.getSystemInfoSync();
@@ -437,5 +437,3 @@ const startup = (globalData: GlobalData) => {
   // 登录
   login(globalData.appID);
 };
-
-export default { appInit, appUpdate, nightmode, noticeCheck, startup };

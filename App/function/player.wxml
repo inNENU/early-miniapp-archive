@@ -53,7 +53,7 @@
   <view style='height:10%;' />
   <scroll-view wx:if="{{songListDisplay}}" scroll-y class="songListCtn">
     <view class="closeBtn" hover-class="hover" catch:tap="list">
-      <image class="closeIcon" src="/icon/close.png" />
+      <image class="closeIcon" src="/icon/close.svg" />
     </view>
     <view wx:for="{{songList}}" wx:key="{{item.title}}" class="songCtn" hover-class="buttonHover" catch:tap="change" data-index="{{index}}">
       <image class="songListIcon" src="{{item.cover}}" />

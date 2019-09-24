@@ -2,12 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:51:23
+ * @LastEditTime: 2019-09-25 00:31:01
  * @Description: 关于
  */
 import $register from 'wxpage';
 import { Delete, listFile } from '../utils/file';
-import $page from '../utils/page';
+import {
+  resolvePage, setPage, popNotice, setColor, changeNav
+} from '../utils/page';
 import $tab from '../utils/tab';
 import { tip, modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
@@ -53,25 +55,25 @@ $register('storage', {
   },
 
   onNavigate(res) {
-    $page.resolve(res, this.getStorage());
+    resolvePage(res, this.getStorage());
   },
   onLoad(option: any) {
-    if (a.page.aim === '存储设置') $page.Set({ option, ctx: this });
-    else $page.Set({ option: { aim: 'storage' }, ctx: this }, this.getStorage());
+    if (a.page.aim === '存储设置') setPage({ option, ctx: this });
+    else setPage({ option: { aim: 'storage' }, ctx: this }, this.getStorage());
 
-    $page.Notice('storage');
+    popNotice('storage');
   },
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = setColor(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
 
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   /** 列表动作 */

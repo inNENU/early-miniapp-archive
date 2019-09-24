@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-08 00:28:22
+ * @LastEditTime: 2019-09-25 00:13:43
  * @Description: 体测计算器
  */
 import $register from 'wxpage';
 import { getJson } from '../utils/file';
-import $page from '../utils/page';
+import { setPage, setColor, popNotice, changeNav } from '../utils/page';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 /** 特殊项目 */
@@ -56,7 +56,7 @@ $register('PEcal', {
     ]
   },
   onLoad(option: any) {
-    $page.Set({ option, ctx: this }, this.data.page);
+    setPage({ option, ctx: this }, this.data.page);
     const genderIndex = wx.getStorageSync('gender');
     const gradeIndex = wx.getStorageSync('grade');
 
@@ -79,17 +79,17 @@ $register('PEcal', {
     this.setData({ 'longRun.picker': longRunPicker });
 
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(true);
+    const { nc, bc } = setColor(true);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
 
     // 设置通知
-    $page.Notice('PEcal');
+    popNotice('PEcal');
   },
 
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   /**

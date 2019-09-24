@@ -2,12 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:50:03
+ * @LastEditTime: 2019-09-25 00:23:34
  * @Description: 主页
  */
 import $register from 'wxpage';
 import { request } from '../utils/wx';
-import $page from '../utils/page';
+import {
+  resolvePage, popNotice, setColor, changeNav, setPage
+} from '../utils/page';
 import $search from '../utils/search';
 import $tab from '../utils/tab';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
@@ -38,7 +40,7 @@ $register('main', {
     const page = wx.getStorageSync('main');
     const color = a.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
-    $page.resolve({ query: { aim: 'main' } }, page ? page : this.data.page);
+    resolvePage({ query: { aim: 'main' } }, page ? page : this.data.page);
 
     // 设置tabbar颜色
     wx.setTabBarStyle({
@@ -53,14 +55,14 @@ $register('main', {
   },
 
   onLoad() {
-    $page.Set({ option: { aim: 'main' }, ctx: this });
+    setPage({ option: { aim: 'main' }, ctx: this });
     $tab.refresh('main', this, a);
-    $page.Notice('main');
+    popNotice('main');
   },
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = setColor(this.data.page[0].grey);
     const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
     wx.setNavigationBarColor(nc);
@@ -101,7 +103,7 @@ $register('main', {
   },
 
   onPageScroll(event) {
-    $page.nav(event, this, 'head');
+    changeNav(event, this, 'head');
   },
 
   onShareAppMessage: () => ({ title: a.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'in东师', path: '/page/main' }),

@@ -2,11 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:51:59
+ * @LastEditTime: 2019-09-25 00:24:29
  * @Description: 我的东师
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import {
+  resolvePage, popNotice, changeNav, setPage, setColor
+} from '../utils/page';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
 $register('me', {
@@ -43,18 +45,18 @@ $register('me', {
   },
 
   onPreload(res) {
-    this.$put('me', $page.resolve(res, this.data.page));
+    this.$put('me', resolvePage(res, this.data.page));
     console.log(`我的东师预加载用时${new Date().getTime() - a.date}ms`);
   },
 
   onLoad() {
-    $page.Set({ option: { aim: 'me' }, ctx: this }, this.$take('me'));
-    $page.Notice('me');
+    setPage({ option: { aim: 'me' }, ctx: this }, this.$take('me'));
+    popNotice('me');
   },
 
   onShow() {
     const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
-    const { nc, bc } = $page.color(true);
+    const { nc, bc } = setColor(true);
 
     // 设置胶囊、背景颜色以及tab栏颜色
     wx.setNavigationBarColor(nc);
@@ -78,7 +80,7 @@ $register('me', {
   },
 
   onPageScroll(event) {
-    $page.nav(event, this, 'head');
+    changeNav(event, this, 'head');
   },
 
   onShareAppMessage: () => ({ title: '我的东师', path: '/page/me' })

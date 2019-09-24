@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-08 13:09:00
+ * @LastEditTime: 2019-09-25 00:14:21
  * @Description: 音乐播放器
  */
 import $register from 'wxpage';
 import { getJson, readJson, writeJson } from '../utils/file';
-import $page from '../utils/page';
+import { popNotice, setColor } from '../utils/page';
 import { request, tip } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 const manager = wx.getBackgroundAudioManager();
@@ -19,9 +19,26 @@ interface SongDetail {
   singer: string;
 }
 
+/** 歌词 */
+interface Lyric {
+  /** 歌词的开始时间 */
+  time: number;
+  /** 歌词的内容 */
+  stuff: string;
+}
 
 $register('music', {
   data: {
+    activeIndex: -1,
+    lyrics: [
+      { time: 1, 'stuff': '月光把天空照亮' },
+      { time: 2, 'stuff': '洒下一片光芒点缀海洋' },
+      { time: 3.886, 'stuff': '每当流星从天而降' },
+      { time: 4.576, 'stuff': '心中的梦想都随风飘扬' },
+      { time: 5.466, 'stuff': '展开透明翅膀越出天窗' },
+      { time: 6.209, 'stuff': '找寻一个最美丽的希望' },
+      { time: 7, 'stuff': '每当天空泛起彩色霞光' }
+    ] as Lyric[],
     canplay: false,
     play: false,
     index: 0,
@@ -154,6 +171,19 @@ $register('music', {
 
       // 设置播放状态
       a.music.played = true;
+
+      const { lyrics } = this.data;
+      let { activeIndex } = this.data;
+
+      /** 如果当前激活项不是最后一个且当前时间大于下一项 */
+      while (activeIndex < lyrics.length - 1 && this.data.currentTime > lyrics[activeIndex + 1].time) {
+        /** 如果当前激活项不是倒数第二个且向后第二项时间大于当前时间 */
+        if (activeIndex === lyrics.length - 2 || this.data.currentTime < lyrics[activeIndex + 2].time) {
+          this.setData({ activeIndex: activeIndex + 1 });
+          break;
+        }
+        activeIndex += 1;
+      }
     });
 
     // 缓冲中
@@ -180,12 +210,12 @@ $register('music', {
     });
 
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(false);
+    const { nc, bc } = setColor(false);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
 
-    $page.Notice('music');
+    popNotice('music');
   },
   loadCover(event: WXEvent.ImageLoad) { // 加载封面
     if (event.type === 'load') this.setData({ coverLoad: true });
@@ -281,6 +311,7 @@ $register('music', {
       const currentSong = this.data.songList[index as number];
 
       this.setData({
+        activeIndex: -1,
         index: index as number,
         currentSong,
         play: false,

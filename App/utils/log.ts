@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-17 10:09:53
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:55:27
+ * @LastEditTime: 2019-09-24 23:52:28
  * @Description: 实时日志封装
  */
 
@@ -18,7 +18,7 @@ export const debug = (...args: any[]) => {
 };
 
 /** 写入信息日志 */
-const info = (...args: any[]) => {
+export const info = (...args: any[]) => {
   console.info(...args);
   log.info(...args);
 };
@@ -30,7 +30,7 @@ export const warn = (...args: any[]) => {
 };
 
 /** 写入错误日志 */
-const error = (...args: any[]) => {
+export const error = (...args: any[]) => {
   console.error(...args);
   if (realtime) (log as WechatMiniprogram.RealtimeLogManager).error(...args);
   else log.warn('error', ...args);
@@ -41,8 +41,6 @@ const error = (...args: any[]) => {
  *
  * @param filterMsg 过滤信息
  */
-const fliter = (filterMsg: string) => {
+export const fliter = (filterMsg: string) => {
   if (realtime) (log as WechatMiniprogram.RealtimeLogManager).setFilterMsg(filterMsg);
 };
-
-export default { debug, info, warn, error, fliter };

@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:45:18
+ * @LastEditTime: 2019-09-25 00:16:56
  * @Description: 功能页面
  */
 
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { setColor } from '../utils/page';
 import { listFile, Delete } from '../utils/file';
 import { modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
@@ -33,7 +33,7 @@ $register('function', {
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color();
+    const { nc, bc } = setColor();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

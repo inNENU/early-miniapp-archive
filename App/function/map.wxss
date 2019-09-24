@@ -185,3 +185,31 @@
   background-color: #3478f7;
   color: white;
 }
+
+
+/*****************
+    关闭按钮
+*****************/
+
+.closeBtn {
+  position: fixed;
+  z-index: 100;
+  top: 26px;
+  left: 9px;
+  width: 31px;
+  height: 31px;
+  border-radius: 18px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+.nm .closeBtn {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1rpx solid rgba(0, 0, 0, 0.2);
+}
+
+.closeIcon {
+  width: 24px;
+  height: 24px;
+  margin: 4px auto;
+}

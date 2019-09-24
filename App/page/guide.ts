@@ -2,11 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-08 17:13:14
+ * @LastEditTime: 2019-09-25 00:22:34
  * @Description: 东师指南
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import {
+  resolvePage, popNotice, setColor, changeNav, setPage
+} from '../utils/page';
 import $search from '../utils/search';
 import $tab from '../utils/tab';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
@@ -87,22 +89,22 @@ $register('guide', {
   },
 
   onPreload(res) {
-    this.$put('guide', $page.resolve(res, wx.getStorageSync('guide') || this.data.page));
+    this.$put('guide', resolvePage(res, wx.getStorageSync('guide') || this.data.page));
     console.log(`东师指南预加载用时${new Date().getTime() - a.date}ms`);
   },
 
   onLoad() {
-    $page.Set(
+    setPage(
       { option: { aim: 'guide' }, ctx: this },
       this.$take('guide') || this.data.page
     );
-    $page.Notice('guide');
+    popNotice('guide');
     $tab.update('page', '250K');
   },
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(true);
+    const { nc, bc } = setColor(true);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -125,7 +127,7 @@ $register('guide', {
   },
 
   onPageScroll(event) {
-    $page.nav(event, this, 'head');
+    changeNav(event, this, 'head');
   },
 
   onShareAppMessage: () => ({ title: '东师指南', path: '/page/guide' }),

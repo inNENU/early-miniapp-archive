@@ -142,13 +142,13 @@ slider {
 .songListCtn {
   position: fixed;
   z-index: 2;
-  width: 84%;
   top: 100px;
   left: 8%;
+  right: 8%;
+  width: 84%;
   bottom: 100px;
   background-color: #fff;
   border-radius: 12px;
-  padding: 48px 0 12px 0;
   font-family: FZSSJW,
     -apple-system-font,
     "PingFang SC",
@@ -169,8 +169,24 @@ slider {
 .closeBtn {
   position: fixed;
   z-index: 3;
-  top: 112px;
-  left: calc(92% - 43px);
+  top: 108px;
+  right: calc(8% + 8px);
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+.nm .closeBtn {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1rpx solid rgba(0, 0, 0, 0.2);
+}
+
+.closeIcon {
+  width: 14px;
+  height: 14px;
+  margin: 5px;
 }
 
 .songCtn {

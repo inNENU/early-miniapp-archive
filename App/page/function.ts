@@ -2,11 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:53:33
+ * @LastEditTime: 2019-09-25 00:25:21
  * @Description: 功能大厅
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import {
+  resolvePage, setPage, popNotice, setColor, changeNav
+} from '../utils/page';
 import $tab from '../utils/tab';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -60,22 +62,22 @@ $register('function', {
   },
 
   onPreload(res) {
-    this.$put('function', $page.resolve(res, wx.getStorageSync('function') || this.data.page));
+    this.$put('function', resolvePage(res, wx.getStorageSync('function') || this.data.page));
     console.log(`功能大厅预加载用时${new Date().getTime() - a.date}ms`);
   },
 
   onLoad() {
-    $page.Set(
+    setPage(
       { option: { aim: 'function' }, ctx: this },
       this.$take('function') || this.data.page
     );
-    $page.Notice('function');
+    popNotice('function');
     $tab.update('function', '100K');
   },
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(true);
+    const { nc, bc } = setColor(true);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -101,7 +103,7 @@ $register('function', {
   },
 
   onPageScroll(event) {
-    $page.nav(event, this, 'head');
+    changeNav(event, this, 'head');
   },
 
   onShareAppMessage: () => ({ title: '功能大厅', path: '/page/function' })

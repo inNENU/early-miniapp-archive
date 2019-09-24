@@ -18,9 +18,9 @@
 	},
 	"miniprogramRoot": "App/",
 	"compileType": "miniprogram",
-	"libVersion": "2.8.2",
+	"libVersion": "2.8.3",
 	"appid": "wx33acb831ee1831a5",
-	"qqLibVersion": "1.6.3",
+	"qqLibVersion": "1.7.1",
 	"qqappid": "1109559721",
 	"projectname": "in%E4%B8%9C%E5%B8%88",
 	"setting": {
@@ -62,8 +62,12 @@
 		"game": {
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
-			"current": 6,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -112,6 +116,13 @@
 					"name": "初始化小程序",
 					"pathName": "module/function",
 					"query": "action=reset",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "校历",
+					"pathName": "function/calendar",
+					"query": "",
 					"scene": null
 				}
 			]

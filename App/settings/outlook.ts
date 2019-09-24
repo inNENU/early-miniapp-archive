@@ -2,11 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 00:04:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:38:58
+ * @LastEditTime: 2019-09-25 00:30:09
  * @Description: 设置页面
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import {
+  resolvePage, setPage, popNotice, setColor, changeNav
+} from '../utils/page';
 import { nightmode } from '../utils/app';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -80,11 +82,11 @@ $register('setting', {
     if (!dayBrightnessChange || a.nm) list[4].hidden = true;
     if (!nightBrightnessChange || !a.nm) list[6].hidden = true;
 
-    $page.resolve(res, this.data.page);
+    resolvePage(res, this.data.page);
   },
 
   onLoad(option: any) {
-    if (a.page.aim === '外观设置') $page.Set({ option, ctx: this });
+    if (a.page.aim === '外观设置') setPage({ option, ctx: this });
     else {
       const list = this.data.page[3].content as any[];
       const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
@@ -99,21 +101,21 @@ $register('setting', {
       else list[5].hidden = true;
       if (!dayBrightnessChange || a.nm) list[4].hidden = true;
       if (!nightBrightnessChange || !a.nm) list[6].hidden = true;
-      $page.Set({ option, ctx: this }, this.data.page);
+      setPage({ option, ctx: this }, this.data.page);
     }
-    $page.Notice('theme');
+    popNotice('theme');
   },
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = setColor(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
 
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   onUnload() {
@@ -137,7 +139,7 @@ $register('setting', {
     a.T = theme;
     wx.setStorageSync('theme', theme);
     this.setData({ T: theme });
-    // $page.Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
+    // Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
     this.$emit('theme', theme);
     console.log(`theme切换为${theme}`); // 调试
   },
@@ -181,7 +183,7 @@ $register('setting', {
     this.$emit('nightmode', value);
 
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = setColor(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -224,7 +226,7 @@ $register('setting', {
     this.$emit('nightmode', nm);
 
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = setColor(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

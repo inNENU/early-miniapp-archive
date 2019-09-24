@@ -2,11 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:50:54
+ * @LastEditTime: 2019-09-25 00:28:37
  * @Description: 捐赠
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { setColor, popNotice, changeNav } from '../utils/page';
 import { request, tip, downLoad, modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -54,18 +54,18 @@ $register('donate', {
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color();
+    const { nc, bc } = setColor();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
   },
 
   onReady() {
-    $page.Notice('donate');
+    popNotice('donate');
   },
 
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   onShareAppMessage: () => ({ title: '捐赠Mr.Hope', path: '/settings/donate' }),

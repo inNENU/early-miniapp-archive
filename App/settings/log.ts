@@ -2,12 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:52:15
+ * @LastEditTime: 2019-09-25 00:29:14
  * @Description: 更新日志
  */
 
 import $register from 'wxpage';
-import $page from '../utils/page';
+import {
+  resolvePage, setPage, popNotice, setColor, changeNav
+} from '../utils/page';
 import { request } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -32,19 +34,19 @@ $register('log', {
   },
 
   onNavigate(res) {
-    $page.resolve(res, this.data.page);
+    resolvePage(res, this.data.page);
   },
 
   onLoad(option: any) {
-    if (a.page.aim === '更新日志') $page.Set({ option, ctx: this });
-    else $page.Set({ option: { aim: 'log' }, ctx: this });
+    if (a.page.aim === '更新日志') setPage({ option, ctx: this });
+    else setPage({ option: { aim: 'log' }, ctx: this });
 
-    $page.Notice('log');
+    popNotice('log');
   },
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = setColor(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -53,7 +55,7 @@ $register('log', {
   onReady() {
     // 在线获取日志页面文件
     request(`config/${a.appID}/${a.version}/log`, (data: any) => {
-      $page.Set(
+      setPage(
         { option: { aim: '更新日志' }, ctx: this },
         this.data.page.slice(0, 1)
           .concat(data, this.data.page.slice(-1))
@@ -62,7 +64,7 @@ $register('log', {
   },
 
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   onShareAppMessage: () => ({ title: '更新日志', path: '/settings/log' })

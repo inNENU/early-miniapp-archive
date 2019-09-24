@@ -2,11 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-08 00:18:20
+ * @LastEditTime: 2019-09-25 00:13:04
  * @Description: 地图
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { popNotice, setColor } from '../utils/page';
 import $tab from '../utils/tab';
 import { modal } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
@@ -137,11 +137,11 @@ $register('map', {
     // 将地图写入options实例中
     this.mapCtx = mapCtx;
 
-    $page.Notice('map');
+    popNotice('map');
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(false);
+    const { nc, bc } = setColor(false);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

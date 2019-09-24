@@ -6,8 +6,10 @@
  * @LastEditTime: 2019-04-08 11:34:39
  */
 
-import $file from './file';
-import $log from './log';
+import {
+  Delete, saveFile, readJson, unzip, writeJson
+} from './file';
+import { debug, info, warn, error } from './log';
 import $page from './page';
 import { tip, modal, request } from './wx';
 
@@ -26,15 +28,15 @@ const resDownload = (name: string) => {
         wx.showLoading({ title: '保存中...', mask: true });
 
         // 保存压缩文件到压缩目录
-        $file.saveFile(res.tempFilePath, `${name}Zip`);
+        saveFile(res.tempFilePath, `${name}Zip`);
 
         wx.showLoading({ title: '解压中...', mask: true });
 
         // 解压文件到根目录
-        $file.unzip(`${name}Zip`, '', () => {
+        unzip(`${name}Zip`, '', () => {
 
           // 删除压缩目录，并将下载成功信息写入存储、判断取消提示
-          $file.Delete(`${name}Zip`, false);
+          Delete(`${name}Zip`, false);
           wx.setStorageSync(`${name}Download`, true);
 
           wx.hideLoading();
@@ -43,7 +45,7 @@ const resDownload = (name: string) => {
     },
 
     // 下载失败
-    fail: failMsg => $log.error(`download ${name} fail:`, failMsg)
+    fail: failMsg => error(`download ${name} fail:`, failMsg)
   });
 
   downLoadTask.onProgressUpdate(res => {
@@ -59,13 +61,13 @@ const resDownload = (name: string) => {
  */
 const checkResUpdate = (name: string, dataUsage: string) => {
   const notify = wx.getStorageSync(`${name}ResNotify`); // 资源提醒
-  const localVersion = $file.readJson(`${name}Version`); // 读取本地Version文件
+  const localVersion = readJson(`${name}Version`); // 读取本地Version文件
   const localTime = wx.getStorageSync(`${name}UpdateTime`);
   const currentTime = Math.round(new Date().getTime() / 1000);// 读取当前和上次更新时间
 
   // 调试
-  $log.debug(`${name}通知状态为${notify}`, `本地版本文件为：${localVersion}`);
-  $log.debug(`${name}更新于${localTime}, 现在时间是${currentTime}`);
+  debug(`${name}通知状态为${notify}`, `本地版本文件为：${localVersion}`);
+  debug(`${name}更新于${localTime}, 现在时间是${currentTime}`);
 
   if (notify || currentTime > Number(localTime) + 604800)// 如果需要更新
     wx.request({
@@ -73,11 +75,11 @@ const checkResUpdate = (name: string, dataUsage: string) => {
       success: res => {
         if (res.statusCode === 200)
           // 资源为最新
-          if (Number(localVersion) === Number(res.data)) $log.debug(`${name}资源已是最新版`);// 调试
+          if (Number(localVersion) === Number(res.data)) debug(`${name}资源已是最新版`);// 调试
 
           // 需要更新
           else {
-            $log.info(`${name}资源有更新`); // 调试
+            info(`${name}资源有更新`); // 调试
 
             // 如果需要提醒，则弹窗
             if (notify) wx.showModal({
@@ -253,14 +255,14 @@ const setMarker = (data: MarkerConfig, name: string) => {
 /** 设置marker */
 const markerSet = () => {
   const markerVersion = wx.getStorageSync('markerVersion');
-  const functionVersion = $file.readJson('functionVersion');
+  const functionVersion = readJson('functionVersion');
 
   if (markerVersion === functionVersion)// Marker已经设置完毕
-    $log.debug('Marker 已设置就绪');
+    debug('Marker 已设置就绪');
 
   // 需要设置Marker
   else {
-    const markerData = $file.readJson('function/marker');
+    const markerData = readJson('function/marker');
 
     // 找到MarkerData，直接设置Marker
     if (Array.isArray(markerData)) {
@@ -269,12 +271,12 @@ const markerSet = () => {
       wx.setStorageSync('markerVersion', markerVersion);
     } else { // 没有找到MarkerData，可能因为初始化中断造成
       // 调试
-      $log.warn('获取Marker失败');
+      warn('获取Marker失败');
 
       request('function/marker', data => {
 
         // 将Marker数据保存文件
-        $file.writeJson('function', 'marker', data);
+        writeJson('function', 'marker', data);
 
         // 设置Marker
         setMarker((data as MarkerConfig[])[0], 'benbu');

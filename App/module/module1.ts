@@ -2,26 +2,26 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:56:08
+ * @LastEditTime: 2019-09-25 00:18:55
  * @Description: 模块页面1
  */
 
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { resolvePage, setOnlinePage, setColor, changeNav } from '../utils/page';
 
 $register('module1', {
   onNavigate(option) {
-    $page.resolve(option);
+    resolvePage(option);
   },
 
   onLoad(res: any) {
-    $page.Online(res, this);
+    setOnlinePage(res, this);
   },
 
   onShow() {
     if (this.data.page) {
       // 设置胶囊和背景颜色
-      const { nc, bc } = $page.color(this.data.page[0].grey);
+      const { nc, bc } = setColor(this.data.page[0].grey);
 
       wx.setNavigationBarColor(nc);
       wx.setBackgroundColor(bc);
@@ -29,7 +29,7 @@ $register('module1', {
   },
 
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   onShareAppMessage() {

@@ -2,11 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 17:41:38
+ * @LastEditTime: 2019-09-24 23:53:58
  * @Description: 分享组件
  */
 
-import $log from '../../../utils/log';
+import { debug, warn } from '../../../utils/log';
 import $register from 'wxpage';
 import { downLoad, modal, tip } from '../../../utils/wx';
 
@@ -69,14 +69,14 @@ $register.C({
                   tip('二维码已保存至相册');
 
                   // 调试
-                  $log.debug('二维码保存成功');
+                  debug('二维码保存成功');
                   wx.reportMonitor('8', 1);
                 },
                 fail: msg => {
                   tip('二维码保存失败');
 
                   // 调试
-                  $log.warn('二维码保存失败', msg);
+                  warn('二维码保存失败', msg);
                   wx.reportMonitor('6', 1);
                 }
               });
@@ -93,14 +93,14 @@ $register.C({
                     tip('二维码已保存至相册');
 
                     // 调试
-                    $log.debug('二维码保存成功');
+                    debug('二维码保存成功');
                     wx.reportMonitor('8', 1);
                   },
                   fail: msg => {
                     tip('二维码保存失败');
 
                     // 调试
-                    $log.warn('二维码保存失败', msg);
+                    warn('二维码保存失败', msg);
                     wx.reportMonitor('6', 1);
                   }
                 });
@@ -110,7 +110,7 @@ $register.C({
               fail: () => {
                 modal('权限被拒', '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限', () => {
                   tip('二维码保存失败');
-                  $log.warn('用户拒绝相册授权'); // 调试
+                  warn('用户拒绝相册授权'); // 调试
                 });
               }
             });
@@ -120,13 +120,13 @@ $register.C({
         tip('二维码下载失败');
 
         // 调试
-        $log.warn(`下载二维码失败${this.data.config.aim}`);
+        warn(`下载二维码失败${this.data.config.aim}`);
         wx.reportMonitor('6', 1);
       }, statusCode => {
         tip('二维码下载失败，服务器出错');
 
         // 调试
-        $log.warn(`二维码状态码异常:${statusCode}`);
+        warn(`二维码状态码异常:${statusCode}`);
         wx.reportMonitor('7', 1);
       });
     }

@@ -2,11 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:50:16
+ * @LastEditTime: 2019-09-25 00:27:27
  * @Description: 关于
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import {
+  resolvePage, setPage, popNotice, setColor, changeNav
+} from '../utils/page';
 import { request, tip } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 let clickNumber = 0;
@@ -58,10 +60,10 @@ $register('about', {
       x.hidden = !(y === 0);
     });
 
-    $page.resolve(res, p);
+    resolvePage(res, p);
   },
   onLoad(option: any) {
-    if (a.page.aim === '关于') $page.Set({ option, ctx: this });
+    if (a.page.aim === '关于') setPage({ option, ctx: this });
     else {
       const p = this.data.page;
 
@@ -71,14 +73,14 @@ $register('about', {
         x.hidden = !(y === 0);
       });
 
-      $page.Set({ option: { aim: 'about' }, ctx: this }, p);
+      setPage({ option: { aim: 'about' }, ctx: this }, p);
     }
 
-    $page.Notice('about');
+    popNotice('about');
   },
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = setColor(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -86,7 +88,7 @@ $register('about', {
   onReady() {
     // 读取在线文件更新页面显示
     request(`config/${a.appID}/${a.version}/about`, (data: any) => {
-      $page.Set(
+      setPage(
         { option: { aim: '关于' }, ctx: this },
         this.data.page.slice(0, 2)
           .concat(data, this.data.page.slice(-1))
@@ -94,7 +96,7 @@ $register('about', {
     });
   },
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   /** 列表控制函数 */

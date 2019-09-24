@@ -2,12 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-08 19:52:55
+ * @LastEditTime: 2019-09-24 23:51:08
  * @Description: 小程序主脚本
  */
 
 import $register from 'wxpage';
-import app from './utils/app';
+import {
+  appInit, appUpdate, startup, nightmode, noticeCheck
+} from './utils/app';
 
 $register.A({
   /** 小程序的全局数据 */
@@ -36,9 +38,9 @@ $register.A({
     console.info('小程序启动，参数为', opts); // 调试
 
     // 如果初次启动执行初始化
-    if (!wx.getStorageSync('inited')) app.appInit();
+    if (!wx.getStorageSync('inited')) appInit();
 
-    app.startup(this.globalData);
+    startup(this.globalData);
 
     console.log('全局数据为', this.globalData);
   },
@@ -46,10 +48,10 @@ $register.A({
     console.log('小程序在', time, 'ms之后被唤醒');
 
     // 重新应用夜间模式、
-    this.globalData.nm = app.nightmode();
+    this.globalData.nm = nightmode();
 
-    app.noticeCheck(this.globalData);
-    app.appUpdate(this.globalData);
+    noticeCheck(this.globalData);
+    appUpdate(this.globalData);
   },
   onError(errorMsg) {
     console.error('出错信息为：', errorMsg);

@@ -2,11 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:50:36
+ * @LastEditTime: 2019-09-25 00:28:19
  * @Description: 捐赠
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import {
+  resolvePage, setPage, popNotice, setColor, changeNav
+} from '../utils/page';
 import { modal, tip } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -70,19 +72,19 @@ $register('authorize', {
   },
 
   onNavigate(res) {
-    $page.resolve(res, this.data.page);
+    resolvePage(res, this.data.page);
   },
 
   onLoad(option: any) {
-    if (a.page.aim === '授权设置') $page.Set({ option, ctx: this });
-    else $page.Set({ option: { aim: 'authorize' }, ctx: this });
+    if (a.page.aim === '授权设置') setPage({ option, ctx: this });
+    else setPage({ option: { aim: 'authorize' }, ctx: this });
 
-    $page.Notice('authorize');
+    popNotice('authorize');
   },
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = setColor(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -91,7 +93,7 @@ $register('authorize', {
   onReady() {
     const list = this.data.page[1].content as any[];
 
-    $page.Notice('authorize');
+    popNotice('authorize');
     wx.getSetting({
       success: res => {
         authorizeList.forEach((type, index) => {
@@ -104,7 +106,7 @@ $register('authorize', {
   },
 
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   },
 
   /** 列表处理函数 */

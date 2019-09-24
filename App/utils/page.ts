@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:52:35
+ * @LastEditTime: 2019-09-25 00:18:27
  * @Description: Page函数库
  */
 
 // 引入文件管理
 import { getJson, readJson, writeJson } from './file';
-import $log from './log';
+import { info, debug, warn, error } from './log';
 import { modal, request } from './wx';
 
 /** 全局数据 */
@@ -56,7 +56,7 @@ const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
         // 判断是否来自分享，分享页左上角动作默认为重定向
         if ('share' in option || firstOpen) {
           page[0].action = 'redirect';
-          $log.info(`${page[0].action}页面由分享载入`);
+          info(`${page[0].action}页面由分享载入`);
         }
       }
 
@@ -109,13 +109,13 @@ const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
         });
       });
       // 调试
-      $log.info(`${page[0].aim}处理完毕`);
+      info(`${page[0].aim}处理完毕`);
     } else
       // 调试：未找到head tag
-      $log.warn('页面不包含head标签');
+      warn('页面不包含head标签');
   else
     // 调试：未传入page
-    $log.error('页面数据不存在');
+    error('页面数据不存在');
 
 
   return page; // 返回处理后的page
@@ -167,12 +167,12 @@ const preGetPage = (page: PageData) => {
  *
  * @param option 页面跳转参数
  * @param page page数组
- * @param Set 是否将处理后的数据写入到全局数据中
+ * @param setGlobal 是否将处理后的数据写入到全局数据中
  *
  * @returns 处理后的page配置
  */
-const resolvePage = (option: MPPage.PageLifeTimeOptions, page?: PageData, Set = true) => {
-  $log.info('将要跳转：', option); // 控制台输出参数
+export const resolvePage = (option: MPPage.PageLifeTimeOptions, page?: PageData, setGlobal = true) => {
+  info('将要跳转：', option); // 控制台输出参数
   const { aim } = option.query;
   let data;
 
@@ -184,11 +184,11 @@ const resolvePage = (option: MPPage.PageLifeTimeOptions, page?: PageData, Set = 
     if (pageData) data = disposePage(pageData as PageData, option.query);
     else {
       data = undefined;
-      $log.warn(`${aim}文件不存在，处理失败`);
+      warn(`${aim}文件不存在，处理失败`);
     }
   }
 
-  if (data && Set) {
+  if (data && setGlobal) {
     // 设置aim值
     globalData.page.aim = aim || data[0].title;
     globalData.page.data = data;
@@ -220,7 +220,7 @@ interface SetPageOption {
  * @param page 页面数据
  * @param preload 是否预加载子页面
  */
-const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData, preload = true) => {
+export const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData, preload = true) => {
   // 设置页面数据
   if (page)
     ctx.setData({
@@ -233,16 +233,16 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
     globalData.page.aim === option.aim ||
     (ctx.data.page && ctx.data.page[0] && globalData.page.aim === ctx.data.page[0].title)
   ) {
-    $log.debug(`${globalData.page.aim}已处理`);
+    debug(`${globalData.page.aim}已处理`);
     ctx.setData({ T: globalData.T, nm: globalData.nm, page: globalData.page.data }, () => {
-      $log.debug(`${globalData.page.aim}已写入`);
+      debug(`${globalData.page.aim}已写入`);
       if (preload) {
         preGetPage(ctx.data.page);
-        $log.debug(`${globalData.page.aim}预加载子页面完成`);
+        debug(`${globalData.page.aim}预加载子页面完成`);
       }
     });
   } else {
-    $log.debug(`${option.aim || '未知页面'}未处理`);
+    debug(`${option.aim || '未知页面'}未处理`);
     // 设置页面数据
     ctx.setData({
       T: globalData.T,
@@ -263,7 +263,7 @@ const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData
  *
  * @param aim 当前界面的aim值
  */
-const popNotice = (aim: string) => {
+export const popNotice = (aim: string) => {
   if (wx.getStorageSync(`${aim}Notify`)) { // 判断是否需要弹窗
 
     // 从存储中获取通知内容并展示
@@ -272,7 +272,7 @@ const popNotice = (aim: string) => {
     modal(notice[0], notice[1], () => {
       wx.removeStorageSync(`${aim}Notify`); // 防止二次弹窗
     });
-    $log.info('弹出通知');// 调试
+    info('弹出通知');// 调试
   }
   wx.reportAnalytics('page_aim_count', { aim });// Aim统计分析
 };
@@ -290,19 +290,19 @@ const popNotice = (aim: string) => {
  * @param ctx 页面指针
  * @param preload 是否需要预加载(默认需要)
  */
-const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
+export const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   if (globalData.page.aim === option.aim) {
-    $log.debug(`${option.aim}已处理`);
+    debug(`${option.aim}已处理`);
     ctx.setData({ T: globalData.T, nm: globalData.nm, page: globalData.page.data }, () => {
-      $log.debug(`${option.aim}已写入`);
+      debug(`${option.aim}已写入`);
       if (preload) {
         preGetPage(ctx.data.page);
-        $log.debug(`${option.aim}预加载子页面完成`);
+        debug(`${option.aim}预加载子页面完成`);
       }
     });
   } else if (option.aim) { // 需要重新载入界面
-    $log.info(`${option.aim}onLoad开始，参数为：`, option);
+    info(`${option.aim}onLoad开始，参数为：`, option);
     const { folder, path } = resolveAim(option.aim);
 
     ctx.aim = option.aim;
@@ -313,13 +313,13 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
     if (page) {
       setPage({ option, ctx }, page);
       popNotice(option.aim);
-      $log.info(`${option.aim}onLoad成功：`, ctx.data);
+      info(`${option.aim}onLoad成功：`, ctx.data);
       wx.reportMonitor('0', 1);
 
       // 如果需要执行预加载，则执行
       if (preload) {
         preGetPage(ctx.data.page);
-        $log.debug(`${option.aim}界面预加载完成`);
+        debug(`${option.aim}界面预加载完成`);
       }
     } else
       // 请求页面Json
@@ -333,29 +333,29 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
         // 如果需要执行预加载，则执行
         if (preload) {
           preGetPage(ctx.data.page);
-          $log.debug(`${option.aim}界面预加载完成`);
+          debug(`${option.aim}界面预加载完成`);
         }
 
         // 弹出通知
         popNotice(option.aim as string);
 
         // 调试
-        $log.info(`${option.aim}onLoad成功`);
+        info(`${option.aim}onLoad成功`);
       }, res => {
         // 设置error页面并弹出通知
         setPage({ option, ctx }, [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }]);
         popNotice(option.aim as string);
 
         // 调试
-        $log.warn(`${option.aim}onLoad失败，错误为`, res);
+        warn(`${option.aim}onLoad失败，错误为`, res);
       }, () => {
         // 设置error界面
         setPage({ option, ctx }, [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }]);
 
         // 调试
-        $log.warn(`${option.aim}资源错误`);
+        warn(`${option.aim}资源错误`);
       });
-  } else $log.error('no aim');
+  } else error('no aim');
 };
 
 /**
@@ -371,7 +371,7 @@ const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
  *
  * @returns 页面实际的胶囊与背景颜色
  */
-const color = (grey = false) => {
+export const setColor = (grey = false) => {
   const [frontColor, backgroundColor] = globalData.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
   let temp;
 
@@ -433,22 +433,22 @@ const color = (grey = false) => {
  *
  * @param theme 主题
  */
-const loadFont = (theme: string) => {
+export const loadFont = (theme: string) => {
   if (theme === 'Android')
     wx.loadFontFace({
       family: 'FZKTJW', source: 'url("https://mp.nenuyouth.com/fonts/FZKTJW.ttf")',
       complete: res => {
-        $log.info('楷体字体', res);// 调试
+        info('楷体字体', res);// 调试
       }
     });
   else if (theme === 'NENU')
     wx.loadFontFace({
       family: 'FZSSJW', source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
       complete: res => {
-        $log.info('宋体字体', res);// 调试
+        info('宋体字体', res);// 调试
       }
     });
-  else $log.warn(`无法处理主题${theme}`);
+  else warn(`无法处理主题${theme}`);
 };
 
 /**
@@ -472,7 +472,7 @@ const loadFont = (theme: string) => {
  *   },
  * ```
  */
-const changeNav = (option: WechatMiniprogram.Page.IPageScrollOption, ctx: any, headName?: string) => {
+export const changeNav = (option: WechatMiniprogram.Page.IPageScrollOption, ctx: any, headName?: string) => {
   const pageHead = headName ? ctx.data[headName] : ctx.data.page[0];
   let titleDisplay;
   let borderDisplay;
@@ -494,13 +494,4 @@ const changeNav = (option: WechatMiniprogram.Page.IPageScrollOption, ctx: any, h
   else if (pageHead.borderDisplay !== borderDisplay)
     ctx.setData({ [`${headName || 'page[0]'}.borderDisplay`]: borderDisplay });
   else if (pageHead.shadow !== shadow) ctx.setData({ [`${headName || 'page[0]'}.shadow`]: shadow });
-};
-
-export default {
-  color, loadFont,
-  resolve: resolvePage,
-  Set: setPage,
-  Online: setOnlinePage,
-  Notice: popNotice,
-  nav: changeNav
 };

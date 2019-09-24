@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-04 12:49:41
+ * @LastEditTime: 2019-09-25 00:16:09
  * @Description: 视频页面
  */
 
 import $register from 'wxpage';
 import { getJson, readJson } from '../utils/file';
-import $page from '../utils/page';
+import { popNotice, setColor } from '../utils/page';
 import { tip, modal, request } from '../utils/wx';
 const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
 
@@ -52,7 +52,7 @@ $register('video', {
         });
       });
 
-      $page.Notice('video');
+      popNotice('video');
     } else
       modal(
         '禁止播放',
@@ -63,7 +63,7 @@ $register('video', {
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color();
+    const { nc, bc } = setColor();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

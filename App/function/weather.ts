@@ -2,11 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-08 00:30:59
+ * @LastEditTime: 2019-09-25 00:16:30
  * @Description: 天气预报
  */
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { setColor } from '../utils/page';
 import weatherHandler from '../components/weather/handler';
 import { WeatherData, WeatherDetail } from '../components/weather/weather';
 
@@ -68,7 +68,7 @@ $register('weather', {
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color();
+    const { nc, bc } = setColor();
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);

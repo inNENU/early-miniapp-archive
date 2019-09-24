@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 23:47:21
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 12:50:15
+ * @LastEditTime: 2019-09-25 00:11:52
  * @Description: 绩点计算
  */
 
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { setPage, setColor, changeNav } from '../utils/page';
 
 $register('cal', {
   data: {
@@ -23,10 +23,10 @@ $register('cal', {
     display: false
   },
   onLoad(option: any) {
-    $page.Set({ option, ctx: this });
+    setPage({ option, ctx: this });
 
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(false);
+    const { nc, bc } = setColor(false);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -185,6 +185,6 @@ $register('cal', {
 
   },
   onPageScroll(event) {
-    $page.nav(event, this);
+    changeNav(event, this);
   }
 });
