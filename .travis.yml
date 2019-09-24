@@ -4,4 +4,5 @@ node_js:
 install:
   - npm ci
 script:
-  - npm run build
+  - npm run tsc
+  - npm run doc
