@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-09-04 17:42:04
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-12 20:00:16
+ * @LastEditTime: 2019-09-25 07:18:32
  * @Description: 时间线组件
  */
 
@@ -35,18 +35,8 @@ $register.C({
   },
   lifetimes: {
     attached() {
-      // console.log(this.properties.config);
-      // console.log(this.data.config);
       const res = wx.getSystemInfoSync();
-      // const alternate = res.windowWidth >= 750;
-      // const timeList = this.properties.config as TimeLineItem[];
 
-      // timeList.forEach((element, index) => {
-      //   element.class = alternate ? `timeline-item-${index % 2 === 0 ? 'right' : 'left'}` : '';
-      //   if (index === timeList.length - 1) element.class += 'timeline-item-last';
-      // });
-
-      // console.log(timeList);
       this.setData({ alternate: res.windowWidth >= 750 });
     }
   },

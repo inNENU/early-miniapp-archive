@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-09-04 19:55:00
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:12:29
+ * @LastEditTime: 2019-09-25 07:24:44
  * @Description: 校历页面
  */
 
 import $register from 'wxpage';
-import { popNotice, changeNav } from '../utils/page';
+import { popNotice, changeNav, setColor } from '../utils/page';
 import { getJson, readJson, writeJson } from '../utils/file';
 import { request } from '../utils/wx';
 import { TimeLineItem } from '../components/timeline/timeline';
@@ -40,6 +40,14 @@ $register('calendar', {
     });
 
     popNotice('calendar');
+  },
+
+  onShow() {
+    // 设置胶囊和背景颜色
+    const { nc, bc } = setColor(false);
+
+    wx.setNavigationBarColor(nc);
+    wx.setBackgroundColor(bc);
   },
 
   onPageScroll(event) {
