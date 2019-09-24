@@ -10,7 +10,7 @@ import {
   Delete, saveFile, readJson, unzip, writeJson
 } from './file';
 import { debug, info, warn, error } from './log';
-import $page from './page';
+import { setPage } from './page';
 import { tip, modal, request } from './wx';
 
 /**
@@ -148,11 +148,11 @@ const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   // 开启测试后展示测试界面
   if (test) request(`config/${globalData.appID}/test/${name}`, data => {
     wx.setStorageSync(name, data);
-    $page.Set({ ctx, option: { aim: name } }, data as PageData);
+    setPage({ ctx, option: { aim: name } }, data as PageData);
   });
   // 普通界面加载
   else request(`config/${globalData.appID}/${globalData.version}/${name}`, data => {
-    $page.Set({ ctx, option: { aim: name } }, data as PageData);
+    setPage({ ctx, option: { aim: name } }, data as PageData);
   });
 };
 

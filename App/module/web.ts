@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-13 19:19:05
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 01:54:14
+ * @LastEditTime: 2019-09-25 00:31:46
  * @Description: Webview模块
  */
 
 import $register from 'wxpage';
-import $page from '../utils/page';
+import { setColor } from '../utils/page';
 
 $register('web', {
   onLoad(res: any) {
@@ -20,7 +20,7 @@ $register('web', {
 
   onShow() {
     // 设置胶囊和背景颜色
-    const { nc, bc } = $page.color(this.data.page[0].grey);
+    const { nc, bc } = setColor(this.data.page[0].grey);
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
