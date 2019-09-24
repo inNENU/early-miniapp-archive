@@ -1,6 +1,9 @@
 # 参数说明
 
-![作者：Mr.Hope](https://img.shields.io/badge/作者-Mr.Hope-blue.svg) ![版本：V1.2](https://img.shields.io/badge/版本-V1.2-blue.svg) ![最后编辑于2019年9月8日](https://img.shields.io/badge/最后编辑于-2019年9月8日-success.svg)
+[![作者：Mr.Hope](https://img.shields.io/badge/作者-Mr.Hope-blue.svg)](https://mrhope.site)
+![版本：V1.2](https://img.shields.io/badge/版本-V1.2-blue.svg)
+![最后编辑于2019年9月8日](https://img.shields.io/badge/最后编辑于-2019年9月8日-success.svg)
+[![Travis CI](https://travis-ci.com/Mister-Hope/inNENU.svg?token=7xxygNk5rDwyn3m9dKvC&branch=2.0)](https://travis-ci.com/Mister-Hope/inNENU)
 
 <!-- 
 wx9ce37d9662499df3
