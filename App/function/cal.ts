@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 23:47:21
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:11:52
+ * @LastEditTime: 2019-10-21 22:35:34
  * @Description: 绩点计算
  */
 
+import { changeNav, setColor, setPage } from '../utils/page';
 import $register from 'wxpage';
-import { setPage, setColor, changeNav } from '../utils/page';
 
 $register('cal', {
   data: {
@@ -70,7 +70,8 @@ $register('cal', {
      *   grade[id][target + 'Focus'] = false;
      * }
      */
-    if (Number(event.detail.value)) grade[id][target] = Number(event.detail.value);
+    if (Number(event.detail.value))
+      grade[id][target] = Number(event.detail.value);
     // 如果value可以转换为number，得到对应课程的grade数组并对其中的相应对象赋值数字
     else grade[id][target] = event.detail.value;
     // 如果value无法转换为number，得到对应课程的grade数组并对其中的相应对象赋值字符
@@ -104,8 +105,7 @@ $register('cal', {
     console.log(`currentID是${currentID};grade是${grade}`);
     grade.splice(currentID, 1);
     console.log(`新grade是${grade}`);
-    for (let i = 0; i < grade.length; i++)
-      grade[i].id = i;
+    for (let i = 0; i < grade.length; i++) grade[i].id = i;
 
     // 重新设定id
     this.setData({ grade });
@@ -126,19 +126,17 @@ $register('cal', {
       const { credit } = this.data.grade[i];
 
       if (grade !== 0 && grade && credit && credit !== 0)
-        // 判断grade和credit是否均有值
         if (grade < 60) {
+          // 判断grade和credit是否均有值
           // 单独列出不及格的学分和成绩,且只有大于50分绩点为正值才计算。
           flunkingCredit = credit + flunkingCredit;
           if (grade > 50)
-            flunkingGradeCal = (grade - 50) / 10 * credit + flunkingGradeCal;
-
+            flunkingGradeCal = ((grade - 50) / 10) * credit + flunkingGradeCal;
         } else {
           // 及格的学分和成绩
           totalCredit = credit + totalCredit;
-          totalGradeCal = (grade - 50) / 10 * credit + totalGradeCal;
+          totalGradeCal = ((grade - 50) / 10) * credit + totalGradeCal;
         }
-
     }
     console.log(`总学分是${totalCredit}`);
     console.log(`总计算是${totalGradeCal}`);
@@ -154,35 +152,37 @@ $register('cal', {
       console.log(totalCredit);
       console.log(totalGradeCal / totalCredit);
       // 向data赋值计算结果
-    } else wx.showModal({
-      // 弹窗让用户选择
-      title: '请选择计算方式',
-      content: '平均绩点是否包含未达到60的成绩？\n★为建议项',
-      cancelText: '包含',
-      cancelColor: '#ff0000',
-      confirmText: '排除★',
-      success: res => {
-        if (res.cancel) {
-          // 包含不及格成绩
-          totalCredit += flunkingCredit;
-          totalGradeCal += flunkingGradeCal;
-          // 写入不及格学分与成绩计算
-          console.log('不及格学分成绩被计入');
-          console.log(`新总学分是${totalCredit}`);
-          console.log(`新总计算是${totalGradeCal}`);
-        } else if (res.confirm)
-          console.log('都及格了');
+    } else
+      wx.showModal({
+        // 弹窗让用户选择
+        title: '请选择计算方式',
+        content: '平均绩点是否包含未达到60的成绩？\n★为建议项',
+        cancelText: '包含',
+        cancelColor: '#ff0000',
+        confirmText: '排除★',
+        success: res => {
+          if (res.cancel) {
+            // 包含不及格成绩
+            totalCredit += flunkingCredit;
+            totalGradeCal += flunkingGradeCal;
+            // 写入不及格学分与成绩计算
+            console.log('不及格学分成绩被计入');
+            console.log(`新总学分是${totalCredit}`);
+            console.log(`新总计算是${totalGradeCal}`);
+          } else if (res.confirm) console.log('都及格了');
 
-        /*
-         * 不包含不及格成绩，什么都不做
-         * console.log(totalCredit)
-         * console.log(totalGradeCal / totalCredit)
-         */
-        // 向data赋值计算结果
-        this.setData({ totalCredit, gradePointAverage: totalGradeCal / totalCredit });
-      }
-    });
-
+          /*
+           * 不包含不及格成绩，什么都不做
+           * console.log(totalCredit)
+           * console.log(totalGradeCal / totalCredit)
+           */
+          // 向data赋值计算结果
+          this.setData({
+            totalCredit,
+            gradePointAverage: totalGradeCal / totalCredit
+          });
+        }
+      });
   },
   onPageScroll(event) {
     changeNav(event, this);

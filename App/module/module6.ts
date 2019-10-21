@@ -6,8 +6,8 @@
  * @Description: 模块页面6
  */
 
+import { changeNav, resolvePage, setColor, setOnlinePage } from '../utils/page';
 import $register from 'wxpage';
-import { resolvePage, setOnlinePage, setColor, changeNav } from '../utils/page';
 
 $register('module6', {
   onNavigate(option) {

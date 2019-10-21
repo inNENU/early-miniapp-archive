@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-19 12:08:25
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 15:12:54
+ * @LastEditTime: 2019-10-21 22:29:14
  * @Description: 添加到我的小程序
  */
 
 import $register from 'wxpage';
 
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 $register.C({
   properties: {

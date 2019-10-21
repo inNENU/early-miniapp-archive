@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 15:22:58
+ * @LastEditTime: 2019-10-21 22:31:33
  * @Description: 图片组件
  */
 
@@ -38,7 +38,10 @@ $register.C({
     view() {
       wx.previewImage({
         current: this.data.config.res || this.data.config.src,
-        urls: this.data.url.length === 0 ? [this.data.config.res || this.data.config.src] : this.data.url
+        urls:
+          this.data.url.length === 0
+            ? [this.data.config.res || this.data.config.src]
+            : this.data.url
       });
     }
   },

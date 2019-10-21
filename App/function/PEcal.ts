@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:13:43
+ * @LastEditTime: 2019-10-21 23:13:46
  * @Description: 体测计算器
  */
+import { changeNav, popNotice, setColor, setPage } from '../utils/page';
 import $register from 'wxpage';
 import { getJson } from '../utils/file';
-import { setPage, setColor, popNotice, changeNav } from '../utils/page';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 /** 特殊项目 */
 const special = [
@@ -26,7 +26,9 @@ $register('PEcal', {
   data: {
     T: a.T,
     nm: a.nm,
-    page: [{ tag: 'head', title: '体测计算器', grey: true, leftText: '功能大厅' }],
+    page: [
+      { tag: 'head', title: '体测计算器', grey: true, leftText: '功能大厅' }
+    ],
     gender: {
       picker: ['男', '女'],
       value: ['male', 'female']
@@ -61,7 +63,8 @@ $register('PEcal', {
     const gradeIndex = wx.getStorageSync('grade');
 
     // 将用户上次选择的性别和年级载入
-    if (genderIndex || genderIndex === 0)  // 改变特别项目和长跑的名称
+    if (genderIndex || genderIndex === 0)
+      // 改变特别项目和长跑的名称
       this.setData({
         'gender.index': genderIndex,
         'longRun.text': genderIndex === 0 ? longRunText[0] : longRunText[1],
@@ -69,7 +72,8 @@ $register('PEcal', {
         'result.gender': this.data.gender.value[genderIndex]
       });
 
-    if (gradeIndex || gradeIndex === 0) // 写入年级
+    if (gradeIndex || gradeIndex === 0)
+      // 写入年级
       this.setData({
         'grade.index': gradeIndex,
         'result.grade': this.data.grade.value[gradeIndex]
@@ -136,16 +140,20 @@ $register('PEcal', {
 
     this.setData({ input: { status: true, height: event.detail.height } });
 
-    query.select(`#${id}`)
-      .boundingClientRect();
-    query.selectViewport()
-      .fields({ size: true, scrollOffset: true });
+    query.select(`#${id}`).boundingClientRect();
+    query.selectViewport().fields({ size: true, scrollOffset: true });
     query.exec((res: any[]) => {
-      if ((res[0].bottom as number) + (event.detail.height as number) > (res[1].height as number))
+      if (
+        (res[0].bottom as number) + (event.detail.height as number) >
+        (res[1].height as number)
+      )
         wx.pageScrollTo({
           scrollTop:
-            (res[1].scrollTop as number) + (res[0].bottom as number) +
-            (event.detail.height as number) - (res[1].height as number) + 10
+            (res[1].scrollTop as number) +
+            (res[0].bottom as number) +
+            (event.detail.height as number) -
+            (res[1].height as number) +
+            10
         });
     });
   },
@@ -163,7 +171,9 @@ $register('PEcal', {
 
     // 设置显示数据
     this.setData({
-      'longRun.value': `${longRunPicker[0][value[0] as number]} ${longRunPicker[1][value[1] as number]}`,
+      'longRun.value': `${longRunPicker[0][value[0] as number]} ${
+        longRunPicker[1][value[1] as number]
+        }`,
       'result.longRun': ((value[0] as number) + 2) * 60 + (value[1] as number)
     });
   },
@@ -173,7 +183,8 @@ $register('PEcal', {
     wx.showLoading({ title: '计算中...', mask: true });
     console.info('输入结果为：', result);
 
-    if (result.gender && result.grade) { // 可以计算
+    if (result.gender && result.grade) {
+      // 可以计算
       interface PEScore {
         BMI: number;
         vitalCapacity: number;
@@ -186,8 +197,28 @@ $register('PEcal', {
         [props: string]: number;
       }
 
-
-      const hash = [10, 20, 30, 40, 50, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 85, 90, 95, 100];
+      const hash = [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        62,
+        64,
+        66,
+        68,
+        70,
+        72,
+        74,
+        76,
+        78,
+        80,
+        85,
+        90,
+        95,
+        100
+      ];
       const { length } = hash;
       const PEscore: PEScore = {
         BMI: 0,
@@ -200,98 +231,132 @@ $register('PEcal', {
         passScore: 60
       };
 
-      if (result.height && result.weight) { // 可以计算BMI
+      if (result.height && result.weight) {
+        // 可以计算BMI
         let state;
-        const score = Math.round(result.weight * 100000 / result.height / result.height) / 10;
+        const score =
+          Math.round((result.weight * 100000) / result.height / result.height) /
+          10;
 
         // 计算BMI状态与分值
-        [state, PEscore.BMI] = result.gender === 'male'
-          ? score <= 17.8 ? ['低体重', 80] : score >= 28 ? ['肥胖', 60] : score >= 24 ? ['超重', 80] : ['正常', 100]
-          : score <= 17.1 ? ['低体重', 80] : score >= 28 ? ['肥胖', 60] : score >= 24 ? ['超重', 80] : ['正常', 100];
+        [state, PEscore.BMI] =
+          result.gender === 'male'
+            ? score <= 17.8
+              ? ['低体重', 80]
+              : score >= 28
+                ? ['肥胖', 60]
+                : score >= 24
+                  ? ['超重', 80]
+                  : ['正常', 100]
+            : score <= 17.1
+              ? ['低体重', 80]
+              : score >= 28
+                ? ['肥胖', 60]
+                : score >= 24
+                  ? ['超重', 80]
+                  : ['正常', 100];
 
         // 计算及格分数
-        PEscore.passScore = result.grade === 'Low'
-          ? score <= 28 ? 60 : 60 - Math.ceil(score - 28) * 2
-          : 50;
+        PEscore.passScore =
+          result.grade === 'Low'
+            ? score <= 28
+              ? 60
+              : 60 - Math.ceil(score - 28) * 2
+            : 50;
 
         this.setData({ BMI: { score, state } });
       }
 
-      getJson(`function/PEcal/${result.gender}${result.grade}`, (config: any) => { // 读取相应配置文件
+      getJson(
+        `function/PEcal/${result.gender}${result.grade}`,
+        (config: any) => {
+          /*
+           * 读取相应配置文件
+           * 转换长跑时间
+           */
+          config.longRun = config.longRun.map((element: string) => {
+            const time = element.split('-');
 
-        // 转换长跑时间
-        config.longRun = config.longRun.map((element: string) => {
-          const time = element.split('-');
+            return Number(time[0]) * 60 + Number(time[1]);
+          });
 
-          return Number(time[0]) * 60 + Number(time[1]);
-        });
+          // 转换立定跳远单位
+          config.standingLongJump = config.standingLongJump.map(
+            (element: number) => element / 100
+          );
 
-        // 转换立定跳远单位
-        config.standingLongJump = config.standingLongJump.map((element: number) => element / 100);
+          console.log(config);
 
-        console.log(config);
+          // 以下三项越高越好，进行计算
+          ['vitalCapacity', 'sitAndReach', 'standingLongJump'].forEach(x => {
+            if (result[x] && Number(result[x])) {
+              for (let i = 0; i < length; i += 1)
+                if (result[x] <= config[x][i]) {
+                  PEscore[x] = hash[i];
+                  break;
+                } else if (i === length - 1) PEscore[x] = hash[i];
+            } else PEscore[x] = 0;
+          });
 
-        // 以下三项越高越好，进行计算
-        ['vitalCapacity', 'sitAndReach', 'standingLongJump'].forEach(x => {
-          if (result[x] && Number(result[x])) {
+          // 以下两项越低越好
+          ['shortRun', 'longRun'].forEach(x => {
+            if (result[x]) {
+              for (let i = 0; i < length; i += 1)
+                if (result[x] >= config[x][i]) {
+                  PEscore[x] = hash[i];
+                  break;
+                } else if (i === length - 1) PEscore[x] = hash[i];
+            } else PEscore[x] = 0;
+          });
+
+          // 计算特别类项目分数
+          const specialScore = result.gender === 'male' ? 'chinning' : 'situp';
+
+          if (result[specialScore] && Number(result[specialScore])) {
             for (let i = 0; i < length; i += 1)
-              if (result[x] <= config[x][i]) {
-                PEscore[x] = hash[i];
+              if (
+                config[specialScore][i] !== '' &&
+                result[specialScore] <= config[specialScore][i]
+              ) {
+                PEscore.special = hash[i];
                 break;
-              } else if (i === length - 1)
-                PEscore[x] = hash[i];
-          } else PEscore[x] = 0;
-        });
+              } else if (i === length - 1) PEscore.special = hash[i];
+          } else PEscore.special = 0;
 
-        // 以下两项越低越好
-        ['shortRun', 'longRun'].forEach(x => {
-          if (result[x]) {
-            for (let i = 0; i < length; i += 1)
-              if (result[x] >= config[x][i]) {
-                PEscore[x] = hash[i];
-                break;
-              } else if (i === length - 1)
-                PEscore[x] = hash[i];
-          } else PEscore[x] = 0;
-        });
+          // TODO:计算加分
 
-        // 计算特别类项目分数
-        const specialScore = result.gender === 'male' ? 'chinning' : 'situp';
+          // 计算最终成绩
+          const finalScore =
+            Math.round(
+              PEscore.vitalCapacity * 15 +
+              PEscore.shortRun * 20 +
+              PEscore.sitAndReach * 10 +
+              PEscore.standingLongJump * 10 +
+              PEscore.special * 10 +
+              PEscore.longRun * 20 +
+              PEscore.BMI * 15
+            ) / 100;
 
-        if (result[specialScore] && Number(result[specialScore])) {
-          for (let i = 0; i < length; i += 1)
-            if (
-              config[specialScore][i] !== '' &&
-              result[specialScore] <= config[specialScore][i]
-            ) {
-              PEscore.special = hash[i];
-              break;
-            } else if (i === length - 1)
-              PEscore.special = hash[i];
-        } else PEscore.special = 0;
-
-        // TODO:计算加分
-
-
-        // 计算最终成绩
-        const finalScore = Math.round(PEscore.vitalCapacity * 15 + PEscore.shortRun * 20 + PEscore.sitAndReach * 10 +
-          PEscore.standingLongJump * 10 + PEscore.special * 10 + PEscore.longRun * 20 +
-          PEscore.BMI * 15) / 100;
-
-        console.info('成绩为', PEscore);
-        this.setData({
-          PEscore,
-          showScore: true,
-          PE: {
-            score: finalScore,
-            state: finalScore >= PEscore.passScore ? '及格' : '不及格'
-          }
-        });
-      });
+          console.info('成绩为', PEscore);
+          this.setData({
+            PEscore,
+            showScore: true,
+            PE: {
+              score: finalScore,
+              state: finalScore >= PEscore.passScore ? '及格' : '不及格'
+            }
+          });
+        }
+      );
       wx.hideLoading();
     } else {
       wx.hideLoading();
-      wx.showToast({ title: '请选择性别年级', icon: 'none', duration: 2500, image: '/icon/close.png' });
+      wx.showToast({
+        title: '请选择性别年级',
+        icon: 'none',
+        duration: 2500,
+        image: '/icon/close.png'
+      });
     }
   },
 

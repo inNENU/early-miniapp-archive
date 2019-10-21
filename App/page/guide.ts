@@ -2,16 +2,20 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 07:09:00
+ * @LastEditTime: 2019-10-21 22:41:51
  * @Description: 东师指南
  */
-import $register from 'wxpage';
 import {
-  resolvePage, popNotice, setColor, changeNav, setPage
+  changeNav,
+  popNotice,
+  resolvePage,
+  setColor,
+  setPage
 } from '../utils/page';
-import $search from '../utils/search';
 import { checkResUpdate, refreshPage } from '../utils/tab';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+import $register from 'wxpage';
+import $search from '../utils/search';
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 $register('guide', {
   data: {
@@ -22,30 +26,100 @@ $register('guide', {
     words: [] as string[],
 
     /** 自定义导航栏配置 */
-    head: { title: '东师指南', action: true, statusBarHeight: a.info.statusBarHeight },
+    head: {
+      title: '东师指南',
+      action: true,
+      statusBarHeight: a.info.statusBarHeight
+    },
     page: [
       { tag: 'head', title: '东师指南', hidden: true },
       {
         tag: 'grid',
         head: '学在东师',
         content: [
-          { text: '课程', color: 'blue', name: 'Course', icon: '/icon/tabPage/course.svg', aim: 'course0' },
-          { text: '学习', color: 'orange', name: 'Study', icon: '/icon/tabPage/study.svg', aim: 'study0' },
-          { text: '图书馆', color: 'red', name: 'Library', icon: '/icon/tabPage/library.svg', aim: 'library0' },
-          { text: '考试', color: 'purple', name: 'Exam', icon: '/icon/tabPage/test.svg', aim: 'test0' }
+          {
+            text: '课程',
+            color: 'blue',
+            name: 'Course',
+            icon: '/icon/tabPage/course.svg',
+            aim: 'course0'
+          },
+          {
+            text: '学习',
+            color: 'orange',
+            name: 'Study',
+            icon: '/icon/tabPage/study.svg',
+            aim: 'study0'
+          },
+          {
+            text: '图书馆',
+            color: 'red',
+            name: 'Library',
+            icon: '/icon/tabPage/library.svg',
+            aim: 'library0'
+          },
+          {
+            text: '考试',
+            color: 'purple',
+            name: 'Exam',
+            icon: '/icon/tabPage/test.svg',
+            aim: 'test0'
+          }
         ]
       },
       {
         tag: 'grid',
         head: '行在东师',
         content: [
-          { text: '校园卡', color: 'blue', name: 'Card', icon: '/icon/tabPage/card.svg', aim: 'card0' },
-          { text: '账户', color: 'orange', name: 'Account', icon: '/icon/tabPage/account.svg', aim: 'account0' },
-          { text: '食堂', color: 'red', name: 'Dining', icon: '/icon/tabPage/dining.svg', aim: 'dining0' },
-          { text: '生活', color: 'purple', name: 'Life', icon: '/icon/tabPage/life.svg', aim: 'life0' },
-          { text: '寝室', color: 'cyan', name: 'Dorm', icon: '/icon/tabPage/dorm.svg', aim: 'dorm0' },
-          { text: '校园网', color: 'olive', name: 'Network', icon: '/icon/tabPage/network.svg', aim: 'network0' },
-          { text: '资助', color: 'mauve', name: 'Subsidize', icon: '/icon/tabPage/subsidize.svg', aim: 'subsidize0' }
+          {
+            text: '校园卡',
+            color: 'blue',
+            name: 'Card',
+            icon: '/icon/tabPage/card.svg',
+            aim: 'card0'
+          },
+          {
+            text: '账户',
+            color: 'orange',
+            name: 'Account',
+            icon: '/icon/tabPage/account.svg',
+            aim: 'account0'
+          },
+          {
+            text: '食堂',
+            color: 'red',
+            name: 'Dining',
+            icon: '/icon/tabPage/dining.svg',
+            aim: 'dining0'
+          },
+          {
+            text: '生活',
+            color: 'purple',
+            name: 'Life',
+            icon: '/icon/tabPage/life.svg',
+            aim: 'life0'
+          },
+          {
+            text: '寝室',
+            color: 'cyan',
+            name: 'Dorm',
+            icon: '/icon/tabPage/dorm.svg',
+            aim: 'dorm0'
+          },
+          {
+            text: '校园网',
+            color: 'olive',
+            name: 'Network',
+            icon: '/icon/tabPage/network.svg',
+            aim: 'network0'
+          },
+          {
+            text: '资助',
+            color: 'mauve',
+            name: 'Subsidize',
+            icon: '/icon/tabPage/subsidize.svg',
+            aim: 'subsidize0'
+          }
         ]
       },
       {
@@ -53,15 +127,33 @@ $register('guide', {
         head: '乐在东师',
         content: [
           {
-            text: '学生组织', color: 'blue', name: 'Orgnazation',
-            icon: '/icon/tabPage/studentOrg.svg', aim: 'studentOrg0'
+            text: '学生组织',
+            color: 'blue',
+            name: 'Orgnazation',
+            icon: '/icon/tabPage/studentOrg.svg',
+            aim: 'studentOrg0'
           },
           {
-            text: '社团', color: 'orange', name: 'Coporation',
-            icon: '/icon/tabPage/corporation.svg', aim: 'corporation0'
+            text: '社团',
+            color: 'orange',
+            name: 'Coporation',
+            icon: '/icon/tabPage/corporation.svg',
+            aim: 'corporation0'
           },
-          { text: '交通', color: 'red', name: 'Traffic', icon: '/icon/tabPage/traffic.svg', aim: 'traffic0' },
-          { text: '吃喝玩乐', color: 'purple', name: 'Nearby', icon: '/icon/tabPage/nearby.svg', aim: 'nearby0' }
+          {
+            text: '交通',
+            color: 'red',
+            name: 'Traffic',
+            icon: '/icon/tabPage/traffic.svg',
+            aim: 'traffic0'
+          },
+          {
+            text: '吃喝玩乐',
+            color: 'purple',
+            name: 'Nearby',
+            icon: '/icon/tabPage/nearby.svg',
+            aim: 'nearby0'
+          }
         ],
         foot: ' '
       },
@@ -70,10 +162,19 @@ $register('guide', {
         head: '关于东师',
         content: [
           {
-            text: '学校概况', color: 'blue', name: 'Description',
-            icon: '/icon/tabPage/about.svg', aim: 'about0'
+            text: '学校概况',
+            color: 'blue',
+            name: 'Description',
+            icon: '/icon/tabPage/about.svg',
+            aim: 'about0'
           },
-          { text: '学校机构', color: 'orange', name: 'Apartment', icon: '/icon/tabPage/apartment.svg', aim: 'apartment0' }
+          {
+            text: '学校机构',
+            color: 'orange',
+            name: 'Apartment',
+            icon: '/icon/tabPage/apartment.svg',
+            aim: 'apartment0'
+          }
         ],
         foot: ' '
       },
@@ -81,15 +182,30 @@ $register('guide', {
         tag: 'grid',
         head: '新生你好',
         content: [
-          { text: 'SIM卡', color: 'blue', name: 'SIM', icon: '/icon/tabPage/sim.svg', aim: 'sim0' },
-          { text: '新生报到', color: 'orange', name: 'Check', icon: '/icon/tabPage/check.svg', aim: 'check0' }
+          {
+            text: 'SIM卡',
+            color: 'blue',
+            name: 'SIM',
+            icon: '/icon/tabPage/sim.svg',
+            aim: 'sim0'
+          },
+          {
+            text: '新生报到',
+            color: 'orange',
+            name: 'Check',
+            icon: '/icon/tabPage/check.svg',
+            aim: 'check0'
+          }
         ]
       }
     ]
   },
 
   onPreload(res) {
-    this.$put('guide', resolvePage(res, wx.getStorageSync('guide') || this.data.page));
+    this.$put(
+      'guide',
+      resolvePage(res, wx.getStorageSync('guide') || this.data.page)
+    );
     console.log(`东师指南预加载用时${new Date().getTime() - a.date}ms`);
   },
 

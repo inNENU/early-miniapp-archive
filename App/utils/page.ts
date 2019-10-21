@@ -2,17 +2,17 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:36:29
+ * @LastEditTime: 2019-10-21 22:47:04
  * @Description: Page函数库
  */
 
 // 引入文件管理
+import { debug, error, info, warn } from './log';
 import { getJson, readJson, writeJson } from './file';
-import { info, debug, warn, error } from './log';
 import { modal, request } from './wx';
 
 /** 全局数据 */
-const { globalData } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 const getDoctype = (docType: string) =>
   docType === 'docx' || docType === 'doc'
@@ -23,7 +23,10 @@ const getDoctype = (docType: string) =>
         ? 'xls'
         : docType === 'jpg' || docType === 'jpeg'
           ? 'jpg'
-          : docType === 'mp4' || docType === 'mov' || docType === 'avi' || docType === 'rmvb'
+          : docType === 'mp4' ||
+            docType === 'mov' ||
+            docType === 'avi' ||
+            docType === 'rmvb'
             ? 'video'
             : docType === 'pdf'
               ? 'pdf'
@@ -41,9 +44,8 @@ const getDoctype = (docType: string) =>
  * @returns 处理之后的page
  */
 const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
-  if (page)  // 如果page参数传入
+  if (page)
     if (page[0].tag === 'head') {
-
       // 对page中head标签执行初始化
       page[0].statusBarHeight = globalData.info.statusBarHeight;
       page[0].url = [];
@@ -76,47 +78,52 @@ const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
         }
 
         // 设置list组件
-        if ('content' in element) element.content.forEach((listElement: any) => {
+        if ('content' in element)
+          element.content.forEach((listElement: any) => {
+            // 设置列表导航
+            if ('url' in listElement)
+              listElement.url += `?From=${page[0].title}`;
+            if ('aim' in listElement)
+              listElement.url = `module${page[0].aimDepth}?From=${page[0].title}&aim=${listElement.aim}&depth=${page[0].aimDepth}`;
 
-          // 设置列表导航
-          if ('url' in listElement) listElement.url += `?From=${page[0].title}`;
-          if ('aim' in listElement)
-            listElement.url =
-              `module${page[0].aimDepth}?From=${page[0].title}&aim=${listElement.aim}&depth=${page[0].aimDepth}`;
+            // 设置列表开关与滑块
+            if ('swiKey' in listElement)
+              listElement.status = wx.getStorageSync(listElement.swiKey);
+            if ('sliKey' in listElement)
+              listElement.value = wx.getStorageSync(listElement.sliKey);
 
-          // 设置列表开关与滑块
-          if ('swiKey' in listElement) listElement.status = wx.getStorageSync(listElement.swiKey);
-          if ('sliKey' in listElement) listElement.value = wx.getStorageSync(listElement.sliKey);
+            // 设置列表选择器
+            if ('pickerValue' in listElement)
+              if (listElement.single) {
+                // 单列选择器
+                const pickerValue: string | number = wx.getStorageSync(
+                  listElement.key
+                );
 
-          // 设置列表选择器
-          if ('pickerValue' in listElement)
-            if (listElement.single) { // 单列选择器
-              const pickerValue: string | number = wx.getStorageSync(listElement.key);
+                listElement.value = listElement.pickerValue[pickerValue];
+                listElement.currentValue = [pickerValue];
+              } else {
+                // 多列选择器
+                const pickerValues: string[] = wx
+                  .getStorageSync(listElement.key)
+                  .split('-');
 
-              listElement.value = listElement.pickerValue[pickerValue];
-              listElement.currentValue = [pickerValue];
-            } else { // 多列选择器
-              const pickerValues: string[] = wx.getStorageSync(listElement.key)
-                .split('-');
-
-              listElement.currentValue = [];
-              listElement.value = [];
-              pickerValues.forEach((k, l) => {
-                listElement.value[l] = listElement.pickerValue[l][Number(k)];
-                listElement.currentValue[l] = Number(k);
-              });
-            }
-        });
+                listElement.currentValue = [];
+                listElement.value = [];
+                pickerValues.forEach((k, l) => {
+                  listElement.value[l] = listElement.pickerValue[l][Number(k)];
+                  listElement.currentValue[l] = Number(k);
+                });
+              }
+          });
       });
       // 调试
       info(`${page[0].aim}处理完毕`);
-    } else
-      // 调试：未找到head tag
-      warn('页面不包含head标签');
-  else
-    // 调试：未传入page
-    error('页面数据不存在');
-
+    }
+    // 调试：未找到head tag
+    else warn('页面不包含head标签');
+  // 调试：未传入page
+  else error('页面数据不存在');
 
   return page; // 返回处理后的page
 };
@@ -143,16 +150,18 @@ const resolveAim = (aim: string) => {
  * @param page 页面数据
  */
 const preGetPage = (page: PageData) => {
-  if (page) page.forEach(component => {
-    if ('content' in component) // 该组件是列表，需要预加载界面，提前获取界面到存储
-      component.content.forEach((element: any) => {
-        if ('aim' in element) {
-          const { path } = resolveAim(element.aim);
+  if (page)
+    page.forEach(component => {
+      if ('content' in component)
+        // 该组件是列表，需要预加载界面，提前获取界面到存储
+        component.content.forEach((element: any) => {
+          if ('aim' in element) {
+            const { path } = resolveAim(element.aim);
 
-          getJson(`page/${path}`);
-        }
-      });
-  });
+            getJson(`page/${path}`);
+          }
+        });
+    });
   wx.reportMonitor('1', 1); // 统计报告
 };
 
@@ -170,8 +179,20 @@ const preGetPage = (page: PageData) => {
  * @param setGlobal 是否将处理后的数据写入到全局数据中
  *
  * @returns 处理后的page配置
+ *
+ * **案例:**
+ *
+ * ```ts
+ *   onNavigate(option) {
+ *     resolvePage(option);
+ *   }
+ * ```
  */
-export const resolvePage = (option: MPPage.PageLifeTimeOptions, page?: PageData, setGlobal = true) => {
+export const resolvePage = (
+  option: MPPage.PageLifeTimeOptions,
+  page?: PageData,
+  setGlobal = true
+) => {
   info('将要跳转：', option); // 控制台输出参数
   const { aim } = option.query;
   let data;
@@ -199,7 +220,10 @@ export const resolvePage = (option: MPPage.PageLifeTimeOptions, page?: PageData,
 
 interface SetPageOption {
   option: PageArg;
-  ctx: WechatMiniprogram.Page.MPInstance<Record<string, any>, Record<string, any>>;
+  ctx: WechatMiniprogram.Page.MPInstance<
+    Record<string, any>,
+    Record<string, any>
+  >;
   handle?: boolean;
 }
 
@@ -220,7 +244,11 @@ interface SetPageOption {
  * @param page 页面数据
  * @param preload 是否预加载子页面
  */
-export const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: PageData, preload = true) => {
+export const setPage = (
+  { option, ctx, handle = false }: SetPageOption,
+  page?: PageData,
+  preload = true
+) => {
   // 设置页面数据
   if (page)
     ctx.setData({
@@ -231,23 +259,30 @@ export const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: P
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   else if (
     globalData.page.aim === option.aim ||
-    (ctx.data.page && ctx.data.page[0] && globalData.page.aim === ctx.data.page[0].title)
+    (ctx.data.page &&
+      ctx.data.page[0] &&
+      globalData.page.aim === ctx.data.page[0].title)
   ) {
     debug(`${globalData.page.aim}已处理`);
-    ctx.setData({ T: globalData.T, nm: globalData.nm, page: globalData.page.data }, () => {
-      debug(`${globalData.page.aim}已写入`);
-      if (preload) {
-        preGetPage(ctx.data.page);
-        debug(`${globalData.page.aim}预加载子页面完成`);
+    ctx.setData(
+      { T: globalData.T, nm: globalData.nm, page: globalData.page.data },
+      () => {
+        debug(`${globalData.page.aim}已写入`);
+        if (preload) {
+          preGetPage(ctx.data.page);
+          debug(`${globalData.page.aim}预加载子页面完成`);
+        }
       }
-    });
+    );
   } else {
     debug(`${option.aim || '未知页面'}未处理`);
     // 设置页面数据
     ctx.setData({
       T: globalData.T,
       nm: globalData.nm,
-      page: handle ? ctx.data.page : disposePage(ctx.data.page, option, ctx.$state.firstOpen)
+      page: handle
+        ? ctx.data.page
+        : disposePage(ctx.data.page, option, ctx.$state.firstOpen)
     });
   }
 };
@@ -264,17 +299,17 @@ export const setPage = ({ option, ctx, handle = false }: SetPageOption, page?: P
  * @param aim 当前界面的aim值
  */
 export const popNotice = (aim: string) => {
-  if (wx.getStorageSync(`${aim}Notify`)) { // 判断是否需要弹窗
-
+  if (wx.getStorageSync(`${aim}Notify`)) {
+    // 判断是否需要弹窗
     // 从存储中获取通知内容并展示
     const notice = wx.getStorageSync(`${aim}notice`);
 
     modal(notice[0], notice[1], () => {
       wx.removeStorageSync(`${aim}Notify`); // 防止二次弹窗
     });
-    info('弹出通知');// 调试
+    info('弹出通知'); // 调试
   }
-  wx.reportAnalytics('page_aim_count', { aim });// Aim统计分析
+  wx.reportAnalytics('page_aim_count', { aim }); // Aim统计分析
 };
 
 /**
@@ -294,14 +329,18 @@ export const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   if (globalData.page.aim === option.aim) {
     debug(`${option.aim}已处理`);
-    ctx.setData({ T: globalData.T, nm: globalData.nm, page: globalData.page.data }, () => {
-      debug(`${option.aim}已写入`);
-      if (preload) {
-        preGetPage(ctx.data.page);
-        debug(`${option.aim}预加载子页面完成`);
+    ctx.setData(
+      { T: globalData.T, nm: globalData.nm, page: globalData.page.data },
+      () => {
+        debug(`${option.aim}已写入`);
+        if (preload) {
+          preGetPage(ctx.data.page);
+          debug(`${option.aim}预加载子页面完成`);
+        }
       }
-    });
-  } else if (option.aim) { // 需要重新载入界面
+    );
+  } else if (option.aim) {
+    // 需要重新载入界面
     info(`${option.aim}onLoad开始，参数为：`, option);
     const { folder, path } = resolveAim(option.aim);
 
@@ -321,40 +360,50 @@ export const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
         preGetPage(ctx.data.page);
         debug(`${option.aim}界面预加载完成`);
       }
-    } else
-      // 请求页面Json
-      request(`page/${path}`, data => {
-        // 设置界面
-        setPage({ option, ctx }, data as PageData);
+    }
+    // 请求页面Json
+    else
+      request(
+        `page/${path}`,
+        data => {
+          // 设置界面
+          setPage({ option, ctx }, data as PageData);
 
-        // 非分享界面下将页面数据写入存储
-        if (!option.share) writeJson(`page/${folder}`, `${option.aim}`, data);
+          // 非分享界面下将页面数据写入存储
+          if (!option.share) writeJson(`page/${folder}`, `${option.aim}`, data);
 
-        // 如果需要执行预加载，则执行
-        if (preload) {
-          preGetPage(ctx.data.page);
-          debug(`${option.aim}界面预加载完成`);
+          // 如果需要执行预加载，则执行
+          if (preload) {
+            preGetPage(ctx.data.page);
+            debug(`${option.aim}界面预加载完成`);
+          }
+
+          // 弹出通知
+          popNotice(option.aim as string);
+
+          // 调试
+          info(`${option.aim}onLoad成功`);
+        },
+        res => {
+          // 设置error页面并弹出通知
+          setPage({ option, ctx }, [
+            { tag: 'error', statusBarHeight: globalData.info.statusBarHeight }
+          ]);
+          popNotice(option.aim as string);
+
+          // 调试
+          warn(`${option.aim}onLoad失败，错误为`, res);
+        },
+        () => {
+          // 设置error界面
+          setPage({ option, ctx }, [
+            { tag: 'error', statusBarHeight: globalData.info.statusBarHeight }
+          ]);
+
+          // 调试
+          warn(`${option.aim}资源错误`);
         }
-
-        // 弹出通知
-        popNotice(option.aim as string);
-
-        // 调试
-        info(`${option.aim}onLoad成功`);
-      }, res => {
-        // 设置error页面并弹出通知
-        setPage({ option, ctx }, [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }]);
-        popNotice(option.aim as string);
-
-        // 调试
-        warn(`${option.aim}onLoad失败，错误为`, res);
-      }, () => {
-        // 设置error界面
-        setPage({ option, ctx }, [{ tag: 'error', statusBarHeight: globalData.info.statusBarHeight }]);
-
-        // 调试
-        warn(`${option.aim}资源错误`);
-      });
+      );
   } else error('no aim');
 };
 
@@ -372,7 +421,9 @@ export const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
  * @returns 页面实际的胶囊与背景颜色
  */
 export const setColor = (grey = false) => {
-  const [frontColor, backgroundColor] = globalData.nm ? ['#ffffff', '#000000'] : ['#000000', '#ffffff'];
+  const [frontColor, backgroundColor] = globalData.nm
+    ? ['#ffffff', '#000000']
+    : ['#000000', '#ffffff'];
   let temp;
 
   if (globalData.nm && grey)
@@ -424,7 +475,11 @@ export const setColor = (grey = false) => {
 
   return {
     nc: { frontColor, backgroundColor, animation: {} },
-    bc: { backgroundColorTop: temp[0], backgroundColor: temp[1], backgroundColorBottom: temp[2] }
+    bc: {
+      backgroundColorTop: temp[0],
+      backgroundColor: temp[1],
+      backgroundColorBottom: temp[2]
+    }
   };
 };
 
@@ -436,16 +491,18 @@ export const setColor = (grey = false) => {
 export const loadFont = (theme: string) => {
   if (theme === 'Android')
     wx.loadFontFace({
-      family: 'FZKTJW', source: 'url("https://mp.nenuyouth.com/fonts/FZKTJW.ttf")',
+      family: 'FZKTJW',
+      source: 'url("https://mp.nenuyouth.com/fonts/FZKTJW.ttf")',
       complete: res => {
-        info('楷体字体', res);// 调试
+        info('楷体字体', res); // 调试
       }
     });
   else if (theme === 'NENU')
     wx.loadFontFace({
-      family: 'FZSSJW', source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
+      family: 'FZSSJW',
+      source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
       complete: res => {
-        info('宋体字体', res);// 调试
+        info('宋体字体', res); // 调试
       }
     });
   else warn(`无法处理主题${theme}`);
@@ -472,7 +529,11 @@ export const loadFont = (theme: string) => {
  *   },
  * ```
  */
-export const changeNav = (option: WechatMiniprogram.Page.IPageScrollOption, ctx: any, headName?: string) => {
+export const changeNav = (
+  option: WechatMiniprogram.Page.IPageScrollOption,
+  ctx: any,
+  headName?: string
+) => {
   const pageHead = headName ? ctx.data[headName] : ctx.data.page[0];
   let titleDisplay;
   let borderDisplay;
@@ -483,15 +544,18 @@ export const changeNav = (option: WechatMiniprogram.Page.IPageScrollOption, ctx:
   else if (option.scrollTop <= 42) {
     titleDisplay = borderDisplay = false;
     shadow = true;
-  } else if (option.scrollTop >= 53) titleDisplay = borderDisplay = shadow = true;
+  } else if (option.scrollTop >= 53)
+    titleDisplay = borderDisplay = shadow = true;
   else {
     titleDisplay = shadow = true;
     borderDisplay = false;
   }
 
   // 判断结果并更新界面数据
-  if (pageHead.titleDisplay !== titleDisplay) ctx.setData({ [`${headName || 'page[0]'}.titleDisplay`]: titleDisplay });
+  if (pageHead.titleDisplay !== titleDisplay)
+    ctx.setData({ [`${headName || 'page[0]'}.titleDisplay`]: titleDisplay });
   else if (pageHead.borderDisplay !== borderDisplay)
     ctx.setData({ [`${headName || 'page[0]'}.borderDisplay`]: borderDisplay });
-  else if (pageHead.shadow !== shadow) ctx.setData({ [`${headName || 'page[0]'}.shadow`]: shadow });
+  else if (pageHead.shadow !== shadow)
+    ctx.setData({ [`${headName || 'page[0]'}.shadow`]: shadow });
 };

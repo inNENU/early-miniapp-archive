@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 07:07:56
+ * @LastEditTime: 2019-10-21 23:13:28
  * @Description: 地图
  */
-import $register from 'wxpage';
 import { popNotice, setColor } from '../utils/page';
+import $register from 'wxpage';
 import { markerSet } from '../utils/tab';
 import { modal } from '../utils/wx';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 /** 本部栅格 */
 const benbuPoint = {
@@ -75,13 +75,14 @@ $register('map', {
 
   onLoad() {
     // QQ小程序暂不支持地图的处理
-    if (a.env === 'qq') modal(
-      '暂不支持',
-      'QQ小程序暂未推出地图功能，Mr.Hope会在第一时间适配，如需查看地图请使用微信小程序。',
-      () => {
-        this.$back();
-      }
-    );
+    if (a.env === 'qq')
+      modal(
+        '暂不支持',
+        'QQ小程序暂未推出地图功能，Mr.Hope会在第一时间适配，如需查看地图请使用微信小程序。',
+        () => {
+          this.$back();
+        }
+      );
 
     wx.showLoading({ title: '加载中...' });
 
@@ -104,7 +105,9 @@ $register('map', {
       /** 设备信息 */
       info: a.info,
       /** 地图风格 */
-      mapStyle: a.nm ? '46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA' : 'PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF',
+      mapStyle: a.nm
+        ? '46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA'
+        : 'PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF',
       nm: a.nm
     });
 
@@ -179,7 +182,7 @@ $register('map', {
       isBenbu: temp
     });
 
-    const mapCtx = this.mapCtx;
+    const { mapCtx } = this;
 
     // 重新缩放校区
     mapCtx.includePoints(temp ? benbuPoint : jingyuePoint);
@@ -193,7 +196,8 @@ $register('map', {
               this.setData({
                 map: {
                   scale: r1.scale,
-                  latitude: r2.latitude, longitude: r2.longitude
+                  latitude: r2.latitude,
+                  longitude: r2.longitude
                 }
               });
             }
@@ -215,7 +219,9 @@ $register('map', {
       success: r2 => {
         this.setData({
           map: {
-            scale: this.data.map.scale + (event.currentTarget.dataset.action === 'enlarge' ? 1 : -1),
+            scale:
+              this.data.map.scale +
+              (event.currentTarget.dataset.action === 'enlarge' ? 1 : -1),
             latitude: r2.latitude,
             longitude: r2.longitude
           }
@@ -262,9 +268,14 @@ $register('map', {
     const xiaoqu = isBenbu ? 'benbu' : 'jingyue';
 
     if (event.type === 'markertap')
-      this.$preload(`situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + event.markerId.toString()}`);
+      this.$preload(
+        `situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + event.markerId.toString()}`
+      );
     else if (event.type === 'callouttap')
-      this.$route(`/function/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu + event.markerId.toString()}`);
+      this.$route(
+        `/function/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu +
+        event.markerId.toString()}`
+      );
   },
   showList() {
     if (this.data.list) {

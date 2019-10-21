@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:19:57
+ * @LastEditTime: 2019-10-21 22:41:00
  * @Description: 模块页面7
  */
 
+import { changeNav, resolvePage, setColor, setOnlinePage } from '../utils/page';
 import $register from 'wxpage';
-import { resolvePage, setOnlinePage, setColor, changeNav } from '../utils/page';
 
 $register('module7', {
   onNavigate(option) {

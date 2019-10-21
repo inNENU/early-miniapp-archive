@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:14:21
+ * @LastEditTime: 2019-10-21 23:14:23
  * @Description: 音乐播放器
  */
-import $register from 'wxpage';
 import { getJson, readJson, writeJson } from '../utils/file';
 import { popNotice, setColor } from '../utils/page';
 import { request, tip } from '../utils/wx';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+import $register from 'wxpage';
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 const manager = wx.getBackgroundAudioManager();
 
 interface SongDetail {
@@ -31,13 +31,13 @@ $register('music', {
   data: {
     activeIndex: -1,
     lyrics: [
-      { time: 1, 'stuff': '月光把天空照亮' },
-      { time: 2, 'stuff': '洒下一片光芒点缀海洋' },
-      { time: 3.886, 'stuff': '每当流星从天而降' },
-      { time: 4.576, 'stuff': '心中的梦想都随风飘扬' },
-      { time: 5.466, 'stuff': '展开透明翅膀越出天窗' },
-      { time: 6.209, 'stuff': '找寻一个最美丽的希望' },
-      { time: 7, 'stuff': '每当天空泛起彩色霞光' }
+      { time: 1, stuff: '月光把天空照亮' },
+      { time: 2, stuff: '洒下一片光芒点缀海洋' },
+      { time: 3.886, stuff: '每当流星从天而降' },
+      { time: 4.576, stuff: '心中的梦想都随风飘扬' },
+      { time: 5.466, stuff: '展开透明翅膀越出天窗' },
+      { time: 6.209, stuff: '找寻一个最美丽的希望' },
+      { time: 7, stuff: '每当天空泛起彩色霞光' }
     ] as Lyric[],
     canplay: false,
     play: false,
@@ -55,7 +55,8 @@ $register('music', {
   onLoad(option = {}) {
     // 加载字体
     wx.loadFontFace({
-      family: 'FZSSJW', source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
+      family: 'FZSSJW',
+      source: 'url("https://mp.nenuyouth.com/fonts/FZSSJW.ttf")',
       complete: res => {
         console.log('宋体字体', res); // 调试
       }
@@ -80,7 +81,6 @@ $register('music', {
       mode: mode || 0
     });
 
-
     if (songList) {
       // 写入歌曲列表与当前歌曲信息
       currentSong = songList[index];
@@ -88,7 +88,6 @@ $register('music', {
 
       // 如果正在播放，设置能够播放
       if (a.music.played) this.setData({ canplay: true });
-
       // 对音频管理器进行设置
       else {
         manager.epname = 'in东师';
@@ -99,25 +98,25 @@ $register('music', {
       }
 
       // 在线获取歌曲列表
-    } else request('function/song', data => {
-      currentSong = data[index] as SongDetail;
-      this.setData({ currentSong, songList: data as any[] });
+    } else
+      request('function/song', data => {
+        currentSong = data[index] as SongDetail;
+        this.setData({ currentSong, songList: data as any[] });
 
-      // 如果正在播放，设置能够播放
-      if (a.music.played) this.setData({ canplay: true });
+        // 如果正在播放，设置能够播放
+        if (a.music.played) this.setData({ canplay: true });
+        // 对音频管理器进行设置
+        else {
+          manager.epname = 'in东师';
+          manager.src = currentSong.src;
+          manager.title = currentSong.title;
+          manager.singer = currentSong.singer;
+          manager.coverImgUrl = currentSong.cover;
+        }
 
-      // 对音频管理器进行设置
-      else {
-        manager.epname = 'in东师';
-        manager.src = currentSong.src;
-        manager.title = currentSong.title;
-        manager.singer = currentSong.singer;
-        manager.coverImgUrl = currentSong.cover;
-      }
-
-      // 写入JSON文件
-      writeJson('function', 'song', data);
-    });
+        // 写入JSON文件
+        writeJson('function', 'song', data);
+      });
 
     // 能够播放100ms后设置可以播放
     manager.onCanplay(() => {
@@ -139,30 +138,25 @@ $register('music', {
     });
 
     manager.onTimeUpdate(() => {
-
       /*
        * 调试
        * console.log(`TimeUpdate,currentTime是${manager.currentTime}`);
        * console.log(`bufferedTime是${manager.buffered},duration是${manager.duration}`);
        */
 
-      const presentSecond = Math.round(manager.currentTime % 60)
-        .toString();
-      const totalSecond = Math.round(manager.duration % 60)
-        .toString();
+      const presentSecond = Math.round(manager.currentTime % 60).toString();
+      const totalSecond = Math.round(manager.duration % 60).toString();
 
       // 更新歌曲信息
       this.setData({
         songLength: Math.round(manager.duration * 100) / 100,
         total: [
-          Math.round(manager.duration / 60)
-            .toString(),
+          Math.round(manager.duration / 60).toString(),
           totalSecond.length === 1 ? `0${totalSecond}` : totalSecond
         ],
         currentTime: Math.round(manager.currentTime * 100) / 100,
         present: [
-          Math.round(manager.currentTime / 60)
-            .toString(),
+          Math.round(manager.currentTime / 60).toString(),
           presentSecond.length === 1 ? `0${presentSecond}` : presentSecond
         ],
         // bufferedTime: manager.buffered,
@@ -176,9 +170,15 @@ $register('music', {
       let { activeIndex } = this.data;
 
       /** 如果当前激活项不是最后一个且当前时间大于下一项 */
-      while (activeIndex < lyrics.length - 1 && this.data.currentTime > lyrics[activeIndex + 1].time) {
+      while (
+        activeIndex < lyrics.length - 1 &&
+        this.data.currentTime > lyrics[activeIndex + 1].time
+      ) {
         /** 如果当前激活项不是倒数第二个且向后第二项时间大于当前时间 */
-        if (activeIndex === lyrics.length - 2 || this.data.currentTime < lyrics[activeIndex + 2].time) {
+        if (
+          activeIndex === lyrics.length - 2 ||
+          this.data.currentTime < lyrics[activeIndex + 2].time
+        ) {
           this.setData({ activeIndex: activeIndex + 1 });
           break;
         }
@@ -217,97 +217,109 @@ $register('music', {
 
     popNotice('music');
   },
-  loadCover(event: WXEvent.ImageLoad) { // 加载封面
+  loadCover(event: WXEvent.ImageLoad) {
+    // 加载封面
     if (event.type === 'load') this.setData({ coverLoad: true });
   },
-  play() { // 播放
+  play() {
+    // 播放
     if (this.data.play) manager.pause();
     else manager.play();
   },
-  drag(event: WXEvent.SliderChange) { // 拖拽进度
+  drag(event: WXEvent.SliderChange) {
+    // 拖拽进度
     manager.seek(event.detail.value / 100);
     if (event.type === 'change') {
       this.setData({ currentTime: event.detail.value / 100 });
       console.log(event.detail.value); // 调试
     }
   },
-  end() { // 结束动作
+  end() {
+    // 结束动作
     let index = this.data.index as number | string;
     const total = this.data.songList.length;
     let temp;
 
     switch (this.data.mode) {
       case 3:
-        do temp = Math.round(Math.random() * total - 0.5); while (index === temp);
+        do temp = Math.round(Math.random() * total - 0.5);
+        while (index === temp);
         index = temp;
         break;
       case 2:
-        index = index as number + 1 === total ? 'stop' : index as number + 1;
+        index =
+          (index as number) + 1 === total ? 'stop' : (index as number) + 1;
         tip('播放完毕');
         break;
       case 1:
         break;
       case 0:
-      default: index = index as number + 1 === total ? 0 : index as number + 1;
+      default:
+        index = (index as number) + 1 === total ? 0 : (index as number) + 1;
     }
     this.switchSong(index);
   },
-  next() { // 下一曲动作
+  next() {
+    // 下一曲动作
     let index = this.data.index as number | string;
     const total = this.data.songList.length;
     let temp;
 
     switch (this.data.mode) {
       case 3:
-        do temp = Math.round(Math.random() * total - 0.5); while (index === temp);
+        do temp = Math.round(Math.random() * total - 0.5);
+        while (index === temp);
         index = temp;
         break;
       case 2:
-        if (index as number + 1 === total) {
+        if ((index as number) + 1 === total) {
           index = 'nothing';
           tip('已是最后一曲');
-        } else index = index as number + 1;
+        } else index = (index as number) + 1;
         break;
       case 1:
       case 0:
-      default: index = index as number + 1 === total ? 0 : index as number + 1;
+      default:
+        index = (index as number) + 1 === total ? 0 : (index as number) + 1;
     }
     this.switchSong(index);
   },
-  previous() { // 上一曲动作
+  previous() {
+    // 上一曲动作
     let index = this.data.index as number | string;
     const { length: total } = this.data.songList;
     let temp;
 
     switch (this.data.mode) {
       case 3:
-        do temp = Math.round(Math.random() * total - 0.5); while (index === temp);
+        do temp = Math.round(Math.random() * total - 0.5);
+        while (index === temp);
         index = temp;
         break;
       case 2:
         if (index === 0) {
           index = 'nothing';
           tip('已是第一曲');
-        } else index = index as number - 1;
+        } else index = (index as number) - 1;
         break;
       case 1:
       case 0:
-      default: index = index === 0 ? total - 1 : index as number - 1;
+      default:
+        index = index === 0 ? total - 1 : (index as number) - 1;
     }
     this.switchSong(index);
   },
-  switchSong(index: string | number) { // 切换歌曲
+  switchSong(index: string | number) {
+    // 切换歌曲
     if (index === 'stop') {
-
       this.setData({
         play: false,
         canPlay: false
       });
 
       manager.stop();
-
-    } else if (index !== 'nothing') { // 正常赋值
-
+      // 正常赋值
+    } else if (index !== 'nothing') {
       const currentSong = this.data.songList[index as number];
 
       this.setData({
@@ -325,7 +337,8 @@ $register('music', {
       a.music.index = Number(index);
     }
   },
-  modeSwitch() { // 切换播放模式
+  modeSwitch() {
+    // 切换播放模式
     let modeName;
     const mode = this.data.mode === 3 ? 0 : this.data.mode + 1;
 
@@ -347,10 +360,12 @@ $register('music', {
     wx.setStorageSync('playMode', mode);
     tip(`${modeName}模式`);
   },
-  list() { // 切换列表显隐
+  list() {
+    // 切换列表显隐
     this.setData({ songListDisplay: !this.data.songListDisplay });
   },
-  change(res: WXEvent.Touch) { // 点击列表具体歌曲项时触发
+  change(res: WXEvent.Touch) {
+    // 点击列表具体歌曲项时触发
     this.list();
     this.switchSong(res.currentTarget.dataset.index);
   },

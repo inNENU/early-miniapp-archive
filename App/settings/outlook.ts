@@ -2,20 +2,29 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 00:04:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:30:09
+ * @LastEditTime: 2019-10-21 22:45:17
  * @Description: 设置页面
  */
-import $register from 'wxpage';
 import {
-  resolvePage, setPage, popNotice, setColor, changeNav
+  changeNav,
+  popNotice,
+  resolvePage,
+  setColor,
+  setPage
 } from '../utils/page';
+import $register from 'wxpage';
 import { nightmode } from '../utils/app';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 /** 列表动作列表 */
 type ListAction =
-  'setTheme' | 'switchnm' | 'switchnmAC' | 'dayBrightnessSwitchHandler' |
-  'nightBrightnessSwitchHandler' | 'dayBrightnessHandler' | 'nightBrightnessHandler';
+  | 'setTheme'
+  | 'switchnm'
+  | 'switchnmAC'
+  | 'dayBrightnessSwitchHandler'
+  | 'nightBrightnessSwitchHandler'
+  | 'dayBrightnessHandler'
+  | 'nightBrightnessHandler';
 
 // 生成时间
 const time: string[][] = [[], []];
@@ -33,30 +42,76 @@ $register('setting', {
     page: [
       { tag: 'head', title: '外观设置', grey: true },
       {
-        tag: 'List', head: '主题设置', foot: 'NENU主题还在完善中',
-        content: [{ text: '主题设置', key: 'themeNum', single: true, pickerValue: ['iOS', 'Android', 'NENU', 'weui'], picker: 'setTheme' }]
+        tag: 'List',
+        head: '主题设置',
+        foot: 'NENU主题还在完善中',
+        content: [
+          {
+            text: '主题设置',
+            key: 'themeNum',
+            single: true,
+            pickerValue: ['iOS', 'Android', 'NENU', 'weui'],
+            picker: 'setTheme'
+          }
+        ]
       },
       {
         tag: 'List',
         head: '夜间模式',
-        foot: '启用后，将采用暗色背景与亮色文字，在保持暗光下显示效果的同时保护眼睛。',
+        foot:
+          '启用后，将采用暗色背景与亮色文字，在保持暗光下显示效果的同时保护眼睛。',
         content: [{ text: '夜间模式', Switch: 'switchnm', swiKey: 'nightmode' }]
       },
       {
         tag: 'List',
         foot: '亮度数据为百分比',
         content: [
-          { text: '设定时间', Switch: 'switchnmAC', swiKey: 'nightmodeAutoChange' },
-          { text: '开始时间', inlay: true, key: 'nightmodeStartTime', pickerValue: time },
-          { text: '结束时间', inlay: true, key: 'nightmodeEndTime', pickerValue: time },
-          { text: '日间亮度调整开关', Switch: 'dayBrightnessSwitchHandler', swiKey: 'dayBrightnessChange' },
-          { text: '日间模式亮度', slider: 'dayBrightnessHandler', min: 0, max: 100, sliKey: 'dayBrightness' },
-          { text: '夜间亮度调整开关', Switch: 'nightBrightnessSwitchHandler', swiKey: 'nightBrightnessChange' },
-          { text: '夜间模式亮度', slider: 'nightBrightnessHandler', min: 0, max: 100, sliKey: 'nightBrightness' }
+          {
+            text: '设定时间',
+            Switch: 'switchnmAC',
+            swiKey: 'nightmodeAutoChange'
+          },
+          {
+            text: '开始时间',
+            inlay: true,
+            key: 'nightmodeStartTime',
+            pickerValue: time
+          },
+          {
+            text: '结束时间',
+            inlay: true,
+            key: 'nightmodeEndTime',
+            pickerValue: time
+          },
+          {
+            text: '日间亮度调整开关',
+            Switch: 'dayBrightnessSwitchHandler',
+            swiKey: 'dayBrightnessChange'
+          },
+          {
+            text: '日间模式亮度',
+            slider: 'dayBrightnessHandler',
+            min: 0,
+            max: 100,
+            sliKey: 'dayBrightness'
+          },
+          {
+            text: '夜间亮度调整开关',
+            Switch: 'nightBrightnessSwitchHandler',
+            swiKey: 'nightBrightnessChange'
+          },
+          {
+            text: '夜间模式亮度',
+            slider: 'nightBrightnessHandler',
+            min: 0,
+            max: 100,
+            sliKey: 'nightBrightness'
+          }
         ]
       },
       {
-        tag: 'List', head: '资源更新',
+        tag: 'List',
+        head: '资源更新',
         content: [
           { text: '功能资源更新提示', swiKey: 'functionResNotify' },
           { text: '指南资源更新提示', swiKey: 'pageResNotify' }
@@ -201,8 +256,10 @@ $register('setting', {
     const nm = nightmode();
 
     wx.setStorageSync('nightmode', nm);
-    if (nm && list[5].status) wx.setScreenBrightness({ value: list[6].value / 100 });
-    else if (!nm && list[3].status) wx.setScreenBrightness({ value: list[4].value / 100 });
+    if (nm && list[5].status)
+      wx.setScreenBrightness({ value: list[6].value / 100 });
+    else if (!nm && list[3].status)
+      wx.setScreenBrightness({ value: list[4].value / 100 });
     if (value) {
       list[1].hidden = false;
       list[2].hidden = false;
@@ -221,7 +278,11 @@ $register('setting', {
     }
 
     list[0].status = value;
-    this.setData({ nm, 'event[2]': { 'content[0].status': nm }, 'event[3]': { content: list } });
+    this.setData({
+      nm,
+      'event[2]': { 'content[0].status': nm },
+      'event[3]': { content: list }
+    });
     a.nm = nm;
     this.$emit('nightmode', nm);
 
@@ -243,7 +304,9 @@ $register('setting', {
 
     list[4].visible = value;
     list[4].hidden = !value;
-    this.setData({ 'event[3]': { 'content[4].visible': value, 'content[4].hidden': !value } });
+    this.setData({
+      'event[3]': { 'content[4].visible': value, 'content[4].hidden': !value }
+    });
   },
 
   /**
@@ -257,7 +320,9 @@ $register('setting', {
     list[6].visible = value;
     list[6].hidden = !value;
 
-    this.setData({ 'event[3]': { 'content[6].visible': value, 'content[6].hidden': !value } });
+    this.setData({
+      'event[3]': { 'content[6].visible': value, 'content[6].hidden': !value }
+    });
   },
 
   /**
@@ -266,9 +331,9 @@ $register('setting', {
    * @param value 日间亮度百分比
    */
   dayBrightnessHandler(value: number) {
-    if (!a.nm && (this.data.page[3].content as any[])[3].status) wx.setScreenBrightness({ value: value / 100 });
+    if (!a.nm && (this.data.page[3].content as any[])[3].status)
+      wx.setScreenBrightness({ value: value / 100 });
   },
-
 
   /**
    * 夜间模式亮度处理
@@ -276,6 +341,7 @@ $register('setting', {
    * @param value 夜间亮度百分比
    */
   nightBrightnessHandler(value: number) {
-    if (a.nm && (this.data.page[3].content as any[])[5].status) wx.setScreenBrightness({ value: value / 100 });
+    if (a.nm && (this.data.page[3].content as any[])[5].status)
+      wx.setScreenBrightness({ value: value / 100 });
   }
 });

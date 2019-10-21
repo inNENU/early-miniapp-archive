@@ -3,7 +3,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 15:41:18
+ * @LastEditTime: 2019-10-21 22:35:04
  * @Description: 天气小组件
  */
 
@@ -193,17 +193,24 @@ $register.C({
           /** 设置天气图标 */
           const weatherClass =
             weatherType.indexOf('晴') === -1
-              ? weatherType.indexOf('雷') !== -1 || weatherType.indexOf('电') !== -1 || weatherType.indexOf('暴') !== -1
+              ? weatherType.indexOf('雷') !== -1 ||
+                weatherType.indexOf('电') !== -1 ||
+                weatherType.indexOf('暴') !== -1
                 ? 'stormy'
-                : weatherType.indexOf('雪') !== -1 || weatherType.indexOf('霜') !== -1 || weatherType.indexOf('冰') !== -1
+                : weatherType.indexOf('雪') !== -1 ||
+                  weatherType.indexOf('霜') !== -1 ||
+                  weatherType.indexOf('冰') !== -1
                   ? 'snowy'
                   : weatherType.indexOf('雨') === -1
-                    ? weatherType.indexOf('阴') !== -1 || weatherType.indexOf('云') !== -1
+                    ? weatherType.indexOf('阴') !== -1 ||
+                      weatherType.indexOf('云') !== -1
                       ? 'cloudy'
                       : ''
                     : 'rainy'
-              : (new Date().getHours() > 6 && new Date().getHours() < 18)
-                ? new Date().getSeconds() % 2 === 0 ? 'sunny' : 'rainbow'
+              : new Date().getHours() > 6 && new Date().getHours() < 18
+                ? new Date().getSeconds() % 2 === 0
+                  ? 'sunny'
+                  : 'rainbow'
                 : 'starry';
 
           this.setData({ weatherClass, weather });

@@ -2,15 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:16:30
+ * @LastEditTime: 2019-10-21 22:39:08
  * @Description: 天气预报
  */
+import { WeatherData, WeatherDetail } from '../components/weather/weather';
 import $register from 'wxpage';
 import { setColor } from '../utils/page';
 import weatherHandler from '../components/weather/handler';
-import { WeatherData, WeatherDetail } from '../components/weather/weather';
 
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 $register('weather', {
   data: {
@@ -27,7 +27,7 @@ $register('weather', {
 
     // 如果天气数据获取时间小于5分钟，则可以使用
     if (weatherData.date > new Date().getTime() - 300000) {
-      const weather = (weatherData.data as WeatherDetail);
+      const weather = weatherData.data as WeatherDetail;
 
       this.canvas(weather);
 
@@ -38,7 +38,8 @@ $register('weather', {
         nm: a.nm,
         statusBarHeight: a.info.statusBarHeight
       });
-    } else // 否则需要重新获取并处理
+    } // 否则需要重新获取并处理
+    else
       wx.request({
         url: 'https://mp.nenuyouth.com/server/weather.php',
         success: res => {
@@ -90,7 +91,7 @@ $register('weather', {
     const canvaseContent = wx.createCanvasContext('weather');
     const highTemperature: number[] = [];
     const lowTemperature: number[] = [];
-    const dayForecast = weather.dayForecast;
+    const { dayForecast } = weather;
     let max = -50;
     let min = 50;
 
@@ -117,8 +118,8 @@ $register('weather', {
 
     // 绘制高温曲线
     for (let i = 0; i < dayForecast.length; i += 1) {
-      const x = width / 10 + i * width / 5;
-      const y = (max - highTemperature[i]) / gap * 100;
+      const x = width / 10 + (i * width) / 5;
+      const y = ((max - highTemperature[i]) / gap) * 100;
 
       if (i === 0) canvaseContent.moveTo(x, y + 32);
       else canvaseContent.lineTo(x, y + 32);
@@ -128,8 +129,8 @@ $register('weather', {
 
     // 绘制高温度数值与点
     for (let i = 0; i < dayForecast.length; i += 1) {
-      const x = width / 10 + i * width / 5;
-      const y = (max - highTemperature[i]) / gap * 100;
+      const x = width / 10 + (i * width) / 5;
+      const y = ((max - highTemperature[i]) / gap) * 100;
 
       canvaseContent.arc(x, y + 32, 3, 0, Math.PI * 2);
       canvaseContent.fill();
@@ -144,8 +145,8 @@ $register('weather', {
 
     // 绘制低温曲线
     for (let i = 0; i < dayForecast.length; i += 1) {
-      const x = width / 10 + i * width / 5;
-      const y = (max - lowTemperature[i]) / gap * 100;
+      const x = width / 10 + (i * width) / 5;
+      const y = ((max - lowTemperature[i]) / gap) * 100;
 
       if (i === 0) canvaseContent.moveTo(x, y + 20);
       else canvaseContent.lineTo(x, y + 20);
@@ -155,8 +156,8 @@ $register('weather', {
 
     // 绘制低温度数值与点
     for (let i = 0; i < dayForecast.length; i += 1) {
-      const x = width / 10 + i * width / 5;
-      const y = (max - lowTemperature[i]) / gap * 100;
+      const x = width / 10 + (i * width) / 5;
+      const y = ((max - lowTemperature[i]) / gap) * 100;
 
       canvaseContent.arc(x, y + 20, 3, 0, Math.PI * 2);
       canvaseContent.fill();
@@ -170,7 +171,10 @@ $register('weather', {
   /** 改变背景动画 */
   backgroundChange() {
     /** 动画选项 */
-    const animationOptions: WechatMiniprogram.CreateAnimationOption = { duration: 200, timingFunction: 'ease' };
+    const animationOptions: WechatMiniprogram.CreateAnimationOption = {
+      duration: 200,
+      timingFunction: 'ease'
+    };
     /** 背景层1动画 */
     const layer1Animation = wx.createAnimation(animationOptions);
     /** 背景层2动画 */
@@ -184,12 +188,9 @@ $register('weather', {
     });
 
     wx.onAccelerometerChange(res => {
-      layer1Animation.translateX(res.x * 13.5)
-        .step();
-      layer2Animation.translateX(res.x * 18)
-        .step();
-      layer3Animation.translateX(res.x * 22.5)
-        .step();
+      layer1Animation.translateX(res.x * 13.5).step();
+      layer2Animation.translateX(res.x * 18).step();
+      layer3Animation.translateX(res.x * 22.5).step();
 
       this.setData({
         animation1: layer1Animation.export(),
@@ -208,7 +209,9 @@ $register('weather', {
   },
   onUnload() {
     /** 移除加速度计监听 */
-    wx.stopAccelerometer({ success: () => console.log('stop Accelerometer success') });
+    wx.stopAccelerometer({
+      success: () => console.log('stop Accelerometer success')
+    });
   },
 
   /** 返回按钮功能 */
