@@ -4,7 +4,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-10-21 23:23:35
+ * @LastEditTime: 2019-10-21 23:27:00
  */
 
 import { debug, error, info, warn } from './log';
@@ -288,11 +288,12 @@ export const getJson = (
   successFunc?: (data: object | string) => void,
   failFunc?: () => void
 ) => {
+  const temp = path.split('/');
+  const fileName = temp.pop();
+  const folder = temp.join('/');
+
   if (successFunc) {
     let data = readJson(path);
-    const temp = path.split('/');
-    const fileName = temp.pop();
-    const folder = temp.join('/');
 
     if (data) successFunc(data);
     else {
