@@ -1,12 +1,27 @@
+/* eslint-disable max-params */
 /*
  * @Author: Mr.Hope
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-10-21 22:25:11
+ * @LastEditTime: 2019-10-21 23:23:35
  */
 
 import { debug, error, info, warn } from './log';
+
+type FileEncoding =
+  | 'utf-8'
+  | 'ascii'
+  | 'base64'
+  | 'binary'
+  | 'hex'
+  | 'ucs2'
+  | 'ucs-2'
+  | 'utf16le'
+  | 'utf-16le'
+  | 'utf8'
+  | 'latin1'
+  | undefined;
 
 /** 文件管理器 */
 const fileManager = wx.getFileSystemManager();
@@ -102,7 +117,7 @@ export const listFile = (path: string) => {
  * @param encoding 文件的编码格式
  * @returns 文件内容
  */
-export const readFile = (path: string, encoding = 'utf-8') => {
+export const readFile = (path: string, encoding: FileEncoding = 'utf-8') => {
   try {
     return fileManager.readFileSync(`${userPath}/${path}`, encoding);
   } catch (err) {
@@ -119,12 +134,11 @@ export const readFile = (path: string, encoding = 'utf-8') => {
  * @param encoding 文件的编码格式
  * @returns  解析后的json
  */
-export const readJson = (path: string, encoding = 'utf-8') => {
-  let fileContent;
+export const readJson = (path: string, encoding: FileEncoding = 'utf-8') => {
   let data;
 
   try {
-    fileContent = fileManager.readFileSync(
+    const fileContent = fileManager.readFileSync(
       `${userPath}/${path}.json`,
       encoding
     );
@@ -226,7 +240,7 @@ export const writeFile = (
   path: string,
   fileName: string,
   data: object | ArrayBuffer | string,
-  encoding = 'utf-8'
+  encoding: FileEncoding = 'utf-8'
 ) => {
   const jsonString = JSON.stringify(data);
 
@@ -250,7 +264,7 @@ export const writeJson = (
   path: string,
   fileName: string,
   data: object,
-  encoding = 'utf-8'
+  encoding: FileEncoding = 'utf-8'
 ) => {
   const jsonString = JSON.stringify(data);
 
@@ -276,13 +290,12 @@ export const getJson = (
 ) => {
   if (successFunc) {
     let data = readJson(path);
+    const temp = path.split('/');
+    const fileName = temp.pop();
+    const folder = temp.join('/');
 
     if (data) successFunc(data);
     else {
-      const temp = path.split('/');
-      const fileName = temp.pop();
-      const folder = temp.join('/');
-
       makeDir(folder);
 
       wx.downloadFile({
@@ -307,10 +320,6 @@ export const getJson = (
       });
     }
   } else if (!isFileExist(`${path}.json`)) {
-    const temp = path.split('/');
-    const fileName = temp.pop();
-    const folder = temp.join('/');
-
     makeDir(folder);
 
     wx.downloadFile({
