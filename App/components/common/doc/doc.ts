@@ -17,10 +17,14 @@ $register.C({
 
   methods: {
     doc() {
-      if (['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(this.data.config.docType)) {
+      if (
+        ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(
+          this.data.config.docType
+        )
+      ) {
         // 检测到文档
 
-        wx.showLoading({ title: '下载中...0%', mask: true });// 显示下载提示
+        wx.showLoading({ title: '下载中...0%', mask: true }); // 显示下载提示
 
         // 开始下载文件
         const docTask = wx.downloadFile({
@@ -47,9 +51,9 @@ $register.C({
 
         // 检测到图片，开始图片浏览
       } else if (
-        ['jpg', 'jpeg', 'jfif', 'png', 'gif']
-          .includes(this.data.config.docType)
-      ) wx.previewImage({ urls: [this.data.config.url] });
+        ['jpg', 'jpeg', 'jfif', 'png', 'gif'].includes(this.data.config.docType)
+      )
+        wx.previewImage({ urls: [this.data.config.url] });
     }
   },
 

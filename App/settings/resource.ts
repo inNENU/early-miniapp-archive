@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 07:26:10
+ * @LastEditTime: 2019-10-21 22:45:47
  * @Description: 小程序资源说明
  */
+import { changeNav, popNotice, setColor } from '../utils/page';
 import $register from 'wxpage';
-import { popNotice, setColor, changeNav } from '../utils/page';
 import { modal } from '../utils/wx';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 /** 列表动作 */
 type ListAction = 'resource' | 'public' | 'physics';
@@ -22,7 +22,8 @@ $register('resource', {
       { tag: 'title', text: '小程序页面资源' },
       {
         tag: 'p',
-        text: '   小程序资源项目库在Github上开源。如果您愿意对小程序提供帮助，可以帮助扩充或编辑小程序的页面文字、图片以及相关文件。您可以点击下方的复制链接按钮复制链接，并使用浏览器访问对应网站。'
+        text:
+          '   小程序资源项目库在Github上开源。如果您愿意对小程序提供帮助，可以帮助扩充或编辑小程序的页面文字、图片以及相关文件。您可以点击下方的复制链接按钮复制链接，并使用浏览器访问对应网站。'
       },
       {
         tag: 'List',
@@ -31,11 +32,15 @@ $register('resource', {
       { tag: 'title', text: '学习资源' },
       {
         tag: 'p',
-        text: '   目前，Mr.Hope正在发起学习资源共享。你可以提供你所在专业的学习资料来帮助Mr.Hope扩充资料库。您可以点击下方的复制链接按钮复制链接，并使用浏览器访问对应网站。'
+        text:
+          '   目前，Mr.Hope正在发起学习资源共享。你可以提供你所在专业的学习资料来帮助Mr.Hope扩充资料库。您可以点击下方的复制链接按钮复制链接，并使用浏览器访问对应网站。'
       },
       {
         tag: 'List',
-        content: [{ text: '公共课程', button: 'public' }, { text: '物理学', button: 'physics' }]
+        content: [
+          { text: '公共课程', button: 'public' },
+          { text: '物理学', button: 'physics' }
+        ]
       },
       { tag: 'foot', author: '' }
     ]

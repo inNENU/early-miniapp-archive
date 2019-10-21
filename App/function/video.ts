@@ -2,15 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:16:09
+ * @LastEditTime: 2019-10-21 22:38:42
  * @Description: 视频页面
  */
 
-import $register from 'wxpage';
 import { getJson, readJson } from '../utils/file';
+import { modal, request, tip } from '../utils/wx';
 import { popNotice, setColor } from '../utils/page';
-import { tip, modal, request } from '../utils/wx';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+import $register from 'wxpage';
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 $register('video', {
   onNavigate() {
@@ -36,21 +36,22 @@ $register('video', {
           src: item.src || '',
           vid: item.vid || ''
         });
-      } else request('function/video', data => {
-        const item = data[id];
+      } else
+        request('function/video', data => {
+          const item = data[id];
 
-        this.setData({
-          id,
-          videoList: data,
-          share: this.$state.firstOpen,
-          statusBarHeight: a.info.statusBarHeight,
-          nm: a.nm,
-          videoName: item.name,
-          videoAuthor: item.author,
-          src: item.src || '',
-          vid: item.vid || ''
+          this.setData({
+            id,
+            videoList: data,
+            share: this.$state.firstOpen,
+            statusBarHeight: a.info.statusBarHeight,
+            nm: a.nm,
+            videoName: item.name,
+            videoAuthor: item.author,
+            src: item.src || '',
+            vid: item.vid || ''
+          });
         });
-      });
 
       popNotice('video');
     } else
@@ -69,7 +70,8 @@ $register('video', {
     wx.setBackgroundColor(bc);
 
     wx.loadFontFace({
-      family: 'FZSSJW', source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
+      family: 'FZSSJW',
+      source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
       complete: res => {
         console.log(`宋体字体${res}`); // 调试
       }

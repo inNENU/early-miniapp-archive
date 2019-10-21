@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-09-04 17:42:04
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 07:18:32
+ * @LastEditTime: 2019-10-21 22:34:28
  * @Description: 时间线组件
  */
 
@@ -42,7 +42,8 @@ $register.C({
   },
   methods: {
     active(event: WXEvent.Touch) {
-      const aim = this.data.config[event.currentTarget.dataset.index].aim as TimeLineItem['aim'];
+      const aim = this.data.config[event.currentTarget.dataset.index]
+        .aim as TimeLineItem['aim'];
 
       if (aim) this.triggerEvent('active', { aim });
     }

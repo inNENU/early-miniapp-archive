@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:15:38
+ * @LastEditTime: 2019-10-21 22:38:14
  * @Description: 地点详情
  */
+import { changeNav, resolvePage, setColor, setPage } from '../utils/page';
+import { makeDir, readJson, writeJson } from '../utils/file';
 import $register from 'wxpage';
-import { readJson, makeDir, writeJson } from '../utils/file';
-import { setPage, resolvePage, setColor, changeNav } from '../utils/page';
 import { request } from '../utils/wx';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 $register('situs', {
   onPreload(res) {
@@ -22,20 +22,30 @@ $register('situs', {
       const pageData = readJson(`function/${option.xiaoqu}/${option.aim}`);
 
       if (pageData) setPage({ option, ctx: this }, pageData);
-      else // 向服务器请求json
-        request(`function/${option.xiaoqu}/${option.aim}`, (data: object) => {
-          setPage({ option, ctx: this }, data as PageData);
+      // 向服务器请求json
+      else
+        request(
+          `function/${option.xiaoqu}/${option.aim}`,
+          (data: object) => {
+            setPage({ option, ctx: this }, data as PageData);
 
-          // 非分享界面下将页面数据写入存储
-          if (!option.share) {
-            makeDir(`function/${option.xiaoqu}`);
-            writeJson(`function/${option.xiaoqu}`, option.aim, data);
+            // 非分享界面下将页面数据写入存储
+            if (!option.share) {
+              makeDir(`function/${option.xiaoqu}`);
+              writeJson(`function/${option.xiaoqu}`, option.aim, data);
+            }
+          },
+          () => {
+            setPage({ option, ctx: this }, [
+              { tag: 'error', statusBarHeight: a.info.statusBarHeight }
+            ]);
+          },
+          () => {
+            setPage({ option, ctx: this }, [
+              { tag: 'error', statusBarHeight: a.info.statusBarHeight }
+            ]);
           }
-        }, () => {
-          setPage({ option, ctx: this }, [{ tag: 'error', statusBarHeight: a.info.statusBarHeight }]);
-        }, () => {
-          setPage({ option, ctx: this }, [{ tag: 'error', statusBarHeight: a.info.statusBarHeight }]);
-        });
+        );
     }
   },
 

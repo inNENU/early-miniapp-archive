@@ -2,15 +2,19 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:27:27
+ * @LastEditTime: 2019-10-21 22:44:10
  * @Description: 关于
  */
-import $register from 'wxpage';
 import {
-  resolvePage, setPage, popNotice, setColor, changeNav
+  changeNav,
+  popNotice,
+  resolvePage,
+  setColor,
+  setPage
 } from '../utils/page';
 import { request, tip } from '../utils/wx';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+import $register from 'wxpage';
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 let clickNumber = 0;
 let developMode = false;
 
@@ -56,9 +60,10 @@ $register('about', {
 
     // 读取开发者模式并对页面显示做相应改变
     developMode = wx.getStorageSync('developMode');
-    if (!developMode) (p[1].content as any[]).forEach((x, y) => {
-      x.hidden = !(y === 0);
-    });
+    if (!developMode)
+      (p[1].content as any[]).forEach((x, y) => {
+        x.hidden = !(y === 0);
+      });
 
     resolvePage(res, p);
   },
@@ -69,9 +74,10 @@ $register('about', {
 
       // 读取开发者模式并对页面显示做相应改变
       developMode = wx.getStorageSync('developMode');
-      if (!developMode) (p[1].content as any[]).forEach((x, y) => {
-        x.hidden = !(y === 0);
-      });
+      if (!developMode)
+        (p[1].content as any[]).forEach((x, y) => {
+          x.hidden = !(y === 0);
+        });
 
       setPage({ option: { aim: 'about' }, ctx: this }, p);
     }
@@ -90,8 +96,7 @@ $register('about', {
     request(`config/${a.appID}/${a.version}/about`, (data: any) => {
       setPage(
         { option: { aim: '关于' }, ctx: this },
-        this.data.page.slice(0, 2)
-          .concat(data, this.data.page.slice(-1))
+        this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1))
       );
     });
   },
@@ -102,7 +107,8 @@ $register('about', {
   /** 列表控制函数 */
   list({ detail }: any) {
     console.log(detail);
-    if (detail.event) this[detail.event as 'debugSwitch' | 'testSwitch'](detail.value);
+    if (detail.event)
+      this[detail.event as 'debugSwitch' | 'testSwitch'](detail.value);
   },
 
   /** 点击版本号时触发的函数 */
@@ -119,18 +125,18 @@ $register('about', {
 
       // 不做任何操作
     } else if (clickNumber < 5) clickNumber += 1;
-
     // 提示还有几次点击即可启用开发者模式
     else if (clickNumber < 10) {
       tip(`再点击${10 - clickNumber}次即可启用开发者模式`);
       clickNumber += 1;
 
       // 启用开发者模式
-    } else this.setData({ debug: true }, () => {
-      wx.nextTick(() => {
-        this.setData({ focus: true });
+    } else
+      this.setData({ debug: true }, () => {
+        wx.nextTick(() => {
+          this.setData({ focus: true });
+        });
       });
-    });
   },
 
   /**
@@ -150,9 +156,14 @@ $register('about', {
         this.setData({ page: this.data.page, debug: false });
         wx.setStorageSync('developMode', true);
         developMode = true;
-
-      } else { // 密码错误
-        wx.showToast({ title: '密码错误', icon: 'none', duration: 1000, image: '/icon/close.png' });
+      } else {
+        // 密码错误
+        wx.showToast({
+          title: '密码错误',
+          icon: 'none',
+          duration: 1000,
+          image: '/icon/close.png'
+        });
         this.setData({ debug: false });
       }
 
@@ -174,7 +185,6 @@ $register('about', {
    * @param value 开关状态
    */
   debugSwitch(value: boolean) {
-
     (this.data.page[1].content as any[])[2].status = value;
     this.setData({ page: this.data.page });
     wx.setStorageSync('debugMode', value);

@@ -2,17 +2,21 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 07:09:32
+ * @LastEditTime: 2019-10-21 22:42:50
  * @Description: 主页
  */
-import $register from 'wxpage';
-import { request } from '../utils/wx';
 import {
-  resolvePage, popNotice, setColor, changeNav, setPage
+  changeNav,
+  popNotice,
+  resolvePage,
+  setColor,
+  setPage
 } from '../utils/page';
+import { checkResUpdate, refreshPage } from '../utils/tab';
+import $register from 'wxpage';
 import $search from '../utils/search';
-import { refreshPage, checkResUpdate } from '../utils/tab';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+import { request } from '../utils/wx';
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 $register('main', {
   data: {
@@ -23,14 +27,19 @@ $register('main', {
     words: [] as string[],
 
     /** 自定义导航栏配置 */
-    head: { title: '首页', action: true, statusBarHeight: a.info.statusBarHeight },
+    head: {
+      title: '首页',
+      action: true,
+      statusBarHeight: a.info.statusBarHeight
+    },
     page: [
       { tag: 'head', title: '首页', aim: 'main', grey: true, hidden: true },
       {
         tag: 'p',
         head: ' ',
         style: 'font-size:14px;color:#888;',
-        text: '   如果各位新生同学们还有什么疑问，但是小程序中没有提及的，欢迎联系QQ1178522294咨询。'
+        text:
+          '   如果各位新生同学们还有什么疑问，但是小程序中没有提及的，欢迎联系QQ1178522294咨询。'
       }
     ]
   },
@@ -106,7 +115,10 @@ $register('main', {
     changeNav(event, this, 'head');
   },
 
-  onShareAppMessage: () => ({ title: a.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'in东师', path: '/page/main' }),
+  onShareAppMessage: () => ({
+    title: a.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'in东师',
+    path: '/page/main'
+  }),
 
   /**
    * 在搜索框中输入时触发的函数

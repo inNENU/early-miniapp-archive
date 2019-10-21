@@ -2,14 +2,18 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:24:29
+ * @LastEditTime: 2019-10-21 22:43:28
  * @Description: 我的东师
  */
-import $register from 'wxpage';
 import {
-  resolvePage, popNotice, changeNav, setPage, setColor
+  changeNav,
+  popNotice,
+  resolvePage,
+  setColor,
+  setPage
 } from '../utils/page';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+import $register from 'wxpage';
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 $register('me', {
   data: {
@@ -19,28 +23,65 @@ $register('me', {
     appID: a.appID,
 
     /** 自定义导航栏配置 */
-    head: { title: '我的东师', action: true, grey: true, statusBarHeight: a.info.statusBarHeight },
+    head: {
+      title: '我的东师',
+      action: true,
+      grey: true,
+      statusBarHeight: a.info.statusBarHeight
+    },
     page: [
       { tag: 'head', title: '我的东师', hidden: true },
       {
-        tag: 'list', head: false,
+        tag: 'list',
+        head: false,
         content: [
-          { text: '外观设置', icon: '/icon/tabPage/setting.svg', url: '/settings/outlook' },
-          { text: '权限设置', icon: '/icon/tabPage/setting.svg', url: '/settings/authorize' },
-          { text: '存储设置', icon: '/icon/tabPage/setting.svg', url: '/settings/storage' },
-          { text: '更新日志', icon: '/icon/tabPage/about.svg', url: '/settings/log', desc: a.version },
-          { text: '小程序内容', desc: '帮助更新?', icon: '/icon/tabPage/about.svg', url: '/settings/resource' },
-          { text: '关于', icon: '/icon/tabPage/about.svg', url: '/settings/about' },
           {
-            text: '捐赠Mr.Hope', icon: '/icon/tabPage/donate.svg',
-            desc: '了解详情', url: '/settings/donate', hidden: a.appID === 'wx9ce37d9662499df3'
+            text: '外观设置',
+            icon: '/icon/tabPage/setting.svg',
+            url: '/settings/outlook'
+          },
+          {
+            text: '权限设置',
+            icon: '/icon/tabPage/setting.svg',
+            url: '/settings/authorize'
+          },
+          {
+            text: '存储设置',
+            icon: '/icon/tabPage/setting.svg',
+            url: '/settings/storage'
+          },
+          {
+            text: '更新日志',
+            icon: '/icon/tabPage/about.svg',
+            url: '/settings/log',
+            desc: a.version
+          },
+          {
+            text: '小程序内容',
+            desc: '帮助更新?',
+            icon: '/icon/tabPage/about.svg',
+            url: '/settings/resource'
+          },
+          {
+            text: '关于',
+            icon: '/icon/tabPage/about.svg',
+            url: '/settings/about'
+          },
+          {
+            text: '捐赠Mr.Hope',
+            icon: '/icon/tabPage/donate.svg',
+            desc: '了解详情',
+            url: '/settings/donate',
+            hidden: a.appID === 'wx9ce37d9662499df3'
           }
         ]
       }
     ],
     foot: {
       author: '',
-      desc: `当前版本：${a.version}\n小程序由${a.appID === 'wx9ce37d9662499df3' ? '校学生会委托Mr.Hope' : 'Mr.Hope个人'}制作，如有错误还请见谅`
+      desc: `当前版本：${a.version}\n小程序由${
+        a.appID === 'wx9ce37d9662499df3' ? '校学生会委托Mr.Hope' : 'Mr.Hope个人'
+        }制作，如有错误还请见谅`
     }
   },
 

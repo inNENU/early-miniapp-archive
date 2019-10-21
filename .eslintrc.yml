@@ -1,0 +1,171 @@
+# 阻止eslint读取父目录或总配置文件的规则
+root: true
+
+# 代码环境
+env:
+  browser: true
+  es6: true
+  node: true
+
+globals:
+  wx: readonly
+  getApp: readonly
+  App: readonly
+  Page: readonly
+  Component: readonly
+
+parser: "@typescript-eslint/parser"
+
+parserOptions:
+  ecmaVersion: 6
+  parser: "@typescript-eslint/parser"
+  project: "./tsconfig.json"
+  sourceType: module
+  ecmaFeatures:
+    modules: true
+
+# 所使用的规则配置
+extends:
+  - eslint:all
+  - plugin:prettier/recommended
+
+# 插件
+plugins:
+  # - prettier
+  - "@typescript-eslint"
+
+rules:
+  prettier/prettier: error
+
+  # 自定义
+  arrow-parens:
+    - error
+    - as-needed
+
+  # 'brace-style': ['error', '1tbs', { allowSingleLine: true }]
+
+  comma-dangle:
+    - error
+    - never
+
+  complexity:
+    - warn
+    - max: 25
+
+  capitalized-comments:
+    - off
+
+  curly:
+    - error
+    - multi
+
+  global-require:
+    - off
+
+  id-length:
+    - error
+    - min: 2
+      exceptions:
+        - e
+        - i
+        - j
+        - x
+        - y
+        - T
+
+  implicit-arrow-linebreak:
+    - off
+
+  indent:
+    - error
+    - 2
+    - SwitchCase: 1
+      flatTernaryExpressions: true
+
+  init-declarations:
+    - off
+
+  function-call-argument-newline:
+    - error
+    - consistent
+
+  line-comment-position:
+    - off
+
+  new-cap:
+    - off
+
+  nonblock-statement-body-position:
+    - error
+    - any
+
+  no-console:
+    - off
+
+  no-inline-comments:
+    - off
+
+  no-magic-numbers:
+    - off
+
+  no-nested-ternary:
+    - off
+
+  no-param-reassign:
+    - error
+    - props: false
+
+  no-plusplus:
+    - error
+    - allowForLoopAfterthoughts: true
+
+  no-sync:
+    - off
+
+  no-ternary:
+    - off
+
+  object-curly-spacing: "off"
+
+  one-var:
+    - error
+    - never
+
+  padded-blocks:
+    - error
+    - never
+
+  prefer-destructuring:
+    - error
+    - object: true
+      array: false
+
+  prefer-named-capture-group:
+    - off
+
+  quotes:
+    - error
+    - single
+
+  radix:
+    - error
+    - as-needed
+
+  sort-keys:
+    - off
+
+  strict:
+    - off
+
+  # tyepscript规则
+  "@typescript-eslint/explicit-function-return-type": off
+  "@typescript-eslint/interface-name-prefix": off
+  "@typescript-eslint/no-empty-interface": off
+  "@typescript-eslint/no-explicit-any": off
+  "@typescript-eslint/no-triple-slash-reference": off
+  # 暂时禁用的自定义规则
+  # 'array-element-newline': ['error', 'consistent']
+  # 防止因为自动换行造成的报错
+  # 'implicit-arrow-linebreak': ['off', 'beside']
+  # 简化代码，忽略迷惑的箭头函数提示
+  # 'no-confusing-arrow': 'off'

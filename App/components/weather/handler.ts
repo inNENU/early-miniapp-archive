@@ -4,7 +4,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-31 11:05:08
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-08-29 15:42:34
+ * @LastEditTime: 2019-10-21 22:35:20
  * @Description: 天气处理函数
  */
 import { WeatherData, WeatherForcast1H } from './weather';
@@ -43,43 +43,54 @@ const weatherHandler = (weather: WeatherData['data']) => {
   weather.dayForecast = [];
 
   // 设置天气预报的时间
-  Object.keys(weather.forecast_1h)
-    .forEach(x => {
-      const index = Number(x);
-      /** 更新时间 */
-      const time = weather.forecast_1h[index].update_time;
+  Object.keys(weather.forecast_1h).forEach(x => {
+    const index = Number(x);
+    /** 更新时间 */
+    const time = weather.forecast_1h[index].update_time;
 
-      weather.forecast_1h[index].update_time = `${time.slice(8, 10)}:${time.slice(10, 12)}`;
+    weather.forecast_1h[index].update_time = `${time.slice(8, 10)}:${time.slice(
+      10,
+      12
+    )}`;
 
-      // 暂时只显示24小时天气预报 TODO: 显示48小时天气预报，并增加日落日出时间
-      if (index < 24) (weather.hourForecast as WeatherForcast1H[]).push(weather.forecast_1h[index]);
-    });
+    // 暂时只显示24小时天气预报 TODO: 显示48小时天气预报，并增加日落日出时间
+    if (index < 24)
+      (weather.hourForecast as WeatherForcast1H[]).push(
+        weather.forecast_1h[index]
+      );
+  });
 
   // 设置天气预报的时间
-  Object.keys(weather.forecast_24h)
-    .forEach(x => {
-      const index = Number(x);
+  Object.keys(weather.forecast_24h).forEach(x => {
+    const index = Number(x);
 
-      // 暂时只显示五日天气预报。 TODO: 让此部分可横向滑动，补全7日天气预报
-      if (index < 5) {
-        const time = weather.forecast_24h[index].time;
+    // 暂时只显示五日天气预报。 TODO: 让此部分可横向滑动，补全7日天气预报
+    if (index < 5) {
+      const { time } = weather.forecast_24h[index];
 
-        weather.forecast_24h[index].weekday =
-          index === 0
-            ? '昨天'
-            : index === 1
-              ? '今天'
-              : index === 2
-                ? '明天'
-                : index === 3
-                  ? '后天'
-                  : `星期${['天', '一', '二', '三', '四', '五', '六', '天', '一', '二'][new Date().getDay() + index - 1]}`;
+      weather.forecast_24h[index].weekday =
+        index === 0
+          ? '昨天'
+          : index === 1
+            ? '今天'
+            : index === 2
+              ? '明天'
+              : index === 3
+                ? '后天'
+                : `星期${
+                ['天', '一', '二', '三', '四', '五', '六', '天', '一', '二'][
+                new Date().getDay() + index - 1
+                ]
+                }`;
 
-        weather.forecast_24h[index].time = `${time.slice(5, 7)}/${time.slice(8, 10)}`;
+      weather.forecast_24h[index].time = `${time.slice(5, 7)}/${time.slice(
+        8,
+        10
+      )}`;
 
-        weather.dayForecast.push(weather.forecast_24h[index]);
-      }
-    });
+      weather.dayForecast.push(weather.forecast_24h[index]);
+    }
+  });
 
   return weather;
 };

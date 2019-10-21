@@ -6,12 +6,10 @@
  * @LastEditTime: 2019-04-08 11:34:39
  */
 
-import {
-  Delete, saveFile, readJson, unzip, writeJson
-} from './file';
-import { debug, info, warn, error } from './log';
+import { Delete, readJson, saveFile, unzip, writeJson } from './file';
+import { debug, error, info, warn } from './log';
+import { modal, request, tip } from './wx';
 import { setPage } from './page';
-import { tip, modal, request } from './wx';
 
 /**
  * 资源下载 from fuction.js & guide.js 被checkResUpdate调用
@@ -34,7 +32,6 @@ export const resDownload = (name: string) => {
 
         // 解压文件到根目录
         unzip(`${name}Zip`, '', () => {
-
           // 删除压缩目录，并将下载成功信息写入存储、判断取消提示
           Delete(`${name}Zip`, false);
           wx.setStorageSync(`${name}Download`, true);
@@ -59,57 +56,65 @@ export const resDownload = (name: string) => {
  * @param name 检查资源的名称
  * @param dataUsage 消耗的数据流量
  */
+// eslint-disable-next-line max-lines-per-function
 export const checkResUpdate = (name: string, dataUsage: string) => {
   const notify = wx.getStorageSync(`${name}ResNotify`); // 资源提醒
   const localVersion = readJson(`${name}Version`); // 读取本地Version文件
   const localTime = wx.getStorageSync(`${name}UpdateTime`);
-  const currentTime = Math.round(new Date().getTime() / 1000);// 读取当前和上次更新时间
+  const currentTime = Math.round(new Date().getTime() / 1000); // 读取当前和上次更新时间
 
   // 调试
   debug(`${name}通知状态为${notify}`, `本地版本文件为：${localVersion}`);
   debug(`${name}更新于${localTime}, 现在时间是${currentTime}`);
 
-  if (notify || currentTime > Number(localTime) + 604800)// 如果需要更新
+  if (notify || currentTime > Number(localTime) + 604800)
+    // 如果需要更新
     wx.request({
       url: `https://mp.nenuyouth.com/server/resVersion.php?res=${name}`,
       success: res => {
+        // 资源为最新
         if (res.statusCode === 200)
-          // 资源为最新
-          if (Number(localVersion) === Number(res.data)) debug(`${name}资源已是最新版`);// 调试
-
+          if (Number(localVersion) === Number(res.data))
+            // 调试
+            debug(`${name}资源已是最新版`);
           // 需要更新
           else {
             info(`${name}资源有更新`); // 调试
 
             // 如果需要提醒，则弹窗
-            if (notify) wx.showModal({
-              title: '资源有更新', content: `请更新资源以获得最新功能与内容。(会消耗${dataUsage}流量)`,
-              cancelText: '取消', cancelColor: '#ff0000', confirmText: '更新',
-              success: choice => {
-
-                // 用户确认，下载更新
-                if (choice.confirm) resDownload(name);
-
-                // 用户取消，询问是否关闭更新提示
-                else if (choice.cancel) wx.showModal({
-                  title: '开启资源更新提示？', content: '开启后在资源有更新时会提示您更新资源文件。',
-                  cancelText: '关闭', cancelColor: '#ff0000', confirmText: '保持开启',
-                  success: choice2 => {
-
-                    // 用户选择关闭
-                    if (choice2.cancel)
-                      modal(
-                        '更新提示已关闭', '您可以在设置中重新打开提示。请注意：为保障正常运行，小程序会每周对资源进行强制更新。',
-                        // 关闭更新提示
-                        () => {
-                          wx.setStorageSync(`${name}ResNotify`, false);
-                        }
-                      );
-                  }
-                });
-              }
-            });
-
+            if (notify)
+              wx.showModal({
+                title: '资源有更新',
+                content: `请更新资源以获得最新功能与内容。(会消耗${dataUsage}流量)`,
+                cancelText: '取消',
+                cancelColor: '#ff0000',
+                confirmText: '更新',
+                success: choice => {
+                  // 用户确认，下载更新
+                  if (choice.confirm) resDownload(name);
+                  // 用户取消，询问是否关闭更新提示
+                  else if (choice.cancel)
+                    wx.showModal({
+                      title: '开启资源更新提示？',
+                      content: '开启后在资源有更新时会提示您更新资源文件。',
+                      cancelText: '关闭',
+                      cancelColor: '#ff0000',
+                      confirmText: '保持开启',
+                      success: choice2 => {
+                        // 用户选择关闭
+                        if (choice2.cancel)
+                          modal(
+                            '更新提示已关闭',
+                            '您可以在设置中重新打开提示。请注意：为保障正常运行，小程序会每周对资源进行强制更新。',
+                            // 关闭更新提示
+                            () => {
+                              wx.setStorageSync(`${name}ResNotify`, false);
+                            }
+                          );
+                      }
+                    });
+                }
+              });
             // 距上次更新已经半个月了，强制更新
             else resDownload(name);
           }
@@ -146,14 +151,19 @@ export const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
   const test = wx.getStorageSync('test');
 
   // 开启测试后展示测试界面
-  if (test) request(`config/${globalData.appID}/test/${name}`, data => {
-    wx.setStorageSync(name, data);
-    setPage({ ctx, option: { aim: name } }, data as PageData);
-  });
+  if (test)
+    request(`config/${globalData.appID}/test/${name}`, data => {
+      wx.setStorageSync(name, data);
+      setPage({ ctx, option: { aim: name } }, data as PageData);
+    });
   // 普通界面加载
-  else request(`config/${globalData.appID}/${globalData.version}/${name}`, data => {
-    setPage({ ctx, option: { aim: name } }, data as PageData);
-  });
+  else
+    request(
+      `config/${globalData.appID}/${globalData.version}/${name}`,
+      data => {
+        setPage({ ctx, option: { aim: name } }, data as PageData);
+      }
+    );
 };
 
 /** 标记点 */
@@ -176,14 +186,30 @@ interface Marker {
 const initMarker = (markers: Marker[]) => {
   markers.forEach(marker => {
     const markerOrigin = {
-      iconPath: '/function/icon/marker.png', width: 25, height: 25, alpha: 0.8,
+      iconPath: '/function/icon/marker.png',
+      width: 25,
+      height: 25,
+      alpha: 0.8,
       label: {
-        content: marker.name, color: '#1A9D5E', fontSize: '10', anchorX: marker.name.length * (-5) - 4, anchorY: 0,
-        bgColor: '#ffffff', borderWidth: 1, borderColor: '#efeef4', borderRadius: 2, padding: '3'
+        content: marker.name,
+        color: '#1A9D5E',
+        fontSize: '10',
+        anchorX: marker.name.length * -5 - 4,
+        anchorY: 0,
+        bgColor: '#ffffff',
+        borderWidth: 1,
+        borderColor: '#efeef4',
+        borderRadius: 2,
+        padding: '3'
       },
       callout: {
-        content: marker.detail, color: '#ffffff', fontSize: '16',
-        borderRadius: '10', bgColor: '#1A9D5E', padding: '10', display: 'BYCLICK'
+        content: marker.detail,
+        color: '#ffffff',
+        fontSize: '16',
+        borderRadius: '10',
+        bgColor: '#1A9D5E',
+        padding: '10',
+        display: 'BYCLICK'
       }
     };
 
@@ -243,13 +269,14 @@ const setMarker = (data: MarkerConfig, name: string) => {
   const { category } = data;
 
   wx.setStorageSync(`${name}-all`, marker);
-  Object.keys(category)
-    .forEach(i => {
-      const markerDetail = [];
+  Object.keys(category).forEach(i => {
+    const markerDetail = [];
 
-      for (let j = category[i][0]; j <= category[i][1]; j += 1) markerDetail.push(marker[j]);
-      wx.setStorageSync(`${name}-${i}`, markerDetail);
-    });
+    for (let j = category[i][0]; j <= category[i][1]; j += 1)
+      markerDetail.push(marker[j]);
+
+    wx.setStorageSync(`${name}-${i}`, markerDetail);
+  });
 };
 
 /** 设置marker */
@@ -257,9 +284,8 @@ export const markerSet = () => {
   const markerVersion = wx.getStorageSync('markerVersion');
   const functionVersion = readJson('functionVersion');
 
-  if (markerVersion === functionVersion)// Marker已经设置完毕
-    debug('Marker 已设置就绪');
-
+  // Marker已经设置完毕
+  if (markerVersion === functionVersion) debug('Marker 已设置就绪');
   // 需要设置Marker
   else {
     const markerData = readJson('function/marker');
@@ -269,12 +295,11 @@ export const markerSet = () => {
       setMarker(markerData[0], 'benbu');
       setMarker(markerData[1], 'jingyue');
       wx.setStorageSync('markerVersion', markerVersion);
-    } else { // 没有找到MarkerData，可能因为初始化中断造成
-      // 调试
-      warn('获取Marker失败');
+    } else {
+      // 没有找到MarkerData，可能因为初始化中断造成
+      warn('获取Marker失败'); // 调试
 
       request('function/marker', data => {
-
         // 将Marker数据保存文件
         writeJson('function', 'marker', data);
 

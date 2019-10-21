@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 15:31:04
+ * @LastEditTime: 2019-10-21 22:33:12
  * @Description: 电话组件
  */
 
@@ -22,10 +22,13 @@ $register.C({
 
     /** 添加联系人 */
     addContact() {
-      const { globalData: { env } } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);// 获得当前小程序环境
+      const {
+        globalData: { env }
+      } = getApp() as WechatMiniprogram.App.MPInstance<{}>; // 获得当前小程序环境
 
       if (env === 'wx')
-        wx.addPhoneContact({// 添加联系人
+        wx.addPhoneContact({
+          // 添加联系人
           firstName: this.data.config.fName,
           lastName: this.data.config.lName,
           mobilePhoneNumber: this.data.config.num,

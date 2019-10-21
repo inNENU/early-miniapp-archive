@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-02 00:40:25
+ * @LastEditTime: 2019-10-21 22:30:16
  * @Description: 列表组件
  */
 
@@ -26,7 +26,10 @@ $register.C({
 
     /** 控制选择器显隐 */
     pickerTap(res: WXEvent.Touch) {
-      const { id, content: { visible: value } } = this.getDetail(res);
+      const {
+        id,
+        content: { visible: value }
+      } = this.getDetail(res);
 
       this.setData({ [`config.content[${id}].visible`]: !value });
     },
@@ -54,12 +57,9 @@ $register.C({
         }
 
         // 将选择器的变更响应到页面上
-        this.setData(
-          { [`config.content[${id}]`]: content },
-          () => {
-            this.triggerEvent('change', { value, event: content.picker });
-          }
-        );
+        this.setData({ [`config.content[${id}]`]: content }, () => {
+          this.triggerEvent('change', { value, event: content.picker });
+        });
       }
     },
 
@@ -72,7 +72,10 @@ $register.C({
         { [`config.content[${id}].status`]: res.detail.value },
         () => {
           console.log(this.data.config);
-          this.triggerEvent('change', { event: content.Switch, value: res.detail.value });
+          this.triggerEvent('change', {
+            event: content.Switch,
+            value: res.detail.value
+          });
         }
       );
 
@@ -103,12 +106,9 @@ $register.C({
       content.value = value;
 
       // 写入页面数据
-      this.setData(
-        { [`config.content[${id}].value`]: value },
-        () => {
-          this.triggerEvent('change', { value, event: content.slider });
-        }
-      );
+      this.setData({ [`config.content[${id}].value`]: value }, () => {
+        this.triggerEvent('change', { value, event: content.slider });
+      });
 
       if (res.type === 'change') wx.setStorageSync(content.sliKey, value);
     },
@@ -130,14 +130,12 @@ $register.C({
       if (detail) {
         const detail2: Record<string, any> = {};
 
-        Object.keys(detail)
-          .forEach(element => {
-            detail2[`config.${element}`] = detail[element];
-          });
+        Object.keys(detail).forEach(element => {
+          detail2[`config.${element}`] = detail[element];
+        });
         console.log(detail2);
         this.setData(detail2);
       }
-
     }
   },
 

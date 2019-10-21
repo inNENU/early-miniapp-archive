@@ -2,21 +2,40 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:28:19
+ * @LastEditTime: 2019-10-21 22:44:30
  * @Description: 捐赠
  */
-import $register from 'wxpage';
 import {
-  resolvePage, setPage, popNotice, setColor, changeNav
+  changeNav,
+  popNotice,
+  resolvePage,
+  setColor,
+  setPage
 } from '../utils/page';
 import { modal, tip } from '../utils/wx';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+import $register from 'wxpage';
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 type AuthorizeList =
-  'scope.userLocation' | 'scope.writePhotosAlbum' | 'scope.userInfo' |
-  'scope.address' | 'scope.invoiceTitle' | 'scope.invoice' | 'scope.werun' | 'scope.record' | 'scope.camera';
+  | 'scope.userLocation'
+  | 'scope.writePhotosAlbum'
+  | 'scope.userInfo'
+  | 'scope.address'
+  | 'scope.invoiceTitle'
+  | 'scope.invoice'
+  | 'scope.werun'
+  | 'scope.record'
+  | 'scope.camera';
 
-type ListAction = 'location' | 'album' | 'address' | 'invoiceTitle' | 'invoice' | 'werun' | 'record' | 'camera';
+type ListAction =
+  | 'location'
+  | 'album'
+  | 'address'
+  | 'invoiceTitle'
+  | 'invoice'
+  | 'werun'
+  | 'record'
+  | 'camera';
 
 const authorizeList: AuthorizeList[] = [
   'scope.userLocation',
@@ -165,7 +184,8 @@ $register('authorize', {
         tip('授权成功');
         this.setData({ [`page[1].content.[${type}].desc`]: '已授权✓' });
       },
-      fail: () => { // 用户拒绝权限，提示用户开启权限
+      fail: () => {
+        // 用户拒绝权限，提示用户开启权限
         wx.hideLoading();
         modal('权限被拒', '您拒绝了权限授予，请在小程序设置页允许权限', () => {
           wx.openSetting({
@@ -178,7 +198,9 @@ $register('authorize', {
                   const list = this.data.page[1].content;
 
                   authorizeList.forEach((type2, index) => {
-                    (list as any)[index].desc = res2.authSetting[type2] ? '已授权✓' : '未授权×';
+                    (list as any)[index].desc = res2.authSetting[type2]
+                      ? '已授权✓'
+                      : '未授权×';
                   });
 
                   this.setData({ 'page[1].content': list });

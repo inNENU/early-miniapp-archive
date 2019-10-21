@@ -2,12 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-17 10:09:53
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-24 23:52:28
+ * @LastEditTime: 2019-10-21 22:16:18
  * @Description: 实时日志封装
  */
 
 /** 实时日志管理器 */
-const log = wx.getRealtimeLogManager ? wx.getRealtimeLogManager() : wx.getLogManager({ level: 1 });
+const log = wx.getRealtimeLogManager
+  ? wx.getRealtimeLogManager()
+  : wx.getLogManager({ level: 1 });
 const realtime = Boolean(wx.getRealtimeLogManager);
 
 /** 写入普通日志 */
@@ -42,5 +44,6 @@ export const error = (...args: any[]) => {
  * @param filterMsg 过滤信息
  */
 export const fliter = (filterMsg: string) => {
-  if (realtime) (log as WechatMiniprogram.RealtimeLogManager).setFilterMsg(filterMsg);
+  if (realtime)
+    (log as WechatMiniprogram.RealtimeLogManager).setFilterMsg(filterMsg);
 };

@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:26:02
+ * @LastEditTime: 2019-10-21 22:43:39
  * @Description: 搜索页
  */
 
+import { changeNav, popNotice, setColor } from '../utils/page';
 import $register from 'wxpage';
-import { popNotice, setColor, changeNav } from '../utils/page';
 import $search from '../utils/search';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 /** 关键词 */
 export interface Keywords {
@@ -44,12 +44,15 @@ $register('search', {
     searchword: '',
 
     /** 自定义盗汗蓝配置 */
-    head: { title: '搜索', statusBarHeight: a.info.statusBarHeight, leftText: '返回' }
+    head: {
+      title: '搜索',
+      statusBarHeight: a.info.statusBarHeight,
+      leftText: '返回'
+    }
   },
 
   onLoad(options) {
-    if (options.words)
-      this.search({ detail: { value: options.words } });
+    if (options.words) this.search({ detail: { value: options.words } });
 
     this.setData({ searchword: options.words, T: a.T, nm: a.nm });
     popNotice('search');

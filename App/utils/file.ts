@@ -3,10 +3,10 @@
  * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-09-24 23:59:45
+ * @LastEditTime: 2019-10-21 22:25:11
  */
 
-import { debug, info, warn, error } from './log';
+import { debug, error, info, warn } from './log';
 
 /** 文件管理器 */
 const fileManager = wx.getFileSystemManager();
@@ -25,27 +25,30 @@ export const Delete = (path: string, isDir?: boolean | undefined) => {
     try {
       // 判断路径是否是文件，并执行对应删除操作
       if (
-        (fileManager.statSync(`${userPath}/${path}`) as WechatMiniprogram.Stats)
-          .isFile()
+        (fileManager.statSync(
+          `${userPath}/${path}`
+        ) as WechatMiniprogram.Stats).isFile()
       )
         fileManager.unlinkSync(`${userPath}/${path}`);
       else fileManager.rmdirSync(`${userPath}/${path}`, true);
-
-    } catch (err) { // 调试
+    } catch (err) {
+      // 调试
       error(`删除${path}出错,错误为:`, err);
     }
   // 是目录
   else if (isDir)
     try {
       fileManager.rmdirSync(`${userPath}/${path}`, true);
-    } catch (err) { // 调试
+    } catch (err) {
+      // 调试
       error(`删除${path}出错,错误为:`, err);
     }
   // 是文件
   else
     try {
       fileManager.unlinkSync(`${userPath}/${path}`);
-    } catch (err) { // 调试
+    } catch (err) {
+      // 调试
       error(`删除${path}出错,错误为:`, err);
     }
 };
@@ -61,7 +64,8 @@ const isFileExist = (path: string) => {
     fileManager.statSync(`${userPath}/${path}`, false);
 
     return true;
-  } catch (err) { // 调试
+  } catch (err) {
+    // 调试
     error(`${path}不存在`, err);
 
     return false;
@@ -80,10 +84,11 @@ export const listFile = (path: string) => {
   try {
     const fileList = fileManager.readdirSync(`${userPath}/${path}`);
 
-    info(`${path}文件夹下文件为：`, fileList);// 调试
+    info(`${path}文件夹下文件为：`, fileList); // 调试
 
     return fileList;
-  } catch (err) { // 调试
+  } catch (err) {
+    // 调试
     error(`列出${path}文件夹下文件错误：`, err);
 
     return [];
@@ -119,19 +124,20 @@ export const readJson = (path: string, encoding = 'utf-8') => {
   let data;
 
   try {
-    fileContent = fileManager.readFileSync(`${userPath}/${path}.json`, encoding);
+    fileContent = fileManager.readFileSync(
+      `${userPath}/${path}.json`,
+      encoding
+    );
     try {
       data = JSON.parse(fileContent as string);
 
       debug(`读取 ${path}.json成功：`, data);
-
     } catch (err) {
       data = undefined;
 
       // 调试
       warn(`${path}解析失败`);
     }
-
   } catch (err) {
     data = undefined;
 
@@ -150,11 +156,10 @@ export const readJson = (path: string, encoding = 'utf-8') => {
 export const makeDir = (path: string, recursive = true) => {
   try {
     fileManager.mkdirSync(`${userPath}/${path}`, recursive);
-
-  } catch (err) { // 调试
+  } catch (err) {
+    // 调试
     info(`${path}目录已存在`, err);
   }
-
 };
 
 /**
@@ -165,8 +170,8 @@ export const makeDir = (path: string, recursive = true) => {
 export const saveFile = (tempFilePath: string, path: string) => {
   try {
     fileManager.saveFileSync(tempFilePath, `${userPath}/${path}`);
-
-  } catch (err) { // 调试
+  } catch (err) {
+    // 调试
     error(`保存文件到${path}失败：`, err);
   }
 };
@@ -217,11 +222,20 @@ export const saveOnlineFile = (
  * @param data 写入文件的数据
  * @param encoding 文件编码选项
  */
-export const writeFile = (path: string, fileName: string, data: object | ArrayBuffer | string, encoding = 'utf-8') => {
+export const writeFile = (
+  path: string,
+  fileName: string,
+  data: object | ArrayBuffer | string,
+  encoding = 'utf-8'
+) => {
   const jsonString = JSON.stringify(data);
 
   makeDir(path);
-  fileManager.writeFileSync(`${userPath}/${path}/${fileName}`, jsonString, encoding);
+  fileManager.writeFileSync(
+    `${userPath}/${path}/${fileName}`,
+    jsonString,
+    encoding
+  );
 };
 
 /**
@@ -232,11 +246,20 @@ export const writeFile = (path: string, fileName: string, data: object | ArrayBu
  * @param data 写入文件的数据
  * @param encoding 文件编码选项
  */
-export const writeJson = (path: string, fileName: string, data: object, encoding = 'utf-8') => {
+export const writeJson = (
+  path: string,
+  fileName: string,
+  data: object,
+  encoding = 'utf-8'
+) => {
   const jsonString = JSON.stringify(data);
 
   makeDir(path);
-  fileManager.writeFileSync(`${userPath}/${path}/${fileName}.json`, jsonString, encoding);
+  fileManager.writeFileSync(
+    `${userPath}/${path}/${fileName}.json`,
+    jsonString,
+    encoding
+  );
 };
 
 /**
@@ -246,13 +269,16 @@ export const writeJson = (path: string, fileName: string, data: object, encoding
  * @param successFunc Json获取成功后的回调
  * @param failFunc Json获取失败后的回调
  */
-export const getJson = (path: string, successFunc?: (data: object | string) => void, failFunc?: () => void) => {
+export const getJson = (
+  path: string,
+  successFunc?: (data: object | string) => void,
+  failFunc?: () => void
+) => {
   if (successFunc) {
     let data = readJson(path);
 
     if (data) successFunc(data);
     else {
-
       const temp = path.split('/');
       const fileName = temp.pop();
       const folder = temp.join('/');
@@ -281,7 +307,6 @@ export const getJson = (path: string, successFunc?: (data: object | string) => v
       });
     }
   } else if (!isFileExist(`${path}.json`)) {
-
     const temp = path.split('/');
     const fileName = temp.pop();
     const folder = temp.join('/');
@@ -309,9 +334,14 @@ export const getJson = (path: string, successFunc?: (data: object | string) => v
  * @param unzipPath 解压路径
  * @param successFunc 回调函数
  */
-export const unzip = (path: string, unzipPath: string, successFunc?: () => void) => {
+export const unzip = (
+  path: string,
+  unzipPath: string,
+  successFunc?: () => void
+) => {
   fileManager.unzip({
-    zipFilePath: `${userPath}/${path}`, targetPath: `${userPath}/${unzipPath}`,
+    zipFilePath: `${userPath}/${path}`,
+    targetPath: `${userPath}/${unzipPath}`,
     success: () => {
       if (successFunc) successFunc();
     },

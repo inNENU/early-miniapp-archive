@@ -2,15 +2,19 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 07:08:35
+ * @LastEditTime: 2019-10-21 22:41:24
  * @Description: 功能大厅
  */
-import $register from 'wxpage';
 import {
-  resolvePage, setPage, popNotice, setColor, changeNav
+  changeNav,
+  popNotice,
+  resolvePage,
+  setColor,
+  setPage
 } from '../utils/page';
 import { checkResUpdate, markerSet, refreshPage } from '../utils/tab';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+import $register from 'wxpage';
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 $register('function', {
   data: {
@@ -18,22 +22,45 @@ $register('function', {
     nm: a.nm,
 
     /** 自定义导航栏配置 */
-    head: { tag: 'head', title: '功能大厅', action: true, statusBarHeight: a.info.statusBarHeight },
+    head: {
+      tag: 'head',
+      title: '功能大厅',
+      action: true,
+      statusBarHeight: a.info.statusBarHeight
+    },
     page: [
       { tag: 'head', title: '功能大厅', hidden: true },
       {
         tag: 'grid',
         head: false,
         content: [
-          { text: '校园地图', color: 'orange', name: 'Map', icon: '/icon/tabPage/map.svg', url: '/function/map' },
-          { text: '音律东师', color: 'red', name: 'Music', icon: '/icon/tabPage/music.svg', url: '/function/player' },
           {
-            text: '体测计算器', color: 'blue', name: 'PE Calucator',
-            icon: '/icon/tabPage/calculate.svg', url: '/function/PEcal'
+            text: '校园地图',
+            color: 'orange',
+            name: 'Map',
+            icon: '/icon/tabPage/map.svg',
+            url: '/function/map'
           },
           {
-            text: '校历', color: 'purple', name: 'Calendar',
-            icon: '/icon/tabPage/calendar.svg', url: '/function/calendar'
+            text: '音律东师',
+            color: 'red',
+            name: 'Music',
+            icon: '/icon/tabPage/music.svg',
+            url: '/function/player'
+          },
+          {
+            text: '体测计算器',
+            color: 'blue',
+            name: 'PE Calucator',
+            icon: '/icon/tabPage/calculate.svg',
+            url: '/function/PEcal'
+          },
+          {
+            text: '校历',
+            color: 'purple',
+            name: 'Calendar',
+            icon: '/icon/tabPage/calendar.svg',
+            url: '/function/calendar'
           }
         ]
         /*
@@ -56,13 +83,17 @@ $register('function', {
       {
         tag: 'p',
         style: 'color:#888;font-size:14px;',
-        text: '   Mr.Hope要考研了，小程序在年底之前应该不会推出新功能。Mr.Hope会尽量在明年推出大家需要的课程表、成绩查询等功能。'
+        text:
+          '   Mr.Hope要考研了，小程序在年底之前应该不会推出新功能。Mr.Hope会尽量在明年推出大家需要的课程表、成绩查询等功能。'
       }
     ]
   },
 
   onPreload(res) {
-    this.$put('function', resolvePage(res, wx.getStorageSync('function') || this.data.page));
+    this.$put(
+      'function',
+      resolvePage(res, wx.getStorageSync('function') || this.data.page)
+    );
     console.log(`功能大厅预加载用时${new Date().getTime() - a.date}ms`);
   },
 

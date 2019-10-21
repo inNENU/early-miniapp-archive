@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:01:05
+ * @LastEditTime: 2019-10-21 22:46:40
  * @Description: APP函数库
  */
 
 /** 文件管理器与API封装 */
 import { Delete, listFile, saveFile, unzip } from './file';
-import { tip, request, modal, netReport } from './wx';
-import { info, warn, error } from './log';
+import { error, info, warn } from './log';
+import { modal, netReport, request, tip } from './wx';
 
 /** App初始化选项 */
 interface AppOption {
@@ -61,27 +61,29 @@ const resDownload = (list: string[], callBack: () => void) => {
     wx.downloadFile({
       url: `https://mp.nenuyouth.com/${name}.zip`,
       success: res => {
-        console.log(`${name} statusCode is ${res.statusCode}`);// 调试
+        console.log(`${name} statusCode is ${res.statusCode}`); // 调试
         if (res.statusCode === 200) {
-
           // 保存压缩文件到压缩目录
           saveFile(res.tempFilePath, `${name}Zip`);
-          console.log(`save ${name} success`);// 调试
+          console.log(`save ${name} success`); // 调试
 
           // 解压文件到根目录
           unzip(`${name}Zip`, '', () => {
-            console.log(`unzip ${name} sucess`);// 调试
+            console.log(`unzip ${name} sucess`); // 调试
 
             // 删除压缩目录，并将下载成功信息写入存储、判断取消提示
             Delete(`${name}Zip`, false);
             wx.setStorageSync(`${name}Download`, true);
 
-            console.log(`delete ${name} sucess`);// 调试
+            console.log(`delete ${name} sucess`); // 调试
 
             // 下载资源文件并写入更新时间
             const timeStamp = new Date().getTime();
 
-            wx.setStorageSync(`${name}UpdateTime`, Math.round(timeStamp / 1000));
+            wx.setStorageSync(
+              `${name}UpdateTime`,
+              Math.round(timeStamp / 1000)
+            );
 
             // 改变监听数
             listenNumber -= 1;
@@ -106,7 +108,8 @@ export const appInit = () => {
   info('初次启动');
 
   // 设置主题
-  if (appOption.theme === 'auto') { // 主题为auto
+  if (appOption.theme === 'auto') {
+    // 主题为auto
     let num;
     let theme;
     const { platform } = wx.getSystemInfoSync();
@@ -129,17 +132,15 @@ export const appInit = () => {
 
     wx.setStorageSync('theme', theme);
     wx.setStorageSync('themeNum', num);
-
   } else {
     wx.setStorageSync('theme', appOption.theme);
     wx.setStorageSync('themeNum', appOption.themeNum);
   }
 
   // 写入预设数据
-  Object.keys(appOption)
-    .forEach(data => {
-      if (data !== 'theme') wx.setStorageSync(data, appOption[data]);
-    });
+  Object.keys(appOption).forEach(data => {
+    if (data !== 'theme') wx.setStorageSync(data, appOption[data]);
+  });
 
   resDownload(['page', 'function'], () => {
     // 成功初始化
@@ -163,36 +164,54 @@ export const noticeCheck = (globalData: GlobalData) => {
     };
   }
 
-  request(`config/${globalData.appID}/${globalData.version}/notice`, (noticeList: NoticeList) => {
-    /** 通知页面名称 */
-    const keys = Object.keys(noticeList);
+  request(
+    `config/${globalData.appID}/${globalData.version}/notice`,
+    (noticeList: NoticeList) => {
+      /** 通知页面名称 */
+      const keys = Object.keys(noticeList);
 
-    keys.forEach(page => {
+      keys.forEach(page => {
+        // 如果读取到强制通知设置，每次都要通知，直接写入通知信息
+        if (noticeList[page][2]) {
+          wx.setStorageSync(`${page}notice`, [
+            noticeList[page][0],
+            noticeList[page][1]
+          ]);
+          wx.setStorageSync(`${page}Notify`, true);
 
-      // 如果读取到强制通知设置，每次都要通知，直接写入通知信息
-      if (noticeList[page][2]) {
-        wx.setStorageSync(`${page}notice`, [noticeList[page][0], noticeList[page][1]]);
-        wx.setStorageSync(`${page}Notify`, true);
+          // 如果在线通知版本号更高，写入通知内容、通知提示与通知版本
+        } else {
+          const oldNotice = wx.getStorageSync(`${page}notice`);
 
-        // 如果在线通知版本号更高，写入通知内容、通知提示与通知版本
-      } else {
-        const oldNotice = wx.getStorageSync(`${page}notice`);
-
-        if (!oldNotice || oldNotice[0] !== noticeList[page][0] || oldNotice[1] !== noticeList[page][1]) {
-          wx.setStorageSync(`${page}notice`, [noticeList[page][0], noticeList[page][1]]);
-          wx.setStorageSync(`${page}Notify`, true);// 写入
+          if (
+            !oldNotice ||
+            oldNotice[0] !== noticeList[page][0] ||
+            oldNotice[1] !== noticeList[page][1]
+          ) {
+            wx.setStorageSync(`${page}notice`, [
+              noticeList[page][0],
+              noticeList[page][1]
+            ]);
+            wx.setStorageSync(`${page}Notify`, true); // 写入
+          }
         }
-      }
-    });
+      });
 
-    // 如果找到APP级通知，立即提醒
-    if ('app' in keys)
-      modal(noticeList.app[0], noticeList.app[1], () => wx.removeStorageSync('appNotify'));
-  }, () => { // 调试信息
-    warn('noticeList error', 'Net Error');
-  }, () => { // 调试信息
-    error('noticeList error', 'Address Error');
-  });
+      // 如果找到APP级通知，立即提醒
+      if ('app' in keys)
+        modal(noticeList.app[0], noticeList.app[1], () =>
+          wx.removeStorageSync('appNotify')
+        );
+    },
+    () => {
+      // 调试信息
+      warn('noticeList error', 'Net Error');
+    },
+    () => {
+      // 调试信息
+      error('noticeList error', 'Address Error');
+    }
+  );
 };
 
 /**
@@ -217,11 +236,9 @@ export const nightmode = () => {
   /** 日间模式亮度改变状态 */
   const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
   /** 夜间模式开始时间 */
-  const nmStart = wx.getStorageSync('nightmodeStartTime')
-    .split('-');
+  const nmStart = wx.getStorageSync('nightmodeStartTime').split('-');
   /** 夜间模式结束时间 */
-  const nmEnd = wx.getStorageSync('nightmodeEndTime')
-    .split('-');
+  const nmEnd = wx.getStorageSync('nightmodeEndTime').split('-');
   const nightmodeStartTime = Number(nmStart[0]) * 100 + Number(nmStart[1]);
   const nightmodeEndTime = Number(nmEnd[0]) * 100 + Number(nmEnd[1]);
   /** 当前夜间模式状态 */
@@ -234,20 +251,24 @@ export const nightmode = () => {
         ? time >= nightmodeStartTime && time <= nightmodeEndTime
         : !(time <= nightmodeStartTime && time >= nightmodeEndTime);
 
-    if (currentNightModeStatus && nightBrightnessChange) wx.setScreenBrightness({ value: nightBrightness / 100 });
-    else if (!currentNightModeStatus && dayBrightnessChange) wx.setScreenBrightness({ value: dayBrightness / 100 });
+    if (currentNightModeStatus && nightBrightnessChange)
+      wx.setScreenBrightness({ value: nightBrightness / 100 });
+    else if (!currentNightModeStatus && dayBrightnessChange)
+      wx.setScreenBrightness({ value: dayBrightness / 100 });
 
     wx.setStorageSync('nightmode', currentNightModeStatus);
 
     // 否则查看夜间模式开启状态，并根据状态应用决定是否应用亮度
   } else {
-    if (nightModeCondition && nightBrightnessChange) wx.setScreenBrightness({ value: nightBrightness / 100 });
-    else if (!nightModeCondition && dayBrightnessChange) wx.setScreenBrightness({ value: dayBrightness / 100 });
+    if (nightModeCondition && nightBrightnessChange)
+      wx.setScreenBrightness({ value: nightBrightness / 100 });
+    else if (!nightModeCondition && dayBrightnessChange)
+      wx.setScreenBrightness({ value: dayBrightness / 100 });
 
     currentNightModeStatus = nightModeCondition;
   }
 
-  return currentNightModeStatus;// 返回夜间模式状态
+  return currentNightModeStatus; // 返回夜间模式状态
 };
 
 interface UpdateInfo {
@@ -272,39 +293,39 @@ export const appUpdate = (globalData: GlobalData) => {
 
   // 检查更新
   updateManager.onCheckForUpdate(status => {
-
     // 找到更新，提示用户获取到更新
     if (status.hasUpdate) tip('发现小程序更新，下载中...');
   });
 
   updateManager.onUpdateReady(() => {
-
     // 请求配置文件
     request(`config/${globalData.appID}/${globalData.version}/config`, data => {
       ({ forceUpdate, reset } = data as UpdateInfo);
 
       // 请求配置文件
       request(`config/${globalData.appID}/version`, data2 => {
-        version = data2 as unknown as string;
+        version = (data2 as unknown) as string;
         // 更新下载就绪，提示用户重新启动
         wx.showModal({
           title: '已找到新版本',
-          content: `新版本${version}已下载，请重启应用更新。${(reset ? '该版本会初始化小程序。' : '')}`,
-          showCancel: !reset && !forceUpdate, confirmText: '应用', cancelText: '取消',
+          content: `新版本${version}已下载，请重启应用更新。${
+            reset ? '该版本会初始化小程序。' : ''
+            }`,
+          showCancel: !reset && !forceUpdate,
+          confirmText: '应用',
+          cancelText: '取消',
           success: res => {
             // 用户确认，应用更新
             if (res.confirm) {
-
               // 需要初始化
               if (reset) {
                 // 显示提示
                 wx.showLoading({ title: '初始化中', mask: true });
 
                 // 清除文件系统文件与数据存储
-                listFile('')
-                  .forEach(filePath => {
-                    Delete(filePath);
-                  });
+                listFile('').forEach(filePath => {
+                  Delete(filePath);
+                });
                 wx.clearStorageSync();
 
                 // 隐藏提示
@@ -322,13 +343,11 @@ export const appUpdate = (globalData: GlobalData) => {
 
   // 更新下载失败
   updateManager.onUpdateFailed(() => {
-
     // 提示用户网络出现问题
     tip('小程序更新下载失败，请检查您的网络！');
 
     // 调试
     warn('Upate App error because of Net Error');
-
   });
 };
 
@@ -341,23 +360,24 @@ const login = (appID: string) => {
   const openid = wx.getStorageSync('openid');
 
   if (openid) console.log(`openid为：${openid}`);
-  else wx.login({
-    success: res => {
-      if (res.code)
-        wx.request({
-          url: 'https://mp.nenuyouth.com/server/login.php',
-          method: 'POST',
-          data: { appID, code: res.code },
-          success: res2 => {
-            wx.setStorageSync('openid', (res2.data as any).openid);
-            console.log(`openid为：${(res2.data as any).openid}`);
-          }
-        });
-    },
-    fail: errMsg => {
-      console.error(`登录失败！${errMsg}`);
-    }
-  });
+  else
+    wx.login({
+      success: res => {
+        if (res.code)
+          wx.request({
+            url: 'https://mp.nenuyouth.com/server/login.php',
+            method: 'POST',
+            data: { appID, code: res.code },
+            success: res2 => {
+              wx.setStorageSync('openid', (res2.data as any).openid);
+              console.log(`openid为：${(res2.data as any).openid}`);
+            }
+          });
+      },
+      fail: errMsg => {
+        console.error(`登录失败！${errMsg}`);
+      }
+    });
 };
 
 /**
@@ -368,7 +388,6 @@ const login = (appID: string) => {
  * @param globalData 小程序的全局数据
  */
 export const startup = (globalData: GlobalData) => {
-
   // 获取设备与运行环境信息
   globalData.info = wx.getSystemInfoSync();
 
@@ -383,15 +402,21 @@ export const startup = (globalData: GlobalData) => {
 
   // 检测基础库版本
   if (
-    (
-      (globalData.env === 'qq' && Number(globalData.info.SDKVersion.split('.')[1]) < 6) ||
-      (globalData.env === 'wx' && Number(globalData.info.SDKVersion.split('.')[1]) < 7)
-    ) && wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
+    ((globalData.env === 'qq' &&
+      Number(globalData.info.SDKVersion.split('.')[1]) < 6) ||
+      (globalData.env === 'wx' &&
+        Number(globalData.info.SDKVersion.split('.')[1]) < 7)) &&
+    wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
   )
     modal(
       '基础库版本偏低',
-      `您的${globalData.env === 'qq' ? 'QQ' : '微信'}偏低，会导致小程序部分内容显示异常，但这不会影响您在小程序的操作。建议您将${globalData.env === 'qq' ? 'QQ' : '微信'}更新至最新版版本。以获得最佳体验。`,
-      () => { // 避免重复提示
+      `您的${
+      globalData.env === 'qq' ? 'QQ' : '微信'
+      }偏低，会导致小程序部分内容显示异常，但这不会影响您在小程序的操作。建议您将${
+      globalData.env === 'qq' ? 'QQ' : '微信'
+      }更新至最新版版本。以获得最佳体验。`,
+      () => {
+        // 避免重复提示
         wx.setStorageSync('SDKVersion', globalData.info.SDKVersion);
       }
     );
@@ -404,7 +429,9 @@ export const startup = (globalData: GlobalData) => {
   wx.onMemoryWarning(res => {
     tip('内存不足');
     console.warn('onMemoryWarningReceive');
-    wx.reportAnalytics('memory_warning', { 'memory_warning': res && res.level ? res.level : 0 });
+    wx.reportAnalytics('memory_warning', {
+      memory_warning: res && res.level ? res.level : 0
+    });
   });
 
   // 获取网络信息
@@ -412,13 +439,13 @@ export const startup = (globalData: GlobalData) => {
     success: res => {
       const { networkType } = res;
 
-      if (networkType === 'none' || networkType === 'unknown') tip('您的网络状态不佳');
+      if (networkType === 'none' || networkType === 'unknown')
+        tip('您的网络状态不佳');
     }
   });
 
   // 监听网络状态
   wx.onNetworkStatusChange(res => {
-
     // 显示提示
     if (!res.isConnected) {
       tip('网络连接中断,部分小程序功能暂不可用');

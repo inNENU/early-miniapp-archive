@@ -1,6 +1,4 @@
-/* global Component*/
 Component({
-
   properties: {
     res: { type: Object, value: { title: '加载中', leftText: '返回' } },
     theme: { type: String, value: 'iOS' }

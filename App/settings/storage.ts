@@ -2,27 +2,43 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 07:09:45
+ * @LastEditTime: 2019-10-21 22:46:26
  * @Description: 关于
  */
-import $register from 'wxpage';
 import { Delete, listFile } from '../utils/file';
 import {
-  resolvePage, setPage, popNotice, setColor, changeNav
+  changeNav,
+  popNotice,
+  resolvePage,
+  setColor,
+  setPage
 } from '../utils/page';
+import { modal, tip } from '../utils/wx';
+import $register from 'wxpage';
 import { resDownload } from '../utils/tab';
-import { tip, modal } from '../utils/wx';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 /** 列表动作 */
-type ListAction = 'getStorage' | 'refreshGuide' | 'refreshFunc' | 'deleteData' | 'deleteData' | 'resetApp';
+type ListAction =
+  | 'getStorage'
+  | 'refreshGuide'
+  | 'refreshFunc'
+  | 'deleteData'
+  | 'deleteData'
+  | 'resetApp';
 
 $register('storage', {
   data: {
     T: a.T,
     nm: a.nm,
     page: [
-      { tag: 'head', title: '存储设置', grey: true, feedback: true, contact: true },
+      {
+        tag: 'head',
+        title: '存储设置',
+        grey: true,
+        feedback: true,
+        contact: true
+      },
       {
         tag: 'List',
         head: '数据缓存',
@@ -34,7 +50,9 @@ $register('storage', {
         content: [{ text: '空间占用情况', desc: '0K/10240K' }]
       },
       {
-        tag: 'List', head: '资源刷新', foot: '如果页面显示出现问题请刷新资源',
+        tag: 'List',
+        head: '资源刷新',
+        foot: '如果页面显示出现问题请刷新资源',
         content: [
           { text: '刷新功能资源', button: 'refreshFunc' },
           { text: '刷新指南资源', button: 'refreshGuide' }
@@ -47,7 +65,12 @@ $register('storage', {
           { text: '清除小程序数据', button: 'deleteData' },
           { text: '清除小程序文件', button: 'deleteFile' },
           { text: '初始化小程序', button: 'resetApp' },
-          { text: '退出小程序', navigate: true, openType: 'exit', target: 'miniProgram' }
+          {
+            text: '退出小程序',
+            navigate: true,
+            openType: 'exit',
+            target: 'miniProgram'
+          }
         ]
       },
       { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
@@ -87,11 +110,13 @@ $register('storage', {
     const { currentSize } = wx.getStorageInfoSync();
     let fileSize = 0;
 
-    (wx.getFileSystemManager()
-      .statSync(wx.env.USER_DATA_PATH, true) as unknown as any[])
-      .forEach(element => {
-        fileSize += element.stats.size;
-      });
+    ((wx
+      .getFileSystemManager()
+      .statSync(wx.env.USER_DATA_PATH, true) as unknown) as any[]).forEach(
+        element => {
+          fileSize += element.stats.size;
+        }
+      );
 
     p[1].content[0].desc = `${currentSize}K/10240K`; // 写入存储大小
     p[2].content[0].desc = `${Math.floor(fileSize / 1024)}K/10240K`; // 写入文件大小
@@ -119,10 +144,9 @@ $register('storage', {
   deleteFile() {
     wx.showLoading({ title: '删除中', mask: true });
 
-    listFile('')
-      .forEach((filePath: string) => {
-        Delete(filePath);
-      });
+    listFile('').forEach((filePath: string) => {
+      Delete(filePath);
+    });
 
     wx.hideLoading();
   },
@@ -133,10 +157,9 @@ $register('storage', {
     wx.showLoading({ title: '初始化中', mask: true });
 
     // 清除文件系统文件与数据存储
-    listFile('')
-      .forEach((filePath: string) => {
-        Delete(filePath);
-      });
+    listFile('').forEach((filePath: string) => {
+      Delete(filePath);
+    });
     wx.clearStorageSync();
 
     // 隐藏提示

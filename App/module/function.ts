@@ -2,15 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:16:56
+ * @LastEditTime: 2019-10-21 22:40:03
  * @Description: 功能页面
  */
 
+import { Delete, listFile } from '../utils/file';
 import $register from 'wxpage';
-import { setColor } from '../utils/page';
-import { listFile, Delete } from '../utils/file';
 import { modal } from '../utils/wx';
-const { globalData: a } = (getApp() as WechatMiniprogram.App.MPInstance<{}>);
+import { setColor } from '../utils/page';
+const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
 
 $register('function', {
   data: { appID: a.appID },
@@ -45,10 +45,9 @@ $register('function', {
     wx.showLoading({ title: '初始化中', mask: true });
 
     // 清除文件系统文件与数据存储
-    listFile('')
-      .forEach((filePath: string) => {
-        Delete(filePath);
-      });
+    listFile('').forEach((filePath: string) => {
+      Delete(filePath);
+    });
     wx.clearStorageSync();
 
     // 隐藏提示
