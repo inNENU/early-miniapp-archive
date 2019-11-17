@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:09:36
+ * @LastEditTime: 2019-11-17 17:38:44
  * @Description: 体测计算器
  */
 import * as $register from 'wxpage';
-import { changeNav, popNotice, setColor, setPage } from '../utils/page';
-import { getJson } from '../utils/file';
+import { changeNav, popNotice, setColor, setPage } from '../../utils/page';
+import { getJson } from '../../utils/file';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 特殊项目 */
@@ -365,7 +365,7 @@ $register('PEcal', {
   },
 
   redirect() {
-    this.$launch('/page/main');
+    this.$launch('/page/main/main');
   },
 
   onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal' })

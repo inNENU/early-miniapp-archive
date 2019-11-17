@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:10:00
+ * @LastEditTime: 2019-11-17 17:38:57
  * @Description: 天气预报
  */
 import * as $register from 'wxpage';
-import { WeatherData, WeatherDetail } from '../components/weather/weather';
-import { setColor } from '../utils/page';
-import weatherHandler from '../components/weather/handler';
+import { WeatherData, WeatherDetail } from '../../components/weather/weather';
+import { setColor } from '../../utils/page';
+import weatherHandler from '../../components/weather/handler';
 
 const { globalData: a } = getApp<{}, GlobalData>();
 
@@ -216,7 +216,7 @@ $register('weather', {
 
   /** 返回按钮功能 */
   back() {
-    if (this.$state.firstOpen) wx.reLaunch({ url: '/page/main' });
+    if (this.$state.firstOpen) wx.reLaunch({ url: '/page/main/main' });
     else this.$back();
   }
 });

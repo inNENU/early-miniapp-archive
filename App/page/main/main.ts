@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:10:49
+ * @LastEditTime: 2019-11-17 17:39:52
  * @Description: 主页
  */
 import * as $register from 'wxpage';
@@ -12,10 +12,10 @@ import {
   resolvePage,
   setColor,
   setPage
-} from '../utils/page';
-import { checkResUpdate, refreshPage } from '../utils/tab';
-import $search from '../utils/search';
-import { request } from '../utils/wx';
+} from '../../utils/page';
+import { checkResUpdate, refreshPage } from '../../utils/tab';
+import $search from '../../utils/search';
+import { request } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('main', {
@@ -117,7 +117,7 @@ $register('main', {
 
   onShareAppMessage: () => ({
     title: a.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'in东师',
-    path: '/page/main'
+    path: '/page/main/main'
   }),
 
   /**

@@ -12,8 +12,8 @@ import {
   resolvePage,
   setColor,
   setPage
-} from '../utils/page';
-import { modal, tip } from '../utils/wx';
+} from '../../utils/page';
+import { modal, tip } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 type AuthorizeList =

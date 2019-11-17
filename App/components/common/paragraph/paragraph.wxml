@@ -4,7 +4,7 @@
 <view class="P" style="{{config.align? 'text-align:'+ config.align + ';': ''}}">
 <!-- 多个段落 -->
   <block wx:if="{{config.muti}}">
-    <text wx:for="{{config.text}}" style="display:block;{{config.style || ''}}" selectable="true" space="ensp" decode="true">{{item}}</text>
+    <text wx:for="{{config.text}}" wx:key="*this" style="display:block;{{config.style || ''}}" selectable="true" space="ensp" decode="true">{{item}}</text>
   </block>
   <!-- 单个段落 -->
   <text wx:else style="{{config.style || ''}}" selectable="true" space="ensp" decode="true">{{config.text}}</text>

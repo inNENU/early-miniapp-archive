@@ -12,8 +12,8 @@ import {
   resolvePage,
   setColor,
   setPage
-} from '../utils/page';
-import { nightmode } from '../utils/app';
+} from '../../utils/page';
+import { nightmode } from '../../utils/app';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 列表动作列表 */

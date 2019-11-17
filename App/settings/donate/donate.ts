@@ -6,8 +6,8 @@
  * @Description: 捐赠
  */
 import * as $register from 'wxpage';
-import { changeNav, popNotice, setColor } from '../utils/page';
-import { request, savePhoto } from '../utils/wx';
+import { changeNav, popNotice, setColor } from '../../utils/page';
+import { request, savePhoto } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 interface DonateDetail {

@@ -6,9 +6,9 @@
  * @Description: 音乐播放器
  */
 import * as $register from 'wxpage';
-import { getJson, readJson, writeJson } from '../utils/file';
-import { popNotice, setColor } from '../utils/page';
-import { request, tip } from '../utils/wx';
+import { getJson, readJson, writeJson } from '../../utils/file';
+import { popNotice, setColor } from '../../utils/page';
+import { request, tip } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 const manager = wx.getBackgroundAudioManager();
 

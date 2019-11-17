@@ -13,8 +13,8 @@ import {
   resolvePage,
   setColor,
   setPage
-} from '../utils/page';
-import { request } from '../utils/wx';
+} from '../../utils/page';
+import { request } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('log', {

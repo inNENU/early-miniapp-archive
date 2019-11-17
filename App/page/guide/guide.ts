@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:14:18
+ * @LastEditTime: 2019-11-17 17:39:42
  * @Description: 东师指南
  */
 import * as $register from 'wxpage';
@@ -12,9 +12,9 @@ import {
   resolvePage,
   setColor,
   setPage
-} from '../utils/page';
-import { checkResUpdate, refreshPage } from '../utils/tab';
-import $search from '../utils/search';
+} from '../../utils/page';
+import { checkResUpdate, refreshPage } from '../../utils/tab';
+import $search from '../../utils/search';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('guide', {
@@ -246,7 +246,7 @@ $register('guide', {
     changeNav(event, this, 'head');
   },
 
-  onShareAppMessage: () => ({ title: '东师指南', path: '/page/guide' }),
+  onShareAppMessage: () => ({ title: '东师指南', path: '/page/guide/guide' }),
 
   /**
    * 在搜索框中输入时触发的函数

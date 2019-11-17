@@ -7,9 +7,9 @@
  */
 
 import * as $register from 'wxpage';
-import { getJson, readJson } from '../utils/file';
-import { modal, request, tip } from '../utils/wx';
-import { popNotice, setColor } from '../utils/page';
+import { getJson, readJson } from '../../utils/file';
+import { modal, request, tip } from '../../utils/wx';
+import { popNotice, setColor } from '../../utils/page';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('video', {

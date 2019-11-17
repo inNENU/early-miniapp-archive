@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:12:04
+ * @LastEditTime: 2019-11-17 18:01:06
  * @Description: 我的东师
  */
 import * as $register from 'wxpage';
@@ -12,7 +12,7 @@ import {
   resolvePage,
   setColor,
   setPage
-} from '../utils/page';
+} from '../../utils/page';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('me', {
@@ -38,40 +38,40 @@ $register('me', {
           {
             text: '外观设置',
             icon: '/icon/tabPage/setting.svg',
-            url: '/settings/outlook'
+            url: '/settings/outlook/outlook'
           },
           {
             text: '权限设置',
             icon: '/icon/tabPage/setting.svg',
-            url: '/settings/authorize'
+            url: '/settings/auth/auth'
           },
           {
             text: '存储设置',
             icon: '/icon/tabPage/setting.svg',
-            url: '/settings/storage'
+            url: '/settings/storage/storage'
           },
           {
             text: '更新日志',
             icon: '/icon/tabPage/about.svg',
-            url: '/settings/log',
+            url: '/settings/log/log',
             desc: a.version
           },
           {
             text: '小程序内容',
             desc: '帮助更新?',
             icon: '/icon/tabPage/about.svg',
-            url: '/settings/resource'
+            url: '/settings/resource/resource'
           },
           {
             text: '关于',
             icon: '/icon/tabPage/about.svg',
-            url: '/settings/about'
+            url: '/settings/about/about'
           },
           {
             text: '捐赠Mr.Hope',
             icon: '/icon/tabPage/donate.svg',
             desc: '了解详情',
-            url: '/settings/donate',
+            url: '/settings/donate/donate',
             hidden: a.appID === 'wx9ce37d9662499df3'
           }
         ]
@@ -124,5 +124,5 @@ $register('me', {
     changeNav(event, this, 'head');
   },
 
-  onShareAppMessage: () => ({ title: '我的东师', path: '/page/me' })
+  onShareAppMessage: () => ({ title: '我的东师', path: '/page/me/me' })
 });

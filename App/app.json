@@ -1,24 +1,24 @@
 {
   "pages": [
-    "page/main",
-    "page/function",
-    "page/guide",
-    "page/me",
-    "page/search"
+    "page/main/main",
+    "page/function/function",
+    "page/guide/guide",
+    "page/me/me",
+    "page/search/search"
   ],
   "subPackages": [
     {
       "root": "function",
       "pages": [
-        "cal",
-        "map",
-        "situs",
-        "player",
-        "video",
-        "PEcal",
-        "scenery",
-        "weather",
-        "calendar"
+        "cal/cal",
+        "map/map",
+        "situs/situs",
+        "player/player",
+        "video/video",
+        "PEcal/PEcal",
+        "scenery/scenery",
+        "weather/weather",
+        "calendar/calendar"
       ]
     },
     {
@@ -40,30 +40,30 @@
     {
       "root": "settings",
       "pages": [
-        "outlook",
-        "storage",
-        "authorize",
-        "about",
-        "donate",
-        "resource",
-        "log"
+        "outlook/outlook",
+        "storage/storage",
+        "auth/auth",
+        "about/about",
+        "donate/donate",
+        "resource/resource",
+        "log/log"
       ]
     }
   ],
   "preloadRule": {
-    "page/main": {
+    "page/main/main": {
       "network": "all",
       "packages": [
         "module"
       ]
     },
-    "page/function": {
+    "page/function/function": {
       "network": "all",
       "packages": [
         "function"
       ]
     },
-    "page/me": {
+    "page/me/me": {
       "network": "all",
       "packages": [
         "settings"
@@ -96,25 +96,25 @@
     "position": "bottom",
     "list": [
       {
-        "pagePath": "page/main",
+        "pagePath": "page/main/main",
         "text": "首页",
         "iconPath": "icon/tab/home.png",
         "selectedIconPath": "icon/tab/@Home.png"
       },
       {
-        "pagePath": "page/function",
+        "pagePath": "page/function/function",
         "text": "功能",
         "iconPath": "icon/tab/function.png",
         "selectedIconPath": "icon/tab/@Function.png"
       },
       {
-        "pagePath": "page/guide",
+        "pagePath": "page/guide/guide",
         "text": "东师指南",
         "iconPath": "icon/tab/guide.png",
         "selectedIconPath": "icon/tab/@Guide.png"
       },
       {
-        "pagePath": "page/me",
+        "pagePath": "page/me/me",
         "text": "我的东师",
         "iconPath": "icon/tab/me.png",
         "selectedIconPath": "icon/tab/@Me.png"

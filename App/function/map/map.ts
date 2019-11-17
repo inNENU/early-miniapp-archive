@@ -6,9 +6,9 @@
  * @Description: 地图
  */
 import * as $register from 'wxpage';
-import { popNotice, setColor } from '../utils/page';
-import { markerSet } from '../utils/map';
-import { modal } from '../utils/wx';
+import { popNotice, setColor } from '../../utils/page';
+import { markerSet } from '../../utils/map';
+import { modal } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 本部栅格 */

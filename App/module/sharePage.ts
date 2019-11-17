@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-25 00:20:39
+ * @LastEditTime: 2019-11-17 17:39:12
  * @Description: 分享页面
  */
 
@@ -41,7 +41,7 @@ $register('sharePage', {
 
   /** 重定向到主页 */
   redirect() {
-    this.$launch('/page/main');
+    this.$launch('/page/main/main');
   },
 
   onShareAppMessage() {

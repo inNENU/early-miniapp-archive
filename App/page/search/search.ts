@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:11:47
+ * @LastEditTime: 2019-11-17 17:36:58
  * @Description: 搜索页
  */
 
 import * as $register from 'wxpage';
-import { changeNav, popNotice, setColor } from '../utils/page';
-import $search from '../utils/search';
+import { changeNav, popNotice, setColor } from '../../utils/page';
+import $search from '../../utils/search';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 关键词 */

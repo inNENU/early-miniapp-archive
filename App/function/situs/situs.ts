@@ -6,9 +6,9 @@
  * @Description: 地点详情
  */
 import * as $register from 'wxpage';
-import { changeNav, resolvePage, setColor, setPage } from '../utils/page';
-import { makeDir, readJson, writeJson } from '../utils/file';
-import { request } from '../utils/wx';
+import { changeNav, resolvePage, setColor, setPage } from '../../utils/page';
+import { makeDir, readJson, writeJson } from '../../utils/file';
+import { request } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('situs', {

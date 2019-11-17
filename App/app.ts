@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:16:31
+ * @LastEditTime: 2019-11-17 18:03:30
  * @Description: 小程序主脚本
  */
 
@@ -18,7 +18,7 @@ import {
 $register.A({
   /** 小程序的全局数据 */
   globalData: ({
-    version: 'V 2.4.0',
+    version: 'V 2.4.1',
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],
@@ -31,16 +31,16 @@ $register.A({
 
   config: {
     route: [
-      '/page/$page',
+      '/page/$page/$page',
       '/module/$page',
       '/function/$page',
       '/settings/$page'
     ],
     resolvePath: (name: string) =>
       ['main', 'function', 'guide', 'me', 'search'].includes(name)
-        ? `/page/${name}`
+        ? `/page/${name}/${name}`
         : ['weather', 'map', 'situs', 'PEcal', 'player', 'video'].includes(name)
-        ? `/function/${name}`
+        ? `/function/${name}/${name}`
         : `/module/${name}`
   },
   onLaunch(opts) {
@@ -67,7 +67,7 @@ $register.A({
   },
   onPageNotFound(msg) {
     // 重定向到主界面
-    wx.switchTab({ url: 'page/main' });
+    wx.switchTab({ url: 'page/main/main' });
 
     console.warn('未找到界面:', msg);
   }

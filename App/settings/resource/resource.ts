@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:45:47
+ * @LastEditTime: 2019-11-17 18:13:23
  * @Description: 小程序资源说明
  */
 import * as $register from 'wxpage';
-import { changeNav, popNotice, setColor } from '../utils/page';
-import { modal } from '../utils/wx';
+import { changeNav, popNotice, setColor } from '../../utils/page';
+import { modal } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 列表动作 */
@@ -23,7 +23,7 @@ $register('resource', {
       {
         tag: 'p',
         text:
-          '   小程序资源项目库在Github上开源。如果您愿意对小程序提供帮助，可以帮助扩充或编辑小程序的页面文字、图片以及相关文件。您可以点击下方的复制链接按钮复制链接，并使用浏览器访问对应网站。'
+          '   小程序资源项目库在 Github 上开源。如果您愿意对小程序提供帮助，可以帮助扩充或编辑小程序的页面文字、图片以及相关文件。您可以点击下方的复制链接按钮复制链接，并使用浏览器访问对应网站。'
       },
       {
         tag: 'List',
@@ -33,7 +33,7 @@ $register('resource', {
       {
         tag: 'p',
         text:
-          '   目前，Mr.Hope正在发起学习资源共享。你可以提供你所在专业的学习资料来帮助Mr.Hope扩充资料库。您可以点击下方的复制链接按钮复制链接，并使用浏览器访问对应网站。'
+          '   目前，Mr.Hope 正在发起学习资源共享。你可以提供你所在专业的学习资料来帮助 Mr.Hope 扩充资料库。您可以点击下方的复制链接按钮复制链接，并使用浏览器访问对应网站。'
       },
       {
         tag: 'List',

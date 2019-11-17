@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 23:47:21
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:08:06
+ * @LastEditTime: 2019-11-17 17:48:42
  * @Description: 绩点计算
  */
 
 import * as $register from 'wxpage';
-import { changeNav, setColor, setPage } from '../utils/page';
+import { changeNav, setColor, setPage } from '../../utils/page';
 
 $register('cal', {
   data: {

@@ -6,16 +6,16 @@
  * @Description: 关于
  */
 import * as $register from 'wxpage';
-import { Delete, listFile } from '../utils/file';
+import { Delete, listFile } from '../../utils/file';
 import {
   changeNav,
   popNotice,
   resolvePage,
   setColor,
   setPage
-} from '../utils/page';
-import { modal, tip } from '../utils/wx';
-import { resDownload } from '../utils/tab';
+} from '../../utils/page';
+import { modal, tip } from '../../utils/wx';
+import { resDownload } from '../../utils/tab';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 列表动作 */

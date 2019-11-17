@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 15:38:36
+ * @LastEditTime: 2019-11-17 20:52:58
  * @Description: 功能大厅
  */
 import * as $register from 'wxpage';
@@ -12,9 +12,9 @@ import {
   resolvePage,
   setColor,
   setPage
-} from '../utils/page';
-import { checkResUpdate, refreshPage } from '../utils/tab';
-import { markerSet } from '../utils/map';
+} from '../../utils/page';
+import { checkResUpdate, refreshPage } from '../../utils/tab';
+import { markerSet } from '../../utils/map';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('function', {
@@ -137,6 +137,12 @@ $register('function', {
   onPageScroll(event) {
     changeNav(event, this, 'head');
   },
+  navigate() {
+    this.$route('weather');
+  },
 
-  onShareAppMessage: () => ({ title: '功能大厅', path: '/page/function' })
+  onShareAppMessage: () => ({
+    title: '功能大厅',
+    path: '/page/function/function'
+  })
 });
