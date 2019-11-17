@@ -1,5 +1,7 @@
 /node_modules/
 /App/**/*.js
+/App/**/*.js.map
 /App/miniprogram_npm/
 !/App/node_modules/**/*.js
+!/App/node_modules/**/*.js.map
 /doc/

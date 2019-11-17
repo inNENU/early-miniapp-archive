@@ -2,9 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:49:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:43:28
+ * @LastEditTime: 2019-11-03 13:12:04
  * @Description: 我的东师
  */
+import * as $register from 'wxpage';
 import {
   changeNav,
   popNotice,
@@ -12,8 +13,7 @@ import {
   setColor,
   setPage
 } from '../utils/page';
-import $register from 'wxpage';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('me', {
   data: {
@@ -81,7 +81,7 @@ $register('me', {
       author: '',
       desc: `当前版本：${a.version}\n小程序由${
         a.appID === 'wx9ce37d9662499df3' ? '校学生会委托Mr.Hope' : 'Mr.Hope个人'
-        }制作，如有错误还请见谅`
+      }制作，如有错误还请见谅`
     }
   },
 

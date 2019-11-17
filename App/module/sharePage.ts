@@ -6,8 +6,8 @@
  * @Description: 分享页面
  */
 
+import * as $register from 'wxpage';
 import { changeNav, resolvePage, setColor, setOnlinePage } from '../utils/page';
-import $register from 'wxpage';
 
 $register('sharePage', {
   onNavigate(option) {

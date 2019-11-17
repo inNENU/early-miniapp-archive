@@ -5,6 +5,7 @@
  * @LastEditTime: 2019-10-21 22:44:30
  * @Description: 捐赠
  */
+import * as $register from 'wxpage';
 import {
   changeNav,
   popNotice,
@@ -13,8 +14,7 @@ import {
   setPage
 } from '../utils/page';
 import { modal, tip } from '../utils/wx';
-import $register from 'wxpage';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 type AuthorizeList =
   | 'scope.userLocation'

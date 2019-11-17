@@ -1,10 +1,9 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
 /*
  * @Author: Mr.Hope
  * @Date: 2019-07-31 11:05:08
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:35:20
+ * @LastEditTime: 2019-11-17 15:32:27
  * @Description: 天气处理函数
  */
 import { WeatherData, WeatherForcast1H } from './weather';
@@ -24,20 +23,20 @@ const weatherHandler = (weather: WeatherData['data']) => {
     windDirection === '8'
       ? '北'
       : windDirection === '1'
-        ? '东北'
-        : weather.observe.wind_direction === '2'
-          ? '东'
-          : weather.observe.wind_direction === '3'
-            ? '东南'
-            : weather.observe.wind_direction === '4'
-              ? '南'
-              : weather.observe.wind_direction === '5'
-                ? '西南'
-                : weather.observe.wind_direction === '6'
-                  ? '西'
-                  : weather.observe.wind_direction === '7'
-                    ? '西北'
-                    : '未知';
+      ? '东北'
+      : weather.observe.wind_direction === '2'
+      ? '东'
+      : weather.observe.wind_direction === '3'
+      ? '东南'
+      : weather.observe.wind_direction === '4'
+      ? '南'
+      : weather.observe.wind_direction === '5'
+      ? '西南'
+      : weather.observe.wind_direction === '6'
+      ? '西'
+      : weather.observe.wind_direction === '7'
+      ? '西北'
+      : '未知';
 
   weather.hourForecast = [];
   weather.dayForecast = [];
@@ -72,16 +71,16 @@ const weatherHandler = (weather: WeatherData['data']) => {
         index === 0
           ? '昨天'
           : index === 1
-            ? '今天'
-            : index === 2
-              ? '明天'
-              : index === 3
-                ? '后天'
-                : `星期${
-                ['天', '一', '二', '三', '四', '五', '六', '天', '一', '二'][
+          ? '今天'
+          : index === 2
+          ? '明天'
+          : index === 3
+          ? '后天'
+          : `星期${
+              ['天', '一', '二', '三', '四', '五', '六', '天', '一', '二'][
                 new Date().getDay() + index - 1
-                ]
-                }`;
+              ]
+            }`;
 
       weather.forecast_24h[index].time = `${time.slice(5, 7)}/${time.slice(
         8,

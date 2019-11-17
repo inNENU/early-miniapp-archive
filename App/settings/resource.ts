@@ -5,10 +5,10 @@
  * @LastEditTime: 2019-10-21 22:45:47
  * @Description: 小程序资源说明
  */
+import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../utils/page';
-import $register from 'wxpage';
 import { modal } from '../utils/wx';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 列表动作 */
 type ListAction = 'resource' | 'public' | 'physics';

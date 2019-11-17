@@ -2,17 +2,17 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-22 13:45:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 23:01:04
+ * @LastEditTime: 2019-11-03 13:07:41
  * @Description: 分享组件
  */
 
+import * as $register from 'wxpage';
 import { debug, warn } from '../../../utils/log';
 import { downLoad, modal, tip } from '../../../utils/wx';
-import $register from 'wxpage';
 
 const {
   globalData: { env, appID }
-} = getApp() as WechatMiniprogram.App.MPInstance<{}>; // 获得日志管理器，全局数据
+} = getApp<{}, GlobalData>(); // 获得日志管理器，全局数据
 
 const savePhoto = (path: string) => {
   wx.saveImageToPhotosAlbum({

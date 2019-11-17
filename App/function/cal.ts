@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 23:47:21
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:35:34
+ * @LastEditTime: 2019-11-03 13:08:06
  * @Description: 绩点计算
  */
 
+import * as $register from 'wxpage';
 import { changeNav, setColor, setPage } from '../utils/page';
-import $register from 'wxpage';
 
 $register('cal', {
   data: {
@@ -127,8 +127,10 @@ $register('cal', {
 
       if (grade !== 0 && grade && credit && credit !== 0)
         if (grade < 60) {
-          // 判断grade和credit是否均有值
-          // 单独列出不及格的学分和成绩,且只有大于50分绩点为正值才计算。
+          /*
+           * 判断grade和credit是否均有值
+           * 单独列出不及格的学分和成绩,且只有大于50分绩点为正值才计算。
+           */
           flunkingCredit = credit + flunkingCredit;
           if (grade > 50)
             flunkingGradeCal = ((grade - 50) / 10) * credit + flunkingGradeCal;

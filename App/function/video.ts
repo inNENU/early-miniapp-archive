@@ -2,15 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:38:42
+ * @LastEditTime: 2019-11-03 13:12:27
  * @Description: 视频页面
  */
 
+import * as $register from 'wxpage';
 import { getJson, readJson } from '../utils/file';
 import { modal, request, tip } from '../utils/wx';
 import { popNotice, setColor } from '../utils/page';
-import $register from 'wxpage';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('video', {
   onNavigate() {

@@ -2,9 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:42:50
+ * @LastEditTime: 2019-11-03 13:10:49
  * @Description: 主页
  */
+import * as $register from 'wxpage';
 import {
   changeNav,
   popNotice,
@@ -13,10 +14,9 @@ import {
   setPage
 } from '../utils/page';
 import { checkResUpdate, refreshPage } from '../utils/tab';
-import $register from 'wxpage';
 import $search from '../utils/search';
 import { request } from '../utils/wx';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('main', {
   data: {

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:47:04
+ * @LastEditTime: 2019-11-17 15:45:51
  * @Description: Page函数库
  */
 
@@ -12,27 +12,74 @@ import { getJson, readJson, writeJson } from './file';
 import { modal, request } from './wx';
 
 /** 全局数据 */
-const { globalData } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData } = getApp<{}, GlobalData>();
 
+/**
+ * 获得文档类型
+ *
+ * @param docType 文档后缀名
+ */
 const getDoctype = (docType: string) =>
   docType === 'docx' || docType === 'doc'
     ? 'doc'
     : docType === 'pptx' || docType === 'ppt'
-      ? 'ppt'
-      : docType === 'xlsx' || docType === 'xls'
-        ? 'xls'
-        : docType === 'jpg' || docType === 'jpeg'
-          ? 'jpg'
-          : docType === 'mp4' ||
-            docType === 'mov' ||
-            docType === 'avi' ||
-            docType === 'rmvb'
-            ? 'video'
-            : docType === 'pdf'
-              ? 'pdf'
-              : docType === 'png' || docType === 'gif'
-                ? docType
-                : 'document';
+    ? 'ppt'
+    : docType === 'xlsx' || docType === 'xls'
+    ? 'xls'
+    : docType === 'jpg' || docType === 'jpeg'
+    ? 'jpg'
+    : docType === 'mp4' ||
+      docType === 'mov' ||
+      docType === 'avi' ||
+      docType === 'rmvb'
+    ? 'video'
+    : docType === 'pdf'
+    ? 'pdf'
+    : docType === 'png' || docType === 'gif'
+    ? docType
+    : 'document';
+
+/**
+ * 处理列表
+ *
+ * @param element 列表的内容
+ * @param head 页面头部选项
+ */
+const resolveList = (listElement: any, head: any) => {
+  // 设置列表导航
+  if ('url' in listElement) listElement.url += `?From=${head.title}`;
+  if ('aim' in listElement)
+    listElement.url = `module${head.aimDepth}?From=${head.title}&aim=${listElement.aim}&depth=${head.aimDepth}`;
+
+  // 设置列表开关与滑块
+  if ('swiKey' in listElement)
+    listElement.status = wx.getStorageSync(listElement.swiKey);
+  if ('sliKey' in listElement)
+    listElement.value = wx.getStorageSync(listElement.sliKey);
+
+  // 设置列表选择器
+  if ('pickerValue' in listElement)
+    if (listElement.single) {
+      // 单列选择器
+      const pickerValue: string | number = wx.getStorageSync(listElement.key);
+
+      listElement.value = listElement.pickerValue[pickerValue];
+      listElement.currentValue = [pickerValue];
+    } else {
+      // 多列选择器
+      const pickerValues: string[] = wx
+        .getStorageSync(listElement.key)
+        .split('-');
+
+      listElement.currentValue = [];
+      listElement.value = [];
+      pickerValues.forEach((pickerElement, index) => {
+        listElement.value[index] =
+          listElement.pickerValue[index][Number(pickerElement)];
+        listElement.currentValue[index] = Number(pickerElement);
+      });
+    }
+};
 
 /**
  * 获得界面数据，生成正确的界面数据
@@ -79,43 +126,9 @@ const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
 
         // 设置list组件
         if ('content' in element)
-          element.content.forEach((listElement: any) => {
-            // 设置列表导航
-            if ('url' in listElement)
-              listElement.url += `?From=${page[0].title}`;
-            if ('aim' in listElement)
-              listElement.url = `module${page[0].aimDepth}?From=${page[0].title}&aim=${listElement.aim}&depth=${page[0].aimDepth}`;
-
-            // 设置列表开关与滑块
-            if ('swiKey' in listElement)
-              listElement.status = wx.getStorageSync(listElement.swiKey);
-            if ('sliKey' in listElement)
-              listElement.value = wx.getStorageSync(listElement.sliKey);
-
-            // 设置列表选择器
-            if ('pickerValue' in listElement)
-              if (listElement.single) {
-                // 单列选择器
-                const pickerValue: string | number = wx.getStorageSync(
-                  listElement.key
-                );
-
-                listElement.value = listElement.pickerValue[pickerValue];
-                listElement.currentValue = [pickerValue];
-              } else {
-                // 多列选择器
-                const pickerValues: string[] = wx
-                  .getStorageSync(listElement.key)
-                  .split('-');
-
-                listElement.currentValue = [];
-                listElement.value = [];
-                pickerValues.forEach((k, l) => {
-                  listElement.value[l] = listElement.pickerValue[l][Number(k)];
-                  listElement.currentValue[l] = Number(k);
-                });
-              }
-          });
+          element.content.forEach((listElement: any) =>
+            resolveList(listElement, page[0])
+          );
       });
       // 调试
       info(`${page[0].aim}处理完毕`);
@@ -204,7 +217,7 @@ export const resolvePage = (
 
     if (pageData) data = disposePage(pageData as PageData, option.query);
     else {
-      data = undefined;
+      data = null;
       warn(`${aim}文件不存在，处理失败`);
     }
   }
@@ -300,8 +313,10 @@ export const setPage = (
  */
 export const popNotice = (aim: string) => {
   if (wx.getStorageSync(`${aim}Notify`)) {
-    // 判断是否需要弹窗
-    // 从存储中获取通知内容并展示
+    /*
+     * 判断是否需要弹窗
+     * 从存储中获取通知内容并展示
+     */
     const notice = wx.getStorageSync(`${aim}notice`);
 
     modal(notice[0], notice[1], () => {
@@ -343,9 +358,6 @@ export const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
     // 需要重新载入界面
     info(`${option.aim}onLoad开始，参数为：`, option);
     const { folder, path } = resolveAim(option.aim);
-
-    ctx.aim = option.aim;
-
     const page = readJson(`page/${path}`);
 
     // 如果本地存储中含有page直接处理
@@ -535,27 +547,23 @@ export const changeNav = (
   headName?: string
 ) => {
   const pageHead = headName ? ctx.data[headName] : ctx.data.page[0];
-  let titleDisplay;
-  let borderDisplay;
-  let shadow;
 
   // 判断情况并赋值
-  if (option.scrollTop <= 1) titleDisplay = borderDisplay = shadow = false;
-  else if (option.scrollTop <= 42) {
-    titleDisplay = borderDisplay = false;
-    shadow = true;
-  } else if (option.scrollTop >= 53)
-    titleDisplay = borderDisplay = shadow = true;
-  else {
-    titleDisplay = shadow = true;
-    borderDisplay = false;
-  }
+  const nav = {
+    borderDisplay: option.scrollTop >= 53,
+    titleDisplay: option.scrollTop > 42,
+    shadow: option.scrollTop > 1
+  };
 
   // 判断结果并更新界面数据
-  if (pageHead.titleDisplay !== titleDisplay)
-    ctx.setData({ [`${headName || 'page[0]'}.titleDisplay`]: titleDisplay });
-  else if (pageHead.borderDisplay !== borderDisplay)
-    ctx.setData({ [`${headName || 'page[0]'}.borderDisplay`]: borderDisplay });
-  else if (pageHead.shadow !== shadow)
-    ctx.setData({ [`${headName || 'page[0]'}.shadow`]: shadow });
+  if (pageHead.titleDisplay !== nav.titleDisplay)
+    ctx.setData({
+      [`${headName || 'page[0]'}.titleDisplay`]: nav.titleDisplay
+    });
+  else if (pageHead.borderDisplay !== nav.borderDisplay)
+    ctx.setData({
+      [`${headName || 'page[0]'}.borderDisplay`]: nav.borderDisplay
+    });
+  else if (pageHead.shadow !== nav.shadow)
+    ctx.setData({ [`${headName || 'page[0]'}.shadow`]: nav.shadow });
 };

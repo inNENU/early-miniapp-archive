@@ -6,12 +6,12 @@
  * @Description: 校历页面
  */
 
+import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../utils/page';
 import { getJson, readJson, writeJson } from '../utils/file';
-import $register from 'wxpage';
 import { TimeLineItem } from '../components/timeline/timeline';
 import { request } from '../utils/wx';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('calendar', {
   data: {

@@ -2,13 +2,13 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 23:13:46
+ * @LastEditTime: 2019-11-03 13:09:36
  * @Description: 体测计算器
  */
+import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor, setPage } from '../utils/page';
-import $register from 'wxpage';
 import { getJson } from '../utils/file';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 特殊项目 */
 const special = [
@@ -173,7 +173,7 @@ $register('PEcal', {
     this.setData({
       'longRun.value': `${longRunPicker[0][value[0] as number]} ${
         longRunPicker[1][value[1] as number]
-        }`,
+      }`,
       'result.longRun': ((value[0] as number) + 2) * 60 + (value[1] as number)
     });
   },
@@ -244,17 +244,17 @@ $register('PEcal', {
             ? score <= 17.8
               ? ['低体重', 80]
               : score >= 28
-                ? ['肥胖', 60]
-                : score >= 24
-                  ? ['超重', 80]
-                  : ['正常', 100]
+              ? ['肥胖', 60]
+              : score >= 24
+              ? ['超重', 80]
+              : ['正常', 100]
             : score <= 17.1
-              ? ['低体重', 80]
-              : score >= 28
-                ? ['肥胖', 60]
-                : score >= 24
-                  ? ['超重', 80]
-                  : ['正常', 100];
+            ? ['低体重', 80]
+            : score >= 28
+            ? ['肥胖', 60]
+            : score >= 24
+            ? ['超重', 80]
+            : ['正常', 100];
 
         // 计算及格分数
         PEscore.passScore =
@@ -329,12 +329,12 @@ $register('PEcal', {
           const finalScore =
             Math.round(
               PEscore.vitalCapacity * 15 +
-              PEscore.shortRun * 20 +
-              PEscore.sitAndReach * 10 +
-              PEscore.standingLongJump * 10 +
-              PEscore.special * 10 +
-              PEscore.longRun * 20 +
-              PEscore.BMI * 15
+                PEscore.shortRun * 20 +
+                PEscore.sitAndReach * 10 +
+                PEscore.standingLongJump * 10 +
+                PEscore.special * 10 +
+                PEscore.longRun * 20 +
+                PEscore.BMI * 15
             ) / 100;
 
           console.info('成绩为', PEscore);

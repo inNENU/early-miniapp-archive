@@ -2,9 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:41:24
+ * @LastEditTime: 2019-11-17 15:38:36
  * @Description: 功能大厅
  */
+import * as $register from 'wxpage';
 import {
   changeNav,
   popNotice,
@@ -12,9 +13,9 @@ import {
   setColor,
   setPage
 } from '../utils/page';
-import { checkResUpdate, markerSet, refreshPage } from '../utils/tab';
-import $register from 'wxpage';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+import { checkResUpdate, refreshPage } from '../utils/tab';
+import { markerSet } from '../utils/map';
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('function', {
   data: {

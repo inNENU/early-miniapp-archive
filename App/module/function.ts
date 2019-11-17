@@ -2,15 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:40:03
+ * @LastEditTime: 2019-11-03 13:10:07
  * @Description: 功能页面
  */
 
+import * as $register from 'wxpage';
 import { Delete, listFile } from '../utils/file';
-import $register from 'wxpage';
 import { modal } from '../utils/wx';
 import { setColor } from '../utils/page';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('function', {
   data: { appID: a.appID },

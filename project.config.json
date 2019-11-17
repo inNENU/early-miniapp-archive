@@ -18,16 +18,16 @@
 	},
 	"miniprogramRoot": "App/",
 	"compileType": "miniprogram",
-	"libVersion": "2.8.3",
+	"libVersion": "2.9.3",
 	"appid": "wx9ce37d9662499df3",
 	"qqLibVersion": "1.8.0",
 	"qqappid": "1109559721",
-	"projectname": "in%E4%B8%9C%E5%B8%88",
+	"projectname": "inNENU",
 	"setting": {
 		"urlCheck": true,
-		"es6": false,
+		"es6": true,
 		"enhance": true,
-		"postcss": false,
+		"postcss": true,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
@@ -42,10 +42,16 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"bundle": true
+		"bundle": true,
+		"remoteDebugLogEnable": false
 	},
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"scripts": {
+		"beforeCompile": "",
+		"beforePreview": "",
+		"beforeUpload": ""
+	},
 	"condition": {
 		"search": {
 			"current": -1,

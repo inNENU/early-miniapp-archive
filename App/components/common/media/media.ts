@@ -6,7 +6,7 @@
  * @Description: 媒体组件
  */
 
-import $register from 'wxpage';
+import * as $register from 'wxpage';
 import { tip } from '../../../utils/wx';
 
 $register.C({

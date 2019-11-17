@@ -1,11 +1,8 @@
-# 阻止eslint读取父目录或总配置文件的规则
 root: true
 
-# 代码环境
 env:
-  browser: true
-  es6: true
   node: true
+  es6: true
 
 globals:
   wx: readonly
@@ -18,31 +15,27 @@ parser: "@typescript-eslint/parser"
 
 parserOptions:
   ecmaVersion: 6
-  parser: "@typescript-eslint/parser"
   project: "./tsconfig.json"
   sourceType: module
   ecmaFeatures:
     modules: true
 
-# 所使用的规则配置
 extends:
   - eslint:all
   - plugin:prettier/recommended
+  - prettier
+  - prettier/@typescript-eslint
 
-# 插件
 plugins:
-  # - prettier
+  - prettier
   - "@typescript-eslint"
 
 rules:
   prettier/prettier: error
 
-  # 自定义
   arrow-parens:
     - error
     - as-needed
-
-  # 'brace-style': ['error', '1tbs', { allowSingleLine: true }]
 
   comma-dangle:
     - error
@@ -77,10 +70,12 @@ rules:
     - off
 
   indent:
-    - error
+    - off
     - 2
-    - SwitchCase: 1
-      flatTernaryExpressions: true
+    - flatTernaryExpressions: true
+      SwitchCase: 1
+      ignoredNodes:
+        - ConditionalExpression
 
   init-declarations:
     - off
@@ -92,6 +87,10 @@ rules:
   line-comment-position:
     - off
 
+  max-statements:
+    - warn
+    - 25
+
   new-cap:
     - off
 
@@ -100,6 +99,9 @@ rules:
     - any
 
   no-console:
+    - off
+
+  no-debugger: 
     - off
 
   no-inline-comments:
@@ -125,7 +127,14 @@ rules:
   no-ternary:
     - off
 
-  object-curly-spacing: "off"
+  no-undefined:
+    - off
+
+  no-warning-comments:
+    - warn
+
+  object-curly-spacing:
+    - off
 
   one-var:
     - error
@@ -163,9 +172,3 @@ rules:
   "@typescript-eslint/no-empty-interface": off
   "@typescript-eslint/no-explicit-any": off
   "@typescript-eslint/no-triple-slash-reference": off
-  # 暂时禁用的自定义规则
-  # 'array-element-newline': ['error', 'consistent']
-  # 防止因为自动换行造成的报错
-  # 'implicit-arrow-linebreak': ['off', 'beside']
-  # 简化代码，忽略迷惑的箭头函数提示
-  # 'no-confusing-arrow': 'off'

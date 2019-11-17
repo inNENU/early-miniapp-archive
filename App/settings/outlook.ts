@@ -2,9 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 00:04:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:45:17
+ * @LastEditTime: 2019-11-03 13:12:13
  * @Description: 设置页面
  */
+import * as $register from 'wxpage';
 import {
   changeNav,
   popNotice,
@@ -12,9 +13,8 @@ import {
   setColor,
   setPage
 } from '../utils/page';
-import $register from 'wxpage';
 import { nightmode } from '../utils/app';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 列表动作列表 */
 type ListAction =

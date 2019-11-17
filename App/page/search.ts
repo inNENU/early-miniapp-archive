@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-06 20:59:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:43:39
+ * @LastEditTime: 2019-11-03 13:11:47
  * @Description: 搜索页
  */
 
+import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../utils/page';
-import $register from 'wxpage';
 import $search from '../utils/search';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 关键词 */
 export interface Keywords {

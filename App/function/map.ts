@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 23:13:28
+ * @LastEditTime: 2019-11-17 15:48:00
  * @Description: 地图
  */
+import * as $register from 'wxpage';
 import { popNotice, setColor } from '../utils/page';
-import $register from 'wxpage';
-import { markerSet } from '../utils/tab';
+import { markerSet } from '../utils/map';
 import { modal } from '../utils/wx';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 本部栅格 */
 const benbuPoint = {
@@ -164,10 +164,11 @@ $register('map', {
     const value: boolean = wx.getStorageSync('isBenbu');
     let isBenbu: boolean;
 
-    if (value === undefined) {
+    if (value === false) isBenbu = false;
+    else {
       wx.setStorageSync('isBenbu', true);
       isBenbu = true;
-    } else isBenbu = value;
+    }
 
     const markers = wx.getStorageSync(isBenbu ? 'benbu-all' : 'jingyue-all');
 
@@ -274,7 +275,7 @@ $register('map', {
     else if (event.type === 'callouttap')
       this.$route(
         `/function/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu +
-        event.markerId.toString()}`
+          event.markerId.toString()}`
       );
   },
   showList() {

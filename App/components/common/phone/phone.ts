@@ -6,7 +6,7 @@
  * @Description: 电话组件
  */
 
-import $register from 'wxpage';
+import * as $register from 'wxpage';
 import { tip } from '../../../utils/wx';
 
 $register.C({
@@ -24,7 +24,7 @@ $register.C({
     addContact() {
       const {
         globalData: { env }
-      } = getApp() as WechatMiniprogram.App.MPInstance<{}>; // 获得当前小程序环境
+      } = getApp<{}, GlobalData>(); // 获得当前小程序环境
 
       if (env === 'wx')
         wx.addPhoneContact({

@@ -2,9 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:44:10
+ * @LastEditTime: 2019-11-03 13:11:24
  * @Description: 关于
  */
+import * as $register from 'wxpage';
 import {
   changeNav,
   popNotice,
@@ -13,8 +14,7 @@ import {
   setPage
 } from '../utils/page';
 import { request, tip } from '../utils/wx';
-import $register from 'wxpage';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 let clickNumber = 0;
 let developMode = false;
 
@@ -56,30 +56,30 @@ $register('about', {
     ]
   },
   onNavigate(res) {
-    const p = this.data.page;
+    const { page } = this.data;
 
     // 读取开发者模式并对页面显示做相应改变
     developMode = wx.getStorageSync('developMode');
     if (!developMode)
-      (p[1].content as any[]).forEach((x, y) => {
+      (page[1].content as any[]).forEach((x, y) => {
         x.hidden = !(y === 0);
       });
 
-    resolvePage(res, p);
+    resolvePage(res, page);
   },
   onLoad(option: any) {
     if (a.page.aim === '关于') setPage({ option, ctx: this });
     else {
-      const p = this.data.page;
+      const { page } = this.data;
 
       // 读取开发者模式并对页面显示做相应改变
       developMode = wx.getStorageSync('developMode');
       if (!developMode)
-        (p[1].content as any[]).forEach((x, y) => {
+        (page[1].content as any[]).forEach((x, y) => {
           x.hidden = !(y === 0);
         });
 
-      setPage({ option: { aim: 'about' }, ctx: this }, p);
+      setPage({ option: { aim: 'about' }, ctx: this }, page);
     }
 
     popNotice('about');

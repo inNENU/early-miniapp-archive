@@ -2,9 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:46:26
+ * @LastEditTime: 2019-11-03 13:12:55
  * @Description: 关于
  */
+import * as $register from 'wxpage';
 import { Delete, listFile } from '../utils/file';
 import {
   changeNav,
@@ -14,9 +15,8 @@ import {
   setPage
 } from '../utils/page';
 import { modal, tip } from '../utils/wx';
-import $register from 'wxpage';
 import { resDownload } from '../utils/tab';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 /** 列表动作 */
 type ListAction =
@@ -106,22 +106,22 @@ $register('storage', {
 
   /** 获得存储信息 */
   getStorage() {
-    const p = this.data.page as any;
+    const page = this.data.page as any;
     const { currentSize } = wx.getStorageInfoSync();
     let fileSize = 0;
 
     ((wx
       .getFileSystemManager()
       .statSync(wx.env.USER_DATA_PATH, true) as unknown) as any[]).forEach(
-        element => {
-          fileSize += element.stats.size;
-        }
-      );
+      element => {
+        fileSize += element.stats.size;
+      }
+    );
 
-    p[1].content[0].desc = `${currentSize}K/10240K`; // 写入存储大小
-    p[2].content[0].desc = `${Math.floor(fileSize / 1024)}K/10240K`; // 写入文件大小
+    page[1].content[0].desc = `${currentSize}K/10240K`; // 写入存储大小
+    page[2].content[0].desc = `${Math.floor(fileSize / 1024)}K/10240K`; // 写入文件大小
 
-    return p;
+    return page;
   },
 
   /** 刷新指南资源 */

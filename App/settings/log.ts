@@ -2,10 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:45:02
+ * @LastEditTime: 2019-11-03 13:11:36
  * @Description: 更新日志
  */
 
+import * as $register from 'wxpage';
 import {
   changeNav,
   popNotice,
@@ -13,9 +14,8 @@ import {
   setColor,
   setPage
 } from '../utils/page';
-import $register from 'wxpage';
 import { request } from '../utils/wx';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('log', {
   data: {

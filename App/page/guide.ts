@@ -2,9 +2,10 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:48:39
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:41:51
+ * @LastEditTime: 2019-11-03 13:14:18
  * @Description: 东师指南
  */
+import * as $register from 'wxpage';
 import {
   changeNav,
   popNotice,
@@ -13,9 +14,8 @@ import {
   setPage
 } from '../utils/page';
 import { checkResUpdate, refreshPage } from '../utils/tab';
-import $register from 'wxpage';
 import $search from '../utils/search';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('guide', {
   data: {

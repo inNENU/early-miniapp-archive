@@ -7,7 +7,7 @@
  * @Description: 天气小组件
  */
 
-import $register from 'wxpage';
+import * as $register from 'wxpage';
 import weatherHandler from './handler';
 
 /** 一小时天气预报详情 */
@@ -200,18 +200,18 @@ $register.C({
                 : weatherType.indexOf('雪') !== -1 ||
                   weatherType.indexOf('霜') !== -1 ||
                   weatherType.indexOf('冰') !== -1
-                  ? 'snowy'
-                  : weatherType.indexOf('雨') === -1
-                    ? weatherType.indexOf('阴') !== -1 ||
-                      weatherType.indexOf('云') !== -1
-                      ? 'cloudy'
-                      : ''
-                    : 'rainy'
+                ? 'snowy'
+                : weatherType.indexOf('雨') === -1
+                ? weatherType.indexOf('阴') !== -1 ||
+                  weatherType.indexOf('云') !== -1
+                  ? 'cloudy'
+                  : ''
+                : 'rainy'
               : new Date().getHours() > 6 && new Date().getHours() < 18
-                ? new Date().getSeconds() % 2 === 0
-                  ? 'sunny'
-                  : 'rainbow'
-                : 'starry';
+              ? new Date().getSeconds() % 2 === 0
+                ? 'sunny'
+                : 'rainbow'
+              : 'starry';
 
           this.setData({ weatherClass, weather });
 

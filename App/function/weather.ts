@@ -2,15 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:39:08
+ * @LastEditTime: 2019-11-03 13:10:00
  * @Description: 天气预报
  */
+import * as $register from 'wxpage';
 import { WeatherData, WeatherDetail } from '../components/weather/weather';
-import $register from 'wxpage';
 import { setColor } from '../utils/page';
 import weatherHandler from '../components/weather/handler';
 
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('weather', {
   data: {

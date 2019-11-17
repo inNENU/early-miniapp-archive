@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-08-14 22:13:31
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-12 14:07:31
+ * @LastEditTime: 2019-11-03 15:26:51
  * @Description: MPPage声明文件
  */
 
@@ -63,9 +63,9 @@ declare namespace MPPage {
      *
      * @param key 存储时的键值
      * @param data 存储时的数据
-     * 
+     *
      * 案例：
-     * 
+     *
      * ```js
      * this.$put('play:prefetch', new Promise(function (resolve, reject) {
      *   wx.request(url, function (err, data) {
@@ -84,7 +84,7 @@ declare namespace MPPage {
      * 取出存放的数据
      *
      * @param key 要取得数据的键值
-     * 
+     *
      * 案例：
      *
      * ```js
@@ -104,17 +104,16 @@ declare namespace MPPage {
 
   /** 页面跳转API */
   interface Redirector {
-
     /**
      * 导航到指定页面
-     * 
+     *
      * 本函数是`wx.navigateTo`的封装。跳转到指定页面，`pagename`可以带上`queryString`
      *
      * @param pagename 页面名称或页面的路径
      * @param config 传递给`wx.navigateTo`Api的参数(url会自动由`pagename`解析的结果填充)
-     * 
+     *
      * 示例：
-     * 
+     *
      * ```js
      * this.$route('play?vid=xxx&cid=xxx');
      * this.$route('calulator?result=98',{
@@ -162,7 +161,10 @@ declare namespace MPPage {
      * ```
      */
 
-    $redirect(pagename: string, config?: WechatMiniprogram.RedirectToOption): void;
+    $redirect(
+      pagename: string,
+      config?: WechatMiniprogram.RedirectToOption
+    ): void;
 
     /**
      * 跳转到指定tabBar页面，并关闭其他所有非tabBar页面
@@ -217,9 +219,9 @@ declare namespace MPPage {
      * 提前预加载指定页面 (会触发对应页面的 `onPreload` 声明周期)
      *
      * @param pagename 页面名称或页面的路径，可以带上`queryString`
-     * 
+     *
      * 示例：
-     * 
+     *
      * ```js
      * this.$preload('play?vid=xxx&cid=xxx');
      * this.$preload('/page/main?userName=xxx&action=xxx');
@@ -227,12 +229,12 @@ declare namespace MPPage {
      */
     $preload(pagename: string): void;
 
-    /** 
+    /**
      * 点击代理方法，绑定 `$route` 逻辑，在元素上声明 `data-url` 作为跳转地址，支持切面方法：
      *
      * - `data-before` 跳转前执行
      * - `data-after`  跳转后执行
-     * 
+     *
      * 示例：
      * ```html
      * <button
@@ -244,12 +246,12 @@ declare namespace MPPage {
      */
     $bindRoute(): void;
 
-    /** 
+    /**
      * 点击代理方法，绑定 `$redirect` 逻辑，在元素上声明 `data-url` 作为跳转地址，支持切面方法：
      *
      * - `data-before` 跳转前执行
      * - `data-after`  跳转后执行
-     * 
+     *
      * 示例：
      * ```html
      * <button
@@ -261,12 +263,12 @@ declare namespace MPPage {
      */
     $bindRedirect(): void;
 
-    /** 
+    /**
      * 点击代理方法，绑定 `$switch` 逻辑，在元素上声明 `data-url` 作为跳转地址，支持切面方法：
      *
      * - `data-before` 跳转前执行
      * - `data-after`  跳转后执行
-     * 
+     *
      * 示例：
      * ```html
      * <button
@@ -278,12 +280,12 @@ declare namespace MPPage {
      */
     $bindSwitch(): void;
 
-    /** 
+    /**
      * 点击代理方法，绑定 `$launch` 逻辑，在元素上声明 `data-url` 作为跳转地址，支持切面方法：
      *
      * - `data-before` 跳转前执行
      * - `data-after`  跳转后执行
-     * 
+     *
      * 示例：
      * ```html
      * <button
@@ -300,13 +302,15 @@ declare namespace MPPage {
     /**
      * 如果传 `callback` 参数，会使用异步模式并回调，否则直接同步返回结果。
      *
-     * @param key 
+     * @param key
      * @param value 缓存数据，可以为对象
      * @param expire 缓存过期时间，单位为毫秒。如果为 true ，那么保持已存在的缓存时间，如果没有缓存，那么认为过期，不保存
      * @param callback 可选，异步写的时候回调，接收参数：cb(err), err不为空代表失败。
      */
     set(
-      key: string, value: any, expire?: number | true,
+      key: string,
+      value: any,
+      expire?: number | true,
       callback?: (errMsg: any) => void
     ): void;
 
@@ -330,7 +334,7 @@ declare namespace MPPage {
   interface Stack {
     /**
      * 获取当前页面实例。取 getCurrentPages 的最后一个项。
-     * 
+     *
      * @returns 当前页面的页面名
      */
     $curPage(): PageInstance;
@@ -339,7 +343,7 @@ declare namespace MPPage {
      * 获取当前页面实例对应的页面名。根据`AppOption.config.route`的配置解析当前页面实例的`route`
      *
      * Notice: 由于基础库1.2.0以下不支持 `Page.prototype.route` ，只能取到空字符串
-     * 
+     *
      * @returns 当前页面的页面名
      */
     $curPageName(): string;
@@ -403,7 +407,6 @@ declare namespace MPPage {
     onNavigate(options: PageLifeTimeOptions): void;
   }
 
-
   /** 页面实例 */
   interface PageInstance extends Message, Redirector, Cache, Stack {
     /** 当前页面名称 */
@@ -427,15 +430,15 @@ declare namespace MPPage {
 
   /** 页面构造器 */
   interface PageConstructor {
-    (
-      name: string,
-      options: PageOption
-    ): void;
+    (name: string, options: PageOption): void;
   }
 
   /** 组件实例 */
   interface ComponentInstance<D extends WechatMiniprogram.Component.DataOption>
-    extends Message, Redirector, Cache, Stack {
+    extends Message,
+      Redirector,
+      Cache,
+      Stack {
     /** TODO: Remove
      *
      * 同 this.setData({...})
@@ -467,22 +470,22 @@ declare namespace MPPage {
     /** 当前组件所属的页面组件实例 只在 `attached`, `ready`生命周期后生效 */
     $root: any;
 
-    /** 
-     * 当前组件所属的父组件实例引用 只在 `attached`, `ready`生命周期后生效 
-     * 
+    /**
+     * 当前组件所属的父组件实例引用 只在 `attached`, `ready`生命周期后生效
+     *
      * 在非连续调用组件的情况下`$root`相同
      */
     $parent: any;
 
-    /** 
-     * 指定了 ref 的子组件实例Map，在父组件获取子组件引用 
-     * 
+    /**
+     * 指定了 ref 的子组件实例Map，在父组件获取子组件引用
+     *
      * 示例：
-     * 
+     *
      * ```html
      * <custom-component binding="$" ref="customComp"/>
      * ```
-     * 
+     *
      * ```js
      * Page.P({
      *   onLoad: function () {
@@ -560,18 +563,17 @@ declare namespace WechatMiniprogram {
   namespace Page {
     type MPInstance<
       D extends DataOption,
-      C extends CustomOption> = MPPage.PageInstance & Instance<D, C>
+      C extends CustomOption
+    > = MPPage.PageInstance & Instance<D, C>;
 
-    type MPOption<
-      D extends DataOption,
-      C extends CustomOption> =
-      Partial<MPPage.PageOption> &
+    type MPOption<D extends DataOption, C extends CustomOption> = Partial<
+      MPPage.PageOption
+    > &
       ThisType<MPInstance<D, C>> &
       Options<D, C>;
 
     interface MPConstructor {
-      <D extends DataOption,
-        C extends CustomOption>(
+      <D extends DataOption, C extends CustomOption>(
         name: string,
         options: MPOption<D, C>
       ): void;
@@ -579,51 +581,62 @@ declare namespace WechatMiniprogram {
   }
 
   namespace Component {
-    type MPInstance<D extends DataOption,
+    type MPInstance<
+      D extends DataOption,
       P extends PropertyOption,
-      M extends MethodOption> = MPPage.ComponentInstance<D> & Instance<D, P, M>;
+      M extends MethodOption
+    > = MPPage.ComponentInstance<D> & Instance<D, P, M>;
 
-    type MPOption<D extends DataOption,
+    type MPOption<
+      D extends DataOption,
       P extends PropertyOption,
-      M extends MethodOption> =
-      ThisType<MPInstance<D, P, M>> &
-      Options<D, P, M>;
+      M extends MethodOption
+    > = ThisType<MPInstance<D, P, M>> & Options<D, P, M>;
 
     interface MPConstructor {
-      <
-        D extends DataOption,
-        P extends PropertyOption,
-        M extends MethodOption>(
+      <D extends DataOption, P extends PropertyOption, M extends MethodOption>(
         options: MPOption<D, P, M>
       ): string;
     }
   }
 
   namespace App {
-    type MPInstance<T extends IAnyObject> = Option & T & {
-      globalData: GlobalData;
-    };
+    type MPInstance<T extends IAnyObject, GlobalData> = Option &
+      T & {
+        globalData: GlobalData;
+      };
 
-    type MPOption<T extends IAnyObject> =
-      Partial<MPPage.AppOption> & Partial<Option> &
-      T & ThisType<MPInstance<T>>;
+    type MPOption<
+      T extends IAnyObject,
+      GlobalData extends IAnyObject
+    > = Partial<MPPage.AppOption> &
+      Partial<Option> &
+      T &
+      ThisType<MPInstance<T, GlobalData>>;
 
     interface MPConstructor {
-      <T extends IAnyObject>(options: MPOption<T>): void;
+      <T extends IAnyObject, GlobalData extends IAnyObject>(
+        options: MPOption<T, GlobalData>
+      ): void;
     }
 
     interface GetApp {
-      (opts?: GetAppOption): MPInstance<IAnyObject>;
+      <T extends IAnyObject, GlobalData extends IAnyObject>(
+        opts?: GetAppOption
+      ): MPInstance<T, GlobalData>;
     }
   }
 }
 
 declare module 'wxpage' {
-  interface WXPage extends WechatMiniprogram.Page.MPConstructor, MPPage.Emitter {
+  interface WXPage
+    extends WechatMiniprogram.Page.MPConstructor,
+      MPPage.Emitter {
     A: WechatMiniprogram.App.MPConstructor;
     C: WechatMiniprogram.Component.MPConstructor;
   }
 
   const wxpage: WXPage;
-  export default wxpage;
+
+  export = wxpage;
 }

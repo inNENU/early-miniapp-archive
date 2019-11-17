@@ -2,11 +2,11 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-23 18:34:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:30:36
+ * @LastEditTime: 2019-11-03 15:23:59
  * @Description: 公众号组件
  */
 
-import $register from 'wxpage';
+import * as $register from 'wxpage';
 import { modal } from '../../../utils/wx';
 
 $register.C({
@@ -20,7 +20,7 @@ $register.C({
     gzh() {
       const {
         globalData: { appID }
-      } = getApp() as WechatMiniprogram.App.MPInstance<{}>; // 获得当前小程序ID
+      } = getApp<{}, GlobalData>(); // 获得当前小程序ID
 
       // 为企业主体微信小程序
       if (appID === 'wx9ce37d9662499df3')

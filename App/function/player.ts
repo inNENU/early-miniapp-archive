@@ -2,14 +2,14 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 23:14:23
+ * @LastEditTime: 2019-11-03 13:09:48
  * @Description: 音乐播放器
  */
+import * as $register from 'wxpage';
 import { getJson, readJson, writeJson } from '../utils/file';
 import { popNotice, setColor } from '../utils/page';
 import { request, tip } from '../utils/wx';
-import $register from 'wxpage';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 const manager = wx.getBackgroundAudioManager();
 
 interface SongDetail {

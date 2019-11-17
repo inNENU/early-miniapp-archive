@@ -5,11 +5,11 @@
  * @LastEditTime: 2019-10-21 22:38:14
  * @Description: 地点详情
  */
+import * as $register from 'wxpage';
 import { changeNav, resolvePage, setColor, setPage } from '../utils/page';
 import { makeDir, readJson, writeJson } from '../utils/file';
-import $register from 'wxpage';
 import { request } from '../utils/wx';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('situs', {
   onPreload(res) {

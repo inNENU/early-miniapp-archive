@@ -6,7 +6,7 @@
  * @Description: 列表组件
  */
 
-import $register from 'wxpage';
+import * as $register from 'wxpage';
 
 $register.C({
   properties: {

@@ -1,9 +1,10 @@
+/* eslint-disable max-params */
 /*
  * @Author: Mr.Hope
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-09-04 12:55:51
+ * @LastEditTime: 2019-11-17 15:35:24
  */
 
 import { debug, warn } from './log';
@@ -15,7 +16,11 @@ import { debug, warn } from './log';
  * @param duration 提示持续时间
  * @param icon= 提示图标
  */
-export const tip = (text: string, duration = 1500, icon: 'success' | 'loading' | 'none' = 'none') => {
+export const tip = (
+  text: string,
+  duration = 1500,
+  icon: 'success' | 'loading' | 'none' = 'none'
+) => {
   wx.showToast({ icon, title: text, duration: duration ? duration : 1500 });
 };
 
@@ -27,12 +32,18 @@ export const tip = (text: string, duration = 1500, icon: 'success' | 'loading' |
  * @param [confirmFunc] 点击确定的回调
  * @param [cancelFunc] 点击取消的回调，不填则不显示取消按钮
  */
-export const modal = (title: string, content: string, confirmFunc?: () => void, cancelFunc?: () => void) => {
+export const modal = (
+  title: string,
+  content: string,
+  confirmFunc?: () => void,
+  cancelFunc?: () => void
+) => {
   /** 显示取消按钮 */
-  const showCancel = !!cancelFunc;
+  const showCancel = Boolean(cancelFunc);
 
   wx.showModal({
-    title, content,
+    title,
+    content,
     showCancel,
     success: res => {
       if (res.confirm && confirmFunc) confirmFunc();
@@ -43,7 +54,6 @@ export const modal = (title: string, content: string, confirmFunc?: () => void, 
 
 /** 网络状态汇报 */
 export const netReport = () => {
-
   // 获取网络信息
   wx.getNetworkType({
     success: res => {
@@ -100,7 +110,7 @@ export const request = (
   wx.request({
     url: `https://mp.nenuyouth.com/${path}.json`,
     success: res => {
-      debug(`请求${path}成功:`, res);// 调试
+      debug(`请求${path}成功:`, res); // 调试
       if (res.statusCode === 200) successFunc(res.data as object);
       else {
         tip('服务器出现问题，请稍后重试');
@@ -132,9 +142,11 @@ export const request = (
  */
 export const downLoad = (
   path: string,
-  successFunc: (/** 缓存文件路径 */tempFilePath: string) => void,
-  failFunc?: (/** 失败信息 */errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
-  errorFunc?: (/** 服务器状态码 */statusCode: number) => void
+  successFunc: (/** 缓存文件路径 */ tempFilePath: string) => void,
+  failFunc?: (
+    /** 失败信息 */ errMsg: WechatMiniprogram.GeneralCallbackResult
+  ) => void,
+  errorFunc?: (/** 服务器状态码 */ statusCode: number) => void
 ) => {
   const progress = wx.downloadFile({
     url: `https://mp.nenuyouth.com/${path}`,

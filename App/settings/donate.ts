@@ -5,10 +5,10 @@
  * @LastEditTime: 2019-10-21 22:44:43
  * @Description: 捐赠
  */
+import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../utils/page';
 import { downLoad, modal, request, tip } from '../utils/wx';
-import $register from 'wxpage';
-const { globalData: a } = getApp() as WechatMiniprogram.App.MPInstance<{}>;
+const { globalData: a } = getApp<{}, GlobalData>();
 
 interface DonateDetail {
   /** 捐赠者姓名 */
