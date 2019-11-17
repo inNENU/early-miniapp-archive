@@ -27,7 +27,7 @@
         <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
         <ex-list config="{{item}}" wx:elif="{{item.tag==='List'}}" change="{{event?event[index]:''}}" bind:change="list" />
         <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
-        <template wx:else is="{{item.tag}}" data="{{...item,T}}" />
+        <template wx:else is="{{item.tag}}" data="{{...item,T,nm}}" />
       </block>
       <share config="{{page[0]}}" />
     </view>
@@ -47,7 +47,7 @@
     <ex-list config="{{item}}" wx:elif="{{item.tag==='List'}}" change="{{event?event[index]:''}}" bind:change="list" />
     <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
     <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
-    <template wx:else is="{{item.tag}}" data="{{...item,T}}" />
+    <template wx:else is="{{item.tag}}" data="{{...item,T,nm}}" />
   </block>
   <share config="{{page[0]}}" />
 </template>
@@ -70,7 +70,7 @@ Author: Mr.Hope
 <!-- 导航栏 -->
 <template name="head">
   <block wx:if="{{!hidden}}">
-    <template is="{{T}}Head" data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight}}" />
+    <template is="{{T}}Head" data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight,nm}}" />
   </block>
 </template>
 <!-- 错误提示 -->
@@ -181,13 +181,13 @@ Version: V1.0
 Author: Mr.Hope
 ********************************************* -->
 <template name='NENUHead'>
-  <block wx:if="{{action==undefined}}">
+  <block wx:if="{{action===undefined}}">
     <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catch:tap="$back">
       <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
     </view>
     <view class="NENUnav {{titleDisplay?'fadeOut':'fadeIn'}}" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
       <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catch:tap="$back">
-        <view wx:if="{{action==undefined||action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;' />
+        <view wx:if="{{action===undefined||action==='redirect'}}" class='iOS-backArrow' style='border-color:#fff;' />
         <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
       </button>
       <view class='NENU-navText'>{{title}}</view>
