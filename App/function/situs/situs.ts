@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:38:14
+ * @LastEditTime: 2019-11-17 20:57:06
  * @Description: 地点详情
  */
 import * as $register from 'wxpage';
@@ -79,7 +79,7 @@ $register('situs', {
   onShareAppMessage() {
     return {
       title: (this.data as any).page[0].title,
-      path: `/function/situs?From=主页&depth=1&xiaoqu=${this.xiaoqu}&id=${this.id}&aim=${this.aim}`
+      path: `/function/situs/situs?From=主页&depth=1&xiaoqu=${this.xiaoqu}&id=${this.id}&aim=${this.aim}`
     };
   },
 

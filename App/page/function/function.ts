@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-04-15 08:18:06
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 20:52:58
+ * @LastEditTime: 2019-11-17 20:59:06
  * @Description: 功能大厅
  */
 import * as $register from 'wxpage';
@@ -40,28 +40,28 @@ $register('function', {
             color: 'orange',
             name: 'Map',
             icon: '/icon/tabPage/map.svg',
-            url: '/function/map'
+            url: 'map'
           },
           {
             text: '音律东师',
             color: 'red',
             name: 'Music',
             icon: '/icon/tabPage/music.svg',
-            url: '/function/player'
+            url: 'player'
           },
           {
             text: '体测计算器',
             color: 'blue',
             name: 'PE Calucator',
             icon: '/icon/tabPage/calculate.svg',
-            url: '/function/PEcal'
+            url: 'PEcal'
           },
           {
             text: '校历',
             color: 'purple',
             name: 'Calendar',
             icon: '/icon/tabPage/calendar.svg',
-            url: '/function/calendar'
+            url: 'calendar'
           }
         ]
         /*

@@ -70,7 +70,10 @@ $register('donate', {
     changeNav(event, this);
   },
 
-  onShareAppMessage: () => ({ title: '捐赠Mr.Hope', path: '/settings/donate' }),
+  onShareAppMessage: () => ({
+    title: '捐赠Mr.Hope',
+    path: '/settings/donate/donate'
+  }),
 
   /** 保存二维码 */
   save(res: WXEvent.Touch) {

@@ -41,7 +41,7 @@ $register('sharePage', {
 
   /** 重定向到主页 */
   redirect() {
-    this.$launch('/page/main/main');
+    this.$launch('main');
   },
 
   onShareAppMessage() {

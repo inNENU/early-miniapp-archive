@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:11:36
+ * @LastEditTime: 2019-11-17 20:55:54
  * @Description: 更新日志
  */
 
@@ -85,5 +85,5 @@ $register('log', {
     changeNav(event, this);
   },
 
-  onShareAppMessage: () => ({ title: '更新日志', path: '/settings/log' })
+  onShareAppMessage: () => ({ title: '更新日志', path: '/settings/log/log' })
 });

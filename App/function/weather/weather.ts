@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 17:38:57
+ * @LastEditTime: 2019-11-17 21:02:06
  * @Description: 天气预报
  */
 import * as $register from 'wxpage';
@@ -216,7 +216,7 @@ $register('weather', {
 
   /** 返回按钮功能 */
   back() {
-    if (this.$state.firstOpen) wx.reLaunch({ url: '/page/main/main' });
+    if (this.$state.firstOpen) this.$launch('main');
     else this.$back();
   }
 });

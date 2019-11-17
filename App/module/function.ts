@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-30 14:43:46
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 17:39:05
+ * @LastEditTime: 2019-11-17 21:02:16
  * @Description: 功能页面
  */
 
@@ -60,6 +60,6 @@ $register('function', {
 
   /** 返回主页 */
   main() {
-    this.$launch('/page/main/main');
+    this.$launch('main');
   }
 });

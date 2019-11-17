@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:09:48
+ * @LastEditTime: 2019-11-17 20:56:47
  * @Description: 音乐播放器
  */
 import * as $register from 'wxpage';
@@ -372,7 +372,7 @@ $register('music', {
   onShareAppMessage() {
     return {
       title: this.data.currentSong.title,
-      path: `/function/player?index=${this.data.index}`
+      path: `/function/player/player?index=${this.data.index}`
     };
   },
   back() {

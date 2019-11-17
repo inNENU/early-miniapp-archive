@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 18:03:30
+ * @LastEditTime: 2019-11-17 20:55:07
  * @Description: 小程序主脚本
  */
 
@@ -33,8 +33,8 @@ $register.A({
     route: [
       '/page/$page/$page',
       '/module/$page',
-      '/function/$page',
-      '/settings/$page'
+      '/function/$page/$page',
+      '/settings/$page/$page'
     ],
     resolvePath: (name: string) =>
       ['main', 'function', 'guide', 'me', 'search'].includes(name)

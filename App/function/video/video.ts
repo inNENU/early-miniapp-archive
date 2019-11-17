@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:12:27
+ * @LastEditTime: 2019-11-17 20:57:20
  * @Description: 视频页面
  */
 
@@ -81,7 +81,7 @@ $register('video', {
   onShareAppMessage() {
     return {
       title: this.data.videoName,
-      path: `/function/video?id=${this.data.id}`
+      path: `/function/video/video?id=${this.data.id}`
     };
   },
 

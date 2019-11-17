@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:14:11
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 17:38:44
+ * @LastEditTime: 2019-11-17 21:01:48
  * @Description: 体测计算器
  */
 import * as $register from 'wxpage';
@@ -365,8 +365,11 @@ $register('PEcal', {
   },
 
   redirect() {
-    this.$launch('/page/main/main');
+    this.$launch('main');
   },
 
-  onShareAppMessage: () => ({ title: '体测计算器', path: '/function/PEcal' })
+  onShareAppMessage: () => ({
+    title: '体测计算器',
+    path: '/function/PEcal/PEcal'
+  })
 });

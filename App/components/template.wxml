@@ -124,7 +124,7 @@ Author: Mr.Hope
     </view>
   </view>
   <view class="donateCtn">
-    <navigator class="donateButton" url="/settings/donate">捐赠</navigator>
+    <navigator class="donateButton" url="/settings/donate/donate">捐赠</navigator>
   </view>
 </template>
 <!-- ******************************************
@@ -171,7 +171,7 @@ Author: Mr.Hope
     </view>
   </view>
   <view class="donateCtn">
-    <navigator class="donateButton" url="/settings/donate">捐赠</navigator>
+    <navigator class="donateButton" url="/settings/donate/donate">捐赠</navigator>
   </view>
 </template>
 <!-- ******************************************
@@ -223,7 +223,7 @@ Author: Mr.Hope
     </view>
   </view>
   <view class="donateCtn">
-    <navigator class="donateButton" url="/settings/donate">捐赠</navigator>
+    <navigator class="donateButton" url="/settings/donate/donate">捐赠</navigator>
   </view>
 </template>
 <template name='NENUinfo'>
@@ -284,6 +284,6 @@ Author: Mr.Hope
     </view>
   </view>
   <view class="donateCtn">
-    <navigator class="donateButton" url="/settings/donate">捐赠</navigator>
+    <navigator class="donateButton" url="/settings/donate/donate">捐赠</navigator>
   </view>
 </template>
