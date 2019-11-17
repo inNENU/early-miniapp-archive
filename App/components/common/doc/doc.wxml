@@ -1,6 +1,9 @@
-<view class="docCtn" hover-class="buttonHover" hover-stay-time="100" catch:tap="doc">
-  <!-- 文档图标 -->
-  <image class="docIcon" mode="widthFix" src="icon/{{config.docType}}.svg" />
-  <!-- 文档名称 -->
-  <view class="docName">{{config.docName}}.{{config.docType}}</view>
+<view class="docCtn">
+  <view class="docPreview" hover-class="buttonHover" hover-stay-time="100" catch:tap="preview">
+    <!-- 文档图标 -->
+    <image class="docIcon" mode="widthFix" src="icon/{{config.docType}}.svg" />
+    <!-- 文档名称 -->
+    <view class="docName">{{config.docName}}.{{config.docType}}</view>
+  </view>
+  <view wx:if="{{config.downloadable}}" class="docDownload" catch:tap="download">下载</view>
 </view>

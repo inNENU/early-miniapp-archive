@@ -4,7 +4,7 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-11-17 15:35:24
+ * @LastEditTime: 2019-11-17 16:55:29
  */
 
 import { debug, warn } from './log';
@@ -151,6 +151,7 @@ export const downLoad = (
   const progress = wx.downloadFile({
     url: `https://mp.nenuyouth.com/${path}`,
     success: res => {
+      wx.hideLoading();
       if (res.statusCode === 200) successFunc(res.tempFilePath);
       else {
         tip('服务器出现问题，请稍后重试');
@@ -161,6 +162,7 @@ export const downLoad = (
       }
     },
     fail: failMsg => {
+      wx.hideLoading();
       if (failFunc) failFunc(failMsg);
       netReport();
       warn(`下载 ${path} 失败:`, failMsg);
@@ -170,4 +172,57 @@ export const downLoad = (
   progress.onProgressUpdate(res => {
     wx.showLoading({ title: `下载中${Math.round(res.progress)}%` });
   });
+};
+
+/**
+ * 保存图片到相册
+ *
+ * @param 图片地址 path
+ */
+export const savePhoto = (imgPath: string) => {
+  downLoad(
+    imgPath,
+    path => {
+      // 获取用户设置
+      wx.getSetting({
+        success: res => {
+          // 如果已经授权相册直接写入图片
+          if (res.authSetting['scope.writePhotosAlbum'])
+            wx.saveImageToPhotosAlbum({
+              filePath: path,
+              success: () => {
+                tip('保存成功');
+              }
+            });
+          // 没有授权——>提示用户授权
+          else
+            wx.authorize({
+              scope: 'scope.writePhotosAlbum',
+              success: () => {
+                wx.saveImageToPhotosAlbum({
+                  filePath: path,
+                  success: () => {
+                    tip('保存成功');
+                  }
+                });
+              },
+
+              // 用户拒绝权限，提示用户开启权限
+              fail: () => {
+                modal(
+                  '权限被拒',
+                  '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
+                  () => {
+                    tip('二维码保存失败');
+                  }
+                );
+              }
+            });
+        }
+      });
+    },
+    () => {
+      tip('图片下载失败');
+    }
+  );
 };

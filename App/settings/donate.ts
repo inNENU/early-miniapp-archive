@@ -2,12 +2,12 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:02:51
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:44:43
+ * @LastEditTime: 2019-11-17 16:51:31
  * @Description: 捐赠
  */
 import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../utils/page';
-import { downLoad, modal, request, tip } from '../utils/wx';
+import { request, savePhoto } from '../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 interface DonateDetail {
@@ -75,50 +75,6 @@ $register('donate', {
   /** 保存二维码 */
   save(res: WXEvent.Touch) {
     console.log('Start QRCode download.'); // 调试
-    downLoad(
-      `img/donate/${res.currentTarget.dataset.name}.png`,
-      (path: string) => {
-        // 获取用户设置
-        wx.getSetting({
-          success: res2 => {
-            // 如果已经授权相册直接写入图片
-            if (res2.authSetting['scope.writePhotosAlbum'])
-              wx.saveImageToPhotosAlbum({
-                filePath: path,
-                success: () => {
-                  tip('保存成功');
-                }
-              });
-            // 没有授权——>提示用户授权
-            else
-              wx.authorize({
-                scope: 'scope.writePhotosAlbum',
-                success: () => {
-                  wx.saveImageToPhotosAlbum({
-                    filePath: path,
-                    success: () => {
-                      tip('保存成功');
-                    }
-                  });
-                },
-
-                // 用户拒绝权限，提示用户开启权限
-                fail: () => {
-                  modal(
-                    '权限被拒',
-                    '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
-                    () => {
-                      tip('二维码保存失败');
-                    }
-                  );
-                }
-              });
-          }
-        });
-      },
-      () => {
-        tip('二维码下载失败');
-      }
-    );
+    savePhoto(`img/donate/${res.currentTarget.dataset.name}.png`);
   }
 });

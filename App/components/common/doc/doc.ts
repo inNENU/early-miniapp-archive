@@ -7,7 +7,7 @@
  */
 
 import * as $register from 'wxpage';
-import { tip } from '../../../utils/wx';
+import { modal, savePhoto, tip } from '../../../utils/wx';
 
 $register.C({
   properties: {
@@ -16,7 +16,7 @@ $register.C({
   },
 
   methods: {
-    doc() {
+    preview() {
       if (
         ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(
           this.data.config.docType
@@ -54,6 +54,28 @@ $register.C({
         ['jpg', 'jpeg', 'jfif', 'png', 'gif'].includes(this.data.config.docType)
       )
         wx.previewImage({ urls: [this.data.config.url] });
+    },
+    download() {
+      if (
+        ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(
+          this.data.config.docType
+        )
+      )
+        // 检测到文档
+        wx.setClipboardData({
+          data: this.data.config.url,
+          success: () => {
+            modal(
+              '复制成功',
+              '下载链接已复制到您的剪切板。受小程序限制，请您自行打开浏览器粘贴在地址栏中以开启下载。'
+            );
+          }
+        });
+      else if (
+        ['jpg', 'jpeg', 'jfif', 'png', 'gif'].includes(this.data.config.docType)
+      )
+        // 检测到图片，开始图片下载
+        savePhoto(this.data.config.url);
     }
   },
 

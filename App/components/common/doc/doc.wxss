@@ -2,19 +2,15 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-27 13:11:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-07-27 13:27:29
+ * @LastEditTime: 2019-11-17 16:57:55
  * @Description: 文档样式
  */
 
 .docCtn {
   position: relative;
   width: 100%;
+  padding-bottom: 8px;
   background-color: #fefefe;
-  padding: 16px 0;
-  line-height: 1.2;
-  display: -webkit-flex;
-  display: flex;
-  align-items: center;
 }
 
 .docCtn:after,
@@ -59,6 +55,15 @@
   border-top: none;
 }
 
+.docPreview {
+  padding: 12px 0;
+  position: relative;
+  line-height: 1.2;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+
 .docIcon {
   width: 32px;
   height: 32px;
@@ -91,4 +96,20 @@
 
 .nm .docName:after {
   border-color: #383833;
+}
+
+.docDownload {
+  color: #000;
+  width: 40%;
+  margin: 8px auto 0 auto;
+  font-weight: 600;
+  padding: 6px 8px;
+  border-radius: 15px;
+  line-height: 1;
+  background-color: #efeef4;
+}
+
+.nm .docDownload {
+  color: #fff;
+  background-color: #1c1c1e;
 }
