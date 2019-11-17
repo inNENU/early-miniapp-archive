@@ -1,7 +1,7 @@
 <view class="docCtn">
   <view class="docPreview" hover-class="buttonHover" hover-stay-time="100" catch:tap="preview">
     <!-- 文档图标 -->
-    <image class="docIcon" mode="widthFix" src="icon/{{config.docType}}.svg" />
+    <image class="docIcon" mode="widthFix" src="icon/{{config.docIcon}}.svg" />
     <!-- 文档名称 -->
     <view class="docName">{{config.docName}}.{{config.docType}}</view>
   </view>

@@ -1,5 +1,5 @@
 <!-- 天气 -->
-<view class="weatherCtn animation-shake {{weatherClass === 'starry'? 'starry-bg': weatherClass === 'stormy'? 'stormy-bg': 'normal-bg' }}" catch:tap="navigate">
+<view class="weatherCtn animation-fade {{weatherClass === 'starry'? 'starry-bg': weatherClass === 'stormy'? 'stormy-bg': 'normal-bg' }}" catch:tap="navigate">
   <view class="weather-pic {{weatherClass}}" />
   <block wx:if="{{weatherClass}}">
     <view class='weatherDetail icon-location'>长春市 | {{weather.observe.weather}}</view>

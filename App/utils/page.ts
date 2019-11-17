@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 15:45:51
+ * @LastEditTime: 2019-11-17 17:24:47
  * @Description: Page函数库
  */
 
@@ -15,11 +15,11 @@ import { modal, request } from './wx';
 const { globalData } = getApp<{}, GlobalData>();
 
 /**
- * 获得文档类型
+ * 获得文档图标
  *
  * @param docType 文档后缀名
  */
-const getDoctype = (docType: string) =>
+const getDocIcon = (docType: string) =>
   docType === 'docx' || docType === 'doc'
     ? 'doc'
     : docType === 'pptx' || docType === 'ppt'
@@ -118,10 +118,8 @@ const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
 
         // 处理文档
         if (element.docName) {
-          const temp = element.docName.split('.')[1];
-
-          element.docName = element.docName.split('.')[0];
-          element.docType = getDoctype(temp);
+          [element.docName, element.docType] = element.docName.split('.');
+          element.docIcon = getDocIcon(element.docType);
         }
 
         // 设置list组件
