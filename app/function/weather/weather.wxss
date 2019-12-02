@@ -1,0 +1,515 @@
+.Ctn {
+  width: 100%;
+  background-color: #efeef4;
+}
+
+.nm.Ctn {
+  background-color: #000;
+}
+
+/* 天气基本信息 */
+.weatherCtn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 470px;
+  background-image: linear-gradient(-90deg, #3bbcff, #4af4ff);
+  background-image: -webkit-linear-gradient(-90deg, #3bbcff, #4af4ff);
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.share {
+  position: absolute;
+  top: 120px;
+  right: 15px;
+  color: #fff !important;
+  background-color: orange !important;
+  border-radius: 16px;
+  padding: 4px 12px !important;
+  border: none !important;
+  font-size: 15px;
+  line-height: 1.8;
+  z-index: 99;
+}
+
+.location {
+  height: 16px;
+  line-height: 16px;
+  width: 76%;
+  margin: 18px 12% 6px;
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.weatherCtn .temperature {
+  padding-left: 25px;
+  font-size: 62px;
+  line-height: 62px;
+  height: 62px;
+  margin-top: 66px;
+  position: relative;
+}
+
+.type {
+  font-size: 22px;
+  line-height: 22px;
+  height: 22px;
+  margin-top: 8px;
+}
+
+.desc {
+  margin: 16px 15%;
+  font-size: 15px;
+  text-align: justify;
+  line-height: 1.2;
+}
+
+.tip {
+  font-size: 16px;
+  line-height: 1.5;
+  height: 16px;
+  margin: 50px 60px 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* 今明天预报 */
+.forecast {
+  background-color: #fff;
+  height: 80px;
+  padding: 15px 0;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.nm .forecast {
+  background-color: #1C1C1E;
+}
+
+.forecast .item {
+  float: left;
+  width: 50%;
+  font-size: 14px;
+  color: #434343;
+  line-height: 14px;
+  padding: 0 20px;
+}
+
+.nm .forecast .item {
+  color: #b2b2b2;
+}
+
+.forecast .top {
+  height: 12px;
+  margin-bottom: 13px;
+}
+
+.forecast .date {
+  float: left;
+}
+
+.forecast .temperature {
+  float: right;
+}
+
+.forecast .bottom {
+  height: 22px;
+}
+
+.forecast .weather {
+  float: left;
+  height: 22px;
+  line-height: 22px;
+}
+
+.forecast .icon {
+  float: right;
+  height: 22px;
+  width: 22px;
+}
+
+
+.flexCtn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+/* 小时预报 */
+.hours {
+  margin: 20px 0;
+  padding: 10px 0;
+  background-color: #fff;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nm .hours {
+  color: #fff;
+  background-color: #1C1C1E;
+}
+
+.hours .item {
+  flex-shrink: 0;
+  width: 58px;
+  text-align: center;
+  position: relative;
+}
+
+.hours .time {
+  font-size: 12px;
+  line-height: 12px;
+  height: 12px;
+  color: #999;
+}
+
+.nm .hours .time {
+  color: 666;
+}
+
+.hours .icon {
+  height: 24px;
+  width: 24px;
+  display: block;
+  margin: 15px auto;
+}
+
+.hours .degree {
+  font-size: 14px;
+  color: #434343;
+  line-height: 14px;
+  height: 14px;
+  position: relative;
+}
+
+.nm .hours .degree {
+  color: #b2b2b2;
+}
+
+/* 天预报 */
+.days {
+  background-color: #fff;
+  width: 100%;
+  height: 391px;
+  padding: 20px 0;
+  position: relative;
+}
+
+.nm .days {
+  color: #fff;
+  background-color: #1C1C1E;
+}
+
+.days .item {
+  flex-grow: 1;
+}
+
+.days .day {
+  font-size: 12px;
+  color: #999;
+  line-height: 12px;
+  height: 12px;
+}
+
+.days .date {
+  margin: 5px 0 15px;
+  font-size: 12px;
+  color: #999;
+  line-height: 12px;
+  height: 12px;
+}
+
+.days .icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin: 0 auto;
+}
+
+.icon.night {
+  margin-top: 148px;
+}
+
+.days .weather {
+  margin: 16px 0 20px;
+  font-size: 14px;
+  color: #434343;
+  line-height: 14px;
+  height: 14px;
+}
+
+.nm .days .weather {
+  color: #b2b2b2;
+}
+
+.days .wind {
+  font-size: 12px;
+  color: #b2b2b2;
+  line-height: 12px;
+  height: 12px;
+  width: 40px;
+  margin: 0 auto 6px;
+  overflow: hidden;
+}
+
+
+.nm .days .wind {
+  color: #434343;
+}
+
+
+/* 画布 */
+.temperature.canvas {
+  position: absolute;
+  top: 126px;
+  height: 148px;
+  width: 100%;
+}
+
+/* 其他信息 */
+.info {
+  height: 188px;
+}
+
+.info .item {
+  background-color: #fff;
+  float: left;
+  text-align: center;
+  width: 25%;
+  height: 94px;
+  border-right: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.info .icon {
+  height: 24px;
+  width: 24px;
+  display: block;
+  margin: 15px auto 10px;
+  background-size: 24px;
+}
+
+.info .content {
+  font-size: 14px;
+  color: #434343;
+  line-height: 14px;
+  height: 14px;
+  margin-bottom: 6px;
+}
+
+.info .title {
+  color: #999;
+  height: 12px;
+  line-height: 12px;
+}
+
+/* 背景相关 */
+.background {
+  position: absolute;
+  bottom: 0;
+  top: 60px;
+}
+
+.weatherCtn .background {
+  width: 100%;
+  overflow: hidden;
+  z-index: 1
+}
+
+.weatherCtn .background,
+.weatherCtn .background .layer {
+  position: absolute;
+  bottom: 0;
+  top: 60px
+}
+
+.weatherCtn .background .layer {
+  content: "";
+  left: -6%;
+  right: -6%;
+  /* transform: translate3d(0px, 0px, 0px); */
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+
+.weatherCtn.night {
+  background-image: linear-gradient(-90deg, #313877, #44abec);
+  background-image: -webkit-linear-gradient(-90deg, #313877, #44abec)
+}
+
+.weatherCtn.night .layer1 {
+  z-index: 3;
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/f9fca795811b5d7c0e49580760bb0213.png)
+}
+
+.weatherCtn.night .layer2 {
+  z-index: 2;
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/53347cfa83d5c053610eaa533d2d02fc.png)
+}
+
+.weatherCtn.night .layer3 {
+  z-index: 1;
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/a0de07d1388c2c4f81b8caf96717e1a4.png)
+}
+
+.weatherCtn.night.C9 {
+  background-image: linear-gradient(-90deg, #313877, #44abec);
+  background-image: -webkit-linear-gradient(-90deg, #313877, #44abec)
+}
+
+.weatherCtn.night.C9 .layer1 {
+  z-index: 3;
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/f9fca795811b5d7c0e49580760bb0213.png)
+}
+
+.weatherCtn.night.C9 .layer2 {
+  z-index: 2;
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/53347cfa83d5c053610eaa533d2d02fc.png)
+}
+
+.weatherCtn.night.C9 .layer3 {
+  z-index: 1;
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/3e6438176c956bd30f19e23659533dee.png)
+}
+
+.weatherCtn .layer1 {
+  z-index: 3;
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/982194185a079fad9fd6d7eac312b378.png)
+}
+
+.weatherCtn .layer2 {
+  z-index: 2;
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/8fd2514cf9551f15e6925b935c8ce13a.png)
+}
+
+.weatherCtn .layer3 {
+  z-index: 1;
+  background-image: url(//mp.innenu.com/img/weather/layer3.png)
+}
+
+.weatherCtn.C1 {
+  background-image: linear-gradient(-90deg, #86c3ca, #b5e9e8);
+  background-image: -webkit-linear-gradient(-90deg, #86c3ca, #b5e9e8)
+}
+
+.weatherCtn.C1 .layer1 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/1355c59170ff294f7a619d5300cbfb0a.png)
+}
+
+.weatherCtn.C1 .layer2 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/61e81da52b26f66c5147a241679a7a24.png)
+}
+
+.weatherCtn.C1 .layer3 {
+  background-image: url(//mp.innenu.com/img/weather/C1-layer3.png)
+}
+
+.weatherCtn.C3 {
+  background-image: linear-gradient(-90deg, #43697f, #abd2d7);
+  background-image: -webkit-linear-gradient(-90deg, #43697f, #abd2d7)
+}
+
+.weatherCtn.C3 .layer1 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/ea607fb41199de44ee7a648e1eb995c7.png)
+}
+
+.weatherCtn.C3 .layer2 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/541c915122a0b917dcae14d491674a5c.png)
+}
+
+.weatherCtn.C3 .layer3 {
+  background-image: url(//mp.innenu.com/img/weather/C3-layer3.png)
+}
+
+.weatherCtn.C4 {
+  background-image: linear-gradient(-90deg, #67a1dc, #a8e0f7);
+  background-image: -webkit-linear-gradient(-90deg, #67a1dc, #a8e0f7)
+}
+
+.weatherCtn.C4 .layer1 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/211423b5b50714150fdb06d73bdc96d0.png)
+}
+
+.weatherCtn.C4 .layer2 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/e517d1c2d0a2e590a58fb216f625b0d8.png)
+}
+
+.weatherCtn.C4 .layer3 {
+  background-image: url(//mp.innenu.com/img/weather/C4-layer3.png)
+}
+
+.weatherCtn.C5 {
+  background-image: linear-gradient(-90deg, #81aedc, #a9def1);
+  background-image: -webkit-linear-gradient(-90deg, #81aedc, #a9def1)
+}
+
+.weatherCtn.C5 .layer1 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/126c55c27b0a06df9027201b805e4019.png)
+}
+
+.weatherCtn.C5 .layer2 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/5ef7f9eff77a2e681e811ef621065ea0.png)
+}
+
+.weatherCtn.C5 .layer3 {
+  background-image: url(//mp.innenu.com/img/weather/C4-layer3.png)
+}
+
+.weatherCtn.C6 {
+  background-image: linear-gradient(-90deg, #9b9b96, #c1c1bc);
+  background-image: -webkit-linear-gradient(-90deg, #9b9b96, #c1c1bc)
+}
+
+.weatherCtn.C6 .layer1 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/bb31ccd9f8190bda0af8a7639824999e.png)
+}
+
+.weatherCtn.C6 .layer2 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/6fb63be6fbda894b145066b5b32e14d6.png)
+}
+
+.weatherCtn.C6 .layer3 {
+  background-image: url(//mp.innenu.com/img/weather/C6-layer3.png)
+}
+
+.weatherCtn.C7 {
+  background-image: linear-gradient(-90deg, #c09461, #eedfa1);
+  background-image: -webkit-linear-gradient(-90deg, #c09461, #eedfa1)
+}
+
+.weatherCtn.C7 .layer1 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/7dcf5f773971982115abdb8fd1414108.png)
+}
+
+.weatherCtn.C7 .layer2 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/fc49c43624c9c35132df7087aa0c72e0.png)
+}
+
+.weatherCtn.C7 .layer3 {
+  background-image: url(//mp.innenu.com/img/weather/C7-layer3.png)
+}
+
+.weatherCtn.C9 {
+  background-image: linear-gradient(-90deg, #50ade8, #7ae0fa);
+  background-image: -webkit-linear-gradient(-90deg, #50ade8, #7ae0fa)
+}
+
+.weatherCtn.C9 .layer1 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/1760b3821904f2080269709e89a22e26.png)
+}
+
+.weatherCtn.C9 .layer2 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/4f99c267041530f361776065c5af2671.png)
+}
+
+.weatherCtn.C9 .layer3 {
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/2bbce2b25f1f2a8af1fbf7c9215a6afe.png)
+}

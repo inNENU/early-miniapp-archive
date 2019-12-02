@@ -59,7 +59,6 @@ rules:
     - error
     - min: 2
       exceptions:
-        - e
         - i
         - j
         - x
@@ -87,6 +86,14 @@ rules:
   line-comment-position:
     - off
 
+  max-lines:
+    - warn
+    - 500
+
+  max-lines-per-function:
+    - warn
+    - 80
+
   max-statements:
     - warn
     - 25
@@ -101,13 +108,16 @@ rules:
   no-console:
     - off
 
-  no-debugger: 
+  no-debugger:
     - off
 
   no-inline-comments:
     - off
 
   no-magic-numbers:
+    - off
+
+  no-multi-assign:
     - off
 
   no-nested-ternary:
@@ -132,6 +142,9 @@ rules:
 
   no-warning-comments:
     - warn
+
+  no-unused-vars:
+    - off
 
   object-curly-spacing:
     - off

@@ -1,7 +1,7 @@
 /node_modules/
-/App/**/*.js
-/App/**/*.js.map
-/App/miniprogram_npm/
-!/App/node_modules/**/*.js
-!/App/node_modules/**/*.js.map
+/app/**/*.js
+/app/**/*.js.map
+/app/miniprogram_npm/
+!/app/node_modules/**/*.js
+!/app/node_modules/**/*.js.map
 /doc/

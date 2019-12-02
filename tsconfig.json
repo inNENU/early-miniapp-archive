@@ -40,11 +40,11 @@
     "module": "CommonJS"
   },
   "include": [
-    "App",
-    "@types"
+    "app",
+    "typings"
   ],
   "exclude": [
-    "APP/miniprogram_npm",
+    "app/miniprogram_npm",
     "node_modules"
   ]
 }

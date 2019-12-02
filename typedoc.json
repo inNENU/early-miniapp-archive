@@ -1,7 +1,7 @@
 {
   "out": "./doc",
   "name": "in东师",
-  "includes": "./App/utils",
+  "includes": "./app/utils",
   "includeDeclarations": false,
   "excludeExternals": true,
   "excludeNotExported": false,
