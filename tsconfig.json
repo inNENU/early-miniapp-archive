@@ -2,8 +2,8 @@
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode":false,
-    "allowUnusedLabels":false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "alwaysStrict": false,
     "declaration": false,
     "diagnostics": false,
@@ -37,7 +37,8 @@
       "es2019"
     ],
     "locale": "zh-CN",
-    "module": "CommonJS"
+    "module": "CommonJS",
+    "types": []
   },
   "include": [
     "app",

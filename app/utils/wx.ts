@@ -4,10 +4,11 @@
  * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-11-21 17:07:19
+ * @LastEditTime: 2019-12-07 12:33:24
  */
 
 import { debug, warn } from './log';
+import { server } from './config';
 
 /**
  * 显示提示文字
@@ -108,7 +109,7 @@ export const request = (
   errorFunc?: (statusCode: number) => void
 ) => {
   wx.request({
-    url: `https://mp.innenu.com/${path}.json`,
+    url: `${server}${path}.json`,
     success: res => {
       debug(`请求${path}成功:`, res); // 调试
       if (res.statusCode === 200) successFunc(res.data as object);
@@ -149,7 +150,7 @@ export const downLoad = (
   errorFunc?: (/** 服务器状态码 */ statusCode: number) => void
 ) => {
   const progress = wx.downloadFile({
-    url: `https://mp.innenu.com/${path}`,
+    url: `${server}${path}`,
     success: res => {
       wx.hideLoading();
       if (res.statusCode === 200) successFunc(res.tempFilePath);

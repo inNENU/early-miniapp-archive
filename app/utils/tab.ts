@@ -9,6 +9,7 @@
 import { Delete, readJson, saveFile, unzip } from './file';
 import { debug, error, info } from './log';
 import { modal, request, tip } from './wx';
+import { server } from './config';
 import { setPage } from './page';
 
 /**
@@ -20,7 +21,7 @@ export const resDownload = (name: string) => {
   wx.showLoading({ title: '更新中...', mask: true });
   wx.setStorageSync(`${name}Download`, false);
   const downLoadTask = wx.downloadFile({
-    url: `https://mp.innenu.com/${name}.zip`,
+    url: `${server}${name}.zip`,
     success: res => {
       if (res.statusCode === 200) {
         wx.showLoading({ title: '保存中...', mask: true });
@@ -70,7 +71,7 @@ export const checkResUpdate = (name: string, dataUsage: string) => {
   if (notify || currentTime > Number(localTime) + 604800)
     // 如果需要更新
     wx.request({
-      url: `https://mp.innenu.com/server/resVersion.php?res=${name}`,
+      url: `${server}server/resVersion.php?res=${name}`,
       success: res => {
         // 资源为最新
         if (res.statusCode === 200)

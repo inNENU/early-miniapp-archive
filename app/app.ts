@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-21 17:07:07
+ * @LastEditTime: 2019-12-07 12:45:24
  * @Description: 小程序主脚本
  */
 
@@ -14,11 +14,12 @@ import {
   noticeCheck,
   startup
 } from './utils/app';
+import { version } from './utils/config';
 
 $register.A({
   /** 小程序的全局数据 */
   globalData: ({
-    version: 'V 2.4.2',
+    version,
     music: { play: false, played: false, index: 0 },
     page: {
       data: [],

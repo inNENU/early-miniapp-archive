@@ -18,7 +18,7 @@
 	},
 	"miniprogramRoot": "app/",
 	"compileType": "miniprogram",
-	"libVersion": "2.9.3",
+	"libVersion": "2.9.4",
 	"appid": "wx33acb831ee1831a5",
 	"qqLibVersion": "1.8.5",
 	"qqappid": "1109559721",
@@ -43,7 +43,9 @@
 			"outputPath": ""
 		},
 		"bundle": true,
-		"remoteDebugLogEnable": false
+		"showShadowRootInWxmlPanel": true,
+		"remoteDebugLogEnable": false,
+		"scopeDataCheck": true
 	},
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

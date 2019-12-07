@@ -3,7 +3,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-21 16:42:44
+ * @LastEditTime: 2019-12-07 12:35:59
  * @Description: APP函数库
  */
 
@@ -11,6 +11,7 @@
 import { Delete, listFile, saveFile, unzip } from './file';
 import { error, info, warn } from './log';
 import { modal, netReport, request, tip } from './wx';
+import { server } from './config';
 
 /** App初始化选项 */
 interface AppOption {
@@ -60,7 +61,7 @@ const resDownload = (list: string[], callBack: () => void) => {
   list.forEach(name => {
     // 下载zip包
     wx.downloadFile({
-      url: `https://mp.innenu.com/${name}.zip`,
+      url: `${server}${name}.zip`,
       success: res => {
         console.log(`${name} statusCode is ${res.statusCode}`); // 调试
         if (res.statusCode === 200) {
@@ -366,7 +367,7 @@ const login = (appID: string) => {
       success: res => {
         if (res.code)
           wx.request({
-            url: 'https://mp.innenu.com/server/login.php',
+            url: `${server}server/login.php`,
             method: 'POST',
             data: { appID, code: res.code },
             success: res2 => {
