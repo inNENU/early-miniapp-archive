@@ -1,4 +1,4 @@
-<template name="mapControl">
+<map subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4" id="schoolMap" class="{{nm? 'nm': ''}}" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" markers="{{markers}}" bind:markertap="markers" bind:callouttap="markers" bind:updated="update" bindregionchange="regionChange" setting="{{nm? nightMapSettings: dayMapSettings}}">
   <!-- 返回按钮 -->
   <cover-view class="backBtn" style="top:{{info.statusBarHeight + 5}}px;z-index:97;" hover-class="buttonHover" catch:tap="$back">
     <cover-image class="backIcon" src="/icon/back{{nm? 'White': ''}}.png" />
@@ -21,7 +21,7 @@
   </cover-view>
   <!-- 分类按钮 -->
   <cover-view class="selectCtn {{pointDisplay? 'fadeIn': 'fadeOut'}}" catch:tap="select">
-    <cover-view wx:for="{{category}}" wx:key="{{item[0]}}" class="selectBtn {{selectItem === item[1]? 'active': ''}}" hover-class="buttonHover" data-category="{{item[1]}}">
+    <cover-view wx:for="{{category}}" wx:key="*this" class="selectBtn {{selectItem === item[1]? 'active': ''}}" hover-class="buttonHover" data-category="{{item[1]}}">
       <cover-view data-category="{{item[1]}}">{{item[0]}}</cover-view>
     </cover-view>
   </cover-view>
@@ -38,12 +38,4 @@
       <cover-image class="listBtn" src="/function/icon/list{{list? '-active': ''}}.png" />
     </cover-view>
   </cover-view>
-</template>
-<!-- 夜间模式地图 -->
-<map wx:if="{{nm}}" subkey="YNUBZ-AN3HF-P62JK-J2GND-XQTQQ-TTBOB" id="schoolMap" class="schoolMap nm" style="width:100%;height:100%;" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" show-location markers="{{markers}}" bindmarkertap="markers" bindcallouttap="markers" bindupdated="update" bindregionchange="regionChange" enable-3D enable-scroll enable-rotate show-compass enable-overlooking enable-zoom>
-  <template is="mapControl" data="{{nm,list,closeTop,info,isBenbu,category,selectItem,pointDisplay,tabHeight}}" />
-</map>
-<!-- 日间模式地图 -->
-<map wx:else subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4" id="schoolMap" class="schoolMap" style="width:100%;height:100%;" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" show-location markers="{{markers}}" bindmarkertap="markers" bindcallouttap="markers" bindupdated="update" bindregionchange="regionChange" enable-3D enable-scroll enable-rotate show-compass enable-overlooking enable-zoom>
-  <template is="mapControl" data="{{nm,list,closeTop,info,isBenbu,category,selectItem,pointDisplay,tabHeight}}" />
 </map>

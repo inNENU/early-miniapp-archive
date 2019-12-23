@@ -3,7 +3,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-12-07 12:35:59
+ * @LastEditTime: 2019-12-08 23:31:24
  * @Description: APP函数库
  */
 
@@ -402,9 +402,9 @@ export const startup = (globalData: GlobalData) => {
   // 检测基础库版本
   if (
     ((globalData.env === 'qq' &&
-      Number(globalData.info.SDKVersion.split('.')[1]) < 6) ||
+      Number(globalData.info.SDKVersion.split('.')[1]) < 9) ||
       (globalData.env === 'wx' &&
-        Number(globalData.info.SDKVersion.split('.')[1]) < 7)) &&
+        Number(globalData.info.SDKVersion.split('.')[1]) < 8)) &&
     wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
   )
     modal(

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-21 16:49:27
+ * @LastEditTime: 2019-12-08 23:44:20
  * @Description: 地图
  */
 import * as $register from 'wxpage';
@@ -10,6 +10,22 @@ import { popNotice, setColor } from '../../utils/page';
 import { markerSet } from '../../utils/map';
 import { modal } from '../../utils/wx';
 const { globalData } = getApp<{}, GlobalData>();
+
+/** 地图配置 */
+const mapSettings: WechatMiniprogram.MapSettings = {
+  showLocation: true,
+  showScale: true,
+  subKey: 'NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4',
+  enableRotate: true,
+  showCompass: true,
+  enable3D: true,
+  enableOverlooking: true,
+  // enableSatellite: true,
+  enableTraffic: true
+};
+
+const dayMapSettings = { layerStyle: 1, ...mapSettings };
+const nightMapSettings = { layerStyle: 2, ...mapSettings };
 
 /** 本部栅格 */
 const benbuPoint = {
@@ -33,6 +49,12 @@ $register('map', {
   data: {
     /** 夜间模式状态 */
     nm: globalData.nm,
+
+    /** 日间地图设置 */
+    dayMapSettings,
+
+    /** 夜间地图设置 */
+    nightMapSettings,
 
     /** 地图数据 */
     map: {
@@ -75,13 +97,14 @@ $register('map', {
 
   onLoad() {
     // QQ小程序暂不支持地图的处理
-    if (globalData.env === 'qq')
+    if (
+      globalData.env === 'qq' &&
+      Number(globalData.info.SDKVersion.split('.')[1]) < 9
+    )
       modal(
-        '暂不支持',
-        'QQ小程序暂未推出地图功能，Mr.Hope会在第一时间适配，如需查看地图请使用微信小程序。',
-        () => {
-          this.$back();
-        }
+        '版本过低',
+        '您的 QQ 版本过低，无法使用地图组件。请您升级到最新客户端',
+        () => this.$back()
       );
 
     wx.showLoading({ title: '加载中...' });
@@ -274,7 +297,7 @@ $register('map', {
       );
     else if (event.type === 'callouttap')
       this.$route(
-        `/function/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu +
+        `/function/situs/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu +
           event.markerId.toString()}`
       );
   },
