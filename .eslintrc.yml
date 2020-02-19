@@ -1,7 +1,6 @@
 root: true
 
 env:
-  node: true
   es6: true
 
 globals:
@@ -23,19 +22,20 @@ parserOptions:
 extends:
   - eslint:all
   - plugin:prettier/recommended
-  - prettier
-  - prettier/@typescript-eslint
 
 plugins:
   - prettier
-  - "@typescript-eslint"
 
 rules:
-  prettier/prettier: error
+  no-useless-constructor:
+    - off
 
   arrow-parens:
     - error
     - as-needed
+
+  class-methods-use-this:
+    - off
 
   comma-dangle:
     - error
@@ -59,6 +59,7 @@ rules:
     - error
     - min: 2
       exceptions:
+        - a
         - i
         - j
         - x
@@ -71,9 +72,7 @@ rules:
   indent:
     - off
     - 2
-    - flatTernaryExpressions: true
-      SwitchCase: 1
-      ignoredNodes:
+    - ignoredNodes:
         - ConditionalExpression
 
   init-declarations:
@@ -140,11 +139,11 @@ rules:
   no-undefined:
     - off
 
-  no-warning-comments:
-    - warn
-
   no-unused-vars:
     - off
+
+  no-warning-comments:
+    - warn
 
   object-curly-spacing:
     - off
@@ -179,9 +178,28 @@ rules:
   strict:
     - off
 
-  # tyepscript规则
-  "@typescript-eslint/explicit-function-return-type": off
-  "@typescript-eslint/interface-name-prefix": off
-  "@typescript-eslint/no-empty-interface": off
-  "@typescript-eslint/no-explicit-any": off
-  "@typescript-eslint/no-triple-slash-reference": off
+overrides:
+  - files:
+      - "*.js"
+
+    env:
+      node: true
+
+  - files:
+      - "*.ts"
+
+    extends:
+      - plugin:@typescript-eslint/eslint-recommended
+      - plugin:@typescript-eslint/recommended
+      - prettier/@typescript-eslint
+
+    plugins:
+      - "@typescript-eslint"
+
+    rules:
+      "@typescript-eslint/explicit-function-return-type": off
+      # "@typescript-eslint/explicit-function-return-type":
+      #   - warn
+      #   - allowTypedFunctionExpressions: true
+
+      "@typescript-eslint/no-explicit-any": off

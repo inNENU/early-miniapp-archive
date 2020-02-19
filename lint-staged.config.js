@@ -1,3 +1,3 @@
 module.exports = {
-  '!(d).ts}': ['eslint --fix', 'git add']
+  '*.{ts}': ['eslint --fix', 'git add']
 };

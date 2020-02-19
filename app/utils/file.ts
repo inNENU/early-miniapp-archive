@@ -1,14 +1,15 @@
 /* eslint-disable max-params */
 /*
  * @Author: Mr.Hope
- * @LastEditors: Mr.Hope
+ * @LastEditors  : Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-10-21 23:27:00
+ * @LastEditTime : 2020-01-18 18:16:51
  */
 
 import { debug, error, info, warn } from './log';
 
+/** 文件编码 */
 type FileEncoding =
   | 'utf-8'
   | 'ascii'
@@ -35,7 +36,7 @@ const url = 'mp.innenu.com';
  * @param path 要删除的文件或文件夹路径
  * @param isDir 要删除的是否是文件夹
  */
-export const Delete = (path: string, isDir?: boolean | undefined) => {
+export const Delete = (path: string, isDir?: boolean | undefined): void => {
   if (isDir === undefined)
     try {
       // 判断路径是否是文件，并执行对应删除操作
@@ -74,7 +75,7 @@ export const Delete = (path: string, isDir?: boolean | undefined) => {
  * @param path 要查看的文件/文件夹路径
  * @returns true
  */
-const isFileExist = (path: string) => {
+const isFileExist = (path: string): boolean => {
   try {
     fileManager.statSync(`${userPath}/${path}`, false);
 
@@ -95,7 +96,7 @@ export const exist = isFileExist;
  * @param path 要查看的文件夹路径
  * @returns 指定目录下的文件名数组
  */
-export const listFile = (path: string) => {
+export const listFile = (path: string): string[] => {
   try {
     const fileList = fileManager.readdirSync(`${userPath}/${path}`);
 
@@ -117,7 +118,10 @@ export const listFile = (path: string) => {
  * @param encoding 文件的编码格式
  * @returns 文件内容
  */
-export const readFile = (path: string, encoding: FileEncoding = 'utf-8') => {
+export const readFile = (
+  path: string,
+  encoding: FileEncoding = 'utf-8'
+): string | ArrayBuffer | undefined => {
   try {
     return fileManager.readFileSync(`${userPath}/${path}`, encoding);
   } catch (err) {
@@ -134,7 +138,10 @@ export const readFile = (path: string, encoding: FileEncoding = 'utf-8') => {
  * @param encoding 文件的编码格式
  * @returns  解析后的json
  */
-export const readJson = (path: string, encoding: FileEncoding = 'utf-8') => {
+export const readJson = (
+  path: string,
+  encoding: FileEncoding = 'utf-8'
+): any => {
   let data;
 
   try {
@@ -167,7 +174,7 @@ export const readJson = (path: string, encoding: FileEncoding = 'utf-8') => {
  * @param path 要创建的目录路径
  * @param recursive 是否递归创建目录
  */
-export const makeDir = (path: string, recursive = true) => {
+export const makeDir = (path: string, recursive = true): void => {
   try {
     fileManager.mkdirSync(`${userPath}/${path}`, recursive);
   } catch (err) {
@@ -181,7 +188,7 @@ export const makeDir = (path: string, recursive = true) => {
  * @param tempFilePath 缓存文件路径
  * @param path 保存文件路径
  */
-export const saveFile = (tempFilePath: string, path: string) => {
+export const saveFile = (tempFilePath: string, path: string): void => {
   try {
     fileManager.saveFileSync(tempFilePath, `${userPath}/${path}`);
   } catch (err) {
@@ -207,7 +214,7 @@ export const saveOnlineFile = (
   successFunc: (path: string) => void,
   failFunc?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
   errorFunc?: (statusCode: number) => void
-) => {
+): void => {
   makeDir(savePath);
   wx.downloadFile({
     url: `https://${url}/${onlinePath}`,
@@ -241,7 +248,7 @@ export const writeFile = (
   fileName: string,
   data: object | ArrayBuffer | string,
   encoding: FileEncoding = 'utf-8'
-) => {
+): void => {
   const jsonString = JSON.stringify(data);
 
   makeDir(path);
@@ -265,7 +272,7 @@ export const writeJson = (
   fileName: string,
   data: object,
   encoding: FileEncoding = 'utf-8'
-) => {
+): void => {
   const jsonString = JSON.stringify(data);
 
   makeDir(path);
@@ -287,7 +294,7 @@ export const getJson = (
   path: string,
   successFunc?: (data: object | string) => void,
   failFunc?: () => void
-) => {
+): void => {
   const temp = path.split('/');
   const fileName = temp.pop();
   const folder = temp.join('/');
@@ -348,7 +355,7 @@ export const unzip = (
   path: string,
   unzipPath: string,
   successFunc?: () => void
-) => {
+): void => {
   fileManager.unzip({
     zipFilePath: `${userPath}/${path}`,
     targetPath: `${userPath}/${unzipPath}`,

@@ -2,8 +2,8 @@
 /*
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-12-08 23:31:24
+ * @LastEditors  : Mr.Hope
+ * @LastEditTime : 2020-01-18 18:17:59
  * @Description: APP函数库
  */
 
@@ -54,7 +54,7 @@ const appOption: AppOption = {
  * @param list 需要下载的资源列表
  * @param callBack 下载完成的回调函数
  */
-const resDownload = (list: string[], callBack: () => void) => {
+const resDownload = (list: string[], callBack: () => void): void => {
   /** 监听数 */
   let listenNumber = list.length;
 
@@ -104,7 +104,7 @@ const resDownload = (list: string[], callBack: () => void) => {
 };
 
 /** 初始化小程序 */
-export const appInit = () => {
+export const appInit = (): void => {
   // 提示用户正在初始化
   wx.showLoading({ title: '初始化中...', mask: true });
   info('初次启动');
@@ -156,7 +156,7 @@ export const appInit = () => {
  *
  * @param globalData 小程序的全局数据
  */
-export const noticeCheck = (globalData: GlobalData) => {
+export const noticeCheck = (globalData: GlobalData): void => {
   /** 通知列表格式 */
   interface NoticeList {
     [props: string]: {
@@ -221,7 +221,7 @@ export const noticeCheck = (globalData: GlobalData) => {
  *
  * @returns 夜间模式状态
  */
-export const nightmode = () => {
+export const nightmode = (): boolean => {
   const date = new Date();
   /** 当前时间 */
   const time = date.getHours() * 100 + date.getMinutes();
@@ -287,7 +287,7 @@ interface UpdateInfo {
  *
  * @param globalData 小程序的全局数据
  */
-export const appUpdate = (globalData: GlobalData) => {
+export const appUpdate = (globalData: GlobalData): void => {
   const updateManager = wx.getUpdateManager();
   let version = '9.9.9';
   let forceUpdate = true;
@@ -358,7 +358,7 @@ export const appUpdate = (globalData: GlobalData) => {
  *
  * @param appID 小程序的appID
  */
-const login = (appID: string) => {
+const login = (appID: string): void => {
   const openid = wx.getStorageSync('openid');
 
   if (openid) console.log(`openid为：${openid}`);
@@ -389,7 +389,7 @@ const login = (appID: string) => {
  *
  * @param globalData 小程序的全局数据
  */
-export const startup = (globalData: GlobalData) => {
+export const startup = (globalData: GlobalData): void => {
   // 获取设备与运行环境信息
   globalData.info = wx.getSystemInfoSync();
   if (globalData.info.AppPlatform === 'qq') globalData.env = 'qq';
@@ -411,9 +411,7 @@ export const startup = (globalData: GlobalData) => {
       '基础库版本偏低',
       `您的${
         globalData.env === 'qq' ? 'QQ' : '微信'
-      }偏低，会导致小程序部分内容显示异常，但这不会影响您在小程序的操作。建议您将${
-        globalData.env === 'qq' ? 'QQ' : '微信'
-      }更新至最新版版本。以获得最佳体验。`,
+      }版本偏低，虽然不会影响小程序的功能，但会导致部分内容显示异常。为获得最佳体验，建议您更新至最新版本。`,
       () => {
         // 避免重复提示
         wx.setStorageSync('SDKVersion', globalData.info.SDKVersion);
@@ -430,6 +428,7 @@ export const startup = (globalData: GlobalData) => {
     console.warn('onMemoryWarningReceive');
     wx.reportAnalytics('memory_warning', {
       // eslint-disable-next-line camelcase
+      // eslint-disable-next-line @typescript-eslint/camelcase
       memory_warning: res && res.level ? res.level : 0
     });
   });

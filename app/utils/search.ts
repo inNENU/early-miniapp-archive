@@ -1,8 +1,8 @@
 /*
  * @Author: Mr.Hope
  * @Date: 2019-08-12 01:14:51
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:26:06
+ * @LastEditors  : Mr.Hope
+ * @LastEditTime : 2020-01-18 18:04:35
  * @Description: 搜索模块
  */
 
@@ -39,7 +39,7 @@ interface SearchResult {
 let keywords: Keywords;
 
 /** 初始化keywords */
-const init = () => {
+const init = (): void => {
   getJson('page/keywords', data => {
     keywords = data as Keywords;
   });
@@ -52,7 +52,7 @@ const init = () => {
  *
  * @returns 匹配的候选词列表
  */
-const searching = (searchWord: string) => {
+const searching = (searchWord: string): string[] => {
   const words: string[] = [];
 
   if (searchWord)
@@ -98,7 +98,7 @@ const searching = (searchWord: string) => {
  *
  * @returns 匹配的结果列表
  */
-const search = (searchWord: string) => {
+const search = (searchWord: string): SearchResult[] => {
   const words = searchWord.split('');
   const weight: SearchResultWeight = {};
   const resultList: SearchResult[] = [];

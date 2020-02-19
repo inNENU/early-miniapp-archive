@@ -1,8 +1,8 @@
 /*
  * @Author: Mr.Hope
  * @Date: 2019-11-17 15:37:05
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 15:37:55
+ * @LastEditors  : Mr.Hope
+ * @LastEditTime : 2020-01-18 18:14:25
  * @Description: 地图相关
  */
 
@@ -27,7 +27,7 @@ interface Marker {
  *
  * @returns 处理后的marker
  */
-const initMarker = (markers: Marker[]) => {
+const initMarker = (markers: Marker[]): Marker[] => {
   markers.forEach(marker => {
     const markerOrigin = {
       iconPath: '/function/icon/marker.png',
@@ -108,7 +108,7 @@ interface MarkerConfig {
  * @param data marker数据
  * @param name marker名称
  */
-const setMarker = (data: MarkerConfig, name: string) => {
+const setMarker = (data: MarkerConfig, name: string): void => {
   const marker = initMarker(data.points);
   const { category } = data;
 
@@ -124,7 +124,7 @@ const setMarker = (data: MarkerConfig, name: string) => {
 };
 
 /** 设置marker */
-export const markerSet = () => {
+export const markerSet = (): void => {
   const markerVersion = wx.getStorageSync('markerVersion');
   const functionVersion = readJson('functionVersion');
 

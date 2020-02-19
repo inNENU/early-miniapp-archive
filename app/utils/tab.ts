@@ -17,7 +17,7 @@ import { setPage } from './page';
  *
  * @param name 下载资源名称
  */
-export const resDownload = (name: string) => {
+export const resDownload = (name: string): void => {
   wx.showLoading({ title: '更新中...', mask: true });
   wx.setStorageSync(`${name}Download`, false);
   const downLoadTask = wx.downloadFile({
@@ -58,7 +58,7 @@ export const resDownload = (name: string) => {
  * @param dataUsage 消耗的数据流量
  */
 // eslint-disable-next-line max-lines-per-function
-export const checkResUpdate = (name: string, dataUsage: string) => {
+export const checkResUpdate = (name: string, dataUsage: string): void => {
   const notify = wx.getStorageSync(`${name}ResNotify`); // 资源提醒
   const localVersion = readJson(`${name}Version`); // 读取本地Version文件
   const localTime = wx.getStorageSync(`${name}UpdateTime`);
@@ -130,7 +130,7 @@ export const checkResUpdate = (name: string, dataUsage: string) => {
  *
  * @param nightmode 夜间模式开启状态
  */
-export const tabBarChanger = (nightmode: boolean) => {
+export const tabBarChanger = (nightmode: boolean): void => {
   const color = nightmode ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
   wx.setTabBarStyle({
@@ -148,7 +148,11 @@ export const tabBarChanger = (nightmode: boolean) => {
  * @param ctx 页面指针
  * @param globalData 全局数据
  */
-export const refreshPage = (name: string, ctx: any, globalData: GlobalData) => {
+export const refreshPage = (
+  name: string,
+  ctx: any,
+  globalData: GlobalData
+): void => {
   const test = wx.getStorageSync('test');
 
   // 开启测试后展示测试界面

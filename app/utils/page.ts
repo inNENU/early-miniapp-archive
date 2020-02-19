@@ -1,8 +1,9 @@
+/* eslint-disable max-lines */
 /*
  * @Author: Mr.Hope
  * @Date: 2019-07-01 17:15:44
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 17:24:47
+ * @LastEditors  : Mr.Hope
+ * @LastEditTime : 2020-01-18 18:12:28
  * @Description: Page函数库
  */
 
@@ -19,7 +20,7 @@ const { globalData } = getApp<{}, GlobalData>();
  *
  * @param docType 文档后缀名
  */
-const getDocIcon = (docType: string) =>
+const getDocIcon = (docType: string): string =>
   docType === 'docx' || docType === 'doc'
     ? 'doc'
     : docType === 'pptx' || docType === 'ppt'
@@ -45,7 +46,7 @@ const getDocIcon = (docType: string) =>
  * @param element 列表的内容
  * @param head 页面头部选项
  */
-const resolveList = (listElement: any, head: any) => {
+const resolveList = (listElement: any, head: any): void => {
   // 设置列表导航
   if ('url' in listElement) listElement.url += `?From=${head.title}`;
   if ('aim' in listElement)
@@ -90,7 +91,11 @@ const resolveList = (listElement: any, head: any) => {
  *
  * @returns 处理之后的page
  */
-const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
+const disposePage = (
+  page: PageData,
+  option: PageArg,
+  firstOpen = false
+): PageData => {
   if (page)
     if (page[0].tag === 'head') {
       // 对page中head标签执行初始化
@@ -139,6 +144,13 @@ const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
   return page; // 返回处理后的page
 };
 
+interface AimConfig {
+  /** 文件夹名称 */
+  folder: string;
+  /** JSON 路径 */
+  path: string;
+}
+
 /**
  * 获取文件夹与路径名称
  *
@@ -146,7 +158,7 @@ const disposePage = (page: PageData, option: PageArg, firstOpen = false) => {
  *
  * @returns 文件夹与路径
  */
-const resolveAim = (aim: string) => {
+const resolveAim = (aim: string): AimConfig => {
   let { length } = aim;
 
   while (!isNaN(Number(aim.charAt(length)))) length -= 1;
@@ -160,7 +172,7 @@ const resolveAim = (aim: string) => {
  *
  * @param page 页面数据
  */
-const preGetPage = (page: PageData) => {
+const preGetPage = (page: PageData): void => {
   if (page)
     page.forEach(component => {
       if ('content' in component)
@@ -203,7 +215,7 @@ export const resolvePage = (
   option: MPPage.PageLifeTimeOptions,
   page?: PageData,
   setGlobal = true
-) => {
+): PageData | null => {
   info('将要跳转：', option); // 控制台输出参数
   const { aim } = option.query;
   let data;
@@ -259,7 +271,7 @@ export const setPage = (
   { option, ctx, handle = false }: SetPageOption,
   page?: PageData,
   preload = true
-) => {
+): void => {
   // 设置页面数据
   if (page)
     ctx.setData({
@@ -309,7 +321,7 @@ export const setPage = (
  *
  * @param aim 当前界面的aim值
  */
-export const popNotice = (aim: string) => {
+export const popNotice = (aim: string): void => {
   if (wx.getStorageSync(`${aim}Notify`)) {
     /*
      * 判断是否需要弹窗
@@ -338,7 +350,12 @@ export const popNotice = (aim: string) => {
  * @param ctx 页面指针
  * @param preload 是否需要预加载(默认需要)
  */
-export const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
+// eslint-disable-next-line max-lines-per-function
+export const setOnlinePage = (
+  option: PageArg,
+  ctx: any,
+  preload = true
+): void => {
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
   if (globalData.page.aim === option.aim) {
     debug(`${option.aim}已处理`);
@@ -417,6 +434,19 @@ export const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
   } else error('no aim');
 };
 
+interface ColorConfig {
+  nc: {
+    frontColor: string;
+    backgroundColor: string;
+    animation: {};
+  };
+  bc: {
+    backgroundColorTop: string;
+    backgroundColor: string;
+    backgroundColorBottom: string;
+  };
+}
+
 /**
  * **简介:**
  *
@@ -430,7 +460,7 @@ export const setOnlinePage = (option: PageArg, ctx: any, preload = true) => {
  *
  * @returns 页面实际的胶囊与背景颜色
  */
-export const setColor = (grey = false) => {
+export const setColor = (grey = false): ColorConfig => {
   const [frontColor, backgroundColor] = globalData.nm
     ? ['#ffffff', '#000000']
     : ['#000000', '#ffffff'];
@@ -498,7 +528,7 @@ export const setColor = (grey = false) => {
  *
  * @param theme 主题
  */
-export const loadFont = (theme: string) => {
+export const loadFont = (theme: string): void => {
   if (theme === 'Android')
     wx.loadFontFace({
       family: 'FZKTJW',
@@ -543,7 +573,7 @@ export const changeNav = (
   option: WechatMiniprogram.Page.IPageScrollOption,
   ctx: any,
   headName?: string
-) => {
+): void => {
   const pageHead = headName ? ctx.data[headName] : ctx.data.page[0];
 
   // 判断情况并赋值

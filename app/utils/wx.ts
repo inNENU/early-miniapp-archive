@@ -1,10 +1,10 @@
 /* eslint-disable max-params */
 /*
  * @Author: Mr.Hope
- * @LastEditors: Mr.Hope
+ * @LastEditors  : Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2019-12-07 12:33:24
+ * @LastEditTime : 2020-01-18 18:03:47
  */
 
 import { debug, warn } from './log';
@@ -21,7 +21,7 @@ export const tip = (
   text: string,
   duration = 1500,
   icon: 'success' | 'loading' | 'none' = 'none'
-) => {
+): void => {
   wx.showToast({ icon, title: text, duration: duration ? duration : 1500 });
 };
 
@@ -38,7 +38,7 @@ export const modal = (
   content: string,
   confirmFunc?: () => void,
   cancelFunc?: () => void
-) => {
+): void => {
   /** 显示取消按钮 */
   const showCancel = Boolean(cancelFunc);
 
@@ -54,7 +54,7 @@ export const modal = (
 };
 
 /** 网络状态汇报 */
-export const netReport = () => {
+export const netReport = (): void => {
   // 获取网络信息
   wx.getNetworkType({
     success: res => {
@@ -107,7 +107,7 @@ export const request = (
   successFunc: (data: Record<string, any>) => void,
   failFunc?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
   errorFunc?: (statusCode: number) => void
-) => {
+): void => {
   wx.request({
     url: `${server}${path}.json`,
     success: res => {
@@ -148,7 +148,7 @@ export const downLoad = (
     /** 失败信息 */ errMsg: WechatMiniprogram.GeneralCallbackResult
   ) => void,
   errorFunc?: (/** 服务器状态码 */ statusCode: number) => void
-) => {
+): void => {
   const progress = wx.downloadFile({
     url: `${server}${path}`,
     success: res => {
@@ -180,7 +180,7 @@ export const downLoad = (
  *
  * @param imgPath 图片地址
  */
-export const savePhoto = (imgPath: string) => {
+export const savePhoto = (imgPath: string): void => {
   downLoad(
     imgPath,
     path => {

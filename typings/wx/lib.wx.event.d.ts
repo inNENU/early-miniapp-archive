@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 /**
  * 事件对象类型
  */
@@ -40,7 +42,8 @@ declare namespace WXEvent {
   /**
    * 自定义事件
    */
-  interface Custom<P extends Record<string, any> = Record<string, any>> extends Base {
+  interface Custom<P extends Record<string, any> = Record<string, any>>
+    extends Base {
     /**
      * 额外的信息
      */
@@ -79,7 +82,7 @@ declare namespace WXEvent {
   interface Touch<
     P extends Record<string, any> = Record<string, any>,
     T extends TouchDetail | TouchCanvasDetail = TouchDetail
-    > extends Custom<P> {
+  > extends Custom<P> {
     /**
      * 触摸事件，当前停留在屏幕中的触摸点信息的数组
      */
@@ -248,7 +251,10 @@ declare namespace WXEvent {
    *
    * 最低基础库: 1.3.0
    */
-  type ButtonGetUserInfo = Custom<WechatMiniprogram.GeneralCallbackResult & WechatMiniprogram.GetUserInfoSuccessCallbackResult>;
+  type ButtonGetUserInfo = Custom<
+    WechatMiniprogram.GeneralCallbackResult &
+      WechatMiniprogram.GetUserInfoSuccessCallbackResult
+  >;
 
   /**
    * 客服消息回调，open-type="contact"时有效
@@ -262,8 +268,10 @@ declare namespace WXEvent {
    *
    * 最低基础库: 1.2.0
    */
-  type ButtonGetPhoneNumber =
-    Custom<WechatMiniprogram.GeneralCallbackResult & Partial<WechatMiniprogram.GetWeRunDataSuccessCallbackResult>>;
+  type ButtonGetPhoneNumber = Custom<
+    WechatMiniprogram.GeneralCallbackResult &
+      Partial<WechatMiniprogram.GetWeRunDataSuccessCallbackResult>
+  >;
 
   /**
    * 当使用开放能力时，发生错误的回调，open-type=launchApp时有效
@@ -277,7 +285,10 @@ declare namespace WXEvent {
    *
    * 最低基础库: 2.0.7
    */
-  type ButtonOpenSetting = Custom<WechatMiniprogram.GeneralCallbackResult & WechatMiniprogram.OpenSettingSuccessCallbackResult>;
+  type ButtonOpenSetting = Custom<
+    WechatMiniprogram.GeneralCallbackResult &
+      WechatMiniprogram.OpenSettingSuccessCallbackResult
+  >;
 
   /**
    * 打开 APP 成功的回调，open-type=launchApp时有效
@@ -732,14 +743,14 @@ declare namespace WXEvent {
      * - `videoHeight` 视频画面的高度
      */
     info:
-    | 'videoBitrate'
-    | 'audioBitrate'
-    | 'videoFPS'
-    | 'videoGOP'
-    | 'netSpeed'
-    | 'netJitter'
-    | 'videoWidth'
-    | 'videoHeight';
+      | 'videoBitrate'
+      | 'audioBitrate'
+      | 'videoFPS'
+      | 'videoGOP'
+      | 'netSpeed'
+      | 'netJitter'
+      | 'videoWidth'
+      | 'videoHeight';
   }>;
 
   /**
@@ -805,14 +816,14 @@ declare namespace WXEvent {
      * -`videoHeight` 视频画面的高度
      */
     info:
-    | 'videoBitrate'
-    | 'audioBitrate'
-    | 'videoFPS'
-    | 'videoGOP'
-    | 'netSpeed'
-    | 'netJitter'
-    | 'videoWidth'
-    | 'videoHeight';
+      | 'videoBitrate'
+      | 'audioBitrate'
+      | 'videoFPS'
+      | 'videoGOP'
+      | 'netSpeed'
+      | 'netJitter'
+      | 'videoWidth'
+      | 'videoHeight';
   }>;
 
   /**

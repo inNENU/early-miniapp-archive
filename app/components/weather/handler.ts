@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
 /*
  * @Author: Mr.Hope
  * @Date: 2019-07-31 11:05:08
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 15:32:27
+ * @LastEditors  : Mr.Hope
+ * @LastEditTime : 2020-01-14 20:23:37
  * @Description: 天气处理函数
  */
 import { WeatherData, WeatherForcast1H } from './weather';

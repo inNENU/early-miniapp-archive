@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 /// <reference path="./pageData.d.ts" />
 
 declare interface InitGlobalData {
@@ -16,9 +17,9 @@ declare interface InitGlobalData {
   /** 页面信息 */
   page: {
     /** 页面数据 */
-    data?: PageData,
+    data?: PageData;
     /** 页面名称 */
-    aim?: string
+    aim?: string;
   };
   /** 启动时间 */
   date: number;
@@ -44,4 +45,3 @@ declare interface GlobalData extends InitGlobalData {
   /** 小程序appid */
   appID: string;
 }
-

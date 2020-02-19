@@ -38,7 +38,9 @@
     ],
     "locale": "zh-CN",
     "module": "CommonJS",
-    "types": []
+    "types": [
+      "miniprogram-api-typings"
+    ]
   },
   "include": [
     "app",
