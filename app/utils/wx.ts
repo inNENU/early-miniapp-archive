@@ -1,10 +1,10 @@
 /* eslint-disable max-params */
 /*
  * @Author: Mr.Hope
- * @LastEditors  : Mr.Hope
+ * @LastEditors: Mr.Hope
  * @Description: 交互模块
  * @Date: 2019-04-11 15:48:45
- * @LastEditTime : 2020-01-18 18:03:47
+ * @LastEditTime: 2020-02-25 09:15:56
  */
 
 import { debug, warn } from './log';
@@ -14,8 +14,8 @@ import { server } from './config';
  * 显示提示文字
  *
  * @param text 提示文字
- * @param duration 提示持续时间
- * @param icon= 提示图标
+ * @param duration 提示持续时间，单位ms，默认为`1500`
+ * @param icon 提示图标，默认为`'none'`
  */
 export const tip = (
   text: string,
@@ -30,8 +30,8 @@ export const tip = (
  *
  * @param title 提示文字
  * @param content 提示文字
- * @param confirmFunc 点击确定的回调
- * @param cancelFunc 点击取消的回调，不填则不显示取消按钮
+ * @param confirmFunc 点击确定的回调函数
+ * @param cancelFunc 点击取消的回调函数，不填则不显示取消按钮
  */
 export const modal = (
   title: string,
@@ -51,6 +51,21 @@ export const modal = (
       else if (res.cancel && cancelFunc) cancelFunc();
     }
   });
+};
+
+/**
+ * 确认操作
+ *
+ * @param actionText 行为文字
+ * @param confirmFunc 确定回调函数
+ * @param cancelFunc 取消回调函数
+ */
+export const confirm = (
+  actionText: string,
+  confirmFunc: () => void,
+  cancelFunc: () => void = () => undefined
+) => {
+  modal('确认操作', `您确定要${actionText}么?`, confirmFunc, cancelFunc);
 };
 
 /** 网络状态汇报 */
@@ -95,7 +110,7 @@ export const netReport = (): void => {
 };
 
 /**
- * 包装wx.request
+ * 执行网络请求
  *
  * @param path 请求路径
  * @param successFunc 回调函数
@@ -111,12 +126,12 @@ export const request = (
   wx.request({
     url: `${server}${path}.json`,
     success: res => {
-      debug(`请求${path}成功:`, res); // 调试
+      debug(`请求 ${path} 成功: `, res); // 调试
       if (res.statusCode === 200) successFunc(res.data as object);
       else {
         tip('服务器出现问题，请稍后重试');
         // 调试
-        warn(`请求${path}失败：${res.statusCode}`);
+        warn(`请求 ${path} 失败：${res.statusCode}`);
         wx.reportMonitor('3', 1);
 
         if (errorFunc) errorFunc(res.statusCode);
@@ -127,14 +142,14 @@ export const request = (
       netReport();
 
       // 调试
-      warn(`请求${path}失败:`, failMsg);
+      warn(`请求 ${path} 失败: `, failMsg);
       wx.reportMonitor('4', 1);
     }
   });
 };
 
 /**
- * 包装wx.downloadFile
+ * 下载文件
  *
  * @param path 下载路径
  * @param successFunc 成功回调函数
@@ -212,10 +227,8 @@ export const savePhoto = (imgPath: string): void => {
               fail: () => {
                 modal(
                   '权限被拒',
-                  '您拒绝了相册写入权限，如果想要保存图片，请在小程序设置页允许权限',
-                  () => {
-                    tip('二维码保存失败');
-                  }
+                  '如果想要保存图片，请在“我的东师”-“权限设置”允许保存图片权限',
+                  () => tip('二维码保存失败')
                 );
               }
             });

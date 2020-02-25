@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:12:55
+ * @LastEditTime: 2020-02-23 23:05:33
  * @Description: 关于
  */
 import * as $register from 'wxpage';
@@ -14,7 +14,7 @@ import {
   setColor,
   setPage
 } from '../../utils/page';
-import { modal, tip } from '../../utils/wx';
+import { confirm, modal, tip } from '../../utils/wx';
 import { resDownload } from '../../utils/tab';
 const { globalData: a } = getApp<{}, GlobalData>();
 
@@ -126,45 +126,55 @@ $register('storage', {
 
   /** 刷新指南资源 */
   refreshGuide() {
-    resDownload('page');
+    confirm('刷新指南资源', () => {
+      resDownload('page');
+    });
   },
 
   /** 刷新功能资源 */
   refreshFunc() {
-    resDownload('function');
+    confirm('刷新功能资源', () => {
+      resDownload('function');
+    });
   },
 
   /** 清除小程序数据 */
   deleteData() {
-    wx.clearStorageSync();
-    tip('数据清除完成');
+    confirm('清除小程序数据', () => {
+      wx.clearStorageSync();
+      tip('数据清除完成');
+    });
   },
 
   /** 清除小程序文件 */
   deleteFile() {
-    wx.showLoading({ title: '删除中', mask: true });
+    confirm('清除小程序文件', () => {
+      wx.showLoading({ title: '删除中', mask: true });
 
-    listFile('').forEach((filePath: string) => {
-      Delete(filePath);
+      listFile('').forEach((filePath: string) => {
+        Delete(filePath);
+      });
+
+      wx.hideLoading();
     });
-
-    wx.hideLoading();
   },
 
   /** 初始化小程序 */
   resetApp() {
-    // 显示提示
-    wx.showLoading({ title: '初始化中', mask: true });
+    confirm('初始化小程序', () => {
+      // 显示提示
+      wx.showLoading({ title: '初始化中', mask: true });
 
-    // 清除文件系统文件与数据存储
-    listFile('').forEach((filePath: string) => {
-      Delete(filePath);
+      // 清除文件系统文件与数据存储
+      listFile('').forEach((filePath: string) => {
+        Delete(filePath);
+      });
+      wx.clearStorageSync();
+
+      // 隐藏提示
+      wx.hideLoading();
+      // 提示用户重启
+      modal('小程序初始化完成', '请单击 “退出小程序按钮” 退出小程序');
     });
-    wx.clearStorageSync();
-
-    // 隐藏提示
-    wx.hideLoading();
-    // 提示用户重启
-    modal('小程序初始化完成', '请单击 “退出小程序按钮” 退出小程序');
   }
 });

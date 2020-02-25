@@ -1,13 +1,14 @@
 /* eslint-disable max-params */
 /*
  * @Author: Mr.Hope
- * @LastEditors  : Mr.Hope
+ * @LastEditors: Mr.Hope
  * @Description: 文件管理模块
  * @Date: 2019-02-12 16:45:44
- * @LastEditTime : 2020-01-18 18:16:51
+ * @LastEditTime: 2020-02-25 09:15:34
  */
 
 import { debug, error, info, warn } from './log';
+import { server } from './config';
 
 /** 文件编码 */
 type FileEncoding =
@@ -28,8 +29,6 @@ type FileEncoding =
 const fileManager = wx.getFileSystemManager();
 /** 用户文件夹路径 */
 const userPath = wx.env.USER_DATA_PATH;
-/** 请求网址 */
-const url = 'mp.innenu.com';
 
 /**
  * 删除文件或文件夹
@@ -217,7 +216,7 @@ export const saveOnlineFile = (
 ): void => {
   makeDir(savePath);
   wx.downloadFile({
-    url: `https://${url}/${onlinePath}`,
+    url: `https://${server}${onlinePath}`,
     filePath: `${userPath}/${savePath}/${fileName}`,
     success: res => {
       if (res.statusCode === 200) {
@@ -307,7 +306,7 @@ export const getJson = (
       makeDir(folder);
 
       wx.downloadFile({
-        url: `https://${url}/${path}.json`,
+        url: `https://${server}${path}.json`,
         filePath: `${userPath}/${folder}/${fileName}.json`,
         success: res => {
           if (res.statusCode === 200) {
@@ -331,7 +330,7 @@ export const getJson = (
     makeDir(folder);
 
     wx.downloadFile({
-      url: `https://${url}/${path}.json`,
+      url: `https://${server}${path}.json`,
       filePath: `${userPath}/${folder}/${fileName}.json`,
       success: res => {
         if (res.statusCode === 200) info(`保存 ${path}.json 成功`);

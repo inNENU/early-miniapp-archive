@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:12:13
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-12-08 23:44:20
+ * @LastEditTime: 2020-02-25 09:21:49
  * @Description: 地图
  */
 import * as $register from 'wxpage';
@@ -158,7 +158,7 @@ $register('map', {
         }
       });
       wx.hideLoading();
-    }, 500);
+    }, 1000);
 
     // 将地图写入options实例中
     this.mapCtx = mapCtx;
@@ -228,7 +228,7 @@ $register('map', {
           });
         }
       });
-    }, 500);
+    }, 1000);
 
     wx.setStorageSync('isBenbu', temp);
   },
