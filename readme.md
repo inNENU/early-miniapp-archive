@@ -2,7 +2,7 @@
 
 [![作者：Mr.Hope](https://img.shields.io/badge/作者-Mr.Hope-blue.svg?style=for-the-badge)](https://mrhope.site)
 
-[![Travis CI](https://travis-ci.com/Mister-Hope/inNENU.svg?token=7xxygNk5rDwyn3m9dKvC&branch=2.0)](https://travis-ci.com/Mister-Hope/inNENU)
+![Node CI](https://github.com/Mister-Hope/inNENU-mp/workflows/Node%20CI/badge.svg)
 
 <!-- 
 wx9ce37d9662499df3
