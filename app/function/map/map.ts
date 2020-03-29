@@ -143,9 +143,9 @@ $register('map', {
     // 500ms之后拿到缩放值和地图中心点坐标，写入地图组件配置
     setTimeout(() => {
       mapCtx.getScale({
-        success: r1 => {
+        success: (r1) => {
           mapCtx.getCenterLocation({
-            success: r2 => {
+            success: (r2) => {
               this.setData({
                 map: {
                   scale: r1.scale,
@@ -177,7 +177,7 @@ $register('map', {
     // 读取tab高度
     wx.createSelectorQuery()
       .select('#mapTab')
-      .boundingClientRect(rect => {
+      .boundingClientRect((rect) => {
         this.setData({ tabHeight: rect.height });
       })
       .exec();
@@ -214,9 +214,9 @@ $register('map', {
     // 重新获取缩放值与中心点坐标写入地图组件
     setTimeout(() => {
       mapCtx.getScale({
-        success: r1 => {
+        success: (r1) => {
           mapCtx.getCenterLocation({
-            success: r2 => {
+            success: (r2) => {
               this.setData({
                 map: {
                   scale: r1.scale,
@@ -240,7 +240,7 @@ $register('map', {
    */
   scale(event: WXEvent.Touch) {
     this.mapCtx.getCenterLocation({
-      success: r2 => {
+      success: (r2) => {
         this.setData({
           map: {
             scale:
@@ -297,8 +297,9 @@ $register('map', {
       );
     else if (event.type === 'callouttap')
       this.$route(
-        `/function/situs/situs?xiaoqu=${xiaoqu}&aim=${xiaoqu +
-          event.markerId.toString()}`
+        `/function/situs/situs?xiaoqu=${xiaoqu}&aim=${
+          xiaoqu + event.markerId.toString()
+        }`
       );
   },
   showList() {

@@ -40,7 +40,7 @@ let keywords: Keywords;
 
 /** 初始化keywords */
 const init = (): void => {
-  getJson('page/keywords', data => {
+  getJson('page/keywords', (data) => {
     keywords = data as Keywords;
   });
 };
@@ -56,7 +56,7 @@ const searching = (searchWord: string): string[] => {
   const words: string[] = [];
 
   if (searchWord)
-    Object.keys(keywords).forEach(jsonName => {
+    Object.keys(keywords).forEach((jsonName) => {
       const { title } = keywords[jsonName];
 
       // 检查标题是否包含了searchWord
@@ -69,7 +69,7 @@ const searching = (searchWord: string): string[] => {
 
       // 检查每个关键词是否包含了searchWord
       if (keywords[jsonName].keywords)
-        keywords[jsonName].keywords.forEach(keyword => {
+        keywords[jsonName].keywords.forEach((keyword) => {
           if (
             keyword.indexOf(searchWord) !== -1 &&
             words.indexOf(keyword) === -1
@@ -79,7 +79,7 @@ const searching = (searchWord: string): string[] => {
 
       // 检查描述是否包含了searchWord
       if (keywords[jsonName].desc)
-        keywords[jsonName].desc.forEach(keyword => {
+        keywords[jsonName].desc.forEach((keyword) => {
           if (
             keyword.indexOf(searchWord) !== -1 &&
             words.indexOf(keyword) === -1
@@ -104,25 +104,25 @@ const search = (searchWord: string): SearchResult[] => {
   const resultList: SearchResult[] = [];
   const desc: Record<string, any> = {};
 
-  Object.keys(keywords).forEach(jsonName => {
+  Object.keys(keywords).forEach((jsonName) => {
     // 搜索页面标题
-    words.forEach(word => {
+    words.forEach((word) => {
       if (keywords[jsonName].title.indexOf(word) !== -1)
         weight[jsonName] = (weight[jsonName] || 0) + 4;
     });
 
     // 搜索关键词
     if (keywords[jsonName].keywords)
-      keywords[jsonName].keywords.forEach(keyword => {
-        words.forEach(word => {
+      keywords[jsonName].keywords.forEach((keyword) => {
+        words.forEach((word) => {
           if (keyword.indexOf(word) !== -1)
             weight[jsonName] = (weight[jsonName] || 0) + 2;
         });
       });
 
     // 搜索标题
-    keywords[jsonName].desc.forEach(descText => {
-      words.forEach(word => {
+    keywords[jsonName].desc.forEach((descText) => {
+      words.forEach((word) => {
         if (descText.indexOf(word) !== -1) {
           weight[jsonName] = (weight[jsonName] || 0) + 1;
           desc[jsonName] = descText;
@@ -137,7 +137,7 @@ const search = (searchWord: string): SearchResult[] => {
   keys.sort((x, y) => weight[y] - weight[x]);
 
   // 为权重大于2的匹配值生成最终结果
-  keys.forEach(key => {
+  keys.forEach((key) => {
     if (weight[key] >= 2)
       resultList.push({
         url: `module1?aim=${key}&From=搜索`,

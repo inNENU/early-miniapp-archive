@@ -1,8 +1,8 @@
 /*
  * @Author: Mr.Hope
  * @Date: 2019-06-24 09:38:02
- * @LastEditors  : Mr.Hope
- * @LastEditTime : 2020-01-14 20:12:35
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2020-03-29 20:06:24
  * @Description: 小程序主脚本
  */
 
@@ -37,7 +37,7 @@ $register.A({
       '/function/$page/$page',
       '/settings/$page/$page'
     ],
-    resolvePath: name =>
+    resolvePath: (name) =>
       ['main', 'function', 'guide', 'me', 'search'].includes(name)
         ? `/page/${name}/${name}`
         : [

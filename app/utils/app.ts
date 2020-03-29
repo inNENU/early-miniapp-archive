@@ -2,8 +2,8 @@
 /*
  * @Author: Mr.Hope
  * @Date: 2019-06-24 11:59:30
- * @LastEditors  : Mr.Hope
- * @LastEditTime : 2020-01-18 18:17:59
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2020-03-29 20:08:18
  * @Description: APP函数库
  */
 
@@ -58,11 +58,11 @@ const resDownload = (list: string[], callBack: () => void): void => {
   /** 监听数 */
   let listenNumber = list.length;
 
-  list.forEach(name => {
+  list.forEach((name) => {
     // 下载zip包
     wx.downloadFile({
       url: `${server}${name}.zip`,
-      success: res => {
+      success: (res) => {
         console.log(`${name} statusCode is ${res.statusCode}`); // 调试
         if (res.statusCode === 200) {
           // 保存压缩文件到压缩目录
@@ -95,7 +95,7 @@ const resDownload = (list: string[], callBack: () => void): void => {
       },
 
       // 下载失败
-      fail: failMsg => {
+      fail: (failMsg) => {
         netReport();
         error(`初始化小程序时下载${name}失败:`, failMsg);
       }
@@ -140,7 +140,7 @@ export const appInit = (): void => {
   }
 
   // 写入预设数据
-  Object.keys(appOption).forEach(data => {
+  Object.keys(appOption).forEach((data) => {
     if (data !== 'theme') wx.setStorageSync(data, appOption[data]);
   });
 
@@ -172,7 +172,7 @@ export const noticeCheck = (globalData: GlobalData): void => {
       /** 通知页面名称 */
       const keys = Object.keys(noticeList);
 
-      keys.forEach(page => {
+      keys.forEach((page) => {
         // 如果读取到强制通知设置，每次都要通知，直接写入通知信息
         if (noticeList[page][2]) {
           wx.setStorageSync(`${page}notice`, [
@@ -294,53 +294,56 @@ export const appUpdate = (globalData: GlobalData): void => {
   let reset = false;
 
   // 检查更新
-  updateManager.onCheckForUpdate(status => {
+  updateManager.onCheckForUpdate((status) => {
     // 找到更新，提示用户获取到更新
     if (status.hasUpdate) tip('发现小程序更新，下载中...');
   });
 
   updateManager.onUpdateReady(() => {
     // 请求配置文件
-    request(`config/${globalData.appID}/${globalData.version}/config`, data => {
-      ({ forceUpdate, reset } = data as UpdateInfo);
+    request(
+      `config/${globalData.appID}/${globalData.version}/config`,
+      (data) => {
+        ({ forceUpdate, reset } = data as UpdateInfo);
 
-      // 请求配置文件
-      request(`config/${globalData.appID}/version`, data2 => {
-        version = (data2 as unknown) as string;
-        // 更新下载就绪，提示用户重新启动
-        wx.showModal({
-          title: '已找到新版本',
-          content: `新版本${version}已下载，请重启应用更新。${
-            reset ? '该版本会初始化小程序。' : ''
-          }`,
-          showCancel: !reset && !forceUpdate,
-          confirmText: '应用',
-          cancelText: '取消',
-          success: res => {
-            // 用户确认，应用更新
-            if (res.confirm) {
-              // 需要初始化
-              if (reset) {
-                // 显示提示
-                wx.showLoading({ title: '初始化中', mask: true });
+        // 请求配置文件
+        request(`config/${globalData.appID}/version`, (data2) => {
+          version = (data2 as unknown) as string;
+          // 更新下载就绪，提示用户重新启动
+          wx.showModal({
+            title: '已找到新版本',
+            content: `新版本${version}已下载，请重启应用更新。${
+              reset ? '该版本会初始化小程序。' : ''
+            }`,
+            showCancel: !reset && !forceUpdate,
+            confirmText: '应用',
+            cancelText: '取消',
+            success: (res) => {
+              // 用户确认，应用更新
+              if (res.confirm) {
+                // 需要初始化
+                if (reset) {
+                  // 显示提示
+                  wx.showLoading({ title: '初始化中', mask: true });
 
-                // 清除文件系统文件与数据存储
-                listFile('').forEach(filePath => {
-                  Delete(filePath);
-                });
-                wx.clearStorageSync();
+                  // 清除文件系统文件与数据存储
+                  listFile('').forEach((filePath) => {
+                    Delete(filePath);
+                  });
+                  wx.clearStorageSync();
 
-                // 隐藏提示
-                wx.hideLoading();
+                  // 隐藏提示
+                  wx.hideLoading();
+                }
+
+                // 应用更新
+                updateManager.applyUpdate();
               }
-
-              // 应用更新
-              updateManager.applyUpdate();
             }
-          }
+          });
         });
-      });
-    });
+      }
+    );
   });
 
   // 更新下载失败
@@ -364,19 +367,19 @@ const login = (appID: string): void => {
   if (openid) console.log(`openid为：${openid}`);
   else
     wx.login({
-      success: res => {
+      success: (res) => {
         if (res.code)
           wx.request({
             url: `${server}server/login.php`,
             method: 'POST',
             data: { appID, code: res.code },
-            success: res2 => {
+            success: (res2) => {
               wx.setStorageSync('openid', (res2.data as any).openid);
               console.log(`openid为：${(res2.data as any).openid}`);
             }
           });
       },
-      fail: errMsg => {
+      fail: (errMsg) => {
         console.error(`登录失败！${errMsg}`);
       }
     });
@@ -423,7 +426,7 @@ export const startup = (globalData: GlobalData): void => {
   appUpdate(globalData);
 
   // 设置内存不足警告
-  wx.onMemoryWarning(res => {
+  wx.onMemoryWarning((res) => {
     tip('内存不足');
     console.warn('onMemoryWarningReceive');
     wx.reportAnalytics('memory_warning', {
@@ -435,7 +438,7 @@ export const startup = (globalData: GlobalData): void => {
 
   // 获取网络信息
   wx.getNetworkType({
-    success: res => {
+    success: (res) => {
       const { networkType } = res;
 
       if (networkType === 'none' || networkType === 'unknown')
@@ -444,7 +447,7 @@ export const startup = (globalData: GlobalData): void => {
   });
 
   // 监听网络状态
-  wx.onNetworkStatusChange(res => {
+  wx.onNetworkStatusChange((res) => {
     // 显示提示
     if (!res.isConnected) {
       tip('网络连接中断,部分小程序功能暂不可用');

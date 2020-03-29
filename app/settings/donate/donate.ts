@@ -43,10 +43,10 @@ $register('donate', {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
 
     // 获取捐赠列表数据
-    request('config/donateList', donateList => {
+    request('config/donateList', (donateList) => {
       let sum = 0;
 
-      ((donateList as unknown) as DonateList).forEach(element => {
+      ((donateList as unknown) as DonateList).forEach((element) => {
         sum += element[1];
       });
 

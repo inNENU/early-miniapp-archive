@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 20:52:36
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:11:24
+ * @LastEditTime: 2020-03-29 20:07:08
  * @Description: 关于
  */
 import * as $register from 'wxpage';
@@ -150,7 +150,7 @@ $register('about', {
       // 密码正确
       if (event.detail.value === '5201314') {
         tip('已启用开发者模式');
-        (this.data.page[1].content as any[]).forEach(x => {
+        (this.data.page[1].content as any[]).forEach((x) => {
           x.hidden = false;
         });
         this.setData({ page: this.data.page, debug: false });

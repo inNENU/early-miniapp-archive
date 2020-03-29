@@ -279,7 +279,7 @@ $register('PEcal', {
       console.log(config);
 
       // 以下三项越高越好，进行计算
-      ['vitalCapacity', 'sitAndReach', 'standingLongJump'].forEach(x => {
+      ['vitalCapacity', 'sitAndReach', 'standingLongJump'].forEach((x) => {
         if (result[x] && Number(result[x])) {
           for (let i = 0; i < length; i += 1)
             if (result[x] <= config[x][i]) {
@@ -290,7 +290,7 @@ $register('PEcal', {
       });
 
       // 以下两项越低越好
-      ['shortRun', 'longRun'].forEach(x => {
+      ['shortRun', 'longRun'].forEach((x) => {
         if (result[x]) {
           for (let i = 0; i < length; i += 1)
             if (result[x] >= config[x][i]) {

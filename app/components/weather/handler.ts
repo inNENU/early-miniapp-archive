@@ -3,8 +3,8 @@
 /*
  * @Author: Mr.Hope
  * @Date: 2019-07-31 11:05:08
- * @LastEditors  : Mr.Hope
- * @LastEditTime : 2020-01-14 20:23:37
+ * @LastEditors: Mr.Hope
+ * @LastEditTime: 2020-03-29 20:06:41
  * @Description: 天气处理函数
  */
 import { WeatherData, WeatherForcast1H } from './weather';
@@ -43,7 +43,7 @@ const weatherHandler = (weather: WeatherData['data']) => {
   weather.dayForecast = [];
 
   // 设置天气预报的时间
-  Object.keys(weather.forecast_1h).forEach(x => {
+  Object.keys(weather.forecast_1h).forEach((x) => {
     const index = Number(x);
     /** 更新时间 */
     const time = weather.forecast_1h[index].update_time;
@@ -61,7 +61,7 @@ const weatherHandler = (weather: WeatherData['data']) => {
   });
 
   // 设置天气预报的时间
-  Object.keys(weather.forecast_24h).forEach(x => {
+  Object.keys(weather.forecast_24h).forEach((x) => {
     const index = Number(x);
 
     // 暂时只显示五日天气预报。 TODO: 让此部分可横向滑动，补全7日天气预报

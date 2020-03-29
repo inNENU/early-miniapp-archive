@@ -24,7 +24,7 @@ const savePhoto = (path: string) => {
       debug('二维码保存成功');
       wx.reportMonitor('8', 1);
     },
-    fail: msg => {
+    fail: (msg) => {
       tip('二维码保存失败');
 
       // 调试
@@ -86,10 +86,10 @@ $register.C({
     download() {
       downLoad(
         `/img/QRCode/${appID}/${this.data.config.aim}.jpg`,
-        path => {
+        (path) => {
           wx.getSetting({
             // 获取用户设置
-            success: res2 => {
+            success: (res2) => {
               // 如果已经授权相册直接写入图片
               if (res2.authSetting['scope.writePhotosAlbum']) savePhoto(path);
               // 没有授权——>提示用户授权
@@ -123,7 +123,7 @@ $register.C({
           warn(`下载二维码失败${this.data.config.aim}`);
           wx.reportMonitor('6', 1);
         },
-        statusCode => {
+        (statusCode) => {
           tip('二维码下载失败，服务器出错');
 
           // 调试

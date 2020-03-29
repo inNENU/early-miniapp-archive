@@ -28,7 +28,7 @@ interface Marker {
  * @returns 处理后的marker
  */
 const initMarker = (markers: Marker[]): Marker[] => {
-  markers.forEach(marker => {
+  markers.forEach((marker) => {
     const markerOrigin = {
       iconPath: '/function/icon/marker.png',
       width: 25,
@@ -113,7 +113,7 @@ const setMarker = (data: MarkerConfig, name: string): void => {
   const { category } = data;
 
   wx.setStorageSync(`${name}-all`, marker);
-  Object.keys(category).forEach(i => {
+  Object.keys(category).forEach((i) => {
     const markerDetail = [];
 
     for (let j = category[i][0]; j <= category[i][1]; j += 1)
@@ -143,7 +143,7 @@ export const markerSet = (): void => {
       // 没有找到MarkerData，可能因为初始化中断造成
       warn('获取Marker失败'); // 调试
 
-      request('function/marker', data => {
+      request('function/marker', (data) => {
         // 将Marker数据保存文件
         writeJson('function', 'marker', data);
 
@@ -152,7 +152,7 @@ export const markerSet = (): void => {
         setMarker((data as MarkerConfig[])[1], 'jingyue');
 
         // 写入线上版本
-        request('functionVersion', data2 => {
+        request('functionVersion', (data2) => {
           wx.setStorageSync('markerVersion', data2);
         });
       });

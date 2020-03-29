@@ -114,7 +114,7 @@ const disposePage = (
         }
       }
 
-      page.forEach(element => {
+      page.forEach((element) => {
         // 处理段落
         if (element.tag === 'p') element.muti = Array.isArray(element.text);
 
@@ -174,7 +174,7 @@ const resolveAim = (aim: string): AimConfig => {
  */
 const preGetPage = (page: PageData): void => {
   if (page)
-    page.forEach(component => {
+    page.forEach((component) => {
       if ('content' in component)
         // 该组件是列表，需要预加载界面，提前获取界面到存储
         component.content.forEach((element: any) => {
@@ -392,7 +392,7 @@ export const setOnlinePage = (
     else
       request(
         `page/${path}`,
-        data => {
+        (data) => {
           // 设置界面
           setPage({ option, ctx }, data as PageData);
 
@@ -411,7 +411,7 @@ export const setOnlinePage = (
           // 调试
           info(`${option.aim}onLoad成功`);
         },
-        res => {
+        (res) => {
           // 设置error页面并弹出通知
           setPage({ option, ctx }, [
             { tag: 'error', statusBarHeight: globalData.info.statusBarHeight }
@@ -533,7 +533,7 @@ export const loadFont = (theme: string): void => {
     wx.loadFontFace({
       family: 'FZKTJW',
       source: 'url("https://mp.innenu.com/fonts/FZKTJW.ttf")',
-      complete: res => {
+      complete: (res) => {
         info('楷体字体', res); // 调试
       }
     });
@@ -541,7 +541,7 @@ export const loadFont = (theme: string): void => {
     wx.loadFontFace({
       family: 'FZSSJW',
       source: 'url("https://mp.innenu.com/fonts/FZSSJW.ttf")',
-      complete: res => {
+      complete: (res) => {
         info('宋体字体', res); // 调试
       }
     });

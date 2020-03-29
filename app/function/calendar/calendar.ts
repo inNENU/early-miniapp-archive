@@ -35,7 +35,7 @@ $register('calendar', {
 
     if (calendar) this.setData({ T: a.T, nm: a.nm, calendar });
     else
-      request(path, data => {
+      request(path, (data) => {
         this.setData({ T: a.T, nm: a.nm, calendar: data as any });
 
         // 写入JSON文件
@@ -70,7 +70,7 @@ $register('calendar', {
         display: true
       });
     else
-      request(path, data => {
+      request(path, (data) => {
         this.setData({ calendarDetail: data[1], name: data[0], display: true });
 
         // 写入JSON文件

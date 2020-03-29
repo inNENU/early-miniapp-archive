@@ -46,7 +46,7 @@ export const modal = (
     title,
     content,
     showCancel,
-    success: res => {
+    success: (res) => {
       if (res.confirm && confirmFunc) confirmFunc();
       else if (res.cancel && cancelFunc) cancelFunc();
     }
@@ -72,7 +72,7 @@ export const confirm = (
 export const netReport = (): void => {
   // 获取网络信息
   wx.getNetworkType({
-    success: res => {
+    success: (res) => {
       const { networkType } = res;
 
       switch (networkType) {
@@ -86,7 +86,7 @@ export const netReport = (): void => {
           break;
         case 'wifi':
           wx.getConnectedWifi({
-            success: info => {
+            success: (info) => {
               if (info.wifi.signalStrength < 0.5)
                 tip('Wifi信号不佳，网络链接失败');
             },
@@ -125,7 +125,7 @@ export const request = (
 ): void => {
   wx.request({
     url: `${server}${path}.json`,
-    success: res => {
+    success: (res) => {
       debug(`请求 ${path} 成功: `, res); // 调试
       if (res.statusCode === 200) successFunc(res.data as object);
       else {
@@ -137,7 +137,7 @@ export const request = (
         if (errorFunc) errorFunc(res.statusCode);
       }
     },
-    fail: failMsg => {
+    fail: (failMsg) => {
       if (failFunc) failFunc(failMsg);
       netReport();
 
@@ -166,7 +166,7 @@ export const downLoad = (
 ): void => {
   const progress = wx.downloadFile({
     url: `${server}${path}`,
-    success: res => {
+    success: (res) => {
       wx.hideLoading();
       if (res.statusCode === 200) successFunc(res.tempFilePath);
       else {
@@ -177,7 +177,7 @@ export const downLoad = (
         warn(`下载 ${path} 失败: ${res.statusCode}`);
       }
     },
-    fail: failMsg => {
+    fail: (failMsg) => {
       wx.hideLoading();
       if (failFunc) failFunc(failMsg);
       netReport();
@@ -185,7 +185,7 @@ export const downLoad = (
     }
   });
 
-  progress.onProgressUpdate(res => {
+  progress.onProgressUpdate((res) => {
     wx.showLoading({ title: `下载中${Math.round(res.progress)}%` });
   });
 };
@@ -198,10 +198,10 @@ export const downLoad = (
 export const savePhoto = (imgPath: string): void => {
   downLoad(
     imgPath,
-    path => {
+    (path) => {
       // 获取用户设置
       wx.getSetting({
-        success: res => {
+        success: (res) => {
           // 如果已经授权相册直接写入图片
           if (res.authSetting['scope.writePhotosAlbum'])
             wx.saveImageToPhotosAlbum({

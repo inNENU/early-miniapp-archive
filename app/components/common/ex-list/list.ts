@@ -130,7 +130,7 @@ $register.C({
       if (detail) {
         const detail2: Record<string, any> = {};
 
-        Object.keys(detail).forEach(element => {
+        Object.keys(detail).forEach((element) => {
           detail2[`config.${element}`] = detail[element];
         });
         console.log(detail2);

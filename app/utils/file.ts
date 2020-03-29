@@ -218,7 +218,7 @@ export const saveOnlineFile = (
   wx.downloadFile({
     url: `https://${server}${onlinePath}`,
     filePath: `${userPath}/${savePath}/${fileName}`,
-    success: res => {
+    success: (res) => {
       if (res.statusCode === 200) {
         info(`保存 ${onlinePath} 成功`);
         successFunc(res.tempFilePath);
@@ -227,7 +227,7 @@ export const saveOnlineFile = (
         warn(`下载${onlinePath}失败，状态码为${res.statusCode}`);
       }
     },
-    fail: failMsg => {
+    fail: (failMsg) => {
       if (failFunc) failFunc(failMsg);
       warn(`下载${onlinePath}失败，错误为`, failMsg);
     }
@@ -308,7 +308,7 @@ export const getJson = (
       wx.downloadFile({
         url: `https://${server}${path}.json`,
         filePath: `${userPath}/${folder}/${fileName}.json`,
-        success: res => {
+        success: (res) => {
           if (res.statusCode === 200) {
             info(`保存 ${path}.json 成功`);
 
@@ -320,7 +320,7 @@ export const getJson = (
             if (failFunc) failFunc();
           }
         },
-        fail: failMsg => {
+        fail: (failMsg) => {
           warn(`下载${path}.json失败，错误为`, failMsg);
           if (failFunc) failFunc();
         }
@@ -332,11 +332,11 @@ export const getJson = (
     wx.downloadFile({
       url: `https://${server}${path}.json`,
       filePath: `${userPath}/${folder}/${fileName}.json`,
-      success: res => {
+      success: (res) => {
         if (res.statusCode === 200) info(`保存 ${path}.json 成功`);
         else error(`获取${path}.json失败，状态码为${res.statusCode}`);
       },
-      fail: failMsg => {
+      fail: (failMsg) => {
         error(`下载${path}.json失败，错误为`, failMsg);
       }
     });
@@ -361,7 +361,7 @@ export const unzip = (
     success: () => {
       if (successFunc) successFunc();
     },
-    fail: failMsg => {
+    fail: (failMsg) => {
       error(`解压 ${path} 失败:`, failMsg);
     }
   });

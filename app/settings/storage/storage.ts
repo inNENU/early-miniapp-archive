@@ -113,7 +113,7 @@ $register('storage', {
     ((wx
       .getFileSystemManager()
       .statSync(wx.env.USER_DATA_PATH, true) as unknown) as any[]).forEach(
-      element => {
+      (element) => {
         fileSize += element.stats.size;
       }
     );

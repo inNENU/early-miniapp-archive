@@ -22,7 +22,7 @@ export const resDownload = (name: string): void => {
   wx.setStorageSync(`${name}Download`, false);
   const downLoadTask = wx.downloadFile({
     url: `${server}${name}.zip`,
-    success: res => {
+    success: (res) => {
       if (res.statusCode === 200) {
         wx.showLoading({ title: '保存中...', mask: true });
 
@@ -43,10 +43,10 @@ export const resDownload = (name: string): void => {
     },
 
     // 下载失败
-    fail: failMsg => error(`download ${name} fail:`, failMsg)
+    fail: (failMsg) => error(`download ${name} fail:`, failMsg)
   });
 
-  downLoadTask.onProgressUpdate(res => {
+  downLoadTask.onProgressUpdate((res) => {
     wx.showLoading({ title: `下载中...${res.progress}%`, mask: true });
   });
 };
@@ -72,7 +72,7 @@ export const checkResUpdate = (name: string, dataUsage: string): void => {
     // 如果需要更新
     wx.request({
       url: `${server}server/resVersion.php?res=${name}`,
-      success: res => {
+      success: (res) => {
         // 资源为最新
         if (res.statusCode === 200)
           if (Number(localVersion) === Number(res.data))
@@ -90,7 +90,7 @@ export const checkResUpdate = (name: string, dataUsage: string): void => {
                 cancelText: '取消',
                 cancelColor: '#ff0000',
                 confirmText: '更新',
-                success: choice => {
+                success: (choice) => {
                   // 用户确认，下载更新
                   if (choice.confirm) resDownload(name);
                   // 用户取消，询问是否关闭更新提示
@@ -101,7 +101,7 @@ export const checkResUpdate = (name: string, dataUsage: string): void => {
                       cancelText: '关闭',
                       cancelColor: '#ff0000',
                       confirmText: '保持开启',
-                      success: choice2 => {
+                      success: (choice2) => {
                         // 用户选择关闭
                         if (choice2.cancel)
                           modal(
@@ -157,7 +157,7 @@ export const refreshPage = (
 
   // 开启测试后展示测试界面
   if (test)
-    request(`config/${globalData.appID}/test/${name}`, data => {
+    request(`config/${globalData.appID}/test/${name}`, (data) => {
       wx.setStorageSync(name, data);
       setPage({ ctx, option: { aim: name } }, data as PageData);
     });
@@ -165,7 +165,7 @@ export const refreshPage = (
   else
     request(
       `config/${globalData.appID}/${globalData.version}/${name}`,
-      data => {
+      (data) => {
         setPage({ ctx, option: { aim: name } }, data as PageData);
       }
     );

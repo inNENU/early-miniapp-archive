@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:30:29
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-21 17:01:51
+ * @LastEditTime: 2020-03-29 20:06:50
  * @Description: 天气预报
  */
 import * as $register from 'wxpage';
@@ -42,7 +42,7 @@ $register('weather', {
     else
       wx.request({
         url: 'https://mp.innenu.com/server/weather.php',
-        success: res => {
+        success: (res) => {
           const weather = weatherHandler((res.data as WeatherData).data);
 
           this.canvas(weather);
@@ -96,7 +96,7 @@ $register('weather', {
     let min = 50;
 
     // 生成最高 / 最低温
-    dayForecast.forEach(element => {
+    dayForecast.forEach((element) => {
       const maxDegreee = Number(element.max_degree);
       const minDegree = Number(element.min_degree);
 
@@ -187,7 +187,7 @@ $register('weather', {
       success: () => console.log('start Accelerometer success')
     });
 
-    wx.onAccelerometerChange(res => {
+    wx.onAccelerometerChange((res) => {
       layer1Animation.translateX(res.x * 13.5).step();
       layer2Animation.translateX(res.x * 18).step();
       layer3Animation.translateX(res.x * 22.5).step();

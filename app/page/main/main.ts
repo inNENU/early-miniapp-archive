@@ -97,7 +97,7 @@ $register('main', {
     if (wx.getStorageSync('inited')) checkResUpdate('page', '250K');
 
     // 执行tab页预加载
-    ['guide', 'function'].forEach(x => {
+    ['guide', 'function'].forEach((x) => {
       request(`config/${a.appID}/${a.version}/${x}`, (data: object) => {
         wx.setStorageSync(x, data);
         this.$preload(`${x}?aim=${x}`);

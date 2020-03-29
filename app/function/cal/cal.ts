@@ -162,7 +162,7 @@ $register('cal', {
         cancelText: '包含',
         cancelColor: '#ff0000',
         confirmText: '排除★',
-        success: res => {
+        success: (res) => {
           if (res.cancel) {
             // 包含不及格成绩
             totalCredit += flunkingCredit;

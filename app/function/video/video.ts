@@ -37,7 +37,7 @@ $register('video', {
           vid: item.vid || ''
         });
       } else
-        request('function/video', data => {
+        request('function/video', (data) => {
           const item = data[id];
 
           this.setData({
@@ -72,7 +72,7 @@ $register('video', {
     wx.loadFontFace({
       family: 'FZSSJW',
       source: 'url("https://mrhope.top/ttf/FZSSJW.ttf")',
-      complete: res => {
+      complete: (res) => {
         console.log(`宋体字体${res}`); // 调试
       }
     });

@@ -2,7 +2,7 @@
  * @Author: Mr.Hope
  * @Date: 2019-06-24 21:20:57
  * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-21 17:00:36
+ * @LastEditTime: 2020-03-29 20:06:58
  * @Description: 音乐播放器
  */
 import * as $register from 'wxpage';
@@ -57,7 +57,7 @@ $register('music', {
     wx.loadFontFace({
       family: 'FZSSJW',
       source: 'url("https://mp.innenu.com/fonts/FZSSJW.ttf")',
-      complete: res => {
+      complete: (res) => {
         console.log('宋体字体', res); // 调试
       }
     });
@@ -99,7 +99,7 @@ $register('music', {
 
       // 在线获取歌曲列表
     } else
-      request('function/song', data => {
+      request('function/song', (data) => {
         currentSong = data[index] as SongDetail;
         this.setData({ currentSong, songList: data as any[] });
 

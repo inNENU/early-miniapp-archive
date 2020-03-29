@@ -31,7 +31,7 @@ $register.C({
           url: this.data.config.url,
 
           // 下载成功，隐藏下载提示并打开文档
-          success: data => {
+          success: (data) => {
             wx.hideLoading();
             wx.openDocument({ filePath: data.tempFilePath });
           },
@@ -45,7 +45,7 @@ $register.C({
         });
 
         // 监听下载进度，并更新弹窗显示
-        docTask.onProgressUpdate(data => {
+        docTask.onProgressUpdate((data) => {
           wx.showLoading({ title: `下载中...${data.progress}%`, mask: true });
         });
 

@@ -186,7 +186,7 @@ $register.C({
     getWeather() {
       wx.request({
         url: 'https://mp.innenu.com/server/weather.php',
-        success: res => {
+        success: (res) => {
           const weather = (res.data as WeatherData).data;
           /** 天气种类缩写 */
           const weatherType = weather.observe.weather_short;
