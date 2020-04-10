@@ -1,6 +1,6 @@
 <view class="popupCtn{{show? ' popupCtnShow': ''}}">
-  <view class="mask"  catch:tap="closeDialog" />
-  <view class="popup" catch:tap="stopEvent">
+  <view class="mask" catch:tap="closeDialog" />
+  <view class="popup">
     <view class="popupHead">
       <view class="popupHead-Side">
         <!-- 关闭按钮 -->
@@ -18,12 +18,15 @@
     <view class="popupBody">
       <view class="popupText">{{config.text}}</view>
       <view wx:if="{{config.desc}}" class="popupDesc">{{config.desc}}</view>
+      <slot wx:if="{{show}}" />
     </view>
     <view class="popupFoot">
-      <button type="default" wx:if="{{config.cancel !== false}}" class="weui-btn">
-        {{config.cancelText || '取消'}}
+      <button wx:if="{{config.cancel !== false}}" class="weui-btn" type="default" catch:tap="cancel">
+        {{config.cancel || '取消'}}
       </button>
-      <button type="primary" class="weui-btn">{{config.confirmText || '确认'}}</button>
+      <button class="weui-btn" type="primary" catch:tap="confirm">
+        {{config.confirm || '确认'}}
+      </button>
     </view>
   </view>
 </view>

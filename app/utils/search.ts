@@ -59,7 +59,7 @@ const searching = (searchWord: string): string[] => {
     Object.keys(keywords).forEach((jsonName) => {
       const { title } = keywords[jsonName];
 
-      // 检查标题是否包含了searchWord
+      // 检查标题是否包含了 searchWord
       if (
         title &&
         title.indexOf(searchWord) !== -1 &&
@@ -67,7 +67,7 @@ const searching = (searchWord: string): string[] => {
       )
         words.push(title);
 
-      // 检查每个关键词是否包含了searchWord
+      // 检查每个关键词是否包含了 searchWord
       if (keywords[jsonName].keywords)
         keywords[jsonName].keywords.forEach((keyword) => {
           if (
@@ -77,7 +77,7 @@ const searching = (searchWord: string): string[] => {
             words.push(keyword);
         });
 
-      // 检查描述是否包含了searchWord
+      // 检查描述是否包含了 searchWord
       if (keywords[jsonName].desc)
         keywords[jsonName].desc.forEach((keyword) => {
           if (
@@ -136,7 +136,7 @@ const search = (searchWord: string): SearchResult[] => {
 
   keys.sort((x, y) => weight[y] - weight[x]);
 
-  // 为权重大于2的匹配值生成最终结果
+  // 为权重大于 2 的匹配值生成最终结果
   keys.forEach((key) => {
     if (weight[key] >= 2)
       resultList.push({

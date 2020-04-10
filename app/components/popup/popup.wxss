@@ -1,4 +1,5 @@
 .popupCtn {
+  position: absolute;
   visibility: hidden;
   opacity: 0;
   transition: all .3s;

@@ -204,6 +204,7 @@ $register('setting', {
    *
    * @param value 夜间模式状态
    */
+  // eslint-disable-next-line max-statements
   switchnm(value: boolean) {
     const list = this.data.page[3].content as any[];
 

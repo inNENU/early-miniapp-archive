@@ -356,7 +356,7 @@ export const setOnlinePage = (
   ctx: any,
   preload = true
 ): void => {
-  // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
+  // 页面已经预处理完毕，立即写入 page 并执行本界面的预加载
   if (globalData.page.aim === option.aim) {
     debug(`${option.aim}已处理`);
     ctx.setData(
@@ -375,7 +375,7 @@ export const setOnlinePage = (
     const { folder, path } = resolveAim(option.aim);
     const page = readJson(`page/${path}`);
 
-    // 如果本地存储中含有page直接处理
+    // 如果本地存储中含有 page 直接处理
     if (page) {
       setPage({ option, ctx }, page);
       popNotice(option.aim);
@@ -412,7 +412,7 @@ export const setOnlinePage = (
           info(`${option.aim}onLoad成功`);
         },
         (res) => {
-          // 设置error页面并弹出通知
+          // 设置 error 页面并弹出通知
           setPage({ option, ctx }, [
             { tag: 'error', statusBarHeight: globalData.info.statusBarHeight }
           ]);
@@ -422,7 +422,7 @@ export const setOnlinePage = (
           warn(`${option.aim}onLoad失败，错误为`, res);
         },
         () => {
-          // 设置error界面
+          // 设置 error 界面
           setPage({ option, ctx }, [
             { tag: 'error', statusBarHeight: globalData.info.statusBarHeight }
           ]);
@@ -452,7 +452,7 @@ interface ColorConfig {
  *
  * - 描述：设置胶囊与背景颜色
  *
- * - 用法：在页面`onShow`时调用
+ * - 用法：在页面 `onShow` 时调用
  *
  * - 性质：同步函数
  *
