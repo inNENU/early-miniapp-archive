@@ -1,60 +1,42 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-07-27 13:11:30
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 17:21:35
- * @Description: 文档样式
- */
-
-.docCtn {
+.doc-wrapper {
   position: relative;
   width: 100%;
-  background-color: #fefefe;
+  color: var(--text-color);
+  background-color: var(--list-bgcolor);
 }
 
-.docCtn:after,
-.docCtn:before {
+.doc-wrapper:after,
+.doc-wrapper:before {
   content: " ";
   position: absolute;
   left: 0;
   right: 0;
   height: 1px;
-  color: #cac9ce;
 }
 
-.docCtn:after {
+.doc-wrapper:after {
   bottom: 0;
-  border-bottom: 1px solid #cac9ce;
+  border-bottom: 1px solid var(--list-border-color);
   -webkit-transform-origin: 0 100%;
   transform-origin: 0 100%;
   -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
 }
 
-.docCtn:before {
+.doc-wrapper:before {
   top: 0;
-  border-top: 1px solid #cac9ce;
+  border-top: 1px solid var(--list-border-color);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
 }
 
-.nm .docCtn {
-  background-color: #1C1C1E !important;
-  color: #fff !important;
-}
-
-.nm .docCtn:before,
-.nm .docCtn:after {
-  border-color: #3D3D41;
-}
-
-.docCtn+.docCtn {
+.doc-wrapper+.doc-wrapper {
   border-top: none;
 }
 
-.docPreview {
+.doc-wrapper .preview {
   padding: 12px 0;
   position: relative;
   line-height: 1.2;
@@ -63,52 +45,30 @@
   align-items: center;
 }
 
-.docIcon {
+/* 文档图标 */
+.doc-wrapper image {
   width: 32px;
   height: 32px;
   margin: 0 5%;
   flex: none;
 }
 
-.docName {
+
+/* 文档名称 */
+.doc-wrapper text {
   font-size: 18px;
   flex: auto;
   text-align: left;
   margin-right: 30px;
 }
 
-.docName:after {
-  content: " ";
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  border-width: 2px 2px 0 0;
-  border-style: solid;
-  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
-  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
-  position: absolute;
-  top: 50%;
-  margin-top: -5px;
-  right: 17px;
-  border-color: #c7c7cc;
-}
-
-.nm .docName:after {
-  border-color: #383833;
-}
-
-.docDownload {
-  color: #000;
+.download {
+  color: var(--text-color);
   width: 40%;
   margin: 8px auto;
   font-weight: 600;
   padding: 6px 8px;
   border-radius: 15px;
   line-height: 1;
-  background-color: #efeef4;
-}
-
-.nm .docDownload {
-  color: #fff;
-  background-color: #1c1c1e;
+  background-color: var(--bgcolor-light);
 }

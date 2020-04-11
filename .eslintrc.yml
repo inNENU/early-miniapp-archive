@@ -171,6 +171,9 @@ rules:
   strict:
     - off
 
+  vars-on-top:
+    - off
+
 overrides:
   - files:
       - ".lintstagedrc.js"

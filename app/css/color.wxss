@@ -1,0 +1,35 @@
+page>view {
+  --text-color: #000;
+  --bgcolor-light: #efeef4;
+
+  --dark-grey: #666;
+  --light-grey: #999;
+
+  --arrow-color: #c7c7cc;
+  --list-bgcolor: #fefefe;
+  --list-border-color: #cac9ce;
+}
+
+page>view.light {
+  --text-color: #000;
+  --bgcolor-light: #efeef4;
+
+  --dark-grey: #666;
+  --light-grey: #999;
+
+  --arrow-color: #c7c7cc;
+  --list-bgcolor: #fefefe;
+  --list-border-color: #cac9ce;
+}
+
+page>view.dark {
+  --text-color: #fff;
+  --bgcolor-light: #1c1c1e;
+
+  --dark-grey: #999;
+  --light-grey: #666;
+
+  --arrow-color: #383833;
+  --list-bgcolor: #1c1c1e;
+  --list-border-color: #3d3d41;
+}

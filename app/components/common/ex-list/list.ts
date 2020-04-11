@@ -17,13 +17,6 @@ $register.C({
     change: { type: Object }
   },
   methods: {
-    /** 导航到指定页面 */
-    navigate(res: WXEvent.Touch) {
-      const { url } = this.getDetail(res).content;
-
-      this.$route(url);
-    },
-
     /** 控制选择器显隐 */
     pickerTap(res: WXEvent.Touch) {
       const {
@@ -133,7 +126,7 @@ $register.C({
         Object.keys(detail).forEach((element) => {
           detail2[`config.${element}`] = detail[element];
         });
-        console.log(detail2);
+
         this.setData(detail2);
       }
     }

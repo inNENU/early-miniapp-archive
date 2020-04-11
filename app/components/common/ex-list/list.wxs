@@ -1,0 +1,17 @@
+module.exports = {
+  /** 导航 */
+  navigate: function (event) {
+    event.instance.callMethod('$route', event.currentTarget.dataset.url);
+  },
+  /** 按钮操作 */
+  button: function (event) {
+    var listItem = event.currentTarget.dataset.item;
+
+    if (listItem.button) event.instance.callMethod(listItem.button, event);
+
+    event.instance.callMethod(
+      listItem.pickerValue ? 'pickerTap' : listItem.slider ? 'sliderTap' : '',
+      event
+    );
+  }
+};

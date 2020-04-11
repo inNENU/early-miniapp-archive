@@ -17,31 +17,6 @@ import { Notice } from './app';
 const { globalData } = getApp<{}, GlobalData>();
 
 /**
- * 获得文档图标
- *
- * @param docType 文档后缀名
- */
-const getDocIcon = (docType: string): string =>
-  docType === 'docx' || docType === 'doc'
-    ? 'doc'
-    : docType === 'pptx' || docType === 'ppt'
-    ? 'ppt'
-    : docType === 'xlsx' || docType === 'xls'
-    ? 'xls'
-    : docType === 'jpg' || docType === 'jpeg'
-    ? 'jpg'
-    : docType === 'mp4' ||
-      docType === 'mov' ||
-      docType === 'avi' ||
-      docType === 'rmvb'
-    ? 'video'
-    : docType === 'pdf'
-    ? 'pdf'
-    : docType === 'png' || docType === 'gif'
-    ? docType
-    : 'document';
-
-/**
  * 处理列表
  *
  * @param element 列表的内容
@@ -121,12 +96,6 @@ const disposePage = (
 
         // 处理图片
         if (element.src) page[0].url.push(element.res || element.src);
-
-        // 处理文档
-        if (element.docName) {
-          [element.docName, element.docType] = element.docName.split('.');
-          element.docIcon = getDocIcon(element.docType);
-        }
 
         // 设置list组件
         if ('content' in element)
