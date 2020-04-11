@@ -28,6 +28,6 @@
   font-size: 12px;
   font-weight: 300;
   margin: -2px auto 4px;
-  color: var(--grey3);
+  color: var(--grey-three);
   text-align: center;
 }

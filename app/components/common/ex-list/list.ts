@@ -130,5 +130,10 @@ $register.C({
         this.setData(detail2);
       }
     }
+  },
+
+  // QQ 及低版本微信兼容
+  options: {
+    styleIsolation: 'apply-shared'
   }
 });

@@ -22,7 +22,7 @@
 
 .iOS .grid-wrapper .text {
   font-size: 14px;
-  color: var(--grey4);
+  color: var(--grey-four);
 }
 
 @media (min-width:768px) {
