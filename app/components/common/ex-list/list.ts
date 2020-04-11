@@ -130,10 +130,5 @@ $register.C({
         this.setData(detail2);
       }
     }
-  },
-
-  options: {
-    addGlobalClass: true, // 兼容QQ
-    styleIsolation: 'shared'
   }
 });

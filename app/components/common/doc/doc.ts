@@ -77,10 +77,5 @@ $register.C({
         // 检测到图片，开始图片下载
         savePhoto(this.data.config.url);
     }
-  },
-
-  options: {
-    addGlobalClass: true, // 兼容QQ
-    styleIsolation: 'shared'
   }
 });

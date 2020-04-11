@@ -4,6 +4,7 @@
   "scripts": {
     "commit": "git cz",
     "ts:compile": "tsc",
+    "ts:watch": "tsc --watch",
     "lint": "prettier --check --write app/**/*.ts typings/**/*.ts && eslint --ext .ts app/ typings --fix",
     "lint:check": "prettier --check app/**/*.ts && eslint --ext .ts app/ typings/",
     "doc": "typedoc --options ./typedoc.json"
