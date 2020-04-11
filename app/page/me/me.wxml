@@ -19,7 +19,7 @@
     </view>
   </view>
   <official-account />
-  <template is="all2" data="{{page,T}}" />
+  <template is="body" data="{{page,T}}" />
   <view class="commonhead"></view>
   <view class="Lctn">
     <button class="button listCtn" plain="true" hover-class="buttonHover" open-type="share" hover-stay-time="100" id="2">

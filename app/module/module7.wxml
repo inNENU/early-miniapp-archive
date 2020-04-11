@@ -1,2 +1,2 @@
 <import src="/components/template" />
-<template is="all" data="{{page,T,nm}}" />
+<template is="page" data="{{page,T,nm}}" />

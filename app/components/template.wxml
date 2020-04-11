@@ -1,5 +1,5 @@
 <!-- all -->
-<template name="all">
+<template name="page">
   <block wx:if="{{!page}}">
     <view class="{{T}} {{nm?'nm':''}} commonLoading">
       <view class="backBtn" style="top:27.5px;" hover-class="buttonHover" hover-stay-time="100" catchtap="$back">
@@ -33,7 +33,7 @@
     </view>
   </block>
 </template>
-<template name="all2">
+<template name="body">
   <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
     <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
     <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag==='img'}}" />
