@@ -2,7 +2,7 @@
   <view class='foot'>
     <view>走出半生，归来仍是——东师青年\n</view>
     <navigator class="logo rotate" openType="switchTab" url="/page/main/main" hover-class="none">
-      <image src="/image/logo.png" />
+      <image class="icon" src="/image/logo.png" />
     </navigator>
   </view>
   <text wx:if="{{config.desc}}">{{config.desc}}\n</text>

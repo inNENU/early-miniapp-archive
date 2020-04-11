@@ -1,0 +1,6 @@
+module.exports = {
+  /** 是否显示 */
+  isShowed: function (config) {
+    return config.shareable || config.contact || config.feedback;
+  }
+};

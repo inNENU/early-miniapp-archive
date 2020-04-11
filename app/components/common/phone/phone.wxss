@@ -1,44 +1,40 @@
-.phoneCtn {
-  display: -webkit-flex;
+.phone-wrapper {
   display: flex;
   align-items: center;
   padding: 0 15px;
   line-height: 2.5;
-  background-color: #fefefe;
+  color: var(--text-color);
+  background-color: var(--list-bgcolor);
 }
 
-.phoneIcon {
+.phone-wrapper .icon {
   width: 24px;
   height: 24px;
   margin-right: 15px;
 }
 
-.phoneCallCtn,
-.phoneCall {
-  width: 32px;
-  height: 32px;
-}
-
-.phoneAddCtn,
-.phoneAdd {
-  width: 28px;
-  height: 28px;
-}
-
-.phoneCallCtn,
-.phoneAddCtn {
-  border-radius: 12px;
-  margin: 0 4px;
-}
-
-.phoneNum {
+.phone-wrapper .number {
   font-size: 20px;
   font-weight: 400;
   flex: 1 1 auto;
   text-align: left;
 }
 
-.nm .phoneCtn {
-  background-color: #1C1C1E !important;
-  color: #fff !important;
+.phone-wrapper .call {
+  width: 32px;
+  height: 32px;
+  margin: 0 4px;
+  border-radius: 12px;
+}
+
+.phone-wrapper .add {
+  width: 28px;
+  height: 28px;
+  margin: 0 4px;
+  border-radius: 12px;
+}
+
+.phone-wrapper .icon {
+  width: 100%;
+  height: 100%;
 }

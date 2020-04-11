@@ -1,11 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-07-22 13:45:36
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 13:07:41
- * @Description: 分享组件
- */
-
 import * as $register from 'wxpage';
 import { debug, warn } from '../../../utils/log';
 import { downLoad, modal, tip } from '../../../utils/wx';

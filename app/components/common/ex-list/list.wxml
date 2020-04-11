@@ -12,7 +12,7 @@
         <view class="desc access">{{listItem.desc}}</view>
       </view>
       <!-- 按钮、嵌入选择器与滑块 -->
-      <button wx:elif="{{listItem.inlay || listItem.button || listItem.slider}}" id="{{index}}" class="button list" hover-class="buttonHover" hover-stay-time="100" plain="true" disabled="{{listItem.disabled}}" data-item="{{listItem}}" catch:tap="{{list.button}}">
+      <button wx:elif="{{list.isButton(listItem)}}" id="{{index}}" class="button list" hover-class="buttonHover" hover-stay-time="100" plain="true" disabled="{{listItem.disabled}}" data-item="{{listItem}}" catch:tap="{{list.button}}">
         <image wx:if="{{listItem.icon}}" class="icon" src="{{listItem.icon}}" />
         <!-- 按钮文字为蓝色 -->
         <view class="text" style="{{listItem.button? 'color:#3478f7;': ''}}">

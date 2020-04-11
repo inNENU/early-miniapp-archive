@@ -4,7 +4,7 @@
 @import "../../../css/normal.wxss";
 
 /* share按钮 */
-.shareIconCtn {
+.share-icon {
   width: 40px;
   height: 40px;
   position: fixed;
@@ -16,37 +16,37 @@
   box-shadow: 1px 1px 3px rgba(127, 127, 127, 0.15);
 }
 
-.shareIconHover {
+.share-icon.hover {
   background-color: #32a71a;
 }
 
-.shareIcon {
+.share-icon image {
   width: 70%;
   height: 70%;
   margin: 15%;
 }
 
-.shareCtn {
+.share-wrapper {
   visibility: hidden;
   opacity: 0;
   transition: all .3s;
 }
 
-.shareBtnList {
-  transition: all .3s;
-  transform: translateY(100%);
-}
-
-.shareCtnShow {
+.share-wrapper.show {
   visibility: visible;
   opacity: 1;
 }
 
-.shareCtnShow .shareBtnList {
+.share-menu {
+  transition: all .3s;
+  transform: translateY(100%);
+}
+
+.share-wrapper.show .share-menu {
   transform: translateY(0);
 }
 
-.shareBtnList {
+.share-menu {
   position: fixed;
   left: 0;
   right: 0;
@@ -54,46 +54,33 @@
   max-height: 75%;
   z-index: 5000;
   line-height: 1.4;
-  background-color: #fff;
+  background-color: var(--bgcolor);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   overflow: hidden;
 }
 
-.nm .shareBtnList {
-  background-color: #000;
-}
-
-.shareBtn,
-.shareCtn .cancelBtn {
-  width: 100% !important;
+.share-menu .button,
+.share-wrapper .cancel-button {
+  width: 100%;
   font-weight: 400;
-  background-color: #fff;
-  border: none !important;
-  border-radius: 0 !important;
+  color: var(--text-color);
+  background-color: var(--list-bgcolor);
+  border: none;
+  border-radius: 0;
 }
 
-.nm .shareBtn,
-.nm .shareCtn .cancelBtn {
-  background-color: #1C1C1E;
-  color: #fff !important;
-}
-
-.shareBtn {
+.share-menu .button {
   line-height: 2.4;
-  border-top: 1rpx #cac9ce solid !important;
+  border-top: 1rpx var(--list-border-color) solid;
 }
 
-.nm .shareBtn {
-  border-top: 1rpx #3d3d41 solid !important;
-}
-
-.shareCtn .cancelBtn {
+.share-wrapper .cancel-button {
   height: 60px;
   border-top: 8px #d9d9d9 solid !important;
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-.nm .shareCtn .cancelBtn {
+.nm .share-wrapper .cancel-button {
   border-top: 8px #000 solid !important;
 }

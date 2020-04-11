@@ -2,9 +2,9 @@
 <view class="doc-wrapper">
   <view class="preview" hover-class="buttonHover" hover-stay-time="100" catch:tap="preview">
     <!-- 文档图标 -->
-    <image mode="widthFix" src="{{doc.getIcon(config.docName)}}" />
+    <image class="icon" mode="widthFix" src="{{doc.getIcon(config.docName)}}" />
     <!-- 文档名称 -->
-    <text class="access">{{doc.getName(config.docName)}}</text>
+    <text class="name access">{{doc.getName(config.docName)}}</text>
   </view>
   <button wx:if="{{config.downloadable}}" class="download" catch:tap="download">下载</button>
 </view>

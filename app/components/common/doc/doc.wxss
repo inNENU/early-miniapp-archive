@@ -41,7 +41,7 @@
 }
 
 /* 文档图标 */
-.doc-wrapper image {
+.doc-wrapper .icon {
   width: 32px;
   height: 32px;
   margin: 0 5%;
@@ -50,7 +50,7 @@
 
 
 /* 文档名称 */
-.doc-wrapper text {
+.doc-wrapper .name {
   font-size: 18px;
   flex: auto;
   text-align: left;

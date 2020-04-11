@@ -1,30 +1,31 @@
+<wxs src="./share.wxs" module="share" />
 <!-- 分享按钮 -->
-<view wx:if="{{config.shareable||config.contact||config.feedback}}" class="shareIconCtn" style="top:{{top}}px;left:{{left}}px;" hover-class="shareIconHover" hover-stay-time="200" catch:touchstart="move" catch:touchmove="move" catch:touchend="move">
-  <image class="shareIcon" src="./share.svg" />
+<view wx:if="{{share.isShowed(config)}}" class="share-icon" style="top:{{top}}px;left:{{left}}px;" hover-class="hover" hover-stay-time="200" catch:touchstart="move" catch:touchmove="move" catch:touchend="move">
+  <image src="./share.svg" />
 </view>
 <!-- 分享菜单 -->
-<view class="shareCtn{{menuDisplay? ' shareCtnShow': ''}}" catch:tap="cancel">
+<view class="share-wrapper{{menuDisplay? ' show': ''}}" catch:tap="cancel">
   <!-- 背景蒙层 -->
   <view class="mask" />
   <!-- 分享按钮列表 -->
-  <view class="shareBtnList">
+  <view class="share-menu">
     <block wx:if="{{config.shareable}}">
-      <button class="shareBtn" hover-class="buttonHover" hover-start-time="0" open-type="share" share-type="1">
+      <button class="button" hover-class="buttonHover" hover-start-time="0" open-type="share" share-type="1">
         分享给好友
       </button>
-      <button wx:if="{{env === 'qq'}}" class="shareBtn" hover-class="buttonHover" hover-start-time="0" open-type="share" share-type="2">
+      <button wx:if="{{env === 'qq'}}" class="button" hover-class="buttonHover" hover-start-time="0" open-type="share" share-type="2">
         分享到空间
       </button>
     </block>
-    <button wx:if="{{config.shareable && env === 'wx'}}" class="shareBtn" hover-class="buttonHover" hover-start-time="0" bind:tap="download">
+    <button wx:if="{{config.shareable && env === 'wx'}}" class="button" hover-class="buttonHover" hover-start-time="0" bind:tap="download">
       保存页面二维码
     </button>
-    <button wx:if="{{config.contact}}" class="shareBtn" hover-class="buttonHover" hover-start-time="0" open-type="contact" bind:tap="contact">
+    <button wx:if="{{config.contact}}" class="button" hover-class="buttonHover" hover-start-time="0" open-type="contact" bind:tap="contact">
       联系Mr.Hope
     </button>
-    <button wx:if="{{config.feedback}}" class="shareBtn" hover-class="buttonHover" hover-start-time="0" open-type="feedback">
+    <button wx:if="{{config.feedback}}" class="button" hover-class="buttonHover" hover-start-time="0" open-type="feedback">
       意见反馈
     </button>
-    <button class="cancelBtn" hover-class="buttonHover">取消</button>
+    <button class="cancel-button" hover-class="buttonHover">取消</button>
   </view>
 </view>
