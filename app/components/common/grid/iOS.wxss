@@ -11,7 +11,7 @@
   width: calc(25% - 10px);
   margin: 5px;
   padding: 10px 0;
-  background-color: var(--list-bgcolor);
+  background-color: var(--block-bgcolor);
   border-radius: 6px;
 }
 

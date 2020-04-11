@@ -1,15 +1,9 @@
+<wxs src="./paragraph.wxs" module="paragraph" />
 <!-- 段落标题 -->
-<view wx:if="{{config.head}}" class="head">{{config.head}}</view>
+<view wx:if="{{config.head}}" class="paragraph-title">{{config.head}}</view>
 <!-- 段落主体 -->
-<view class="P" style="{{config.align? 'text-align:'+ config.align + ';': ''}}">
-<!-- 多个段落 -->
-  <block wx:if="{{config.muti}}">
-    <text wx:for="{{config.text}}" wx:key="*this" style="display:block;{{config.style || ''}}" selectable="true" space="ensp" decode="true">{{item}}</text>
-  </block>
-  <!-- 单个段落 -->
-  <text wx:else style="{{config.style || ''}}" selectable="true" space="ensp" decode="true">{{config.text}}</text>
+<view class="paragraph" style="{{paragraph.getAlign(config)}}">
+  <text style="{{config.style || ''}}" decode selectable space="ensp">{{paragraph.getText(config)}}</text>
   <!-- 段落图片 -->
-  <block wx:if="{{config.src}}">
-    <img config="{{config}}" />
-  </block>
+  <img wx:if="{{config.src}}" config="{{config}}" />
 </view>

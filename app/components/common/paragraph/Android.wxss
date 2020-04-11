@@ -1,5 +1,5 @@
 /* Android */
-.Android .head {
+.Android .paragraph-title {
   text-align: left;
   font-weight: 500;
   font-size: 17px;
@@ -7,19 +7,15 @@
   margin: 0.33em 25px 0.17em 25px;
 }
 
-.grey.Android .head {
+.grey.Android .paragraph-title {
   margin: 0.77em 0 0.3em 0;
   padding: 0 15px;
-  color: #999;
+  color: var(--light-grey);
   font-size: 14px;
   font-weight: 400;
   min-height: 10px;
 }
 
-.grey.nm.Android .head {
-  color: #666;
-}
-
-.Android .P {
+.Android .paragraph {
   font-size: 15px;
 }

@@ -1,0 +1,16 @@
+module.exports = {
+  /** 获得对齐方式 */
+  getAlign: function (config) {
+    return config && config.align ? 'text-align:' + config.align + ';' : '';
+  },
+  /** 获得段落文字 */
+  getText: function (config) {
+    if (config) {
+      if (typeof config.text === 'string') return config.text;
+
+      return config.text.join('\n');
+    }
+
+    return '';
+  }
+};

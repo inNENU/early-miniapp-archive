@@ -1,5 +1,5 @@
 /* iOS */
-.iOS .head {
+.iOS .paragraph-title {
   text-align: left;
   font-weight: 500;
   padding: 12px 5% 4px 5%;
@@ -7,15 +7,15 @@
   font-size: 19px;
 }
 
-.iOSTitle+.head {
+.iOSTitle+.paragraph-title {
   padding-top: 2px;
 }
 
-.grey.iOS .head {
+.grey.iOS .paragraph-title {
   font-size: 13px;
   min-height: 37px;
   font-weight: 400;
-  color: #666;
+  color: var(--dark-grey);
   padding: 23px 15px 5px 15px;
   margin: 0 auto;
 }
@@ -31,8 +31,4 @@
     font-size: 14px;
     min-height: 38px;
   }
-}
-
-.grey.nm.iOS .head {
-  color: #999;
 }

@@ -4,7 +4,7 @@
   padding: 0 15px;
   line-height: 2.5;
   color: var(--text-color);
-  background-color: var(--list-bgcolor);
+  background-color: var(--block-bgcolor);
 }
 
 .phone-wrapper .icon {

@@ -1,5 +1,5 @@
 /* NENU */
-.NENU .head {
+.NENU .paragraph-title {
   text-align: left;
   font-weight: 500;
   padding: 12px 5% 4px 5%;
@@ -7,19 +7,15 @@
   font-size: 19px;
 }
 
-.NENUTitle+.head {
+.NENUTitle+.paragraph-title {
   padding-top: 2px;
 }
 
-.grey.NENU .head {
+.grey.NENU .paragraph-title {
   font-size: 13px;
   min-height: 37px;
   font-weight: 400;
-  color: #666;
+  color: var(--dark-grey);
   padding: 23px 15px 5px 15px;
   margin: 0 auto;
-}
-
-.grey.nm.NENU .head {
-  color: #999;
 }

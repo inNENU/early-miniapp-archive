@@ -65,14 +65,14 @@
   width: 100%;
   font-weight: 400;
   color: var(--text-color);
-  background-color: var(--list-bgcolor);
+  background-color: var(--block-bgcolor);
   border: none;
   border-radius: 0;
 }
 
 .share-menu .button {
   line-height: 2.4;
-  border-top: 1rpx var(--list-border-color) solid;
+  border-top: 1rpx var(--border-color) solid;
 }
 
 .share-wrapper .cancel-button {

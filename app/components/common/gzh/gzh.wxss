@@ -1,7 +1,7 @@
 .gzh {
   width: 90%;
   margin: 12px 5%;
-  background-color: var(--list-bgcolor);
+  background-color: var(--block-bgcolor);
   text-align: left;
   overflow: hidden;
   border-radius: 8px;

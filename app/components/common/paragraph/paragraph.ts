@@ -12,7 +12,6 @@ Component({
   },
 
   options: {
-    addGlobalClass: true, // 兼容QQ
     styleIsolation: 'shared'
   }
 });

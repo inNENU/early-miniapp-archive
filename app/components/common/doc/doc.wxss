@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   color: var(--text-color);
-  background-color: var(--list-bgcolor);
+  background-color: var(--block-bgcolor);
 }
 
 .doc-wrapper:after,
@@ -16,14 +16,14 @@
 
 .doc-wrapper:after {
   bottom: 0;
-  border-bottom: 1px solid var(--list-border-color);
+  border-bottom: 1px solid var(--border-color);
   transform-origin: 0 100%;
   transform: scaleY(0.4);
 }
 
 .doc-wrapper:before {
   top: 0;
-  border-top: 1px solid var(--list-border-color);
+  border-top: 1px solid var(--border-color);
   transform-origin: 0 0;
   transform: scaleY(0.4);
 }
@@ -65,5 +65,5 @@
   padding: 6px 8px;
   border-radius: 15px;
   line-height: 1;
-  background-color: var(--bgcolor-light);
+  background-color: var(--bgcolor-grey);
 }

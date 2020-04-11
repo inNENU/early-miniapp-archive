@@ -2,7 +2,7 @@
 
 .NENU .grid-wrapper {
   position: relative;
-  background-color: var(--list-bgcolor);
+  background-color: var(--block-bgcolor);
 }
 
 .NENU .grid-wrapper:before {

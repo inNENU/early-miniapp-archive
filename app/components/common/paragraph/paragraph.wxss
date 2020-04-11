@@ -1,16 +1,7 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-07-30 14:43:46
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 17:32:55
- * @Description: 段落样式
- * @Version: 1.0
- */
-
 /****************** 
       通用样式
  *****************/
-.P {
+.paragraph {
   font-size: 16px;
   padding: 0 15px;
   line-height: 1.6;
@@ -20,70 +11,56 @@
 }
 
 @media (min-width:768px) {
-  .P {
+  .paragraph {
     font-size: 18px;
   }
 }
 
-.grey .P {
+.grey .paragraph {
   font-size: 17px;
   padding: 10px 15px;
   line-height: 1.6;
   text-align: left;
-  background-color: #fefefe;
+  color: var(--text-color);
+  background-color: var(--block-bgcolor);
   margin: 0 auto;
   position: relative;
 }
 
-.grey .P:after,
-.grey .P:before {
+.grey .paragraph:after,
+.grey .paragraph:before {
   content: " ";
   position: absolute;
   left: 0;
   right: 0;
   height: 1px;
-  color: #cac9ce;
 }
 
-.grey .P:after {
+.grey .paragraph:after {
   bottom: 0;
-  border-bottom: 1px solid #cac9ce;
+  border-bottom: 1px solid var(--border-color);
   transform-origin: 0 100%;
   transform: scaleY(0.4);
 }
 
-.grey .P:before {
+.grey .paragraph:before {
   top: 0;
-  border-top: 1px solid #cac9ce;
+  border-top: 1px solid var(--border-color);
   transform-origin: 0 0;
   transform: scaleY(0.4);
 }
 
-.grey.nm .P:before,
-.grey.nm .P:after {
-  border-color: #3D3D41;
-}
-
 @media (min-width:768px) {
-  .grey .P {
+  .grey .paragraph {
     margin: 0 15px;
     border-radius: 8px;
     overflow: hidden;
   }
 
-  .grey .P:after,
-  .grey .P:before {
+  .grey .paragraph:after,
+  .grey .paragraph:before {
     border: none;
   }
-}
-
-.grey.nm .P {
-  background-color: #1C1C1E;
-}
-
-.nm .P {
-  background-color: #000;
-  color: #fff;
 }
 
 @import 'iOS.wxss';
@@ -95,6 +72,6 @@
       段落兼容
  *****************/
 
-.P .img {
+.paragraph .img {
   width: 100% !important;
 }
