@@ -1,11 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-07-22 15:12:14
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-09-01 15:25:44
- * @Description: 媒体组件
- */
-
 import * as $register from 'wxpage';
 import { tip } from '../../../utils/wx';
 

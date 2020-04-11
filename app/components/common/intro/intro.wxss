@@ -1,52 +1,47 @@
-.introBox {
+.intro-wrapper {
   width: 100%;
   height: 380rpx;
   position: relative;
   overflow: hidden;
 }
 
-.introBg {
-  width: 100%;
-  height: 100%;
+.intro-wrapper .background {
   position: absolute;
   top: 0;
   left: 0;
-  -webkit-filter: blur(8px);
-  -moz-filter: blur(8px);
-  -o-filter: blur(8px);
-  -ms-filter: blur(8px);
+  width: 100%;
+  height: 100%;
   filter: blur(8px);
   opacity: 0.6;
   z-index: 1;
 }
 
-.introCtn {
-  width: 100%;
-  height: 100%;
+.intro-wrapper .intro {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;
-  display: -webkit-flex;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
-.introIcon {
+.intro-wrapper .icon {
   width: 200rpx !important;
   height: 200rpx !important;
 }
 
-.introName {
+.intro-wrapper .name {
   font-size: 36rpx;
-  text-shadow: 0 0 1px #888;
+  text-shadow: 0 0 1px var(--grey);
   margin: 8rpx 0;
 }
 
-.introDesc {
+.intro-wrapper .desc {
   font-size: 28rpx;
-  color: #444;
+  color: var(--grey4);
   max-width: 80%;
 }

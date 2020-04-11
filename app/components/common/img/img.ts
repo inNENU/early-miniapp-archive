@@ -1,11 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-07-23 18:34:29
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:31:33
- * @Description: 图片组件
- */
-
 import * as $register from 'wxpage';
 
 $register.C({
@@ -44,10 +36,5 @@ $register.C({
             : this.data.url
       });
     }
-  },
-
-  options: {
-    addGlobalClass: true, // 兼容QQ
-    styleIsolation: 'shared'
   }
 });

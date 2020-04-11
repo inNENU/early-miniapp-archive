@@ -1,13 +1,11 @@
-<view class="gzhCtn" hover-class="buttonHover" catch:tap="gzh">
-  <view class="gzhImgCtn">
-    <image class="gzhImg" src="{{config.src}}" mode="aspectFill" />
-  </view>
-  <view class="gzhText">
-    <view class="gzhIconCtn">
-      <image class="gzhIcon" src="{{config.icon}}" />
-      <view class="gzhIconDesc">{{config.gzhName}}</view>
+<view class="gzh" hover-class="buttonHover" catch:tap="gzh">
+  <image class="img" src="{{config.src}}" mode="aspectFill" />
+  <view class="detail">
+    <view class="icon">
+      <image class="logo" src="{{config.icon}}" />
+      <view class="name">{{config.gzhName}}</view>
     </view>
-    <view class="gzhTitle">{{config.title}}</view>
-    <view class="gzhDesc">{{config.desc}}</view>
+    <view class="title">{{config.title}}</view>
+    <view class="desc">{{config.desc}}</view>
   </view>
 </view>

@@ -28,6 +28,7 @@ page>view.light {
   --arrow-color: #c7c7cc;
   --list-bgcolor: #fefefe;
   --list-border-color: #cac9ce;
+  --card-hover: rgba(191, 192, 195, 0.15);
 }
 
 page>view.dark {
@@ -44,4 +45,5 @@ page>view.dark {
   --arrow-color: #383833;
   --list-bgcolor: #1c1c1e;
   --list-border-color: #3d3d41;
+  --card-hover: rgba(64, 63, 60, 0.15);
 }

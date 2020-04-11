@@ -1,11 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-07-23 18:34:29
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 15:23:59
- * @Description: 公众号组件
- */
-
 import * as $register from 'wxpage';
 import { modal } from '../../../utils/wx';
 
@@ -39,10 +31,5 @@ $register.C({
           }
         });
     }
-  },
-
-  options: {
-    addGlobalClass: true, // 兼容QQ
-    styleIsolation: 'shared'
   }
 });
