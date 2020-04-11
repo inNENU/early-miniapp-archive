@@ -10,14 +10,6 @@ globals:
   Page: readonly
   Component: readonly
 
-parser: "@typescript-eslint/parser"
-
-parserOptions:
-  ecmaVersion: 6
-  project: "./tsconfig.json"
-  sourceType: module
-  ecmaFeatures:
-    modules: true
 
 extends:
   - eslint:all
@@ -132,6 +124,10 @@ rules:
   no-ternary:
     - off
 
+  no-underscore-dangle:
+    - error
+    - allowAfterThis: true
+
   no-undefined:
     - off
 
@@ -161,8 +157,7 @@ rules:
     - off
 
   quotes:
-    - error
-    - single
+    - off
 
   radix:
     - error
@@ -176,10 +171,39 @@ rules:
 
 overrides:
   - files:
-      - "*.js"
+      - ".lintstagedrc.js"
 
     env:
       node: true
+
+  - files:
+      - "*.wxs"
+
+    env:
+      es6: false
+      node: true
+
+    rules:
+      func-names:
+        - error
+        - "never"
+
+      func-style:
+        - error
+        - "declaration"
+
+      no-var:
+        - off
+
+      object-shorthand:
+        - error
+        - "never"
+
+      prefer-destructuring:
+        - off
+
+      prefer-template:
+        - off
 
   - files:
       - "*.ts"
@@ -194,8 +218,4 @@ overrides:
 
     rules:
       "@typescript-eslint/explicit-function-return-type": off
-      # "@typescript-eslint/explicit-function-return-type":
-      #   - warn
-      #   - allowTypedFunctionExpressions: true
-
       "@typescript-eslint/no-explicit-any": off
