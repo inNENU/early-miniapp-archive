@@ -6,9 +6,9 @@ module.exports = {
   /** 获得段落文字 */
   getText: function (config) {
     if (config) {
-      if (typeof config.text === 'string') return config.text;
+      if (typeof config.text === 'object') return config.text.join('\n');
 
-      return config.text.join('\n');
+      return config.text;
     }
 
     return '';

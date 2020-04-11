@@ -26,10 +26,6 @@ const savePhoto = (path: string) => {
   });
 };
 
-let time = 0;
-let left = 0;
-let top = 0;
-
 $register.C({
   properties: { config: { type: Object, value: { aim: '' } } as any },
   data: {
@@ -37,30 +33,6 @@ $register.C({
     env
   },
   methods: {
-    /** 分享按钮处理逻辑 */
-    move(event: WXEvent.Touch) {
-      const touch = event.touches[0];
-
-      switch (event.type) {
-        case 'touchstart': // 计算点击点与按钮左上角的距离
-          left = touch.pageX - event.currentTarget.offsetLeft;
-          top = touch.pageY - event.currentTarget.offsetTop;
-          time = event.timeStamp;
-          break;
-        case 'touchmove': // 根据touchstart的计算值移动分享按钮
-          this.setData({ top: touch.pageY - top, left: touch.pageX - left });
-          break;
-        case 'touchend': // 如果触摸小于200ms——>视为点击操作，显示菜单
-        default:
-          if (time > event.timeStamp - 200) this.setData({ menuDisplay: true });
-      }
-    },
-
-    /** 取消显示菜单 */
-    cancel() {
-      this.setData({ menuDisplay: false });
-    },
-
     /** QQ暂不支持联系客服的兼容 */
     contact() {
       if (env === 'qq')

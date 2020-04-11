@@ -22,7 +22,6 @@
         <view class='videoListName'>{{item.name}}</view>
         <view class='videoListAuthor'>{{item.author}}</view>
       </view>
-      <view class='divLine' />
     </view>
     <view style='height:6%;' />
   </scroll-view>

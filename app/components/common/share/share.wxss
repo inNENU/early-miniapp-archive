@@ -64,6 +64,7 @@
 .share-wrapper .cancel-button {
   width: 100%;
   font-weight: 400;
+  padding: 8px 24px;
   color: var(--text-color);
   background-color: var(--block-bgcolor);
   border: none;
@@ -77,10 +78,6 @@
 
 .share-wrapper .cancel-button {
   height: 60px;
-  border-top: 8px #d9d9d9 solid !important;
+  border-top: 8px var(--border-color-light) solid !important;
   padding-bottom: env(safe-area-inset-bottom);
-}
-
-.nm .share-wrapper .cancel-button {
-  border-top: 8px #000 solid !important;
 }

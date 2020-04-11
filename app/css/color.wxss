@@ -29,6 +29,7 @@ page>view.light {
   --dark-grey: #666;
   --light-grey: #999;
 
+  --border-color-light: #d9d9d9;
   --arrow-color: #c7c7cc;
   --hover: rgba(0, 0, 0, 0.1);
   --card-shadow: rgba(191, 192, 195, 0.15);
@@ -48,6 +49,7 @@ page>view.dark {
   --light-grey: #666;
 
   --arrow-color: #383833;
+  --border-color-light: #000;
   --hover: rgba(255, 255, 255, 0.1);
   --card-shadow: rgba(64, 63, 60, 0.15);
 }

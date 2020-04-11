@@ -1,10 +1,10 @@
 <wxs src="./share.wxs" module="share" />
 <!-- 分享按钮 -->
-<view wx:if="{{share.isShowed(config)}}" class="share-icon" style="top:{{top}}px;left:{{left}}px;" hover-class="hover" hover-stay-time="200" catch:touchstart="move" catch:touchmove="move" catch:touchend="move">
+<view wx:if="{{share.isShowed(config)}}" class="share-icon" hover-class="hover" hover-stay-time="200" catch:touchstart="{{share.button}}" catch:touchmove="{{share.button}}" catch:touchend="{{share.button}}">
   <image src="./share.svg" />
 </view>
 <!-- 分享菜单 -->
-<view class="share-wrapper{{menuDisplay? ' show': ''}}" catch:tap="cancel">
+<view class="share-wrapper" catch:tap="{{share.hideMenu}}">
   <!-- 背景蒙层 -->
   <view class="mask" />
   <!-- 分享按钮列表 -->

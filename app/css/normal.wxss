@@ -225,41 +225,6 @@
   text-align: justify !important;
 }
 
-/* common */
-
-.hover {
-  background-color: #eee !important;
-}
-
-.nm .hover {
-  background-color: #111 !important;
-}
-
-.divLine {
-  position: relative;
-  width: 100%;
-  height: 0px;
-}
-
-.Grey {
-  color: grey;
-}
-
-.fix-bottom {
-  position: fixed;
-  bottom: 0;
-  border-top: 1rpx #d9d9d9 solid;
-}
-
-.flexbox {
-  width: 100%;
-  display: flex;
-}
-
-.hide {
-  display: none;
-}
-
 /* 上下边框 */
 .borderT,
 .borderB,
