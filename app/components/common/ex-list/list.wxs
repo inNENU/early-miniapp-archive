@@ -12,10 +12,5 @@ module.exports = {
     var listItem = event.currentTarget.dataset.item;
 
     if (listItem.button) event.instance.callMethod(listItem.button, event);
-
-    event.instance.callMethod(
-      listItem.pickerValue ? 'pickerTap' : listItem.slider ? 'sliderTap' : '',
-      event
-    );
   }
 };

@@ -12,10 +12,10 @@
         <view class="desc access">{{listItem.desc}}</view>
       </view>
       <!-- 按钮、嵌入选择器与滑块 -->
-      <button wx:elif="{{list.isButton(listItem)}}" id="{{index}}" class="list" hover-class="button-hover" hover-stay-time="100" plain="true" disabled="{{listItem.disabled}}" data-item="{{listItem}}" catch:tap="{{list.button}}">
+      <button wx:elif="{{list.isButton(listItem)}}" id="{{index}}" class="list" hover-class="button-hover" hover-stay-time="100" plain="true" disabled="{{listItem.disabled}}" data-item="{{listItem}}" catch:tap="{{list.button}}" capture-bind:tap="{{listItem.pickerValue ? 'pickerTap' : listItem.slider ? 'sliderTap' : ''}}">
         <image wx:if="{{listItem.icon}}" class="icon" src="{{listItem.icon}}" />
         <!-- 按钮文字为蓝色 -->
-        <view class="text" style="{{listItem.button? 'color:#3478f7;': ''}}">
+        <view class="text" style="{{listItem.button? 'color: #3478f7;': ''}}">
           {{listItem.text}}
         </view>
         <!-- 显示滑块值 -->
@@ -44,9 +44,7 @@
       <!-- 普通文字段落与开关 -->
       <view wx:else id="{{index}}" class="list">
         <image wx:if="{{listItem.icon}}" class="icon" src="{{listItem.icon}}" />
-        <view class="text">
-          <text selectable="true" space="ensp" decode="true">{{listItem.text}}</text>
-        </view>
+        <text class="text" decode selectable space="ensp">{{listItem.text}}</text>
         <view class="desc">
           {{listItem.desc}}
           <switch wx:if="{{listItem.swiKey}}" checked="{{listItem.status}}" bindchange="switch" color="{{color}}" data-id="{{index}}" />
@@ -57,22 +55,16 @@
         <!-- 分割线 -->
         <view class="divline" />
         <!-- 滑块显示 -->
-        <view wx:if="{{listItem.slider}}" class="sliderCtn">
-          <slider min="{{listItem.min? listItem.min: '0'}}" max="{{listItem.max? listItem.max: '100'}}" value="{{listItem.value}}" step="{{listItem.step? listItem.step: '1'}}" bindchanging="sliderChange" bindchange="sliderChange" data-id="{{index}}" />
-        </view>
+        <slider wx:if="{{listItem.slider}}" class="slider" min="{{listItem.min? listItem.min: '0'}}" max="{{listItem.max? listItem.max: '100'}}" value="{{listItem.value}}" step="{{listItem.step? listItem.step: '1'}}" bindchanging="sliderChange" bindchange="sliderChange" data-id="{{index}}" />
         <!-- 嵌入式选择器显示 -->
-        <picker-view wx:if="{{listItem.pickerValue}}" indicator-class="pickSelected" class="pickerViewCtn" value="{{listItem.currentValue}}" bindchange="pickerChange" data-id="{{index}}" mask-class="pickerMask">
-          <block wx:if="{{listItem.single}}">
-            <picker-view-column class="pick-view-column">
-              <view wx:for="{{listItem.pickerValue}}" wx:key="*this" class="pickColumn">
-                {{item}}
-              </view>
-            </picker-view-column>
-          </block>
+        <picker-view wx:if="{{listItem.pickerValue}}" indicator-class="pickSelected" class="picker-view" value="{{listItem.currentValue}}" bindchange="pickerChange" data-id="{{index}}" mask-class="pickerMask">
+          <picker-view-column wx:if="{{listItem.single}}" class="column">
+            <view wx:for="{{listItem.pickerValue}}" wx:key="*this" class="item">{{item}}</view>
+          </picker-view-column>
           <block wx:else>
             <block wx:for="{{listItem.pickerValue}}" wx:key="{{item[0]}}">
-              <picker-view-column class="pick-view-column">
-                <view wx:for="{{item}}" wx:key="*this" class="pickColumn">{{item}}</view>
+              <picker-view-column class="column">
+                <view wx:for="{{item}}" wx:key="*this" class="item">{{item}}</view>
               </picker-view-column>
             </block>
           </block>

@@ -17,10 +17,10 @@ $register.C({
 
   methods: {
     preview() {
+      const docType = this.data.config.docName.split('.').pop();
+
       if (
-        ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(
-          this.data.config.docType
-        )
+        ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(docType)
       ) {
         // 检测到文档
 
@@ -55,6 +55,8 @@ $register.C({
       )
         wx.previewImage({ urls: [this.data.config.url] });
     },
+
+    /** 下载文档 */
     download() {
       if (
         ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(
