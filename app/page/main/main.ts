@@ -15,7 +15,7 @@ import {
 } from '../../utils/page';
 import { checkResUpdate, refreshPage } from '../../utils/tab';
 import $search from '../../utils/search';
-import { request } from '../../utils/wx';
+import { requestJSON } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('main', {
@@ -98,7 +98,7 @@ $register('main', {
 
     // 执行tab页预加载
     ['guide', 'function'].forEach((x) => {
-      request(`config/${a.appID}/${a.version}/${x}`, (data: object) => {
+      requestJSON(`config/${a.appID}/${a.version}/${x}`, (data: object) => {
         wx.setStorageSync(x, data);
         this.$preload(`${x}?aim=${x}`);
       });

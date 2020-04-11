@@ -1,12 +1,4 @@
 /* eslint-disable max-params */
-/*
- * @Author: Mr.Hope
- * @LastEditors: Mr.Hope
- * @Description: 文件管理模块
- * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2020-02-25 09:15:34
- */
-
 import { debug, error, info, warn } from './log';
 import { server } from './config';
 
@@ -131,13 +123,13 @@ export const readFile = (
 };
 
 /**
- * 读取并解析Json文件
+ * 读取并解析 JSON 文件
  *
- * @param path Json文件相对用户文件夹的路径
+ * @param path JSON 文件相对用户文件夹的路径
  * @param encoding 文件的编码格式
- * @returns  解析后的json
+ * @returns JSON 文件内容
  */
-export const readJson = (
+export const readJSON = (
   path: string,
   encoding: FileEncoding = 'utf-8'
 ): any => {
@@ -196,39 +188,50 @@ export const saveFile = (tempFilePath: string, path: string): void => {
   }
 };
 
+/** 保存在线文件选项接口 */
+interface SaveOnlineFileOption {
+  /** 在线文件路径 */
+  onlinePath: string;
+  /** 本地保存路径 */
+  savePath: string;
+  /** 本地保存文件名 */
+  saveName: string;
+  /** 成功回调函数 */
+  success?: (path: string) => void;
+  /** 失败回调函数 */
+  fail?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void;
+  /** 状态码错误回调函数 */
+  error?: (statusCode: number) => void;
+}
+
 /**
  * 保存在线文件
  *
- * @param options 参数数组
- *  - onlinePath 在线文件路径
- *  - savePath 本地保存路径
- *  - fileName 本地保存文件名
- *
- * @param successFunc 成功回调函数
- * @param failFunc  失败回调函数
- * @param errorFunc 失败回调函数
+ * @param options 配置
  */
-export const saveOnlineFile = (
-  [onlinePath, savePath, fileName]: string[],
-  successFunc: (path: string) => void,
-  failFunc?: (errMsg: WechatMiniprogram.GeneralCallbackResult) => void,
-  errorFunc?: (statusCode: number) => void
-): void => {
+export const saveOnlineFile = ({
+  onlinePath,
+  savePath,
+  saveName,
+  success,
+  fail,
+  error: errorFunc
+}: SaveOnlineFileOption): void => {
   makeDir(savePath);
   wx.downloadFile({
     url: `https://${server}${onlinePath}`,
-    filePath: `${userPath}/${savePath}/${fileName}`,
+    filePath: `${userPath}/${savePath}/${saveName}`,
     success: (res) => {
       if (res.statusCode === 200) {
         info(`保存 ${onlinePath} 成功`);
-        successFunc(res.tempFilePath);
+        if (success) success(res.tempFilePath);
       } else {
         if (errorFunc) errorFunc(res.statusCode);
         warn(`下载${onlinePath}失败，状态码为${res.statusCode}`);
       }
     },
     fail: (failMsg) => {
-      if (failFunc) failFunc(failMsg);
+      if (fail) fail(failMsg);
       warn(`下载${onlinePath}失败，错误为`, failMsg);
     }
   });
@@ -259,14 +262,14 @@ export const writeFile = (
 };
 
 /**
- * 写入Json文件
+ * 写入 JSON 文件
  *
  * @param path 写入文件的路径
  * @param fileName 写入文件的文件名
  * @param data 写入文件的数据
  * @param encoding 文件编码选项
  */
-export const writeJson = (
+export const writeJSON = (
   path: string,
   fileName: string,
   data: object,
@@ -283,13 +286,13 @@ export const writeJson = (
 };
 
 /**
- * 获取Json
+ * 获取 JSON
  *
- * @param path JSON文件路径
- * @param successFunc Json获取成功后的回调
- * @param failFunc Json获取失败后的回调
+ * @param path JSON 文件路径
+ * @param successFunc JSON 获取成功后的回调
+ * @param failFunc JSON 获取失败后的回调
  */
-export const getJson = (
+export const getJSON = (
   path: string,
   successFunc?: (data: object | string) => void,
   failFunc?: () => void
@@ -299,7 +302,7 @@ export const getJson = (
   const folder = temp.join('/');
 
   if (successFunc) {
-    let data = readJson(path);
+    let data = readJSON(path);
 
     if (data) successFunc(data);
     else {
@@ -312,7 +315,7 @@ export const getJson = (
           if (res.statusCode === 200) {
             info(`保存 ${path}.json 成功`);
 
-            data = readJson(path);
+            data = readJSON(path);
 
             successFunc(data);
           } else {

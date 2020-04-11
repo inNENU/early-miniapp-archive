@@ -7,7 +7,7 @@
  */
 import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../../utils/page';
-import { request, savePhoto } from '../../utils/wx';
+import { requestJSON, savePhoto } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 interface DonateDetail {
@@ -43,7 +43,7 @@ $register('donate', {
     this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
 
     // 获取捐赠列表数据
-    request('config/donateList', (donateList) => {
+    requestJSON('config/donateList', (donateList) => {
       let sum = 0;
 
       ((donateList as unknown) as DonateList).forEach((element) => {

@@ -1,30 +1,23 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-06-24 21:30:29
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 20:57:06
- * @Description: 地点详情
- */
 import * as $register from 'wxpage';
 import { changeNav, resolvePage, setColor, setPage } from '../../utils/page';
-import { makeDir, readJson, writeJson } from '../../utils/file';
-import { request } from '../../utils/wx';
+import { makeDir, readJSON, writeJSON } from '../../utils/file';
+import { requestJSON } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('situs', {
   onPreload(res) {
-    resolvePage(res, readJson(`function/${res.query.xiaoqu}/${res.query.aim}`));
+    resolvePage(res, readJSON(`function/${res.query.xiaoqu}/${res.query.aim}`));
   },
 
   onLoad(option: any) {
     if (a.page.aim === option.aim) setPage({ option, ctx: this });
     else {
-      const pageData = readJson(`function/${option.xiaoqu}/${option.aim}`);
+      const pageData = readJSON(`function/${option.xiaoqu}/${option.aim}`);
 
       if (pageData) setPage({ option, ctx: this }, pageData);
       // 向服务器请求json
       else
-        request(
+        requestJSON(
           `function/${option.xiaoqu}/${option.aim}`,
           (data: object) => {
             setPage({ option, ctx: this }, data as PageData);
@@ -32,7 +25,7 @@ $register('situs', {
             // 非分享界面下将页面数据写入存储
             if (!option.share) {
               makeDir(`function/${option.xiaoqu}`);
-              writeJson(`function/${option.xiaoqu}`, option.aim, data);
+              writeJSON(`function/${option.xiaoqu}`, option.aim, data);
             }
           },
           () => {

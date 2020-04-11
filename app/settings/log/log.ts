@@ -14,7 +14,7 @@ import {
   setColor,
   setPage
 } from '../../utils/page';
-import { request } from '../../utils/wx';
+import { requestJSON } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('log', {
@@ -73,7 +73,7 @@ $register('log', {
 
   onReady() {
     // 在线获取日志页面文件
-    request(`config/${a.appID}/${a.version}/log`, (data: any) => {
+    requestJSON(`config/${a.appID}/${a.version}/log`, (data: any) => {
       setPage(
         { option: { aim: '更新日志' }, ctx: this },
         this.data.page.slice(0, 1).concat(data, this.data.page.slice(-1))

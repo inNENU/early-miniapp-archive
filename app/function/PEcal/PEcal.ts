@@ -1,13 +1,6 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-06-24 21:14:11
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-27 23:48:23
- * @Description: 体测计算器
- */
 import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor, setPage } from '../../utils/page';
-import { getJson } from '../../utils/file';
+import { getJSON } from '../../utils/file';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 const hash = [
@@ -258,7 +251,7 @@ $register('PEcal', {
   ) {
     const { length } = hash;
 
-    getJson(`function/PEcal/${result.gender}${result.grade}`, (config: any) => {
+    getJSON(`function/PEcal/${result.gender}${result.grade}`, (config: any) => {
       // TODO: move to website
 
       /*

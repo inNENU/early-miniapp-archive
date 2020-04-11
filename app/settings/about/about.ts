@@ -13,7 +13,7 @@ import {
   setColor,
   setPage
 } from '../../utils/page';
-import { request, tip } from '../../utils/wx';
+import { requestJSON, tip } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 let clickNumber = 0;
 let developMode = false;
@@ -93,7 +93,7 @@ $register('about', {
   },
   onReady() {
     // 读取在线文件更新页面显示
-    request(`config/${a.appID}/${a.version}/about`, (data: any) => {
+    requestJSON(`config/${a.appID}/${a.version}/about`, (data: any) => {
       setPage(
         { option: { aim: '关于' }, ctx: this },
         this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1))

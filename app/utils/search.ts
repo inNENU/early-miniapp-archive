@@ -1,12 +1,4 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-08-12 01:14:51
- * @LastEditors  : Mr.Hope
- * @LastEditTime : 2020-01-18 18:04:35
- * @Description: 搜索模块
- */
-
-import { getJson } from './file';
+import { getJSON } from './file';
 
 /** 关键词 */
 export interface Keywords {
@@ -40,7 +32,7 @@ let keywords: Keywords;
 
 /** 初始化keywords */
 const init = (): void => {
-  getJson('page/keywords', (data) => {
+  getJSON('page/keywords', (data) => {
     keywords = data as Keywords;
   });
 };

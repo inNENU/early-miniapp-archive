@@ -8,9 +8,9 @@
 
 import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../../utils/page';
-import { getJson, readJson, writeJson } from '../../utils/file';
+import { getJSON, readJSON, writeJSON } from '../../utils/file';
 import { TimeLineItem } from '../../components/timeline/timeline';
-import { request } from '../../utils/wx';
+import { requestJSON } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('calendar', {
@@ -26,20 +26,20 @@ $register('calendar', {
   },
 
   onNavigate() {
-    getJson('function/calendar/all');
+    getJSON('function/calendar/all');
   },
 
   onLoad() {
     const path = 'function/calendar/all';
-    const calendar = readJson(path);
+    const calendar = readJSON(path);
 
     if (calendar) this.setData({ T: a.T, nm: a.nm, calendar });
     else
-      request(path, (data) => {
+      requestJSON(path, (data) => {
         this.setData({ T: a.T, nm: a.nm, calendar: data as any });
 
         // 写入JSON文件
-        writeJson('function/calendar', 'all', data);
+        writeJSON('function/calendar', 'all', data);
       });
 
     popNotice('calendar');
@@ -61,7 +61,7 @@ $register('calendar', {
   display(event: WXEvent.Touch) {
     console.log('display', event.detail);
     const path = `function/calendar/${event.detail.aim}`;
-    const content = readJson(path);
+    const content = readJSON(path);
 
     if (content)
       this.setData({
@@ -70,11 +70,11 @@ $register('calendar', {
         display: true
       });
     else
-      request(path, (data) => {
+      requestJSON(path, (data) => {
         this.setData({ calendarDetail: data[1], name: data[0], display: true });
 
         // 写入JSON文件
-        writeJson('function/calendar', 'all', data);
+        writeJSON('function/calendar', 'all', data);
       });
   },
 

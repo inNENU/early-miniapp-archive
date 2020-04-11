@@ -6,9 +6,9 @@
  * @LastEditTime: 2019-04-08 11:34:39
  */
 
-import { Delete, readJson, saveFile, unzip } from './file';
+import { Delete, readJSON, saveFile, unzip } from './file';
 import { debug, error, info } from './log';
-import { modal, request, tip } from './wx';
+import { modal, requestJSON, tip } from './wx';
 import { server } from './config';
 import { setPage } from './page';
 
@@ -60,7 +60,7 @@ export const resDownload = (name: string): void => {
 // eslint-disable-next-line max-lines-per-function
 export const checkResUpdate = (name: string, dataUsage: string): void => {
   const notify = wx.getStorageSync(`${name}ResNotify`); // 资源提醒
-  const localVersion = readJson(`${name}Version`); // 读取本地Version文件
+  const localVersion = readJSON(`${name}Version`); // 读取本地Version文件
   const localTime = wx.getStorageSync(`${name}UpdateTime`);
   const currentTime = Math.round(new Date().getTime() / 1000); // 读取当前和上次更新时间
 
@@ -157,13 +157,13 @@ export const refreshPage = (
 
   // 开启测试后展示测试界面
   if (test)
-    request(`config/${globalData.appID}/test/${name}`, (data) => {
+    requestJSON(`config/${globalData.appID}/test/${name}`, (data) => {
       wx.setStorageSync(name, data);
       setPage({ ctx, option: { aim: name } }, data as PageData);
     });
   // 普通界面加载
   else
-    request(
+    requestJSON(
       `config/${globalData.appID}/${globalData.version}/${name}`,
       (data) => {
         setPage({ ctx, option: { aim: name } }, data as PageData);

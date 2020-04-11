@@ -1,14 +1,7 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-06-24 21:20:57
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2020-03-29 20:06:58
- * @Description: 音乐播放器
- */
 import * as $register from 'wxpage';
-import { getJson, readJson, writeJson } from '../../utils/file';
+import { getJSON, readJSON, writeJSON } from '../../utils/file';
 import { popNotice, setColor } from '../../utils/page';
-import { request, tip } from '../../utils/wx';
+import { requestJSON, tip } from '../../utils/wx';
 const { globalData: a } = getApp<{}, GlobalData>();
 const manager = wx.getBackgroundAudioManager();
 
@@ -50,7 +43,7 @@ $register('music', {
     mode: 0
   },
   onNavigate() {
-    getJson('function/song');
+    getJSON('function/song');
   },
   onLoad(option = {}) {
     // 加载字体
@@ -67,7 +60,7 @@ $register('music', {
     if (option.index) a.music.index = Number(option.index);
 
     const { index } = a.music;
-    const songList = readJson('function/song') as SongDetail[];
+    const songList = readJSON('function/song') as SongDetail[];
     const mode = wx.getStorageSync('playMode');
 
     if (!mode) wx.setStorageSync('playMode', 0);
@@ -99,7 +92,7 @@ $register('music', {
 
       // 在线获取歌曲列表
     } else
-      request('function/song', (data) => {
+      requestJSON('function/song', (data) => {
         currentSong = data[index] as SongDetail;
         this.setData({ currentSong, songList: data as any[] });
 
@@ -115,7 +108,7 @@ $register('music', {
         }
 
         // 写入JSON文件
-        writeJson('function', 'song', data);
+        writeJSON('function', 'song', data);
       });
 
     // 注册播放器动作

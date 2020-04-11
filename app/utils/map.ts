@@ -7,8 +7,8 @@
  */
 
 import { debug, warn } from './log';
-import { readJson, writeJson } from './file';
-import { request } from './wx';
+import { readJSON, writeJSON } from './file';
+import { requestJSON } from './wx';
 
 /** 标记点 */
 interface Marker {
@@ -126,13 +126,13 @@ const setMarker = (data: MarkerConfig, name: string): void => {
 /** 设置marker */
 export const markerSet = (): void => {
   const markerVersion = wx.getStorageSync('markerVersion');
-  const functionVersion = readJson('functionVersion');
+  const functionVersion = readJSON('functionVersion');
 
   // Marker已经设置完毕
   if (markerVersion === functionVersion) debug('Marker 已设置就绪');
   // 需要设置Marker
   else {
-    const markerData = readJson('function/marker');
+    const markerData = readJSON('function/marker');
 
     // 找到MarkerData，直接设置Marker
     if (Array.isArray(markerData)) {
@@ -143,16 +143,16 @@ export const markerSet = (): void => {
       // 没有找到MarkerData，可能因为初始化中断造成
       warn('获取Marker失败'); // 调试
 
-      request('function/marker', (data) => {
+      requestJSON('function/marker', (data) => {
         // 将Marker数据保存文件
-        writeJson('function', 'marker', data);
+        writeJSON('function', 'marker', data);
 
         // 设置Marker
         setMarker((data as MarkerConfig[])[0], 'benbu');
         setMarker((data as MarkerConfig[])[1], 'jingyue');
 
         // 写入线上版本
-        request('functionVersion', (data2) => {
+        requestJSON('functionVersion', (data2) => {
           wx.setStorageSync('markerVersion', data2);
         });
       });

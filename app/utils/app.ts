@@ -1,16 +1,9 @@
 /* eslint-disable max-lines, max-lines-per-function */
-/*
- * @Author: Mr.Hope
- * @Date: 2019-06-24 11:59:30
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2020-03-29 20:08:18
- * @Description: APP函数库
- */
 
 /** 文件管理器与API封装 */
 import { Delete, listFile, saveFile, unzip } from './file';
+import { compareVersion, modal, netReport, requestJSON, tip } from './wx';
 import { error, info, warn } from './log';
-import { modal, netReport, request, tip } from './wx';
 import { server } from './config';
 
 /** App初始化选项 */
@@ -160,13 +153,16 @@ export const noticeCheck = (globalData: GlobalData): void => {
   /** 通知列表格式 */
   interface NoticeList {
     [props: string]: {
+      /** 标题 */
       0: string;
+      /** 内容 */
       1: string;
-      2: undefined | boolean;
+      /** 是否每次都通知 */
+      2?: boolean;
     };
   }
 
-  request(
+  requestJSON(
     `config/${globalData.appID}/${globalData.version}/notice`,
     (noticeList: NoticeList) => {
       /** 通知页面名称 */
@@ -301,14 +297,14 @@ export const appUpdate = (globalData: GlobalData): void => {
 
   updateManager.onUpdateReady(() => {
     // 请求配置文件
-    request(
+    requestJSON(
       `config/${globalData.appID}/${globalData.version}/config`,
       (data) => {
         ({ forceUpdate, reset } = data as UpdateInfo);
 
         // 请求配置文件
-        request(`config/${globalData.appID}/version`, (data2) => {
-          version = (data2 as unknown) as string;
+        requestJSON<string>(`config/${globalData.appID}/version`, (data2) => {
+          version = data2;
           // 更新下载就绪，提示用户重新启动
           wx.showModal({
             title: '已找到新版本',
@@ -405,9 +401,9 @@ export const startup = (globalData: GlobalData): void => {
   // 检测基础库版本
   if (
     ((globalData.env === 'qq' &&
-      Number(globalData.info.SDKVersion.split('.')[1]) < 9) ||
+      compareVersion(globalData.info.SDKVersion, '1.9.0') < 0) ||
       (globalData.env === 'wx' &&
-        Number(globalData.info.SDKVersion.split('.')[1]) < 8)) &&
+        compareVersion(globalData.info.SDKVersion, '2.8.0') < 0)) &&
     wx.getStorageSync('SDKVersion') !== globalData.info.SDKVersion
   )
     modal(
@@ -430,8 +426,7 @@ export const startup = (globalData: GlobalData): void => {
     tip('内存不足');
     console.warn('onMemoryWarningReceive');
     wx.reportAnalytics('memory_warning', {
-      // eslint-disable-next-line camelcase
-      // eslint-disable-next-line @typescript-eslint/camelcase
+      // eslint-disable-next-line
       memory_warning: res && res.level ? res.level : 0
     });
   });

@@ -9,8 +9,8 @@
 
 // 引入文件管理
 import { debug, error, info, warn } from './log';
-import { getJson, readJson, writeJson } from './file';
-import { modal, request } from './wx';
+import { getJSON, readJSON, writeJSON } from './file';
+import { modal, requestJSON } from './wx';
 
 /** 全局数据 */
 const { globalData } = getApp<{}, GlobalData>();
@@ -181,7 +181,7 @@ const preGetPage = (page: PageData): void => {
           if ('aim' in element) {
             const { path } = resolveAim(element.aim);
 
-            getJson(`page/${path}`);
+            getJSON(`page/${path}`);
           }
         });
     });
@@ -223,7 +223,7 @@ export const resolvePage = (
   if (page) data = disposePage(page, option.query);
   else {
     const { path } = resolveAim(aim);
-    const pageData = readJson(`page/${path}`);
+    const pageData = readJSON(`page/${path}`);
 
     if (pageData) data = disposePage(pageData as PageData, option.query);
     else {
@@ -373,7 +373,7 @@ export const setOnlinePage = (
     // 需要重新载入界面
     info(`${option.aim}onLoad开始，参数为：`, option);
     const { folder, path } = resolveAim(option.aim);
-    const page = readJson(`page/${path}`);
+    const page = readJSON(`page/${path}`);
 
     // 如果本地存储中含有 page 直接处理
     if (page) {
@@ -390,14 +390,14 @@ export const setOnlinePage = (
     }
     // 请求页面Json
     else
-      request(
+      requestJSON(
         `page/${path}`,
         (data) => {
           // 设置界面
           setPage({ option, ctx }, data as PageData);
 
           // 非分享界面下将页面数据写入存储
-          if (!option.share) writeJson(`page/${folder}`, `${option.aim}`, data);
+          if (!option.share) writeJSON(`page/${folder}`, `${option.aim}`, data);
 
           // 如果需要执行预加载，则执行
           if (preload) {

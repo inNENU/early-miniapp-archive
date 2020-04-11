@@ -1,10 +1,4 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-08-19 12:08:25
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-03 15:24:30
- * @Description: 添加到我的小程序
- */
+/** 添加到我的小程序 */
 
 import * as $register from 'wxpage';
 

@@ -1,26 +1,18 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-06-24 21:30:29
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-17 20:57:20
- * @Description: 视频页面
- */
-
 import * as $register from 'wxpage';
-import { getJson, readJson } from '../../utils/file';
-import { modal, request, tip } from '../../utils/wx';
+import { getJSON, readJSON } from '../../utils/file';
+import { modal, requestJSON, tip } from '../../utils/wx';
 import { popNotice, setColor } from '../../utils/page';
 const { globalData: a } = getApp<{}, GlobalData>();
 
 $register('video', {
   onNavigate() {
-    getJson('function/video');
+    getJSON('function/video');
   },
 
   onLoad(options) {
     if (a.appID === 'wx9ce37d9662499df3') {
       const id = options.scene || options.id || 0;
-      const videoList = readJson('function/video');
+      const videoList = readJSON('function/video');
 
       if (videoList) {
         const item = videoList[id];
@@ -37,7 +29,7 @@ $register('video', {
           vid: item.vid || ''
         });
       } else
-        request('function/video', (data) => {
+        requestJSON('function/video', (data) => {
           const item = data[id];
 
           this.setData({
