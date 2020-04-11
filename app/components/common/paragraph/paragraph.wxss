@@ -48,18 +48,14 @@
 .grey .P:after {
   bottom: 0;
   border-bottom: 1px solid #cac9ce;
-  -webkit-transform-origin: 0 100%;
   transform-origin: 0 100%;
-  -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
 }
 
 .grey .P:before {
   top: 0;
   border-top: 1px solid #cac9ce;
-  -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
 }
 

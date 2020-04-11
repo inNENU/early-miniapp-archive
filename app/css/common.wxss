@@ -45,7 +45,6 @@ image.loading::after {
   font-size: 32rpx;
   margin: auto;
   color: #ccc;
-  -webkit-animation: cuIcon-spin 2s infinite linear;
   animation: cuIcon-spin 2s infinite linear;
   display: block;
 } */
@@ -82,7 +81,6 @@ image.loading::after {
   height: 9px;
   border-width: 2px 2px 0 0;
   border-style: solid;
-  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
   transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
   position: absolute;
   top: 50%;

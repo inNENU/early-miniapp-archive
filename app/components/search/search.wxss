@@ -1,7 +1,6 @@
 .searchBar {
   position: relative;
   padding: 8px;
-  display: -webkit-flex;
   display: flex;
   background-color: #ededed;
   align-items: center;
@@ -31,7 +30,6 @@
 }
 
 .searchLabel {
-  display: -webkit-flex;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -42,7 +42,6 @@
 .Android-navigationBar {
   box-sizing: content-box;
   height: 44px;
-  display: -webkit-flex;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -88,7 +87,6 @@
   position: relative;
   min-width: 10 !important;
   min-height: 16 !important;
-  display: -webkit-flex;
   display: flex;
   align-items: center;
   margin: 0 3% !important;
@@ -104,7 +102,6 @@
   height: 11px;
   border-width: 0 0 3px 3px;
   border-style: solid;
-  -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
   transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
   border-color: black;
 }
@@ -199,36 +196,30 @@
 
 @keyframes listRotate {
   from {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
   to {
-    -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
   }
 }
 
 @keyframes listRotate2 {
   from {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
   to {
-    -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
   }
 }
 
 .AndroidListRotate {
   transform: rotate(180deg);
-  -webkit-animation: listRotate 0.3s linear 0s none 1 normal;
   animation: listRotate 0.3s linear 0s none 1 normal;
 }
 
 .AndroidListRotateNone {
-  -webkit-animation: listRotate2 0.3s linear 0s none 1 reverse;
   animation: listRotate2 0.3s linear 0s none 1 reverse;
 }
 
