@@ -11,6 +11,7 @@
 import { debug, error, info, warn } from './log';
 import { getJSON, readJSON, writeJSON } from './file';
 import { modal, requestJSON } from './wx';
+import { Notice } from './app';
 
 /** 全局数据 */
 const { globalData } = getApp<{}, GlobalData>();
@@ -315,24 +316,21 @@ export const setPage = (
  *
  * - 描述：弹出通知
  *
- * - 用法：在页面`onLoad`时调用
+ * - 用法：在页面 `onLoad` 时调用
  *
  * - 性质：同步函数
  *
- * @param aim 当前界面的aim值
+ * @param aim 当前界面的 aim 值
  */
 export const popNotice = (aim: string): void => {
-  if (wx.getStorageSync(`${aim}Notify`)) {
-    /*
-     * 判断是否需要弹窗
-     * 从存储中获取通知内容并展示
-     */
-    const notice = wx.getStorageSync(`${aim}notice`);
+  if (!wx.getStorageSync(`${aim}-notifyed`)) {
+    // 没有进行过通知，判断是否需要弹窗，从存储中获取通知内容并展示
+    const notice: Notice = wx.getStorageSync(`${aim}-notice`);
 
-    modal(notice[0], notice[1], () => {
-      wx.removeStorageSync(`${aim}Notify`); // 防止二次弹窗
+    modal(notice.title, notice.content, () => {
+      wx.setStorageSync(`${aim}notifyed`, true); // 防止二次弹窗
     });
-    info('弹出通知'); // 调试
+    info(`${aim}页面弹出通知`); // 调试
   }
   wx.reportAnalytics('page_aim_count', { aim }); // Aim统计分析
 };

@@ -144,62 +144,46 @@ export const appInit = (): void => {
   });
 };
 
+/** 通知格式 */
+export interface Notice {
+  /** 标题 */
+  title: string;
+  /** 内容 */
+  content: string;
+  /** 是否每次都通知 */
+  force?: boolean;
+}
+
 /**
  * 弹窗通知检查
  *
  * @param globalData 小程序的全局数据
  */
 export const noticeCheck = (globalData: GlobalData): void => {
-  /** 通知列表格式 */
-  interface NoticeList {
-    [props: string]: {
-      /** 标题 */
-      0: string;
-      /** 内容 */
-      1: string;
-      /** 是否每次都通知 */
-      2?: boolean;
-    };
-  }
-
   requestJSON(
     `config/${globalData.appID}/${globalData.version}/notice`,
-    (noticeList: NoticeList) => {
-      /** 通知页面名称 */
-      const keys = Object.keys(noticeList);
+    (noticeList: Record<string, Notice>) => {
+      for (const pageName in noticeList) {
+        const notice = noticeList[pageName];
+        const oldNotice = wx.getStorageSync(`${pageName}-notice`);
 
-      keys.forEach((page) => {
-        // 如果读取到强制通知设置，每次都要通知，直接写入通知信息
-        if (noticeList[page][2]) {
-          wx.setStorageSync(`${page}notice`, [
-            noticeList[page][0],
-            noticeList[page][1]
-          ]);
-          wx.setStorageSync(`${page}Notify`, true);
-
-          // 如果在线通知版本号更高，写入通知内容、通知提示与通知版本
-        } else {
-          const oldNotice = wx.getStorageSync(`${page}notice`);
-
-          if (
-            !oldNotice ||
-            oldNotice[0] !== noticeList[page][0] ||
-            oldNotice[1] !== noticeList[page][1]
-          ) {
-            wx.setStorageSync(`${page}notice`, [
-              noticeList[page][0],
-              noticeList[page][1]
-            ]);
-            wx.setStorageSync(`${page}Notify`, true); // 写入
-          }
+        // 如果通知内容不同或为强制通知，写入通知信息，并重置通知状态
+        if (
+          oldNotice.title !== notice.title ||
+          oldNotice.content !== notice.content ||
+          notice.force
+        ) {
+          wx.setStorageSync(`${pageName}-notice`, notice);
+          wx.removeStorageSync(`${pageName}-notifyed`);
         }
-      });
 
-      // 如果找到APP级通知，立即提醒
-      if ('app' in keys)
-        modal(noticeList.app[0], noticeList.app[1], () =>
-          wx.removeStorageSync('appNotify')
-        );
+        // 如果找到APP级通知，进行判断
+        if (pageName === 'app')
+          if (!wx.getStorageSync('app-notifyed') || notice.force)
+            modal(notice.title, notice.content, () =>
+              wx.setStorageSync('app-notifyed', true)
+            );
+      }
     },
     () => {
       // 调试信息
