@@ -1,6 +1,6 @@
 <view class="phone-wrapper">
   <!-- 电话图标 -->
-  <image class="icon" mode="widthFix" src="./phone.svg" />
+  <image class="phone-icon" mode="widthFix" src="./phone.svg" />
   <!-- 电话号码 -->
   <view class="number">{{config.num}}</view>
   <!-- 拨打电话按钮 -->

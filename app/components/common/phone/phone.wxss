@@ -7,7 +7,7 @@
   background-color: var(--block-bgcolor);
 }
 
-.phone-wrapper .icon {
+.phone-wrapper .phone-icon {
   width: 24px;
   height: 24px;
   margin-right: 15px;
