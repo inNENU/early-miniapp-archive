@@ -1,5 +1,5 @@
 <view class="{{nm?'nm':''}} commonBg">
-  <view class='backBtn' style="top:{{info.statusBarHeight+5}}px;" hover-class='buttonHover' catch:tap="back">
+  <view class='backBtn' style="top:{{info.statusBarHeight+5}}px;" hover-class='button-hover' catch:tap="back">
     <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
   </view>
   <view style='height:10%;' />
@@ -55,7 +55,7 @@
     <view class="closeBtn" hover-class="hover" catch:tap="list">
       <image class="closeIcon" src="/icon/close.svg" />
     </view>
-    <view wx:for="{{songList}}" wx:key="{{item.title}}" class="songCtn" hover-class="buttonHover" catch:tap="change" data-index="{{index}}">
+    <view wx:for="{{songList}}" wx:key="{{item.title}}" class="songCtn" hover-class="button-hover" catch:tap="change" data-index="{{index}}">
       <image class="songListIcon" src="{{item.cover}}" />
       <view class="songList">
         <view class="songListName">{{item.title}}</view>

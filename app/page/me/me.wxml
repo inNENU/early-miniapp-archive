@@ -22,18 +22,18 @@
   <template is="body" data="{{page,T}}" />
   <view class="commonhead"></view>
   <view class="list-wrapper">
-    <button class="button list" plain="true" hover-class="buttonHover" open-type="share" hover-stay-time="100" id="2">
+    <button class="list" plain="true" hover-class="button-hover" open-type="share" hover-stay-time="100" id="2">
       <image class="icon" src="/icon/tabPage/share.svg" />
       <view class="text">分享小程序</view>
     </button>
     <view class="icon divline" />
-    <button class="button list" plain="true" hover-class="buttonHover" open-type="feedback" hover-stay-time="100" id="3">
+    <button class="list" plain="true" hover-class="button-hover" open-type="feedback" hover-stay-time="100" id="3">
       <image class="icon" src="/icon/tabPage/bug.svg" />
       <view class="text">bug反馈</view>
     </button>
     <block wx:if="{{env === 'wx'}}">
       <view class="icon divline" />
-      <button class="button list" plain="true" hover-class="buttonHover" open-type="contact" hover-stay-time="100" id="3">
+      <button class="list" plain="true" hover-class="button-hover" open-type="contact" hover-stay-time="100" id="3">
         <image class="icon" src="/icon/tabPage/contact.svg" />
         <view class="text">联系{{appID === 'wx9ce37d9662499df3'? '校会君': 'Mr.Hope'}}</view>
       </button>

@@ -2,7 +2,7 @@
 <view class="iOS grey {{nm?'nm':''}}" style="{{input.status?'padding-bottom:'+input.height+'px;':''}}">
   <template is='head' data="{{...page[0],T}}" />
   <view class="descCtn">
-    <view class="descBtn" hover-class="buttonHover" catch:tap="navigate">
+    <view class="descBtn" hover-class="button-hover" catch:tap="navigate">
       <image src="/icon/tabPage/about.svg" class="descIcon" />
       <view class="descText">体测说明</view>
     </view>

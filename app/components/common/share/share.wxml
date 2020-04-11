@@ -10,22 +10,22 @@
   <!-- 分享按钮列表 -->
   <view class="share-menu">
     <block wx:if="{{config.shareable}}">
-      <button class="button" hover-class="buttonHover" hover-start-time="0" open-type="share" share-type="1">
+      <button class="button" hover-class="button-hover" hover-start-time="0" open-type="share" share-type="1">
         分享给好友
       </button>
-      <button wx:if="{{env === 'qq'}}" class="button" hover-class="buttonHover" hover-start-time="0" open-type="share" share-type="2">
+      <button wx:if="{{env === 'qq'}}" class="button" hover-class="button-hover" hover-start-time="0" open-type="share" share-type="2">
         分享到空间
       </button>
     </block>
-    <button wx:if="{{config.shareable && env === 'wx'}}" class="button" hover-class="buttonHover" hover-start-time="0" bind:tap="download">
+    <button wx:if="{{config.shareable && env === 'wx'}}" class="button" hover-class="button-hover" hover-start-time="0" bind:tap="download">
       保存页面二维码
     </button>
-    <button wx:if="{{config.contact}}" class="button" hover-class="buttonHover" hover-start-time="0" open-type="contact" bind:tap="contact">
+    <button wx:if="{{config.contact}}" class="button" hover-class="button-hover" hover-start-time="0" open-type="contact" bind:tap="contact">
       联系Mr.Hope
     </button>
-    <button wx:if="{{config.feedback}}" class="button" hover-class="buttonHover" hover-start-time="0" open-type="feedback">
+    <button wx:if="{{config.feedback}}" class="button" hover-class="button-hover" hover-start-time="0" open-type="feedback">
       意见反馈
     </button>
-    <button class="cancel-button" hover-class="buttonHover">取消</button>
+    <button class="cancel-button" hover-class="button-hover">取消</button>
   </view>
 </view>

@@ -1,4 +1,4 @@
-<view class="gzh" hover-class="buttonHover" catch:tap="gzh">
+<view class="gzh" hover-class="button-hover" catch:tap="gzh">
   <image class="img" src="{{config.src}}" mode="aspectFill" />
   <view class="detail">
     <view class="icon">

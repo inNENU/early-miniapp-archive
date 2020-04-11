@@ -4,7 +4,7 @@
 <!-- 网格主体 -->
 <view class="grid-wrapper">
   <!-- 每个网格 -->
-  <view wx:for="{{config.content}}" wx:for-item="gridItem" wx:key="text" class="bg-{{gridItem.color}} grid" hover-class="buttonHover" hover-stay-time="100" data-url="{{gridItem.url}}" catch:tap="{{grid.navigate}}">
+  <view wx:for="{{config.content}}" wx:for-item="gridItem" wx:key="text" class="bg-{{gridItem.color}} grid" hover-class="button-hover" hover-stay-time="100" data-url="{{gridItem.url}}" catch:tap="{{grid.navigate}}">
     <!-- 网格图标 -->
     <image class="icon" src="{{gridItem.icon}}" />
     <!-- 网格文字 -->

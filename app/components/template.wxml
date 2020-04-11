@@ -2,7 +2,7 @@
 <template name="page">
   <block wx:if="{{!page}}">
     <view class="{{T}} {{nm?'nm':''}} commonLoading">
-      <view class="backBtn" style="top:27.5px;" hover-class="buttonHover" hover-stay-time="100" catchtap="$back">
+      <view class="backBtn" style="top:27.5px;" hover-class="button-hover" hover-stay-time="100" catchtap="$back">
         <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
       </view>
       <view class="loadingIconCtn">
@@ -182,7 +182,7 @@ Author: Mr.Hope
 ********************************************* -->
 <template name='NENUHead'>
   <block wx:if="{{action===undefined}}">
-    <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='buttonHover' catch:tap="$back">
+    <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='button-hover' catch:tap="$back">
       <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
     </view>
     <view class="NENUnav {{titleDisplay?'fadeOut':'fadeIn'}}" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
@@ -210,7 +210,7 @@ Author: Mr.Hope
     <view class='NENU-navText'>页面出错</view>
   </view>
   <view style='width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;' />
-  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='buttonHover' hover-stay-time='100' catch:tap='$back'>
+  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='button-hover' hover-stay-time='100' catch:tap='$back'>
     <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
   </view>
   <view class="errorCtn">

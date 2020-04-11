@@ -1,73 +1,8 @@
 /* 按钮点击样式 */
-
-.buttonHover {
-  background-color: rgba(0, 0, 0, 0.1) !important;
+.button-hover {
+  background-color: var(--hover) !important;
   opacity: 0.7 !important;
 }
-
-.nm .buttonHover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  opacity: 0.7 !important;
-}
-
-/* V2按钮样式修正  */
-/* .button {
-  min-height: auto !important;
-  width: auto !important;
-  font-weight: 400 !important;
-  font-size: 16px;
-} */
-
-
-/* 图片 */
-/* image.loading::before {
-  content: "";
-  background-color: #f5f5f5;
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-}
-
-image.loading::after {
-  content: "\e7f1";
-  font-family: "cuIcon";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 32rpx;
-  height: 32rpx;
-  line-height: 32rpx;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  font-size: 32rpx;
-  margin: auto;
-  color: #ccc;
-  animation: cuIcon-spin 2s infinite linear;
-  display: block;
-} */
-
-/* donate */
-.donateCtn {
-  width: 100%;
-  position: fixed;
-  bottom: 20px;
-}
-
-.donateButton {
-  width: 60%;
-  margin: 0 auto;
-  padding: 10px;
-  text-align: center;
-  line-height: 1.6;
-  background-color: #09bb07;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-}
-
 
 .access {
   padding-right: 15px;
@@ -86,9 +21,24 @@ image.loading::after {
   top: 50%;
   margin-top: -5px;
   right: 2px;
-  border-color: #c7c7cc;
+  border-color: var(--arrow-color);
 }
 
-.nm .access:after {
-  border-color: #383833;
+/* donate */
+.donateCtn {
+  width: 100%;
+  position: fixed;
+  bottom: 20px;
+}
+
+.donateButton {
+  width: 60%;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+  line-height: 1.6;
+  background-color: #09bb07;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
 }

@@ -6,13 +6,13 @@
   <block wx:for="{{config.content}}" wx:for-item="listItem" wx:key="text">
     <block wx:if="{{!listItem.hidden}}">
       <!-- 导航链接 -->
-      <view wx:if="{{listItem.url}}" id="{{index}}" class="list" hover-class="buttonHover" hover-stay-time="100" catch:tap="{{list.navigate}}">
+      <view wx:if="{{listItem.url}}" id="{{index}}" class="list" hover-class="button-hover" hover-stay-time="100" catch:tap="{{list.navigate}}">
         <image wx:if="{{listItem.icon}}" class="icon" src="{{listItem.icon}}" />
         <view class="text">{{listItem.text}}</view>
         <view class="desc access">{{listItem.desc}}</view>
       </view>
       <!-- 按钮、嵌入选择器与滑块 -->
-      <button wx:elif="{{list.isButton(listItem)}}" id="{{index}}" class="button list" hover-class="buttonHover" hover-stay-time="100" plain="true" disabled="{{listItem.disabled}}" data-item="{{listItem}}" catch:tap="{{list.button}}">
+      <button wx:elif="{{list.isButton(listItem)}}" id="{{index}}" class="list" hover-class="button-hover" hover-stay-time="100" plain="true" disabled="{{listItem.disabled}}" data-item="{{listItem}}" catch:tap="{{list.button}}">
         <image wx:if="{{listItem.icon}}" class="icon" src="{{listItem.icon}}" />
         <!-- 按钮文字为蓝色 -->
         <view class="text" style="{{listItem.button? 'color:#3478f7;': ''}}">
@@ -29,14 +29,14 @@
         </view>
       </button>
       <!-- 非嵌入选择器 -->
-      <picker wx:elif="{{listItem.pickerValue}}" id="{{index}}" class="list  picker" hover-class="buttonHover" hover-stay-time="100" bindchange="pickerChange" value="{{listItem.currentValue}}" range="{{listItem.pickerValue}}">
+      <picker wx:elif="{{listItem.pickerValue}}" id="{{index}}" class="list  picker" hover-class="button-hover" hover-stay-time="100" bindchange="pickerChange" value="{{listItem.currentValue}}" range="{{listItem.pickerValue}}">
         <view class="text">{{listItem.text}}</view>
         <view wx:if="{{listItem.pickerValue}}" class="desc">
           <block wx:for="{{listItem.value}}" wx:key="*this">{{item}}</block>
         </view>
       </picker>
       <!-- navigator -->
-      <navigator wx:elif="{{listItem.navigate}}" id="{{index}}" class="list" hover-class="buttonHover" hover-stay-time="100" url="{{listItem.navigate}}" openType="{{listItem.openType}}" target="{{listItem.target}}">
+      <navigator wx:elif="{{listItem.navigate}}" id="{{index}}" class="list" hover-class="button-hover" hover-stay-time="100" url="{{listItem.navigate}}" openType="{{listItem.openType}}" target="{{listItem.target}}">
         <image wx:if="{{listItem.icon}}" class="icon" src="{{listItem.icon}}" />
         <view class="text">{{listItem.text}}</view>
         <view class="desc {{listItem.url? 'access': ''}}">{{listItem.desc}}</view>

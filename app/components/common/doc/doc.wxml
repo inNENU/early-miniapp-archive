@@ -1,6 +1,6 @@
 <wxs src="./doc.wxs" module="doc" />
 <view class="doc-wrapper">
-  <view class="preview" hover-class="buttonHover" hover-stay-time="100" catch:tap="preview">
+  <view class="preview" hover-class="button-hover" hover-stay-time="100" catch:tap="preview">
     <!-- 文档图标 -->
     <image class="icon" mode="widthFix" src="{{doc.getIcon(config.docName)}}" />
     <!-- 文档名称 -->

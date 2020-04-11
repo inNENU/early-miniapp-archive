@@ -27,17 +27,3 @@
 .moveDownIn {
   transform: translateY(100%);
 }
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.rotate {
-  animation: 9.5s linear 0s normal none infinite rotate;
-}
