@@ -516,7 +516,7 @@
 
 /* grid */
 
-/* .iOSgridCtn {
+/* .iOSgrid-wrapper {
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
@@ -524,7 +524,7 @@
   width: 100%;
 }
 
-.iOSgridBox {
+.iOSgrid {
   width: calc(25% - 10px);
   margin: 5px;
   padding: 10px 0;
@@ -532,11 +532,11 @@
   border-radius: 6px;
 }
 
-.nm .iOSgridBox {
+.nm .iOSgrid {
   background-color: #1C1C1E;
 }
 
-.iOSgridIcon {
+.iOSgrid .icon {
   width: 28px;
   height: 28px;
 }
@@ -550,7 +550,7 @@
   color: #bbb;
 }
 
-.gridFoot {
+.grid-foot {
   font-size: 14px;
   color: #999;
   text-align: left;
@@ -558,24 +558,24 @@
   min-height: 14px;
 }
 
-.nm .gridFoot {
+.nm .grid-foot {
   color: #666;
 }
 
 @media (min-width:768px) {
-  .iOSgridCtn {
+  .iOSgrid-wrapper {
     padding: 0 10px;
   }
 }
 
 @media (min-width:480px) {
-  .iOSgridBox {
+  .iOSgrid {
     width: calc(16.666% - 10px);
   }
 }
 
 @media (min-width:1024px) {
-  .iOSgridBox {
+  .iOSgrid {
     width: calc(12.5% - 10px);
   }
 } */

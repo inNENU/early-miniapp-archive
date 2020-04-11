@@ -234,7 +234,7 @@
 
 /* grid */
 
-/* .AndroidGridHead {
+/* .Androidgrid-head {
   text-align: left;
   min-height: 37px;
   padding: 23px 25px 5px 25px;
@@ -247,7 +247,7 @@
   text-align: left;
 }
 
-.AndriodGridbox {
+.Andriodgrid {
   padding: 15px;
   border-radius: 6px;
   width: 45%;
@@ -259,7 +259,7 @@
   z-index: 1;
 }
 
-.AndriodGridbox::after {
+.Andriodgrid::after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -273,7 +273,7 @@
   transform: scale(0.9, 0.9);
 }
 
-.AndriodGridbox.cur {
+.Andriodgrid.cur {
   color: #fff;
   background: rgb(94, 185, 94);
   box-shadow: 2px 2px 3px rgba(94, 185, 94, 0.4);
@@ -286,37 +286,37 @@
 }
 
 @media (min-width:480px) {
-  .AndriodGridbox {
+  .Andriodgrid {
     margin: 0 10px 20px;
     width: calc(25% - 20px);
   }
 }
 
 @media (min-width:1024px) {
-  .AndriodGridbox {
+  .Andriodgrid {
     width: calc(16.666% - 20px);
     margin: 0 10px 20px;
   }
 }
 
-.AndriodGridText {
+.Andriodgrid .text {
   font-size: 16px;
   font-weight: 300;
 }
 
-.AndriodGridText::first-letter {
+.Andriodgrid .text::first-letter {
   font-size: 20px;
   margin-right: 2px;
 }
 
-.AndriodGridName {
+.Andriodgrid .name {
   font-size: 15px;
   text-transform: Capitalize;
   margin-top: 10px;
   position: relative;
 }
 
-.AndriodGridName::before {
+.Andriodgrid .name::before {
   content: "";
   position: absolute;
   display: block;
@@ -328,7 +328,7 @@
   opacity: 0.5;
 }
 
-.AndriodGridName::after {
+.Andriodgrid .name::after {
   content: "";
   position: absolute;
   display: block;
@@ -340,13 +340,13 @@
   opacity: 0.3;
 }
 
-.AndriodGridName::first-letter {
+.Andriodgrid .name::first-letter {
   font-weight: bold;
   font-size: 18px;
   margin-right: 1px;
 }
 
-.AndriodGridbox .gridIcon {
+.Andriodgrid .grid .icon {
   position: absolute;
   right: 15px;
   top: 15px;

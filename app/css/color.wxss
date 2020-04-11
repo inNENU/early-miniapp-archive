@@ -1,7 +1,11 @@
 page>view {
   --text-color: #000;
+  --bgcolor: #fff;
   --bgcolor-light: #efeef4;
 
+  --grey: #888;
+  --grey3: #333;
+  --grey4: #444;
   --dark-grey: #666;
   --light-grey: #999;
 
@@ -12,8 +16,12 @@ page>view {
 
 page>view.light {
   --text-color: #000;
+  --bgcolor: #fff;
   --bgcolor-light: #efeef4;
 
+  --grey: #888;
+  --grey3: #333;
+  --grey4: #444;
   --dark-grey: #666;
   --light-grey: #999;
 
@@ -24,8 +32,12 @@ page>view.light {
 
 page>view.dark {
   --text-color: #fff;
+  --bgcolor: #000;
   --bgcolor-light: #1c1c1e;
 
+  --grey: #777;
+  --grey3: #ccc;
+  --grey4: #bbb;
   --dark-grey: #999;
   --light-grey: #666;
 

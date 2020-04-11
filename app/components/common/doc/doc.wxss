@@ -17,18 +17,14 @@
 .doc-wrapper:after {
   bottom: 0;
   border-bottom: 1px solid var(--list-border-color);
-  -webkit-transform-origin: 0 100%;
   transform-origin: 0 100%;
-  -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
 }
 
 .doc-wrapper:before {
   top: 0;
   border-top: 1px solid var(--list-border-color);
-  -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
 }
 
@@ -40,7 +36,6 @@
   padding: 12px 0;
   position: relative;
   line-height: 1.2;
-  display: -webkit-flex;
   display: flex;
   align-items: center;
 }

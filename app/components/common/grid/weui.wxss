@@ -1,10 +1,10 @@
-.weui .gridCtn {
+.weui .grid-wrapper {
   border-top: 1rpx solid rgba(0, 0, 0, .1);
   border-left: 1rpx solid rgba(0, 0, 0, .1);
   overflow: hidden;
 }
 
-.weui .gridBox {
+.weui .grid {
   position: relative;
   float: left;
   padding: 20px 10px;
@@ -15,20 +15,20 @@
   background-color: #fff;
 }
 
-.nm.weui .gridBox {
+.nm.weui .grid {
   border-right: 1rpx solid rgba(255, 255, 255, .1);
   border-bottom: 1rpx solid rgba(255, 255, 255, .1);
   background-color: #000;
 }
 
-.weui .gridIcon {
+.weui .grid .icon {
   display: block;
   width: 28px;
   height: 28px;
   margin: 0 auto;
 }
 
-.weui .gridText {
+.weui .grid .text {
   margin-top: 5px;
   display: block;
   text-align: center;
@@ -39,6 +39,6 @@
   overflow: hidden;
 }
 
-.nm.weui .gridText {
+.nm.weui .grid .text {
   color: rgba(255, 255, 255, .9);
 }

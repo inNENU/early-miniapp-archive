@@ -1,24 +1,24 @@
-/* 针对Android的额外处理 */
-.gridName {
+/* 针对 Android 的额外处理 */
+.grid .name {
   display: none;
 }
 
 
 /* Android grid */
-.Android .gridHead {
+.Android .grid-head {
   text-align: left;
   min-height: 37px;
   padding: 23px 25px 5px 25px;
+  /* background-color: var(--bgcolor); */
 }
 
-.Android .gridCtn {
-  display: flex;
-  flex-wrap: wrap;
+.Android .grid-wrapper {
   padding: 0 15px;
   text-align: left;
+  /* background-color: var(--bgcolor); */
 }
 
-.Android .gridBox {
+.Android .grid-wrapper .grid {
   padding: 15px;
   border-radius: 6px;
   width: 45%;
@@ -30,7 +30,7 @@
   z-index: 1;
 }
 
-.Android .gridBox::after {
+.Android .grid-wrapper .grid::after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -45,36 +45,36 @@
 }
 
 @media (min-width:768px) {
-  .Android .gridCtn {
+  .Android .grid-wrapper {
     padding: 0 10px;
   }
 }
 
 @media (min-width:480px) {
-  .Android .gridBox {
+  .Android .grid-wrapper .grid {
     margin: 0 10px 20px;
     width: calc(25% - 20px);
   }
 }
 
 @media (min-width:1024px) {
-  .Andriod .gridBox {
+  .Andriod .grid-wrapper .grid {
     width: calc(16.666% - 20px);
     margin: 0 10px 20px;
   }
 }
 
-.Android .gridText {
+.Android .grid-wrapper .text {
   font-size: 16px;
   font-weight: 300;
 }
 
-.Android .gridText::first-letter {
+.Android .grid-wrapper .text::first-letter {
   font-size: 20px;
   margin-right: 2px;
 }
 
-.Android .gridName {
+.Android .grid-wrapper .name {
   font-size: 15px;
   text-transform: Capitalize;
   margin-top: 10px;
@@ -82,7 +82,7 @@
   display: block;
 }
 
-.Android .gridName::before {
+.Android .grid-wrapper .name::before {
   content: "";
   position: absolute;
   display: block;
@@ -94,7 +94,7 @@
   opacity: 0.5;
 }
 
-.Andriod .gridName::after {
+.Andriod .grid-wrapper .name::after {
   content: "";
   position: absolute;
   display: block;
@@ -106,13 +106,13 @@
   opacity: 0.3;
 }
 
-.Android .gridName::first-letter {
+.Android .grid-wrapper .name::first-letter {
   font-weight: bold;
   font-size: 18px;
   margin-right: 1px;
 }
 
-.Android .gridIcon {
+.Android .grid-wrapper .icon {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -121,9 +121,4 @@
   height: 30px;
   text-align: center;
   line-height: 30px;
-}
-
-.nm.Android .gridHead,
-.nm.Android .gridCtn {
-  background-color: #000;
 }

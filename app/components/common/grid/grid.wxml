@@ -1,16 +1,16 @@
 <!-- 网格头部文字 -->
-<view wx:if="{{config.head!==false}}" class="gridHead">{{config.head}}</view>
+<view wx:if="{{config.head !== false}}" class="grid-head">{{config.head}}</view>
 <!-- 网格主体 -->
-<view class="gridCtn">
+<view class="grid-wrapper">
   <!-- 每个网格 -->
-  <view wx:for="{{config.content}}" wx:for-item="List" wx:key="text" class="bg-{{List.color}} gridBox" hover-class="buttonHover" hover-stay-time="100" catch:tap="navigate" data-url="{{List.url}}">
+  <view wx:for="{{config.content}}" wx:for-item="gridItem" wx:key="text" class="bg-{{gridItem.color}} grid" hover-class="buttonHover" hover-stay-time="100" catch:tap="navigate" data-url="{{gridItem.url}}">
     <!-- 网格图标 -->
-    <image class="gridIcon" src="{{List.icon}}" />
+    <image class="icon" src="{{gridItem.icon}}" />
     <!-- 网格文字 -->
-    <view class="gridText">{{List.text}}</view>
+    <view class="text">{{gridItem.text}}</view>
     <!-- 网格英文文字 -->
-    <view class="gridName">{{List.name}}</view>
+    <view class="name">{{gridItem.name}}</view>
   </view>
 </view>
 <!-- 网格尾部文字 -->
-<view wx:if="{{config.foot}}" class="foot">{{config.foot}}</view>
+<view wx:if="{{config.foot}}" class="grid-foot">{{config.foot}}</view>

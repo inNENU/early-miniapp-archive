@@ -20,7 +20,6 @@
 }
 
 .pickColumn {
-  display: -webkit-flex;
   display: flex;
   padding: 0 8px;
   flex-direction: column;

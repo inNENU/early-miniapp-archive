@@ -9,33 +9,31 @@
 @import "../../../css/animation.wxss";
 
 
-.foot {
+.foot-wrapper {
   margin-top: 27px;
   padding: 8px 5%;
   font-size: 12px;
-  color: #888;
+  color: var(--grey);
   text-align: center;
 }
 
-.ctn {
+.foot-wrapper .foot {
   font-size: 10px;
   letter-spacing: 1px;
   line-height: 1.6;
   font-weight: 300;
-  text-align: center;
-  color: #888;
-  display: -webkit-flex;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.nm .ctn {
-  color: #777;
-}
-
-.logo {
+.foot-wrapper .logo {
   width: 20px;
   height: 20px;
   margin: 0;
+}
+
+.foot-wrapper .logo image {
+  width: 100%;
+  height: 100%;
 }

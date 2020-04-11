@@ -1,38 +1,23 @@
-
 /* NENU grid */
 
-.NENU .gridCtn {
-  display: -webkit-flex;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: #fff;
+.NENU .grid-wrapper {
   position: relative;
+  background-color: var(--list-bgcolor);
 }
 
-.NENU .gridCtn:before {
+.NENU .grid-wrapper:before {
   content: " ";
   position: absolute;
   left: 0;
   right: 0;
   height: 1px;
-  color: #cac9ce;
   top: 0;
-  border-top: 1px solid #cac9ce;
-  -webkit-transform-origin: 0 0;
+  border-top: 1px solid var(--border-color);
   transform-origin: 0 0;
-  -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
 }
 
-.nm.NENU .gridCtn {
-  background-color: #1C1C1E;
-}
-
-.nm.NENU .gridCtn:before {
-  border-color: #3D3D41
-}
-
-.NENU .gridBox {
+.NENU .grid-wrapper .grid {
   width: 25%;
   padding: 0 !important;
   margin: 0 !important;
@@ -40,75 +25,53 @@
   border-radius: 0 !important;
   line-height: 1.6 !important;
   position: relative;
-  background-color: #fff;
+  background-color: var(--bgcolor);
 }
 
-.NENU .gridBox:before,
-.NENU .gridBox:after {
+.NENU .grid-wrapper .grid:before,
+.NENU .grid-wrapper .grid:after {
   content: " ";
   position: absolute;
   right: 0;
   bottom: 0;
-  color: #cac9ce;
 }
 
-.NENU .gridBox:before {
+.NENU .grid-wrapper .grid:before {
   top: 0;
   width: 1px;
-  border-right: 1px solid #cac9ce !important;
-  -webkit-transform-origin: 100% 0;
+  border-right: 1px solid var(--border-color) !important;
   transform-origin: 100% 0;
-  -webkit-transform: scaleX(0.4);
   transform: scaleX(0.4);
 }
 
-.NENU .gridBox:after {
+.NENU .grid-wrapper .grid:after {
   left: 0;
   height: 1px;
-  border-bottom: 1px solid #cac9ce !important;
-  -webkit-transform-origin: 0 100%;
+  border-bottom: 1px solid var(--border-color) !important;
   transform-origin: 0 100%;
-  -webkit-transform: scaleY(0.4);
   transform: scaleY(0.4);
 }
 
-.nm.NENU .gridBox {
-  background-color: #1C1C1E;
-}
-
-.nm.NENU .gridBox:before,
-.nm.NENU .gridBox:after {
-  border-color: #3D3D41 !important;
-}
-
-.NENU .gridIcon {
+.NENU .grid-wrapper .icon {
   width: 36px;
   height: 36px;
   margin-top: 16px;
 }
 
-.NENU .gridText {
+.NENU .grid-wrapper .text {
   font-size: 15px;
-  color: #444;
+  color: var(--grey4);
   margin-bottom: 6px;
 }
 
-.nm.NENU .gridText {
-  color: #bbb;
-}
-
 @media (min-width:480px) {
-  .NENU .gridBox {
+  .NENU .grid {
     width: 16.666%;
   }
 }
 
 @media (min-width:1024px) {
-  .NENU .gridBox {
+  .NENU .grid {
     width: 12.5% - 1rpx;
   }
-}
-
-.nm.NENU .gridCtn {
-  background-color: #000;
 }
