@@ -184,6 +184,9 @@ overrides:
   - files:
       - "*.wxs"
 
+    globals:
+      getDate: readonly
+
     env:
       es6: false
       node: true

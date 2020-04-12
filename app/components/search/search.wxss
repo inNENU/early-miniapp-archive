@@ -1,54 +1,50 @@
-.searchBar {
+.search-bar {
   position: relative;
   padding: 8px;
   display: flex;
+  color: var(--text-color);
   background-color: #ededed;
   align-items: center;
 }
 
-.nm .searchBar {
+.nm .search-bar {
   background-color: #000;
-  color: #fff;
 }
 
-.searchForm {
+.search {
   flex-shrink: 1;
   width: 100%;
   border-radius: 4px;
   background-color: #fff;
 }
 
-.nm .searchForm {
+.nm .search {
   background-color: #121212;
 }
 
-.searchCtn {
+.search-box {
   position: relative;
   padding: 0 32px;
   width: 100%;
   z-index: 1;
 }
 
-.searchLabel {
+.placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--grey);
   line-height: 32px;
 }
 
-.nm .searchLabel {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.searchIcon {
+.search .icon {
   position: absolute;
   top: 50%;
   margin-top: -8px;
   margin-left: -20px;
 }
 
-.searchText {
+.search .text {
   position: relative;
   padding-left: 24px;
   font-size: 14px;
@@ -62,12 +58,12 @@
   margin-left: 4px;
 }
 
-.searchIcon.input {
+.search .icon.input {
   left: 12px;
   margin-left: 0;
 }
 
- .searchClearIconBtn {
+.search-bar .clear-wrapper {
   position: absolute;
   top: 0;
   right: 0;
@@ -75,43 +71,35 @@
   padding: 0 12px;
 }
 
- .searchClearIcon {
+.search-bar .clear {
   position: absolute;
   top: 50%;
   margin-top: -8px;
   right: 12px;
 }
 
- .searchCancelBtn {
+.search-bar .cancel {
   margin-left: 8px;
   line-height: 32px;
   color: #576b95;
   white-space: nowrap;
 }
 
-.searchWordList {
+.search-bar .word-wrapper {
   position: absolute;
   top: 40px;
   left: 8px;
   right: 46px;
-  background-color: #fff;
+  background-color: var(--bgcolor);
   border-radius: 4px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
   z-index: 2;
 }
 
-.nm .searchWordList {
-  background-color: #000;
-}
-
-.searchWord {
+.search-bar .word {
   padding: 4px 32px;
   line-height: 1.5;
   font-size: 15px;
   text-align: left;
-  color: #444;
-}
-
-.nm .searchWord {
-  color: #bbb;
+  color: var(--grey-four);
 }

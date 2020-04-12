@@ -1,6 +1,7 @@
-<view class="Ctn {{nm?'nm':''}}">
-  <view class="weatherCtn {{night?'night':'day'}}" style="padding-top:{{statusBarHeight}}px;">
-    <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='button-hover' catch:tap="back">
+<wxs src="./weather.wxs" module="tool" />
+<view class="wrapper {{nm?'nm':''}} {{nm? 'dark': 'light'}}">
+  <view class="weather-wrapper {{night? 'night': 'day'}}" style="padding-top:{{statusBarHeight}}px;">
+    <view class='backBtn' style="top:{{statusBarHeight + 5.5}}px;" hover-class='button-hover' catch:tap="back">
       <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
     </view>
     <button class="button share icon-forwardfill" hover-class="btnHover" hover-start-time="0" plain="true" open-type="share">
@@ -10,7 +11,7 @@
     <view class="temperature">{{weather.observe.degree}}°</view>
     <view class="type">{{weather.observe.weather}}</view>
     <view class="detail">湿度 {{weather.observe.humidity}}%</view>
-    <view class="detail">{{weather.observe.wind_direction}}风 {{weather.observe.wind_power}}级</view>
+    <view class="detail">{{tool.getDirection(weather)}}风 {{weather.observe.wind_power}}级</view>
     <view class='tip' catch:tap="refresh">{{weather.tips.observe[tipIndex]}}</view>
     <view class="background">
       <view class="layer layer1" animation="{{animation1}}"></view>
@@ -26,7 +27,7 @@
       </view>
       <view class="bottom">
         <text class="weather">多云转暴雨</text>
-        <image src="https://mp.innenu.com/img/weather/icon/{{weather.forecast_24h[1].day_weather_code}}.svg" class="icon" />
+        <image class="icon" src="{{tool.getIcon(weather.hourForecast[1].day_weather_code)}}" />
       </view>
     </view>
     <view class="item">
@@ -36,35 +37,34 @@
       </view>
       <view class="bottom">
         <text class="weather">中雨转多云</text>
-        <image src="https://mp.innenu.com/img/weather/icon/{{weather.forecast_24h[2].day_weather_code}}.svg" class="icon" />
+        <image class="icon" src="{{tool.getIcon(weather.hourForecast[2].day_weather_code)}}" />
       </view>
     </view>
   </view>
   <!-- 小时预报 -->
-  <scroll-view scroll-x="true" class="hours borderTB">
-    <view class="flexCtn">
-      <view wx:for="{{weather.hourForecast}}" class="item" wx:key="update_time">
-        <text class="time">{{item.update_time}}</text>
-        <image class="icon" src="https://mp.innenu.com/img/weather/icon/{{item.weather_code}}.svg" />
-        <text class="degree">{{item.degree}}</text>
-      </view>
+  <scroll-view class="hours flex borderTB" enable-flex scroll-x="true">
+    <view wx:for="{{weather.hourForecast}}" wx:key="update_time" class="item">
+      <text class="time">{{tool.getTime(item)}}</text>
+      <image class="icon" src="{{tool.getIcon(item.weather_code)}}" />
+      <text class="degree">{{item.degree}}°</text>
     </view>
   </scroll-view>
   <!-- 日预报 -->
-  <view class="days flexCtn borderTB">
+  <scroll-view class="days flex borderTB" enable-flex scroll-x="true">
     <view wx:for="{{weather.dayForecast}}" class="item" wx:key="weekday">
       <view class="day">{{item.weekday}}</view>
-      <view class="date">{{item.time}}</view>
+      <view class="date">{{tool.getDate(item)}}</view>
       <view class="weather">{{item.day_weather_short}}</view>
-      <image class="icon" src="https://mp.innenu.com/img/weather/icon/{{item.day_weather_code}}.svg" />
-      <image class="icon night" src="https://mp.innenu.com/img/weather/icon/{{item.night_weather_code}}.svg" />
+      <image class="icon" src="{{tool.getIcon(item.day_weather_code)}}" />
+      <view class="placeholder" />
+      <image class="icon" src="{{tool.getIcon(item.night_weather_code)}}" />
       <view class="weather">{{item.night_weather_short}}</view>
       <view class="wind">{{item.night_wind_direction}}</view>
       <view class="wind">{{item.night_wind_power}}级</view>
     </view>
     <!-- 温度曲线 -->
     <canvas class="canvas temperature" canvas-id="weather" />
-  </view>
+  </scroll-view>
   <!-- 其他信息 -->
   <!-- <swiper class="info" indicator-dots="false">
   <swiper-item class="" item-id="0">

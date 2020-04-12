@@ -1,12 +1,4 @@
 /* eslint-disable camelcase */
-/*
- * @Author: Mr.Hope
- * @Date: 2019-07-30 14:43:46
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-10-21 22:35:04
- * @Description: 天气小组件
- */
-
 import * as $register from 'wxpage';
 import weatherHandler from './handler';
 
@@ -162,9 +154,7 @@ $register.C({
     /** 提示的索引值 */
     tipIndex: 0,
     /** 天气信息 */
-    weather: {} as WeatherDetail,
-    /** 天气样式class */
-    weatherClass: ''
+    weather: {} as WeatherDetail
   },
   lifetimes: {
     attached() {
@@ -172,9 +162,6 @@ $register.C({
     }
   },
   methods: {
-    navigate() {
-      this.$route('weather');
-    },
     /** 变更提示信息 */
     refresh() {
       const { length } = Object.keys(this.data.weather.tips.observe);
@@ -187,37 +174,13 @@ $register.C({
       wx.request({
         url: 'https://mp.innenu.com/server/weather.php',
         success: (res) => {
-          const weather = (res.data as WeatherData).data;
-          /** 天气种类缩写 */
-          const weatherType = weather.observe.weather_short;
-          /** 设置天气图标 */
-          const weatherClass =
-            weatherType.indexOf('晴') === -1
-              ? weatherType.indexOf('雷') !== -1 ||
-                weatherType.indexOf('电') !== -1 ||
-                weatherType.indexOf('暴') !== -1
-                ? 'stormy'
-                : weatherType.indexOf('雪') !== -1 ||
-                  weatherType.indexOf('霜') !== -1 ||
-                  weatherType.indexOf('冰') !== -1
-                ? 'snowy'
-                : weatherType.indexOf('雨') === -1
-                ? weatherType.indexOf('阴') !== -1 ||
-                  weatherType.indexOf('云') !== -1
-                  ? 'cloudy'
-                  : ''
-                : 'rainy'
-              : new Date().getHours() > 6 && new Date().getHours() < 18
-              ? new Date().getSeconds() % 2 === 0
-                ? 'sunny'
-                : 'rainbow'
-              : 'starry';
+          const weather = weatherHandler((res.data as WeatherData).data);
 
-          this.setData({ weatherClass, weather });
+          this.setData({ weather });
 
           // 将天气详情和获取时间写入存储，避免重复获取
           wx.setStorageSync('weather', {
-            data: weatherHandler(weather),
+            data: weather,
             date: new Date().getTime()
           });
         }

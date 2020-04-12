@@ -1,10 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-06-24 21:30:29
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2020-03-29 20:06:50
- * @Description: 天气预报
- */
 import * as $register from 'wxpage';
 import { WeatherData, WeatherDetail } from '../../components/weather/weather';
 import { setColor } from '../../utils/page';
@@ -82,6 +75,7 @@ $register('weather', {
    *
    * @param weather 天气详情
    */
+  // eslint-disable-next-line
   canvas(weather: WeatherDetail) {
     // TODO:添加旋转监听
 

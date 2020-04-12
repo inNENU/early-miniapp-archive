@@ -47,9 +47,15 @@ $register('main', {
   onPageLaunch() {
     console.log('主页面启动：', new Date().getTime() - a.date, 'ms');
     const page = wx.getStorageSync('main');
-    const color = a.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
     resolvePage({ query: { aim: 'main' } }, page ? page : this.data.page);
+
+    // 初始化搜索词
+    $search.init();
+  },
+
+  onLoad() {
+    const color = a.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
     // 设置tabbar颜色
     wx.setTabBarStyle({
@@ -59,11 +65,6 @@ $register('main', {
       borderStyle: color[1]
     });
 
-    // 初始化搜索词
-    $search.init();
-  },
-
-  onLoad() {
     setPage({ option: { aim: 'main' }, ctx: this });
     refreshPage('main', this, a);
     popNotice('main');

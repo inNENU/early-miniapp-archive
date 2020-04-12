@@ -9,6 +9,6 @@
   <text>加载中...</text>
 </view>
 <!-- 图片 -->
-<image class="img" style="{{load? '':'height: 0px;'}}" mode="{{config.imgMode? config.imgMode: 'widthFix'}}" lazy-load="{{config.lazy !== false}}" src="{{config.src}}" bindload="load" binderror="error" catch:tap="view" />
+<image class="img" style="{{load? '':'height: 0px;'}}" mode="{{config.imgMode || 'widthFix'}}" lazy-load="{{config.lazy !== false}}" src="{{config.src}}" bindload="load" binderror="error" catch:tap="view" />
 <!-- 图片解释文字 -->
 <view wx:if="{{config.desc}}" class="img-desc">▲{{config.desc}}</view>

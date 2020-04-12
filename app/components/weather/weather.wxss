@@ -1,6 +1,4 @@
-/* components/weather-card/weather-card.wxss */
-
-.weatherCtn {
+.weather-wrapper {
   width: calc(100% - 30px);
   margin: 16px 15px;
   padding: 10px 15px;
@@ -12,7 +10,7 @@
   max-width: 450px;
 }
 
-.weatherDetail {
+.weather-wrapper .detail {
   font-size: 14px;
   text-align: right;
 }
@@ -22,28 +20,18 @@
   padding-bottom: 8px;
 }
 
-.weatherText {
+.weather-wrapper .text {
   margin-left: 4px;
   text-align: right;
 }
 
-.weatherListTitle {
-  font-size: 18px;
-  padding: 4px 0;
-}
-
-.weatherListDetail {
-  font-size: 15px;
-}
-
-.loading {
+.weather-wrapper .loading {
   margin: 20px calc(50% - 60px);
   width: 60px;
   height: 60px;
 }
 
 /* 天气 */
-
 .weather-pic {
   position: absolute !important;
   top: 20px !important;

@@ -1,24 +1,26 @@
-<view class="searchBar">
-  <view class="searchForm">
-    <view class="searchCtn" wx:if="{{showInput}}">
-      <icon class="searchIcon input" type="search" size="16" />
+<view class="search-bar">
+  <view class="search">
+    <view class="search-box" wx:if="{{showInput}}">
+      <icon class="icon input" type="search" size="16" />
       <input type="text" class="searchInput" placeholder="搜索" value="{{value}}" focus="{{showInput}}" confirm-type="search" bindinput="inputTyping" bindconfirm="confirm" />
-      <view class="searchClearIconBtn" wx:if="{{value.length > 0}}" catch:tap="clearInput">
-        <icon class="searchClearIcon" type="clear" size="16" />
+      <view class="clear-wrapper" wx:if="{{value.length > 0}}" catch:tap="clearInput">
+        <icon class="clear" type="clear" size="16" />
       </view>
     </view>
-    <view class="searchLabel" wx:else catch:tap="showInput">
-      <view class="searchText">
-        <icon class="searchIcon" type="search" size="16" />
+    <view class="placeholder" wx:else catch:tap="showInput">
+      <view class="text">
+        <icon class="icon" type="search" size="16" />
         搜索
       </view>
     </view>
   </view>
-  <view class="searchCancelBtn" hidden="{{!showInput}}" catch:tap="hideInput">取消</view>
-  <view class="searchWordList" wx:if="{{words.length > 0}}">
+  <view hidden="{{!showInput}}" class="cancel" catch:tap="hideInput">取消</view>
+  <view class="word-wrapper" wx:if="{{words.length > 0}}">
     <block wx:for="{{words}}" wx:key="*this">
-      <view class="divline" wx:if="{{index !== 0}}" />
-      <view class="searchWord" hover-class="btnHover" catch:tap="select" data-index="{{index}}">{{item}}</view>
+      <view class="word" hover-class="btnHover" data-index="{{index}}" catch:tap="select">
+        {{item}}
+      </view>
+      <view class="divline" />
     </block>
   </view>
 </view>

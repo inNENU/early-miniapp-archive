@@ -91,9 +91,6 @@ const disposePage = (
       }
 
       page.forEach((element) => {
-        // 处理段落
-        if (element.tag === 'p') element.muti = Array.isArray(element.text);
-
         // 处理图片
         if (element.src) page[0].url.push(element.res || element.src);
 

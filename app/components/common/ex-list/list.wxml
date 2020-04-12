@@ -44,7 +44,7 @@
       <!-- 普通文字段落与开关 -->
       <view wx:else id="{{index}}" class="list">
         <image wx:if="{{listItem.icon}}" class="icon" src="{{listItem.icon}}" />
-        <text class="text" decode selectable space="ensp">{{listItem.text}}</text>
+        <text class="text" decode selectable space="nbsp">{{listItem.text}}</text>
         <view class="desc">
           {{listItem.desc}}
           <switch wx:if="{{listItem.swiKey}}" checked="{{listItem.status}}" bindchange="switch" color="{{color}}" data-id="{{index}}" />

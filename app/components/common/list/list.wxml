@@ -16,7 +16,7 @@
       <!-- 普通文字段落 -->
       <view wx:else class="list">
         <image wx:if="{{listItem.icon}}" class="icon" src="{{listItem.icon}}" />
-        <text class="text" decode selectable space="ensp">{{listItem.text}}</text>
+        <text class="text" decode selectable space="nbsp">{{listItem.text}}</text>
         <view class="desc">{{listItem.desc}}</view>
       </view>
       <!-- 分割线 -->

@@ -133,6 +133,12 @@
 					"pathName": "function/calendar",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "天气",
+					"pathName": "function/weather/weather",
+					"scene": null
 				}
 			]
 		}
