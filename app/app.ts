@@ -1,11 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-06-24 09:38:02
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2020-03-29 20:06:24
- * @Description: 小程序主脚本
- */
-
 import * as $register from 'wxpage';
 import {
   appInit,
@@ -16,7 +8,56 @@ import {
 } from './utils/app';
 import { version } from './utils/config';
 
-$register.A({
+interface InitGlobalData {
+  /** 小程序运行环境 */
+  env: string;
+  /** 版本号 */
+  version: string;
+  /** 播放器信息 */
+  music: {
+    /** 是否正在播放 */
+    play: boolean;
+    played: boolean;
+    /** 播放歌曲序号 */
+    index: number;
+  };
+  /** 页面信息 */
+  page: {
+    /** 页面数据 */
+    data?: PageData;
+    /** 页面名称 */
+    aim?: string;
+  };
+  /** 启动时间 */
+  date: number;
+  /** 正在应用的主题 */
+  T?: string;
+  /** 夜间模式开启状态 */
+  nm?: boolean;
+  /** 设备信息 */
+  info?: WechatMiniprogram.GetSystemInfoSyncResult;
+  /** 小程序appid */
+  appID?: string;
+  /** 地图点位 */
+  marker: any;
+}
+
+export interface GlobalData extends InitGlobalData {
+  /** 正在应用的主题 */
+  T: string;
+  /** 夜间模式开启状态 */
+  nm: boolean;
+  /** 设备信息 */
+  info: WechatMiniprogram.GetSystemInfoSyncResult;
+  /** 小程序appid */
+  appID: string;
+}
+
+export interface AppOption {
+  globalData: GlobalData;
+}
+
+$register.A<AppOption>({
   /** 小程序的全局数据 */
   globalData: ({
     version,

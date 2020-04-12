@@ -2,7 +2,9 @@ import * as $register from 'wxpage';
 import { getJSON, readJSON, writeJSON } from '../../utils/file';
 import { popNotice, setColor } from '../../utils/page';
 import { requestJSON, tip } from '../../utils/wx';
-const { globalData: a } = getApp<{}, GlobalData>();
+import { AppOption } from '../../app';
+const { globalData } = getApp<AppOption>();
+
 const manager = wx.getBackgroundAudioManager();
 
 interface SongDetail {
@@ -57,9 +59,9 @@ $register('music', {
 
     let currentSong;
 
-    if (option.index) a.music.index = Number(option.index);
+    if (option.index) globalData.music.index = Number(option.index);
 
-    const { index } = a.music;
+    const { index } = globalData.music;
     const songList = readJSON('function/song') as SongDetail[];
     const mode = wx.getStorageSync('playMode');
 
@@ -68,9 +70,9 @@ $register('music', {
     // 写入基本信息
     this.setData({
       index,
-      info: a.info,
-      nm: a.nm,
-      play: a.music.play,
+      info: globalData.info,
+      nm: globalData.nm,
+      play: globalData.music.play,
       mode: mode || 0
     });
 
@@ -80,7 +82,7 @@ $register('music', {
       this.setData({ songList, currentSong });
 
       // 如果正在播放，设置能够播放
-      if (a.music.played) this.setData({ canplay: true });
+      if (globalData.music.played) this.setData({ canplay: true });
       // 对音频管理器进行设置
       else {
         manager.epname = 'in东师';
@@ -97,7 +99,7 @@ $register('music', {
         this.setData({ currentSong, songList: data as any[] });
 
         // 如果正在播放，设置能够播放
-        if (a.music.played) this.setData({ canplay: true });
+        if (globalData.music.played) this.setData({ canplay: true });
         // 对音频管理器进行设置
         else {
           manager.epname = 'in东师';
@@ -135,12 +137,12 @@ $register('music', {
     // 在相应动作时改变状态
     manager.onPlay(() => {
       this.setData({ play: true });
-      a.music.play = true;
+      globalData.music.play = true;
     });
 
     manager.onPause(() => {
       this.setData({ play: false });
-      a.music.play = false;
+      globalData.music.play = false;
     });
 
     manager.onTimeUpdate(() => {
@@ -170,7 +172,7 @@ $register('music', {
       });
 
       // 设置播放状态this.lyric();
-      a.music.played = true;
+      globalData.music.played = true;
 
       this.lyric();
     });
@@ -336,7 +338,7 @@ $register('music', {
       manager.title = currentSong.title;
       manager.singer = currentSong.singer;
       manager.coverImgUrl = currentSong.cover;
-      a.music.index = Number(index);
+      globalData.music.index = Number(index);
     }
   },
   /** 切换播放模式 */

@@ -1,8 +1,8 @@
 /** 添加到我的小程序 */
 
 import * as $register from 'wxpage';
-
-const { globalData: a } = getApp<{}, GlobalData>();
+import { AppOption } from '../../app';
+const { globalData } = getApp<AppOption>();
 
 $register.C({
   properties: {
@@ -15,7 +15,7 @@ $register.C({
   data: {
     SHOW_TOP: false,
     SHOW_MODAL: false,
-    statusBarHeight: a.info.statusBarHeight
+    statusBarHeight: globalData.info.statusBarHeight
   },
 
   lifetimes: {

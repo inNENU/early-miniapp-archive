@@ -15,8 +15,9 @@ import {
   setPage
 } from '../../utils/page';
 import { confirm, modal, tip } from '../../utils/wx';
+import { AppOption } from '../../app';
 import { resDownload } from '../../utils/tab';
-const { globalData: a } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 /** 列表动作 */
 type ListAction =
@@ -29,8 +30,8 @@ type ListAction =
 
 $register('storage', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
     page: [
       {
         tag: 'head',
@@ -73,7 +74,7 @@ $register('storage', {
           }
         ]
       },
-      { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
+      { tag: 'foot', author: '', desc: `当前版本：${globalData.version}` }
     ]
   },
 
@@ -81,7 +82,7 @@ $register('storage', {
     resolvePage(res, this.getStorage());
   },
   onLoad(option: any) {
-    if (a.page.aim === '存储设置') setPage({ option, ctx: this });
+    if (globalData.page.aim === '存储设置') setPage({ option, ctx: this });
     else setPage({ option: { aim: 'storage' }, ctx: this }, this.getStorage());
 
     popNotice('storage');

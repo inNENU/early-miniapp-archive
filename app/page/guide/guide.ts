@@ -15,12 +15,13 @@ import {
 } from '../../utils/page';
 import { checkResUpdate, refreshPage } from '../../utils/tab';
 import $search from '../../utils/search';
-const { globalData: a } = getApp<{}, GlobalData>();
+import { AppOption } from '../../app';
+const { globalData } = getApp<AppOption>();
 
 $register('guide', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
 
     /** 候选词 */
     words: [] as string[],
@@ -29,7 +30,7 @@ $register('guide', {
     head: {
       title: '东师指南',
       action: true,
-      statusBarHeight: a.info.statusBarHeight
+      statusBarHeight: globalData.info.statusBarHeight
     },
     page: [
       { tag: 'head', title: '东师指南', hidden: true },
@@ -206,7 +207,9 @@ $register('guide', {
       'guide',
       resolvePage(res, wx.getStorageSync('guide') || this.data.page)
     );
-    console.log(`东师指南预加载用时${new Date().getTime() - a.date}ms`);
+    console.log(
+      `东师指南预加载用时${new Date().getTime() - globalData.date}ms`
+    );
   },
 
   onLoad() {
@@ -237,7 +240,7 @@ $register('guide', {
   },
 
   onPullDownRefresh() {
-    refreshPage('guide', this, a);
+    refreshPage('guide', this, globalData);
     checkResUpdate('page', '235K');
     wx.stopPullDownRefresh();
   },

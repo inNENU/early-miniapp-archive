@@ -1,15 +1,9 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-06-24 21:12:13
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2020-02-25 09:21:49
- * @Description: 地图
- */
 import * as $register from 'wxpage';
 import { popNotice, setColor } from '../../utils/page';
+import { AppOption } from '../../app';
 import { markerSet } from '../../utils/map';
 import { modal } from '../../utils/wx';
-const { globalData } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 /** 地图配置 */
 const mapSettings: WechatMiniprogram.MapSettings = {

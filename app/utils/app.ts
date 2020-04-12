@@ -4,6 +4,7 @@
 import { Delete, listFile, saveFile, unzip } from './file';
 import { compareVersion, modal, netReport, requestJSON, tip } from './wx';
 import { error, info, warn } from './log';
+import { GlobalData } from '../app';
 import { server } from './config';
 
 /** App初始化选项 */

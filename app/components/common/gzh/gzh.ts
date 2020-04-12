@@ -1,5 +1,9 @@
 import * as $register from 'wxpage';
+import { AppOption } from '../../../app';
 import { modal } from '../../../utils/wx';
+const {
+  globalData: { appID }
+} = getApp<AppOption>(); // 获得当前小程序ID
 
 $register.C({
   properties: {
@@ -10,10 +14,6 @@ $register.C({
   methods: {
     /** 点击公众号组件触发的操作 */
     gzh() {
-      const {
-        globalData: { appID }
-      } = getApp<{}, GlobalData>(); // 获得当前小程序ID
-
       // 为企业主体微信小程序
       if (appID === 'wx9ce37d9662499df3')
         this.$route(

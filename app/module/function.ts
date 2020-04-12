@@ -8,26 +8,27 @@
 
 import * as $register from 'wxpage';
 import { Delete, listFile } from '../utils/file';
+import { AppOption } from '../app';
 import { modal } from '../utils/wx';
 import { setColor } from '../utils/page';
-const { globalData: a } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 $register('function', {
-  data: { appID: a.appID },
+  data: { appID: globalData.appID },
   onLoad(options) {
     if (options.scene) {
       const arg = decodeURIComponent(options.scene);
 
       this.setData({
         [arg]: true,
-        T: a.T,
-        nm: a.nm
+        T: globalData.T,
+        nm: globalData.nm
       });
     } else if (options.action)
       this.setData({
         [options.action]: true,
-        T: a.T,
-        nm: a.nm
+        T: globalData.T,
+        nm: globalData.nm
       });
   },
 

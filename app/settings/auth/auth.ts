@@ -14,7 +14,8 @@ import {
   setPage
 } from '../../utils/page';
 import { modal, tip } from '../../utils/wx';
-const { globalData: a } = getApp<{}, GlobalData>();
+import { AppOption } from '../../app';
+const { globalData } = getApp<AppOption>();
 
 type AuthorizeList =
   | 'scope.userLocation'
@@ -51,8 +52,8 @@ const authorizeList: AuthorizeList[] = [
 
 $register('authorize', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
     page: [
       { tag: 'head', title: '授权设置', grey: true },
       {
@@ -95,7 +96,7 @@ $register('authorize', {
   },
 
   onLoad(option: any) {
-    if (a.page.aim === '授权设置') setPage({ option, ctx: this });
+    if (globalData.page.aim === '授权设置') setPage({ option, ctx: this });
     else setPage({ option: { aim: 'authorize' }, ctx: this });
 
     popNotice('authorize');

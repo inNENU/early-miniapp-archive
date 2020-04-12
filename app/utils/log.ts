@@ -1,11 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-08-17 10:09:53
- * @LastEditors  : Mr.Hope
- * @LastEditTime : 2020-01-18 18:14:45
- * @Description: 实时日志封装
- */
-
 /** 实时日志管理器 */
 const log = wx.getRealtimeLogManager
   ? wx.getRealtimeLogManager()

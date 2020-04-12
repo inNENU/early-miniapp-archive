@@ -1,11 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-06-24 23:47:21
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-11-21 16:45:01
- * @Description: 绩点计算
- */
-
 import * as $register from 'wxpage';
 import { changeNav, setColor, setPage } from '../../utils/page';
 

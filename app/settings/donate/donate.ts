@@ -8,7 +8,8 @@
 import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../../utils/page';
 import { requestJSON, savePhoto } from '../../utils/wx';
-const { globalData: a } = getApp<{}, GlobalData>();
+import { AppOption } from '../../app';
+const { globalData } = getApp<AppOption>();
 
 interface DonateDetail {
   /** 捐赠者姓名 */
@@ -21,8 +22,8 @@ type DonateList = DonateDetail[];
 
 $register('donate', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
     page: [
       { tag: 'head', title: '捐赠', shareable: true, leftText: '返回' },
       { tag: 'title', text: '服务器现状' },
@@ -40,7 +41,9 @@ $register('donate', {
     ]
   },
   onLoad() {
-    this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
+    this.setData({
+      'page[0].statusBarHeight': globalData.info.statusBarHeight
+    });
 
     // 获取捐赠列表数据
     requestJSON('config/donateList', (donateList) => {

@@ -7,7 +7,11 @@
  */
 
 import * as $register from 'wxpage';
+import { AppOption } from '../../../app';
 import { modal } from '../../../utils/wx';
+const {
+  globalData: { env }
+} = getApp<AppOption>(); // 获得当前小程序环境
 
 $register.C({
   properties: {
@@ -22,10 +26,6 @@ $register.C({
 
     /** 添加联系人 */
     addContact() {
-      const {
-        globalData: { env }
-      } = getApp<{}, GlobalData>(); // 获得当前小程序环境
-
       if (env === 'qq')
         wx.setClipboardData({
           data: this.data.config.num,

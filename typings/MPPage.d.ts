@@ -1,17 +1,4 @@
 /* eslint-disable max-lines */
-/*
- * @Author: Mr.Hope
- * @Date: 2019-08-14 22:13:31
- * @LastEditors  : Mr.Hope
- * @LastEditTime : 2020-01-18 22:44:26
- * @Description: MPPage声明文件
- */
-
-// import './globalData.d.ts';
-
-// eslint-disable-next-line
-/// <reference path="./globalData.d.ts" />
-
 declare namespace MPPage {
   /** 页面跳转参数 */
   interface PageLifeTimeOptions {
@@ -601,29 +588,15 @@ declare namespace WechatMiniprogram {
   }
 
   namespace App {
-    type MPInstance<T extends IAnyObject, GlobalData> = Option &
-      T & {
-        globalData: GlobalData;
-      };
+    type MPInstance<T extends IAnyObject> = Option & T;
 
-    type MPOption<
-      T extends IAnyObject,
-      GlobalData extends IAnyObject
-    > = Partial<MPPage.AppOption> &
+    type MPOption<T extends IAnyObject> = Partial<MPPage.AppOption> &
       Partial<Option> &
       T &
-      ThisType<MPInstance<T, GlobalData>>;
+      ThisType<MPInstance<T>>;
 
     interface MPConstructor {
-      <T extends IAnyObject, GlobalData extends IAnyObject>(
-        options: MPOption<T, GlobalData>
-      ): void;
-    }
-
-    interface GetApp {
-      <T extends IAnyObject, GlobalData extends IAnyObject>(
-        opts?: GetAppOption
-      ): MPInstance<T, GlobalData>;
+      <T extends IAnyObject>(options: MPOption<T>): void;
     }
   }
 }

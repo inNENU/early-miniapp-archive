@@ -1,17 +1,9 @@
-/**
- * @Author: Mr.Hope
- * @LastEditors: Mr.Hope
- * @Description: tab函数
- * @Date: 2019-02-12 16:45:44
- * @LastEditTime: 2019-04-08 11:34:39
- */
-
 import { Delete, readJSON, saveFile, unzip } from './file';
 import { debug, error, info } from './log';
 import { modal, requestJSON, tip } from './wx';
+import { GlobalData } from '../app';
 import { server } from './config';
 import { setPage } from './page';
-
 /**
  * 资源下载 from fuction.js & guide.js 被checkResUpdate调用
  *

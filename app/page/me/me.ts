@@ -13,21 +13,22 @@ import {
   setColor,
   setPage
 } from '../../utils/page';
-const { globalData: a } = getApp<{}, GlobalData>();
+import { AppOption } from '../../app';
+const { globalData } = getApp<AppOption>();
 
 $register('me', {
   data: {
-    T: a.T,
-    nm: a.nm,
-    env: a.env,
-    appID: a.appID,
+    T: globalData.T,
+    nm: globalData.nm,
+    env: globalData.env,
+    appID: globalData.appID,
 
     /** 自定义导航栏配置 */
     head: {
       title: '我的东师',
       action: true,
       grey: true,
-      statusBarHeight: a.info.statusBarHeight
+      statusBarHeight: globalData.info.statusBarHeight
     },
     page: [
       { tag: 'head', title: '我的东师', hidden: true },
@@ -54,7 +55,7 @@ $register('me', {
             text: '更新日志',
             icon: '/icon/tabPage/about.svg',
             url: 'log',
-            desc: a.version
+            desc: globalData.version
           },
           {
             text: '小程序内容',
@@ -72,22 +73,26 @@ $register('me', {
             icon: '/icon/tabPage/donate.svg',
             desc: '了解详情',
             url: 'donate',
-            hidden: a.appID === 'wx9ce37d9662499df3'
+            hidden: globalData.appID === 'wx9ce37d9662499df3'
           }
         ]
       }
     ],
     foot: {
       author: '',
-      desc: `当前版本：${a.version}\n小程序由${
-        a.appID === 'wx9ce37d9662499df3' ? '校学生会委托Mr.Hope' : 'Mr.Hope个人'
+      desc: `当前版本：${globalData.version}\n小程序由${
+        globalData.appID === 'wx9ce37d9662499df3'
+          ? '校学生会委托Mr.Hope'
+          : 'Mr.Hope个人'
       }制作，如有错误还请见谅`
     }
   },
 
   onPreload(res) {
     this.$put('me', resolvePage(res, this.data.page));
-    console.log(`我的东师预加载用时${new Date().getTime() - a.date}ms`);
+    console.log(
+      `我的东师预加载用时${new Date().getTime() - globalData.date}ms`
+    );
   },
 
   onLoad() {
@@ -125,10 +130,10 @@ $register('me', {
   },
 
   onShareAppMessage: () => ({
-    title: a.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'in东师',
+    title: globalData.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'in东师',
     path: '/page/main/main',
     imageUrl: `https://mp.innenu.com/img/${
-      a.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'inNENU'
+      globalData.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'inNENU'
     }Share.jpg`
   })
 });

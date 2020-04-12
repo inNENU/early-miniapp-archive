@@ -1,10 +1,10 @@
 import * as $register from 'wxpage';
 import { debug, warn } from '../../../utils/log';
 import { downLoad, modal, tip } from '../../../utils/wx';
-
+import { AppOption } from '../../../app';
 const {
   globalData: { env, appID }
-} = getApp<{}, GlobalData>(); // 获得日志管理器，全局数据
+} = getApp<AppOption>(); // 获得日志管理器，全局数据
 
 const savePhoto = (path: string) => {
   wx.saveImageToPhotosAlbum({

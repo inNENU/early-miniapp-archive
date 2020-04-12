@@ -13,8 +13,9 @@ import {
   setColor,
   setPage
 } from '../../utils/page';
+import { AppOption } from '../../app';
 import { nightmode } from '../../utils/app';
-const { globalData } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 /** 列表动作列表 */
 type ListAction =

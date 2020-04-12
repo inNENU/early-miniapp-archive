@@ -1,11 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-11-17 15:37:05
- * @LastEditors  : Mr.Hope
- * @LastEditTime : 2020-01-18 18:14:25
- * @Description: 地图相关
- */
-
 import { debug, warn } from './log';
 import { readJSON, writeJSON } from './file';
 import { requestJSON } from './wx';

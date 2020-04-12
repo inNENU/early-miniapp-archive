@@ -10,9 +10,9 @@ import * as $register from 'wxpage';
 import { setColor } from '../utils/page';
 
 $register('web', {
-  onLoad(res: any) {
+  onLoad(res) {
     // 设置导航栏标题
-    const { title } = res;
+    const title = res.title as string;
 
     wx.setNavigationBarTitle({ title });
     this.setData({ url: res.url, title });

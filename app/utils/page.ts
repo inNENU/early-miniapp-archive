@@ -1,20 +1,12 @@
 /* eslint-disable max-lines */
-/*
- * @Author: Mr.Hope
- * @Date: 2019-07-01 17:15:44
- * @LastEditors  : Mr.Hope
- * @LastEditTime : 2020-01-18 18:12:28
- * @Description: Page函数库
- */
-
-// 引入文件管理
 import { debug, error, info, warn } from './log';
 import { getJSON, readJSON, writeJSON } from './file';
 import { modal, requestJSON } from './wx';
+import { AppOption } from '../app';
 import { Notice } from './app';
 
 /** 全局数据 */
-const { globalData } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 /**
  * 处理列表

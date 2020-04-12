@@ -14,20 +14,21 @@ import {
   setPage
 } from '../../utils/page';
 import { checkResUpdate, refreshPage } from '../../utils/tab';
+import { AppOption } from '../../app';
 import { markerSet } from '../../utils/map';
-const { globalData: a } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 $register('function', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
 
     /** 自定义导航栏配置 */
     head: {
       tag: 'head',
       title: '功能大厅',
       action: true,
-      statusBarHeight: a.info.statusBarHeight
+      statusBarHeight: globalData.info.statusBarHeight
     },
     page: [
       { tag: 'head', title: '功能大厅', hidden: true },
@@ -95,7 +96,9 @@ $register('function', {
       'function',
       resolvePage(res, wx.getStorageSync('function') || this.data.page)
     );
-    console.log(`功能大厅预加载用时${new Date().getTime() - a.date}ms`);
+    console.log(
+      `功能大厅预加载用时${new Date().getTime() - globalData.date}ms`
+    );
   },
 
   onLoad() {
@@ -129,7 +132,7 @@ $register('function', {
   },
 
   onPullDownRefresh() {
-    refreshPage('function', this, a);
+    refreshPage('function', this, globalData);
     checkResUpdate('function', '100K');
     wx.stopPullDownRefresh();
   },

@@ -1,9 +1,10 @@
 import * as $register from 'wxpage';
 import { WeatherData, WeatherDetail } from '../../components/weather/weather';
+import { AppOption } from '../../app';
 import { setColor } from '../../utils/page';
 import weatherHandler from '../../components/weather/handler';
 
-const { globalData: a } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 $register('weather', {
   data: {
@@ -28,8 +29,8 @@ $register('weather', {
         weather,
         // 18点至次日5点为夜间
         night: new Date().getHours() > 18 || new Date().getHours() < 5,
-        nm: a.nm,
-        statusBarHeight: a.info.statusBarHeight
+        nm: globalData.nm,
+        statusBarHeight: globalData.info.statusBarHeight
       });
     } // 否则需要重新获取并处理
     else
@@ -44,17 +45,17 @@ $register('weather', {
             weather,
             // 18点至次日5点为夜间
             night: new Date().getHours() > 18 || new Date().getHours() < 5,
-            nm: a.nm,
-            statusBarHeight: a.info.statusBarHeight
+            nm: globalData.nm,
+            statusBarHeight: globalData.info.statusBarHeight
           });
         }
       });
 
     // 设置页面背景色
     wx.setBackgroundColor({
-      backgroundColorTop: a.nm ? '#000000' : '#efeef4',
-      backgroundColor: a.nm ? '#000000' : '#efeef4',
-      backgroundColorBottom: a.nm ? '#000000' : '#efeef4'
+      backgroundColorTop: globalData.nm ? '#000000' : '#efeef4',
+      backgroundColor: globalData.nm ? '#000000' : '#efeef4',
+      backgroundColorBottom: globalData.nm ? '#000000' : '#efeef4'
     });
 
     this.backgroundChange();

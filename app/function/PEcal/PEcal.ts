@@ -1,7 +1,8 @@
 import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor, setPage } from '../../utils/page';
+import { AppOption } from '../../app';
 import { getJSON } from '../../utils/file';
-const { globalData: a } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 const hash = [
   10,
@@ -51,8 +52,8 @@ interface PEScore {
 
 $register('PEcal', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
     page: [
       { tag: 'head', title: '体测计算器', grey: true, leftText: '功能大厅' }
     ],

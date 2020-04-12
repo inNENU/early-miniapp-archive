@@ -14,21 +14,22 @@ import {
   setPage
 } from '../../utils/page';
 import { requestJSON, tip } from '../../utils/wx';
-const { globalData: a } = getApp<{}, GlobalData>();
+import { AppOption } from '../../app';
+const { globalData } = getApp<AppOption>();
 let clickNumber = 0;
 let developMode = false;
 
 $register('about', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
     page: [
       { tag: 'head', title: '关于', grey: true, feedback: true, contact: true },
       {
         tag: 'List',
         head: '版本号',
         content: [
-          { text: a.version, button: 'debugMode' },
+          { text: globalData.version, button: 'debugMode' },
           { text: '启用测试功能', swiKey: 'test', Switch: 'testSwitch' },
           { text: '调试开关', swiKey: 'debugMode', Switch: 'debugSwitch' },
           { text: '退出开发者模式', button: 'debugMode' }
@@ -52,7 +53,7 @@ $register('about', {
           { text: '小程序功能太少?', aim: 'MrHope2' }
         ]
       },
-      { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
+      { tag: 'foot', author: '', desc: `当前版本：${globalData.version}` }
     ]
   },
   onNavigate(res) {
@@ -68,7 +69,7 @@ $register('about', {
     resolvePage(res, page);
   },
   onLoad(option: any) {
-    if (a.page.aim === '关于') setPage({ option, ctx: this });
+    if (globalData.page.aim === '关于') setPage({ option, ctx: this });
     else {
       const { page } = this.data;
 
@@ -93,12 +94,15 @@ $register('about', {
   },
   onReady() {
     // 读取在线文件更新页面显示
-    requestJSON(`config/${a.appID}/${a.version}/about`, (data: any) => {
-      setPage(
-        { option: { aim: '关于' }, ctx: this },
-        this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1))
-      );
-    });
+    requestJSON(
+      `config/${globalData.appID}/${globalData.version}/about`,
+      (data: any) => {
+        setPage(
+          { option: { aim: '关于' }, ctx: this },
+          this.data.page.slice(0, 2).concat(data, this.data.page.slice(-1))
+        );
+      }
+    );
   },
   onPageScroll(event) {
     changeNav(event, this);

@@ -14,13 +14,14 @@ import {
   setColor,
   setPage
 } from '../../utils/page';
+import { AppOption } from '../../app';
 import { requestJSON } from '../../utils/wx';
-const { globalData: a } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 $register('log', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
     page: [
       {
         tag: 'head',
@@ -48,7 +49,7 @@ $register('log', {
           { text: '查看详细日志', aim: 'log0' }
         ]
       },
-      { tag: 'foot', author: '', desc: `当前版本：${a.version}` }
+      { tag: 'foot', author: '', desc: `当前版本：${globalData.version}` }
     ]
   },
 
@@ -57,7 +58,7 @@ $register('log', {
   },
 
   onLoad(option: any) {
-    if (a.page.aim === '更新日志') setPage({ option, ctx: this });
+    if (globalData.page.aim === '更新日志') setPage({ option, ctx: this });
     else setPage({ option: { aim: 'log' }, ctx: this });
 
     popNotice('log');
@@ -73,12 +74,15 @@ $register('log', {
 
   onReady() {
     // 在线获取日志页面文件
-    requestJSON(`config/${a.appID}/${a.version}/log`, (data: any) => {
-      setPage(
-        { option: { aim: '更新日志' }, ctx: this },
-        this.data.page.slice(0, 1).concat(data, this.data.page.slice(-1))
-      );
-    });
+    requestJSON(
+      `config/${globalData.appID}/${globalData.version}/log`,
+      (data: any) => {
+        setPage(
+          { option: { aim: '更新日志' }, ctx: this },
+          this.data.page.slice(0, 1).concat(data, this.data.page.slice(-1))
+        );
+      }
+    );
   },
 
   onPageScroll(event) {

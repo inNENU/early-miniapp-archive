@@ -1,12 +1,5 @@
 /* eslint-disable max-params */
-/*
- * @Author: Mr.Hope
- * @LastEditors: Mr.Hope
- * @Description: 交互模块
- * @Date: 2019-04-11 15:48:45
- * @LastEditTime: 2020-02-25 09:15:56
- */
-
+/** 交互模块 */
 import { debug, warn } from './log';
 import { server } from './config';
 

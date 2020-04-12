@@ -1,8 +1,9 @@
 import * as $register from 'wxpage';
 import { changeNav, resolvePage, setColor, setPage } from '../../utils/page';
 import { makeDir, readJSON, writeJSON } from '../../utils/file';
+import { AppOption } from '../../app';
 import { requestJSON } from '../../utils/wx';
-const { globalData: a } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 $register('situs', {
   onPreload(res) {
@@ -10,7 +11,7 @@ $register('situs', {
   },
 
   onLoad(option: any) {
-    if (a.page.aim === option.aim) setPage({ option, ctx: this });
+    if (globalData.page.aim === option.aim) setPage({ option, ctx: this });
     else {
       const pageData = readJSON(`function/${option.xiaoqu}/${option.aim}`);
 
@@ -30,12 +31,12 @@ $register('situs', {
           },
           () => {
             setPage({ option, ctx: this }, [
-              { tag: 'error', statusBarHeight: a.info.statusBarHeight }
+              { tag: 'error', statusBarHeight: globalData.info.statusBarHeight }
             ]);
           },
           () => {
             setPage({ option, ctx: this }, [
-              { tag: 'error', statusBarHeight: a.info.statusBarHeight }
+              { tag: 'error', statusBarHeight: globalData.info.statusBarHeight }
             ]);
           }
         );

@@ -2,7 +2,8 @@ import * as $register from 'wxpage';
 import { getJSON, readJSON } from '../../utils/file';
 import { modal, requestJSON, tip } from '../../utils/wx';
 import { popNotice, setColor } from '../../utils/page';
-const { globalData: a } = getApp<{}, GlobalData>();
+import { AppOption } from '../../app';
+const { globalData } = getApp<AppOption>();
 
 $register('video', {
   onNavigate() {
@@ -10,7 +11,7 @@ $register('video', {
   },
 
   onLoad(options) {
-    if (a.appID === 'wx9ce37d9662499df3') {
+    if (globalData.appID === 'wx9ce37d9662499df3') {
       const id = options.scene || options.id || 0;
       const videoList = readJSON('function/video');
 
@@ -21,8 +22,8 @@ $register('video', {
           id,
           videoList,
           share: this.$state.firstOpen,
-          statusBarHeight: a.info.statusBarHeight,
-          nm: a.nm,
+          statusBarHeight: globalData.info.statusBarHeight,
+          nm: globalData.nm,
           videoName: item.name,
           videoAuthor: item.author,
           src: item.src || '',
@@ -36,8 +37,8 @@ $register('video', {
             id,
             videoList: data,
             share: this.$state.firstOpen,
-            statusBarHeight: a.info.statusBarHeight,
-            nm: a.nm,
+            statusBarHeight: globalData.info.statusBarHeight,
+            nm: globalData.nm,
             videoName: item.name,
             videoAuthor: item.author,
             src: item.src || '',

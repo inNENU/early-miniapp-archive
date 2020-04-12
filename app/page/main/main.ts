@@ -15,13 +15,14 @@ import {
 } from '../../utils/page';
 import { checkResUpdate, refreshPage } from '../../utils/tab';
 import $search from '../../utils/search';
+import { AppOption } from '../../app';
 import { requestJSON } from '../../utils/wx';
-const { globalData: a } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 $register('main', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
 
     /** 候选词 */
     words: [] as string[],
@@ -30,7 +31,7 @@ $register('main', {
     head: {
       title: '首页',
       action: true,
-      statusBarHeight: a.info.statusBarHeight
+      statusBarHeight: globalData.info.statusBarHeight
     },
     page: [
       { tag: 'head', title: '首页', aim: 'main', grey: true, hidden: true },
@@ -45,7 +46,7 @@ $register('main', {
   },
 
   onPageLaunch() {
-    console.log('主页面启动：', new Date().getTime() - a.date, 'ms');
+    console.log('主页面启动：', new Date().getTime() - globalData.date, 'ms');
     const page = wx.getStorageSync('main');
 
     resolvePage({ query: { aim: 'main' } }, page ? page : this.data.page);
@@ -55,7 +56,7 @@ $register('main', {
   },
 
   onLoad() {
-    const color = a.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
+    const color = globalData.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
     // 设置tabbar颜色
     wx.setTabBarStyle({
@@ -66,7 +67,7 @@ $register('main', {
     });
 
     setPage({ option: { aim: 'main' }, ctx: this });
-    refreshPage('main', this, a);
+    refreshPage('main', this, globalData);
     popNotice('main');
   },
 
@@ -99,16 +100,19 @@ $register('main', {
 
     // 执行tab页预加载
     ['guide', 'function'].forEach((x) => {
-      requestJSON(`config/${a.appID}/${a.version}/${x}`, (data: object) => {
-        wx.setStorageSync(x, data);
-        this.$preload(`${x}?aim=${x}`);
-      });
+      requestJSON(
+        `config/${globalData.appID}/${globalData.version}/${x}`,
+        (data: object) => {
+          wx.setStorageSync(x, data);
+          this.$preload(`${x}?aim=${x}`);
+        }
+      );
     });
     this.$preload('me?aim=me');
   },
 
   onPullDownRefresh() {
-    refreshPage('main', this, a);
+    refreshPage('main', this, globalData);
     wx.stopPullDownRefresh();
   },
 
@@ -117,10 +121,10 @@ $register('main', {
   },
 
   onShareAppMessage: () => ({
-    title: a.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'in东师',
+    title: globalData.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'in东师',
     path: '/page/main/main',
     imageUrl: `https://mp.innenu.com/img/${
-      a.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'inNENU'
+      globalData.appID === 'wx9ce37d9662499df3' ? 'myNENU' : 'inNENU'
     }Share.jpg`
   }),
 

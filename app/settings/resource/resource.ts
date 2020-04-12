@@ -7,16 +7,17 @@
  */
 import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../../utils/page';
+import { AppOption } from '../../app';
 import { modal } from '../../utils/wx';
-const { globalData: a } = getApp<{}, GlobalData>();
+const { globalData } = getApp<AppOption>();
 
 /** 列表动作 */
 type ListAction = 'resource' | 'public' | 'physics';
 
 $register('resource', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
     page: [
       { tag: 'head', title: '资源说明', shareable: true, leftText: '返回' },
       { tag: 'title', text: '小程序页面资源' },
@@ -47,7 +48,9 @@ $register('resource', {
   },
 
   onLoad() {
-    this.setData({ 'page[0].statusBarHeight': a.info.statusBarHeight });
+    this.setData({
+      'page[0].statusBarHeight': globalData.info.statusBarHeight
+    });
     popNotice('resource');
   },
 

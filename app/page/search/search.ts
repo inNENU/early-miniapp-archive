@@ -9,7 +9,8 @@
 import * as $register from 'wxpage';
 import { changeNav, popNotice, setColor } from '../../utils/page';
 import $search from '../../utils/search';
-const { globalData: a } = getApp<{}, GlobalData>();
+import { AppOption } from '../../app';
+const { globalData } = getApp<AppOption>();
 
 /** 关键词 */
 export interface Keywords {
@@ -25,8 +26,8 @@ export interface Keywords {
 
 $register('search', {
   data: {
-    T: a.T,
-    nm: a.nm,
+    T: globalData.T,
+    nm: globalData.nm,
 
     /** 状态栏高度 */
     statusBarHeight: getApp().globalData.info.statusBarHeight,
@@ -46,7 +47,7 @@ $register('search', {
     /** 自定义盗汗蓝配置 */
     head: {
       title: '搜索',
-      statusBarHeight: a.info.statusBarHeight,
+      statusBarHeight: globalData.info.statusBarHeight,
       leftText: '返回'
     }
   },
@@ -54,7 +55,11 @@ $register('search', {
   onLoad(options) {
     if (options.words) this.search({ detail: { value: options.words } });
 
-    this.setData({ searchword: options.words, T: a.T, nm: a.nm });
+    this.setData({
+      searchword: options.words,
+      T: globalData.T,
+      nm: globalData.nm
+    });
     popNotice('search');
   },
 
