@@ -44,9 +44,11 @@ $register('music', {
     songList: [] as any[],
     mode: 0
   },
+
   onNavigate() {
     getJSON('function/song');
   },
+
   onLoad(option = {}) {
     // 加载字体
     wx.loadFontFace({
@@ -124,6 +126,7 @@ $register('music', {
 
     popNotice('music');
   },
+
   /** 注册音乐播放器 */
   managerRegister() {
     // 能够播放100ms后设置可以播放
@@ -200,6 +203,7 @@ $register('music', {
       tip('获取音乐出错，请稍后重试');
     });
   },
+
   /** 设置歌词 */
   lyric() {
     const { lyrics } = this.data;
@@ -221,15 +225,18 @@ $register('music', {
       activeIndex += 1;
     }
   },
+
   loadCover(event: WXEvent.ImageLoad) {
     // 加载封面
     if (event.type === 'load') this.setData({ coverLoad: true });
   },
+
   /** 播放与暂停 */
   play() {
     if (this.data.play) manager.pause();
     else manager.play();
   },
+
   /** 拖拽进度 */
   drag(event: WXEvent.SliderChange) {
     manager.seek(event.detail.value / 100);
@@ -238,6 +245,7 @@ $register('music', {
       console.log(event.detail.value); // 调试
     }
   },
+
   end() {
     // 结束动作
     let index = this.data.index as number | string;
@@ -263,6 +271,7 @@ $register('music', {
     }
     this.switchSong(index);
   },
+
   /** 下一曲动作 */
   next() {
     let index = this.data.index as number | string;
@@ -288,6 +297,7 @@ $register('music', {
     }
     this.switchSong(index);
   },
+
   /** 上一曲动作 */
   previous() {
     let index = this.data.index as number | string;
@@ -313,6 +323,7 @@ $register('music', {
     }
     this.switchSong(index);
   },
+
   /** 切换歌曲 */
   switchSong(index: string | number) {
     if (index === 'stop') {
@@ -341,6 +352,7 @@ $register('music', {
       globalData.music.index = Number(index);
     }
   },
+
   /** 切换播放模式 */
   modeSwitch() {
     let modeName;
@@ -364,21 +376,25 @@ $register('music', {
     wx.setStorageSync('playMode', mode);
     tip(`${modeName}模式`);
   },
+
   /** 切换列表显隐 */
   list() {
     this.setData({ songListDisplay: !this.data.songListDisplay });
   },
+
   change(res: WXEvent.Touch) {
     // 点击列表具体歌曲项时触发
     this.list();
     this.switchSong(res.currentTarget.dataset.index);
   },
+
   onShareAppMessage() {
     return {
       title: this.data.currentSong.title,
       path: `/function/player/player?index=${this.data.index}`
     };
   },
+
   back() {
     if (this.$state.firstOpen) this.$switchTab('main');
     else this.$back();

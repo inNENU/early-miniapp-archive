@@ -14,30 +14,30 @@
     <view class="detail">{{tool.getDirection(weather)}}风 {{weather.observe.wind_power}}级</view>
     <view class='tip' catch:tap="refresh">{{weather.tips.observe[tipIndex]}}</view>
     <view class="background">
-      <view class="layer layer1" animation="{{animation1}}"></view>
-      <view class="layer layer2" animation="{{animation2}}"></view>
-      <view class="layer layer3" animation="{{animation3}}"></view>
+      <view class="layer layer1" animation="{{animation1}}" />
+      <view class="layer layer2" animation="{{animation2}}" />
+      <view class="layer layer3" animation="{{animation3}}" />
     </view>
   </view>
   <view class="forecast borderB">
     <view class="item">
       <view class="top">
         <text class="date">今天</text>
-        <text class="temperature">31/23°</text>
+        <text class="temperature">{{tool.getTemperature(weather.dayForecast[1])}}</text>
       </view>
       <view class="bottom">
-        <text class="weather">多云转暴雨</text>
-        <image class="icon" src="{{tool.getIcon(weather.hourForecast[1].day_weather_code)}}" />
+        <text class="weather">{{tool.getWeather(weather.dayForecast[1])}}</text>
+        <image class="icon" src="{{tool.getIcon(weather.dayForecast[1].day_weather_code)}}" />
       </view>
     </view>
     <view class="item">
       <view class="top">
         <text class="date">明天</text>
-        <text class="temperature">27/22°</text>
+        <text class="temperature">{{tool.getTemperature(weather.dayForecast[2])}}</text>
       </view>
       <view class="bottom">
-        <text class="weather">中雨转多云</text>
-        <image class="icon" src="{{tool.getIcon(weather.hourForecast[2].day_weather_code)}}" />
+        <text class="weather">{{tool.getWeather(weather.dayForecast[2])}}</text>
+        <image class="icon" src="{{tool.getIcon(weather.dayForecast[2].day_weather_code)}}" />
       </view>
     </view>
   </view>

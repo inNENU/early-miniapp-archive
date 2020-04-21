@@ -8,16 +8,12 @@
   width: 100%;
   min-height: 100%;
   text-align: center;
-  background-color: #fff;
+  color: var(--text-color);
+  background-color: var(--bgcolor);
 }
 
 .iOS.grey {
-  background-color: #efeef4;
-}
-
-.nm.iOS.grey {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--bgcolor-grey);
 }
 
 /* iOS Head */
@@ -162,9 +158,4 @@
 
 .iOSTitle+.iOSTitle {
   padding-top: 2px;
-}
-
-.nm.iOS {
-  background-color: #000;
-  color: #fff;
 }

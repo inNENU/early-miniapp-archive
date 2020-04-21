@@ -3,8 +3,8 @@
 .NENU {
   width: 100%;
   min-height: 100%;
-  color: #000;
-  background-color: #fff;
+  color: var(--text-color);
+  background-color: var(--bgcolor);
   font-family: "Helvetica Neue",
     FZSSJW,
     -apple-system-font,
@@ -21,17 +21,11 @@
   background-color: #f0f0f0;
 }
 
-.nm.NENU {
-  color: #fff;
-  background-color: #000;
-}
-
 .nm.NENU.grey {
   background-color: #0f0f0f;
 }
 
 /* NENU nav */
-
 .NENUnav,
 .NENUnav2 {
   width: 100%;
@@ -48,12 +42,8 @@
   box-sizing: content-box;
   height: 40px;
   padding: 2px 0;
-  border-bottom: 1rpx solid #efeef4;
+  border-bottom: 1rpx solid var(--bgcolor-grey);
   justify-content: flex-start;
-}
-
-.nm .NENUnav {
-  border-color: #10110b;
 }
 
 .NENU-navText {
@@ -77,11 +67,7 @@
 }
 
 .NENUHead .backIcon {
-  color: #000;
-}
-
-.nm .NENUHead .backIcon {
-  color: #fff;
+  color: var(--text-color);
 }
 
 /* paragraph */

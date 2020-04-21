@@ -1,32 +1,32 @@
 <!-- page with navigation bar -->
 <template name="page">
   <block wx:if="{{!page}}">
-    <view class="{{T}} {{nm?'nm':''}} commonLoading">
+    <view class="{{T}} {{nm?'nm':''}} {{nm? 'dark': 'light'}} loading-logo-wrapper">
       <view class="backBtn" style="top:27.5px;" hover-class="button-hover" hover-stay-time="100" catchtap="$back">
         <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
       </view>
-      <view class="loadingIconCtn">
-        <image class="loadingIcon loading" src="/image/logo.png" />
-        <view class="loadingShadow" />
-        <view class="loadingText">加载中...</view>
+      <view class="loading-logo">
+        <image src="/image/logo.png" />
+        <view class="shadow" />
+        <view class="text">加载中...</view>
       </view>
     </view>
   </block>
   <block wx:else>
-    <view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}} {{nm? 'dark': 'light'}}">
+    <view class="{{T}} {{page[0].grey? 'grey': ''}} {{nm? 'nm': ''}} {{nm? 'dark': 'light'}}">
       <block wx:for="{{page}}" wx:key="id">
-        <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
-        <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag==='img'}}" />
-        <list config="{{item}}" wx:elif="{{item.tag==='list'}}" />
-        <foot config="{{item}}" wx:elif="{{item.tag==='foot'}}" />
-        <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
-        <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
-        <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
-        <my-swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
-        <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
-        <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
-        <ex-list config="{{item}}" wx:elif="{{item.tag==='List'}}" change="{{event?event[index]:''}}" bind:change="list" />
-        <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
+        <p config="{{item}}" wx:if="{{item.tag === 'p'}}" />
+        <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag === 'img'}}" />
+        <list config="{{item}}" wx:elif="{{item.tag === 'list'}}" />
+        <foot config="{{item}}" wx:elif="{{item.tag === 'foot'}}" />
+        <grid config="{{item}}" wx:elif="{{item.tag === 'grid'}}" />
+        <doc config="{{item}}" wx:elif="{{item.tag === 'doc'}}" />
+        <phone config="{{item}}" wx:elif="{{item.tag === 'phone'}}" />
+        <my-swiper config="{{item}}" wx:elif="{{item.tag === 'swiper'}}" />
+        <intro config="{{item}}" wx:elif="{{item.tag === 'intro'}}" />
+        <gzh config="{{item}}" wx:elif="{{item.tag === 'gzh'}}" />
+        <ex-list config="{{item}}" wx:elif="{{item.tag === 'List'}}" change="{{event?event[index]:''}}" bind:change="list" />
+        <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
         <template wx:else is="{{item.tag}}" data="{{...item,T,nm}}" />
       </block>
       <share config="{{page[0]}}" />
@@ -35,18 +35,18 @@
 </template>
 <template name="body">
   <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
-    <p config="{{item}}" wx:if="{{item.tag==='p'}}" />
-    <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag==='img'}}" />
-    <list config="{{item}}" wx:elif="{{item.tag==='list'}}" />
-    <foot config="{{item}}" wx:elif="{{item.tag==='foot'}}" />
-    <grid config="{{item}}" wx:elif="{{item.tag==='grid'}}" />
-    <doc config="{{item}}" wx:elif="{{item.tag==='doc'}}" />
-    <phone config="{{item}}" wx:elif="{{item.tag==='phone'}}" />
-    <my-swiper config="{{item}}" wx:elif="{{item.tag==='swiper'}}" />
-    <intro config="{{item}}" wx:elif="{{item.tag==='intro'}}" />
-    <ex-list config="{{item}}" wx:elif="{{item.tag==='List'}}" change="{{event?event[index]:''}}" bind:change="list" />
-    <gzh config="{{item}}" wx:elif="{{item.tag==='gzh'}}" />
-    <media config="{{item}}" wx:elif="{{item.tag==='media'}}" />
+    <p config="{{item}}" wx:if="{{item.tag === 'p'}}" />
+    <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag === 'img'}}" />
+    <list config="{{item}}" wx:elif="{{item.tag === 'list'}}" />
+    <foot config="{{item}}" wx:elif="{{item.tag === 'foot'}}" />
+    <grid config="{{item}}" wx:elif="{{item.tag === 'grid'}}" />
+    <doc config="{{item}}" wx:elif="{{item.tag === 'doc'}}" />
+    <phone config="{{item}}" wx:elif="{{item.tag === 'phone'}}" />
+    <my-swiper config="{{item}}" wx:elif="{{item.tag === 'swiper'}}" />
+    <intro config="{{item}}" wx:elif="{{item.tag === 'intro'}}" />
+    <ex-list config="{{item}}" wx:elif="{{item.tag === 'List'}}" change="{{event? event[index]: ''}}" bind:change="list" />
+    <gzh config="{{item}}" wx:elif="{{item.tag === 'gzh'}}" />
+    <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
     <template wx:else is="{{item.tag}}" data="{{...item,T,nm}}" />
   </block>
   <share config="{{page[0]}}" />
@@ -59,7 +59,7 @@ Author: Mr.Hope
 ********************************************* -->
 <!-- 标题 -->
 <template name="title">
-  <view class="{{T}}Title" style="{{style?style:''}}">{{text}}</view>
+  <view class="{{T}}Title" style="{{style || ''}}">{{text}}</view>
 </template>
 <!-- ******************************************
 Here are  different template used by diferent theme
@@ -90,13 +90,13 @@ Author: Mr.Hope
 <template name="iOSHead">
   <view class="iOS-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view wx:if="{{titleDisplay}}" class="iOS-titletext">{{title}}</view>
-    <button wx:if="{{action!==true}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="{{action==undefined?'$back':action}}">
-      <view wx:if="{{action==undefined||action=='redirect'}}" class="iOS-backArrow" />
+    <button wx:if="{{action !== true}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="{{action === undefined? '$back': action}}">
+      <view wx:if="{{action === undefined || action === 'redirect'}}" class="iOS-backArrow" />
       <text class="iOS-nav-text">{{leftText}}</text>
     </button>
   </view>
-  <view wx:if="{{borderDisplay}}" class="iOSnavDl" style="top:{{statusBarHeight+44}}px;" />
-  <view class="iOS-navPlaceHolder" style="height:{{statusBarHeight+44}}px;">
+  <view wx:if="{{borderDisplay}}" class="iOSnavDl" style="top:{{statusBarHeight + 44}}px;" />
+  <view class="iOS-navPlaceHolder" style="height:{{statusBarHeight + 44}}px;">
     到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮
   </view>
   <view class="iOS-head">{{title}}</view>
@@ -110,8 +110,8 @@ Author: Mr.Hope
       <text class="iOS-nav-text">返回</text>
     </button>
   </view>
-  <view class="iOSnavDl" style="top:{{statusBarHeight+44}}px;" />
-  <view class="iOS-navPlaceHolder" style="height:{{statusBarHeight+44}}px;">
+  <view class="iOSnavDl" style="top:{{statusBarHeight + 44}}px;" />
+  <view class="iOS-navPlaceHolder" style="height:{{statusBarHeight + 44}}px;">
     到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮
   </view>
   <view class="errorCtn">
@@ -135,14 +135,14 @@ Author: Mr.Hope
 ********************************************* -->
 <!-- Android导航栏 -->
 <template name="AndroidHead">
-  <view class="Android-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
+  <view class="Android-navigationBar {{shadow? 'AndroidNavShadow': ''}}" style="padding-top:{{statusBarHeight}}px;">
     <view class="Android-titletext">{{title}}</view>
-    <button wx:if="{{action!==true}}" class="button Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="{{action==undefined?'$back':action}}">
-      <view wx:if="{{action==undefined||action=='redirect'}}" class="Android-backArrow" />
+    <button wx:if="{{action !== true}}" class="button Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="{{action==undefined?'$back':action}}">
+      <view wx:if="{{action === undefined||action === 'redirect'}}" class="Android-backArrow" />
       <view class="Android-leftText">{{leftText}}</view>
     </button>
   </view>
-  <view class="Android-navPlaceHolder" style="height:{{statusBarHeight+44}}px;">
+  <view class="Android-navPlaceHolder" style="height:{{statusBarHeight + 44}}px;">
     到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮
   </view>
   <view wx:if="{{desc}}" class="Android-head">
@@ -158,7 +158,7 @@ Author: Mr.Hope
       <view class="Android-backArrow" />
     </button>
   </view>
-  <view class="Android-navPlaceHolder" style="height:{{statusBarHeight+44}}px;">
+  <view class="Android-navPlaceHolder" style="height:{{statusBarHeight + 44}}px;">
     <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
   </view>
   <view class="errorCtn">
@@ -182,10 +182,10 @@ Author: Mr.Hope
 ********************************************* -->
 <template name='NENUHead'>
   <block wx:if="{{action===undefined}}">
-    <view class="backBtn {{borderDisplay?'fadeIn':'fadeOut'}}" style="top:{{statusBarHeight+5}}px;" hover-class='button-hover' catch:tap="$back">
+    <view class="backBtn {{borderDisplay? 'fadeIn': 'fadeOut'}}" style="top:{{statusBarHeight + 5}}px;" hover-class='button-hover' catch:tap="$back">
       <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
     </view>
-    <view class="NENUnav {{titleDisplay?'fadeOut':'fadeIn'}}" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
+    <view class="NENUnav {{titleDisplay? 'fadeOut': 'fadeIn'}}" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
       <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catch:tap="$back">
         <view wx:if="{{action===undefined||action==='redirect'}}" class='iOS-backArrow' style='border-color:#fff;' />
         <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>

@@ -45,7 +45,6 @@ $register('setting', {
       {
         tag: 'List',
         head: '主题设置',
-        foot: 'NENU主题还在完善中',
         content: [
           {
             text: '主题设置',

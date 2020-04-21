@@ -5,7 +5,7 @@
 
 .songName,
 .songAuthor {
-  color: #888;
+  color: var(--grey);
   font-family: FZSSJW,
     -apple-system-font,
     "PingFang SC",
@@ -62,7 +62,7 @@
 .timeDisplay {
   width: 10%;
   font-size: 15px;
-  color: #999;
+  color: var(--light-grey);
 }
 
 .progressBar {
@@ -139,7 +139,7 @@ slider {
   right: 8%;
   width: 84%;
   bottom: 100px;
-  background-color: #fff;
+  background-color: var(--block-bgcolor);
   border-radius: 12px;
   font-family: FZSSJW,
     -apple-system-font,
@@ -155,7 +155,6 @@ slider {
 
 .nm .songListCtn {
   box-shadow: 1px 1px 4px 1.5px rgba(47, 47, 47, 80);
-  background-color: #000;
 }
 
 .closeBtn {
@@ -206,15 +205,21 @@ slider {
   font-size: 16px;
 }
 
-.nm .songListName {
-  color: #fff;
-}
-
 .songListDesc {
   font-size: 14px;
-  color: #333;
+  color: var(--grey-three);
 }
 
-.nm.songListDesc {
-  color: #ccc;
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+  animation: 12s linear 0s normal none infinite rotate;
 }

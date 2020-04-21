@@ -32,6 +32,25 @@ module.exports = {
     return '';
   },
 
+  /** 获得天气 */
+  getWeather: function (forecast) {
+    if (forecast) {
+      if (forecast.day_weather === forecast.night_weather)
+        return forecast.day_weather;
+
+      return forecast.day_weather + '转' + forecast.night_weather;
+    }
+
+    return '';
+  },
+
+  /** 获得温度 */
+  getTemperature: function (forecast) {
+    if (forecast) return forecast.max_degree + '/' + forecast.min_degree + '°';
+
+    return '';
+  },
+
   /** 获得日期 */
   getDate: function (forecast) {
     return forecast.time.slice(5, 7) + '/' + forecast.time.slice(8, 10);

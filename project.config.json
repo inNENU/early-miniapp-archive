@@ -138,6 +138,13 @@
 					"id": -1,
 					"name": "天气",
 					"pathName": "function/weather/weather",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "播放器",
+					"pathName": "function/player/player",
 					"scene": null
 				}
 			]

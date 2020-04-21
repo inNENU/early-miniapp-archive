@@ -56,7 +56,7 @@ export const modal = (
 export const confirm = (
   actionText: string,
   confirmFunc: () => void,
-  cancelFunc: () => void = () => undefined
+  cancelFunc?: () => void
 ) => {
   modal('确认操作', `您确定要${actionText}么?`, confirmFunc, cancelFunc);
 };

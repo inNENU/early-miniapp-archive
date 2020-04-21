@@ -41,7 +41,7 @@
     加载中图标
 *****************/
 
-.commonLoading {
+.loading-logo-wrapper {
   width: 100%;
   height: 100%;
   display: flex;
@@ -49,19 +49,13 @@
   align-items: center;
 }
 
-.loadingIconCtn {
+.loading-logo {
   width: 100px;
   height: 125px;
   filter: drop-shadow(-1px 1px 2px rgba(191, 190, 195, 0.15));
 }
 
-.loadingIcon {
-  width: 100px;
-  height: 100px;
-  position: relative;
-}
-
-@keyframes loading {
+@keyframes jump {
   0% {
     transform: rotate(0deg);
     top: 0px;
@@ -118,17 +112,20 @@
   }
 }
 
-.loading {
-  animation: loading 2s linear 0s none infinite alternate-reverse;
+.loading-logo image {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  animation: jump 2s linear 0s none infinite alternate-reverse;
 }
 
-.loadingText {
-  color: #888;
+.loading-logo-wrapper .text {
+  color: var(--grey);
   margin: 4px auto;
 }
 
 @media (min-width:480px) {
-  .loadingText {
+  .loading-logo-wrapper .text {
     font-size: 24px;
     margin: 12px auto;
   }
@@ -146,7 +143,7 @@
   }
 }
 
-.loadingShadow {
+.loading-logo-wrapper .shadow {
   width: 60px;
   height: 10px;
   margin: -10px 20px 0 20px;

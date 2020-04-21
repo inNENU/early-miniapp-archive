@@ -1,4 +1,4 @@
-<view class="{{nm?'nm':''}} commonBg">
+<view class="{{nm?'nm':''}} commonBg {{nm? 'dark': 'light'}}">
   <view class='backBtn' style="top:{{info.statusBarHeight+5}}px;" hover-class='button-hover' catch:tap="back">
     <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
   </view>
