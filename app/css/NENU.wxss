@@ -5,11 +5,11 @@
   min-height: 100%;
   color: var(--text-color);
   background-color: var(--bgcolor);
-  font-family: "Helvetica Neue",
+  font-family:
+    "Helvetica Neue",
     FZSSJW,
     -apple-system-font,
     "PingFang SC",
-    "Helvetica Neue",
     Helvetica,
     STHeiti,
     Tahoma,
@@ -71,6 +71,7 @@
 }
 
 /* paragraph */
+
 /* .NENUP, */
 .NENUTitle,
 .NENUhead {
@@ -84,18 +85,18 @@
   padding: 9px 5% 3px 5%;
 }
 
-.NENUTitle+.NENUTitle {
+.NENUTitle + .NENUTitle {
   padding-top: 2px;
-}
-
-.NENUTitle+.NENUhead {
-  padding-top: 5px;
 }
 
 .NENUhead {
   font-size: 17px;
   font-weight: 500;
   padding: 9px 5% 3px 5%;
+}
+
+.NENUTitle + .NENUhead {
+  padding-top: 5px;
 }
 
 .grey .NENUhead {
@@ -109,7 +110,7 @@
   color: #999;
 }
 
-/* 
+/*
 .NENUP .iOS-img {
   width: 100% !important;
 } */

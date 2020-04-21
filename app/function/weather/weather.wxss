@@ -115,7 +115,6 @@
   width: 22px;
 }
 
-
 .flex {
   display: flex;
 }
@@ -202,7 +201,6 @@
   height: 148px;
 }
 
-
 .days .wind {
   width: 40px;
   font-size: 12px;
@@ -269,14 +267,14 @@
 .weather-wrapper .background {
   width: 100%;
   overflow: hidden;
-  z-index: 1
+  z-index: 1;
 }
 
 .weather-wrapper .background,
 .weather-wrapper .background .layer {
   position: absolute;
   bottom: 0;
-  top: 60px
+  top: 60px;
 }
 
 .weather-wrapper .background .layer {
@@ -295,17 +293,17 @@
 
 .weather-wrapper.night .layer1 {
   z-index: 3;
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/f9fca795811b5d7c0e49580760bb0213.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/f9fca795811b5d7c0e49580760bb0213.png);
 }
 
 .weather-wrapper.night .layer2 {
   z-index: 2;
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/53347cfa83d5c053610eaa533d2d02fc.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/53347cfa83d5c053610eaa533d2d02fc.png);
 }
 
 .weather-wrapper.night .layer3 {
   z-index: 1;
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/a0de07d1388c2c4f81b8caf96717e1a4.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/a0de07d1388c2c4f81b8caf96717e1a4.png);
 }
 
 .weather-wrapper.night.C9 {
@@ -314,32 +312,32 @@
 
 .weather-wrapper.night.C9 .layer1 {
   z-index: 3;
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/f9fca795811b5d7c0e49580760bb0213.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/f9fca795811b5d7c0e49580760bb0213.png);
 }
 
 .weather-wrapper.night.C9 .layer2 {
   z-index: 2;
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/53347cfa83d5c053610eaa533d2d02fc.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/53347cfa83d5c053610eaa533d2d02fc.png);
 }
 
 .weather-wrapper.night.C9 .layer3 {
   z-index: 1;
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/3e6438176c956bd30f19e23659533dee.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/3e6438176c956bd30f19e23659533dee.png);
 }
 
 .weather-wrapper .layer1 {
   z-index: 3;
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/982194185a079fad9fd6d7eac312b378.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/982194185a079fad9fd6d7eac312b378.png);
 }
 
 .weather-wrapper .layer2 {
   z-index: 2;
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/8fd2514cf9551f15e6925b935c8ce13a.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/8fd2514cf9551f15e6925b935c8ce13a.png);
 }
 
 .weather-wrapper .layer3 {
   z-index: 1;
-  background-image: url(//mp.innenu.com/img/weather/layer3.png)
+  background-image: url(//mp.innenu.com/img/weather/layer3.png);
 }
 
 .weather-wrapper.C1 {
@@ -347,15 +345,15 @@
 }
 
 .weather-wrapper.C1 .layer1 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/1355c59170ff294f7a619d5300cbfb0a.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/1355c59170ff294f7a619d5300cbfb0a.png);
 }
 
 .weather-wrapper.C1 .layer2 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/61e81da52b26f66c5147a241679a7a24.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/61e81da52b26f66c5147a241679a7a24.png);
 }
 
 .weather-wrapper.C1 .layer3 {
-  background-image: url(//mp.innenu.com/img/weather/C1-layer3.png)
+  background-image: url(//mp.innenu.com/img/weather/C1-layer3.png);
 }
 
 .weather-wrapper.C3 {
@@ -363,15 +361,15 @@
 }
 
 .weather-wrapper.C3 .layer1 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/ea607fb41199de44ee7a648e1eb995c7.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/ea607fb41199de44ee7a648e1eb995c7.png);
 }
 
 .weather-wrapper.C3 .layer2 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/541c915122a0b917dcae14d491674a5c.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/541c915122a0b917dcae14d491674a5c.png);
 }
 
 .weather-wrapper.C3 .layer3 {
-  background-image: url(//mp.innenu.com/img/weather/C3-layer3.png)
+  background-image: url(//mp.innenu.com/img/weather/C3-layer3.png);
 }
 
 .weather-wrapper.C4 {
@@ -379,15 +377,15 @@
 }
 
 .weather-wrapper.C4 .layer1 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/211423b5b50714150fdb06d73bdc96d0.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/211423b5b50714150fdb06d73bdc96d0.png);
 }
 
 .weather-wrapper.C4 .layer2 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/e517d1c2d0a2e590a58fb216f625b0d8.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/e517d1c2d0a2e590a58fb216f625b0d8.png);
 }
 
 .weather-wrapper.C4 .layer3 {
-  background-image: url(//mp.innenu.com/img/weather/C4-layer3.png)
+  background-image: url(//mp.innenu.com/img/weather/C4-layer3.png);
 }
 
 .weather-wrapper.C5 {
@@ -395,15 +393,15 @@
 }
 
 .weather-wrapper.C5 .layer1 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/126c55c27b0a06df9027201b805e4019.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/126c55c27b0a06df9027201b805e4019.png);
 }
 
 .weather-wrapper.C5 .layer2 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/5ef7f9eff77a2e681e811ef621065ea0.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/5ef7f9eff77a2e681e811ef621065ea0.png);
 }
 
 .weather-wrapper.C5 .layer3 {
-  background-image: url(//mp.innenu.com/img/weather/C4-layer3.png)
+  background-image: url(//mp.innenu.com/img/weather/C4-layer3.png);
 }
 
 .weather-wrapper.C6 {
@@ -411,15 +409,15 @@
 }
 
 .weather-wrapper.C6 .layer1 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/bb31ccd9f8190bda0af8a7639824999e.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/bb31ccd9f8190bda0af8a7639824999e.png);
 }
 
 .weather-wrapper.C6 .layer2 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/6fb63be6fbda894b145066b5b32e14d6.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/6fb63be6fbda894b145066b5b32e14d6.png);
 }
 
 .weather-wrapper.C6 .layer3 {
-  background-image: url(//mp.innenu.com/img/weather/C6-layer3.png)
+  background-image: url(//mp.innenu.com/img/weather/C6-layer3.png);
 }
 
 .weather-wrapper.C7 {
@@ -427,15 +425,15 @@
 }
 
 .weather-wrapper.C7 .layer1 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/7dcf5f773971982115abdb8fd1414108.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/7dcf5f773971982115abdb8fd1414108.png);
 }
 
 .weather-wrapper.C7 .layer2 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/fc49c43624c9c35132df7087aa0c72e0.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/fc49c43624c9c35132df7087aa0c72e0.png);
 }
 
 .weather-wrapper.C7 .layer3 {
-  background-image: url(//mp.innenu.com/img/weather/C7-layer3.png)
+  background-image: url(//mp.innenu.com/img/weather/C7-layer3.png);
 }
 
 .weather-wrapper.C9 {
@@ -443,13 +441,13 @@
 }
 
 .weather-wrapper.C9 .layer1 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/1760b3821904f2080269709e89a22e26.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/1760b3821904f2080269709e89a22e26.png);
 }
 
 .weather-wrapper.C9 .layer2 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/4f99c267041530f361776065c5af2671.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/4f99c267041530f361776065c5af2671.png);
 }
 
 .weather-wrapper.C9 .layer3 {
-  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/2bbce2b25f1f2a8af1fbf7c9215a6afe.png)
+  background-image: url(//mat1.gtimg.com/pingjs/ext2020/tianqi/mobilev2/2bbce2b25f1f2a8af1fbf7c9215a6afe.png);
 }

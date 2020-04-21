@@ -5,8 +5,8 @@
   background-color: var(--block-bgcolor);
 }
 
-.doc-wrapper:after,
-.doc-wrapper:before {
+.doc-wrapper::after,
+.doc-wrapper::before {
   content: " ";
   position: absolute;
   left: 0;
@@ -14,21 +14,21 @@
   height: 1px;
 }
 
-.doc-wrapper:after {
+.doc-wrapper::after {
   bottom: 0;
   border-bottom: 1px solid var(--border-color);
   transform-origin: 0 100%;
   transform: scaleY(0.4);
 }
 
-.doc-wrapper:before {
+.doc-wrapper::before {
   top: 0;
   border-top: 1px solid var(--border-color);
   transform-origin: 0 0;
   transform: scaleY(0.4);
 }
 
-.doc-wrapper+.doc-wrapper {
+.doc-wrapper + .doc-wrapper {
   border-top: none;
 }
 

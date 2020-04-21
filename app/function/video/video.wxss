@@ -6,7 +6,8 @@
 .videoName,
 .videoAuthor {
   color: #888;
-  font-family: FZSSJW,
+  font-family:
+    FZSSJW,
     -apple-system-font,
     "PingFang SC",
     "Helvetica Neue",
@@ -63,7 +64,8 @@
 .videoListName {
   font-size: 16px;
   color: #333;
-  font-family: FZSSJW,
+  font-family:
+    FZSSJW,
     -apple-system-font,
     "PingFang SC",
     "Helvetica Neue",

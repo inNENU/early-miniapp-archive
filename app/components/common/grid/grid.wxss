@@ -1,4 +1,4 @@
-/****************** 
+/******************
       通用样式
  *****************/
 .grid-head {
@@ -8,7 +8,6 @@
   min-height: 36px;
   font-size: 19px;
   color: var(--text-color);
-  /* background-color: var(--bgcolor); */
 }
 
 .grey .grid-head {
@@ -19,7 +18,7 @@
   margin: 0 auto;
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .grid-head {
     min-height: 38px;
     font-size: 21px;

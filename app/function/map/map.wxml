@@ -1,14 +1,14 @@
-<map subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4" id="schoolMap" class="{{nm? 'nm': ''}}" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" markers="{{markers}}" bind:markertap="markers" bind:callouttap="markers" bind:updated="update" bindregionchange="regionChange" setting="{{nm? nightMapSettings: dayMapSettings}}">
+<map id="schoolMap" class="{{nm? 'nm': ''}}" subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4" longitude="{{map.longitude}}" latitude="{{map.latitude}}" scale="{{map.scale}}" markers="{{markers}}" setting="{{nm? nightMapSettings: dayMapSettings}}"  bind:markertap="markers" bind:callouttap="markers" bind:updated="update" bindregionchange="regionChange">
   <!-- 返回按钮 -->
   <cover-view class="backBtn" style="top:{{info.statusBarHeight + 5}}px;z-index:97;" hover-class="button-hover" catch:tap="$back">
     <cover-image class="backIcon" src="/icon/back{{nm? 'White': ''}}.png" />
   </cover-view>
   <!-- 放大按钮 -->
-  <cover-view class="scaleLargeBtn" hover-class="button-hover" catch:tap="scale" data-action="enlarge">
+  <cover-view class="scaleLargeBtn" hover-class="button-hover" data-action="enlarge" catch:tap="scale" >
     <cover-view>+</cover-view>
   </cover-view>
   <!-- 缩小按钮 -->
-  <cover-view class="scaleSmallBtn" hover-class="button-hover" catch:tap="scale" data-action="narrow">
+  <cover-view class="scaleSmallBtn" hover-class="button-hover" data-action="narrow" catch:tap="scale">
     <cover-view>-</cover-view>
   </cover-view>
   <cover-view class="closeBtn {{list? 'fadeIn': 'fadeOut'}}" style="top:{{closeTop}}px;z-index:100;" hover-class="button-hover" catch:tap="showList">
@@ -34,7 +34,7 @@
       <cover-view class="switchItem {{isBenbu? 'active': ''}}">本部</cover-view>
       <cover-view class="switchItem {{isBenbu? '': 'active'}}">净月</cover-view>
     </cover-view>
-    <cover-view class="listBtnCtn {{list?'listActive':''}}" hover-class="{{list?'active':'nomarl'}}" catch:tap="showList">
+    <cover-view class="listBtnCtn {{list? 'active': ''}}" catch:tap="showList">
       <cover-image class="listBtn" src="/function/icon/list{{list? '-active': ''}}.png" />
     </cover-view>
   </cover-view>

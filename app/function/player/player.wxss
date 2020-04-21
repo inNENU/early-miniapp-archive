@@ -6,7 +6,8 @@
 .songName,
 .songAuthor {
   color: var(--grey);
-  font-family: FZSSJW,
+  font-family:
+    FZSSJW,
     -apple-system-font,
     "PingFang SC",
     "Helvetica Neue",
@@ -26,7 +27,7 @@
   font-size: 32rpx;
 }
 
-@media (min-width:480px) {
+@media (min-width: 480px) {
   .songName {
     font-size: 44px !important;
   }
@@ -141,7 +142,8 @@ slider {
   bottom: 100px;
   background-color: var(--block-bgcolor);
   border-radius: 12px;
-  font-family: FZSSJW,
+  font-family:
+    FZSSJW,
     -apple-system-font,
     "PingFang SC",
     "Helvetica Neue",

@@ -59,7 +59,7 @@
   height: 12px;
   border-width: 0 0 3px 3px;
   border-style: solid;
-  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
   border-color: #3478f7;
 }
 
@@ -85,12 +85,17 @@
   z-index: 100;
 }
 
-.iOS-head{
+.iOS-head {
   position: relative;
+  padding: 3px 5%;
+  text-align: left;
+  font-size: 34px;
+  font-weight: 500;
+  background-color: #f4f4f4;
 }
 
-.iOSnavDl:after,
-.iOS-head:after {
+.iOSnavDl::after,
+.iOS-head::after {
   content: " ";
   position: absolute;
   left: 0;
@@ -107,14 +112,6 @@
 .nm .iOS-head {
   border-bottom: 1px #53354f solid;
   color: #53354f;
-}
-
-.iOS-head {
-  padding: 3px 5%;
-  text-align: left;
-  font-size: 34px;
-  font-weight: 500;
-  background-color: #f4f4f4;
 }
 
 .nm .iOS-head {

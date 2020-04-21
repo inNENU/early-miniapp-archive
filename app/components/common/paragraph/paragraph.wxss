@@ -1,4 +1,4 @@
-/****************** 
+/******************
       通用样式
  *****************/
 .paragraph {
@@ -10,7 +10,7 @@
   margin: 0 auto;
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .paragraph {
     font-size: 18px;
   }
@@ -27,8 +27,8 @@
   position: relative;
 }
 
-.grey .paragraph:after,
-.grey .paragraph:before {
+.grey .paragraph::after,
+.grey .paragraph::before {
   content: " ";
   position: absolute;
   left: 0;
@@ -36,29 +36,29 @@
   height: 1px;
 }
 
-.grey .paragraph:after {
+.grey .paragraph::after {
   bottom: 0;
   border-bottom: 1px solid var(--border-color);
   transform-origin: 0 100%;
   transform: scaleY(0.4);
 }
 
-.grey .paragraph:before {
+.grey .paragraph::before {
   top: 0;
   border-top: 1px solid var(--border-color);
   transform-origin: 0 0;
   transform: scaleY(0.4);
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .grey .paragraph {
     margin: 0 15px;
     border-radius: 8px;
     overflow: hidden;
   }
 
-  .grey .paragraph:after,
-  .grey .paragraph:before {
+  .grey .paragraph::after,
+  .grey .paragraph::before {
     border: none;
   }
 }
@@ -68,7 +68,7 @@
 @import 'NENU.wxss';
 @import 'weui.wxss';
 
-/****************** 
+/******************
       段落兼容
  *****************/
 

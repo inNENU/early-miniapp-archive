@@ -1,4 +1,4 @@
-<view class="popupCtn{{show? ' popupCtnShow': ''}}">
+<view class="popupCtn{{show? ' show': ''}}">
   <view class="mask" catch:tap="closeDialog" />
   <view class="popup">
     <view class="popupHead">

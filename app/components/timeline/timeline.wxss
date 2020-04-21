@@ -4,33 +4,33 @@
 
 .timeline {
   line-height: 1.5;
-  color: rgba(0, 0, 0, .65);
+  color: rgba(0, 0, 0, 0.65);
   box-sizing: border-box;
-  padding: 0
+  padding: 0;
 }
 
 .nm .timeline {
-  color: rgba(255, 255, 255, .65)
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .timeline,
 .timeline-item {
   font-size: 14px;
   list-style: none;
-  margin: 0
+  margin: 0;
 }
 
 .timeline-item {
   position: relative;
-  padding: 0 0 20px
+  padding: 0 0 20px;
 }
 
 .timeline-item-tail {
   position: absolute;
   left: 4px;
-  top: .75em;
+  top: 0.75em;
   height: 100%;
-  border-left: 2px solid #e8e8e8
+  border-left: 2px solid #e8e8e8;
 }
 
 .nm .timeline-item-tail {
@@ -38,11 +38,11 @@
 }
 
 .timeline-item-pending .timeline-item-head {
-  font-size: 12px
+  font-size: 12px;
 }
 
 .timeline-item-pending .timeline-item-tail {
-  display: none
+  display: none;
 }
 
 .timeline-item-head {
@@ -50,7 +50,7 @@
   width: 10px;
   height: 10px;
   border-radius: 100px;
-  border: 2px solid transparent
+  border: 2px solid transparent;
 }
 
 .timeline-item-head-blue {
@@ -60,12 +60,12 @@
 
 .timeline-item-head-red {
   border-color: #f5222d;
-  color: #f5222d
+  color: #f5222d;
 }
 
 .timeline-item-head-green {
   border-color: #52c41a;
-  color: #52c41a
+  color: #52c41a;
 }
 
 .timeline-item-head-custom {
@@ -80,21 +80,21 @@
   transform: translate(-50%, -50%);
   top: 5.5px;
   left: 5px;
-  width: auto
+  width: auto;
 }
 
 .timeline-item-content {
   margin: 0 0 0 18px;
   position: relative;
-  top: -6px
+  top: -6px;
 }
 
 .timeline-item-last .timeline-item-tail {
-  display: none
+  display: none;
 }
 
 .timeline-item-last .timeline-item-content {
-  min-height: 48px
+  min-height: 48px;
 }
 
 .timeline.timeline-alternate .timeline-item-head,
@@ -103,24 +103,24 @@
 .timeline.timeline-right .timeline-item-head,
 .timeline.timeline-right .timeline-item-head-custom,
 .timeline.timeline-right .timeline-item-tail {
-  left: 50%
+  left: 50%;
 }
 
 .timeline.timeline-alternate .timeline-item-head,
 .timeline.timeline-right .timeline-item-head {
-  margin-left: -4px
+  margin-left: -4px;
 }
 
 .timeline.timeline-alternate .timeline-item-head-custom,
 .timeline.timeline-right .timeline-item-head-custom {
-  margin-left: 1px
+  margin-left: 1px;
 }
 
 .timeline.timeline-alternate .timeline-item-left .timeline-item-content,
 .timeline.timeline-right .timeline-item-left .timeline-item-content {
   text-align: left;
   left: 50%;
-  width: 50%
+  width: 50%;
 }
 
 .timeline.timeline-left .timeline-item .timeline-item-content {
@@ -133,24 +133,24 @@
   right: 50%;
   margin-right: 18px;
   width: 50%;
-  left: -30px
+  left: -30px;
 }
 
 .timeline.timeline-right .timeline-item-right .timeline-item-head,
 .timeline.timeline-right .timeline-item-right .timeline-item-head-custom,
 .timeline.timeline-right .timeline-item-right .timeline-item-tail {
-  left: 100%
+  left: 100%;
 }
 
 .timeline.timeline-right .timeline-item-right .timeline-item-content {
   right: 0;
   width: 100%;
-  left: -30px
+  left: -30px;
 }
 
 .timeline.timeline-pending .timeline-item-last .timeline-item-tail {
   border-left: 2px dotted #e8e8e8;
-  display: block
+  display: block;
 }
 
 .nm .timeline.timeline-pending .timeline-item-last .timeline-item-tail {
@@ -158,12 +158,12 @@
 }
 
 .timeline.timeline-reverse .timeline-item-last .timeline-item-tail {
-  display: none
+  display: none;
 }
 
 .timeline.timeline-reverse .timeline-item-pending .timeline-item-tail {
   border-left: 2px dotted #e8e8e8;
-  display: block
+  display: block;
 }
 
 .nm .timeline.timeline-reverse .timeline-item-pending .timeline-item-tail {
@@ -171,7 +171,7 @@
 }
 
 .timeline.timeline-reverse .timeline-item-pending .timeline-item-content {
-  min-height: 48px
+  min-height: 48px;
 }
 
 .timeline-icon {

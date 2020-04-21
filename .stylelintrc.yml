@@ -1,0 +1,23 @@
+extends: stylelint-config-standard
+rules:
+  no-descending-specificity: null
+
+  selector-type-no-unknown:
+    - true
+    - ignore:
+        - custom-elements
+      ignoreTypes:
+        - page
+        - view
+        - text
+        - image
+        - icon
+        - navigator
+        - picker
+        - swiper
+        - slider
+
+  unit-no-unknown:
+    - true
+    - ignoreUnits:
+        - rpx

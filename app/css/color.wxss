@@ -1,53 +1,47 @@
-page>view {
+page > view {
   --text-color: #000;
   --bgcolor: #fff;
   --bgcolor-grey: #efeef4;
   --block-bgcolor: #fefefe;
   --border-color: #cac9ce;
-
   --grey: #888;
   --grey-three: #333;
   --grey-four: #444;
   --dark-grey: #666;
   --light-grey: #999;
-
   --arrow-color: #c7c7cc;
   --hover: rgba(0, 0, 0, 0.1);
   --card-shadow: rgba(191, 192, 195, 0.15);
 }
 
-page>view.light {
+page > view.light {
   --text-color: #000;
   --bgcolor: #fff;
   --bgcolor-grey: #efeef4;
   --block-bgcolor: #fefefe;
   --border-color: #cac9ce;
-
   --grey: #888;
   --grey-three: #333;
   --grey-four: #444;
   --dark-grey: #666;
   --light-grey: #999;
-
   --border-color-light: #d9d9d9;
   --arrow-color: #c7c7cc;
   --hover: rgba(0, 0, 0, 0.1);
   --card-shadow: rgba(191, 192, 195, 0.15);
 }
 
-page>view.dark {
+page > view.dark {
   --text-color: #fff;
   --bgcolor: #000;
   --bgcolor-grey: #000;
   --block-bgcolor: #1c1c1e;
   --border-color: #3d3d41;
-
   --grey: #777;
   --grey-three: #ccc;
   --grey-four: #bbb;
   --dark-grey: #999;
   --light-grey: #666;
-
   --arrow-color: #383833;
   --border-color-light: #000;
   --hover: rgba(255, 255, 255, 0.1);

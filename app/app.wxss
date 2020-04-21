@@ -2,7 +2,6 @@
 @import "css/colorui/animation.wxss";
 @import "css/colorui/icon.wxss";
 @import "css/colorui/main.wxss";
-
 @import "css/common.wxss";
 @import "css/normal.wxss";
 @import "css/Android.wxss";
@@ -10,14 +9,14 @@
 @import "css/iOS.wxss";
 @import "css/weui.wxss";
 @import "css/animation.wxss";
-
 @import "css/color.wxss";
 
 page {
   height: 100%;
   font-size: 30rpx;
   line-height: 1.4;
-  font-family: -apple-system-font,
+  font-family:
+    -apple-system-font,
     "PingFang SC",
     "Helvetica Neue",
     Helvetica,
@@ -27,7 +26,7 @@ page {
   text-align: center;
 }
 
-@media (min-width:480px) {
+@media (min-width: 480px) {
   page {
     font-size: 20px;
   }

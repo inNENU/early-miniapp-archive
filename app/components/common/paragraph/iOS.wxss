@@ -7,7 +7,7 @@
   font-size: 19px;
 }
 
-.iOSTitle+.paragraph-title {
+.iOSTitle + .paragraph-title {
   padding-top: 2px;
 }
 
@@ -20,8 +20,7 @@
   margin: 0 auto;
 }
 
-
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .iOShead {
     min-height: 38px;
     font-size: 21px;

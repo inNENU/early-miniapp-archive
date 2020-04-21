@@ -1,4 +1,4 @@
-/* share 组件*/
+/* share 组件 */
 
 @import "../../../css/animation.wxss";
 @import "../../../css/normal.wxss";
@@ -29,7 +29,7 @@
 .share-wrapper {
   visibility: hidden;
   opacity: 0;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .share-wrapper.show {
@@ -37,16 +37,7 @@
   opacity: 1;
 }
 
-.share-menu {
-  transition: all .3s;
-  transform: translateY(100%);
-}
-
-.share-wrapper.show .share-menu {
-  transform: translateY(0);
-}
-
-.share-menu {
+.share-wrapper .share-menu {
   position: fixed;
   left: 0;
   right: 0;
@@ -58,6 +49,12 @@
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   overflow: hidden;
+  transition: all 0.3s;
+  transform: translateY(100%);
+}
+
+.share-wrapper.show .share-menu {
+  transform: translateY(0);
 }
 
 .share-menu .button,

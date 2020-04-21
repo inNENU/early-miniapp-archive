@@ -65,12 +65,12 @@
 }
 
 .nm .list {
-  background-color: #1C1C1E;
+  background-color: #1c1c1e;
   color: #fff;
 }
 
-.list:before,
-.list:after {
+.list::before,
+.list::after {
   content: " ";
   position: absolute;
   left: 0;
@@ -79,23 +79,23 @@
   transform: scaleY(0.4);
 }
 
-.list:before {
+.list::before {
   top: 0;
   border-top: 1px solid #acacb0;
   color: #acacb0;
   transform-origin: 0 0;
 }
 
-.list:after {
+.list::after {
   bottom: 0;
   border-bottom: 1px solid #acacb0;
   color: #acacb0;
   transform-origin: 0 100%;
 }
 
-.nm .list:before,
-.nm .list:after {
-  border-color: #3D3D41;
+.nm .list::before,
+.nm .list::after {
+  border-color: #3d3d41;
 }
 
 .listItem {
@@ -106,7 +106,7 @@
   padding: 6px 0;
 }
 
-.listItem:after {
+.listItem::after {
   content: " ";
   position: absolute;
   left: 0;
@@ -119,11 +119,11 @@
   transform: scaleY(0.4);
 }
 
-.nm .listItem:after {
-  border-color: #3D3D41;
+.nm .listItem::after {
+  border-color: #3d3d41;
 }
 
-.listItem:after :last-child {
+.listItem::after :last-child {
   display: none;
 }
 
@@ -173,11 +173,11 @@
 }
 
 .nm .scoreListCtn {
-  background-color: #1C1C1E;
+  background-color: #1c1c1e;
   color: #fff;
 }
 
-.scoreListCtn:after {
+.scoreListCtn::after {
   content: " ";
   width: 200%;
   height: 200%;
@@ -191,8 +191,8 @@
   border-radius: 10px;
 }
 
-.nm .scoreListCtn:after {
-  border-color: #3D3D41;
+.nm .scoreListCtn::after {
+  border-color: #3d3d41;
 }
 
 .scoreListTitle {
@@ -210,7 +210,7 @@
   padding: 6px 15px;
 }
 
-.scoreItemCtn:before {
+.scoreItemCtn::before {
   content: " ";
   position: absolute;
   left: 0;
@@ -223,8 +223,8 @@
   transform: scaleY(0.4);
 }
 
-.nm .scoreItemCtn:before {
-  border-color: #3D3D41;
+.nm .scoreItemCtn::before {
+  border-color: #3d3d41;
 }
 
 .listScore {

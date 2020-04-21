@@ -27,7 +27,7 @@
   line-height: 1rem;
 }
 
-/* point 组件*/
+/* point 组件 */
 
 .pointCtn {
   position: fixed;
@@ -154,20 +154,12 @@
   height: 25px;
 }
 
-.listActive {
-  background-color: #3478f7;
-}
-
 .active {
   background-color: #3478f7;
-}
-
-.nomarl {
-  background-color: #fff0;
+  color: white;
 }
 
 /* list 组件 */
-
 .listCtn {
   position: fixed;
   z-index: 98;
@@ -176,14 +168,6 @@
   height: 100%;
   background-color: #fff;
 }
-
-/* common */
-
-.active {
-  background-color: #3478f7;
-  color: white;
-}
-
 
 /*****************
     关闭按钮

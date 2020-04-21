@@ -10,14 +10,14 @@
   position: relative;
 }
 
-.access:after {
+.access::after {
   content: " ";
   display: inline-block;
   width: 9px;
   height: 9px;
   border-width: 2px 2px 0 0;
   border-style: solid;
-  transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
   position: absolute;
   top: 50%;
   margin-top: -5px;
