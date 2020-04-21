@@ -1,15 +1,15 @@
 .infoCtn {
   display: flex;
-  align-items: flex-start;
   padding: 10px 20px;
+  align-items: flex-start;
 }
 
 .avator {
   width: 48px;
   height: 48px;
+  margin-right: 12px;
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 12px;
 }
 
 .nickName {

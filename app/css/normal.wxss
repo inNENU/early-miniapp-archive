@@ -31,8 +31,8 @@
   position: fixed;
   z-index: 1000;
   top: 0;
-  right: 0;
   left: 0;
+  right: 0;
   bottom: 0;
 }
 
@@ -41,9 +41,10 @@
 *****************/
 
 .loading-logo-wrapper {
+  display: flex;
+
   width: 100%;
   height: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -56,77 +57,77 @@
 
 @keyframes jump {
   0% {
-    transform: rotate(0deg);
     top: 0;
+    transform: rotate(0deg);
   }
 
   10% {
-    transform: rotate(-7.2deg);
     top: -18rpx;
+    transform: rotate(-7.2deg);
   }
 
   20% {
-    transform: rotate(-28.8deg);
     top: -32rpx;
+    transform: rotate(-28.8deg);
   }
 
   30% {
-    transform: rotate(-64.8deg);
     top: -42rpx;
+    transform: rotate(-64.8deg);
   }
 
   40% {
-    transform: rotate(-115.2deg);
     top: -48rpx;
+    transform: rotate(-115.2deg);
   }
 
   50% {
-    transform: rotate(-180deg);
     top: -50rpx;
+    transform: rotate(-180deg);
   }
 
   60% {
-    transform: rotate(-244.8deg);
     top: -48rpx;
+    transform: rotate(-244.8deg);
   }
 
   70% {
-    transform: rotate(-295.2deg);
     top: -42rpx;
+    transform: rotate(-295.2deg);
   }
 
   80% {
-    transform: rotate(-331.2deg);
     top: -32rpx;
+    transform: rotate(-331.2deg);
   }
 
   90% {
-    transform: rotate(-352.8deg);
     top: -18rpx;
+    transform: rotate(-352.8deg);
   }
 
   100% {
-    transform: rotate(-360deg);
     top: 0;
+    transform: rotate(-360deg);
   }
 }
 
 .loading-logo image {
+  position: relative;
   width: 100px;
   height: 100px;
-  position: relative;
   animation: jump 2s linear 0s none infinite alternate-reverse;
 }
 
 .loading-logo-wrapper .text {
-  color: var(--grey);
   margin: 4px auto;
+  color: var(--grey);
 }
 
 @media (min-width: 480px) {
   .loading-logo-wrapper .text {
-    font-size: 24px;
     margin: 12px auto;
+    font-size: 24px;
   }
 }
 
@@ -145,8 +146,8 @@
   width: 60px;
   height: 10px;
   margin: -10px 20px 0 20px;
-  border-radius: 50%;
   background: rgba(191, 190, 195, 0.15);
+  border-radius: 50%;
   box-shadow: 0 0 5px rgba(191, 190, 195, 0.15);
   animation: shadow 2s ease 0s none infinite alternate-reverse;
 }
@@ -168,22 +169,24 @@
   z-index: 99;
   top: 26px;
   left: 9px;
+
   width: 46px;
   height: 31px;
-  border-radius: 18px;
   background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 18px;
 }
 
 .backBtn::before {
   content: " ";
   position: absolute;
   z-index: 98;
-  border: 1px solid rgba(127, 127, 127, 0.2);
-  border-radius: 36px;
   top: 0;
   left: 0;
+
   width: 200%;
   height: 200%;
+  border: 1px solid rgba(127, 127, 127, 0.2);
+  border-radius: 36px;
   transform: scale(0.5);
   transform-origin: 0 0;
 }
@@ -209,15 +212,15 @@
 }
 
 .errorText {
+  margin: 10px 0;
   color: red;
   font-size: 18px;
-  margin: 10px 0;
 }
 
 .errorDesc {
   color: #888;
-  font-size: 16px;
   text-align: justify !important;
+  font-size: 16px;
 }
 
 /* 上下边框 */
@@ -230,16 +233,16 @@
 .borderT::before,
 .borderTB::before {
   top: 0;
-  transform-origin: 0 0;
   border-top: 1px solid #acacb0;
+  transform-origin: 0 0;
 }
 
 .divline::after,
 .borderB::after,
 .borderTB::after {
   bottom: 0;
-  transform-origin: 0 100%;
   border-bottom: 1px solid #acacb0;
+  transform-origin: 0 100%;
 }
 
 .divline::after,
@@ -251,6 +254,7 @@
   position: absolute;
   left: 0;
   right: 0;
+
   height: 1px;
   transform: scaleY(0.4);
 }

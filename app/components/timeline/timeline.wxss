@@ -3,10 +3,10 @@
 }
 
 .timeline {
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.65);
   box-sizing: border-box;
   padding: 0;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.5;
 }
 
 .nm .timeline {
@@ -15,9 +15,9 @@
 
 .timeline,
 .timeline-item {
+  margin: 0;
   font-size: 14px;
   list-style: none;
-  margin: 0;
 }
 
 .timeline-item {
@@ -27,8 +27,9 @@
 
 .timeline-item-tail {
   position: absolute;
-  left: 4px;
   top: 0.75em;
+  left: 4px;
+
   height: 100%;
   border-left: 2px solid #e8e8e8;
 }
@@ -47,10 +48,11 @@
 
 .timeline-item-head {
   position: absolute;
+
   width: 10px;
   height: 10px;
-  border-radius: 100px;
   border: 2px solid transparent;
+  border-radius: 100px;
 }
 
 .timeline-item-head-blue {
@@ -70,23 +72,25 @@
 
 .timeline-item-head-custom {
   position: absolute;
-  text-align: center;
-  line-height: 1;
-  margin-top: 0;
-  border: 0;
-  height: auto;
-  border-radius: 0;
-  padding: 3px 1px;
-  transform: translate(-50%, -50%);
   top: 5.5px;
   left: 5px;
+
   width: auto;
+  height: auto;
+  margin-top: 0;
+  padding: 3px 1px;
+  border: 0;
+  border-radius: 0;
+
+  text-align: center;
+  line-height: 1;
+  transform: translate(-50%, -50%);
 }
 
 .timeline-item-content {
-  margin: 0 0 0 18px;
   position: relative;
   top: -6px;
+  margin: 0 0 0 18px;
 }
 
 .timeline-item-last .timeline-item-tail {
@@ -118,9 +122,9 @@
 
 .timeline.timeline-alternate .timeline-item-left .timeline-item-content,
 .timeline.timeline-right .timeline-item-left .timeline-item-content {
-  text-align: left;
   left: 50%;
   width: 50%;
+  text-align: left;
 }
 
 .timeline.timeline-left .timeline-item .timeline-item-content {
@@ -129,11 +133,13 @@
 
 .timeline.timeline-alternate .timeline-item-right .timeline-item-content,
 .timeline.timeline-right .timeline-item-right .timeline-item-content {
-  text-align: right;
-  right: 50%;
-  margin-right: 18px;
-  width: 50%;
   left: -30px;
+  right: 50%;
+
+  width: 50%;
+  margin-right: 18px;
+
+  text-align: right;
 }
 
 .timeline.timeline-right .timeline-item-right .timeline-item-head,
@@ -143,14 +149,14 @@
 }
 
 .timeline.timeline-right .timeline-item-right .timeline-item-content {
+  left: -30px;
   right: 0;
   width: 100%;
-  left: -30px;
 }
 
 .timeline.timeline-pending .timeline-item-last .timeline-item-tail {
-  border-left: 2px dotted #e8e8e8;
   display: block;
+  border-left: 2px dotted #e8e8e8;
 }
 
 .nm .timeline.timeline-pending .timeline-item-last .timeline-item-tail {
@@ -162,8 +168,8 @@
 }
 
 .timeline.timeline-reverse .timeline-item-pending .timeline-item-tail {
-  border-left: 2px dotted #e8e8e8;
   display: block;
+  border-left: 2px dotted #e8e8e8;
 }
 
 .nm .timeline.timeline-reverse .timeline-item-pending .timeline-item-tail {
@@ -180,8 +186,8 @@
 }
 
 .timeline-title {
-  font-size: 16px;
   color: #000;
+  font-size: 16px;
 }
 
 .nm .timeline-title {

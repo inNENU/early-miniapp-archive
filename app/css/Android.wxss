@@ -8,8 +8,9 @@
 .Androidgrey {
   width: 100%;
   min-height: 100%;
-  text-align: center;
   background-color: #f8f8f8;
+
+  text-align: center;
   font-family:
     "Helvetica Neue",
     FZKTJW,
@@ -41,13 +42,14 @@
 }
 
 .Android-navigationBar {
-  box-sizing: content-box;
-  height: 44px;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
   position: fixed;
   z-index: 99;
+
+  box-sizing: content-box;
+  height: 44px;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .AndroidNavShadow {
@@ -61,8 +63,8 @@
 .Android-navPlaceHolder {
   position: relative;
   height: 69px;
-  font-size: 8px;
   color: #d9d9d9;
+  font-size: 8px;
 }
 
 .nm .Android-navigationBar,
@@ -76,26 +78,30 @@
 }
 
 .Android-titletext {
-  width: 100%;
   position: absolute;
+  z-index: 100;
+
+  width: 100%;
+
   font-size: 17px;
   font-weight: 500;
   line-height: 1;
-  z-index: 100;
 }
 
 .Android-navBack {
+  display: flex;
   position: relative;
+  z-index: 101;
+
   min-width: 10 !important;
   min-height: 16 !important;
-  display: flex;
-  align-items: center;
   margin: 0 3% !important;
   padding: 8px 5px !important;
-  border: none !important;
   background-color: rgba(0, 0, 0, 0) !important;
+  border: none !important;
+
   line-height: 2.4;
-  z-index: 101;
+  align-items: center;
 }
 
 .Android-backArrow {
@@ -103,8 +109,8 @@
   height: 11px;
   border-width: 0 0 3px 3px;
   border-style: solid;
-  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
   border-color: black;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
 }
 
 .nm .Android-backArrow {
@@ -130,10 +136,10 @@
 }
 
 .Android-desc {
-  text-align: left;
-  font-size: 14px;
   margin-top: 5px;
   color: #888;
+  text-align: left;
+  font-size: 14px;
 }
 
 .nm .Android-desc {
@@ -141,39 +147,40 @@
 }
 
 .AndroidTitle {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.6;
   margin: 0.66em 5% 0.34em 5%;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.6;
 }
 
 /* List */
 
 .AndroidListHeadBtn {
   position: relative;
-  text-align: left;
   padding: 12px 6%;
+  text-align: left;
 }
 
 .AndroidListHead {
+  color: #444;
   font-size: 18px;
   font-weight: 500;
   line-height: 2;
-  color: #444;
 }
 
 .AndroidListArrow {
   position: absolute;
-  width: 30px;
-  height: 30px;
   top: calc(50% - 15px);
   right: 4%;
+
+  width: 30px;
+  height: 30px;
 }
 
 .AndroidLctn {
-  background-color: #fefefe;
   width: 92%;
   margin: 12px 4%;
+  background-color: #fefefe;
   border-radius: 24px;
   box-shadow: 1px 2px 4px 2px rgba(127, 127, 127, 0.15);
   overflow: hidden;
@@ -187,11 +194,12 @@
 
 .AndroidListCtn {
   padding: 0 20px;
+  border: none !important;
+  border-radius: 0;
+
+  color: #000 !important;
   font-size: 17px;
   line-height: 1.45;
-  border-radius: 0;
-  border: none !important;
-  color: #000 !important;
 }
 
 /* 列表箭头旋转 */

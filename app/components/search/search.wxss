@@ -1,9 +1,11 @@
 .search-bar {
-  position: relative;
-  padding: 8px;
   display: flex;
-  color: var(--text-color);
+  position: relative;
+
+  padding: 8px;
   background-color: #ededed;
+
+  color: var(--text-color);
   align-items: center;
 }
 
@@ -12,10 +14,10 @@
 }
 
 .search {
-  flex-shrink: 1;
   width: 100%;
-  border-radius: 4px;
   background-color: #fff;
+  border-radius: 4px;
+  flex-shrink: 1;
 }
 
 .nm .search {
@@ -24,17 +26,18 @@
 
 .search-box {
   position: relative;
-  padding: 0 32px;
-  width: 100%;
   z-index: 1;
+  width: 100%;
+  padding: 0 32px;
 }
 
 .placeholder {
   display: flex;
-  justify-content: center;
-  align-items: center;
+
   color: var(--grey);
   line-height: 32px;
+  justify-content: center;
+  align-items: center;
 }
 
 .search .icon {
@@ -51,11 +54,12 @@
 }
 
 .searchInput {
-  text-align: left;
   height: 32px;
-  line-height: 32px;
-  font-size: 14px;
   margin-left: 4px;
+
+  text-align: left;
+  font-size: 14px;
+  line-height: 32px;
 }
 
 .search .icon.input {
@@ -68,38 +72,41 @@
   top: 0;
   right: 0;
   bottom: 0;
+
   padding: 0 12px;
 }
 
 .search-bar .clear {
   position: absolute;
   top: 50%;
-  margin-top: -8px;
   right: 12px;
+  margin-top: -8px;
 }
 
 .search-bar .cancel {
   margin-left: 8px;
-  line-height: 32px;
   color: #576b95;
+  line-height: 32px;
   white-space: nowrap;
 }
 
 .search-bar .word-wrapper {
   position: absolute;
+  z-index: 2;
   top: 40px;
   left: 8px;
   right: 46px;
+
   background-color: var(--bgcolor);
   border-radius: 4px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
-  z-index: 2;
 }
 
 .search-bar .word {
   padding: 4px 32px;
-  line-height: 1.5;
-  font-size: 15px;
-  text-align: left;
+
   color: var(--grey-four);
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.5;
 }

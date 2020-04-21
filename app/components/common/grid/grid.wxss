@@ -2,20 +2,22 @@
       通用样式
  *****************/
 .grid-head {
-  text-align: left;
-  font-weight: 500;
-  padding: 12px 5% 4px 5%;
   min-height: 36px;
-  font-size: 19px;
+  padding: 12px 5% 4px 5%;
+
   color: var(--text-color);
+  text-align: left;
+  font-size: 19px;
+  font-weight: 500;
 }
 
 .grey .grid-head {
   min-height: 37px;
-  padding: 23px 15px 5px 15px;
-  font-size: 13px;
-  color: var(--dark-grey);
   margin: 0 auto;
+  padding: 23px 15px 5px 15px;
+
+  color: var(--dark-grey);
+  font-size: 13px;
 }
 
 @media (min-width: 768px) {
@@ -35,11 +37,12 @@
 }
 
 .grid-foot {
-  font-size: 14px;
+  min-height: 14px;
+  padding: 3px 15px;
+
   color: #999;
   text-align: left;
-  padding: 3px 15px;
-  min-height: 14px;
+  font-size: 14px;
 }
 
 @import "Android.wxss";

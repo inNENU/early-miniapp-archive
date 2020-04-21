@@ -5,9 +5,10 @@
 }
 
 .descBtn {
+  display: flex;
+
   width: auto;
   padding: 6px;
-  display: flex;
   justify-content: flex-end;
   align-items: center;
 }
@@ -20,16 +21,16 @@
 }
 
 .descText {
-  font-size: 15px;
   color: #888;
+  font-size: 15px;
 }
 
 /* 分数部分 */
 
 .scoreBox {
+  display: flex;
   width: 100%;
   height: 120px;
-  display: flex;
 }
 
 .nm .scoreBox {
@@ -43,9 +44,9 @@
 }
 
 .scoreTitle {
+  margin: 20px;
   font-size: 24px;
   font-weight: 500;
-  margin: 20px;
 }
 
 .scoreDisplay {
@@ -57,11 +58,13 @@
 
 .list {
   position: relative;
-  background-color: #fff;
-  line-height: 1.75;
-  font-size: 17px;
-  text-align: right;
+
   padding-left: 15px;
+  background-color: #fff;
+
+  text-align: right;
+  font-size: 17px;
+  line-height: 1.75;
 }
 
 .nm .list {
@@ -75,6 +78,7 @@
   position: absolute;
   left: 0;
   right: 0;
+
   height: 1px;
   transform: scaleY(0.4);
 }
@@ -99,24 +103,27 @@
 }
 
 .listItem {
-  position: relative;
-  width: 100%;
   display: flex;
-  align-items: center;
+  position: relative;
+
+  width: 100%;
   padding: 6px 0;
+  align-items: center;
 }
 
 .listItem::after {
   content: " ";
   position: absolute;
   left: 0;
-  bottom: 0;
   right: 0;
+  bottom: 0;
+
   height: 1px;
   border-bottom: 1px solid #acacb0;
+
   color: #acacb0;
-  transform-origin: 0 100%;
   transform: scaleY(0.4);
+  transform-origin: 0 100%;
 }
 
 .nm .listItem::after {
@@ -134,19 +141,19 @@
 }
 
 .listInput {
-  flex: auto;
   padding-right: 15px;
+  flex: auto;
 }
 
 .listUnit {
-  flex: none;
   padding-right: 15px;
   color: #444;
+  flex: none;
 }
 
 .listPicker {
-  flex: auto;
   padding-right: 15px;
+  flex: auto;
 }
 
 .nm .listUnit {
@@ -164,12 +171,14 @@
 
 .scoreListCtn {
   position: relative;
+
   width: 90%;
   margin: 0 5%;
   background-color: #fff;
   border-radius: 5px;
-  line-height: 1.75;
+
   font-size: 17px;
+  line-height: 1.75;
 }
 
 .nm .scoreListCtn {
@@ -179,16 +188,17 @@
 
 .scoreListCtn::after {
   content: " ";
-  width: 200%;
-  height: 200%;
   position: absolute;
   top: 0;
   left: 0;
+
+  box-sizing: border-box;
+  width: 200%;
+  height: 200%;
   border: 1px solid #acacb0;
+  border-radius: 10px;
   transform: scale(0.5);
   transform-origin: 0 0;
-  box-sizing: border-box;
-  border-radius: 10px;
 }
 
 .nm .scoreListCtn::after {
@@ -198,29 +208,32 @@
 .scoreListTitle {
   width: 100%;
   padding: 12px 0;
-  font-size: 20px;
+
   text-align: center;
+  font-size: 20px;
   font-weight: 500;
 }
 
 .scoreItemCtn {
-  width: calc(100% - 30px);
-  position: relative;
   display: flex;
+  position: relative;
+  width: calc(100% - 30px);
   padding: 6px 15px;
 }
 
 .scoreItemCtn::before {
   content: " ";
   position: absolute;
-  left: 0;
   top: 0;
+  left: 0;
   right: 0;
+
   height: 1px;
   border-top: 1px solid #acacb0;
+
   color: #acacb0;
-  transform-origin: 0 0;
   transform: scaleY(0.4);
+  transform-origin: 0 0;
 }
 
 .nm .scoreItemCtn::before {
@@ -228,6 +241,6 @@
 }
 
 .listScore {
-  flex: auto;
   text-align: right;
+  flex: auto;
 }

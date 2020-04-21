@@ -11,9 +11,9 @@
 
 .picker-view .column {
   min-width: 50px;
-  flex: none;
-  color: var(--text-color);
   background-color: var(--bgcolor-dark);
+  color: var(--text-color);
+  flex: none;
 }
 
 .picker-view .column:first-child,
@@ -23,11 +23,13 @@
 
 .picker-view .column .item {
   display: flex;
+
   padding: 0 8px;
-  flex-direction: column;
-  justify-content: center;
+
   text-align: center;
   font-size: 18px;
+  flex-direction: column;
+  justify-content: center;
   flex: none;
 }
 

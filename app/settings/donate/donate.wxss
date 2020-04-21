@@ -1,6 +1,6 @@
 .QRCodeCtn {
-  width: 100%;
   display: flex;
+  width: 100%;
   justify-content: space-around;
 }
 
@@ -18,10 +18,10 @@
 }
 
 .donateTitle {
+  padding-bottom: 8px;
   font-size: 17px;
   font-weight: 500;
   line-height: 2;
-  padding-bottom: 8px;
 }
 
 .donateListItem {

@@ -1,8 +1,8 @@
 .doc-wrapper {
   position: relative;
   width: 100%;
-  color: var(--text-color);
   background-color: var(--block-bgcolor);
+  color: var(--text-color);
 }
 
 .doc-wrapper::after,
@@ -11,21 +11,22 @@
   position: absolute;
   left: 0;
   right: 0;
+
   height: 1px;
 }
 
 .doc-wrapper::after {
   bottom: 0;
   border-bottom: 1px solid var(--border-color);
-  transform-origin: 0 100%;
   transform: scaleY(0.4);
+  transform-origin: 0 100%;
 }
 
 .doc-wrapper::before {
   top: 0;
   border-top: 1px solid var(--border-color);
-  transform-origin: 0 0;
   transform: scaleY(0.4);
+  transform-origin: 0 0;
 }
 
 .doc-wrapper + .doc-wrapper {
@@ -33,10 +34,12 @@
 }
 
 .doc-wrapper .preview {
-  position: relative;
-  padding: 12px 15px;
-  line-height: 1.2;
   display: flex;
+  position: relative;
+
+  padding: 12px 15px;
+
+  line-height: 1.2;
   align-items: center;
 }
 
@@ -50,18 +53,19 @@
 
 /* 文档名称 */
 .doc-wrapper .name {
+  text-align: left;
   font-size: 18px;
   flex: auto;
-  text-align: left;
 }
 
 .download {
-  color: var(--text-color);
   width: 40%;
   margin: 8px auto;
-  font-weight: 600;
   padding: 6px 8px;
-  border-radius: 15px;
-  line-height: 1;
   background-color: var(--bgcolor-grey);
+  border-radius: 15px;
+
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1;
 }

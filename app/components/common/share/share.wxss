@@ -5,12 +5,13 @@
 
 /* share按钮 */
 .share-icon {
-  width: 40px;
-  height: 40px;
   position: fixed;
   z-index: 200;
   right: 20px;
   bottom: 50px;
+
+  width: 40px;
+  height: 40px;
   background-color: #3cc51f;
   border-radius: 50%;
   box-shadow: 1px 1px 3px rgba(127, 127, 127, 0.15);
@@ -27,30 +28,32 @@
 }
 
 .share-wrapper {
-  visibility: hidden;
   opacity: 0;
   transition: all 0.3s;
+  visibility: hidden;
 }
 
 .share-wrapper.show {
-  visibility: visible;
   opacity: 1;
+  visibility: visible;
 }
 
 .share-wrapper .share-menu {
   position: fixed;
+  z-index: 5000;
   left: 0;
   right: 0;
   bottom: 0;
+
   max-height: 75%;
-  z-index: 5000;
-  line-height: 1.4;
   background-color: var(--bgcolor);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+
+  line-height: 1.4;
   overflow: hidden;
-  transition: all 0.3s;
   transform: translateY(100%);
+  transition: all 0.3s;
 }
 
 .share-wrapper.show .share-menu {
@@ -60,21 +63,22 @@
 .share-menu .button,
 .share-wrapper .cancel-button {
   width: 100%;
-  font-weight: 400;
   padding: 8px 24px;
-  color: var(--text-color);
   background-color: var(--block-bgcolor);
   border: none;
   border-radius: 0;
+
+  color: var(--text-color);
+  font-weight: 400;
 }
 
 .share-menu .button {
-  line-height: 2.4;
   border-top: 1rpx var(--border-color) solid;
+  line-height: 2.4;
 }
 
 .share-wrapper .cancel-button {
   height: 60px;
-  border-top: 8px var(--border-color-light) solid !important;
   padding-bottom: env(safe-area-inset-bottom);
+  border-top: 8px var(--border-color-light) solid !important;
 }

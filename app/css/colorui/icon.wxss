@@ -9,20 +9,20 @@
 }
 
 .iconfont-spin {
-  animation: icon-spin 2s infinite linear;
   display: inline-block;
+  animation: icon-spin 2s infinite linear;
 }
 
 .iconfont-pulse {
-  animation: icon-spin 1s infinite steps(8);
   display: inline-block;
+  animation: icon-spin 1s infinite steps(8);
 }
 
 text[class*="icon-"],
 view[class*="icon-"],
 button[class*="icon-"] {
-  font-family: "cuIcon", sans-serif !important;
   font-size: inherit;
+  font-family: "cuIcon", sans-serif !important;
   font-style: normal;
 }
 

@@ -2,12 +2,14 @@
       通用样式
  *****************/
 .paragraph {
-  font-size: 16px;
-  padding: 0 15px;
-  line-height: 1.6;
-  text-align: justify;
-  word-wrap: break-word;
   margin: 0 auto;
+  padding: 0 15px;
+
+  text-align: justify;
+  font-size: 16px;
+  line-height: 1.6;
+
+  word-wrap: break-word;
 }
 
 @media (min-width: 768px) {
@@ -17,14 +19,16 @@
 }
 
 .grey .paragraph {
-  font-size: 17px;
-  padding: 10px 15px;
-  line-height: 1.6;
-  text-align: left;
-  color: var(--text-color);
-  background-color: var(--block-bgcolor);
-  margin: 0 auto;
   position: relative;
+
+  margin: 0 auto;
+  padding: 10px 15px;
+  background-color: var(--block-bgcolor);
+
+  color: var(--text-color);
+  text-align: left;
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 .grey .paragraph::after,
@@ -33,21 +37,22 @@
   position: absolute;
   left: 0;
   right: 0;
+
   height: 1px;
 }
 
 .grey .paragraph::after {
   bottom: 0;
   border-bottom: 1px solid var(--border-color);
-  transform-origin: 0 100%;
   transform: scaleY(0.4);
+  transform-origin: 0 100%;
 }
 
 .grey .paragraph::before {
   top: 0;
   border-top: 1px solid var(--border-color);
-  transform-origin: 0 0;
   transform: scaleY(0.4);
+  transform-origin: 0 0;
 }
 
 @media (min-width: 768px) {

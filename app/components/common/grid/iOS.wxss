@@ -3,8 +3,8 @@
 -------------- */
 
 .iOS .grid-wrapper {
-  padding: 0 6px;
   width: 100%;
+  padding: 0 6px;
 }
 
 .iOS .grid-wrapper .grid {
@@ -21,8 +21,8 @@
 }
 
 .iOS .grid-wrapper .text {
-  font-size: 14px;
   color: var(--grey-four);
+  font-size: 14px;
 }
 
 @media (min-width: 768px) {

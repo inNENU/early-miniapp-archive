@@ -20,7 +20,7 @@
   </view>
   <official-account />
   <template is="body" data="{{page,T}}" />
-  <view class="commonhead"></view>
+  <view class="commonhead" />
   <view class="list-wrapper">
     <button class="list" plain="true" hover-class="button-hover" open-type="share" hover-stay-time="100" id="2">
       <image class="icon" src="/icon/tabPage/share.svg" />

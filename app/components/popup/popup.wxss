@@ -1,32 +1,34 @@
 .popupCtn {
   position: absolute;
-  visibility: hidden;
   opacity: 0;
   transition: all 0.3s;
+  visibility: hidden;
 }
 
 .popupCtn.show {
-  visibility: visible;
   opacity: 1;
+  visibility: visible;
 }
 
 .popupCtn .popup {
   position: fixed;
+  z-index: 5000;
   left: 0;
   right: 0;
   bottom: 0;
+
   max-height: 75%;
-  z-index: 5000;
-  line-height: 1.4;
-  background-color: #fff;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  overflow: hidden;
   padding: 0 24px;
   padding: 0 calc(24px + constant(safe-area-inset-right)) constant(safe-area-inset-bottom) calc(24px + constant(safe-area-inset-left));
   padding: 0 calc(24px + env(safe-area-inset-right)) env(safe-area-inset-bottom) calc(24px + env(safe-area-inset-left));
-  transition: all 0.3s;
+  background-color: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+
+  line-height: 1.4;
+  overflow: hidden;
   transform: translateY(100%);
+  transition: all 0.3s;
 }
 
 .popupCtn.show .popup {
@@ -34,14 +36,17 @@
 }
 
 .popupHead {
-  font-size: 8px;
-  height: 8em;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  -webkit-box-align: center;
+
+  height: 8em;
+
+  font-size: 8px;
   -webkit-align-items: center;
   align-items: center;
+
+  -webkit-box-align: center;
 }
 
 .popupHead .weui-icon-btn {
@@ -57,19 +62,19 @@
 }
 
 .popupHead-Main {
-  -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;
+  -webkit-box-flex: 1;
 }
 
 .popupHead-Side + .popupHead-Main {
-  text-align: center;
   padding: 0 40px;
+  text-align: center;
 }
 
 .popupHead-Main + .popupHead-Side {
-  right: -8px;
   left: auto;
+  right: -8px;
 }
 
 .popupHead-Main + .popupHead-Side .weui-icon-btn {
@@ -79,8 +84,8 @@
 .popupTitle {
   display: block;
   color: rgba(0, 0, 0, 0.9);
-  font-weight: 700;
   font-size: 15px;
+  font-weight: 700;
 }
 
 .popupSubtitle {
@@ -90,24 +95,25 @@
 }
 
 .popupBody {
-  word-wrap: break-word;
   -webkit-hyphens: auto;
   hyphens: auto;
   overflow-y: auto;
+  word-wrap: break-word;
 }
 
 .popupText {
   padding-top: 4px;
+
+  color: rgba(0, 0, 0, 0.9);
   font-size: 17px;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.9);
   line-height: 1.4;
 }
 
 .popupDesc {
   padding-top: 16px;
-  font-size: 14px;
   color: rgba(0, 0, 0, 0.3);
+  font-size: 14px;
   line-height: 1.4;
 }
 
@@ -120,6 +126,6 @@
 .popupFoot .weui-btn:nth-last-child(n+2) + .weui-btn {
   display: inline-block;
   vertical-align: top;
-  margin: 0 8px;
   width: 120px;
+  margin: 0 8px;
 }

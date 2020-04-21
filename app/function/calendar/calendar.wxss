@@ -1,16 +1,18 @@
 .popupCtn {
   position: fixed;
+  z-index: 1001;
   top: 12%;
-  bottom: 12%;
   left: 15px;
   right: 15px;
+  bottom: 12%;
+
   width: calc(100% - 30px);
   max-height: 76%;
   padding: 12px 8px;
-  overflow-y: scroll;
   background-color: #fff;
   border-radius: 8px;
-  z-index: 1001;
+
+  overflow-y: scroll;
 }
 
 .nm .popupCtn {
@@ -22,11 +24,12 @@
   z-index: 100;
   top: calc(8px + 12%);
   right: 25px;
+
   width: 24px;
   height: 24px;
-  border-radius: 24px;
   background-color: rgba(0, 0, 0, 0.15);
   border: 1rpx solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
 }
 
 .nm .closeBtn {
@@ -45,10 +48,10 @@
 }
 
 .name {
-  line-height: 1.5;
+  border-bottom: 1px solid #acacb0;
   font-size: 17px;
   font-weight: 500;
-  border-bottom: 1px solid #acacb0;
+  line-height: 1.5;
 }
 
 .nm .name {

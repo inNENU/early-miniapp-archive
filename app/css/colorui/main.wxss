@@ -150,63 +150,63 @@ page {
 }
 
 .bg-red.light {
-  color: var(--red);
   background-color: var(--redLight);
+  color: var(--red);
 }
 
 .bg-orange.light {
-  color: var(--orange);
   background-color: var(--orangeLight);
+  color: var(--orange);
 }
 
 .bg-yellow.light {
-  color: var(--yellow);
   background-color: var(--yellowLight);
+  color: var(--yellow);
 }
 
 .bg-olive.light {
-  color: var(--olive);
   background-color: var(--oliveLight);
+  color: var(--olive);
 }
 
 .bg-green.light {
-  color: var(--green);
   background-color: var(--greenLight);
+  color: var(--green);
 }
 
 .bg-cyan.light {
-  color: var(--cyan);
   background-color: var(--cyanLight);
+  color: var(--cyan);
 }
 
 .bg-blue.light {
-  color: var(--blue);
   background-color: var(--blueLight);
+  color: var(--blue);
 }
 
 .bg-purple.light {
-  color: var(--purple);
   background-color: var(--purpleLight);
+  color: var(--purple);
 }
 
 .bg-mauve.light {
-  color: var(--mauve);
   background-color: var(--mauveLight);
+  color: var(--mauve);
 }
 
 .bg-pink.light {
-  color: var(--pink);
   background-color: var(--pinkLight);
+  color: var(--pink);
 }
 
 .bg-brown.light {
-  color: var(--brown);
   background-color: var(--brownLight);
+  color: var(--brown);
 }
 
 .bg-grey.light {
-  color: var(--grey);
   background-color: var(--greyLight);
+  color: var(--grey);
 }
 
 .bg-gradual-red {

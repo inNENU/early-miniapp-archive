@@ -1,14 +1,16 @@
 .status-wrapper {
+  display: flex;
+
   width: 90%;
   height: 400rpx;
-  display: flex;
+  margin: 4px 5%;
+  background-color: var(--border-color);
+  border-radius: 16rpx;
+
+  color: var(--grey);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 4px 5%;
-  border-radius: 16rpx;
-  color: var(--grey);
-  background-color: var(--border-color);
 }
 
 .status-wrapper .loading {
@@ -19,15 +21,16 @@
 
 .img {
   width: 90%;
+  max-width: 600px !important;
   margin: 4px auto;
   border-radius: 16rpx;
-  max-width: 600px !important;
 }
 
 .img-desc {
-  font-size: 12px;
-  font-weight: 300;
   margin: -2px auto 4px;
+
   color: var(--grey-three);
   text-align: center;
+  font-size: 12px;
+  font-weight: 300;
 }
