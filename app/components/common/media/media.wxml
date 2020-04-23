@@ -23,7 +23,7 @@
   danmu-list="{{config.danmuList}}"
   enable-danmu="{{danmuList && danmuBtn}}"
   poster="{{config.poster}}"
-  bindplay="play"
-  bindwaiting="wait"
-  binderror="error"
+  catch:play="play"
+  catch:waiting="wait"
+  catch:error="error"
 />

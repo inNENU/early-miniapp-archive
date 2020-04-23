@@ -15,7 +15,7 @@
   <!-- <swiper class="coverCtn">
     <swiper-item>
       <image wx:if="{{!coverLoad}}" class="cover {{play?'rotate':''}}" src='/function/icon/cd.svg' />
-      <image class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{currentSong.cover}}" bindload='loadCover' />
+      <image class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}" src="{{currentSong.cover}}" catch:load='loadCover' />
     </swiper-item>
     <swiper-item>
       <scroll-view class="lyricCtn" scroll-y="{{true}}">
@@ -32,7 +32,7 @@
     <image
       class="cover {{play?'rotate':''}} {{coverLoad?'':'hide'}}"
       src="{{currentSong.cover}}"
-      bindload="loadCover"
+      catch:load="loadCover"
     />
   </view>
   <view class="progressBarCtn">
@@ -49,8 +49,8 @@
       backgroundColor="e9e9e9"
       selected-color="#27C087"
       block-color="#27C087"
-      bindchange="drag"
-      bindchanging="drag"
+      catch:change="drag"
+      catch:changing="drag"
     />
     <view class="timeDisplay">{{total?total[0]+":"+total[1]:"--:--"}}</view>
   </view>

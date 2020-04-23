@@ -22,18 +22,18 @@
       vid="{{vid}}"
       playerid="video"
       controls
-      bindplay="play"
-      bindwaiting="wait"
-      binderror="error"
+      catch:play="play"
+      catch:waiting="wait"
+      catch:error="error"
     />
     <video
       wx:else
       class="player"
       src="{{src}}"
       controls
-      bindplay="play"
-      bindwaiting="wait"
-      binderror="error"
+      catch:play="play"
+      catch:waiting="wait"
+      catch:error="error"
     />
   </view>
   <!-- 视频列表 -->

@@ -27,7 +27,7 @@
         class="listPicker"
         mode="selector"
         range="{{gender.picker}}"
-        bindchange="genderChange"
+        catch:change="genderChange"
       >
         {{gender.index === undefined? '请选择': gender.picker[gender.index]}}
       </picker>
@@ -38,7 +38,7 @@
         class="listPicker"
         mode="selector"
         range="{{grade.picker}}"
-        bindchange="gradeChange"
+        catch:change="gradeChange"
       >
         {{grade.index === undefined? '请选择': grade.picker[grade.index]}}
       </picker>
@@ -52,9 +52,9 @@
           type="{{item.type}}"
           adjust-position="{{false}}"
           placeholder="{{item.desc}}"
-          bindfocus="focus"
-          bindinput="input"
-          bindblur="blur"
+          catch:focus="focus"
+          catch:input="input"
+          catch:blur="blur"
         />
         <view class="listUnit">{{item.unit}}</view>
       </view>
@@ -65,7 +65,7 @@
         class="listPicker"
         mode="multiSelector"
         range="{{longRun.picker}}"
-        bindchange="longRunHandler"
+        catch:change="longRunHandler"
       >
         {{longRun.value?longRun.value:'秒'}}
       </picker>
@@ -78,14 +78,14 @@
         type="{{special.type}}"
         adjust-position="{{false}}"
         placeholder="{{special.desc}}"
-        bindfocus="focus"
-        bindinput="input"
-        bindblur="blur"
+        catch:focus="focus"
+        catch:input="input"
+        catch:blur="blur"
       />
       <view class="listUnit">{{special.unit}}</view>
     </view>
   </view>
-  <button type="primary" class="button calBtn" bind:tap="calculate">
+  <button type="primary" class="button calBtn" catch:tap="calculate">
     计算
   </button>
   <!-- <view class="scoreListCtn"> -->

@@ -6,7 +6,7 @@
       新计算
       <button />
     </scroll-view>
-    <view class="edit" bindtap="edit">{{editText}}</view>
+    <view class="edit" catch:tap="edit">{{editText}}</view>
   </view>
   <view class="gradeinputerF">
     <view
@@ -16,9 +16,9 @@
       id="{{Grade.id}}"
     >
       <button
-        class="sort {{display? '': btnCtn'hide'}}"
+        class="sort {{display? '': 'hide'}}"
         id="sort{{Grade.id}}"
-        bindtouchmove="sort"
+        catch:touchmove="sort"
       >
         <text class="sortText">↕</text>
       </button>
@@ -33,8 +33,8 @@
         data-class="course"
         data-id="{{Grade.id}}"
         data-maxlength="8"
-        bindinput="input"
-        bindconfirm="next"
+        catch:input="input"
+        catch:confirm="next"
       />
       <input
         class="grade"
@@ -42,7 +42,7 @@
         value="{{Grade.grade}}"
         placeholder="  成绩"
         maxlength="4"
-        bindinput="input"
+        catch:input="input"
         focus="{{Grade.gradeFocus}}"
         data-class="grade"
         data-id="{{Grade.id}}"
@@ -58,7 +58,7 @@
         data-class="credit"
         data-id="{{Grade.id}}"
         data-maxlength="3"
-        bindinput="input"
+        catch:input="input"
       />
       <button
         class="remove {{display?'':'hide'}}"

@@ -11,8 +11,8 @@
   vertical="{{config.vertical}}"
   previous-margin="{{config.preMargin || '0px'}}"
   next-margin="{{config.nextMargin || '0px'}}"
-  bindchange="change"
-  bindanimationfinish="animation"
+  catch:change="change"
+  catch:animationfinish="animation"
 >
   <swiper-item wx:for="{{config.url}}" wx:key="*this">
     <image

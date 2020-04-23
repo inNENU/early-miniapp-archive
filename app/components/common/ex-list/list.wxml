@@ -55,9 +55,9 @@
         class="list picker"
         hover-class="button-hover"
         hover-stay-time="100"
-        bindchange="pickerChange"
         value="{{listItem.currentValue}}"
         range="{{listItem.pickerValue}}"
+        catch:change="pickerChange"
       >
         <view class="text">{{listItem.text}}</view>
         <view wx:if="{{listItem.pickerValue}}" class="desc">
@@ -92,9 +92,9 @@
           <switch
             wx:if="{{listItem.swiKey}}"
             checked="{{listItem.status}}"
-            bindchange="switch"
             color="{{color}}"
             data-id="{{index}}"
+            catch:change="switch"
           />
         </view>
       </view>
@@ -111,8 +111,8 @@
           value="{{listItem.value}}"
           step="{{listItem.step? listItem.step: '1'}}"
           data-id="{{index}}"
-          bindchanging="sliderChange"
-          bindchange="sliderChange"
+          catch:changing="sliderChange"
+          catch:change="sliderChange"
         />
         <!-- 嵌入式选择器显示 -->
         <picker-view
@@ -122,7 +122,7 @@
           value="{{listItem.currentValue}}"
           mask-class="pickerMask"
           data-id="{{index}}"
-          bindchange="pickerChange"
+          catch:change="pickerChange"
         >
           <picker-view-column wx:if="{{listItem.single}}" class="column">
             <view wx:for="{{listItem.pickerValue}}" wx:key="*this" class="item"
@@ -130,7 +130,7 @@
             >
           </picker-view-column>
           <block wx:else>
-            <block wx:for="{{listItem.pickerValue}}" wx:key="{{item[0]}}">
+            <block wx:for="{{listItem.pickerValue}}" wx:key>
               <picker-view-column class="column">
                 <view wx:for="{{item}}" wx:key="*this" class="item"
                   >{{item}}</view

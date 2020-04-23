@@ -2,14 +2,14 @@
 <!-- 分享按钮 -->
 <view
   wx:if="{{share.isShowed(config)}}"
-  class="share-icon"
+  class="share-button"
   hover-class="hover"
   hover-stay-time="200"
   catch:touchstart="{{share.button}}"
   catch:touchmove="{{share.button}}"
   catch:touchend="{{share.button}}"
 >
-  <image src="./share.svg" />
+  <image class="icon" src="./share.svg" />
 </view>
 <!-- 分享菜单 -->
 <view class="share-wrapper" catch:tap="{{share.hideMenu}}">

@@ -9,8 +9,8 @@
         value="{{value}}"
         focus="{{showInput}}"
         confirm-type="search"
-        bindinput="inputTyping"
-        bindconfirm="confirm"
+        catch:input="inputTyping"
+        catch:confirm="confirm"
       />
       <view
         wx:if="{{value.length > 0}}"

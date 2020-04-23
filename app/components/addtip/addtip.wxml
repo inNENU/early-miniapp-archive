@@ -8,7 +8,7 @@
 </view>
 <!-- modal -->
 <view class="addtipModal" wx:if="{{SHOW_MODAL}}">
-  <view style="flex-direction: row; align-items: center;">
+  <view class="item" style="flex-direction: row; align-items: center;">
     <text decode="{{true}}">1. 点击&nbsp;&nbsp;</text>
     <image
       style="width: 100px;"
@@ -16,7 +16,7 @@
       src="https://mp.innenu.com/icon/addtip1.png"
     />
   </view>
-  <view>
+  <view class="item">
     <text>2. 点击「添加到我的小程序」</text>
     <image
       style="width: 100%;"
@@ -24,7 +24,7 @@
       src="https://mp.innenu.com/icon/addtip2.png"
     />
   </view>
-  <view>
+  <view class="item">
     <text>3. 首页下拉，快速进入小程序</text>
     <image
       style="width: 100%;"

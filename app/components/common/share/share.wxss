@@ -4,7 +4,7 @@
 @import "../../../css/normal.wxss";
 
 /* share按钮 */
-.share-icon {
+.share-button {
   position: fixed;
   z-index: 200;
   right: 20px;
@@ -17,11 +17,11 @@
   box-shadow: 1px 1px 3px rgba(127, 127, 127, 0.15);
 }
 
-.share-icon.hover {
+.share-button.hover {
   background-color: #32a71a;
 }
 
-.share-icon image {
+.share-button .icon {
   width: 70%;
   height: 70%;
   margin: 15%;

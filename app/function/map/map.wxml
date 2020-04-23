@@ -7,10 +7,10 @@
   scale="{{map.scale}}"
   markers="{{markers}}"
   setting="{{nm? nightMapSettings: dayMapSettings}}"
-  bind:markertap="markers"
-  bind:callouttap="markers"
-  bind:updated="update"
-  bind:regionchange="regionChange"
+  catch:markertap="markers"
+  catch:callouttap="markers"
+  catch:updated="update"
+  catch:regionchange="regionChange"
 >
   <!-- 返回按钮 -->
   <cover-view

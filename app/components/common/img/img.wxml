@@ -15,8 +15,8 @@
   lazy-load="{{config.lazy !== false}}"
   mode="{{config.imgMode || 'widthFix'}}"
   src="{{config.src}}"
-  bindload="load"
-  binderror="error"
+  catch:load="load"
+  catch:error="error"
   catch:tap="view"
 />
 <!-- 图片解释文字 -->

@@ -54,7 +54,7 @@
   align-items: center;
 }
 
-.addtipModal > view {
+.addtipModal .item {
   width: 80vw;
   margin: 10px 0;
   text-align: left;

@@ -112,7 +112,7 @@
   }
 }
 
-.loading-logo image {
+.loading-logo .logo {
   position: relative;
   width: 100px;
   height: 100px;

@@ -14,7 +14,7 @@
         <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
       </view>
       <view class="loading-logo">
-        <image src="/image/logo.png" />
+        <image class="logo" src="/image/logo.png" />
         <view class="shadow" />
         <view class="text">加载中...</view>
       </view>
@@ -71,7 +71,7 @@
       wx:elif="{{item.tag === 'List'}}"
       config="{{item}}"
       change="{{event? event[index]: ''}}"
-      bind:change="list"
+      catch:change="list"
     />
     <gzh config="{{item}}" wx:elif="{{item.tag === 'gzh'}}" />
     <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
