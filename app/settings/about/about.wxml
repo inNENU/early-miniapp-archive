@@ -1,7 +1,19 @@
 <import src="/components/template" />
 <template is="page" data="{{page,T,nm}}" />
-<view id="passwordMask" class="{{debug? 'fadeIn': 'fadeOut'}}" style="top:{{debug? 0: '100%'}};" bind:tap="cancelInput" />
+<view
+  id="passwordMask"
+  class="{{debug? 'fadeIn': 'fadeOut'}}"
+  style="top:{{debug? 0: '100%'}};"
+  catch:tap="cancelInput"
+/>
 <view wx:if="{{debug}}" id="passwordBox">
   <view class="passwordHint">请输入密码：</view>
-  <input id="passwordInput" password="{{true}}" value="{{value}}" type="number" bindinput="password" focus="{{focus}}" />
+  <input
+    id="passwordInput"
+    type="number"
+    password="{{true}}"
+    value="{{value}}"
+    focus="{{focus}}"
+    bindinput="password"
+  />
 </view>

@@ -4,7 +4,11 @@ const cli = new CLIEngine({});
 
 module.exports = {
   '*.{js,ts}': (files) =>
-    'eslint ' + files.filter((file) => !cli.isPathIgnored(file)).join(' '),
-  '*.ts': 'prettier --write',
-  '*.wxss': 'stylelint --fix'
+    `eslint ${files
+      .filter((file) => !cli.isPathIgnored(file))
+      .join(' ')} --fix`,
+  '*.{js,ts}': 'prettier --write',
+  '*.wxss': 'stylelint --fix',
+  '*.wxml': 'prettier --parser html --write',
+  '*.wxs': 'prettier --parser babel-flow --write'
 };

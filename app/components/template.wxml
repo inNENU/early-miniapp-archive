@@ -1,8 +1,16 @@
 <!-- page with navigation bar -->
 <template name="page">
   <block wx:if="{{!page}}">
-    <view class="{{T}} {{nm?'nm':''}} {{nm? 'dark': 'light'}} loading-logo-wrapper">
-      <view class="backBtn" style="top:27.5px;" hover-class="button-hover" hover-stay-time="100" catchtap="$back">
+    <view
+      class="{{T}} {{nm?'nm':''}} {{nm? 'dark': 'light'}} loading-logo-wrapper"
+    >
+      <view
+        class="backBtn"
+        style="top: 27.5px;"
+        hover-class="button-hover"
+        hover-stay-time="100"
+        catch:tap="$back"
+      >
         <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
       </view>
       <view class="loading-logo">
@@ -13,10 +21,16 @@
     </view>
   </block>
   <block wx:else>
-    <view class="{{T}} {{page[0].grey? 'grey': ''}} {{nm? 'nm': ''}} {{nm? 'dark': 'light'}}">
+    <view
+      class="{{T}} {{page[0].grey? 'grey': ''}} {{nm? 'nm': ''}} {{nm? 'dark': 'light'}}"
+    >
       <block wx:for="{{page}}" wx:key="id">
         <p config="{{item}}" wx:if="{{item.tag === 'p'}}" />
-        <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag === 'img'}}" />
+        <img
+          wx:elif="{{item.tag === 'img'}}"
+          config="{{item}}"
+          url="{{page[0].url}}"
+        />
         <list config="{{item}}" wx:elif="{{item.tag === 'list'}}" />
         <foot config="{{item}}" wx:elif="{{item.tag === 'foot'}}" />
         <grid config="{{item}}" wx:elif="{{item.tag === 'grid'}}" />
@@ -25,7 +39,12 @@
         <my-swiper config="{{item}}" wx:elif="{{item.tag === 'swiper'}}" />
         <intro config="{{item}}" wx:elif="{{item.tag === 'intro'}}" />
         <gzh config="{{item}}" wx:elif="{{item.tag === 'gzh'}}" />
-        <ex-list config="{{item}}" wx:elif="{{item.tag === 'List'}}" change="{{event?event[index]:''}}" bind:change="list" />
+        <ex-list
+          wx:elif="{{item.tag === 'List'}}"
+          config="{{item}}"
+          change="{{event?event[index]:''}}"
+          catch:change="list"
+        />
         <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
         <template wx:else is="{{item.tag}}" data="{{...item,T,nm}}" />
       </block>
@@ -36,7 +55,11 @@
 <template name="body">
   <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
     <p config="{{item}}" wx:if="{{item.tag === 'p'}}" />
-    <img config="{{item}}" url="{{page[0].url}}" wx:elif="{{item.tag === 'img'}}" />
+    <img
+      wx:elif="{{item.tag === 'img'}}"
+      config="{{item}}"
+      url="{{page[0].url}}"
+    />
     <list config="{{item}}" wx:elif="{{item.tag === 'list'}}" />
     <foot config="{{item}}" wx:elif="{{item.tag === 'foot'}}" />
     <grid config="{{item}}" wx:elif="{{item.tag === 'grid'}}" />
@@ -44,7 +67,12 @@
     <phone config="{{item}}" wx:elif="{{item.tag === 'phone'}}" />
     <my-swiper config="{{item}}" wx:elif="{{item.tag === 'swiper'}}" />
     <intro config="{{item}}" wx:elif="{{item.tag === 'intro'}}" />
-    <ex-list config="{{item}}" wx:elif="{{item.tag === 'List'}}" change="{{event? event[index]: ''}}" bind:change="list" />
+    <ex-list
+      wx:elif="{{item.tag === 'List'}}"
+      config="{{item}}"
+      change="{{event? event[index]: ''}}"
+      bind:change="list"
+    />
     <gzh config="{{item}}" wx:elif="{{item.tag === 'gzh'}}" />
     <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
     <template wx:else is="{{item.tag}}" data="{{...item,T,nm}}" />
@@ -70,7 +98,10 @@ Author: Mr.Hope
 <!-- 导航栏 -->
 <template name="head">
   <block wx:if="{{!hidden}}">
-    <template is="{{T}}Head" data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight,nm}}" />
+    <template
+      is="{{T}}Head"
+      data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight,nm}}"
+    />
   </block>
 </template>
 <!-- 错误提示 -->
@@ -90,12 +121,26 @@ Author: Mr.Hope
 <template name="iOSHead">
   <view class="iOS-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view wx:if="{{titleDisplay}}" class="iOS-titletext">{{title}}</view>
-    <button wx:if="{{action !== true}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catchtap="{{action === undefined? '$back': action}}">
-      <view wx:if="{{action === undefined || action === 'redirect'}}" class="iOS-backArrow" />
+    <button
+      wx:if="{{action !== true}}"
+      class="iOS-navBack"
+      hover-class="navBackHover"
+      hover-stay-time="100"
+      plain
+      catchtap="{{action === undefined? '$back': action}}"
+    >
+      <view
+        wx:if="{{action === undefined || action === 'redirect'}}"
+        class="iOS-backArrow"
+      />
       <text class="iOS-nav-text">{{leftText}}</text>
     </button>
   </view>
-  <view wx:if="{{borderDisplay}}" class="iOSnavDl" style="top:{{statusBarHeight + 44}}px;" />
+  <view
+    wx:if="{{borderDisplay}}"
+    class="iOSnavDl"
+    style="top:{{statusBarHeight + 44}}px;"
+  />
   <view class="iOS-navPlaceHolder" style="height:{{statusBarHeight + 44}}px;">
     到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮
   </view>
@@ -105,7 +150,14 @@ Author: Mr.Hope
 <template name="iOSerror">
   <view class="iOS-navigationBar" style="padding-top:{{statusBarHeight}}px;">
     <view class="iOS-titletext">页面出错</view>
-    <button wx:if="{{!action}}" class="iOS-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="$back">
+    <button
+      wx:if="{{!action}}"
+      class="iOS-navBack"
+      hover-class="navBackHover"
+      hover-stay-time="100"
+      plain
+      catch:tap="$back"
+    >
       <view class="iOS-backArrow" />
       <text class="iOS-nav-text">返回</text>
     </button>
@@ -119,12 +171,16 @@ Author: Mr.Hope
     <view class="errorText">很抱歉，界面遇到了问题!</view>
     <view class="errorDesc">
       <text>
-        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1. 服务器负载过重；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
+        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1.
+        服务器负载过重；\n2. 设备可能无法访问互联网； \n3.
+        该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
       </text>
     </view>
   </view>
   <view class="donateCtn">
-    <navigator class="donateButton" url="/settings/donate/donate">捐赠</navigator>
+    <navigator class="donateButton" url="/settings/donate/donate"
+      >捐赠</navigator
+    >
   </view>
 </template>
 <!-- ******************************************
@@ -135,14 +191,30 @@ Author: Mr.Hope
 ********************************************* -->
 <!-- Android导航栏 -->
 <template name="AndroidHead">
-  <view class="Android-navigationBar {{shadow? 'AndroidNavShadow': ''}}" style="padding-top:{{statusBarHeight}}px;">
+  <view
+    class="Android-navigationBar {{shadow? 'AndroidNavShadow': ''}}"
+    style="padding-top:{{statusBarHeight}}px;"
+  >
     <view class="Android-titletext">{{title}}</view>
-    <button wx:if="{{action !== true}}" class="button Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="{{action==undefined?'$back':action}}">
-      <view wx:if="{{action === undefined||action === 'redirect'}}" class="Android-backArrow" />
+    <button
+      wx:if="{{action !== true}}"
+      class="button Android-navBack"
+      hover-class="navBackHover"
+      hover-stay-time="100"
+      plain
+      catch:tap="{{action==undefined?'$back':action}}"
+    >
+      <view
+        wx:if="{{action === undefined||action === 'redirect'}}"
+        class="Android-backArrow"
+      />
       <view class="Android-leftText">{{leftText}}</view>
     </button>
   </view>
-  <view class="Android-navPlaceHolder" style="height:{{statusBarHeight + 44}}px;">
+  <view
+    class="Android-navPlaceHolder"
+    style="height:{{statusBarHeight + 44}}px;"
+  >
     到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮
   </view>
   <view wx:if="{{desc}}" class="Android-head">
@@ -152,13 +224,26 @@ Author: Mr.Hope
 </template>
 <!-- Android错误页面 -->
 <template name="Androiderror">
-  <view class="Android-navigationBar" style="padding-top:{{statusBarHeight}}px;">
+  <view
+    class="Android-navigationBar"
+    style="padding-top:{{statusBarHeight}}px;"
+  >
     <view class="Android-titletext">页面出错</view>
-    <button wx:if="{{!top}}" class="Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="$back">
+    <button
+      wx:if="{{!top}}"
+      class="Android-navBack"
+      hover-class="navBackHover"
+      hover-stay-time="100"
+      plain
+      catch:tap="$back"
+    >
       <view class="Android-backArrow" />
     </button>
   </view>
-  <view class="Android-navPlaceHolder" style="height:{{statusBarHeight + 44}}px;">
+  <view
+    class="Android-navPlaceHolder"
+    style="height:{{statusBarHeight + 44}}px;"
+  >
     <text>到头啦~人家被你拉得好痛阿(*´д`*) 不许你再拉人家~╭(╯^╰)╮</text>
   </view>
   <view class="errorCtn">
@@ -166,12 +251,16 @@ Author: Mr.Hope
     <view class="errorText">很抱歉，界面遇到了问题!</view>
     <view class="errorDesc">
       <text>
-        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1. 服务器负载过重；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
+        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1.
+        服务器负载过重；\n2. 设备可能无法访问互联网； \n3.
+        该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
       </text>
     </view>
   </view>
   <view class="donateCtn">
-    <navigator class="donateButton" url="/settings/donate/donate">捐赠</navigator>
+    <navigator class="donateButton" url="/settings/donate/donate"
+      >捐赠</navigator
+    >
   </view>
 </template>
 <!-- ******************************************
@@ -180,60 +269,112 @@ NENU theme
 Version: V1.0
 Author: Mr.Hope
 ********************************************* -->
-<template name='NENUHead'>
+<template name="NENUHead">
   <block wx:if="{{action===undefined}}">
-    <view class="backBtn {{borderDisplay? 'fadeIn': 'fadeOut'}}" style="top:{{statusBarHeight + 5}}px;" hover-class='button-hover' catch:tap="$back">
-      <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
+    <view
+      class="backBtn {{borderDisplay? 'fadeIn': 'fadeOut'}}"
+      style="top:{{statusBarHeight + 5}}px;"
+      hover-class="button-hover"
+      catch:tap="$back"
+    >
+      <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
     </view>
-    <view class="NENUnav {{titleDisplay? 'fadeOut': 'fadeIn'}}" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
-      <button class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catch:tap="$back">
-        <view wx:if="{{action===undefined||action==='redirect'}}" class='iOS-backArrow' style='border-color:#fff;' />
-        <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
+    <view
+      class="NENUnav {{titleDisplay? 'fadeOut': 'fadeIn'}}"
+      style="background-color:{{color}};padding-top:{{statusBarHeight}}px;"
+    >
+      <button
+        class="iOS-navBack"
+        hover-class="navBackHover"
+        style="position: absolute; left: 0;"
+        plain
+        catch:tap="$back"
+      >
+        <view
+          wx:if="{{action===undefined||action==='redirect'}}"
+          class="iOS-backArrow"
+          style="border-color: #fff;"
+        />
+        <text class="iOS-nav-text" style="color: #fff;">{{leftText}}</text>
       </button>
-      <view class='NENU-navText'>{{title}}</view>
+      <view class="NENU-navText">{{title}}</view>
     </view>
   </block>
   <block wx:else>
-    <view class="NENUnav" style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
-      <button wx:if="{{action!==true}}" class="iOS-navBack" hover-class="navBackHover" style='position:absolute;left:0;' plain='true' catch:tap="{{action}}">
-        <view wx:if="{{action=='redirect'}}" class='iOS-backArrow' style='border-color:#fff;'></view>
-        <text class='iOS-nav-text' style='color:#fff;'>{{leftText}}</text>
+    <view
+      class="NENUnav"
+      style="background-color:{{color}};padding-top:{{statusBarHeight}}px;"
+    >
+      <button
+        wx:if="{{action!==true}}"
+        class="iOS-navBack"
+        hover-class="navBackHover"
+        style="position: absolute; left: 0;"
+        plain
+        catch:tap="{{action}}"
+      >
+        <view
+          wx:if="{{action=='redirect'}}"
+          class="iOS-backArrow"
+          style="border-color: #fff;"
+        ></view>
+        <text class="iOS-nav-text" style="color: #fff;">{{leftText}}</text>
       </button>
-      <view class='NENU-navText'>{{title}}</view>
+      <view class="NENU-navText">{{title}}</view>
     </view>
   </block>
   <view style="width:100%;height:{{statusBarHeight+40}}px;"></view>
 </template>
 <!-- NENU错误页面 -->
-<template name='NENUerror'>
-  <view class='NENUnav' style="background-color:{{color}};padding-top:{{statusBarHeight}}px;">
-    <view class='NENU-navText'>页面出错</view>
+<template name="NENUerror">
+  <view
+    class="NENUnav"
+    style="background-color:{{color}};padding-top:{{statusBarHeight}}px;"
+  >
+    <view class="NENU-navText">页面出错</view>
   </view>
-  <view style='width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;' />
-  <view class='backBtn' style="top:{{statusBarHeight+5.5}}px;" hover-class='button-hover' hover-stay-time='100' catch:tap='$back'>
-    <image class='backIcon' src="/icon/back{{nm? 'White': ''}}.svg" />
+  <view
+    style="width:100%;background-color:{{color}};height:{{statusBarHeight+40}}px;"
+  />
+  <view
+    class="backBtn"
+    style="top:{{statusBarHeight+5.5}}px;"
+    hover-class="button-hover"
+    hover-stay-time="100"
+    catch:tap="$back"
+  >
+    <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
   </view>
   <view class="errorCtn">
     <icon type="warn" size="80" />
     <view class="errorText">很抱歉，界面遇到了问题!</view>
     <view class="errorDesc">
       <text>
-        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1. 服务器负载过重；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
+        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1.
+        服务器负载过重；\n2. 设备可能无法访问互联网； \n3.
+        该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
       </text>
     </view>
   </view>
   <view class="donateCtn">
-    <navigator class="donateButton" url="/settings/donate/donate">捐赠</navigator>
+    <navigator class="donateButton" url="/settings/donate/donate"
+      >捐赠</navigator
+    >
   </view>
 </template>
-<template name='NENUinfo'>
-  <view class='NENUInfoCtn'>
-    <view class='NENUInfoHead' style='backgroundcolor:{{page[0].color}};'>
-      <button wx:if="{{!login}}" class='NENULoginBtn' style='backgroundcolor:{{page[0].color}};' open-type='getUserInfo'>
+<template name="NENUinfo">
+  <view class="NENUInfoCtn">
+    <view class="NENUInfoHead" style="backgroundcolor:{{page[0].color}};">
+      <button
+        wx:if="{{!login}}"
+        class="NENULoginBtn"
+        style="backgroundcolor:{{page[0].color}};"
+        open-type="getUserInfo"
+      >
         立即登录
       </button>
-      <view wx:if="{{login}}" class='nickCtn'>
-        <image class='NENUnickHead' />
+      <view wx:if="{{login}}" class="nickCtn">
+        <image class="NENUnickHead" />
         <view class="NENUnickname" />
       </view>
     </view>
@@ -247,10 +388,23 @@ Author: Mr.Hope
 ********************************************* -->
 <!-- weui导航栏 -->
 <template name="weuiHead">
-  <view class="weui-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
+  <view
+    class="weui-navigationBar {{shadow?'AndroidNavShadow':''}}"
+    style="padding-top:{{statusBarHeight}}px;"
+  >
     <view class="Android-titletext">{{title}}</view>
-    <button wx:if="{{action!==true}}" class="button Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="{{action==undefined?'$back':action}}">
-      <view wx:if="{{action==undefined||action=='redirect'}}" class="weui-navigationBar-backbutton" />
+    <button
+      wx:if="{{action!==true}}"
+      class="button Android-navBack"
+      hover-class="navBackHover"
+      hover-stay-time="100"
+      plain
+      catch:tap="{{action==undefined?'$back':action}}"
+    >
+      <view
+        wx:if="{{action==undefined||action=='redirect'}}"
+        class="weui-navigationBar-backbutton"
+      />
       <view class="Android-leftText">{{leftText}}</view>
     </button>
   </view>
@@ -264,9 +418,18 @@ Author: Mr.Hope
 </template>
 <!-- Weui错误页面 -->
 <template name="weuierror">
-  <view class="weui-navigationBar {{shadow?'AndroidNavShadow':''}}" style="padding-top:{{statusBarHeight}}px;">
+  <view
+    class="weui-navigationBar {{shadow?'AndroidNavShadow':''}}"
+    style="padding-top:{{statusBarHeight}}px;"
+  >
     <view class="Android-titletext">页面出错</view>
-    <button class="button Android-navBack" hover-class="navBackHover" hover-stay-time="100" plain="true" catch:tap="$back">
+    <button
+      class="button Android-navBack"
+      hover-class="navBackHover"
+      hover-stay-time="100"
+      plain
+      catch:tap="$back"
+    >
       <view class="weui-navigationBar-backbutton" />
       <view class="Android-leftText">返回</view>
     </button>
@@ -279,11 +442,15 @@ Author: Mr.Hope
     <view class="errorText">很抱歉，界面遇到了问题!</view>
     <view class="errorDesc">
       <text>
-        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1. 服务器负载过重；\n2. 设备可能无法访问互联网； \n3. 该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
+        这位同学你好，我是Mr.Hope，很抱歉让你看到如下错误信息，错误原因有几下几种可能：\n\n1.
+        服务器负载过重；\n2. 设备可能无法访问互联网； \n3.
+        该页面可能尚未被制作；\n\n请同学稍后重试~\n由于服务器一天不足一元钱，配置不是很好，您可以点击界面底部的捐赠按钮支持Mr.Hope，帮助Mr.Hope升级服务器配置。或者您也可以打赏Mr.Hope，感谢同学对Mr.Hope的支持~。
       </text>
     </view>
   </view>
   <view class="donateCtn">
-    <navigator class="donateButton" url="/settings/donate/donate">捐赠</navigator>
+    <navigator class="donateButton" url="/settings/donate/donate"
+      >捐赠</navigator
+    >
   </view>
 </template>

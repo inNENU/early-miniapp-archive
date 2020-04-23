@@ -1,21 +1,39 @@
-<view class="addtipBox" wx:if="{{SHOW_TOP}}" style="top:{{36 + statusBarHeight}}px;">
-  <view class='arrow' />
-  <view class='body' catch:tap='showModal'>{{text}}</view>
+<view
+  wx:if="{{SHOW_TOP}}"
+  class="addtipBox"
+  style="top:{{36 + statusBarHeight}}px;"
+>
+  <view class="arrow" />
+  <view class="body" catch:tap="showModal">{{text}}</view>
 </view>
 <!-- modal -->
-<view class='addtipModal' wx:if="{{SHOW_MODAL}}">
-  <view style='flex-direction: row;align-items:center;'>
+<view class="addtipModal" wx:if="{{SHOW_MODAL}}">
+  <view style="flex-direction: row; align-items: center;">
     <text decode="{{true}}">1. 点击&nbsp;&nbsp;</text>
-    <image src='https://mp.innenu.com/icon/addtip1.png' style='width:100px;' mode="widthFix" />
+    <image
+      style="width: 100px;"
+      mode="widthFix"
+      src="https://mp.innenu.com/icon/addtip1.png"
+    />
   </view>
   <view>
     <text>2. 点击「添加到我的小程序」</text>
-    <image src='https://mp.innenu.com/icon/addtip2.png' style='width:100%;' mode="widthFix" />
+    <image
+      style="width: 100%;"
+      mode="widthFix"
+      src="https://mp.innenu.com/icon/addtip2.png"
+    />
   </view>
   <view>
     <text>3. 首页下拉，快速进入小程序</text>
-    <image src='https://mp.innenu.com/icon/addtip3.png' style='width:100%;' mode="widthFix" />
+    <image
+      style="width: 100%;"
+      mode="widthFix"
+      src="https://mp.innenu.com/icon/addtip3.png"
+    />
   </view>
   <!-- 知道了 -->
-  <view class='okBtn' hover-class='btnHover' catch:tap='okHandler'>我知道了</view>
+  <view class="okBtn" hover-class="btnHover" catch:tap="okHandler"
+    >我知道了</view
+  >
 </view>

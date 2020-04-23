@@ -1,5 +1,7 @@
 <import src="/components/template" />
-<view class="{{T}} {{head.grey?'grey':''}} {{nm?'nm':''}} {{nm? 'dark': 'light'}}">
+<view
+  class="{{T}} {{head.grey?'grey':''}} {{nm?'nm':''}} {{nm? 'dark': 'light'}}"
+>
   <template is="head" data="{{...head,T}}" />
   <view class="infoCtn">
     <view class="avator">
@@ -11,9 +13,9 @@
       </view>
       <view class="detail">
         <open-data type="userGender" lang="zh_CN" />
-        <text decode="true">&ensp;</text>
+        <text decode>&ensp;</text>
         <open-data type="userProvince" lang="zh_CN" />
-        <text decode="true">&ensp;</text>
+        <text decode>&ensp;</text>
         <open-data type="userCity" lang="zh_CN" />
       </view>
     </view>
@@ -22,20 +24,40 @@
   <template is="body" data="{{page,T}}" />
   <view class="commonhead" />
   <view class="list-wrapper">
-    <button class="list" plain="true" hover-class="button-hover" open-type="share" hover-stay-time="100" id="2">
+    <button
+      class="list"
+      hover-class="button-hover"
+      hover-stay-time="100"
+      open-type="share"
+      plain
+    >
       <image class="icon" src="/icon/tabPage/share.svg" />
       <view class="text">分享小程序</view>
     </button>
     <view class="icon divline" />
-    <button class="list" plain="true" hover-class="button-hover" open-type="feedback" hover-stay-time="100" id="3">
+    <button
+      class="list"
+      hover-class="button-hover"
+      hover-stay-time="100"
+      open-type="feedback"
+      plain
+    >
       <image class="icon" src="/icon/tabPage/bug.svg" />
       <view class="text">bug反馈</view>
     </button>
     <block wx:if="{{env === 'wx'}}">
       <view class="icon divline" />
-      <button class="list" plain="true" hover-class="button-hover" open-type="contact" hover-stay-time="100" id="3">
+      <button
+        class="list"
+        hover-class="button-hover"
+        hover-stay-time="100"
+        open-type="contact"
+        plain
+      >
         <image class="icon" src="/icon/tabPage/contact.svg" />
-        <view class="text">联系{{appID === 'wx9ce37d9662499df3'? '校会君': 'Mr.Hope'}}</view>
+        <view class="text"
+          >联系{{appID === 'wx9ce37d9662499df3'? '校会君': 'Mr.Hope'}}</view
+        >
       </button>
     </block>
   </view>

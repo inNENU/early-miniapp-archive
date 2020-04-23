@@ -2,8 +2,21 @@
   <view class="search">
     <view class="search-box" wx:if="{{showInput}}">
       <icon class="icon input" type="search" size="16" />
-      <input type="text" class="searchInput" placeholder="搜索" value="{{value}}" focus="{{showInput}}" confirm-type="search" bindinput="inputTyping" bindconfirm="confirm" />
-      <view class="clear-wrapper" wx:if="{{value.length > 0}}" catch:tap="clearInput">
+      <input
+        class="searchInput"
+        type="text"
+        placeholder="搜索"
+        value="{{value}}"
+        focus="{{showInput}}"
+        confirm-type="search"
+        bindinput="inputTyping"
+        bindconfirm="confirm"
+      />
+      <view
+        wx:if="{{value.length > 0}}"
+        class="clear-wrapper"
+        catch:tap="clearInput"
+      >
         <icon class="clear" type="clear" size="16" />
       </view>
     </view>
@@ -17,7 +30,12 @@
   <view hidden="{{!showInput}}" class="cancel" catch:tap="hideInput">取消</view>
   <view class="word-wrapper" wx:if="{{words.length > 0}}">
     <block wx:for="{{words}}" wx:key="*this">
-      <view class="word" hover-class="btnHover" data-index="{{index}}" catch:tap="select">
+      <view
+        class="word"
+        hover-class="btnHover"
+        data-index="{{index}}"
+        catch:tap="select"
+      >
         {{item}}
       </view>
       <view class="divline" />

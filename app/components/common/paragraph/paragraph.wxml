@@ -3,7 +3,9 @@
 <view wx:if="{{config.head}}" class="paragraph-title">{{config.head}}</view>
 <!-- 段落主体 -->
 <view class="paragraph" style="{{paragraph.getAlign(config)}}">
-  <text style="{{config.style || ''}}" decode selectable space="nbsp">{{paragraph.getText(config)}}</text>
+  <text style="{{config.style || ''}}" decode selectable space="nbsp"
+    >{{paragraph.getText(config)}}</text
+  >
   <!-- 段落图片 -->
   <img wx:if="{{config.src}}" config="{{config}}" />
 </view>

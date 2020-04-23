@@ -1,12 +1,19 @@
-<view class='foot-wrapper'>
-  <view class='foot'>
+<view class="foot-wrapper">
+  <view class="foot">
     <view>走出半生，归来仍是——东师青年\n</view>
-    <navigator class="logo rotate" openType="switchTab" url="/page/main/main" hover-class="none">
+    <navigator
+      class="logo rotate"
+      hover-class="none"
+      open-type="switchTab"
+      url="/page/main/main"
+    >
       <image class="icon" src="/image/logo.png" />
     </navigator>
   </view>
   <text wx:if="{{config.desc}}">{{config.desc}}\n</text>
-  <text wx:if="{{config.author !== ''}}" decode>编辑人：{{config.author || 'Mr.Hope'}}&ensp;</text>
+  <text wx:if="{{config.author !== ''}}" decode
+    >编辑人：{{config.author || 'Mr.Hope'}}&ensp;</text
+  >
   <text wx:if="{{config.time}}">最后编辑于{{config.time}}</text>
   <text wx:if="{{config.time||config.author}}">\n</text>
   Copyright © 2017-2019 HopeStudio

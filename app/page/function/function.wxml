@@ -1,6 +1,6 @@
 <import src="/components/template" />
 <view class="{{T}} grey {{nm?'nm':''}} {{nm? 'dark': 'light'}}">
   <template is="head" data="{{...head,T}}" />
-  <weather bind:navigate="navigate" />
+  <weather catch:navigate="navigate" />
   <template is="body" data="{{page,T}}" />
 </view>

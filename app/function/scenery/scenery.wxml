@@ -1,20 +1,32 @@
 <import src="/components/template" />
 <view class="{{T}}{{page[0].grey?'grey':''}} {{nm?'nm':''}}">
   <template is="body" data="{{page,T}}" />
-  <view class='imgCtn' style='height:{{(info.screenHeight-44-info.statusBarHeight-50)*0.7}}px;'>
-    <view class='lastBtn' hover-class='click'>
-      <image class='btnImg' src="/function/icon/back.svg" mode='widthFix' />
+  <view
+    class="imgCtn"
+    style="height:{{(info.screenHeight-44-info.statusBarHeight-50)*0.7}}px;"
+  >
+    <view class="lastBtn" hover-class="click">
+      <image class="btnImg" src="/function/icon/back.svg" mode="widthFix" />
     </view>
-    <view class='showCtn'>
-      <image class='showImg' src="{{currentSrc}}" mode='widthFix' />
+    <view class="showCtn">
+      <image class="showImg" src="{{currentSrc}}" mode="widthFix" />
     </view>
-    <view class='nextBtn' hover-class='click'>
-      <image class='btnImg' src="/function/icon/next.svg" mode='widthFix' />
+    <view class="nextBtn" hover-class="click">
+      <image class="btnImg" src="/function/icon/next.svg" mode="widthFix" />
     </view>
   </view>
-  <scroll-view scroll-x class='imgGroup' style='height:{{(info.screenHeight-44-info.statusBarHeight-50)*0.3}}px;'>
+  <scroll-view
+    class="imgGroup"
+    style="height:{{(info.screenHeight-44-info.statusBarHeight-50)*0.3}}px;"
+    scroll-x
+  >
     <view wx:for="{{imgs}}">
-      <image id="{{item.id}}" class='imgPreview' src="{{item.url}}" mode='widthFix' />
+      <image
+        id="{{item.id}}"
+        class="imgPreview"
+        mode="widthFix"
+        src="{{item.url}}"
+      />
     </view>
   </scroll-view>
 </view>

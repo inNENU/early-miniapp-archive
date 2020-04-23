@@ -1,9 +1,16 @@
 <import src="/components/template" />
 <view class="{{T}} grey {{nm?'nm':''}}">
   <template is="head" data="{{...head,T}}" />
-  <search words="{{words}}" searchword="{{searchword}}" catch:searching="searching" catch:search="search" />
+  <search
+    words="{{words}}"
+    searchword="{{searchword}}"
+    catch:searching="searching"
+    catch:search="search"
+  />
   <template is="body" data="{{page,T}}" />
-  <view wx:if="{{result.content.length === 0}}" class="info">Oops... 没有找到任何结果</view>
+  <view wx:if="{{result.content.length === 0}}" class="info"
+    >Oops... 没有找到任何结果</view
+  >
   <list wx:else config="{{result}}" />
   <foot />
 </view>
