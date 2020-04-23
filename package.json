@@ -25,7 +25,6 @@
     "typescript": "3.8.3"
   },
   "devDependencies": {
-    "@starptech/prettyhtml": "0.10.0",
     "@typescript-eslint/eslint-plugin": "2.29.0",
     "@typescript-eslint/parser": "2.29.0",
     "@typescript-eslint/typescript-estree": "2.29.0",
