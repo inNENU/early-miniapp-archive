@@ -2,3 +2,5 @@
 
 app/**/*.js
 app/**/*.d.ts
+
+server/config/**/*.json

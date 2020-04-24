@@ -153,7 +153,7 @@
       {
         "id": 21,
         "latitude": 43.86336,
-        "longitude": 125.32840,
+        "longitude": 125.3284,
         "name": "心理学院",
         "detail": "东北师范大学心理学院"
       },
@@ -222,7 +222,7 @@
       },
       {
         "id": 31,
-        "latitude": 43.86170,
+        "latitude": 43.8617,
         "longitude": 125.32983,
         "name": "教育学部",
         "detail": "东北师范大学教育学部"
@@ -434,40 +434,19 @@
       {
         "id": 61,
         "latitude": 43.86194,
-        "longitude": 125.33490,
+        "longitude": 125.3349,
         "name": "静湖",
         "detail": "东北师范大学静湖"
       }
     ],
     "category": {
-      "gate": [
-        1,
-        7
-      ],
-      "dormitory": [
-        8,
-        18
-      ],
-      "school": [
-        19,
-        31
-      ],
-      "buildings": [
-        32,
-        42
-      ],
-      "facility": [
-        43,
-        50
-      ],
-      "sportsField": [
-        51,
-        59
-      ],
-      "scenery": [
-        60,
-        61
-      ]
+      "gate": [1, 7],
+      "dormitory": [8, 18],
+      "school": [19, 31],
+      "buildings": [32, 42],
+      "facility": [43, 50],
+      "sportsField": [51, 59],
+      "scenery": [60, 61]
     }
   },
   {
@@ -750,30 +729,12 @@
       }
     ],
     "category": {
-      "gate": [
-        1,
-        5
-      ],
-      "school": [
-        6,
-        19
-      ],
-      "buildings": [
-        20,
-        25
-      ],
-      "facility": [
-        26,
-        29
-      ],
-      "scenery": [
-        30,
-        32
-      ],
-      "sportsField": [
-        33,
-        38
-      ]
+      "gate": [1, 5],
+      "school": [6, 19],
+      "buildings": [20, 25],
+      "facility": [26, 29],
+      "scenery": [30, 32],
+      "sportsField": [33, 38]
     }
   }
 ]

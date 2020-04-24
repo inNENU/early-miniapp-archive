@@ -7,7 +7,7 @@ module.exports = {
     `eslint ${files
       .filter((file) => !cli.isPathIgnored(file))
       .join(' ')} --fix`,
-  '*.{js,ts}': 'prettier --write',
+  '*.{js,ts,json}': 'prettier --write',
   '*.wxss': 'stylelint --fix',
   '*.wxml': 'prettier --parser html --write',
   '*.wxs': 'prettier --parser babel-flow --write'

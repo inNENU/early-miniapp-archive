@@ -61,9 +61,6 @@ rules:
 
   indent:
     - off
-    - 2
-    - ignoredNodes:
-        - ConditionalExpression
 
   init-declarations:
     - off

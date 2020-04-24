@@ -30,24 +30,11 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "target": "es6",
-    "lib": [
-      "es6",
-      "es2017",
-      "es2018",
-      "es2019"
-    ],
+    "lib": ["es6", "es2017", "es2018", "es2019"],
     "locale": "zh-CN",
     "module": "CommonJS",
-    "types": [
-      "miniprogram-api-typings"
-    ]
+    "types": ["miniprogram-api-typings"]
   },
-  "include": [
-    "app",
-    "typings"
-  ],
-  "exclude": [
-    "app/miniprogram_npm",
-    "node_modules"
-  ]
+  "include": ["app", "typings"],
+  "exclude": ["app/miniprogram_npm", "node_modules"]
 }

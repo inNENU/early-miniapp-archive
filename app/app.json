@@ -53,27 +53,19 @@
   "preloadRule": {
     "page/main/main": {
       "network": "all",
-      "packages": [
-        "module"
-      ]
+      "packages": ["module"]
     },
     "page/function/function": {
       "network": "all",
-      "packages": [
-        "function"
-      ]
+      "packages": ["function"]
     },
     "page/me/me": {
       "network": "all",
-      "packages": [
-        "settings"
-      ]
+      "packages": ["settings"]
     },
     "module/sharePage": {
       "network": "all",
-      "packages": [
-        "__APP__"
-      ]
+      "packages": ["__APP__"]
     }
   },
   "window": {
@@ -134,9 +126,7 @@
       "desc": "您的位置信息将用于校园地图导航"
     }
   },
-  "requiredBackgroundModes": [
-    "audio"
-  ],
+  "requiredBackgroundModes": ["audio"],
   "usingComponents": {
     "doc": "/components/common/doc/doc",
     "ex-list": "/components/common/ex-list/list",
