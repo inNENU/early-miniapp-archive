@@ -171,7 +171,7 @@ $register('weather', {
   /** 改变背景动画 */
   backgroundChange() {
     /** 动画选项 */
-    const animationOptions: WechatMiniprogram.CreateAnimationOption = {
+    const animationOptions: WechatMiniprogram.StepOption = {
       duration: 200,
       timingFunction: 'ease'
     };

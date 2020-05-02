@@ -378,7 +378,7 @@ $register('music', {
     };
   },
   back() {
-    if (this.$state.firstOpen) this.$switchTab('main');
+    if (this.$state.firstOpen) this.$switch('main');
     else this.$back();
   }
 });
