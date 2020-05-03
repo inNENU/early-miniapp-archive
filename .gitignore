@@ -7,6 +7,8 @@ node_modules/
 !app/node_modules/**/*.js
 !app/node_modules/**/*.js.map
 
+server/lib/loginDetail.js
 server/function.zip
+server/page.zip
 
 yarn.lock

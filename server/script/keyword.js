@@ -1,10 +1,3 @@
-/*
- * @Author: Mr.Hope
- * @Date: 2019-10-18 01:21:40
- * @LastEditors: Mr.Hope
- * @LastEditTime: 2019-12-02 22:30:24
- * @Description: 关键词处理
- */
 'use strict';
 
 const fs = require('fs');
@@ -17,14 +10,14 @@ const generateKeywords = () => {
   const forderList = fs.readdirSync('./page');
 
   // 写入关键词内容，读出 page 目录下的文件夹
-  forderList.forEach(forder => {
+  forderList.forEach((forder) => {
     // 关键词和更新日志无需处理
     if (forder !== 'keywords.json' && forder !== 'log') {
       /** 文件夹下文件列表 */
       const jsonList = fs.readdirSync(`./page/${forder}`);
 
       // 开始处理每个文件列表
-      jsonList.forEach(json => {
+      jsonList.forEach((json) => {
         /** JSON 名称 */
         const jsonName = json.slice(0, -5);
         /** JSON 文件内容 */
@@ -43,7 +36,7 @@ const generateKeywords = () => {
         keywords[jsonName].desc = [];
 
         // 将页面的标题写入搜索详情中
-        jsonObject.forEach(element => {
+        jsonObject.forEach((element) => {
           if (element.tag === 'title')
             keywords[jsonName].desc.push(element.text);
         });
@@ -52,7 +45,7 @@ const generateKeywords = () => {
   });
 
   // 检测关键词是否合理
-  Object.keys(keywords).forEach(x => {
+  Object.keys(keywords).forEach((x) => {
     if (!keywords[x].title) {
       delete keywords[x];
       console.error(`Missing ${x}`);

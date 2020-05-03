@@ -1,5 +1,16 @@
 {
+  "name": "innenu",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mister-Hope/inNENU.git"
+  },
   "author": "Mr.Hope",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mister-Hope/inNENU/issues"
+  },
+  "homepage": "https://mrhope.site",
   "dependencies": {
     "wxpage": "1.1.10"
   }

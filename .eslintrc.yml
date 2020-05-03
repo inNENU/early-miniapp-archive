@@ -173,13 +173,14 @@ rules:
 
 overrides:
   - files:
-      - ".lintstagedrc.js"
+      - '.lintstagedrc.js'
+      - 'server/script/*.js'
 
     env:
       node: true
 
   - files:
-      - "*.wxs"
+      - '*.wxs'
 
     globals:
       getDate: readonly
@@ -191,18 +192,18 @@ overrides:
     rules:
       func-names:
         - error
-        - "never"
+        - 'never'
 
       func-style:
         - error
-        - "declaration"
+        - 'declaration'
 
       no-var:
         - off
 
       object-shorthand:
         - error
-        - "never"
+        - 'never'
 
       prefer-destructuring:
         - off
@@ -211,7 +212,7 @@ overrides:
         - off
 
   - files:
-      - "*.ts"
+      - '*.ts'
 
     extends:
       - plugin:@typescript-eslint/eslint-recommended
@@ -219,8 +220,8 @@ overrides:
       - prettier/@typescript-eslint
 
     plugins:
-      - "@typescript-eslint"
+      - '@typescript-eslint'
 
     rules:
-      "@typescript-eslint/explicit-function-return-type": off
-      "@typescript-eslint/no-explicit-any": off
+      '@typescript-eslint/explicit-function-return-type': off
+      '@typescript-eslint/no-explicit-any': off

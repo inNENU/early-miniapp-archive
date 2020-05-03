@@ -18,7 +18,7 @@
   },
   "miniprogramRoot": "app/",
   "compileType": "miniprogram",
-  "libVersion": "2.10.4",
+  "libVersion": "2.11.0",
   "appid": "wx33acb831ee1831a5",
   "qqLibVersion": "1.13.0",
   "qqappid": "1109559721",
@@ -107,7 +107,7 @@
           "scene": null
         },
         {
-          "id": -1,
+          "id": 5,
           "name": "二维码分享",
           "pathName": "module/sharePage",
           "query": "scene=check0",
@@ -121,28 +121,28 @@
           "scene": null
         },
         {
-          "id": -1,
+          "id": 6,
           "name": "初始化小程序",
           "pathName": "module/function",
           "query": "action=reset",
           "scene": null
         },
         {
-          "id": -1,
+          "id": 7,
           "name": "校历",
           "pathName": "function/calendar",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
+          "id": 8,
           "name": "天气",
           "pathName": "function/weather/weather",
           "query": "",
           "scene": null
         },
         {
-          "id": -1,
+          "id": 9,
           "name": "播放器",
           "pathName": "function/player/player",
           "query": "",

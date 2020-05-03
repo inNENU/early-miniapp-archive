@@ -7,12 +7,12 @@
  */
 'use strict';
 
-const fs = require('fs');
-const { exec } = require('child_process');
 const { client, putFile, putFolder } = require('ftp-hope');
-
+const { exec } = require('child_process');
+const fs = require('fs');
 /** 生成关键词 */
 const generateKeywords = require('./keyword');
+const loginDetail = require('../lib/loginDetail');
 
 generateKeywords();
 
@@ -26,7 +26,7 @@ fs.writeFileSync('./pageVersion.json', Number(pageVersion) + 1);
 exec('"lib/7z" a -r page.zip @lib/page.txt');
 
 // 连接客户端
-client.connect(require('./loginDetail'));
+client.connect();
 
 client.on('ready', () => {
   putFolder('./page')
