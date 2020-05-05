@@ -13,7 +13,7 @@ $register('calendar', {
     head: {
       title: '东师校历',
       statusBarHeight: globalData.info.statusBarHeight,
-      leftText: '返回'
+      leftText: '功能大厅'
     },
     calendar: [] as TimeLineItem[]
   },

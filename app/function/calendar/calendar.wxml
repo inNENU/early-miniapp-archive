@@ -1,11 +1,11 @@
 <import src="/components/template" />
-<view class="{{T}} {{nm?'nm':''}}">
+<view class="{{T}} {{nm?'nm':''}} {{nm? 'dark': 'light'}}">
   <template is="head" data="{{...head,T}}" />
   <time-line config="{{calendar}}" catch:active="display" />
   <view wx:if="{{display}}" class="mask" />
-  <view wx:if="{{display}}" class="popupCtn">
-    <view class="closeBtn" catch:tap="close" hover-class="button-hover">
-      <image class="closeIcon" src="/icon/close.svg" />
+  <view wx:if="{{display}}" class="popup-wrapper">
+    <view class="close-button" catch:tap="close" hover-class="button-hover">
+      <image class="icon" src="/icon/close.svg" />
     </view>
     <view class="name">{{name}}</view>
     <time-line config="{{calendarDetail}}" />

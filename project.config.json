@@ -114,49 +114,49 @@
           "scene": null
         },
         {
-          "id": 5,
+          "id": 6,
           "name": "体测计算器",
           "pathName": "function/PEcal/PEcal",
           "query": "",
           "scene": null
         },
         {
-          "id": 6,
+          "id": 7,
           "name": "初始化小程序",
           "pathName": "module/function",
           "query": "action=reset",
           "scene": null
         },
         {
-          "id": 7,
+          "id": 8,
           "name": "校历",
-          "pathName": "function/calendar",
+          "pathName": "function/calendar/calendar",
           "query": "",
           "scene": null
         },
         {
-          "id": 8,
+          "id": 9,
           "name": "天气",
           "pathName": "function/weather/weather",
           "query": "",
           "scene": null
         },
         {
-          "id": 9,
+          "id": 10,
           "name": "播放器",
           "pathName": "function/player/player",
           "query": "",
           "scene": null
         },
         {
-          "id": 10,
-          "name": "歌曲",
+          "id": 11,
+          "name": "特定歌曲",
           "pathName": "function/player/player",
           "query": "index=18",
           "scene": null
         },
         {
-          "id": -1,
+          "id": 12,
           "name": "地图",
           "pathName": "function/map/map",
           "query": "",
