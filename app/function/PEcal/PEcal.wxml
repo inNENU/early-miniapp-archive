@@ -1,30 +1,30 @@
 <import src="/components/template" />
 <view
-  class="iOS grey {{nm?'nm':''}}"
+  class="iOS grey {{nm?'nm':''}} {{nm? 'dark': 'light'}}"
   style="{{input.status? 'padding-bottom:'+input.height+'px;': ''}}"
 >
   <template is="head" data="{{...page[0],T}}" />
-  <view class="descCtn">
-    <view class="descBtn" hover-class="button-hover" catch:tap="navigate">
-      <image src="/icon/tabPage/about.svg" class="descIcon" />
-      <view class="descText">体测说明</view>
+  <view class="desc-wrapper">
+    <view class="desc-button" hover-class="button-hover" catch:tap="navigate">
+      <image src="/icon/tabPage/about.svg" class="icon" />
+      <view class="text">体测说明</view>
     </view>
   </view>
-  <view class="scoreBox">
-    <view class="BMICtn">
-      <view class="scoreTitle">BMI：</view>
-      <view class="scoreDisplay">{{BMI.score}} {{BMI.state}}</view>
+  <view class="score-wrapper">
+    <view class="BMI">
+      <view class="title">BMI：</view>
+      <view class="result">{{BMI.score}} {{BMI.state}}</view>
     </view>
-    <view class="scoreCtn">
-      <view class="scoreTitle">体测成绩：</view>
-      <view class="scoreDisplay">{{PE.score}} {{PE.state}}</view>
+    <view class="score">
+      <view class="title">体测成绩：</view>
+      <view class="result">{{PE.score}} {{PE.state}}</view>
     </view>
   </view>
-  <view class="list">
-    <view class="listItem">
-      <view class="listText">性别</view>
+  <view class="input-list-wrapper">
+    <view class="list-item">
+      <view class="text">性别</view>
       <picker
-        class="listPicker"
+        class="picker"
         mode="selector"
         range="{{gender.picker}}"
         catch:change="genderChange"
@@ -32,10 +32,10 @@
         {{gender.index === undefined? '请选择': gender.picker[gender.index]}}
       </picker>
     </view>
-    <view class="listItem">
-      <view class="listText">年级</view>
+    <view class="list-item">
+      <view class="text">年级</view>
       <picker
-        class="listPicker"
+        class="picker"
         mode="selector"
         range="{{grade.picker}}"
         catch:change="gradeChange"
@@ -44,11 +44,11 @@
       </picker>
     </view>
     <block wx:for="{{list}}" wx:key="item.id">
-      <view class="listItem">
-        <view class="listText">{{item.text}}</view>
+      <view class="list-item">
+        <view class="text">{{item.text}}</view>
         <input
           id="{{item.id}}"
-          class="listInput"
+          class="input"
           type="{{item.type}}"
           adjust-position="{{false}}"
           placeholder="{{item.desc}}"
@@ -56,13 +56,13 @@
           catch:input="input"
           catch:blur="blur"
         />
-        <view class="listUnit">{{item.unit}}</view>
+        <view class="unit">{{item.unit}}</view>
       </view>
     </block>
-    <view class="listItem">
-      <view class="listText">{{longRun.text}}</view>
+    <view class="list-item">
+      <view class="text">{{longRun.text}}</view>
       <picker
-        class="listPicker"
+        class="picker"
         mode="multiSelector"
         range="{{longRun.picker}}"
         catch:change="longRunHandler"
@@ -70,11 +70,11 @@
         {{longRun.value?longRun.value:'秒'}}
       </picker>
     </view>
-    <view class="listItem">
-      <view class="listText">{{special.text}}</view>
+    <view class="list-item">
+      <view class="text">{{special.text}}</view>
       <input
         id="{{special.id}}"
-        class="listInput"
+        class="input"
         type="{{special.type}}"
         adjust-position="{{false}}"
         placeholder="{{special.desc}}"
@@ -82,33 +82,32 @@
         catch:input="input"
         catch:blur="blur"
       />
-      <view class="listUnit">{{special.unit}}</view>
+      <view class="unit">{{special.unit}}</view>
     </view>
   </view>
-  <button type="primary" class="button calBtn" catch:tap="calculate">
+  <button type="primary" class="button calculate" catch:tap="calculate">
     计算
   </button>
-  <!-- <view class="scoreListCtn"> -->
-  <view wx:if="{{showScore}}" class="scoreListCtn">
-    <view class="scoreListTitle">体 测 成 绩</view>
-    <view class="scoreItemCtn" wx:for="{{scoreList}}" wx:key="text">
-      <view class="listText">{{item.text}}</view>
-      <view class="listScore">{{PEscore[item.id]}}分</view>
+  <view wx:if="{{showScore}}" class="score-list-wrapper">
+    <view class="title">体 测 成 绩</view>
+    <view class="item" wx:for="{{scoreList}}" wx:key="text">
+      <view class="text">{{item.text}}</view>
+      <view class="score">{{PEscore[item.id]}}分</view>
     </view>
-    <view class="scoreItemCtn">
-      <view class="listText">{{result.gender === 'male'? 1000: 800}}米跑</view>
-      <view class="listScore">{{PEscore.longRun}}分</view>
+    <view class="item">
+      <view class="text">{{result.gender === 'male'? 1000: 800}}米跑</view>
+      <view class="score">{{PEscore.longRun}}分</view>
     </view>
-    <view class="scoreItemCtn">
-      <view class="listText"
+    <view class="item">
+      <view class="text"
         >{{result.gender === 'male'? '引体向上': '仰卧起坐'}}</view
       >
-      <view class="listScore">{{PEscore.special}}分</view>
+      <view class="score">{{PEscore.special}}分</view>
     </view>
-    <view class="scoreItemCtn">
-      <view class="listText">总分</view>
-      <view class="listScore">{{PE.score}}分</view>
+    <view class="item">
+      <view class="text">总分</view>
+      <view class="score">{{PE.score}}分</view>
     </view>
   </view>
-  <foot />
+  <foot config="{{ { author: ''} }}" />
 </view>

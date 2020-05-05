@@ -1,11 +1,10 @@
 /* 右上角解释文字 */
-.descCtn {
-  display: flex;
-  justify-content: flex-end;
+.desc-wrapper {
+  text-align: right;
 }
 
-.descBtn {
-  display: flex;
+.desc-button {
+  display: inline-flex;
 
   width: auto;
   padding: 6px;
@@ -13,68 +12,61 @@
   align-items: center;
 }
 
-.descIcon {
+.desc-button .icon {
   display: block;
   width: 18px;
   height: 18px;
   margin-right: 4px;
 }
 
-.descText {
-  color: #888;
+.desc-button .text {
+  color: var(--grey);
   font-size: 15px;
 }
 
 /* 分数部分 */
 
-.scoreBox {
+.score-wrapper {
   display: flex;
   width: 100%;
   height: 120px;
+  background-color: var(--bgcolor);
 }
 
-.nm .scoreBox {
-  color: #fff;
-}
-
-.BMICtn,
-.scoreCtn {
+.score-wrapper .BMI,
+.score-wrapper .score {
   width: 50%;
   height: 100%;
 }
 
-.scoreTitle {
+.score-wrapper .title {
   margin: 20px;
   font-size: 24px;
   font-weight: 500;
 }
 
-.scoreDisplay {
+.score-wrapper .result {
   font-size: 20px;
   font-weight: 500;
 }
 
 /* 输入列表 */
 
-.list {
+.input-list-wrapper {
   position: relative;
 
   padding-left: 15px;
-  background-color: #fff;
+  background-color: var(--block-bgcolor);
 
+  color: var(--text-color);
   text-align: right;
   font-size: 17px;
   line-height: 1.75;
 }
 
-.nm .list {
-  background-color: #1c1c1e;
-  color: #fff;
-}
-
-.list::before,
-.list::after {
-  content: " ";
+.input-list-wrapper::before,
+.input-list-wrapper::after {
+  content: ' ';
   position: absolute;
   left: 0;
   right: 0;
@@ -83,26 +75,19 @@
   transform: scaleY(0.4);
 }
 
-.list::before {
+.input-list-wrapper::before {
   top: 0;
-  border-top: 1px solid #acacb0;
-  color: #acacb0;
+  border-top: 1px solid var(--border-color);
   transform-origin: 0 0;
 }
 
-.list::after {
+.input-list-wrapper::after {
   bottom: 0;
-  border-bottom: 1px solid #acacb0;
-  color: #acacb0;
+  border-bottom: 1px solid var(--border-color);
   transform-origin: 0 100%;
 }
 
-.nm .list::before,
-.nm .list::after {
-  border-color: #3d3d41;
-}
-
-.listItem {
+.list-item {
   display: flex;
   position: relative;
 
@@ -111,83 +96,71 @@
   align-items: center;
 }
 
-.listItem::after {
-  content: " ";
+.list-item::after {
+  content: ' ';
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
 
   height: 1px;
-  border-bottom: 1px solid #acacb0;
+  border-bottom: 1px solid var(--border-color);
 
-  color: #acacb0;
   transform: scaleY(0.4);
   transform-origin: 0 100%;
 }
 
-.nm .listItem::after {
-  border-color: #3d3d41;
-}
-
-.listItem::after :last-child {
+.list-item::after :last-child {
   display: none;
 }
 
-.listText {
+.list-item .text,
+.score-item .text {
   padding-right: 12px;
   text-align: left;
   flex: none;
 }
 
-.listInput {
+.list-item .input {
   padding-right: 15px;
   flex: auto;
 }
 
-.listUnit {
+.list-item .unit {
   padding-right: 15px;
-  color: #444;
+  color: var(--grey-four);
   flex: none;
 }
 
-.listPicker {
+.list-item .picker {
   padding-right: 15px;
   flex: auto;
-}
-
-.nm .listUnit {
-  color: #bbb;
 }
 
 /* 计算按钮 */
 
-.calBtn {
+.calculate.button {
   width: 92% !important;
   margin: 12px 4% !important;
 }
 
 /* 成绩列表 */
 
-.scoreListCtn {
+.score-list-wrapper {
   position: relative;
 
   width: 90%;
   margin: 0 5%;
-  background-color: #fff;
+  background-color: var(--block-bgcolor);
   border-radius: 5px;
 
+  color: var(--text-color);
   font-size: 17px;
   line-height: 1.75;
 }
 
-.nm .scoreListCtn {
-  background-color: #1c1c1e;
-  color: #fff;
-}
-
-.scoreListCtn::after {
-  content: " ";
+.score-list-wrapper::after {
+  content: ' ';
   position: absolute;
   top: 0;
   left: 0;
@@ -195,17 +168,13 @@
   box-sizing: border-box;
   width: 200%;
   height: 200%;
-  border: 1px solid #acacb0;
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   transform: scale(0.5);
   transform-origin: 0 0;
 }
 
-.nm .scoreListCtn::after {
-  border-color: #3d3d41;
-}
-
-.scoreListTitle {
+.score-list-wrapper .title {
   width: 100%;
   padding: 12px 0;
 
@@ -214,33 +183,28 @@
   font-weight: 500;
 }
 
-.scoreItemCtn {
+.score-list-wrapper .item {
   display: flex;
   position: relative;
-  width: calc(100% - 30px);
+  width: 100%;
   padding: 6px 15px;
 }
 
-.scoreItemCtn::before {
-  content: " ";
+.score-list-wrapper .item::before {
+  content: ' ';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
 
   height: 1px;
-  border-top: 1px solid #acacb0;
+  border-top: 1px solid var(--border-color);
 
-  color: #acacb0;
   transform: scaleY(0.4);
   transform-origin: 0 0;
 }
 
-.nm .scoreItemCtn::before {
-  border-color: #3d3d41;
-}
-
-.listScore {
+.score-list-wrapper .item .score {
   text-align: right;
   flex: auto;
 }

@@ -16,5 +16,5 @@
   >
   <text wx:if="{{config.time}}">最后编辑于{{config.time}}</text>
   <text wx:if="{{config.time||config.author}}">\n</text>
-  Copyright © 2017-2019 HopeStudio
+  Copyright © 2017-2020 HopeStudio
 </view>

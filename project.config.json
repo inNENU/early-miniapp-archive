@@ -114,9 +114,9 @@
           "scene": null
         },
         {
-          "id": 6,
+          "id": 5,
           "name": "体测计算器",
-          "pathName": "function/PEcal",
+          "pathName": "function/PEcal/PEcal",
           "query": "",
           "scene": null
         },

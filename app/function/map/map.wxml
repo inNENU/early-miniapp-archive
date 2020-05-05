@@ -19,7 +19,10 @@
     hover-class="button-hover"
     catch:tap="back"
   >
-    <cover-image class="backIcon" src="/icon/{{fistPage? 'home': 'back'}}{{nm? 'White': ''}}.png" />
+    <cover-image
+      class="backIcon"
+      src="/icon/{{fistPage? 'home': 'back'}}{{nm? 'White': ''}}.png"
+    />
   </cover-view>
   <!-- 放大按钮 -->
   <cover-view
