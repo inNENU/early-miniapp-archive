@@ -10,5 +10,3 @@ node_modules/
 server/lib/loginDetail.js
 server/function.zip
 server/page.zip
-
-yarn.lock
