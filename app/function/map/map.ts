@@ -125,7 +125,8 @@ $register('map', {
       mapStyle: globalData.nm
         ? '46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA'
         : 'PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF',
-      nm: globalData.nm
+      nm: globalData.nm,
+      fistPage: this.$state.firstOpen
     });
 
     // 创建地图对象
@@ -314,6 +315,10 @@ $register('map', {
   },
   update(event: any) {
     console.log('update', event);
+  },
+  back() {
+    if (this.$state.firstOpen) this.$switch('main');
+    else this.$back();
   },
   mapCtx: {} as WechatMiniprogram.MapContext
 

@@ -20,7 +20,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.11.0",
   "appid": "wx33acb831ee1831a5",
-  "qqLibVersion": "1.13.0",
+  "qqLibVersion": "1.14.1",
   "qqappid": "1109559721",
   "projectname": "inNENU",
   "setting": {
@@ -153,6 +153,13 @@
           "name": "歌曲",
           "pathName": "function/player/player",
           "query": "index=18",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "地图",
+          "pathName": "function/map/map",
+          "query": "",
           "scene": null
         }
       ]

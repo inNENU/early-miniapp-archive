@@ -1,6 +1,6 @@
 <map
   id="schoolMap"
-  class="{{nm? 'nm': ''}}"
+  class="{{nm? 'nm': ''}} {{nm? 'dark': 'light'}}"
   subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4"
   longitude="{{map.longitude}}"
   latitude="{{map.latitude}}"
@@ -17,13 +17,13 @@
     class="backBtn"
     style="top:{{info.statusBarHeight + 5}}px;z-index:97;"
     hover-class="button-hover"
-    catch:tap="$back"
+    catch:tap="back"
   >
-    <cover-image class="backIcon" src="/icon/back{{nm? 'White': ''}}.png" />
+    <cover-image class="backIcon" src="/icon/{{fistPage? 'home': 'back'}}{{nm? 'White': ''}}.png" />
   </cover-view>
   <!-- 放大按钮 -->
   <cover-view
-    class="scaleLargeBtn"
+    class="scale-large-button"
     hover-class="button-hover"
     data-action="enlarge"
     catch:tap="scale"
@@ -32,7 +32,7 @@
   </cover-view>
   <!-- 缩小按钮 -->
   <cover-view
-    class="scaleSmallBtn"
+    class="scale-small-button"
     hover-class="button-hover"
     data-action="narrow"
     catch:tap="scale"
@@ -40,30 +40,30 @@
     <cover-view>-</cover-view>
   </cover-view>
   <cover-view
-    class="closeBtn {{list? 'fadeIn': 'fadeOut'}}"
+    class="close-button {{list? 'fadeIn': 'fadeOut'}}"
     style="top:{{closeTop}}px;z-index:100;"
     hover-class="button-hover"
     catch:tap="showList"
   >
-    <cover-image class="closeIcon" src="/icon/close.png" />
+    <cover-image class="icon" src="/icon/close.png" />
   </cover-view>
   <cover-view
-    class="listCtn {{list? 'moveUpIn': 'moveUpOut'}}"
+    class="list-wrapper {{list? 'moveUpIn': 'moveUpOut'}}"
     style="top:{{info.screenHeight - tabHeight}}px;height:{{info.screenHeight - tabHeight}}px;"
   ></cover-view>
   <!-- 点位按钮 -->
-  <cover-view class="pointCtn" hover-class="button-hover" catch:tap="point">
-    <cover-image class="pointBtn" src="/function/icon/point.png" />
+  <cover-view class="point-button" hover-class="button-hover" catch:tap="point">
+    <cover-image class="icon" src="/function/icon/point.png" />
   </cover-view>
   <!-- 分类按钮 -->
   <cover-view
-    class="selectCtn {{pointDisplay? 'fadeIn': 'fadeOut'}}"
+    class="select-wrapper {{pointDisplay? 'fadeIn': 'fadeOut'}}"
     catch:tap="select"
   >
     <cover-view
       wx:for="{{category}}"
       wx:key="*this"
-      class="selectBtn {{selectItem === item[1]? 'active': ''}}"
+      class="button {{selectItem === item[1]? 'active': ''}}"
       hover-class="button-hover"
       data-category="{{item[1]}}"
     >
@@ -73,19 +73,19 @@
   <!-- 自定义tab栏 -->
   <cover-view class="tab" id="mapTab">
     <cover-view
-      class="locateCtn"
+      class="locate-button"
       hover-class="button-hover"
       catch:tap="moveToLocation"
     >
-      <cover-image class="locateBtn" src="/function/icon/locate.png" />
+      <cover-image class="icon" src="/function/icon/locate.png" />
     </cover-view>
     <cover-view class="switch" catch:tap="xiaoquSwitch">
-      <cover-view class="switchItem {{isBenbu? 'active': ''}}">本部</cover-view>
-      <cover-view class="switchItem {{isBenbu? '': 'active'}}">净月</cover-view>
+      <cover-view class="item {{isBenbu? 'active': ''}}">本部</cover-view>
+      <cover-view class="item {{isBenbu? '': 'active'}}">净月</cover-view>
     </cover-view>
-    <cover-view class="listBtnCtn {{list? 'active': ''}}" catch:tap="showList">
+    <cover-view class="list-button {{list? 'active': ''}}" catch:tap="showList">
       <cover-image
-        class="listBtn"
+        class="icon"
         src="/function/icon/list{{list? '-active': ''}}.png"
       />
     </cover-view>

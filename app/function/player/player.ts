@@ -74,7 +74,7 @@ $register('music', {
       index,
       info: globalData.info,
       nm: globalData.nm,
-      play: globalData.music.play,
+      play: globalData.music.playing,
       mode: mode || 0
     });
 
@@ -84,7 +84,7 @@ $register('music', {
       this.setData({ songList, currentSong });
 
       // 如果正在播放，设置能够播放
-      if (globalData.music.played) this.setData({ canplay: true });
+      if (globalData.music.playing) this.setData({ canplay: true });
       // 对音频管理器进行设置
       else {
         manager.epname = 'in东师';
@@ -101,7 +101,7 @@ $register('music', {
         this.setData({ currentSong, songList: data as any[] });
 
         // 如果正在播放，设置能够播放
-        if (globalData.music.played) this.setData({ canplay: true });
+        if (globalData.music.playing) this.setData({ canplay: true });
         // 对音频管理器进行设置
         else {
           manager.epname = 'in东师';
@@ -140,12 +140,12 @@ $register('music', {
     // 在相应动作时改变状态
     manager.onPlay(() => {
       this.setData({ play: true });
-      globalData.music.play = true;
+      globalData.music.playing = true;
     });
 
     manager.onPause(() => {
       this.setData({ play: false });
-      globalData.music.play = false;
+      globalData.music.playing = false;
     });
 
     manager.onTimeUpdate(() => {
@@ -174,8 +174,8 @@ $register('music', {
         canplay: true
       });
 
-      // 设置播放状态this.lyric();
-      globalData.music.played = true;
+      // 设置播放状态
+      globalData.music.playing = true;
 
       this.lyric();
     });

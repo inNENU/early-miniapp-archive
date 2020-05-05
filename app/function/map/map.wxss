@@ -3,59 +3,52 @@
   height: 100%;
 }
 
-/* select 组件 */
-
-.selectCtn {
+/* 选择按钮 */
+.select-wrapper {
   position: fixed;
   z-index: 96;
   left: 17px;
   bottom: 130px;
 
-  background-color: #fff;
+  background-color: var(--bgcolor);
   border-radius: 0.4em;
 
   font-size: 14px;
   overflow: hidden;
 }
 
-.nm .selectCtn {
-  background-color: #000;
-}
-
-.selectBtn {
+.select-wrapper .button {
   display: inline-block;
   padding: 5px;
   color: #3478f7;
   line-height: 1rem;
 }
 
-/* point 组件 */
-
-.pointCtn {
+/* 分类按钮 */
+.point-button {
   position: fixed;
   left: 17px;
   bottom: 90px;
 
   padding: 6px;
-  background-color: #fff;
-  border: 1rpx solid #eee;
+  background-color: var(--bgcolor);
   border-radius: 5px;
+  box-shadow: -1px 3px 5px #dbdadfd3;
 }
 
-.nm .pointCtn {
-  background-color: #000;
-  border: 1rpx solid #111;
+.dark .point-button {
+  box-shadow: -1px 3px 5px #4b4d47d3;
 }
 
-.pointBtn {
+.point-button .icon {
   width: 25px;
   height: 25px;
 }
 
 /* scale 组件 */
 
-.scaleLargeBtn,
-.scaleSmallBtn {
+.scale-large-button,
+.scale-small-button {
   display: flex;
   position: fixed;
   right: 20px;
@@ -63,27 +56,26 @@
   width: 40px;
   height: 40px;
   padding-bottom: 1px;
-  background-color: #fff;
+  background-color: var(--bgcolor);
   border-radius: 50%;
   box-shadow: -1px 3px 5px #dbdadfd3;
 
-  color: #888;
+  color: var(--grey);
   font-size: 24px;
   justify-content: center;
   align-items: center;
 }
 
-.nm .scaleLargeBtn,
-.nm .scaleSmallBtn {
-  background-color: #444;
+.dark .scale-large-button,
+.dark .scale-small-button {
   box-shadow: -1px 3px 5px #4b4d47d3;
 }
 
-.scaleLargeBtn {
+.scale-large-button {
   bottom: 140px;
 }
 
-.scaleSmallBtn {
+.scale-small-button {
   bottom: 90px;
 }
 
@@ -102,32 +94,37 @@
   max-height: 52px;
   padding: 5px 15px 5px 15px;
   padding: 5px 15px calc(env(safe-area-inset-bottom) / 2 + 5px) 15px;
-  background-color: #fff;
+  background-color: var(--bgcolor);
   box-shadow: 0 -2px 5px rgba(219, 218, 223, 0.95);
   justify-content: space-between;
   align-items: center;
 }
 
-.nm .tab {
-  background-color: #000;
+.dark .tab {
   box-shadow: 0 -2px 5px rgba(45, 44, 49, 0.95);
 }
 
-/* switch组件 */
+/* locate组件 */
+.locate-button {
+  padding: 1px;
+  border-radius: 3px;
+}
 
+.icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* switch组件 */
 .switch {
   width: 130px;
   height: 35px;
-  background-color: #fff;
+  background-color: var(--bgcolor);
   border: 1px solid #3478f7;
   border-radius: 5px;
 }
 
-.nm .switch {
-  background-color: #000;
-}
-
-.switchItem {
+.switch .item {
   display: inline-block;
 
   width: 50%;
@@ -137,38 +134,27 @@
   line-height: 35px;
 }
 
-/* locate组件 */
-
-.locateCtn {
-  padding: 1px;
-  border-radius: 3px;
-}
-
-.locateBtn {
-  width: 28px;
-  height: 28px;
-}
-
 /* list按钮 */
 
-.listBtnCtn {
+.list-button {
   padding: 2px 4px;
-  background-color: #fff0;
+  background-color: transparent;
   border-radius: 4px;
 }
 
-.listBtn {
+.list-button .closeIcon {
   width: 25px;
   height: 25px;
 }
 
-.active {
+.switch .item.active,
+.list-button.active {
   background-color: #3478f7;
-  color: white;
+  color: var(--bgcolor);
 }
 
 /* list 组件 */
-.listCtn {
+.list-wrapper {
   position: fixed;
   z-index: 98;
   top: 100%;
@@ -182,7 +168,7 @@
     关闭按钮
 *****************/
 
-.closeBtn {
+.close-button {
   position: fixed;
   z-index: 100;
   top: 26px;
@@ -195,12 +181,12 @@
   border-radius: 18px;
 }
 
-.nm .closeBtn {
+.dark .close-button {
   background-color: rgba(255, 255, 255, 0.15);
   border: 1rpx solid rgba(0, 0, 0, 0.2);
 }
 
-.closeIcon {
+.close-button .icon {
   width: 24px;
   height: 24px;
   margin: 4px auto;

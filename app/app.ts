@@ -16,8 +16,7 @@ interface InitGlobalData {
   /** 播放器信息 */
   music: {
     /** 是否正在播放 */
-    play: boolean;
-    played: boolean;
+    playing: boolean;
     /** 播放歌曲序号 */
     index: number;
   };
@@ -61,7 +60,7 @@ $register.A<AppOption>({
   /** 小程序的全局数据 */
   globalData: ({
     version,
-    music: { play: false, played: false, index: 0 },
+    music: { playing: false, index: 0 },
     page: {
       data: [],
       aim: ''
