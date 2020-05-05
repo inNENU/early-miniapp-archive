@@ -1,4 +1,4 @@
-<view class="{{nm? 'nm': ''}} commonBg">
+<view class="{{darkmode? 'dark': 'light'}} commonBg">
   <view style="height: 15%;" />
   <view class="headerCtn">
     <!-- 返回按钮 -->
@@ -8,7 +8,7 @@
       hover-class="button-hover"
       catch:tap="back"
     >
-      <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
+      <image class="backIcon" src="/icon/back{{darkmode? 'White': ''}}.svg" />
     </view>
     <!-- 视频信息 -->
     <view class="videoName">{{videoName}}</view>

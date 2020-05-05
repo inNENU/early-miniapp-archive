@@ -21,7 +21,7 @@ const { globalData } = getApp<AppOption>();
 $register('function', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
 
     /** 自定义导航栏配置 */
     head: {
@@ -123,8 +123,8 @@ $register('function', {
     this.$on('theme', (T: string) => {
       this.setData({ T });
     });
-    this.$on('nightmode', (nm: boolean) => {
-      this.setData({ nm });
+    this.$on('darkmode', (darkmode: boolean) => {
+      this.setData({ darkmode });
     });
 
     // 此处还需要再优化

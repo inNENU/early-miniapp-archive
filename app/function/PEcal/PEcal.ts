@@ -53,7 +53,7 @@ interface PEScore {
 $register('PEcal', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
     page: [
       { tag: 'head', title: '体测计算器', grey: true, leftText: '功能大厅' }
     ],

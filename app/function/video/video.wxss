@@ -49,7 +49,7 @@
   box-shadow: 0 -2px 5px rgba(219, 218, 223, 0.95);
 }
 
-.nm .videoList {
+.dark .videoList {
   box-shadow: 0 -2px 5px rgba(36, 37, 32, 0.95);
 }
 
@@ -77,7 +77,7 @@
     sans-serif !important;
 }
 
-.nm .videoListName {
+.dark .videoListName {
   color: #ccc;
 }
 

@@ -22,7 +22,7 @@ const { globalData } = getApp<AppOption>();
 $register('main', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
 
     /** 候选词 */
     words: [] as string[],
@@ -56,7 +56,9 @@ $register('main', {
   },
 
   onLoad() {
-    const color = globalData.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
+    const color = globalData.darkmode
+      ? ['#000000', 'white']
+      : ['#ffffff', 'black'];
 
     // 设置tabbar颜色
     wx.setTabBarStyle({
@@ -74,7 +76,9 @@ $register('main', {
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = setColor(this.data.page[0].grey);
-    const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
+    const color = this.data.darkmode
+      ? ['#000000', 'white']
+      : ['#ffffff', 'black'];
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
@@ -91,8 +95,8 @@ $register('main', {
     this.$on('theme', (T: string) => {
       this.setData({ T });
     });
-    this.$on('nightmode', (nm: boolean) => {
-      this.setData({ nm });
+    this.$on('darkmode', (darkmode: boolean) => {
+      this.setData({ darkmode });
     });
 
     // 小程序已经初始化完成，检查页面资源

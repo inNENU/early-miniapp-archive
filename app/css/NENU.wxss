@@ -7,10 +7,10 @@
 
   color: var(--text-color);
   font-family:
-    "Helvetica Neue",
+    'Helvetica Neue',
     FZSSJW,
     -apple-system-font,
-    "PingFang SC",
+    'PingFang SC',
     Helvetica,
     STHeiti,
     Tahoma,
@@ -22,7 +22,7 @@
   background-color: #f0f0f0;
 }
 
-.nm.NENU.grey {
+.dark.NENU.grey {
   background-color: #0f0f0f;
 }
 
@@ -109,18 +109,9 @@
 .grey .NENUhead {
   min-height: 37px;
   padding: 23px 5% 5px 5%;
-  color: #666;
+  color: var(--dark-grey);
   font-size: 13px;
 }
-
-.nm.grey .NENUhead {
-  color: #999;
-}
-
-/*
-.NENUP .iOS-img {
-  width: 100% !important;
-} */
 
 .NENUInfoCtn {
   display: flex;

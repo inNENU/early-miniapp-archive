@@ -19,7 +19,7 @@ const { globalData } = getApp<AppOption>();
 $register('me', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
     env: globalData.env,
     appID: globalData.appID,
 
@@ -101,7 +101,9 @@ $register('me', {
   },
 
   onShow() {
-    const color = this.data.nm ? ['#000000', 'white'] : ['#ffffff', 'black'];
+    const color = this.data.darkmode
+      ? ['#000000', 'white']
+      : ['#ffffff', 'black'];
     const { nc, bc } = setColor(true);
 
     // 设置胶囊、背景颜色以及tab栏颜色
@@ -120,8 +122,8 @@ $register('me', {
     this.$on('theme', (T: string) => {
       this.setData({ T });
     });
-    this.$on('nightmode', (nm: boolean) => {
-      this.setData({ nm });
+    this.$on('darkmode', (darkmode: boolean) => {
+      this.setData({ darkmode });
     });
   },
 

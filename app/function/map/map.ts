@@ -42,7 +42,7 @@ const jingyuePoint = {
 $register('map', {
   data: {
     /** 夜间模式状态 */
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
 
     /** 日间地图设置 */
     dayMapSettings,
@@ -122,10 +122,10 @@ $register('map', {
       /** 设备信息 */
       info: globalData.info,
       /** 地图风格 */
-      mapStyle: globalData.nm
+      mapStyle: globalData.darkmode
         ? '46NBZ-EJ6C4-4REUO-XR7ZR-CWLG5-T3BDA'
         : 'PZGBZ-74N6F-KVYJ5-NRJDH-Y3NUT-IKFLF',
-      nm: globalData.nm,
+      darkmode: globalData.darkmode,
       fistPage: this.$state.firstOpen
     });
 

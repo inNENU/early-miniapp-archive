@@ -29,7 +29,7 @@ $register('weather', {
         weather,
         // 18点至次日5点为夜间
         night: new Date().getHours() > 18 || new Date().getHours() < 5,
-        nm: globalData.nm,
+        darkmode: globalData.darkmode,
         statusBarHeight: globalData.info.statusBarHeight
       });
     } // 否则需要重新获取并处理
@@ -45,7 +45,7 @@ $register('weather', {
             weather,
             // 18点至次日5点为夜间
             night: new Date().getHours() > 18 || new Date().getHours() < 5,
-            nm: globalData.nm,
+            darkmode: globalData.darkmode,
             statusBarHeight: globalData.info.statusBarHeight
           });
         }
@@ -53,9 +53,9 @@ $register('weather', {
 
     // 设置页面背景色
     wx.setBackgroundColor({
-      backgroundColorTop: globalData.nm ? '#000000' : '#efeef4',
-      backgroundColor: globalData.nm ? '#000000' : '#efeef4',
-      backgroundColorBottom: globalData.nm ? '#000000' : '#efeef4'
+      backgroundColorTop: globalData.darkmode ? '#000000' : '#efeef4',
+      backgroundColor: globalData.darkmode ? '#000000' : '#efeef4',
+      backgroundColorBottom: globalData.darkmode ? '#000000' : '#efeef4'
     });
 
     this.backgroundChange();

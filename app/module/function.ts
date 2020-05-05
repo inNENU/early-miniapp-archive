@@ -22,13 +22,13 @@ $register('function', {
       this.setData({
         [arg]: true,
         T: globalData.T,
-        nm: globalData.nm
+        darkmode: globalData.darkmode
       });
     } else if (options.action)
       this.setData({
         [options.action]: true,
         T: globalData.T,
-        nm: globalData.nm
+        darkmode: globalData.darkmode
       });
   },
 

@@ -14,14 +14,14 @@ import {
   setPage
 } from '../../utils/page';
 import { AppOption } from '../../app';
-import { nightmode } from '../../utils/app';
+import { darkmode } from '../../utils/app';
 const { globalData } = getApp<AppOption>();
 
 /** 列表动作列表 */
 type ListAction =
   | 'setTheme'
-  | 'switchnm'
-  | 'switchnmAC'
+  | 'switchNightmode'
+  | 'switchNightmodeAutoChange'
   | 'dayBrightnessSwitchHandler'
   | 'nightBrightnessSwitchHandler'
   | 'dayBrightnessHandler'
@@ -38,7 +38,7 @@ for (let i = 0; i <= 59; i += 1)
 $register('setting', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
     event: [],
     page: [
       { tag: 'head', title: '外观设置', grey: true },
@@ -60,7 +60,9 @@ $register('setting', {
         head: '夜间模式',
         foot:
           '启用后，将采用暗色背景与亮色文字，在保持暗光下显示效果的同时保护眼睛。',
-        content: [{ text: '夜间模式', Switch: 'switchnm', swiKey: 'nightmode' }]
+        content: [
+          { text: '夜间模式', Switch: 'switchNightmode', swiKey: 'darkmode' }
+        ]
       },
       {
         tag: 'List',
@@ -68,19 +70,19 @@ $register('setting', {
         content: [
           {
             text: '设定时间',
-            Switch: 'switchnmAC',
-            swiKey: 'nightmodeAutoChange'
+            Switch: 'switchNightmodeAutoChange',
+            swiKey: 'darkmodeAutoChange'
           },
           {
             text: '开始时间',
             inlay: true,
-            key: 'nightmodeStartTime',
+            key: 'darkmodeStartTime',
             pickerValue: time
           },
           {
             text: '结束时间',
             inlay: true,
-            key: 'nightmodeEndTime',
+            key: 'darkmodeEndTime',
             pickerValue: time
           },
           {
@@ -124,18 +126,18 @@ $register('setting', {
   onNavigate(res) {
     // 读取状态数据并执行预加载
     const list = this.data.page[3].content as any[];
-    const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
+    const darkmodeAutoChange = wx.getStorageSync('darkmodeAutoChange');
     const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
     const nightBrightnessChange = wx.getStorageSync('nightBrightnessChange');
 
-    if (!nightmodeAutoChange) {
+    if (!darkmodeAutoChange) {
       list[1].hidden = true;
       list[2].hidden = true;
     }
-    if (globalData.nm) list[3].hidden = true;
+    if (globalData.darkmode) list[3].hidden = true;
     else list[5].hidden = true;
-    if (!dayBrightnessChange || globalData.nm) list[4].hidden = true;
-    if (!nightBrightnessChange || !globalData.nm) list[6].hidden = true;
+    if (!dayBrightnessChange || globalData.darkmode) list[4].hidden = true;
+    if (!nightBrightnessChange || !globalData.darkmode) list[6].hidden = true;
 
     resolvePage(res, this.data.page);
   },
@@ -144,18 +146,18 @@ $register('setting', {
     if (globalData.page.aim === '外观设置') setPage({ option, ctx: this });
     else {
       const list = this.data.page[3].content as any[];
-      const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
+      const darkmodeAutoChange = wx.getStorageSync('darkmodeAutoChange');
       const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
       const nightBrightnessChange = wx.getStorageSync('nightBrightnessChange');
 
-      if (!nightmodeAutoChange) {
+      if (!darkmodeAutoChange) {
         list[1].hidden = true;
         list[2].hidden = true;
       }
-      if (globalData.nm) list[3].hidden = true;
+      if (globalData.darkmode) list[3].hidden = true;
       else list[5].hidden = true;
-      if (!dayBrightnessChange || globalData.nm) list[4].hidden = true;
-      if (!nightBrightnessChange || !globalData.nm) list[6].hidden = true;
+      if (!dayBrightnessChange || globalData.darkmode) list[4].hidden = true;
+      if (!nightBrightnessChange || !globalData.darkmode) list[6].hidden = true;
       setPage({ option, ctx: this }, this.data.page);
     }
     popNotice('theme');
@@ -175,7 +177,7 @@ $register('setting', {
 
   onUnload() {
     // 退出时重新计算夜间模式
-    globalData.nm = nightmode();
+    globalData.darkmode = darkmode();
   },
 
   /** 列表控制函数 */
@@ -205,7 +207,7 @@ $register('setting', {
    * @param value 夜间模式状态
    */
   // eslint-disable-next-line max-statements
-  switchnm(value: boolean) {
+  switchNightmode(value: boolean) {
     const list = this.data.page[3].content as any[];
 
     list[0].status = false;
@@ -233,10 +235,10 @@ $register('setting', {
       }
     }
 
-    wx.setStorageSync('nightmodeAutoChange', false);
-    this.setData({ nm: value, 'event[3]': { content: list } });
-    globalData.nm = value;
-    this.$emit('nightmode', value);
+    wx.setStorageSync('darkmodeAutoChange', false);
+    this.setData({ darkmode: value, 'event[3]': { content: list } });
+    globalData.darkmode = value;
+    this.$emit('darkmode', value);
 
     // 设置胶囊和背景颜色
     const { nc, bc } = setColor(this.data.page[0].grey);
@@ -250,16 +252,16 @@ $register('setting', {
    *
    * @param value 夜间模式自动开启状态
    */
-  switchnmAC(value: boolean) {
+  switchNightmodeAutoChange(value: boolean) {
     // 改变页面状态
     const { page } = this.data;
     const list = page[3].content as any[];
-    const nm = nightmode();
+    const darkmodeStatus = darkmode();
 
-    wx.setStorageSync('nightmode', nm);
-    if (nm && list[5].status)
+    wx.setStorageSync('darkmode', darkmodeStatus);
+    if (darkmodeStatus && list[5].status)
       wx.setScreenBrightness({ value: list[6].value / 100 });
-    else if (!nm && list[3].status)
+    else if (!darkmodeStatus && list[3].status)
       wx.setScreenBrightness({ value: list[4].value / 100 });
     if (value) {
       list[1].hidden = false;
@@ -268,7 +270,7 @@ $register('setting', {
       list[1].hidden = list[2].hidden = true;
       list[1].visible = list[2].visible = false;
     }
-    if (nm) {
+    if (darkmodeStatus) {
       list[3].hidden = list[4].hidden = true;
       list[4].visible = list[5].hidden = false;
       list[6].hidden = !list[5].status;
@@ -280,12 +282,12 @@ $register('setting', {
 
     list[0].status = value;
     this.setData({
-      nm,
-      'event[2]': { 'content[0].status': nm },
+      darkmode: darkmodeStatus,
+      'event[2]': { 'content[0].status': darkmodeStatus },
       'event[3]': { content: list }
     });
-    globalData.nm = nm;
-    this.$emit('nightmode', nm);
+    globalData.darkmode = darkmodeStatus;
+    this.$emit('darkmode', darkmodeStatus);
 
     // 设置胶囊和背景颜色
     const { nc, bc } = setColor(this.data.page[0].grey);
@@ -332,7 +334,7 @@ $register('setting', {
    * @param value 日间亮度百分比
    */
   dayBrightnessHandler(value: number) {
-    if (!globalData.nm && (this.data.page[3].content as any[])[3].status)
+    if (!globalData.darkmode && (this.data.page[3].content as any[])[3].status)
       wx.setScreenBrightness({ value: value / 100 });
   },
 
@@ -342,7 +344,7 @@ $register('setting', {
    * @param value 夜间亮度百分比
    */
   nightBrightnessHandler(value: number) {
-    if (globalData.nm && (this.data.page[3].content as any[])[5].status)
+    if (globalData.darkmode && (this.data.page[3].content as any[])[5].status)
       wx.setScreenBrightness({ value: value / 100 });
   }
 });

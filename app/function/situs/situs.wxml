@@ -1,12 +1,12 @@
 <import src="/components/template" />
-<view class="{{T}} {{page[0].grey?'grey':''}} {{nm?'nm':''}}">
+<view class="{{T}} {{page[0].grey?'grey':''}} {{darkmode? 'dark': 'light'}}">
   <view
     class="backBtn {{page[0].titleDisplay?'fadeOut':'fadeIn'}}"
     style="top:{{page[0].statusBarHeight+5.5}}px;"
     hover-class="button-hover"
     catch:tap="back"
   >
-    <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
+    <image class="backIcon" src="/icon/back{{darkmode? 'White': ''}}.svg" />
   </view>
   <view
     class="NENUnav {{page[0].borderDisplay?'fadeIn':'fadeOut'}}"

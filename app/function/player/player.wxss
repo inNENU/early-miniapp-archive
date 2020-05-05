@@ -109,11 +109,11 @@ slider {
   filter: drop-shadow(-1px 3px 3px rgba(191, 190, 195, 0.95));
 }
 
-.nm .playBtn,
-.nm .cycleBtn,
-.nm .previousBtn,
-.nm .nextBtn,
-.nm .listBtn {
+.dark .playBtn,
+.dark .cycleBtn,
+.dark .previousBtn,
+.dark .nextBtn,
+.dark .listBtn {
   filter: drop-shadow(-1px 3px 3px rgba(64, 65, 60, 0.95));
 }
 
@@ -127,7 +127,7 @@ slider {
   filter: drop-shadow(-1px 3px 3px rgba(191, 190, 195, 0.95));
 }
 
-.nm .cycleBtn2 {
+.dark .cycleBtn2 {
   filter: drop-shadow(-1px 3px 3px rgba(64, 65, 60, 0.95));
 }
 
@@ -160,7 +160,7 @@ slider {
     sans-serif !important;
 }
 
-.nm .songListCtn {
+.dark .songListCtn {
   box-shadow: 1px 1px 4px 1.5px rgba(47, 47, 47, 80);
 }
 
@@ -177,7 +177,7 @@ slider {
   border-radius: 24px;
 }
 
-.nm .closeBtn {
+.dark .closeBtn {
   background-color: rgba(255, 255, 255, 0.15);
   border: 1rpx solid rgba(0, 0, 0, 0.2);
 }

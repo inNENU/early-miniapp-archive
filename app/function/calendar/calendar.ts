@@ -9,6 +9,7 @@ const { globalData } = getApp<AppOption>();
 $register('calendar', {
   data: {
     T: globalData.T,
+    darkmode: globalData.darkmode,
     /** 头部配置 */
     head: {
       title: '东师校历',
@@ -27,12 +28,16 @@ $register('calendar', {
     const calendar = readJSON(path);
 
     if (calendar)
-      this.setData({ T: globalData.T, nm: globalData.nm, calendar });
+      this.setData({
+        T: globalData.T,
+        darkmode: globalData.darkmode,
+        calendar
+      });
     else
       requestJSON(path, (data) => {
         this.setData({
           T: globalData.T,
-          nm: globalData.nm,
+          darkmode: globalData.darkmode,
           calendar: data as any
         });
 

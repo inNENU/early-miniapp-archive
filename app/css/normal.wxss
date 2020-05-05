@@ -14,7 +14,7 @@
   background-color: #fff;
 }
 
-.nm.commonBg {
+.dark.commonBg {
   background-color: #000;
 }
 
@@ -191,11 +191,11 @@
   transform-origin: 0 0;
 }
 
-.nm .backBtn {
+.dark .backBtn {
   background-color: rgba(0, 0, 0, 0.15);
 }
 
-.nm .backBtn::before {
+.dark .backBtn::before {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -259,10 +259,10 @@
   transform: scaleY(0.4);
 }
 
-.nm .divline::after,
-.nm .borderT::before,
-.nm .borderB::after,
-.nm .borderTB::before,
-.nm .borderTB::after {
+.dark .divline::after,
+.dark .borderT::before,
+.dark .borderB::after,
+.dark .borderTB::before,
+.dark .borderTB::after {
   border-color: #3d3d41;
 }

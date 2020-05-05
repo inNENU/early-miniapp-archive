@@ -2,7 +2,7 @@ import * as $register from 'wxpage';
 import {
   appInit,
   appUpdate,
-  nightmode,
+  darkmode,
   noticeCheck,
   startup
 } from './utils/app';
@@ -32,7 +32,7 @@ interface InitGlobalData {
   /** 正在应用的主题 */
   T?: string;
   /** 夜间模式开启状态 */
-  nm?: boolean;
+  darkmode?: boolean;
   /** 设备信息 */
   info?: WechatMiniprogram.GetSystemInfoSyncResult;
   /** 小程序appid */
@@ -45,7 +45,7 @@ export interface GlobalData extends InitGlobalData {
   /** 正在应用的主题 */
   T: string;
   /** 夜间模式开启状态 */
-  nm: boolean;
+  darkmode: boolean;
   /** 设备信息 */
   info: WechatMiniprogram.GetSystemInfoSyncResult;
   /** 小程序appid */
@@ -67,7 +67,7 @@ $register.A<AppOption>({
     },
     date: new Date().getTime(),
     env: 'wx'
-    // T, nm, info也在globalData中
+    // T, darkmode, info也在globalData中
   } as unknown) as GlobalData,
 
   config: {
@@ -116,7 +116,7 @@ $register.A<AppOption>({
     console.log('小程序在', time, 'ms之后被唤醒');
 
     // 重新应用夜间模式、
-    this.globalData.nm = nightmode();
+    this.globalData.darkmode = darkmode();
 
     noticeCheck(this.globalData);
     appUpdate(this.globalData);

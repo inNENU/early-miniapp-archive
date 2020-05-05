@@ -73,7 +73,7 @@ $register('music', {
     this.setData({
       index,
       info: globalData.info,
-      nm: globalData.nm,
+      darkmode: globalData.darkmode,
       play: globalData.music.playing,
       mode: mode || 0
     });

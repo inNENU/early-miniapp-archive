@@ -21,7 +21,7 @@ const { globalData } = getApp<AppOption>();
 $register('log', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
     page: [
       {
         tag: 'head',

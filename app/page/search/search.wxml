@@ -1,5 +1,5 @@
 <import src="/components/template" />
-<view class="{{T}} grey {{nm?'nm':''}}">
+<view class="{{T}} grey {{darkmode? 'dark': 'light'}}">
   <template is="head" data="{{...head,T}}" />
   <search
     words="{{words}}"

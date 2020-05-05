@@ -120,10 +120,10 @@ export const checkResUpdate = (name: string, dataUsage: string): void => {
 /**
  * 动态根据夜间模式改变导航栏
  *
- * @param nightmode 夜间模式开启状态
+ * @param darkmode 夜间模式开启状态
  */
-export const tabBarChanger = (nightmode: boolean): void => {
-  const color = nightmode ? ['#000000', 'white'] : ['#ffffff', 'black'];
+export const tabBarChanger = (darkmode: boolean): void => {
+  const color = darkmode ? ['#000000', 'white'] : ['#ffffff', 'black'];
 
   wx.setTabBarStyle({
     backgroundColor: color[0],

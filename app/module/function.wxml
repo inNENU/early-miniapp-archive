@@ -1,4 +1,4 @@
-<view class="{{T}} {{nm?'nm':''}}">
+<view class="{{T}} {{darkmode? 'dark': 'light'}}">
   <block wx:if="{{contact}}">
     <button
       wx:if="{{appID === 'wx9ce37d9662499df3'}}"

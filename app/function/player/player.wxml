@@ -1,11 +1,11 @@
-<view class="{{nm?'nm':''}} commonBg {{nm? 'dark': 'light'}}">
+<view class="commonBg {{darkmode? 'dark': 'light'}}">
   <view
     class="backBtn"
     style="top:{{info.statusBarHeight+5}}px;"
     hover-class="button-hover"
     catch:tap="back"
   >
-    <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
+    <image class="backIcon" src="/icon/back{{darkmode? 'White': ''}}.svg" />
   </view>
   <view style="height: 10%;" />
   <view class="headerCtn">

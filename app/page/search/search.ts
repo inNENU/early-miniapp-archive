@@ -27,7 +27,7 @@ export interface Keywords {
 $register('search', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
 
     /** 状态栏高度 */
     statusBarHeight: getApp().globalData.info.statusBarHeight,
@@ -58,7 +58,7 @@ $register('search', {
     this.setData({
       searchword: options.words,
       T: globalData.T,
-      nm: globalData.nm
+      darkmode: globalData.darkmode
     });
     popNotice('search');
   },

@@ -17,7 +17,7 @@ type ListAction = 'resource' | 'public' | 'physics';
 $register('resource', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
     page: [
       { tag: 'head', title: '资源说明', shareable: true, leftText: '返回' },
       { tag: 'title', text: '小程序页面资源' },

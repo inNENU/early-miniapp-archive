@@ -34,12 +34,12 @@ icon {
     sans-serif !important;
 }
 
-.nm.weui {
+.dark.weui {
   background-color: #000;
   color: #fff;
 }
 
-.nm.weui.grey {
+.dark.weui.grey {
   background-color: #10110b;
   color: #fff;
 }
@@ -2252,11 +2252,11 @@ icon[type=success]::before {
   align-items: center;
 }
 
-.nm .weui-navigationBar {
+.dark .weui-navigationBar {
   background-color: #000;
 }
 
-.grey.nm .weui-navigationBar {
+.grey.dark .weui-navigationBar {
   background-color: #10110b;
 }
 
@@ -2276,7 +2276,7 @@ icon[type=success]::before {
   background-size: cover;
 }
 
-.nm .weui-navigationBar-backbutton {
+.dark .weui-navigationBar-backbutton {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='24' viewBox='0 0 12 24'%3E  %3Cpath fill='white' fill-opacity='.9' fill-rule='evenodd' d='M10 19.438L8.955 20.5l-7.666-7.79a1.02 1.02 0 0 1 0-1.42L8.955 3.5 10 4.563 2.682 12 10 19.438z'/%3E%3C/svg%3E");
 }
 

@@ -19,9 +19,9 @@ const appOption: AppOption = {
   /** 选择的主题序列号 */
   themeNum: 0,
   /** 是否开启夜间模式 */
-  nightmode: false,
+  darkmode: false,
   /** 日间模式是否改变亮度 */
-  nightmodeAutoChange: true,
+  darkmodeAutoChange: true,
   /** 日间模式是否改变亮度 */
   dayBrightnessChange: false,
   /** 夜间模式是否改变亮度 */
@@ -31,9 +31,9 @@ const appOption: AppOption = {
   /** 夜间模式亮度(百分比) */
   nightBrightness: 30,
   /** 夜间模式开始时间 */
-  nightmodeStartTime: '0-0',
+  darkmodeStartTime: '0-0',
   /** 夜间模式结束时间 */
-  nightmodeEndTime: '5-0',
+  darkmodeEndTime: '5-0',
   /** 功能更新提示 */
   functionResNotify: true,
   /** 页面更新提示 */
@@ -202,14 +202,14 @@ export const noticeCheck = (globalData: GlobalData): void => {
  *
  * @returns 夜间模式状态
  */
-export const nightmode = (): boolean => {
+export const darkmode = (): boolean => {
   const date = new Date();
   /** 当前时间 */
   const time = date.getHours() * 100 + date.getMinutes();
   /** 夜间模式开关设置 */
-  const nightModeCondition = wx.getStorageSync('nightmode');
+  const nightModeCondition = wx.getStorageSync('darkmode');
   /** 自动夜间模式开关设置 */
-  const nightmodeAutoChange = wx.getStorageSync('nightmodeAutoChange');
+  const darkmodeAutoChange = wx.getStorageSync('darkmodeAutoChange');
   /** 夜间模式亮度 */
   const nightBrightness = wx.getStorageSync('nightBrightness');
   /** 日间模式亮度 */
@@ -219,27 +219,28 @@ export const nightmode = (): boolean => {
   /** 日间模式亮度改变状态 */
   const dayBrightnessChange = wx.getStorageSync('dayBrightnessChange');
   /** 夜间模式开始时间 */
-  const nmStart = wx.getStorageSync('nightmodeStartTime').split('-');
+  const darkmodeStart = wx.getStorageSync('darkmodeStartTime').split('-');
   /** 夜间模式结束时间 */
-  const nmEnd = wx.getStorageSync('nightmodeEndTime').split('-');
-  const nightmodeStartTime = Number(nmStart[0]) * 100 + Number(nmStart[1]);
-  const nightmodeEndTime = Number(nmEnd[0]) * 100 + Number(nmEnd[1]);
+  const darkmodeEnd = wx.getStorageSync('darkmodeEndTime').split('-');
+  const darkmodeStartTime =
+    Number(darkmodeStart[0]) * 100 + Number(darkmodeStart[1]);
+  const darkmodeEndTime = Number(darkmodeEnd[0]) * 100 + Number(darkmodeEnd[1]);
   /** 当前夜间模式状态 */
   let currentNightModeStatus: boolean;
 
   // 如果开启了自动夜间模式，判断是否启用夜间模式及应用亮度
-  if (nightmodeAutoChange) {
+  if (darkmodeAutoChange) {
     currentNightModeStatus =
-      nightmodeStartTime <= nightmodeEndTime
-        ? time >= nightmodeStartTime && time <= nightmodeEndTime
-        : !(time <= nightmodeStartTime && time >= nightmodeEndTime);
+      darkmodeStartTime <= darkmodeEndTime
+        ? time >= darkmodeStartTime && time <= darkmodeEndTime
+        : !(time <= darkmodeStartTime && time >= darkmodeEndTime);
 
     if (currentNightModeStatus && nightBrightnessChange)
       wx.setScreenBrightness({ value: nightBrightness / 100 });
     else if (!currentNightModeStatus && dayBrightnessChange)
       wx.setScreenBrightness({ value: dayBrightness / 100 });
 
-    wx.setStorageSync('nightmode', currentNightModeStatus);
+    wx.setStorageSync('darkmode', currentNightModeStatus);
 
     // 否则查看夜间模式开启状态，并根据状态应用决定是否应用亮度
   } else {
@@ -380,7 +381,7 @@ export const startup = (globalData: GlobalData): void => {
 
   // 获取主题、夜间模式、appID
   globalData.T = wx.getStorageSync('theme');
-  globalData.nm = nightmode();
+  globalData.darkmode = darkmode();
   globalData.appID = wx.getAccountInfoSync().miniProgram.appId;
 
   // 检测基础库版本

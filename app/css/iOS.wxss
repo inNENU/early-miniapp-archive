@@ -45,12 +45,12 @@
   font-size: 10px;
 }
 
-.nm .iOS-navigationBar,
-.nm .iOS-navPlaceHolder {
+.dark .iOS-navigationBar,
+.dark .iOS-navPlaceHolder {
   background-color: #000;
 }
 
-.nm .iOS-navPlaceHolder {
+.dark .iOS-navPlaceHolder {
   color: #555;
 }
 
@@ -132,13 +132,13 @@
   transform-origin: 0 100%;
 }
 
-.nm .iOSnavDl::after,
-.nm .iOS-head::after {
+.dark .iOSnavDl::after,
+.dark .iOS-head::after {
   border-bottom: 1px #3d3d41 solid;
   color: #3d3d41;
 }
 
-.nm .iOS-head {
+.dark .iOS-head {
   background-color: #000;
 }
 

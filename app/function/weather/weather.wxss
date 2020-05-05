@@ -219,7 +219,7 @@
   line-height: 1;
 }
 
-.nm .days .wind {
+.dark .days .wind {
   color: #434343;
 }
 

@@ -2,7 +2,7 @@
 <template name="page">
   <block wx:if="{{!page}}">
     <view
-      class="{{T}} {{nm?'nm':''}} {{nm? 'dark': 'light'}} loading-logo-wrapper"
+      class="{{T}} {{darkmode?'nm':''}} {{darkmode? 'dark': 'light'}} loading-logo-wrapper"
     >
       <view
         class="backBtn"
@@ -11,7 +11,7 @@
         hover-stay-time="100"
         catch:tap="$back"
       >
-        <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
+        <image class="backIcon" src="/icon/back{{darkmode? 'White': ''}}.svg" />
       </view>
       <view class="loading-logo">
         <image class="logo" src="/image/logo.png" />
@@ -22,7 +22,7 @@
   </block>
   <block wx:else>
     <view
-      class="{{T}} {{page[0].grey? 'grey': ''}} {{nm? 'nm': ''}} {{nm? 'dark': 'light'}}"
+      class="{{T}} {{page[0].grey? 'grey': ''}} {{darkmode? 'nm': ''}} {{darkmode? 'dark': 'light'}}"
     >
       <block wx:for="{{page}}" wx:key="id">
         <p config="{{item}}" wx:if="{{item.tag === 'p'}}" />
@@ -46,7 +46,7 @@
           catch:change="list"
         />
         <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
-        <template wx:else is="{{item.tag}}" data="{{...item,T,nm}}" />
+        <template wx:else is="{{item.tag}}" data="{{...item,T,darkmode}}" />
       </block>
       <share config="{{page[0]}}" />
     </view>
@@ -75,7 +75,7 @@
     />
     <gzh config="{{item}}" wx:elif="{{item.tag === 'gzh'}}" />
     <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
-    <template wx:else is="{{item.tag}}" data="{{...item,T,nm}}" />
+    <template wx:else is="{{item.tag}}" data="{{...item,T,darkmode}}" />
   </block>
   <share config="{{page[0]}}" />
 </template>
@@ -100,7 +100,7 @@ Author: Mr.Hope
   <block wx:if="{{!hidden}}">
     <template
       is="{{T}}Head"
-      data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight,nm}}"
+      data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight,darkmode}}"
     />
   </block>
 </template>
@@ -277,7 +277,7 @@ Author: Mr.Hope
       hover-class="button-hover"
       catch:tap="$back"
     >
-      <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
+      <image class="backIcon" src="/icon/back{{darkmode? 'White': ''}}.svg" />
     </view>
     <view
       class="NENUnav {{titleDisplay? 'fadeOut': 'fadeIn'}}"
@@ -343,7 +343,7 @@ Author: Mr.Hope
     hover-stay-time="100"
     catch:tap="$back"
   >
-    <image class="backIcon" src="/icon/back{{nm? 'White': ''}}.svg" />
+    <image class="backIcon" src="/icon/back{{darkmode? 'White': ''}}.svg" />
   </view>
   <view class="errorCtn">
     <icon type="warn" size="80" />

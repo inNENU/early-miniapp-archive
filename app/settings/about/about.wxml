@@ -1,5 +1,5 @@
 <import src="/components/template" />
-<template is="page" data="{{page,T,nm}}" />
+<template is="page" data="{{page,T,darkmode}}" />
 <view
   id="passwordMask"
   class="{{debug? 'fadeIn': 'fadeOut'}}"

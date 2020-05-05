@@ -235,7 +235,7 @@ export const setPage = (
   if (page)
     ctx.setData({
       T: globalData.T,
-      nm: globalData.nm,
+      darkmode: globalData.darkmode,
       page: handle ? page : disposePage(page, option, ctx.$state.firstOpen)
     });
   // 页面已经预处理完毕，立即写入page书记并执行本界面的预加载
@@ -247,7 +247,11 @@ export const setPage = (
   ) {
     debug(`${globalData.page.aim}已处理`);
     ctx.setData(
-      { T: globalData.T, nm: globalData.nm, page: globalData.page.data },
+      {
+        T: globalData.T,
+        darkmode: globalData.darkmode,
+        page: globalData.page.data
+      },
       () => {
         debug(`${globalData.page.aim}已写入`);
         if (preload) {
@@ -261,7 +265,7 @@ export const setPage = (
     // 设置页面数据
     ctx.setData({
       T: globalData.T,
-      nm: globalData.nm,
+      darkmode: globalData.darkmode,
       page: handle
         ? ctx.data.page
         : disposePage(ctx.data.page, option, ctx.$state.firstOpen)
@@ -316,7 +320,11 @@ export const setOnlinePage = (
   if (globalData.page.aim === option.aim) {
     debug(`${option.aim}已处理`);
     ctx.setData(
-      { T: globalData.T, nm: globalData.nm, page: globalData.page.data },
+      {
+        T: globalData.T,
+        darkmode: globalData.darkmode,
+        page: globalData.page.data
+      },
       () => {
         debug(`${option.aim}已写入`);
         if (preload) {
@@ -417,12 +425,12 @@ interface ColorConfig {
  * @returns 页面实际的胶囊与背景颜色
  */
 export const setColor = (grey = false): ColorConfig => {
-  const [frontColor, backgroundColor] = globalData.nm
+  const [frontColor, backgroundColor] = globalData.darkmode
     ? ['#ffffff', '#000000']
     : ['#000000', '#ffffff'];
   let temp;
 
-  if (globalData.nm && grey)
+  if (globalData.darkmode && grey)
     switch (globalData.T) {
       case 'Andriod':
         temp = ['#10110b', '#10110b', '#10110b'];
@@ -434,7 +442,7 @@ export const setColor = (grey = false): ColorConfig => {
       default:
         temp = ['#070707', '#070707', '#070707'];
     }
-  else if (globalData.nm && !grey)
+  else if (globalData.darkmode && !grey)
     switch (globalData.T) {
       case 'iOS':
         temp = ['#000000', '#000000', '#000000'];
@@ -444,7 +452,7 @@ export const setColor = (grey = false): ColorConfig => {
       default:
         temp = ['#000000', '#000000', '#000000'];
     }
-  else if (!globalData.nm && grey)
+  else if (!globalData.darkmode && grey)
     switch (globalData.T) {
       case 'Andriod':
         temp = ['#f8f8f8', '#f8f8f8', '#f8f8f8'];

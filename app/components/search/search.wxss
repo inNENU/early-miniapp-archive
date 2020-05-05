@@ -9,7 +9,7 @@
   align-items: center;
 }
 
-.nm .search-bar {
+.dark .search-bar {
   background-color: #000;
 }
 
@@ -20,7 +20,7 @@
   flex-shrink: 1;
 }
 
-.nm .search {
+.dark .search {
   background-color: #121212;
 }
 

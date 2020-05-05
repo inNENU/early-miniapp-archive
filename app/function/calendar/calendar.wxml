@@ -1,5 +1,5 @@
 <import src="/components/template" />
-<view class="{{T}} {{nm?'nm':''}} {{nm? 'dark': 'light'}}">
+<view class="{{T}} {{darkmode? 'dark': 'light'}}">
   <template is="head" data="{{...head,T}}" />
   <time-line config="{{calendar}}" catch:active="display" />
   <view wx:if="{{display}}" class="mask" />

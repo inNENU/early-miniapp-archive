@@ -31,7 +31,7 @@ type ListAction =
 $register('storage', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
     page: [
       {
         tag: 'head',

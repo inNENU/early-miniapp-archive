@@ -21,7 +21,7 @@ const { globalData } = getApp<AppOption>();
 $register('guide', {
   data: {
     T: globalData.T,
-    nm: globalData.nm,
+    darkmode: globalData.darkmode,
 
     /** 候选词 */
     words: [] as string[],
@@ -234,8 +234,8 @@ $register('guide', {
     this.$on('theme', (T: string) => {
       this.setData({ T });
     });
-    this.$on('nightmode', (nm: boolean) => {
-      this.setData({ nm });
+    this.$on('darkmode', (darkmode: boolean) => {
+      this.setData({ darkmode });
     });
   },
 

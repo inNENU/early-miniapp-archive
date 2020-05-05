@@ -1,12 +1,12 @@
 <map
   id="schoolMap"
-  class="{{nm? 'nm': ''}} {{nm? 'dark': 'light'}}"
+  class="{{darkmode? 'dark': 'light'}}"
   subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4"
   longitude="{{map.longitude}}"
   latitude="{{map.latitude}}"
   scale="{{map.scale}}"
   markers="{{markers}}"
-  setting="{{nm? nightMapSettings: dayMapSettings}}"
+  setting="{{darkmode? nightMapSettings: dayMapSettings}}"
   catch:markertap="markers"
   catch:callouttap="markers"
   catch:updated="update"
@@ -21,7 +21,7 @@
   >
     <cover-image
       class="backIcon"
-      src="/icon/{{fistPage? 'home': 'back'}}{{nm? 'White': ''}}.png"
+      src="/icon/{{fistPage? 'home': 'back'}}{{darkmode? 'White': ''}}.png"
     />
   </cover-view>
   <!-- 放大按钮 -->
