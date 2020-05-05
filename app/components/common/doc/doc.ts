@@ -33,7 +33,7 @@ $register.C({
           // 下载成功，隐藏下载提示并打开文档
           success: (data) => {
             wx.hideLoading();
-            wx.openDocument({ filePath: data.tempFilePath });
+            wx.openDocument({ filePath: data.tempFilePath, showMenu: true });
           },
 
           // 下载失败，隐藏下载提示告知用户下载失败并上报
