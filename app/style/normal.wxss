@@ -14,8 +14,10 @@
   background-color: #fff;
 }
 
-.dark.commonBg {
-  background-color: #000;
+@media (prefers-color-scheme: dark) {
+  .commonBg {
+    background-color: #000;
+  }
 }
 
 /*****************
@@ -177,7 +179,7 @@
 }
 
 .backBtn::before {
-  content: " ";
+  content: ' ';
   position: absolute;
   z-index: 98;
   top: 0;
@@ -191,12 +193,16 @@
   transform-origin: 0 0;
 }
 
-.dark .backBtn {
-  background-color: rgba(0, 0, 0, 0.15);
+@media (prefers-color-scheme: dark) {
+  .backBtn {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
 }
 
-.dark .backBtn::before {
-  border: 1px solid rgba(255, 255, 255, 0.2);
+@media (prefers-color-scheme: dark) {
+  .backBtn::before {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
 }
 
 .backIcon {
@@ -250,7 +256,7 @@
 .borderB::after,
 .borderTB::before,
 .borderTB::after {
-  content: " ";
+  content: ' ';
   position: absolute;
   left: 0;
   right: 0;
@@ -259,10 +265,12 @@
   transform: scaleY(0.4);
 }
 
-.dark .divline::after,
-.dark .borderT::before,
-.dark .borderB::after,
-.dark .borderTB::before,
-.dark .borderTB::after {
-  border-color: #3d3d41;
+@media (prefers-color-scheme: dark) {
+  .divline::after,
+  .borderT::before,
+  .borderB::after,
+  .borderTB::before,
+  .borderTB::after {
+    border-color: #3d3d41;
+  }
 }

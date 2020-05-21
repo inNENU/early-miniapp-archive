@@ -1,6 +1,6 @@
 /** 添加到我的小程序 */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { AppOption } from '../../app';
 const { globalData } = getApp<AppOption>();
 

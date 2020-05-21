@@ -5,7 +5,7 @@
  * @LastEditTime: 2019-11-17 17:39:42
  * @Description: 东师指南
  */
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import {
   changeNav,
   popNotice,
@@ -21,7 +21,6 @@ const { globalData } = getApp<AppOption>();
 $register('guide', {
   data: {
     T: globalData.T,
-    darkmode: globalData.darkmode,
 
     /** 候选词 */
     words: [] as string[],
@@ -233,9 +232,6 @@ $register('guide', {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
       this.setData({ T });
-    });
-    this.$on('darkmode', (darkmode: boolean) => {
-      this.setData({ darkmode });
     });
   },
 

@@ -5,7 +5,7 @@
  * @LastEditTime: 2019-11-17 16:51:31
  * @Description: 捐赠
  */
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { changeNav, popNotice, setColor } from '../../utils/page';
 import { requestJSON, savePhoto } from '../../utils/wx';
 import { AppOption } from '../../app';
@@ -23,7 +23,6 @@ type DonateList = DonateDetail[];
 $register('donate', {
   data: {
     T: globalData.T,
-    darkmode: globalData.darkmode,
     page: [
       { tag: 'head', title: '捐赠', shareable: true, leftText: '返回' },
       { tag: 'title', text: '服务器现状' },

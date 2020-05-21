@@ -6,7 +6,7 @@
  * @Description: 东师风景
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 
 $register('scenery', {
   data: {

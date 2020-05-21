@@ -118,22 +118,6 @@ export const checkResUpdate = (name: string, dataUsage: string): void => {
 };
 
 /**
- * 动态根据夜间模式改变导航栏
- *
- * @param darkmode 夜间模式开启状态
- */
-export const tabBarChanger = (darkmode: boolean): void => {
-  const color = darkmode ? ['#000000', 'white'] : ['#ffffff', 'black'];
-
-  wx.setTabBarStyle({
-    backgroundColor: color[0],
-    borderStyle: color[1],
-    color: '#8a8a8a',
-    selectedColor: '#3cc51f'
-  });
-};
-
-/**
  * 动态根据夜间模式改变导航栏 from main.js & me.js
  *
  * @param name 页面名称

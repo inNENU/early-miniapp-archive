@@ -22,8 +22,10 @@
   background-color: #f0f0f0;
 }
 
-.dark.NENU.grey {
-  background-color: #0f0f0f;
+@media (prefers-color-scheme: dark) {
+  .NENU.grey {
+    background-color: #0f0f0f;
+  }
 }
 
 /* NENU nav */

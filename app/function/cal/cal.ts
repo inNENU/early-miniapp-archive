@@ -1,4 +1,4 @@
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { changeNav, setColor, setPage } from '../../utils/page';
 
 $register('cal', {

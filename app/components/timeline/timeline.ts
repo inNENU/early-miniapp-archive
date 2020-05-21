@@ -6,7 +6,7 @@
  * @Description: 时间线组件
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 
 export interface TimeLineItem {
   /** 时间线项目标题 */

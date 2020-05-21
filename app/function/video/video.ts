@@ -1,4 +1,4 @@
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { getJSON, readJSON } from '../../utils/file';
 import { modal, requestJSON, tip } from '../../utils/wx';
 import { popNotice, setColor } from '../../utils/page';

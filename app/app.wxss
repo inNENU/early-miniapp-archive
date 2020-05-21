@@ -1,15 +1,15 @@
 /* css引入 */
-@import "css/colorui/animation.wxss";
-@import "css/colorui/icon.wxss";
-@import "css/colorui/main.wxss";
-@import "css/common.wxss";
-@import "css/normal.wxss";
-@import "css/Android.wxss";
-@import "css/NENU.wxss";
-@import "css/iOS.wxss";
-@import "css/weui.wxss";
-@import "css/animation.wxss";
-@import "css/color.wxss";
+@import 'style/colorui/animation.wxss';
+@import 'style/colorui/icon.wxss';
+@import 'style/colorui/main.wxss';
+@import 'style/common.wxss';
+@import 'style/normal.wxss';
+@import 'style/Android.wxss';
+@import 'style/NENU.wxss';
+@import 'style/iOS.wxss';
+@import 'style/weui.wxss';
+@import 'style/animation.wxss';
+@import 'style/color.wxss';
 
 page {
   height: 100%;
@@ -18,8 +18,8 @@ page {
   font-size: 30rpx;
   font-family:
     -apple-system-font,
-    "PingFang SC",
-    "Helvetica Neue",
+    'PingFang SC',
+    'Helvetica Neue',
     Helvetica,
     STHeiti,
     Tahoma,

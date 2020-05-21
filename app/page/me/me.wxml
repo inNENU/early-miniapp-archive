@@ -1,5 +1,5 @@
 <import src="/components/template" />
-<view class="{{T}} {{head.grey?'grey':''}} {{darkmode? 'dark': 'light'}}">
+<view class="{{T}} {{head.grey?'grey':''}}">
   <template is="head" data="{{...head,T}}" />
   <view class="infoCtn">
     <view class="avator">

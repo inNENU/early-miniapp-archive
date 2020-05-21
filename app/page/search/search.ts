@@ -6,7 +6,7 @@
  * @Description: 搜索页
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { changeNav, popNotice, setColor } from '../../utils/page';
 import $search from '../../utils/search';
 import { AppOption } from '../../app';
@@ -27,7 +27,6 @@ export interface Keywords {
 $register('search', {
   data: {
     T: globalData.T,
-    darkmode: globalData.darkmode,
 
     /** 状态栏高度 */
     statusBarHeight: getApp().globalData.info.statusBarHeight,
@@ -57,8 +56,7 @@ $register('search', {
 
     this.setData({
       searchword: options.words,
-      T: globalData.T,
-      darkmode: globalData.darkmode
+      T: globalData.T
     });
     popNotice('search');
   },

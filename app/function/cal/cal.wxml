@@ -1,5 +1,5 @@
 <import src="/components/template" />
-<view class="{{T}} {{page[0].grey?'grey':''}} {{darkmode? 'dark': 'light'}}">
+<view class="{{T}}">
   <template is="body" data="{{page,T}}" />
   <view class="gradeHeader">
     <scroll-view scroll-x class="picker">

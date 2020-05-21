@@ -9,8 +9,8 @@
   font-family:
     FZSSJW,
     -apple-system-font,
-    "PingFang SC",
-    "Helvetica Neue",
+    'PingFang SC',
+    'Helvetica Neue',
     Helvetica,
     STHeiti,
     Tahoma,
@@ -49,8 +49,10 @@
   box-shadow: 0 -2px 5px rgba(219, 218, 223, 0.95);
 }
 
-.dark .videoList {
-  box-shadow: 0 -2px 5px rgba(36, 37, 32, 0.95);
+@media (prefers-color-scheme: dark) {
+  .videoList {
+    box-shadow: 0 -2px 5px rgba(36, 37, 32, 0.95);
+  }
 }
 
 .video-ListCtn {
@@ -68,8 +70,8 @@
   font-family:
     FZSSJW,
     -apple-system-font,
-    "PingFang SC",
-    "Helvetica Neue",
+    'PingFang SC',
+    'Helvetica Neue',
     Helvetica,
     STHeiti,
     Tahoma,
@@ -77,8 +79,10 @@
     sans-serif !important;
 }
 
-.dark .videoListName {
-  color: #ccc;
+@media (prefers-color-scheme: dark) {
+  .videoListName {
+    color: #ccc;
+  }
 }
 
 .videoListAuthor {

@@ -16,10 +16,12 @@
   border-bottom: 1rpx solid rgba(0, 0, 0, 0.1);
 }
 
-.dark.weui .grid {
-  background-color: #000;
-  border-right: 1rpx solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1rpx solid rgba(255, 255, 255, 0.1);
+@media (prefers-color-scheme: dark) {
+  .weui .grid {
+    background-color: #000;
+    border-right: 1rpx solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1rpx solid rgba(255, 255, 255, 0.1);
+  }
 }
 
 .weui .grid .icon {
@@ -43,6 +45,8 @@
   text-overflow: ellipsis;
 }
 
-.dark.weui .grid .text {
-  color: rgba(255, 255, 255, 0.9);
+@media (prefers-color-scheme: dark) {
+  .weui .grid .text {
+    color: rgba(255, 255, 255, 0.9);
+  }
 }

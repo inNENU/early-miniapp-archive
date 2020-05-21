@@ -1,5 +1,5 @@
 <import src="/components/template" />
-<view class="{{T}} grey {{darkmode? 'dark': 'light'}}">
+<view class="{{T}} grey">
   <template is="head" data="{{...head,T}}" />
   <weather catch:navigate="navigate" />
   <template is="body" data="{{page,T}}" />

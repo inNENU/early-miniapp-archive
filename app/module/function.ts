@@ -6,7 +6,7 @@
  * @Description: 功能页面
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { Delete, listFile } from '../utils/file';
 import { AppOption } from '../app';
 import { modal } from '../utils/wx';
@@ -21,14 +21,12 @@ $register('function', {
 
       this.setData({
         [arg]: true,
-        T: globalData.T,
-        darkmode: globalData.darkmode
+        T: globalData.T
       });
     } else if (options.action)
       this.setData({
         [options.action]: true,
-        T: globalData.T,
-        darkmode: globalData.darkmode
+        T: globalData.T
       });
   },
 

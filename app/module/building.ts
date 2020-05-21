@@ -6,7 +6,7 @@
  * @Description: 建设中页面
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { modal } from '../utils/wx';
 
 $register('building', {

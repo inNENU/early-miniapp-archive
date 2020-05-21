@@ -6,7 +6,7 @@
  * @Description: 电话组件
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { AppOption } from '../../../app';
 import { modal } from '../../../utils/wx';
 const {

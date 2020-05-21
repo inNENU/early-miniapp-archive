@@ -5,7 +5,7 @@
  * @LastEditTime: 2019-11-17 20:59:06
  * @Description: 功能大厅
  */
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import {
   changeNav,
   popNotice,
@@ -21,7 +21,6 @@ const { globalData } = getApp<AppOption>();
 $register('function', {
   data: {
     T: globalData.T,
-    darkmode: globalData.darkmode,
 
     /** 自定义导航栏配置 */
     head: {
@@ -122,9 +121,6 @@ $register('function', {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
       this.setData({ T });
-    });
-    this.$on('darkmode', (darkmode: boolean) => {
-      this.setData({ darkmode });
     });
 
     // 此处还需要再优化

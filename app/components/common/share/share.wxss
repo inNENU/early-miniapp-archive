@@ -1,7 +1,7 @@
 /* share 组件 */
 
-@import "../../../css/animation.wxss";
-@import "../../../css/normal.wxss";
+@import "../../../style/animation.wxss";
+@import "../../../style/normal.wxss";
 
 /* share按钮 */
 .share-button {

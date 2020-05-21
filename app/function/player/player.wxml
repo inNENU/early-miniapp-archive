@@ -1,4 +1,4 @@
-<view class="commonBg {{darkmode? 'dark': 'light'}}">
+<view class="commonBg">
   <view
     class="backBtn"
     style="top:{{info.statusBarHeight+5}}px;"

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import weatherHandler from './handler';
 
 /** 一小时天气预报详情 */

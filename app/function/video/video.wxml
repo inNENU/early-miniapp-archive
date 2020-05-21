@@ -1,4 +1,4 @@
-<view class="{{darkmode? 'dark': 'light'}} commonBg">
+<view class="commonBg">
   <view style="height: 15%;" />
   <view class="headerCtn">
     <!-- 返回按钮 -->

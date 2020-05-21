@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-02-23 23:05:33
  * @Description: 关于
  */
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { Delete, listFile } from '../../utils/file';
 import {
   changeNav,

@@ -1,4 +1,4 @@
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { popNotice, setColor } from '../../utils/page';
 import { AppOption } from '../../app';
 import { markerSet } from '../../utils/map';

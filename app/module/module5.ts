@@ -6,7 +6,7 @@
  * @Description: 模块页面5
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { changeNav, resolvePage, setColor, setOnlinePage } from '../utils/page';
 
 $register('module5', {

@@ -6,7 +6,7 @@
  * @Description: 更新日志
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import {
   changeNav,
   popNotice,

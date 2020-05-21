@@ -6,7 +6,7 @@
  * @Description: 文档组件
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { modal, savePhoto, tip } from '../../../utils/wx';
 
 $register.C({

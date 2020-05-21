@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-03-29 20:07:08
  * @Description: 关于
  */
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import {
   changeNav,
   popNotice,

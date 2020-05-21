@@ -1,4 +1,4 @@
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { changeNav, popNotice, setColor } from '../../utils/page';
 import { getJSON, readJSON, writeJSON } from '../../utils/file';
 import { AppOption } from '../../app';
@@ -9,7 +9,6 @@ const { globalData } = getApp<AppOption>();
 $register('calendar', {
   data: {
     T: globalData.T,
-    darkmode: globalData.darkmode,
     /** 头部配置 */
     head: {
       title: '东师校历',
@@ -30,14 +29,12 @@ $register('calendar', {
     if (calendar)
       this.setData({
         T: globalData.T,
-        darkmode: globalData.darkmode,
         calendar
       });
     else
       requestJSON(path, (data) => {
         this.setData({
           T: globalData.T,
-          darkmode: globalData.darkmode,
           calendar: data as any
         });
 

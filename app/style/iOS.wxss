@@ -45,13 +45,17 @@
   font-size: 10px;
 }
 
-.dark .iOS-navigationBar,
-.dark .iOS-navPlaceHolder {
-  background-color: #000;
+@media (prefers-color-scheme: dark) {
+  .iOS-navigationBar,
+  .iOS-navPlaceHolder {
+    background-color: #000;
+  }
 }
 
-.dark .iOS-navPlaceHolder {
-  color: #555;
+@media (prefers-color-scheme: dark) {
+  .iOS-navPlaceHolder {
+    color: #555;
+  }
 }
 
 .iOS-navBack {
@@ -118,7 +122,7 @@
 
 .iOSnavDl::after,
 .iOS-head::after {
-  content: " ";
+  content: ' ';
   position: absolute;
   left: 0;
   right: 0;
@@ -132,19 +136,19 @@
   transform-origin: 0 100%;
 }
 
-.dark .iOSnavDl::after,
-.dark .iOS-head::after {
-  border-bottom: 1px #3d3d41 solid;
-  color: #3d3d41;
+@media (prefers-color-scheme: dark) {
+  .iOSnavDl::after,
+  .iOS-head::after {
+    border-bottom: 1px #3d3d41 solid;
+    color: #3d3d41;
+  }
 }
 
-.dark .iOS-head {
-  background-color: #000;
+@media (prefers-color-scheme: dark) {
+  .iOS-head {
+    background-color: #000;
+  }
 }
-
-/* iOS content */
-
-/* .iOShead , */
 
 .iOSTitle {
   min-height: 24px;

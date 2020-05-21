@@ -1,4 +1,4 @@
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { debug, warn } from '../../../utils/log';
 import { downLoad, modal, tip } from '../../../utils/wx';
 import { AppOption } from '../../../app';

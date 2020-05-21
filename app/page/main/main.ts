@@ -5,7 +5,7 @@
  * @LastEditTime: 2019-11-21 17:16:55
  * @Description: 主页
  */
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import {
   changeNav,
   popNotice,
@@ -22,7 +22,6 @@ const { globalData } = getApp<AppOption>();
 $register('main', {
   data: {
     T: globalData.T,
-    darkmode: globalData.darkmode,
 
     /** 候选词 */
     words: [] as string[],
@@ -56,18 +55,6 @@ $register('main', {
   },
 
   onLoad() {
-    const color = globalData.darkmode
-      ? ['#000000', 'white']
-      : ['#ffffff', 'black'];
-
-    // 设置tabbar颜色
-    wx.setTabBarStyle({
-      color: '#8a8a8a',
-      selectedColor: '#3cc51f',
-      backgroundColor: color[0],
-      borderStyle: color[1]
-    });
-
     setPage({ option: { aim: 'main' }, ctx: this });
     refreshPage('main', this, globalData);
     popNotice('main');
@@ -76,27 +63,15 @@ $register('main', {
   onShow() {
     // 设置胶囊和背景颜色
     const { nc, bc } = setColor(this.data.page[0].grey);
-    const color = this.data.darkmode
-      ? ['#000000', 'white']
-      : ['#ffffff', 'black'];
 
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
-    wx.setTabBarStyle({
-      color: '#8a8a8a',
-      selectedColor: '#3cc51f',
-      backgroundColor: color[0],
-      borderStyle: color[1]
-    });
   },
 
   onReady() {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
       this.setData({ T });
-    });
-    this.$on('darkmode', (darkmode: boolean) => {
-      this.setData({ darkmode });
     });
 
     // 小程序已经初始化完成，检查页面资源

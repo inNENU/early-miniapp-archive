@@ -6,7 +6,7 @@
  * @Description: Webview模块
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { setColor } from '../utils/page';
 
 $register('web', {

@@ -1,6 +1,6 @@
 <import src="/components/template" />
 <import src="/components/template" />
-<view class="{{T}} {{darkmode? 'dark': 'light'}}">
+<view class="{{T}}">
   <template is="body" data="{{page,T}}" />
   <view class="QRCodeCtn">
     <image

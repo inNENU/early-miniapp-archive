@@ -36,8 +36,10 @@
   box-shadow: -1px 3px 5px #dbdadfd3;
 }
 
-.dark .point-button {
-  box-shadow: -1px 3px 5px #4b4d47d3;
+@media (prefers-color-scheme: dark) {
+  .point-button {
+    box-shadow: -1px 3px 5px #4b4d47d3;
+  }
 }
 
 .point-button .icon {
@@ -66,9 +68,11 @@
   align-items: center;
 }
 
-.dark .scale-large-button,
-.dark .scale-small-button {
-  box-shadow: -1px 3px 5px #4b4d47d3;
+@media (prefers-color-scheme: dark) {
+  .scale-large-button,
+  .scale-small-button {
+    box-shadow: -1px 3px 5px #4b4d47d3;
+  }
 }
 
 .scale-large-button {
@@ -100,8 +104,10 @@
   align-items: center;
 }
 
-.dark .tab {
-  box-shadow: 0 -2px 5px rgba(45, 44, 49, 0.95);
+@media (prefers-color-scheme: dark) {
+  .tab {
+    box-shadow: 0 -2px 5px rgba(45, 44, 49, 0.95);
+  }
 }
 
 /* locate组件 */
@@ -181,9 +187,11 @@
   border-radius: 18px;
 }
 
-.dark .close-button {
-  background-color: rgba(255, 255, 255, 0.15);
-  border: 1rpx solid rgba(0, 0, 0, 0.2);
+@media (prefers-color-scheme: dark) {
+  .close-button {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1rpx solid rgba(0, 0, 0, 0.2);
+  }
 }
 
 .close-button .icon {

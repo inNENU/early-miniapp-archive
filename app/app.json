@@ -62,29 +62,25 @@
     "page/me/me": {
       "network": "all",
       "packages": ["settings"]
-    },
-    "module/sharePage": {
-      "network": "all",
-      "packages": ["__APP__"]
     }
   },
   "window": {
-    "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "@navBgColor",
+    "navigationBarTextStyle": "@navTxtStyle",
     "navigationBarTitleText": "东师青年",
     "navigationStyle": "custom",
-    "backgroundColor": "#efeef4",
-    "backgroundTextStyle": "dark",
-    "backgroundColorTop": "#f5f5f7",
-    "backgroundColorBottom": "#efeef4",
+    "backgroundColor": "@bgColor",
+    "backgroundTextStyle": "@bgTxtStyle",
+    "backgroundColorTop": "@bgColorTop",
+    "backgroundColorBottom": "@bgColorBottom",
     "pageOrientation": "portrait"
   },
   "tabBar": {
     "custom": false,
     "color": "#8a8a8a",
     "selectedColor": "#3cc51f",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
+    "borderStyle": "@tabBorderStyle",
+    "backgroundColor": "@tabBgColor",
     "position": "bottom",
     "list": [
       {
@@ -120,7 +116,7 @@
     "downloadFile": 25000
   },
   "debug": true,
-  "resizable": false,
+  "resizable": true,
   "permission": {
     "scope.userLocation": {
       "desc": "您的位置信息将用于校园地图导航"
@@ -143,5 +139,10 @@
     "my-swiper": "/components/common/swiper/swiper"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "darkmode": true,
+  "themeLocation": "style/theme.json",
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui": true
+  }
 }

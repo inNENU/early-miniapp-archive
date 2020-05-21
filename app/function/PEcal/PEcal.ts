@@ -1,4 +1,4 @@
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { changeNav, popNotice, setColor, setPage } from '../../utils/page';
 import { AppOption } from '../../app';
 import { getJSON } from '../../utils/file';
@@ -53,7 +53,6 @@ interface PEScore {
 $register('PEcal', {
   data: {
     T: globalData.T,
-    darkmode: globalData.darkmode,
     page: [
       { tag: 'head', title: '体测计算器', grey: true, leftText: '功能大厅' }
     ],

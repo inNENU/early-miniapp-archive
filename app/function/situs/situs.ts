@@ -1,4 +1,4 @@
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { changeNav, resolvePage, setColor, setPage } from '../../utils/page';
 import { makeDir, readJSON, writeJSON } from '../../utils/file';
 import { AppOption } from '../../app';

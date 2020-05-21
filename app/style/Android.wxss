@@ -13,10 +13,10 @@
   color: var(--text-color);
   text-align: center;
   font-family:
-    "Helvetica Neue",
+    'Helvetica Neue',
     FZKTJW,
     -apple-system-font,
-    "PingFang SC",
+    'PingFang SC',
     Helvetica,
     STHeiti,
     Tahoma,
@@ -24,12 +24,16 @@
     sans-serif !important;
 }
 
-.dark.Android {
-  background-color: #000;
+@media (prefers-color-scheme: dark) {
+  .Android {
+    background-color: #000;
+  }
 }
 
-.dark.Android.grey {
-  background-color: #10110b;
+@media (prefers-color-scheme: dark) {
+  .Android.grey {
+    background-color: #10110b;
+  }
 }
 
 /* 导航 */
@@ -55,8 +59,10 @@
   box-shadow: 0 0 4px 1.5px rgba(208, 208, 208, 80);
 }
 
-.dark .AndroidNavShadow {
-  box-shadow: 0 0 4px 1.5px rgba(47, 47, 47, 80);
+@media (prefers-color-scheme: dark) {
+  .AndroidNavShadow {
+    box-shadow: 0 0 4px 1.5px rgba(47, 47, 47, 80);
+  }
 }
 
 .Android-navPlaceHolder {
@@ -66,14 +72,18 @@
   font-size: 8px;
 }
 
-.dark .Android-navigationBar,
-.dark .Android-navPlaceHolder {
-  background-color: #000;
+@media (prefers-color-scheme: dark) {
+  .Android-navigationBar,
+  .Android-navPlaceHolder {
+    background-color: #000;
+  }
 }
 
-.grey.dark .Android-navigationBar,
-.grey.dark .Android-navPlaceHolder {
-  background-color: #10110b;
+@media (prefers-color-scheme: dark) {
+  .grey .Android-navigationBar,
+  .grey .Android-navPlaceHolder {
+    background-color: #10110b;
+  }
 }
 
 .Android-titletext {
@@ -112,16 +122,20 @@
   transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
 }
 
-.dark .Android-backArrow {
-  border-color: white;
+@media (prefers-color-scheme: dark) {
+  .Android-backArrow {
+    border-color: white;
+  }
 }
 
 .Android-leftText {
   font-size: 14px;
 }
 
-.dark .Android-leftText {
-  color: #cacaca;
+@media (prefers-color-scheme: dark) {
+  .Android-leftText {
+    color: #cacaca;
+  }
 }
 
 .Android-head {
@@ -141,8 +155,10 @@
   font-size: 14px;
 }
 
-.dark .Android-desc {
-  color: #777;
+@media (prefers-color-scheme: dark) {
+  .Android-desc {
+    color: #777;
+  }
 }
 
 .AndroidTitle {

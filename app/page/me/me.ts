@@ -5,7 +5,7 @@
  * @LastEditTime: 2019-11-21 16:40:25
  * @Description: 我的东师
  */
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import {
   changeNav,
   popNotice,
@@ -19,7 +19,6 @@ const { globalData } = getApp<AppOption>();
 $register('me', {
   data: {
     T: globalData.T,
-    darkmode: globalData.darkmode,
     env: globalData.env,
     appID: globalData.appID,
 
@@ -101,29 +100,17 @@ $register('me', {
   },
 
   onShow() {
-    const color = this.data.darkmode
-      ? ['#000000', 'white']
-      : ['#ffffff', 'black'];
     const { nc, bc } = setColor(true);
 
     // 设置胶囊、背景颜色以及tab栏颜色
     wx.setNavigationBarColor(nc);
     wx.setBackgroundColor(bc);
-    wx.setTabBarStyle({
-      color: '#8a8a8a',
-      selectedColor: '#3cc51f',
-      backgroundColor: color[0],
-      borderStyle: color[1]
-    });
   },
 
   onReady() {
     // 注册事件监听器
     this.$on('theme', (T: string) => {
       this.setData({ T });
-    });
-    this.$on('darkmode', (darkmode: boolean) => {
-      this.setData({ darkmode });
     });
   },
 

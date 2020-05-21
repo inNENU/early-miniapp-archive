@@ -1,6 +1,5 @@
 <map
   id="schoolMap"
-  class="{{darkmode? 'dark': 'light'}}"
   subkey="NLVBZ-PGJRQ-T7K5F-GQ54N-GIXDH-FCBC4"
   longitude="{{map.longitude}}"
   latitude="{{map.latitude}}"

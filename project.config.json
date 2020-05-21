@@ -46,6 +46,8 @@
       "outputPath": ""
     },
     "bundle": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": true,
     "remoteDebugLogEnable": false
   },
   "simulatorType": "wechat",

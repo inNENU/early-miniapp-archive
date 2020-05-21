@@ -6,7 +6,7 @@
  * @Description: 弹窗组件
  */
 
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 
 export interface PopupConfig {
   /** 主标题 */

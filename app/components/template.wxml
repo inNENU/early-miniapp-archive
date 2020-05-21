@@ -21,9 +21,7 @@
     </view>
   </block>
   <block wx:else>
-    <view
-      class="{{T}} {{page[0].grey? 'grey': ''}} {{darkmode? 'nm': ''}} {{darkmode? 'dark': 'light'}}"
-    >
+    <view class="{{T}} {{page[0].grey? 'grey': ''}}">
       <block wx:for="{{page}}" wx:key="id">
         <p config="{{item}}" wx:if="{{item.tag === 'p'}}" />
         <img

@@ -1,6 +1,6 @@
 <import src="/components/template" />
 <view
-  class="iOS grey {{darkmode? 'dark': 'light'}}"
+  class="iOS grey"
   style="{{input.status? 'padding-bottom:'+input.height+'px;': ''}}"
 >
   <template is="head" data="{{...page[0],T}}" />

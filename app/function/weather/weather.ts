@@ -1,4 +1,4 @@
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { WeatherData, WeatherDetail } from '../../components/weather/weather';
 import { AppOption } from '../../app';
 import { setColor } from '../../utils/page';

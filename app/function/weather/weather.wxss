@@ -219,8 +219,10 @@
   line-height: 1;
 }
 
-.dark .days .wind {
-  color: #434343;
+@media (prefers-color-scheme: dark) {
+  .days .wind {
+    color: #434343;
+  }
 }
 
 /* 画布 */
@@ -294,7 +296,7 @@
 }
 
 .weather-wrapper .background .layer {
-  content: "";
+  content: '';
   left: -6%;
   right: -6%;
 

@@ -5,7 +5,7 @@
  * @LastEditTime: 2019-11-17 18:13:23
  * @Description: 小程序资源说明
  */
-import * as $register from 'wxpage';
+import $register = require('wxpage');
 import { changeNav, popNotice, setColor } from '../../utils/page';
 import { AppOption } from '../../app';
 import { modal } from '../../utils/wx';
