@@ -20,12 +20,12 @@ $register.C({
   },
   methods: {
     /** 拨打电话 */
-    call() {
+    call(): void {
       wx.makePhoneCall({ phoneNumber: this.data.config.num.toString() });
     },
 
     /** 添加联系人 */
-    addContact() {
+    addContact(): void {
       if (env === 'qq')
         wx.setClipboardData({
           data: this.data.config.num,

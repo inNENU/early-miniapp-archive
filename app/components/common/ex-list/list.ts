@@ -18,7 +18,7 @@ $register.C({
   },
   methods: {
     /** 控制选择器显隐 */
-    pickerTap(res: WXEvent.Touch) {
+    pickerTap(res: WXEvent.Touch): void {
       const {
         id,
         content: { visible: value }
@@ -28,7 +28,7 @@ $register.C({
     },
 
     /** 控制选择器改变 */
-    pickerChange(res: WXEvent.PickerChange) {
+    pickerChange(res: WXEvent.PickerChange): void {
       const { id, content } = this.getDetail(res);
 
       if (res.type === 'change') {
@@ -57,7 +57,7 @@ $register.C({
     },
 
     /** 开关改变 */
-    switch(res: WXEvent.SwitchChange) {
+    switch(res: WXEvent.SwitchChange): void {
       const { id, content } = this.getDetail(res);
 
       // 更新页面数据
@@ -76,14 +76,14 @@ $register.C({
     },
 
     /** 触发按钮事件 */
-    button(res: WXEvent.Touch) {
+    button(res: WXEvent.Touch): void {
       const { content } = this.getDetail(res);
 
       this.triggerEvent('change', { event: content.button });
     },
 
     /** 控制滑块显隐 */
-    sliderTap(res: WXEvent.Touch) {
+    sliderTap(res: WXEvent.Touch): void {
       const { id, content } = this.getDetail(res);
 
       // 更新页面数据
@@ -91,7 +91,7 @@ $register.C({
     },
 
     /** 滑块改变 */
-    sliderChange(res: WXEvent.SliderChange) {
+    sliderChange(res: WXEvent.SliderChange): void {
       const { id, content } = this.getDetail(res);
       const { value } = res.detail;
 
@@ -107,7 +107,7 @@ $register.C({
     },
 
     /** 获得选择器位置与内容 */
-    getDetail(res: WXEvent.Base) {
+    getDetail(res: WXEvent.Base): { id: string; content: any } {
       const id = res.currentTarget.id || res.currentTarget.dataset.id;
 
       return { id, content: this.data.config.content[id] };
@@ -119,7 +119,7 @@ $register.C({
      *
      * @param detail 需要改变的键及其对应值
      */
-    change(detail: Record<string, any>) {
+    change(detail: Record<string, any>): void {
       if (detail) {
         const detail2: Record<string, any> = {};
 

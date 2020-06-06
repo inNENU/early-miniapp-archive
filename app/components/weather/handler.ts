@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
-import { WeatherData } from './weather';
+import { WeatherData, WeatherDetail } from './weather';
 
 /**
  * 天气处理函数
@@ -8,7 +7,7 @@ import { WeatherData } from './weather';
  * @param weather API返回的原生天气数据
  * @returns 处理后的可读天气数据
  */
-const weatherHandler = (weather: WeatherData['data']) => {
+const weatherHandler = (weather: WeatherData['data']): WeatherDetail => {
   // 暂时只显示24小时天气预报 TODO: 增加日落日出时间
   weather.hourForecast = Object.keys(weather.forecast_1h)
     .map((key) => {

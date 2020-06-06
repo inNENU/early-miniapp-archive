@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 
 /** 文件管理器与API封装 */
-import { Delete, listFile, saveFile, unzip } from './file';
+import { remove, listFile, saveFile, unzip } from './file';
 import { compareVersion, modal, netReport, requestJSON, tip } from './wx';
 import { error, info, warn } from './log';
 import { GlobalData } from '../app';
@@ -54,7 +54,7 @@ const resDownload = (list: string[], callBack: () => void): void => {
             console.log(`unzip ${name} sucess`); // 调试
 
             // 删除压缩目录，并将下载成功信息写入存储、判断取消提示
-            Delete(`${name}Zip`, false);
+            remove(`${name}Zip`, false);
             wx.setStorageSync(`${name}Download`, true);
 
             console.log(`delete ${name} sucess`); // 调试
@@ -251,7 +251,7 @@ export const appUpdate = (globalData: GlobalData): void => {
 
                   // 清除文件系统文件与数据存储
                   listFile('').forEach((filePath) => {
-                    Delete(filePath);
+                    remove(filePath);
                   });
                   wx.clearStorageSync();
 

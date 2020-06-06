@@ -124,6 +124,8 @@
   },
   "requiredBackgroundModes": ["audio"],
   "usingComponents": {
+    "mp-cell": "weui-miniprogram/cell/cell",
+    "mp-cells": "weui-miniprogram/cells/cells",
     "doc": "/components/common/doc/doc",
     "ex-list": "/components/common/ex-list/list",
     "foot": "/components/common/foot/foot",

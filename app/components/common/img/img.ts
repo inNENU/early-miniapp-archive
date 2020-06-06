@@ -14,12 +14,12 @@ $register.C({
 
   methods: {
     /** 图片加载完成 */
-    load() {
+    load(): void {
       this.setData({ load: true });
     },
 
     /** 图片加载出错 */
-    error() {
+    error(): void {
       this.setData({ error: true });
 
       console.warn(`${this.data.config.src}图片加载失败`);
@@ -27,7 +27,7 @@ $register.C({
     },
 
     /** 进行图片预览 */
-    view() {
+    view(): void {
       wx.previewImage({
         current: this.data.config.res || this.data.config.src,
         urls:

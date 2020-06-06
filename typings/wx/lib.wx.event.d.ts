@@ -310,7 +310,7 @@ declare namespace WXEvent {
    *
    * 最低基础库: 2.7.0
    */
-  type EditorReady = Custom<{}>;
+  type EditorReady = Custom;
 
   /**
    * 编辑器聚焦时触发，event.detail = {html, text, delta}
@@ -438,7 +438,7 @@ declare namespace WXEvent {
    *
    * 最低基础库: 1.9.90
    */
-  type PickerCancel = Custom<{}>;
+  type PickerCancel = Custom;
 
   /**
    * value 改变时触发 change 事件，event.detail = {value}
@@ -486,14 +486,14 @@ declare namespace WXEvent {
    *
    * 最低基础库: 2.3.1
    */
-  type PickerViewPickStart = Custom<{}>;
+  type PickerViewPickStart = Custom;
 
   /**
    * 当滚动选择结束时候触发事件
    *
    * 最低基础库: 2.3.1
    */
-  type PickerViewPickEnd = Custom<{}>;
+  type PickerViewPickEnd = Custom;
 
   /**
    * radio-group 中选中项的 value
@@ -624,12 +624,12 @@ declare namespace WXEvent {
   /**
    * 当开始/继续播放时触发play事件
    */
-  type AudioPlay = Custom<{}>;
+  type AudioPlay = Custom;
 
   /**
    * 当暂停播放时触发 pause 事件
    */
-  type AudioPause = Custom<{}>;
+  type AudioPause = Custom;
 
   /**
    * 当播放进度改变时触发 timeupdate 事件，detail = {currentTime, duration}
@@ -642,7 +642,7 @@ declare namespace WXEvent {
   /**
    * 当播放到末尾时触发 ended 事件
    */
-  type AudioEnded = Custom<{}>;
+  type AudioEnded = Custom;
 
   /**
    * 摄像头在非正常终止时触发，如退出后台等情况
@@ -851,7 +851,7 @@ declare namespace WXEvent {
    *
    * 最低基础库: 2.4.0
    */
-  type LivePusherBgmStart = Custom<{}>;
+  type LivePusherBgmStart = Custom;
 
   /**
    * 背景音进度变化时触发，detail = {progress, duration}
@@ -868,22 +868,22 @@ declare namespace WXEvent {
    *
    * 最低基础库: 2.4.0
    */
-  type LivePusherBgmComplete = Custom<{}>;
+  type LivePusherBgmComplete = Custom;
 
   /**
    * 当开始/继续播放时触发play事件
    */
-  type VideoPlay = Custom<{}>;
+  type VideoPlay = Custom;
 
   /**
    * 当暂停播放时触发 pause 事件
    */
-  type VideoPause = Custom<{}>;
+  type VideoPause = Custom;
 
   /**
    * 当播放到末尾时触发 ended 事件
    */
-  type VideoEnded = Custom<{}>;
+  type VideoEnded = Custom;
 
   /**
    * 播放进度变化时触发，event.detail = {currentTime, duration} 。触发频率 250ms 一次
@@ -908,14 +908,14 @@ declare namespace WXEvent {
    *
    * 最低基础库: 1.7.0
    */
-  type VideoWaiting = Custom<{}>;
+  type VideoWaiting = Custom;
 
   /**
    * 视频播放出错时触发
    *
    * 最低基础库: 1.7.0
    */
-  type VideoError = Custom<{}>;
+  type VideoError = Custom;
 
   /**
    * 加载进度变化时触发，只支持一段加载。
@@ -932,7 +932,7 @@ declare namespace WXEvent {
    *
    * 最低基础库: 2.2.1
    */
-  type AdLoad = Custom<{}>;
+  type AdLoad = Custom;
 
   /**
    * 广告加载失败的回调，event.detail = {errCode: 1002}
@@ -963,7 +963,7 @@ declare namespace WXEvent {
    *
    * 最低基础库: 2.6.5
    */
-  type AdClose = Custom<{}>;
+  type AdClose = Custom;
 
   /**
    * 网页向小程序 postMessage 时，会在特定时机（小程序后退、组件销毁、分享）触发并收到消息。e.detail = { data }

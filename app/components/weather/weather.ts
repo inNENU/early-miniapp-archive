@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 import $register = require('wxpage');
 import weatherHandler from './handler';
 
@@ -157,20 +158,20 @@ $register.C({
     weather: {} as WeatherDetail
   },
   lifetimes: {
-    attached() {
+    attached(): void {
       this.getWeather();
     }
   },
   methods: {
     /** 变更提示信息 */
-    refresh() {
+    refresh(): void {
       const { length } = Object.keys(this.data.weather.tips.observe);
       const { tipIndex } = this.data;
 
       this.setData({ tipIndex: tipIndex === 0 ? length - 1 : tipIndex - 1 });
     },
     /* 获取天气信息 */
-    getWeather() {
+    getWeather(): void {
       wx.request({
         url: 'https://mp.innenu.com/server/weather.php',
         success: (res) => {

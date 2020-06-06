@@ -20,7 +20,7 @@ $register('situs', {
       else
         requestJSON(
           `function/${option.xiaoqu}/${option.aim}`,
-          (data: object) => {
+          (data: Record<string, any>) => {
             setPage({ option, ctx: this }, data as PageData);
 
             // 非分享界面下将页面数据写入存储

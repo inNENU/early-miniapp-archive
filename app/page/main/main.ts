@@ -81,7 +81,8 @@ $register('main', {
     ['guide', 'function'].forEach((x) => {
       requestJSON(
         `config/${globalData.appID}/${globalData.version}/${x}`,
-        (data: object) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (data: Record<string, any>) => {
           wx.setStorageSync(x, data);
           this.$preload(`${x}?aim=${x}`);
         }

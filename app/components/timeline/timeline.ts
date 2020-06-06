@@ -34,14 +34,14 @@ $register.C({
     timeList: [] as TimeLineItem[]
   },
   lifetimes: {
-    attached() {
+    attached(): void {
       const res = wx.getSystemInfoSync();
 
       this.setData({ alternate: res.windowWidth >= 750 });
     }
   },
   methods: {
-    active(event: WXEvent.Touch) {
+    active(event: WXEvent.Touch): void {
       const aim = this.data.config[event.currentTarget.dataset.index]
         .aim as TimeLineItem['aim'];
 

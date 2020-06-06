@@ -27,7 +27,7 @@ const userPath = wx.env.USER_DATA_PATH;
  * @param path 要删除的文件或文件夹路径
  * @param isDir 要删除的是否是文件夹
  */
-export const Delete = (path: string, isDir?: boolean | undefined): void => {
+export const remove = (path: string, isDir?: boolean | undefined): void => {
   if (isDir === undefined)
     try {
       // 判断路径是否是文件，并执行对应删除操作
@@ -248,7 +248,7 @@ export const saveOnlineFile = ({
 export const writeFile = (
   path: string,
   fileName: string,
-  data: object | ArrayBuffer | string,
+  data: Record<string, any> | ArrayBuffer | string,
   encoding: FileEncoding = 'utf-8'
 ): void => {
   const jsonString = JSON.stringify(data);
@@ -272,7 +272,7 @@ export const writeFile = (
 export const writeJSON = (
   path: string,
   fileName: string,
-  data: object,
+  data: Record<string, any>,
   encoding: FileEncoding = 'utf-8'
 ): void => {
   const jsonString = JSON.stringify(data);
@@ -294,7 +294,7 @@ export const writeJSON = (
  */
 export const getJSON = (
   path: string,
-  successFunc?: (data: object | string) => void,
+  successFunc?: (data: Record<string, any> | string) => void,
   failFunc?: () => void
 ): void => {
   const temp = path.split('/');

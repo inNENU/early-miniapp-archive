@@ -11,22 +11,15 @@ globals:
   Component: readonly
 
 extends:
-  - eslint:all
+  - eslint:recommended
   - plugin:prettier/recommended
 
 plugins:
   - prettier
 
 rules:
-  no-useless-constructor:
-    - off
-
-  class-methods-use-this:
-    - off
-
   comma-dangle:
-    - error
-    - never
+    - off
 
   complexity:
     - warn
@@ -38,6 +31,10 @@ rules:
   curly:
     - error
     - multi
+
+  function-call-argument-newline:
+    - error
+    - consistent
 
   global-require:
     - off
@@ -64,10 +61,6 @@ rules:
 
   init-declarations:
     - off
-
-  function-call-argument-newline:
-    - error
-    - consistent
 
   line-comment-position:
     - off
@@ -139,37 +132,10 @@ rules:
   object-curly-spacing:
     - off
 
-  one-var:
-    - error
-    - never
-
-  padded-blocks:
-    - error
-    - never
-
   prefer-destructuring:
     - error
     - object: true
       array: false
-
-  prefer-named-capture-group:
-    - off
-
-  quotes:
-    - off
-
-  radix:
-    - error
-    - as-needed
-
-  sort-keys:
-    - off
-
-  strict:
-    - off
-
-  vars-on-top:
-    - off
 
 overrides:
   - files:
@@ -222,6 +188,40 @@ overrides:
     plugins:
       - '@typescript-eslint'
 
+    parserOptions:
+      parser: '@typescript-eslint/parser'
+      project:
+        - './tsconfig.json'
+
     rules:
-      '@typescript-eslint/explicit-function-return-type': off
-      '@typescript-eslint/no-explicit-any': off
+      '@typescript-eslint/explicit-function-return-type':
+        - warn
+        - allowTypedFunctionExpressions: true
+
+      '@typescript-eslint/naming-convention':
+        - warn
+        - selector: default
+          format:
+            - camelCase
+          leadingUnderscore: allow
+          trailingUnderscore: allow
+
+        - selector: variable
+          format:
+            - camelCase
+            - UPPER_CASE
+          leadingUnderscore: allow
+          trailingUnderscore: allow
+
+        - selector: typeLike
+          format:
+            - PascalCase
+
+      '@typescript-eslint/no-explicit-any':
+        - off
+        # - warn
+        # - ignoreRestArgs: true
+
+      '@typescript-eslint/no-unsafe-member-access':
+        - off
+        # - warn

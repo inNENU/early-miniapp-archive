@@ -77,7 +77,7 @@ $register.A<AppOption>({
       '/function/$page/$page',
       '/settings/$page/$page'
     ],
-    resolvePath: (name) =>
+    resolvePath: (name): string =>
       ['main', 'function', 'guide', 'me', 'search'].includes(name)
         ? `/page/${name}/${name}`
         : [

@@ -16,7 +16,7 @@ $register.C({
   },
 
   methods: {
-    preview() {
+    preview(): void {
       const docType = this.data.config.docName.split('.').pop();
 
       if (
@@ -57,7 +57,7 @@ $register.C({
     },
 
     /** 下载文档 */
-    download() {
+    download(): void {
       if (
         ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf'].includes(
           this.data.config.docType

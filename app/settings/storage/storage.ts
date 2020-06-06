@@ -6,7 +6,7 @@
  * @Description: 关于
  */
 import $register = require('wxpage');
-import { Delete, listFile } from '../../utils/file';
+import { remove, listFile } from '../../utils/file';
 import {
   changeNav,
   popNotice,
@@ -153,7 +153,7 @@ $register('storage', {
       wx.showLoading({ title: '删除中', mask: true });
 
       listFile('').forEach((filePath: string) => {
-        Delete(filePath);
+        remove(filePath);
       });
 
       wx.hideLoading();
@@ -168,7 +168,7 @@ $register('storage', {
 
       // 清除文件系统文件与数据存储
       listFile('').forEach((filePath: string) => {
-        Delete(filePath);
+        remove(filePath);
       });
       wx.clearStorageSync();
 

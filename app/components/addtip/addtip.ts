@@ -13,23 +13,23 @@ $register.C({
   },
 
   data: {
-    SHOW_TOP: false,
-    SHOW_MODAL: false,
+    showTop: false,
+    showModal: false,
     statusBarHeight: globalData.info.statusBarHeight
   },
 
   lifetimes: {
-    ready() {
+    ready(): void {
       // 判断是否已经显示过
       const cache = wx.getStorageSync('addtip');
 
       if (!cache) {
         // 没显示过，则进行展示
-        this.setData({ SHOW_TOP: true });
+        this.setData({ showTop: true });
 
         // 关闭时间
         setTimeout(() => {
-          this.setData({ SHOW_TOP: false });
+          this.setData({ showTop: false });
         }, this.data.duration);
       }
     }
@@ -37,16 +37,16 @@ $register.C({
 
   methods: {
     /** 显示全屏添加说明 */
-    showModal() {
+    showModal(): void {
       this.setData({
-        SHOW_TOP: false,
-        SHOW_MODAL: true
+        showTop: false,
+        showModal: true
       });
     },
 
     /** 确定逻辑处理 */
-    okHandler() {
-      this.setData({ SHOW_MODAL: false });
+    okHandler(): void {
+      this.setData({ showModal: false });
       wx.setStorage({ key: 'addtip', data: new Date().getTime() });
     }
   }

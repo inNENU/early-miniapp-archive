@@ -3,10 +3,6 @@
   "packOptions": {
     "ignore": [
       {
-        "type": "file",
-        "value": "jsdoc.js"
-      },
-      {
         "type": "suffix",
         "value": "md"
       },
@@ -18,7 +14,7 @@
   },
   "miniprogramRoot": "app/",
   "compileType": "miniprogram",
-  "libVersion": "2.11.0",
+  "libVersion": "2.11.1",
   "appid": "wx33acb831ee1831a5",
   "qqLibVersion": "1.14.1",
   "qqappid": "1109559721",

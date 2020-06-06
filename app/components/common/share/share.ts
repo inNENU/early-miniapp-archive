@@ -6,7 +6,7 @@ const {
   globalData: { env, appID }
 } = getApp<AppOption>(); // 获得日志管理器，全局数据
 
-const savePhoto = (path: string) => {
+const savePhoto = (path: string): void => {
   wx.saveImageToPhotosAlbum({
     filePath: path,
     success: () => {
@@ -34,7 +34,7 @@ $register.C({
   },
   methods: {
     /** QQ暂不支持联系客服的兼容 */
-    contact() {
+    contact(): void {
       if (env === 'qq')
         wx.setClipboardData({
           data: '1178522294',
@@ -47,7 +47,7 @@ $register.C({
     },
 
     /** 二维码下载 */
-    download() {
+    download(): void {
       downLoad(
         `/img/QRCode/${appID}/${this.data.config.aim}.jpg`,
         (path) => {

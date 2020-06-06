@@ -33,8 +33,4 @@ declare namespace WechatMiniprogram {
     /** 是否开启实时路况，默认为 false */
     enableTraffic?: boolean;
   }
-
-  interface GetSystemInfoSyncResult {
-    theme: 'light' | 'dark';
-  }
 }

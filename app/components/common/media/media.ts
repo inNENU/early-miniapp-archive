@@ -9,17 +9,17 @@ $register.C({
 
   methods: {
     /** 视频缓冲时提示用户等待 */
-    wait() {
+    wait(): void {
       tip('缓冲中..');
     },
 
     /** 正常播放时隐藏提示 */
-    play() {
+    play(): void {
       wx.hideToast();
     },
 
     /** 提示用户加载出错 */
-    error() {
+    error(): void {
       tip('视频加载出错');
       wx.reportMonitor('5', 1); // 调试
     }

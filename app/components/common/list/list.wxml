@@ -1,4 +1,3 @@
-<wxs src="./list.wxs" module="list" />
 <!-- 列表头部文字 -->
 <view wx:if="{{config.head !== false}}" class="commonhead"
   >{{config.head}}</view
@@ -16,7 +15,7 @@
         hover-class="button-hover"
         hover-stay-time="100"
         data-url="{{listItem.url}}"
-        catch:tap="{{list.navigate}}"
+        catch:tap="navigate"
       >
         <image wx:if="{{listItem.icon}}" class="icon" src="{{listItem.icon}}" />
         <view class="text">{{listItem.text}}</view>

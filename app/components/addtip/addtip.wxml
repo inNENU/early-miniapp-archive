@@ -1,5 +1,5 @@
 <view
-  wx:if="{{SHOW_TOP}}"
+  wx:if="{{showTop}}"
   class="addtipBox"
   style="top:{{36 + statusBarHeight}}px;"
 >
@@ -7,7 +7,7 @@
   <view class="body" catch:tap="showModal">{{text}}</view>
 </view>
 <!-- modal -->
-<view class="addtipModal" wx:if="{{SHOW_MODAL}}">
+<view class="addtipModal" wx:if="{{showModal}}">
   <view class="item" style="flex-direction: row; align-items: center;">
     <text decode="{{true}}">1. 点击&nbsp;&nbsp;</text>
     <image

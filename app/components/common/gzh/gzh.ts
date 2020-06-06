@@ -13,7 +13,7 @@ $register.C({
 
   methods: {
     /** 点击公众号组件触发的操作 */
-    gzh() {
+    gzh(): void {
       // 为企业主体微信小程序
       if (appID === 'wx9ce37d9662499df3')
         this.$route(

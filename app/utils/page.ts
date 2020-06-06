@@ -402,7 +402,7 @@ interface ColorConfig {
   nc: {
     frontColor: string;
     backgroundColor: string;
-    animation: {};
+    animation: Record<string, any>;
   };
   bc: {
     backgroundColorTop: string;

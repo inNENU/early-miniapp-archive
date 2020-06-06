@@ -1,4 +1,4 @@
-import { Delete, readJSON, saveFile, unzip } from './file';
+import { remove, readJSON, saveFile, unzip } from './file';
 import { debug, error, info } from './log';
 import { modal, requestJSON, tip } from './wx';
 import { GlobalData } from '../app';
@@ -26,7 +26,7 @@ export const resDownload = (name: string): void => {
         // 解压文件到根目录
         unzip(`${name}Zip`, '', () => {
           // 删除压缩目录，并将下载成功信息写入存储、判断取消提示
-          Delete(`${name}Zip`, false);
+          remove(`${name}Zip`, false);
           wx.setStorageSync(`${name}Download`, true);
 
           wx.hideLoading();

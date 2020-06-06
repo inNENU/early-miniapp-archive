@@ -7,7 +7,7 @@
  */
 
 import $register = require('wxpage');
-import { Delete, listFile } from '../utils/file';
+import { remove, listFile } from '../utils/file';
 import { AppOption } from '../app';
 import { modal } from '../utils/wx';
 import { setColor } from '../utils/page';
@@ -45,7 +45,7 @@ $register('function', {
 
     // 清除文件系统文件与数据存储
     listFile('').forEach((filePath: string) => {
-      Delete(filePath);
+      remove(filePath);
     });
     wx.clearStorageSync();
 
