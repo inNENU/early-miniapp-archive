@@ -20,7 +20,7 @@ const { globalData } = getApp<AppOption>();
 
 $register('function', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
 
     /** 自定义导航栏配置 */
     head: {
@@ -119,8 +119,8 @@ $register('function', {
 
   onReady() {
     // 注册事件监听器
-    this.$on('theme', (T: string) => {
-      this.setData({ T });
+    this.$on('theme', (theme: string) => {
+      this.setData({ theme });
     });
 
     // 此处还需要再优化

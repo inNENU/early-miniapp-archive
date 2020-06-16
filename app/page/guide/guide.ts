@@ -20,7 +20,7 @@ const { globalData } = getApp<AppOption>();
 
 $register('guide', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
 
     /** 候选词 */
     words: [] as string[],
@@ -230,8 +230,8 @@ $register('guide', {
 
   onReady() {
     // 注册事件监听器
-    this.$on('theme', (T: string) => {
-      this.setData({ T });
+    this.$on('theme', (theme: string) => {
+      this.setData({ theme });
     });
   },
 

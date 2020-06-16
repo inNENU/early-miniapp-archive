@@ -21,7 +21,7 @@ const { globalData } = getApp<AppOption>();
 
 $register('main', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
 
     /** 候选词 */
     words: [] as string[],
@@ -70,8 +70,8 @@ $register('main', {
 
   onReady() {
     // 注册事件监听器
-    this.$on('theme', (T: string) => {
-      this.setData({ T });
+    this.$on('theme', (theme: string) => {
+      this.setData({ theme });
     });
 
     // 小程序已经初始化完成，检查页面资源

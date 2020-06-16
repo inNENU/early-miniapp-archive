@@ -52,7 +52,7 @@ const authorizeList: AuthorizeList[] = [
 
 $register('authorize', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
     darkmode: globalData.darkmode,
     page: [
       { tag: 'head', title: '授权设置', grey: true },

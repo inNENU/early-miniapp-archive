@@ -321,7 +321,7 @@ export const startup = (globalData: GlobalData): void => {
   if (globalData.info.AppPlatform === 'qq') globalData.env = 'qq';
 
   // 获取主题、夜间模式、appID
-  globalData.T = wx.getStorageSync('theme');
+  globalData.theme = wx.getStorageSync('theme');
   globalData.darkmode = darkmode(globalData.info);
   globalData.appID = wx.getAccountInfoSync().miniProgram.appId;
 

@@ -3,7 +3,7 @@
   class="iOS grey"
   style="{{input.status? 'padding-bottom:'+input.height+'px;': ''}}"
 >
-  <template is="head" data="{{...page[0],T}}" />
+  <template is="head" data="{{...page[0], theme}}" />
   <view class="desc-wrapper">
     <view class="desc-button" hover-class="button-hover" catch:tap="navigate">
       <image src="/icon/tabPage/about.svg" class="icon" />

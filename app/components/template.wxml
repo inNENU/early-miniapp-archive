@@ -2,7 +2,7 @@
 <template name="page">
   <block wx:if="{{!page}}">
     <view
-      class="{{T}} {{darkmode?'nm':''}} {{darkmode? 'dark': 'light'}} loading-logo-wrapper"
+      class="{{theme}} {{darkmode?'nm':''}} {{darkmode? 'dark': 'light'}} loading-logo-wrapper"
     >
       <view
         class="backBtn"
@@ -21,7 +21,7 @@
     </view>
   </block>
   <block wx:else>
-    <view class="{{T}} {{page[0].grey? 'grey': ''}}">
+    <view class="{{theme}} {{page[0].grey? 'grey': ''}}">
       <block wx:for="{{page}}" wx:key="id">
         <p config="{{item}}" wx:if="{{item.tag === 'p'}}" />
         <img
@@ -44,14 +44,14 @@
           catch:change="list"
         />
         <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
-        <template wx:else is="{{item.tag}}" data="{{...item,T,darkmode}}" />
+        <template wx:else is="{{item.tag}}" data="{{...item, theme, darkmode}}" />
       </block>
       <share config="{{page[0]}}" />
     </view>
   </block>
 </template>
 <template name="body">
-  <block wx:if="{{T}}" wx:for="{{page}}" wx:key="id">
+  <block wx:if="{{theme}}" wx:for="{{page}}" wx:key="id">
     <p config="{{item}}" wx:if="{{item.tag === 'p'}}" />
     <img
       wx:elif="{{item.tag === 'img'}}"
@@ -73,7 +73,7 @@
     />
     <gzh config="{{item}}" wx:elif="{{item.tag === 'gzh'}}" />
     <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
-    <template wx:else is="{{item.tag}}" data="{{...item,T,darkmode}}" />
+    <template wx:else is="{{item.tag}}" data="{{...item, theme, darkmode}}" />
   </block>
   <share config="{{page[0]}}" />
 </template>
@@ -85,7 +85,7 @@ Author: Mr.Hope
 ********************************************* -->
 <!-- 标题 -->
 <template name="title">
-  <view class="{{T}}Title" style="{{style || ''}}">{{text}}</view>
+  <view class="{{theme}}Title" style="{{style || ''}}">{{text}}</view>
 </template>
 <!-- ******************************************
 Here are  different template used by diferent theme
@@ -97,14 +97,14 @@ Author: Mr.Hope
 <template name="head">
   <block wx:if="{{!hidden}}">
     <template
-      is="{{T}}Head"
+      is="{{theme}}Head"
       data="{{title,leftText,titleDisplay,borderDisplay,shadow,action,statusBarHeight,darkmode}}"
     />
   </block>
 </template>
 <!-- 错误提示 -->
 <template name="error">
-  <template is="{{T}}error" data="{{action,statusBarHeight}}" />
+  <template is="{{theme}}error" data="{{action,statusBarHeight}}" />
 </template>
 <!-- ******************************************
 Below are  different themes template.

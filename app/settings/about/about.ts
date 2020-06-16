@@ -21,7 +21,7 @@ let developMode = false;
 
 $register('about', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
     darkmode: globalData.darkmode,
     page: [
       { tag: 'head', title: '关于', grey: true, feedback: true, contact: true },

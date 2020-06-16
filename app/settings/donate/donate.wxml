@@ -1,7 +1,7 @@
 <import src="/components/template" />
 <import src="/components/template" />
-<view class="{{T}}">
-  <template is="body" data="{{page,T}}" />
+<view class="{{theme}}">
+  <template is="body" data="{{page, theme}}" />
   <view class="QRCodeCtn">
     <image
       class="QRCode1"

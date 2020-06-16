@@ -20,7 +20,7 @@ const { globalData } = getApp<AppOption>();
 
 $register('log', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
     darkmode: globalData.darkmode,
     page: [
       {

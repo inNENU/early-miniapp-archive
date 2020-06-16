@@ -30,7 +30,7 @@ type ListAction =
 
 $register('storage', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
     darkmode: globalData.darkmode,
     page: [
       {

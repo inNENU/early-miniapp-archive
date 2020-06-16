@@ -1,13 +1,13 @@
 <import src="/components/template" />
-<view class="{{T}} grey">
-  <template is="head" data="{{...head,T}}" />
+<view class="{{theme}} grey">
+  <template is="head" data="{{...head, theme}}" />
   <search
     words="{{words}}"
     searchword="{{searchword}}"
     catch:searching="searching"
     catch:search="search"
   />
-  <template is="body" data="{{page,T}}" />
+  <template is="body" data="{{page, theme}}" />
   <view wx:if="{{result.content.length === 0}}" class="info"
     >Oops... 没有找到任何结果</view
   >

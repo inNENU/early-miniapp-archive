@@ -21,12 +21,12 @@ $register('function', {
 
       this.setData({
         [arg]: true,
-        T: globalData.T
+        theme: globalData.theme
       });
     } else if (options.action)
       this.setData({
         [options.action]: true,
-        T: globalData.T
+        theme: globalData.theme
       });
   },
 

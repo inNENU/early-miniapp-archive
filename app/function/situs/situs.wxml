@@ -1,5 +1,5 @@
 <import src="/components/template" />
-<view class="{{T}} {{page[0].grey?'grey':''}}">
+<view class="{{theme}} {{page[0].grey?'grey':''}}">
   <view
     class="backBtn {{page[0].titleDisplay?'fadeOut':'fadeIn'}}"
     style="top:{{page[0].statusBarHeight+5.5}}px;"

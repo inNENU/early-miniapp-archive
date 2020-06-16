@@ -16,7 +16,7 @@ type ListAction = 'resource' | 'public' | 'physics';
 
 $register('resource', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
     darkmode: globalData.darkmode,
     page: [
       { tag: 'head', title: '资源说明', shareable: true, leftText: '返回' },

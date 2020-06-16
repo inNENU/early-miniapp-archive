@@ -22,7 +22,7 @@ type DonateList = DonateDetail[];
 
 $register('donate', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
     page: [
       { tag: 'head', title: '捐赠', shareable: true, leftText: '返回' },
       { tag: 'title', text: '服务器现状' },

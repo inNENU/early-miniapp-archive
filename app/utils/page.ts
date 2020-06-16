@@ -234,7 +234,7 @@ export const setPage = (
   // 设置页面数据
   if (page)
     ctx.setData({
-      T: globalData.T,
+      theme: globalData.theme,
       darkmode: globalData.darkmode,
       page: handle ? page : disposePage(page, option, ctx.$state.firstOpen)
     });
@@ -248,7 +248,7 @@ export const setPage = (
     debug(`${globalData.page.aim}已处理`);
     ctx.setData(
       {
-        T: globalData.T,
+        theme: globalData.theme,
         darkmode: globalData.darkmode,
         page: globalData.page.data
       },
@@ -264,7 +264,7 @@ export const setPage = (
     debug(`${option.aim || '未知页面'}未处理`);
     // 设置页面数据
     ctx.setData({
-      T: globalData.T,
+      theme: globalData.theme,
       darkmode: globalData.darkmode,
       page: handle
         ? ctx.data.page
@@ -321,7 +321,7 @@ export const setOnlinePage = (
     debug(`${option.aim}已处理`);
     ctx.setData(
       {
-        T: globalData.T,
+        theme: globalData.theme,
         darkmode: globalData.darkmode,
         page: globalData.page.data
       },
@@ -431,7 +431,7 @@ export const setColor = (grey = false): ColorConfig => {
   let temp;
 
   if (globalData.darkmode && grey)
-    switch (globalData.T) {
+    switch (globalData.theme) {
       case 'Andriod':
         temp = ['#10110b', '#10110b', '#10110b'];
         break;
@@ -443,7 +443,7 @@ export const setColor = (grey = false): ColorConfig => {
         temp = ['#070707', '#070707', '#070707'];
     }
   else if (globalData.darkmode && !grey)
-    switch (globalData.T) {
+    switch (globalData.theme) {
       case 'iOS':
         temp = ['#000000', '#000000', '#000000'];
         break;
@@ -453,7 +453,7 @@ export const setColor = (grey = false): ColorConfig => {
         temp = ['#000000', '#000000', '#000000'];
     }
   else if (!globalData.darkmode && grey)
-    switch (globalData.T) {
+    switch (globalData.theme) {
       case 'Andriod':
         temp = ['#f8f8f8', '#f8f8f8', '#f8f8f8'];
         break;
@@ -465,7 +465,7 @@ export const setColor = (grey = false): ColorConfig => {
         temp = ['#f4f4f4', '#efeef4', '#efeef4'];
     }
   else
-    switch (globalData.T) {
+    switch (globalData.theme) {
       case 'Andriod':
         temp = ['#f8f8f8', '#f8f8f8', '#f8f8f8'];
         break;

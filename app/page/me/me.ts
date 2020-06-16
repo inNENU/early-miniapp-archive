@@ -18,7 +18,7 @@ const { globalData } = getApp<AppOption>();
 
 $register('me', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
     env: globalData.env,
     appID: globalData.appID,
 
@@ -109,8 +109,8 @@ $register('me', {
 
   onReady() {
     // 注册事件监听器
-    this.$on('theme', (T: string) => {
-      this.setData({ T });
+    this.$on('theme', (theme: string) => {
+      this.setData({ theme });
     });
   },
 

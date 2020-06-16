@@ -14,7 +14,6 @@ import {
   setPage
 } from '../../utils/page';
 import { AppOption } from '../../app';
-import { darkmode } from '../../utils/app';
 const { globalData } = getApp<AppOption>();
 
 /** 列表动作列表 */
@@ -22,7 +21,7 @@ type ListAction = 'setTheme';
 
 $register('setting', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
     darkmode: globalData.darkmode,
     event: [],
     page: [
@@ -75,11 +74,6 @@ $register('setting', {
     changeNav(event, this);
   },
 
-  onUnload() {
-    // 退出时重新计算夜间模式
-    globalData.darkmode = darkmode();
-  },
-
   /** 列表控制函数 */
   list({ detail }: any) {
     if (detail.event) this[detail.event as ListAction](detail.value);
@@ -93,9 +87,9 @@ $register('setting', {
   setTheme(value: string) {
     const theme = (this.data.page[1].content as any[])[0].pickerValue[value];
 
-    globalData.T = theme;
+    globalData.theme = theme;
     wx.setStorageSync('theme', theme);
-    this.setData({ T: theme });
+    this.setData({ theme });
     // Set({ option: { aim: 'settings' }, ctx: this }, this.data.page);
     this.$emit('theme', theme);
     console.log(`theme切换为${theme}`); // 调试

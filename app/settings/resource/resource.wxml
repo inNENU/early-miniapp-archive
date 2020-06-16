@@ -1,2 +1,2 @@
 <import src="/components/template" />
-<template is="page" data="{{page,T,darkmode,event}}" />
+<template is="page" data="{{page, theme, darkmode, event}}" />

@@ -1,6 +1,6 @@
 <import src="/components/template" />
-<view class="{{T}}">
-  <template is="head" data="{{...head,T}}" />
+<view class="{{theme}}">
+  <template is="head" data="{{...head, theme}}" />
   <time-line config="{{calendar}}" catch:active="display" />
   <view wx:if="{{display}}" class="mask" />
   <view wx:if="{{display}}" class="popup-wrapper">

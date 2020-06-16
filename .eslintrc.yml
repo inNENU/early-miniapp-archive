@@ -51,7 +51,6 @@ rules:
         - j
         - x
         - y
-        - T
 
   implicit-arrow-linebreak:
     - off

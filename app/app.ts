@@ -30,7 +30,7 @@ interface InitGlobalData {
   /** 启动时间 */
   date: number;
   /** 正在应用的主题 */
-  T?: string;
+  theme?: string;
   /** 夜间模式开启状态 */
   darkmode?: boolean;
   /** 设备信息 */
@@ -43,7 +43,7 @@ interface InitGlobalData {
 
 export interface GlobalData extends InitGlobalData {
   /** 正在应用的主题 */
-  T: string;
+  theme: string;
   /** 夜间模式开启状态 */
   darkmode: boolean;
   /** 设备信息 */
@@ -67,7 +67,7 @@ $register.A<AppOption>({
     },
     date: new Date().getTime(),
     env: 'wx'
-    // T, darkmode, info也在globalData中
+    // theme, darkmode, info也在globalData中
   } as unknown) as GlobalData,
 
   config: {

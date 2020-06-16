@@ -1,6 +1,6 @@
 <import src="/components/template" />
-<view class="{{T}}{{page[0].grey?'grey':''}}">
-  <template is="body" data="{{page,T}}" />
+<view class="{{theme}}{{page[0].grey?'grey':''}}">
+  <template is="body" data="{{page, theme}}" />
   <view
     class="imgCtn"
     style="height:{{(info.screenHeight-44-info.statusBarHeight-50)*0.7}}px;"

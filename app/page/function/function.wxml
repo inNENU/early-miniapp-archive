@@ -1,6 +1,6 @@
 <import src="/components/template" />
-<view class="{{T}} grey">
-  <template is="head" data="{{...head,T}}" />
+<view class="{{theme}} grey">
+  <template is="head" data="{{...head, theme}}" />
   <weather catch:navigate="navigate" />
-  <template is="body" data="{{page,T}}" />
+  <template is="body" data="{{page, theme}}" />
 </view>

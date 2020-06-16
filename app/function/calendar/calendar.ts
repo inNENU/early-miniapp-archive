@@ -8,7 +8,7 @@ const { globalData } = getApp<AppOption>();
 
 $register('calendar', {
   data: {
-    T: globalData.T,
+    theme: globalData.theme,
     /** 头部配置 */
     head: {
       title: '东师校历',
@@ -28,13 +28,13 @@ $register('calendar', {
 
     if (calendar)
       this.setData({
-        T: globalData.T,
+        theme: globalData.theme,
         calendar
       });
     else
       requestJSON(path, (data) => {
         this.setData({
-          T: globalData.T,
+          theme: globalData.theme,
           calendar: data as any
         });
 
