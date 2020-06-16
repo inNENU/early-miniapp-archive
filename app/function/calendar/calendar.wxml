@@ -4,7 +4,7 @@
   <time-line config="{{calendar}}" catch:active="display" />
   <view wx:if="{{display}}" class="mask" />
   <view wx:if="{{display}}" class="popup-wrapper">
-    <view class="close-button" catch:tap="close" hover-class="button-hover">
+    <view class="close-button" hover-class="button-hover" catch:tap="close">
       <image class="icon" src="/icon/close.svg" />
     </view>
     <view class="name">{{name}}</view>

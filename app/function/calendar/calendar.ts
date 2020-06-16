@@ -6,6 +6,8 @@ import { TimeLineItem } from '../../components/timeline/timeline';
 import { requestJSON } from '../../utils/wx';
 const { globalData } = getApp<AppOption>();
 
+const path = 'function/calendar/all';
+
 $register('calendar', {
   data: {
     theme: globalData.theme,
@@ -19,11 +21,10 @@ $register('calendar', {
   },
 
   onNavigate() {
-    getJSON('function/calendar/all');
+    getJSON(path);
   },
 
   onLoad() {
-    const path = 'function/calendar/all';
     const calendar = readJSON(path);
 
     if (calendar)
@@ -59,7 +60,6 @@ $register('calendar', {
 
   /** 显示校历详情 */
   display(event: WXEvent.Touch) {
-    console.log('display', event.detail);
     const path = `function/calendar/${event.detail.aim}`;
     const content = readJSON(path);
 

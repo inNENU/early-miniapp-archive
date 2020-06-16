@@ -44,7 +44,11 @@
           catch:change="list"
         />
         <media config="{{item}}" wx:elif="{{item.tag === 'media'}}" />
-        <template wx:else is="{{item.tag}}" data="{{...item, theme, darkmode}}" />
+        <template
+          wx:else
+          is="{{item.tag}}"
+          data="{{...item, theme, darkmode}}"
+        />
       </block>
       <share config="{{page[0]}}" />
     </view>
